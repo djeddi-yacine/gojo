@@ -199,6 +199,21 @@ func (mr *MockGojoMockRecorder) CreateUser(arg0, arg1 interface{}) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockGojo)(nil).CreateUser), arg0, arg1)
 }
 
+// CreateVerifyEmail mocks base method.
+func (m *MockGojo) CreateVerifyEmail(arg0 context.Context, arg1 db.CreateVerifyEmailParams) (db.VerifyEmail, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateVerifyEmail", arg0, arg1)
+	ret0, _ := ret[0].(db.VerifyEmail)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateVerifyEmail indicates an expected call of CreateVerifyEmail.
+func (mr *MockGojoMockRecorder) CreateVerifyEmail(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateVerifyEmail", reflect.TypeOf((*MockGojo)(nil).CreateVerifyEmail), arg0, arg1)
+}
+
 // DeleteAnimeGenre mocks base method.
 func (m *MockGojo) DeleteAnimeGenre(arg0 context.Context, arg1 db.DeleteAnimeGenreParams) error {
 	m.ctrl.T.Helper()
@@ -622,4 +637,19 @@ func (m *MockGojo) UpdateUser(arg0 context.Context, arg1 db.UpdateUserParams) (d
 func (mr *MockGojoMockRecorder) UpdateUser(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateUser", reflect.TypeOf((*MockGojo)(nil).UpdateUser), arg0, arg1)
+}
+
+// UpdateVerifyEmail mocks base method.
+func (m *MockGojo) UpdateVerifyEmail(arg0 context.Context, arg1 db.UpdateVerifyEmailParams) (db.VerifyEmail, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateVerifyEmail", arg0, arg1)
+	ret0, _ := ret[0].(db.VerifyEmail)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateVerifyEmail indicates an expected call of UpdateVerifyEmail.
+func (mr *MockGojoMockRecorder) UpdateVerifyEmail(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateVerifyEmail", reflect.TypeOf((*MockGojo)(nil).UpdateVerifyEmail), arg0, arg1)
 }

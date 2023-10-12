@@ -113,15 +113,15 @@ Table sessions {
   created_at timestamptz [not null, default: `now()`]
 }
 
-// Table verify_emails {
-//   id bigserial [pk]
-//   username varchar [not null]
-//   email varchar [not null]
-//   secret_code varchar [not null]
-//   is_used bool [not null, default: false]
-//   created_at timestamptz [not null, default: `now()`]
-//   expired_at timestamptz [not null, default: `now() + interval '15 minutes'`]
-// }
+Table verify_emails {
+  id bigserial [pk]
+  username varchar [not null]
+  email varchar [not null]
+  secret_code varchar [not null]
+  is_used bool [not null, default: false]
+  created_at timestamptz [not null, default: `now()`]
+  expired_at timestamptz [not null, default: `now() + interval '15 minutes'`]
+}
 
 
 Ref {
@@ -141,4 +141,7 @@ Ref {
 }
 Ref {
   users.username - sessions.username [delete: cascade]
+}
+Ref {
+  users.username - verify_emails.username [delete: cascade]
 }

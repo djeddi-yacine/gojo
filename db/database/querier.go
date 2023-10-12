@@ -22,6 +22,7 @@ type Querier interface {
 	CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error)
 	CreateStudio(ctx context.Context, studioName string) (Studio, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
+	CreateVerifyEmail(ctx context.Context, arg CreateVerifyEmailParams) (VerifyEmail, error)
 	DeleteAnimeGenre(ctx context.Context, arg DeleteAnimeGenreParams) error
 	DeleteAnimeMeta(ctx context.Context, arg DeleteAnimeMetaParams) error
 	DeleteAnimeMovie(ctx context.Context, id int64) error
@@ -51,6 +52,7 @@ type Querier interface {
 	UpdateMeta(ctx context.Context, arg UpdateMetaParams) error
 	UpdateStudio(ctx context.Context, arg UpdateStudioParams) (Studio, error)
 	UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error)
+	UpdateVerifyEmail(ctx context.Context, arg UpdateVerifyEmailParams) (VerifyEmail, error)
 }
 
 var _ Querier = (*Queries)(nil)
