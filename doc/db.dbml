@@ -1,0 +1,105 @@
+Table anime_movie {
+  id bigserial [primary key, unique, increment, not null]
+  original_title varchar [not null]
+  aired timestamptz  [not null]
+  release_year integer [not null]
+  duration integer  [not null]
+  created_at timestamptz  [not null, default: `now()`]
+    indexes {
+      id
+      original_title
+      release_year
+      (original_title, duration, aired) [unique]
+    }
+}
+
+Table studios {
+  id integer [primary key,unique, increment, not null]
+  studio_name varchar [unique, not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      studio_name
+    }
+}
+
+Table anime_studios {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  studio_id integer [ref: > studios.id]
+  indexes {
+    anime_id
+    studio_id
+  }
+}
+
+
+Table genres {
+  id integer [primary key, unique, increment, not null]
+  genre_name varchar [unique, not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      genre_name
+    }
+}
+
+Table anime_genres {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  genre_id integer [ref: > genres.id]
+  indexes {
+    anime_id
+    genre_id
+  }
+}
+
+Table languages {
+  id integer [primary key, unique, increment, not null]
+  language_code varchar [unique, not null]
+  language_name varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      language_code
+    }
+}
+
+Table anime_metas {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  language_id integer [not null]
+  meta_id bigserial [not null]
+    indexes {
+      id
+      (anime_id, language_id) [unique]
+    }
+}
+
+Table metas {
+  id bigserial [primary key, unique, increment, not null]
+  title varchar [not null]
+  overview varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      title
+    }
+}
+
+
+Ref {
+  anime_movie.id - anime_metas.anime_id [delete: cascade]
+}
+Ref {
+  anime_movie.id - anime_studios.anime_id [delete: cascade]
+}
+Ref {
+  anime_movie.id - anime_genres.anime_id [delete: cascade]
+}
+Ref {
+  languages.id - anime_metas.language_id [delete: cascade]
+}
+Ref {
+  metas.id - anime_metas.meta_id [delete: cascade]
+}

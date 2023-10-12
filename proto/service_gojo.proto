@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package pb;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+import "rpc_create_anime_movie.proto";
+import "rpc_create_genre.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info : {title : "Gojoj API";
+version : "1.0";
+contact : {
+name:
+  "Dj Yacine";
+url:
+  "https://github.com/dj-yacine-flutter";
+};
+}
+;
+}
+;
+
+service Gojo {
+  rpc CreateAnimeMovie(CreateAnimeMovieRequest) returns (CreateAnimeMovieResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/movie/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime movie";
+    summary:
+    "Create new anime movie";
+    };
+  }
+  rpc CreateGenre(CreateGenreRequest) returns (CreateGenreResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/genre/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new genre";
+    summary: "Create new genre";
+    };
+  }
+}

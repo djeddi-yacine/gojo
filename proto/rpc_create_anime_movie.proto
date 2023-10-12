@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package pb;
+
+import "anime_movie.proto";
+import "genre.proto";
+import "studio.proto";
+import "meta.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb";
+
+message CreateAnimeMovieRequest {
+  AnimeMovieReq animeMovie = 1;
+  optional AnimeGenresReq animeGenres = 2;
+  optional AnimeStudiosReq animeStudios = 3;
+  repeated AnimeMetaReq animeMetas = 4;
+}
+
+message CreateAnimeMovieResponse { AnimeMovieRes animeMovie = 1; }

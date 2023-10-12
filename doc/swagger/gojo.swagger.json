@@ -1,0 +1,356 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Gojoj API",
+    "version": "1.0",
+    "contact": {
+      "name": "Dj Yacine",
+      "url": "https://github.com/dj-yacine-flutter"
+    }
+  },
+  "tags": [
+    {
+      "name": "Gojo"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/anime/genre/create": {
+      "post": {
+        "summary": "Create new genre",
+        "description": "Use this API to create a new genre",
+        "operationId": "Gojo_CreateGenre",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateGenreResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateGenreRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/movie/create": {
+      "post": {
+        "summary": "Create new anime movie",
+        "description": "Use this API to create a new anime movie",
+        "operationId": "Gojo_CreateAnimeMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateAnimeMovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateAnimeMovieRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "pbAnimeGenresReq": {
+      "type": "object",
+      "properties": {
+        "genreID": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "pbAnimeGenresRes": {
+      "type": "object",
+      "properties": {
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbGenre"
+          }
+        }
+      }
+    },
+    "pbAnimeMetaReq": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "meta": {
+          "$ref": "#/definitions/pbMetaReq"
+        }
+      }
+    },
+    "pbAnimeMetaRes": {
+      "type": "object",
+      "properties": {
+        "languageName": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "meta": {
+          "$ref": "#/definitions/pbMetaRes"
+        }
+      }
+    },
+    "pbAnimeMovieReq": {
+      "type": "object",
+      "properties": {
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "pbAnimeMovieRes": {
+      "type": "object",
+      "properties": {
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "premiered": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "animeMeta": {
+          "$ref": "#/definitions/pbAnimeMetaRes"
+        },
+        "animeGenres": {
+          "$ref": "#/definitions/pbAnimeGenresRes"
+        },
+        "animeStudios": {
+          "$ref": "#/definitions/pbAnimeStudiosRes"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "pbAnimeStudiosReq": {
+      "type": "object",
+      "properties": {
+        "studioID": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "pbAnimeStudiosRes": {
+      "type": "object",
+      "properties": {
+        "studios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbStudio"
+          }
+        }
+      }
+    },
+    "pbCreateAnimeMovieRequest": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/pbAnimeMovieReq"
+        },
+        "animeGenres": {
+          "$ref": "#/definitions/pbAnimeGenresReq"
+        },
+        "animeStudios": {
+          "$ref": "#/definitions/pbAnimeStudiosReq"
+        },
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbAnimeMetaReq"
+          }
+        }
+      }
+    },
+    "pbCreateAnimeMovieResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/pbAnimeMovieRes"
+        }
+      }
+    },
+    "pbCreateGenreRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "pbCreateGenreResponse": {
+      "type": "object",
+      "properties": {
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbGenre"
+          }
+        }
+      }
+    },
+    "pbGenre": {
+      "type": "object",
+      "properties": {
+        "genreID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "genreName": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "pbMetaReq": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "overview": {
+          "type": "string"
+        }
+      }
+    },
+    "pbMetaRes": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "overview": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "pbStudio": {
+      "type": "object",
+      "properties": {
+        "studioID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "studioName": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package pb;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb";
+
+message MetaReq {
+  string title = 1;
+  string overview = 2;
+}
+
+message MetaRes {
+  string title = 1;
+  string overview = 2;
+  google.protobuf.Timestamp createdAt = 3;
+}
+
+message AnimeMetaReq {
+  int32 languageID = 1;
+  MetaReq meta = 2;
+}
+
+message AnimeMetaRes {
+  int32 languageName = 1;
+  MetaRes meta = 2;
+}
