@@ -7,22 +7,25 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 
 import "rpc_create_anime_movie.proto";
 import "rpc_create_genre.proto";
+import "rpc_create_user.proto";
+import "rpc_login_user.proto";
+import "rpc_update_user.proto";
+import "rpc_verify_email.proto";
+import "rpc_renew_token.proto";
+
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
-  info : {title : "Gojoj API";
-version : "1.0";
-contact : {
-name:
-  "Dj Yacine";
-url:
-  "https://github.com/dj-yacine-flutter";
+  info : {
+    title : "Gojoj API";
+    version : "1.1";
+    contact : {
+      name: "Dj Yacine";
+      url:  "https://github.com/dj-yacine-flutter";
+    };
+  };
 };
-}
-;
-}
-;
 
 service Gojo {
   rpc CreateAnimeMovie(CreateAnimeMovieRequest) returns (CreateAnimeMovieResponse) {
@@ -43,7 +46,55 @@ service Gojo {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to create a new genre";
-    summary: "Create new genre";
+      summary: "Create new genre";
+    };
+  }
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/user/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new user";
+      summary:  "Create new user";
+    };
+  }
+  rpc LoginUser(LoginUserRequest) returns (LoginUserResponse) {
+    option (google.api.http) = {
+      post : "/v1/user/login"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to login user and get access token & refresh token";
+      summary:  "Login user";
+    };
+  }
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {
+    option (google.api.http) = {
+      patch : "/v1/user/update"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to update user email or fullName or password using the username";
+      summary: "Update user";
+    };
+  }
+  rpc VerifyEmail(VerifyEmailRequest) returns (VerifyEmailResponse) {
+    option (google.api.http) = {
+      get : "/v1/verify_email"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to verify user's email address";
+      summary:  "Verify email";
+    };
+  }
+  rpc RenewToken(RenewTokenRequest) returns (RenewTokenResponse) {
+    option (google.api.http) = {
+      post : "/v1/renew_token"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to renew user's access token";
+      summary:  "Renew access token";
     };
   }
 }

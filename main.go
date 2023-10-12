@@ -10,12 +10,15 @@ import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	_ "github.com/dj-yacine-flutter/gojo/doc/statik"
 	"github.com/dj-yacine-flutter/gojo/gapi"
+	"github.com/dj-yacine-flutter/gojo/mail"
 	"github.com/dj-yacine-flutter/gojo/pb"
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/dj-yacine-flutter/gojo/worker"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	"github.com/hibiken/asynq"
 	"github.com/jackc/pgx/v5/pgxpool"
 	sk "github.com/rakyll/statik/fs"
 	"github.com/rs/zerolog"
@@ -43,7 +46,15 @@ func main() {
 
 	gojo := db.NewGojo(conn)
 
-	go runGatewayServer(config, gojo)
+	redisOpt := asynq.RedisClientOpt{
+		Addr: config.RedisAddress,
+	}
+
+	taskDistributot := worker.NewRedisTaskDistributor(redisOpt)
+
+	go runGatewayServer(config, gojo, taskDistributot)
+	go runTaskProcessor(config, redisOpt, gojo)
+
 	fmt.Printf(`
 	++=========================================================++
 	||  ++=================================================++  ||
@@ -61,7 +72,7 @@ func main() {
 	++=========================================================++
 
 `)
-	runGRPCServer(config, gojo)
+	runGRPCServer(config, gojo, taskDistributot)
 }
 
 func runDBMigration(migrationURL string, dbSource string) {
@@ -77,8 +88,18 @@ func runDBMigration(migrationURL string, dbSource string) {
 	log.Info().Msg("db migrated successfully")
 }
 
-func runGRPCServer(config utils.Config, gojo db.Gojo) {
-	server, err := gapi.NewServer(config, gojo)
+func runTaskProcessor(config utils.Config, redisOpt asynq.RedisClientOpt, gojo db.Gojo) {
+	mailer := mail.NewGmailSender(config.EmailSenderName, config.EmailSenderAddress, config.EmailSenderPassword)
+	taskProcessor := worker.NewRedisTaskProcessor(redisOpt, gojo, mailer)
+	log.Info().Msg("start task processor")
+	err := taskProcessor.Start()
+	if err != nil {
+		log.Fatal().Err(err).Msg("failed to start task processor")
+	}
+}
+
+func runGRPCServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor) {
+	server, err := gapi.NewServer(config, gojo, taskDistrinbutor)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot create GRPC server")
 	}
@@ -100,20 +121,12 @@ func runGRPCServer(config utils.Config, gojo db.Gojo) {
 	}
 }
 
-func runGatewayServer(config utils.Config, gojo db.Gojo) {
-	server, err := gapi.NewServer(config, gojo)
+func runGatewayServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor) {
+	server, err := gapi.NewServer(config, gojo, taskDistrinbutor)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot create Gateway server")
 	}
 
-	/* 	jsonOption := runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{
-		MarshalOptions: protojson.MarshalOptions{
-			UseProtoNames: true,
-		},
-		UnmarshalOptions: protojson.UnmarshalOptions{
-			DiscardUnknown: true,
-		},
-	}) */
 	grpcMux := runtime.NewServeMux()
 
 	ctx, cancel := context.WithCancel(context.Background())

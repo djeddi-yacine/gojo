@@ -10,6 +10,7 @@ import (
 var (
 	isValidUsername = regexp.MustCompile(`^[a-z0-9_]+$`).MatchString
 	isValidFullName = regexp.MustCompile(`^[a-zA-Z\s]+$`).MatchString
+	isValidToken    = regexp.MustCompile(`^v2\.[^.]*\.[^.]*\.[^.]*$`).MatchString
 )
 
 func ValidateString(value string, minLength int, maxLength int) error {
@@ -54,7 +55,7 @@ func ValidateEmail(value string) error {
 	return nil
 }
 
-func ValidateEmailId(value int64) error {
+func ValidateEmailID(value int64) error {
 	if value <= 0 {
 		return fmt.Errorf("must be a positive integer")
 	}
@@ -80,4 +81,12 @@ func ValidateYear(value int32) error {
 func ValidateDate(input string) error {
 	_, err := time.Parse(time.DateOnly, input)
 	return err
+}
+
+func ValidateToken(value string) error {
+	if !isValidToken(value) {
+		return fmt.Errorf("must be a valid token")
+
+	}
+	return nil
 }

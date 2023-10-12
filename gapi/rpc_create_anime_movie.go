@@ -48,12 +48,6 @@ func (server *Server) CreateAnimeMovie(ctx context.Context, req *pb.CreateAnimeM
 	return res, nil
 }
 
-/* 	hashedPassword, err := utils.HashPassword(req.GetPassword())
-   	if err != nil {
-   		return nil, status.Errorf(codes.Internal, "failed to hash password : %s", err)
-   	}
-*/
-
 func validateCreateAnimeMovieRequest(req *pb.CreateAnimeMovieRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if req.AnimeMovie.OriginalTitle != "" {
 		if err := utils.ValidateString(req.GetAnimeMovie().GetOriginalTitle(), 1, 100); err != nil {

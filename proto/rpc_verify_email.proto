@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb";
+
+message VerifyEmailRequest {
+  int64 emailID = 1;
+  string secretCode = 2;
+}
+
+message VerifyEmailResponse { bool isVerified = 1; }

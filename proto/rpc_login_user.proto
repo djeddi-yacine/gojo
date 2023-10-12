@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package pb;
+
+import "google/protobuf/timestamp.proto";
+import "user.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb";
+
+message LoginUserRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginUserResponse {
+  User user = 1;
+  string sessionID = 2;
+  string accessToken = 3;
+  string refreshToken = 4;
+  google.protobuf.Timestamp accessTokenExpiresAt = 5;
+  google.protobuf.Timestamp refreshTokenExpiresAt = 6;
+}
