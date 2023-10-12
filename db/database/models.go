@@ -63,3 +63,14 @@ type Studio struct {
 	StudioName string    `json:"studio_name"`
 	CreatedAt  time.Time `json:"created_at"`
 }
+
+type User struct {
+	ID                int64     `json:"id"`
+	Username          string    `json:"username"`
+	Email             string    `json:"email"`
+	HashedPassword    string    `json:"hashed_password"`
+	IsEmailVerified   bool      `json:"is_email_verified"`
+	FullName          string    `json:"full_name"`
+	PasswordChangedAt time.Time `json:"password_changed_at"`
+	CreatedAt         time.Time `json:"created_at"`
+}

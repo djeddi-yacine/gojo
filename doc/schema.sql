@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-10-11T11:36:02.649Z
+-- Generated at: 2023-10-12T13:28:49.481Z
 
 CREATE TABLE "anime_movie" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
@@ -56,6 +56,18 @@ CREATE TABLE "metas" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
+CREATE TABLE "users" (
+  "id" BIGSERIAL UNIQUE NOT NULL,
+  "username" varchar UNIQUE NOT NULL,
+  "email" varchar NOT NULL,
+  "hashed_password" varchar NOT NULL,
+  "is_email_verified" bool NOT NULL DEFAULT false,
+  "full_name" varchar NOT NULL,
+  "password_changed_at" timestamptz NOT NULL DEFAULT (now()),
+  "created_at" timestamptz NOT NULL DEFAULT (now()),
+  PRIMARY KEY ("id", "username")
+);
+
 CREATE INDEX ON "anime_movie" ("id");
 
 CREATE INDEX ON "anime_movie" ("original_title");
@@ -91,6 +103,10 @@ CREATE UNIQUE INDEX ON "anime_metas" ("anime_id", "language_id");
 CREATE INDEX ON "metas" ("id");
 
 CREATE INDEX ON "metas" ("title");
+
+CREATE INDEX ON "users" ("username");
+
+CREATE INDEX ON "users" ("full_name");
 
 ALTER TABLE "anime_studios" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id");
 

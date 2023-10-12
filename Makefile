@@ -8,19 +8,19 @@ createdb:
 dropdb:
 	sudo docker exec -it postgresGOJO dropdb gojo
 
-migrateup:
+mgup:
 	migrate -path db/migration -database "$(DB_URL)" -verbose up
 
-migratedown:
+mgdown:
 	migrate -path db/migration -database "$(DB_URL)" -verbose down
 
-migrateup1:
+mgup1:
 	migrate -path db/migration -database "$(DB_URL)" -verbose up 1
 
-migratedown1:
+mgdown1:
 	migrate -path db/migration -database "$(DB_URL)" -verbose down 1
 
-new_migration:
+nmg:
 	migrate create -ext sql -dir db/migration -seq $(name)
 
 sqlc:
@@ -66,4 +66,4 @@ redis:
 db:
 	dbml2sql --postgres -o doc/schema.sql doc/db.dbml
 
-.PHONY: postgres createdb dropdb migrateup migratedown migratedrop sqlc graph test server mock proto evans redis new_migration db
+.PHONY: postgres createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans redis  db

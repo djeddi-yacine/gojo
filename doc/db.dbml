@@ -87,6 +87,31 @@ Table metas {
     }
 }
 
+Table users {
+  id bigserial [pk, unique, increment, not null]
+  username varchar [pk, unique, not null]
+  email varchar [not null]
+  hashed_password varchar [not null]
+  is_email_verified bool [not null, default: false]
+  full_name varchar [not null]
+  password_changed_at timestamptz  [not null, default: `now()`]
+  created_at timestamptz  [not null, default: `now()`]
+    indexes {
+      username
+      full_name
+    }
+}
+
+// Table verify_emails {
+//   id bigserial [pk]
+//   username varchar [not null]
+//   email varchar [not null]
+//   secret_code varchar [not null]
+//   is_used bool [not null, default: false]
+//   created_at timestamptz [not null, default: `now()`]
+//   expired_at timestamptz [not null, default: `now() + interval '15 minutes'`]
+// }
+
 
 Ref {
   anime_movie.id - anime_metas.anime_id [delete: cascade]
