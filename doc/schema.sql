@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-10-12T13:28:49.481Z
+-- Generated at: 2023-10-12T13:44:57.772Z
 
 CREATE TABLE "anime_movie" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
@@ -68,6 +68,17 @@ CREATE TABLE "users" (
   PRIMARY KEY ("id", "username")
 );
 
+CREATE TABLE "sessions" (
+  "id" uuid PRIMARY KEY,
+  "username" varchar NOT NULL,
+  "refresh_token" varchar NOT NULL,
+  "user_agent" varchar NOT NULL,
+  "client_ip" varchar NOT NULL,
+  "is_blocked" boolean NOT NULL DEFAULT false,
+  "expires_at" timestamptz NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
 CREATE INDEX ON "anime_movie" ("id");
 
 CREATE INDEX ON "anime_movie" ("original_title");
@@ -121,3 +132,5 @@ ALTER TABLE "anime_genres" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movie"
 ALTER TABLE "anime_metas" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_metas" ADD FOREIGN KEY ("meta_id") REFERENCES "metas" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "sessions" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;

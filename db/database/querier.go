@@ -7,6 +7,7 @@ package db
 import (
 	"context"
 
+	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
@@ -18,6 +19,7 @@ type Querier interface {
 	CreateGenre(ctx context.Context, genreName string) (Genre, error)
 	CreateLanguage(ctx context.Context, arg CreateLanguageParams) (Language, error)
 	CreateMeta(ctx context.Context, arg CreateMetaParams) (Meta, error)
+	CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error)
 	CreateStudio(ctx context.Context, studioName string) (Studio, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	DeleteAnimeGenre(ctx context.Context, arg DeleteAnimeGenreParams) error
@@ -31,6 +33,7 @@ type Querier interface {
 	DeleteUser(ctx context.Context, id int64) error
 	GetAnimeMovie(ctx context.Context, id int64) (AnimeMovie, error)
 	GetMetaIDByAnimeAndLanguage(ctx context.Context, arg GetMetaIDByAnimeAndLanguageParams) (int64, error)
+	GetSession(ctx context.Context, id uuid.UUID) (Session, error)
 	GetUserByID(ctx context.Context, id int64) (User, error)
 	GetUserByUsername(ctx context.Context, username string) (User, error)
 	ListAnimeGenres(ctx context.Context, arg ListAnimeGenresParams) ([]pgtype.Int4, error)

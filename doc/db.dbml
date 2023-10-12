@@ -102,6 +102,17 @@ Table users {
     }
 }
 
+Table sessions {
+  id uuid [pk]
+  username varchar [not null]
+  refresh_token varchar [not null]
+  user_agent varchar [not null]
+  client_ip varchar [not null]
+  is_blocked boolean [not null, default: false]
+  expires_at timestamptz [not null]
+  created_at timestamptz [not null, default: `now()`]
+}
+
 // Table verify_emails {
 //   id bigserial [pk]
 //   username varchar [not null]
@@ -127,4 +138,7 @@ Ref {
 }
 Ref {
   metas.id - anime_metas.meta_id [delete: cascade]
+}
+Ref {
+  users.username - sessions.username [delete: cascade]
 }
