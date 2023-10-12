@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-10-12T13:51:44.847Z
+-- Generated at: 2023-10-12T22:27:51.491Z
 
 CREATE TABLE "anime_movie" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
@@ -58,6 +58,7 @@ CREATE TABLE "metas" (
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
+  "role" varchar NOT NULL DEFAULT 'member',
   "username" varchar UNIQUE NOT NULL,
   "email" varchar NOT NULL,
   "hashed_password" varchar NOT NULL,

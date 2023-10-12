@@ -3,7 +3,6 @@ CREATE TABLE "users" (
   "username" varchar UNIQUE NOT NULL,
   "email" varchar NOT NULL,
   "hashed_password" varchar NOT NULL,
-  "is_email_verified" bool NOT NULL DEFAULT false,
   "full_name" varchar NOT NULL,
   "password_changed_at" timestamptz NOT NULL DEFAULT (now()),
   "created_at" timestamptz NOT NULL DEFAULT (now()),

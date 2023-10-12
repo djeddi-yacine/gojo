@@ -89,6 +89,7 @@ Table metas {
 
 Table users {
   id bigserial [pk, unique, increment, not null]
+  role varchar [not null, default: 'member']
   username varchar [pk, unique, not null]
   email varchar [not null]
   hashed_password varchar [not null]

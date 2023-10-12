@@ -81,10 +81,11 @@ type User struct {
 	Username          string    `json:"username"`
 	Email             string    `json:"email"`
 	HashedPassword    string    `json:"hashed_password"`
-	IsEmailVerified   bool      `json:"is_email_verified"`
 	FullName          string    `json:"full_name"`
 	PasswordChangedAt time.Time `json:"password_changed_at"`
 	CreatedAt         time.Time `json:"created_at"`
+	IsEmailVerified   bool      `json:"is_email_verified"`
+	Role              string    `json:"role"`
 }
 
 type VerifyEmail struct {
