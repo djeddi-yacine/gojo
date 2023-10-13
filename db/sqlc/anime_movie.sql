@@ -1,6 +1,17 @@
 -- name: GetAnimeMovie :one
 SELECT * FROM anime_movie 
-WHERE id = $1;
+WHERE id = $1 LIMIT 1;
+
+-- name: UpdateAnimeMovie :one
+UPDATE anime_movie
+SET
+  original_title = COALESCE(sqlc.narg(original_title), original_title),
+  aired = COALESCE(sqlc.narg(aired), aired),
+  release_year = COALESCE(sqlc.narg(release_year), release_year),
+  duration = COALESCE(sqlc.narg(duration), duration)
+WHERE
+  id = sqlc.arg(id)
+RETURNING *;
 
 -- name: CreateAnimeMovie :one
 INSERT INTO anime_movie (

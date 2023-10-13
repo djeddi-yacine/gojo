@@ -3,6 +3,10 @@ INSERT INTO languages (language_name, language_code)
 VALUES ($1, $2)
 RETURNING  *;
 
+-- name: GetLanguage :one
+SELECT * FROM languages
+WHERE id = $1 LIMIT 1;
+
 -- name: UpdateLanguage :one
 UPDATE languages
 SET language_code = $2,

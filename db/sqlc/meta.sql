@@ -3,6 +3,10 @@ INSERT INTO metas (title, overview)
 VALUES ($1, $2)
 RETURNING  *;
 
+-- name: GetMeta :one
+SELECT * FROM metas
+WHERE id = $1 LIMIT 1;
+
 -- name: UpdateMeta :exec
 UPDATE metas
 SET title = $2,

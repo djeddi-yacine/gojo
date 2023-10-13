@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS metas;
 DROP TABLE IF EXISTS anime_meta;
 DROP TABLE IF EXISTS languages;
-DROP TABLE IF EXISTS anime_genres;
+DROP TABLE IF EXISTS anime_genre;
 DROP TABLE IF EXISTS genres;
-DROP TABLE IF EXISTS anime_studios;
+DROP TABLE IF EXISTS anime_studio;
 DROP TABLE IF EXISTS studios;
 DROP TABLE IF EXISTS anime_movie;

@@ -42,6 +42,23 @@ func (q *Queries) DeleteMeta(ctx context.Context, id int64) error {
 	return err
 }
 
+const getMeta = `-- name: GetMeta :one
+SELECT id, title, overview, created_at FROM metas
+WHERE id = $1 LIMIT 1
+`
+
+func (q *Queries) GetMeta(ctx context.Context, id int64) (Meta, error) {
+	row := q.db.QueryRow(ctx, getMeta, id)
+	var i Meta
+	err := row.Scan(
+		&i.ID,
+		&i.Title,
+		&i.Overview,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const updateMeta = `-- name: UpdateMeta :exec
 UPDATE metas
 SET title = $2,

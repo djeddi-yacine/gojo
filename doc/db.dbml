@@ -23,7 +23,7 @@ Table studios {
     }
 }
 
-Table anime_studios {
+Table anime_studio {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
   studio_id integer [ref: > studios.id]
@@ -44,7 +44,7 @@ Table genres {
     }
 }
 
-Table anime_genres {
+Table anime_genre {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
   genre_id integer [ref: > genres.id]
@@ -129,10 +129,10 @@ Ref {
   anime_movie.id - anime_metas.anime_id [delete: cascade]
 }
 Ref {
-  anime_movie.id - anime_studios.anime_id [delete: cascade]
+  anime_movie.id - anime_studio.anime_id [delete: cascade]
 }
 Ref {
-  anime_movie.id - anime_genres.anime_id [delete: cascade]
+  anime_movie.id - anime_genre.anime_id [delete: cascade]
 }
 Ref {
   languages.id - anime_metas.language_id [delete: cascade]

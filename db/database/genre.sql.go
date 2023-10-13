@@ -32,6 +32,18 @@ func (q *Queries) DeleteGenre(ctx context.Context, id int32) error {
 	return err
 }
 
+const getGenre = `-- name: GetGenre :one
+SELECT id, genre_name, created_at FROM genres
+WHERE id = $1 LIMIT 1
+`
+
+func (q *Queries) GetGenre(ctx context.Context, id int32) (Genre, error) {
+	row := q.db.QueryRow(ctx, getGenre, id)
+	var i Genre
+	err := row.Scan(&i.ID, &i.GenreName, &i.CreatedAt)
+	return i, err
+}
+
 const listGenres = `-- name: ListGenres :many
 SELECT id, genre_name, created_at FROM genres
 ORDER BY id

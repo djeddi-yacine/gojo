@@ -32,6 +32,18 @@ func (q *Queries) DeleteStudio(ctx context.Context, id int32) error {
 	return err
 }
 
+const getStudio = `-- name: GetStudio :one
+SELECT id, studio_name, created_at FROM studios
+WHERE id = $1 LIMIT 1
+`
+
+func (q *Queries) GetStudio(ctx context.Context, id int32) (Studio, error) {
+	row := q.db.QueryRow(ctx, getStudio, id)
+	var i Studio
+	err := row.Scan(&i.ID, &i.StudioName, &i.CreatedAt)
+	return i, err
+}
+
 const listStudios = `-- name: ListStudios :many
 SELECT id, studio_name, created_at FROM studios
 ORDER BY id

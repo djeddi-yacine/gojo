@@ -7,9 +7,9 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/dj-yacine-flutter/gojo/api"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	_ "github.com/dj-yacine-flutter/gojo/doc/statik"
-	"github.com/dj-yacine-flutter/gojo/gapi"
 	"github.com/dj-yacine-flutter/gojo/mail"
 	"github.com/dj-yacine-flutter/gojo/pb"
 	"github.com/dj-yacine-flutter/gojo/utils"
@@ -99,12 +99,12 @@ func runTaskProcessor(config utils.Config, redisOpt asynq.RedisClientOpt, gojo d
 }
 
 func runGRPCServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor) {
-	server, err := gapi.NewServer(config, gojo, taskDistrinbutor)
+	server, err := api.NewServer(config, gojo, taskDistrinbutor)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot create GRPC server")
 	}
 
-	gprcLogger := grpc.UnaryInterceptor(gapi.GrpcLogger)
+	gprcLogger := grpc.UnaryInterceptor(api.GrpcLogger)
 	grpcServer := grpc.NewServer(gprcLogger)
 	pb.RegisterGojoServer(grpcServer, server)
 	reflection.Register(grpcServer)
@@ -122,7 +122,7 @@ func runGRPCServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.Ta
 }
 
 func runGatewayServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor) {
-	server, err := gapi.NewServer(config, gojo, taskDistrinbutor)
+	server, err := api.NewServer(config, gojo, taskDistrinbutor)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot create Gateway server")
 	}
@@ -154,7 +154,7 @@ func runGatewayServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker
 
 	log.Info().Msgf("start HTTP gateway server at %s", listener.Addr().String())
 
-	handler := gapi.HttpLogger(mux)
+	handler := api.HttpLogger(mux)
 	err = http.Serve(listener, handler)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot start the Gateway server")

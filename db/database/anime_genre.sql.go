@@ -12,7 +12,7 @@ import (
 )
 
 const createAnimeGenre = `-- name: CreateAnimeGenre :exec
-INSERT INTO anime_genres (anime_id, genre_id)
+INSERT INTO anime_genre (anime_id, genre_id)
 VALUES ($1, $2)
 `
 
@@ -27,7 +27,7 @@ func (q *Queries) CreateAnimeGenre(ctx context.Context, arg CreateAnimeGenrePara
 }
 
 const deleteAnimeGenre = `-- name: DeleteAnimeGenre :exec
-DELETE FROM anime_genres
+DELETE FROM anime_genre
 WHERE anime_id = $1 AND genre_id = $2
 `
 
@@ -41,9 +41,21 @@ func (q *Queries) DeleteAnimeGenre(ctx context.Context, arg DeleteAnimeGenrePara
 	return err
 }
 
+const getAnimeGenre = `-- name: GetAnimeGenre :one
+SELECT id, anime_id, genre_id FROM anime_genre
+WHERE id = $1 LIMIT 1
+`
+
+func (q *Queries) GetAnimeGenre(ctx context.Context, id int64) (AnimeGenre, error) {
+	row := q.db.QueryRow(ctx, getAnimeGenre, id)
+	var i AnimeGenre
+	err := row.Scan(&i.ID, &i.AnimeID, &i.GenreID)
+	return i, err
+}
+
 const listAnimeGenres = `-- name: ListAnimeGenres :many
 SELECT genre_id
-FROM anime_genres
+FROM anime_genre
 WHERE anime_id = $1
 LIMIT $2
 OFFSET $3
@@ -76,7 +88,7 @@ func (q *Queries) ListAnimeGenres(ctx context.Context, arg ListAnimeGenresParams
 }
 
 const updateAnimeGenre = `-- name: UpdateAnimeGenre :one
-UPDATE anime_genres
+UPDATE anime_genre
 SET genre_id = $2
 WHERE anime_id = $1
 RETURNING id, anime_id, genre_id

@@ -3,6 +3,10 @@ INSERT INTO genres (genre_name)
 VALUES ($1)
 RETURNING  *;
 
+-- name: GetGenre :one
+SELECT * FROM genres
+WHERE id = $1 LIMIT 1;
+
 -- name: UpdateGenre :one
 UPDATE genres
 SET genre_name = $2

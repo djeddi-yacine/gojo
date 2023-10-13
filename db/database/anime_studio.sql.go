@@ -12,7 +12,7 @@ import (
 )
 
 const createAnimeStudio = `-- name: CreateAnimeStudio :exec
-INSERT INTO anime_studios (anime_id, studio_id)
+INSERT INTO anime_studio (anime_id, studio_id)
 VALUES ($1, $2)
 `
 
@@ -27,7 +27,7 @@ func (q *Queries) CreateAnimeStudio(ctx context.Context, arg CreateAnimeStudioPa
 }
 
 const deleteAnimeStudio = `-- name: DeleteAnimeStudio :exec
-DELETE FROM anime_studios
+DELETE FROM anime_studio
 WHERE anime_id = $1 AND studio_id = $2
 `
 
@@ -41,9 +41,21 @@ func (q *Queries) DeleteAnimeStudio(ctx context.Context, arg DeleteAnimeStudioPa
 	return err
 }
 
+const getAnimeStudio = `-- name: GetAnimeStudio :one
+SELECT id, anime_id, studio_id FROM anime_studio
+WHERE id = $1 LIMIT 1
+`
+
+func (q *Queries) GetAnimeStudio(ctx context.Context, id int64) (AnimeStudio, error) {
+	row := q.db.QueryRow(ctx, getAnimeStudio, id)
+	var i AnimeStudio
+	err := row.Scan(&i.ID, &i.AnimeID, &i.StudioID)
+	return i, err
+}
+
 const listAnimeStudios = `-- name: ListAnimeStudios :many
 SELECT studio_id
-FROM anime_studios
+FROM anime_studio
 WHERE anime_id = $1
 LIMIT $2
 OFFSET $3
@@ -76,7 +88,7 @@ func (q *Queries) ListAnimeStudios(ctx context.Context, arg ListAnimeStudiosPara
 }
 
 const updateAnimeStudio = `-- name: UpdateAnimeStudio :one
-UPDATE anime_studios
+UPDATE anime_studio
 SET studio_id = $2
 WHERE anime_id = $1
 RETURNING id, anime_id, studio_id

@@ -32,9 +32,15 @@ type Querier interface {
 	DeleteMeta(ctx context.Context, id int64) error
 	DeleteStudio(ctx context.Context, id int32) error
 	DeleteUser(ctx context.Context, id int64) error
+	GetAnimeGenre(ctx context.Context, id int64) (AnimeGenre, error)
 	GetAnimeMovie(ctx context.Context, id int64) (AnimeMovie, error)
+	GetAnimeStudio(ctx context.Context, id int64) (AnimeStudio, error)
+	GetGenre(ctx context.Context, id int32) (Genre, error)
+	GetLanguage(ctx context.Context, id int32) (Language, error)
+	GetMeta(ctx context.Context, id int64) (Meta, error)
 	GetMetaIDByAnimeAndLanguage(ctx context.Context, arg GetMetaIDByAnimeAndLanguageParams) (int64, error)
 	GetSession(ctx context.Context, id uuid.UUID) (Session, error)
+	GetStudio(ctx context.Context, id int32) (Studio, error)
 	GetUserByID(ctx context.Context, id int64) (User, error)
 	GetUserByUsername(ctx context.Context, username string) (User, error)
 	ListAnimeGenres(ctx context.Context, arg ListAnimeGenresParams) ([]pgtype.Int4, error)
@@ -46,6 +52,7 @@ type Querier interface {
 	ListUsers(ctx context.Context, arg ListUsersParams) ([]User, error)
 	UpdateAnimeGenre(ctx context.Context, arg UpdateAnimeGenreParams) (AnimeGenre, error)
 	UpdateAnimeMeta(ctx context.Context, arg UpdateAnimeMetaParams) (AnimeMeta, error)
+	UpdateAnimeMovie(ctx context.Context, arg UpdateAnimeMovieParams) (AnimeMovie, error)
 	UpdateAnimeStudio(ctx context.Context, arg UpdateAnimeStudioParams) (AnimeStudio, error)
 	UpdateGenre(ctx context.Context, arg UpdateGenreParams) (Genre, error)
 	UpdateLanguage(ctx context.Context, arg UpdateLanguageParams) (Language, error)

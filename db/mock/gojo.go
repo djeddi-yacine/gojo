@@ -355,6 +355,21 @@ func (mr *MockGojoMockRecorder) DeleteUser(arg0, arg1 interface{}) *gomock.Call 
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteUser", reflect.TypeOf((*MockGojo)(nil).DeleteUser), arg0, arg1)
 }
 
+// GetAnimeGenre mocks base method.
+func (m *MockGojo) GetAnimeGenre(arg0 context.Context, arg1 int64) (db.AnimeGenre, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeGenre", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeGenre)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeGenre indicates an expected call of GetAnimeGenre.
+func (mr *MockGojoMockRecorder) GetAnimeGenre(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeGenre", reflect.TypeOf((*MockGojo)(nil).GetAnimeGenre), arg0, arg1)
+}
+
 // GetAnimeMovie mocks base method.
 func (m *MockGojo) GetAnimeMovie(arg0 context.Context, arg1 int64) (db.AnimeMovie, error) {
 	m.ctrl.T.Helper()
@@ -368,6 +383,66 @@ func (m *MockGojo) GetAnimeMovie(arg0 context.Context, arg1 int64) (db.AnimeMovi
 func (mr *MockGojoMockRecorder) GetAnimeMovie(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovie", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovie), arg0, arg1)
+}
+
+// GetAnimeStudio mocks base method.
+func (m *MockGojo) GetAnimeStudio(arg0 context.Context, arg1 int64) (db.AnimeStudio, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeStudio", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeStudio)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeStudio indicates an expected call of GetAnimeStudio.
+func (mr *MockGojoMockRecorder) GetAnimeStudio(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeStudio", reflect.TypeOf((*MockGojo)(nil).GetAnimeStudio), arg0, arg1)
+}
+
+// GetGenre mocks base method.
+func (m *MockGojo) GetGenre(arg0 context.Context, arg1 int32) (db.Genre, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetGenre", arg0, arg1)
+	ret0, _ := ret[0].(db.Genre)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetGenre indicates an expected call of GetGenre.
+func (mr *MockGojoMockRecorder) GetGenre(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetGenre", reflect.TypeOf((*MockGojo)(nil).GetGenre), arg0, arg1)
+}
+
+// GetLanguage mocks base method.
+func (m *MockGojo) GetLanguage(arg0 context.Context, arg1 int32) (db.Language, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetLanguage", arg0, arg1)
+	ret0, _ := ret[0].(db.Language)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetLanguage indicates an expected call of GetLanguage.
+func (mr *MockGojoMockRecorder) GetLanguage(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetLanguage", reflect.TypeOf((*MockGojo)(nil).GetLanguage), arg0, arg1)
+}
+
+// GetMeta mocks base method.
+func (m *MockGojo) GetMeta(arg0 context.Context, arg1 int64) (db.Meta, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetMeta", arg0, arg1)
+	ret0, _ := ret[0].(db.Meta)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetMeta indicates an expected call of GetMeta.
+func (mr *MockGojoMockRecorder) GetMeta(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetMeta", reflect.TypeOf((*MockGojo)(nil).GetMeta), arg0, arg1)
 }
 
 // GetMetaIDByAnimeAndLanguage mocks base method.
@@ -398,6 +473,21 @@ func (m *MockGojo) GetSession(arg0 context.Context, arg1 uuid.UUID) (db.Session,
 func (mr *MockGojoMockRecorder) GetSession(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSession", reflect.TypeOf((*MockGojo)(nil).GetSession), arg0, arg1)
+}
+
+// GetStudio mocks base method.
+func (m *MockGojo) GetStudio(arg0 context.Context, arg1 int32) (db.Studio, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetStudio", arg0, arg1)
+	ret0, _ := ret[0].(db.Studio)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetStudio indicates an expected call of GetStudio.
+func (mr *MockGojoMockRecorder) GetStudio(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetStudio", reflect.TypeOf((*MockGojo)(nil).GetStudio), arg0, arg1)
 }
 
 // GetUserByID mocks base method.
@@ -563,6 +653,21 @@ func (m *MockGojo) UpdateAnimeMeta(arg0 context.Context, arg1 db.UpdateAnimeMeta
 func (mr *MockGojoMockRecorder) UpdateAnimeMeta(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeMeta", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeMeta), arg0, arg1)
+}
+
+// UpdateAnimeMovie mocks base method.
+func (m *MockGojo) UpdateAnimeMovie(arg0 context.Context, arg1 db.UpdateAnimeMovieParams) (db.AnimeMovie, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateAnimeMovie", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeMovie)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateAnimeMovie indicates an expected call of UpdateAnimeMovie.
+func (mr *MockGojoMockRecorder) UpdateAnimeMovie(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeMovie", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeMovie), arg0, arg1)
 }
 
 // UpdateAnimeStudio mocks base method.

@@ -42,6 +42,23 @@ func (q *Queries) DeleteLanguage(ctx context.Context, id int32) error {
 	return err
 }
 
+const getLanguage = `-- name: GetLanguage :one
+SELECT id, language_code, language_name, created_at FROM languages
+WHERE id = $1 LIMIT 1
+`
+
+func (q *Queries) GetLanguage(ctx context.Context, id int32) (Language, error) {
+	row := q.db.QueryRow(ctx, getLanguage, id)
+	var i Language
+	err := row.Scan(
+		&i.ID,
+		&i.LanguageCode,
+		&i.LanguageName,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
 const listLanguages = `-- name: ListLanguages :many
 SELECT id, language_code, language_name, created_at FROM languages
 ORDER BY id
