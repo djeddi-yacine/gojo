@@ -1,4 +1,4 @@
-package gapi
+package api
 
 import (
 	"google.golang.org/genproto/googleapis/rpc/errdetails"

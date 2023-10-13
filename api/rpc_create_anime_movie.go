@@ -1,4 +1,4 @@
-package gapi
+package api
 
 import (
 	"context"
@@ -63,7 +63,7 @@ func validateCreateAnimeMovieRequest(req *pb.CreateAnimeMovieRequest) (violation
 
 	if req.AnimeMovie.ReleaseYear != 0 {
 		if err := utils.ValidateYear(req.GetAnimeMovie().GetReleaseYear()); err != nil {
-			violations = append(violations, fieldViolation("originalTitle", err))
+			violations = append(violations, fieldViolation("releaseYear", err))
 		}
 	}
 
