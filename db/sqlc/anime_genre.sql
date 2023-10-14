@@ -1,16 +1,11 @@
--- name: CreateAnimeGenre :exec
+-- name: CreateAnimeGenre :one
 INSERT INTO anime_genre (anime_id, genre_id)
-VALUES ($1, $2);
+VALUES ($1, $2)
+RETURNING *;
 
 -- name: GetAnimeGenre :one
 SELECT * FROM anime_genre
 WHERE id = $1 LIMIT 1;
-
--- name: UpdateAnimeGenre :one
-UPDATE anime_genre
-SET genre_id = $2
-WHERE anime_id = $1
-RETURNING * ;
 
 -- name: ListAnimeGenres :many
 SELECT genre_id

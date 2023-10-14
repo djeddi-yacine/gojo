@@ -1,12 +1,12 @@
--- name: CreateAnimeMeta :exec
+-- name: CreateAnimeMeta :one
 INSERT INTO anime_metas (anime_id, language_id, meta_id)
-VALUES ($1, $2, $3);
+VALUES ($1, $2, $3)
+RETURNING *;
 
--- name: GetMetaIDByAnimeAndLanguage :one
+-- name: GetAnimeMeta :one
 SELECT meta_id
 FROM anime_metas
 WHERE anime_id = $1 AND language_id = $2;
-
 
 -- name: UpdateAnimeMeta :one
 UPDATE anime_metas

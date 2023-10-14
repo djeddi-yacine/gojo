@@ -9,9 +9,10 @@ import (
 	"context"
 )
 
-const createAnimeMeta = `-- name: CreateAnimeMeta :exec
+const createAnimeMeta = `-- name: CreateAnimeMeta :one
 INSERT INTO anime_metas (anime_id, language_id, meta_id)
 VALUES ($1, $2, $3)
+RETURNING id, anime_id, language_id, meta_id
 `
 
 type CreateAnimeMetaParams struct {
@@ -20,9 +21,16 @@ type CreateAnimeMetaParams struct {
 	MetaID     int64 `json:"meta_id"`
 }
 
-func (q *Queries) CreateAnimeMeta(ctx context.Context, arg CreateAnimeMetaParams) error {
-	_, err := q.db.Exec(ctx, createAnimeMeta, arg.AnimeID, arg.LanguageID, arg.MetaID)
-	return err
+func (q *Queries) CreateAnimeMeta(ctx context.Context, arg CreateAnimeMetaParams) (AnimeMeta, error) {
+	row := q.db.QueryRow(ctx, createAnimeMeta, arg.AnimeID, arg.LanguageID, arg.MetaID)
+	var i AnimeMeta
+	err := row.Scan(
+		&i.ID,
+		&i.AnimeID,
+		&i.LanguageID,
+		&i.MetaID,
+	)
+	return i, err
 }
 
 const deleteAnimeMeta = `-- name: DeleteAnimeMeta :exec
@@ -40,19 +48,19 @@ func (q *Queries) DeleteAnimeMeta(ctx context.Context, arg DeleteAnimeMetaParams
 	return err
 }
 
-const getMetaIDByAnimeAndLanguage = `-- name: GetMetaIDByAnimeAndLanguage :one
+const getAnimeMeta = `-- name: GetAnimeMeta :one
 SELECT meta_id
 FROM anime_metas
 WHERE anime_id = $1 AND language_id = $2
 `
 
-type GetMetaIDByAnimeAndLanguageParams struct {
+type GetAnimeMetaParams struct {
 	AnimeID    int64 `json:"anime_id"`
 	LanguageID int32 `json:"language_id"`
 }
 
-func (q *Queries) GetMetaIDByAnimeAndLanguage(ctx context.Context, arg GetMetaIDByAnimeAndLanguageParams) (int64, error) {
-	row := q.db.QueryRow(ctx, getMetaIDByAnimeAndLanguage, arg.AnimeID, arg.LanguageID)
+func (q *Queries) GetAnimeMeta(ctx context.Context, arg GetAnimeMetaParams) (int64, error) {
+	row := q.db.QueryRow(ctx, getAnimeMeta, arg.AnimeID, arg.LanguageID)
 	var meta_id int64
 	err := row.Scan(&meta_id)
 	return meta_id, err

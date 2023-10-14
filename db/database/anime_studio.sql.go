@@ -11,9 +11,10 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
-const createAnimeStudio = `-- name: CreateAnimeStudio :exec
+const createAnimeStudio = `-- name: CreateAnimeStudio :one
 INSERT INTO anime_studio (anime_id, studio_id)
 VALUES ($1, $2)
+RETURNING id, anime_id, studio_id
 `
 
 type CreateAnimeStudioParams struct {
@@ -21,9 +22,11 @@ type CreateAnimeStudioParams struct {
 	StudioID pgtype.Int4 `json:"studio_id"`
 }
 
-func (q *Queries) CreateAnimeStudio(ctx context.Context, arg CreateAnimeStudioParams) error {
-	_, err := q.db.Exec(ctx, createAnimeStudio, arg.AnimeID, arg.StudioID)
-	return err
+func (q *Queries) CreateAnimeStudio(ctx context.Context, arg CreateAnimeStudioParams) (AnimeStudio, error) {
+	row := q.db.QueryRow(ctx, createAnimeStudio, arg.AnimeID, arg.StudioID)
+	var i AnimeStudio
+	err := row.Scan(&i.ID, &i.AnimeID, &i.StudioID)
+	return i, err
 }
 
 const deleteAnimeStudio = `-- name: DeleteAnimeStudio :exec
@@ -85,23 +88,4 @@ func (q *Queries) ListAnimeStudios(ctx context.Context, arg ListAnimeStudiosPara
 		return nil, err
 	}
 	return items, nil
-}
-
-const updateAnimeStudio = `-- name: UpdateAnimeStudio :one
-UPDATE anime_studio
-SET studio_id = $2
-WHERE anime_id = $1
-RETURNING id, anime_id, studio_id
-`
-
-type UpdateAnimeStudioParams struct {
-	AnimeID  int64       `json:"anime_id"`
-	StudioID pgtype.Int4 `json:"studio_id"`
-}
-
-func (q *Queries) UpdateAnimeStudio(ctx context.Context, arg UpdateAnimeStudioParams) (AnimeStudio, error) {
-	row := q.db.QueryRow(ctx, updateAnimeStudio, arg.AnimeID, arg.StudioID)
-	var i AnimeStudio
-	err := row.Scan(&i.ID, &i.AnimeID, &i.StudioID)
-	return i, err
 }

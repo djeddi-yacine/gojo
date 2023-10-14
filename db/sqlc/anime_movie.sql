@@ -1,3 +1,13 @@
+-- name: CreateAnimeMovie :one
+INSERT INTO anime_movie (
+    original_title,
+    aired,
+    release_year,
+    duration
+)
+VALUES ($1, $2, $3, $4)
+RETURNING *;
+
 -- name: GetAnimeMovie :one
 SELECT * FROM anime_movie 
 WHERE id = $1 LIMIT 1;
@@ -11,16 +21,6 @@ SET
   duration = COALESCE(sqlc.narg(duration), duration)
 WHERE
   id = sqlc.arg(id)
-RETURNING *;
-
--- name: CreateAnimeMovie :one
-INSERT INTO anime_movie (
-    original_title,
-    aired,
-    release_year,
-    duration
-)
-VALUES ($1, $2, $3, $4)
 RETURNING *;
 
 -- name: DeleteAnimeMovie :exec

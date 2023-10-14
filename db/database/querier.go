@@ -12,10 +12,10 @@ import (
 )
 
 type Querier interface {
-	CreateAnimeGenre(ctx context.Context, arg CreateAnimeGenreParams) error
-	CreateAnimeMeta(ctx context.Context, arg CreateAnimeMetaParams) error
+	CreateAnimeGenre(ctx context.Context, arg CreateAnimeGenreParams) (AnimeGenre, error)
+	CreateAnimeMeta(ctx context.Context, arg CreateAnimeMetaParams) (AnimeMeta, error)
 	CreateAnimeMovie(ctx context.Context, arg CreateAnimeMovieParams) (AnimeMovie, error)
-	CreateAnimeStudio(ctx context.Context, arg CreateAnimeStudioParams) error
+	CreateAnimeStudio(ctx context.Context, arg CreateAnimeStudioParams) (AnimeStudio, error)
 	CreateGenre(ctx context.Context, genreName string) (Genre, error)
 	CreateLanguage(ctx context.Context, arg CreateLanguageParams) (Language, error)
 	CreateMeta(ctx context.Context, arg CreateMetaParams) (Meta, error)
@@ -33,12 +33,12 @@ type Querier interface {
 	DeleteStudio(ctx context.Context, id int32) error
 	DeleteUser(ctx context.Context, id int64) error
 	GetAnimeGenre(ctx context.Context, id int64) (AnimeGenre, error)
+	GetAnimeMeta(ctx context.Context, arg GetAnimeMetaParams) (int64, error)
 	GetAnimeMovie(ctx context.Context, id int64) (AnimeMovie, error)
 	GetAnimeStudio(ctx context.Context, id int64) (AnimeStudio, error)
 	GetGenre(ctx context.Context, id int32) (Genre, error)
 	GetLanguage(ctx context.Context, id int32) (Language, error)
 	GetMeta(ctx context.Context, id int64) (Meta, error)
-	GetMetaIDByAnimeAndLanguage(ctx context.Context, arg GetMetaIDByAnimeAndLanguageParams) (int64, error)
 	GetSession(ctx context.Context, id uuid.UUID) (Session, error)
 	GetStudio(ctx context.Context, id int32) (Studio, error)
 	GetUserByID(ctx context.Context, id int64) (User, error)
@@ -50,13 +50,11 @@ type Querier interface {
 	ListLanguages(ctx context.Context, arg ListLanguagesParams) ([]Language, error)
 	ListStudios(ctx context.Context, arg ListStudiosParams) ([]Studio, error)
 	ListUsers(ctx context.Context, arg ListUsersParams) ([]User, error)
-	UpdateAnimeGenre(ctx context.Context, arg UpdateAnimeGenreParams) (AnimeGenre, error)
 	UpdateAnimeMeta(ctx context.Context, arg UpdateAnimeMetaParams) (AnimeMeta, error)
 	UpdateAnimeMovie(ctx context.Context, arg UpdateAnimeMovieParams) (AnimeMovie, error)
-	UpdateAnimeStudio(ctx context.Context, arg UpdateAnimeStudioParams) (AnimeStudio, error)
 	UpdateGenre(ctx context.Context, arg UpdateGenreParams) (Genre, error)
 	UpdateLanguage(ctx context.Context, arg UpdateLanguageParams) (Language, error)
-	UpdateMeta(ctx context.Context, arg UpdateMetaParams) error
+	UpdateMeta(ctx context.Context, arg UpdateMetaParams) (Meta, error)
 	UpdateStudio(ctx context.Context, arg UpdateStudioParams) (Studio, error)
 	UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error)
 	UpdateVerifyEmail(ctx context.Context, arg UpdateVerifyEmailParams) (VerifyEmail, error)

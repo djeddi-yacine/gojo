@@ -59,11 +59,12 @@ func (q *Queries) GetMeta(ctx context.Context, id int64) (Meta, error) {
 	return i, err
 }
 
-const updateMeta = `-- name: UpdateMeta :exec
+const updateMeta = `-- name: UpdateMeta :one
 UPDATE metas
 SET title = $2,
     overview = $3
 WHERE id = $1
+RETURNING  id, title, overview, created_at
 `
 
 type UpdateMetaParams struct {
@@ -72,7 +73,14 @@ type UpdateMetaParams struct {
 	Overview string `json:"overview"`
 }
 
-func (q *Queries) UpdateMeta(ctx context.Context, arg UpdateMetaParams) error {
-	_, err := q.db.Exec(ctx, updateMeta, arg.ID, arg.Title, arg.Overview)
-	return err
+func (q *Queries) UpdateMeta(ctx context.Context, arg UpdateMetaParams) (Meta, error) {
+	row := q.db.QueryRow(ctx, updateMeta, arg.ID, arg.Title, arg.Overview)
+	var i Meta
+	err := row.Scan(
+		&i.ID,
+		&i.Title,
+		&i.Overview,
+		&i.CreatedAt,
+	)
+	return i, err
 }

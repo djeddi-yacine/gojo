@@ -11,9 +11,10 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
-const createAnimeGenre = `-- name: CreateAnimeGenre :exec
+const createAnimeGenre = `-- name: CreateAnimeGenre :one
 INSERT INTO anime_genre (anime_id, genre_id)
 VALUES ($1, $2)
+RETURNING id, anime_id, genre_id
 `
 
 type CreateAnimeGenreParams struct {
@@ -21,9 +22,11 @@ type CreateAnimeGenreParams struct {
 	GenreID pgtype.Int4 `json:"genre_id"`
 }
 
-func (q *Queries) CreateAnimeGenre(ctx context.Context, arg CreateAnimeGenreParams) error {
-	_, err := q.db.Exec(ctx, createAnimeGenre, arg.AnimeID, arg.GenreID)
-	return err
+func (q *Queries) CreateAnimeGenre(ctx context.Context, arg CreateAnimeGenreParams) (AnimeGenre, error) {
+	row := q.db.QueryRow(ctx, createAnimeGenre, arg.AnimeID, arg.GenreID)
+	var i AnimeGenre
+	err := row.Scan(&i.ID, &i.AnimeID, &i.GenreID)
+	return i, err
 }
 
 const deleteAnimeGenre = `-- name: DeleteAnimeGenre :exec
@@ -85,23 +88,4 @@ func (q *Queries) ListAnimeGenres(ctx context.Context, arg ListAnimeGenresParams
 		return nil, err
 	}
 	return items, nil
-}
-
-const updateAnimeGenre = `-- name: UpdateAnimeGenre :one
-UPDATE anime_genre
-SET genre_id = $2
-WHERE anime_id = $1
-RETURNING id, anime_id, genre_id
-`
-
-type UpdateAnimeGenreParams struct {
-	AnimeID int64       `json:"anime_id"`
-	GenreID pgtype.Int4 `json:"genre_id"`
-}
-
-func (q *Queries) UpdateAnimeGenre(ctx context.Context, arg UpdateAnimeGenreParams) (AnimeGenre, error) {
-	row := q.db.QueryRow(ctx, updateAnimeGenre, arg.AnimeID, arg.GenreID)
-	var i AnimeGenre
-	err := row.Scan(&i.ID, &i.AnimeID, &i.GenreID)
-	return i, err
 }

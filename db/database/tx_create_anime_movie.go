@@ -38,7 +38,7 @@ func (gojo *SQLGojo) CreateAnimeMovieTx(ctx context.Context, arg CreateAnimeMovi
 						Valid: true,
 					},
 				}
-				err = q.CreateAnimeGenre(ctx, argGenre)
+				_, err = q.CreateAnimeGenre(ctx, argGenre)
 				if err != nil {
 					ErrorSQL(err)
 					return err
@@ -57,7 +57,7 @@ func (gojo *SQLGojo) CreateAnimeMovieTx(ctx context.Context, arg CreateAnimeMovi
 					},
 				}
 
-				err = q.CreateAnimeStudio(ctx, argStudio)
+				_, err = q.CreateAnimeStudio(ctx, argStudio)
 				if err != nil {
 					ErrorSQL(err)
 					return err

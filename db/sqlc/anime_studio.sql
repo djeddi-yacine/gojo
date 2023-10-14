@@ -1,16 +1,11 @@
--- name: CreateAnimeStudio :exec
+-- name: CreateAnimeStudio :one
 INSERT INTO anime_studio (anime_id, studio_id)
-VALUES ($1, $2);
+VALUES ($1, $2)
+RETURNING *;
 
 -- name: GetAnimeStudio :one
 SELECT * FROM anime_studio
 WHERE id = $1 LIMIT 1;
-
--- name: UpdateAnimeStudio :one
-UPDATE anime_studio
-SET studio_id = $2
-WHERE anime_id = $1
-RETURNING * ;
 
 -- name: ListAnimeStudios :many
 SELECT studio_id
