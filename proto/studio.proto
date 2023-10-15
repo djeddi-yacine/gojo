@@ -12,6 +12,6 @@ message Studio {
   google.protobuf.Timestamp createdAt = 3;
 }
 
-message AnimeStudiosReq { repeated int32 studioID = 1; }
+message AnimeStudiosRequest { repeated int32 studioID = 1; }
 
-message AnimeStudiosRes { repeated Studio studios = 1; }
+message AnimeStudiosResponse { repeated Studio studios = 1; }

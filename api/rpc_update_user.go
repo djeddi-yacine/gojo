@@ -25,7 +25,7 @@ func (server *Server) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest)
 		return nil, invalidArgumentError(violations)
 	}
 
-	if authPayload.Role != utils.RootRoll && authPayload.Username != req.GetUsername() {
+	if authPayload.Username != req.GetUsername() && authPayload.Role != utils.RootRoll {
 		return nil, status.Errorf(codes.PermissionDenied, "cannot update other users info")
 	}
 

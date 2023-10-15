@@ -10,20 +10,20 @@ import "meta.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 
-message AnimeMovieReq {
+message AnimeMovieRequest {
   string originalTitle = 1;
   google.protobuf.Timestamp aired = 2;
   int32 releaseYear = 3;
   int32 duration = 4;
 }
 
-message AnimeMovieRes {
+message AnimeMovieResponse {
   string originalTitle = 1;
   google.protobuf.Timestamp aired = 2;
   string premiered = 3;
   int32 duration = 4;
-  AnimeMetaRes animeMeta = 5;
-  optional AnimeGenresRes animeGenres = 6;
-  optional AnimeStudiosRes animeStudios = 7;
+  AnimeMetaResponse animeMeta = 5;
+  optional AnimeGenresResponse animeGenres = 6;
+  optional AnimeStudiosResponse animeStudios = 7;
   google.protobuf.Timestamp createdAt = 8;
 }

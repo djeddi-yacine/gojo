@@ -12,7 +12,10 @@ import "rpc_login_user.proto";
 import "rpc_update_user.proto";
 import "rpc_verify_email.proto";
 import "rpc_renew_token.proto";
-
+import "rpc_get_all_genres.proto";
+import "rpc_get_all_studios.proto";
+import "rpc_get_all_anime_metas.proto";
+import "language.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 
@@ -35,8 +38,7 @@ service Gojo {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to create a new anime movie";
-    summary:
-    "Create new anime movie";
+      summary:  "Create new anime movie";
     };
   }
   rpc CreateGenre(CreateGenreRequest) returns (CreateGenreResponse) {
@@ -46,7 +48,7 @@ service Gojo {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to create a new genre";
-      summary: "Create new genre";
+      summary:  "Create new genre";
     };
   }
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
@@ -95,6 +97,42 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to renew user's access token";
       summary:  "Renew access token";
+    };
+  }
+  rpc GetAllGenres(GetAllGenresRequest) returns (GetAllGenresResponse) {
+    option (google.api.http) = {
+      get : "/v1/anime/genre"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to get all anime genres";
+      summary:  "Get all anime genres";
+    };
+  }
+  rpc GetAllStudios(GetAllStudiosRequest) returns (GetAllStudiosResponse) {
+    option (google.api.http) = {
+      get : "/v1/anime/studio"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to get all anime studios";
+      summary:  "Get all anime studios";
+    };
+  }
+  rpc GetAllLanguages(GetAllLanguagesRequest) returns (GetAllLanguagesResponse) {
+    option (google.api.http) = {
+      get : "/v1/language"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to get all app languages";
+      summary:  "Get all app languages";
+    };
+  }
+  rpc GetAllAnimeMetas(GetAllAnimeMetasRequest) returns (GetAllAnimeMetasResponse) {
+    option (google.api.http) = {
+      get : "/v1/anime/meta/{animeID}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to get all anime metas";
+      summary:  "Get all anime metas";
     };
   }
 }

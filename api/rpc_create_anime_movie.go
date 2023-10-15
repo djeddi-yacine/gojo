@@ -37,7 +37,7 @@ func (server *Server) CreateAnimeMovie(ctx context.Context, req *pb.CreateAnimeM
 	}
 
 	res := &pb.CreateAnimeMovieResponse{
-		AnimeMovie: &pb.AnimeMovieRes{
+		AnimeMovie: &pb.AnimeMovieResponse{
 			OriginalTitle: req.AnimeMovie.GetOriginalTitle(),
 			Aired:         timestamppb.New(resultAnime.AnimeMovie.Aired),
 			Premiered:     fmt.Sprint(resultAnime.AnimeMovie.ReleaseYear),

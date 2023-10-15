@@ -84,7 +84,7 @@ func (x *Studio) GetCreatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
-type AnimeStudiosReq struct {
+type AnimeStudiosRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -92,8 +92,8 @@ type AnimeStudiosReq struct {
 	StudioID []int32 `protobuf:"varint,1,rep,packed,name=studioID,proto3" json:"studioID,omitempty"`
 }
 
-func (x *AnimeStudiosReq) Reset() {
-	*x = AnimeStudiosReq{}
+func (x *AnimeStudiosRequest) Reset() {
+	*x = AnimeStudiosRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_studio_proto_msgTypes[1]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -101,13 +101,13 @@ func (x *AnimeStudiosReq) Reset() {
 	}
 }
 
-func (x *AnimeStudiosReq) String() string {
+func (x *AnimeStudiosRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AnimeStudiosReq) ProtoMessage() {}
+func (*AnimeStudiosRequest) ProtoMessage() {}
 
-func (x *AnimeStudiosReq) ProtoReflect() protoreflect.Message {
+func (x *AnimeStudiosRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_studio_proto_msgTypes[1]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -119,19 +119,19 @@ func (x *AnimeStudiosReq) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AnimeStudiosReq.ProtoReflect.Descriptor instead.
-func (*AnimeStudiosReq) Descriptor() ([]byte, []int) {
+// Deprecated: Use AnimeStudiosRequest.ProtoReflect.Descriptor instead.
+func (*AnimeStudiosRequest) Descriptor() ([]byte, []int) {
 	return file_studio_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *AnimeStudiosReq) GetStudioID() []int32 {
+func (x *AnimeStudiosRequest) GetStudioID() []int32 {
 	if x != nil {
 		return x.StudioID
 	}
 	return nil
 }
 
-type AnimeStudiosRes struct {
+type AnimeStudiosResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -139,8 +139,8 @@ type AnimeStudiosRes struct {
 	Studios []*Studio `protobuf:"bytes,1,rep,name=studios,proto3" json:"studios,omitempty"`
 }
 
-func (x *AnimeStudiosRes) Reset() {
-	*x = AnimeStudiosRes{}
+func (x *AnimeStudiosResponse) Reset() {
+	*x = AnimeStudiosResponse{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_studio_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -148,13 +148,13 @@ func (x *AnimeStudiosRes) Reset() {
 	}
 }
 
-func (x *AnimeStudiosRes) String() string {
+func (x *AnimeStudiosResponse) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*AnimeStudiosRes) ProtoMessage() {}
+func (*AnimeStudiosResponse) ProtoMessage() {}
 
-func (x *AnimeStudiosRes) ProtoReflect() protoreflect.Message {
+func (x *AnimeStudiosResponse) ProtoReflect() protoreflect.Message {
 	mi := &file_studio_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -166,12 +166,12 @@ func (x *AnimeStudiosRes) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use AnimeStudiosRes.ProtoReflect.Descriptor instead.
-func (*AnimeStudiosRes) Descriptor() ([]byte, []int) {
+// Deprecated: Use AnimeStudiosResponse.ProtoReflect.Descriptor instead.
+func (*AnimeStudiosResponse) Descriptor() ([]byte, []int) {
 	return file_studio_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *AnimeStudiosRes) GetStudios() []*Studio {
+func (x *AnimeStudiosResponse) GetStudios() []*Studio {
 	if x != nil {
 		return x.Studios
 	}
@@ -192,16 +192,17 @@ var file_studio_proto_rawDesc = []byte{
 	0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e, 0x67,
 	0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x54,
 	0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65,
-	0x64, 0x41, 0x74, 0x22, 0x2d, 0x0a, 0x0f, 0x41, 0x6e, 0x69, 0x6d, 0x65, 0x53, 0x74, 0x75, 0x64,
-	0x69, 0x6f, 0x73, 0x52, 0x65, 0x71, 0x12, 0x1a, 0x0a, 0x08, 0x73, 0x74, 0x75, 0x64, 0x69, 0x6f,
-	0x49, 0x44, 0x18, 0x01, 0x20, 0x03, 0x28, 0x05, 0x52, 0x08, 0x73, 0x74, 0x75, 0x64, 0x69, 0x6f,
-	0x49, 0x44, 0x22, 0x37, 0x0a, 0x0f, 0x41, 0x6e, 0x69, 0x6d, 0x65, 0x53, 0x74, 0x75, 0x64, 0x69,
-	0x6f, 0x73, 0x52, 0x65, 0x73, 0x12, 0x24, 0x0a, 0x07, 0x73, 0x74, 0x75, 0x64, 0x69, 0x6f, 0x73,
-	0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x53, 0x74, 0x75, 0x64,
-	0x69, 0x6f, 0x52, 0x07, 0x73, 0x74, 0x75, 0x64, 0x69, 0x6f, 0x73, 0x42, 0x26, 0x5a, 0x24, 0x67,
-	0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x64, 0x6a, 0x2d, 0x79, 0x61, 0x63,
-	0x69, 0x6e, 0x65, 0x2d, 0x66, 0x6c, 0x75, 0x74, 0x74, 0x65, 0x72, 0x2f, 0x67, 0x6f, 0x6a, 0x6f,
-	0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x64, 0x41, 0x74, 0x22, 0x31, 0x0a, 0x13, 0x41, 0x6e, 0x69, 0x6d, 0x65, 0x53, 0x74, 0x75, 0x64,
+	0x69, 0x6f, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x1a, 0x0a, 0x08, 0x73, 0x74,
+	0x75, 0x64, 0x69, 0x6f, 0x49, 0x44, 0x18, 0x01, 0x20, 0x03, 0x28, 0x05, 0x52, 0x08, 0x73, 0x74,
+	0x75, 0x64, 0x69, 0x6f, 0x49, 0x44, 0x22, 0x3c, 0x0a, 0x14, 0x41, 0x6e, 0x69, 0x6d, 0x65, 0x53,
+	0x74, 0x75, 0x64, 0x69, 0x6f, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x24,
+	0x0a, 0x07, 0x73, 0x74, 0x75, 0x64, 0x69, 0x6f, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32,
+	0x0a, 0x2e, 0x70, 0x62, 0x2e, 0x53, 0x74, 0x75, 0x64, 0x69, 0x6f, 0x52, 0x07, 0x73, 0x74, 0x75,
+	0x64, 0x69, 0x6f, 0x73, 0x42, 0x26, 0x5a, 0x24, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
+	0x6f, 0x6d, 0x2f, 0x64, 0x6a, 0x2d, 0x79, 0x61, 0x63, 0x69, 0x6e, 0x65, 0x2d, 0x66, 0x6c, 0x75,
+	0x74, 0x74, 0x65, 0x72, 0x2f, 0x67, 0x6f, 0x6a, 0x6f, 0x2f, 0x70, 0x62, 0x62, 0x06, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -219,13 +220,13 @@ func file_studio_proto_rawDescGZIP() []byte {
 var file_studio_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
 var file_studio_proto_goTypes = []interface{}{
 	(*Studio)(nil),                // 0: pb.Studio
-	(*AnimeStudiosReq)(nil),       // 1: pb.AnimeStudiosReq
-	(*AnimeStudiosRes)(nil),       // 2: pb.AnimeStudiosRes
+	(*AnimeStudiosRequest)(nil),   // 1: pb.AnimeStudiosRequest
+	(*AnimeStudiosResponse)(nil),  // 2: pb.AnimeStudiosResponse
 	(*timestamppb.Timestamp)(nil), // 3: google.protobuf.Timestamp
 }
 var file_studio_proto_depIdxs = []int32{
 	3, // 0: pb.Studio.createdAt:type_name -> google.protobuf.Timestamp
-	0, // 1: pb.AnimeStudiosRes.studios:type_name -> pb.Studio
+	0, // 1: pb.AnimeStudiosResponse.studios:type_name -> pb.Studio
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
@@ -252,7 +253,7 @@ func file_studio_proto_init() {
 			}
 		}
 		file_studio_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AnimeStudiosReq); i {
+			switch v := v.(*AnimeStudiosRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -264,7 +265,7 @@ func file_studio_proto_init() {
 			}
 		}
 		file_studio_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AnimeStudiosRes); i {
+			switch v := v.(*AnimeStudiosResponse); i {
 			case 0:
 				return &v.state
 			case 1:

@@ -6,23 +6,23 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 
-message MetaReq {
+message MetaRequest {
   string title = 1;
   string overview = 2;
 }
 
-message MetaRes {
+message MetaResponse {
   string title = 1;
   string overview = 2;
   google.protobuf.Timestamp createdAt = 3;
 }
 
-message AnimeMetaReq {
+message AnimeMetaRequest {
   int32 languageID = 1;
-  MetaReq meta = 2;
+  MetaRequest meta = 2;
 }
 
-message AnimeMetaRes {
+message AnimeMetaResponse {
   int32 languageName = 1;
-  MetaRes meta = 2;
+  MetaResponse meta = 2;
 }

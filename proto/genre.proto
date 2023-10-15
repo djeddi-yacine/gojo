@@ -13,10 +13,10 @@ message Genre {
     google.protobuf.Timestamp createdAt = 3;
   }
   
-  message AnimeGenresReq {
+  message AnimeGenresRequest {
     repeated int32 genreID = 1;
   }
   
-  message AnimeGenresRes {
+  message AnimeGenresResponse {
     repeated Genre genres = 1;
   }
