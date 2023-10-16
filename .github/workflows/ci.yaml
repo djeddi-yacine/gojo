@@ -42,7 +42,7 @@ jobs:
 
     - name: Install golang-migrate
       run: |
-        sudo mv migrate /usr/bin/migrate
+        go install github.com/golang-migrate/migrate/v4/cmd/migrate@latest
         which migrate
 
     - name: Run migrations
