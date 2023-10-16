@@ -11,7 +11,7 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     services:
-    
+
       postgres:
         image: postgres:16.0-alpine3.18
         env:
@@ -39,6 +39,14 @@ jobs:
       uses: actions/setup-go@v4.1.0
       with:
         go-version: '^1.21.1'
+
+    - name: Install golang-migrate
+      run: |
+        sudo mv migrate /usr/bin/migrate
+        which migrate
+
+    - name: Run migrations
+      run: make mgup
 
     - name: Test
       run: make test
