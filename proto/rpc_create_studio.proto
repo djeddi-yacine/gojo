@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package pb;
+
+import "studio.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb";
+
+message CreateStudioRequest { repeated string names = 1; }
+
+message CreateStudioResponse { repeated Studio studios = 1; }

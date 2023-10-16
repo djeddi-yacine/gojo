@@ -3,15 +3,9 @@ syntax = "proto3";
 package pb;
 
 import "meta.proto";
-import "language.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 
-message AllAnimeMetas {
-  Language language = 1;
-  MetaResponse meta = 2;
-}
-
 message GetAllAnimeMetasRequest { int64 animeID = 1; }
 
-message GetAllAnimeMetasResponse { repeated AllAnimeMetas metas = 1; }
+message GetAllAnimeMetasResponse { repeated AnimeMetaResponse metas = 1; }

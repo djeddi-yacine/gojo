@@ -7,6 +7,8 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 
 import "rpc_create_anime_movie.proto";
 import "rpc_create_genre.proto";
+import "rpc_create_studio.proto";
+import "rpc_create_language.proto";
 import "rpc_create_user.proto";
 import "rpc_login_user.proto";
 import "rpc_update_user.proto";
@@ -14,8 +16,8 @@ import "rpc_verify_email.proto";
 import "rpc_renew_token.proto";
 import "rpc_get_all_genres.proto";
 import "rpc_get_all_studios.proto";
+import "rpc_get_all_languages.proto";
 import "rpc_get_all_anime_metas.proto";
-import "language.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 
@@ -31,26 +33,6 @@ option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
 };
 
 service Gojo {
-  rpc CreateAnimeMovie(CreateAnimeMovieRequest) returns (CreateAnimeMovieResponse) {
-    option (google.api.http) = {
-      post : "/v1/anime/movie/create"
-      body : "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to create a new anime movie";
-      summary:  "Create new anime movie";
-    };
-  }
-  rpc CreateGenre(CreateGenreRequest) returns (CreateGenreResponse) {
-    option (google.api.http) = {
-      post : "/v1/anime/genre/create"
-      body : "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to create a new genre";
-      summary:  "Create new genre";
-    };
-  }
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
     option (google.api.http) = {
       post : "/v1/user/create"
@@ -97,6 +79,46 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to renew user's access token";
       summary:  "Renew access token";
+    };
+  }
+  rpc CreateAnimeMovie(CreateAnimeMovieRequest) returns (CreateAnimeMovieResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/movie/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime movie";
+      summary:  "Create new anime movie";
+    };
+  }
+  rpc CreateGenre(CreateGenreRequest) returns (CreateGenreResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/genre/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new genre";
+      summary:  "Create new genre";
+    };
+  }
+  rpc CreateStudio(CreateStudioRequest) returns (CreateStudioResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/studio/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new studio";
+      summary:  "Create new studio";
+    };
+  }
+  rpc CreateLanguage(CreateLanguageRequest) returns (CreateLanguageResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/language/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new language";
+      summary:  "Create new language";
     };
   }
   rpc GetAllGenres(GetAllGenresRequest) returns (GetAllGenresResponse) {

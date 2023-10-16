@@ -4,6 +4,8 @@ package pb;
 
 import "google/protobuf/timestamp.proto";
 
+import "language.proto";
+
 option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 
 message MetaRequest {
@@ -23,6 +25,6 @@ message AnimeMetaRequest {
 }
 
 message AnimeMetaResponse {
-  int32 languageName = 1;
+  LanguageResponse language = 1;
   MetaResponse meta = 2;
 }

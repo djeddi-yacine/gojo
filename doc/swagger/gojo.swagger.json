@@ -78,6 +78,40 @@
         ]
       }
     },
+    "/v1/anime/language/create": {
+      "post": {
+        "summary": "Create new language",
+        "description": "Use this API to create a new language",
+        "operationId": "Gojo_CreateLanguage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateLanguageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateLanguageRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/meta/{animeID}": {
       "get": {
         "summary": "Get all anime metas",
@@ -169,6 +203,40 @@
         ]
       }
     },
+    "/v1/anime/studio/create": {
+      "post": {
+        "summary": "Create new studio",
+        "description": "Use this API to create a new studio",
+        "operationId": "Gojo_CreateStudio",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateStudioResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateStudioRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/language": {
       "get": {
         "summary": "Get all app languages",
@@ -188,19 +256,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "LanguageID",
-            "in": "query",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "collectionFormat": "multi"
-          }
-        ],
         "tags": [
           "Gojo"
         ]
@@ -381,17 +436,6 @@
     }
   },
   "definitions": {
-    "pbAllAnimeMetas": {
-      "type": "object",
-      "properties": {
-        "language": {
-          "$ref": "#/definitions/pbLanguage"
-        },
-        "meta": {
-          "$ref": "#/definitions/pbMetaResponse"
-        }
-      }
-    },
     "pbAnimeGenresRequest": {
       "type": "object",
       "properties": {
@@ -400,18 +444,6 @@
           "items": {
             "type": "integer",
             "format": "int32"
-          }
-        }
-      }
-    },
-    "pbAnimeGenresResponse": {
-      "type": "object",
-      "properties": {
-        "genres": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pbGenre"
           }
         }
       }
@@ -431,9 +463,8 @@
     "pbAnimeMetaResponse": {
       "type": "object",
       "properties": {
-        "languageName": {
-          "type": "integer",
-          "format": "int32"
+        "language": {
+          "$ref": "#/definitions/pbLanguageResponse"
         },
         "meta": {
           "$ref": "#/definitions/pbMetaResponse"
@@ -481,10 +512,10 @@
           "$ref": "#/definitions/pbAnimeMetaResponse"
         },
         "animeGenres": {
-          "$ref": "#/definitions/pbAnimeGenresResponse"
+          "$ref": "#/definitions/pbAnimeGenresRequest"
         },
         "animeStudios": {
-          "$ref": "#/definitions/pbAnimeStudiosResponse"
+          "$ref": "#/definitions/pbAnimeStudiosRequest"
         },
         "createdAt": {
           "type": "string",
@@ -500,18 +531,6 @@
           "items": {
             "type": "integer",
             "format": "int32"
-          }
-        }
-      }
-    },
-    "pbAnimeStudiosResponse": {
-      "type": "object",
-      "properties": {
-        "studios": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pbStudio"
           }
         }
       }
@@ -548,7 +567,7 @@
     "pbCreateGenreRequest": {
       "type": "object",
       "properties": {
-        "name": {
+        "names": {
           "type": "array",
           "items": {
             "type": "string"
@@ -564,6 +583,53 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/pbGenre"
+          }
+        }
+      }
+    },
+    "pbCreateLanguageRequest": {
+      "type": "object",
+      "properties": {
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbLanguageRequest"
+          }
+        }
+      }
+    },
+    "pbCreateLanguageResponse": {
+      "type": "object",
+      "properties": {
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbLanguageResponse"
+          }
+        }
+      }
+    },
+    "pbCreateStudioRequest": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "pbCreateStudioResponse": {
+      "type": "object",
+      "properties": {
+        "studios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbStudio"
           }
         }
       }
@@ -616,7 +682,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/pbAllAnimeMetas"
+            "$ref": "#/definitions/pbAnimeMetaResponse"
           }
         }
       }
@@ -636,11 +702,11 @@
     "pbGetAllLanguagesResponse": {
       "type": "object",
       "properties": {
-        "Languages": {
+        "languages": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/pbLanguage"
+            "$ref": "#/definitions/pbLanguageResponse"
           }
         }
       }
@@ -657,12 +723,26 @@
         }
       }
     },
-    "pbLanguage": {
+    "pbLanguageRequest": {
+      "type": "object",
+      "properties": {
+        "LanguageCode": {
+          "type": "string"
+        },
+        "LanguageName": {
+          "type": "string"
+        }
+      }
+    },
+    "pbLanguageResponse": {
       "type": "object",
       "properties": {
         "LanguageID": {
           "type": "integer",
           "format": "int32"
+        },
+        "LanguageCode": {
+          "type": "string"
         },
         "LanguageName": {
           "type": "string"

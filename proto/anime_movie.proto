@@ -23,7 +23,7 @@ message AnimeMovieResponse {
   string premiered = 3;
   int32 duration = 4;
   AnimeMetaResponse animeMeta = 5;
-  optional AnimeGenresResponse animeGenres = 6;
-  optional AnimeStudiosResponse animeStudios = 7;
+  optional AnimeGenresRequest animeGenres = 6;
+  optional AnimeStudiosRequest animeStudios = 7;
   google.protobuf.Timestamp createdAt = 8;
 }

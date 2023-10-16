@@ -6,6 +6,6 @@ import "genre.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 
-message CreateGenreRequest { repeated string name = 1; }
+message CreateGenreRequest { repeated string names = 1; }
 
 message CreateGenreResponse { repeated Genre genres = 1; }
