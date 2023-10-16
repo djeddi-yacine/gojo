@@ -36,7 +36,7 @@ graph:
 	fi
 
 test:
-	go test -v -cover -short ./... -race
+	go test -v -cover -count=1 -short ./... -race
 
 server:
 	go run main.go
