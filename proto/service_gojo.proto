@@ -21,6 +21,7 @@ import "rpc_get_all_genres.proto";
 import "rpc_get_all_studios.proto";
 import "rpc_get_all_languages.proto";
 import "rpc_get_all_anime_metas.proto";
+import "rpc_get_all_anime_movies.proto";
 
 import "rpc_add_info_anime_movie.proto";
 
@@ -120,6 +121,15 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to get all anime metas";
       summary:  "Get all anime metas";
+    };
+  }
+  rpc GetAllAnimeMovies(GetAllAnimeMoviesRequest) returns (GetAllAnimeMoviesResponse) {
+    option (google.api.http) = {
+      get : "/v1/anime/movie"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to get all anime movies or by year";
+      summary:  "list anime movies";
     };
   }
   rpc CreateAnimeMovie(CreateAnimeMovieRequest) returns (CreateAnimeMovieResponse) {

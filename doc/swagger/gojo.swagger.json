@@ -215,6 +215,53 @@
         ]
       }
     },
+    "/v1/anime/movie": {
+      "get": {
+        "summary": "list anime movies",
+        "description": "Use this API to get all anime movies or by year",
+        "operationId": "Gojo_GetAllAnimeMovies",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetAllAnimeMoviesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/movie/create": {
       "post": {
         "summary": "Create new anime movie",
@@ -659,6 +706,10 @@
     "pbAnimeMovieResponse": {
       "type": "object",
       "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
         "originalTitle": {
           "type": "string"
         },
@@ -666,8 +717,9 @@
           "type": "string",
           "format": "date-time"
         },
-        "premiered": {
-          "type": "string"
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
         },
         "duration": {
           "type": "string"
@@ -861,6 +913,18 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/pbAnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "pbGetAllAnimeMoviesResponse": {
+      "type": "object",
+      "properties": {
+        "AnimeMovies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbAnimeMovieResponse"
           }
         }
       }

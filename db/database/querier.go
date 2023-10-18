@@ -45,6 +45,7 @@ type Querier interface {
 	GetUserByUsername(ctx context.Context, username string) (User, error)
 	ListAnimeGenres(ctx context.Context, arg ListAnimeGenresParams) ([]pgtype.Int4, error)
 	ListAnimeMetas(ctx context.Context, arg ListAnimeMetasParams) ([]int64, error)
+	ListAnimeMovies(ctx context.Context, arg ListAnimeMoviesParams) ([]AnimeMovie, error)
 	ListAnimeStudios(ctx context.Context, arg ListAnimeStudiosParams) ([]pgtype.Int4, error)
 	ListGenres(ctx context.Context, arg ListGenresParams) ([]Genre, error)
 	ListLanguages(ctx context.Context, arg ListLanguagesParams) ([]Language, error)

@@ -3,6 +3,7 @@ package api
 import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/pb"
+	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
@@ -36,5 +37,16 @@ func ConvertMeta(meta db.Meta) *pb.MetaResponse {
 		MetaID:   meta.ID,
 		Title:    meta.Title,
 		Overview: meta.Overview,
+	}
+}
+
+func ConvertAnimeMovie(a db.AnimeMovie) *pb.AnimeMovieResponse {
+	return &pb.AnimeMovieResponse{
+		ID:            a.ID,
+		OriginalTitle: a.OriginalTitle,
+		Aired:         timestamppb.New(a.Aired),
+		ReleaseYear:   a.ReleaseYear,
+		Duration:      durationpb.New(a.Duration),
+		CreatedAt:     timestamppb.New(a.CreatedAt),
 	}
 }

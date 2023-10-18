@@ -15,9 +15,10 @@ message AnimeMovieRequest {
 }
 
 message AnimeMovieResponse {
-  string originalTitle = 1;
-  google.protobuf.Timestamp aired = 2;
-  string premiered = 3;
-  google.protobuf.Duration duration = 4;
-  google.protobuf.Timestamp createdAt = 5;
+  int64 ID = 1;
+  string originalTitle = 2;
+  google.protobuf.Timestamp aired = 3;
+  int32 releaseYear = 4;
+  google.protobuf.Duration duration = 5;
+  google.protobuf.Timestamp createdAt = 6;
 }
