@@ -5,6 +5,8 @@ import (
 	"net/mail"
 	"regexp"
 	"time"
+
+	"github.com/dj-yacine-flutter/gojo/pb"
 )
 
 var (
@@ -17,6 +19,13 @@ func ValidateString(value string, minLength int, maxLength int) error {
 	n := len(value)
 	if n < minLength || n > maxLength {
 		return fmt.Errorf("must contain from %d-%d characters", minLength, maxLength)
+	}
+	return nil
+}
+
+func ValidateInt(value int32) error {
+	if value <= 0 {
+		return fmt.Errorf("%d must be a unsigned number", value)
 	}
 	return nil
 }
@@ -87,6 +96,27 @@ func ValidateToken(value string) error {
 	if !isValidToken(value) {
 		return fmt.Errorf("must be a valid token")
 
+	}
+	return nil
+}
+
+func ValidateGenreAndStudio(values []string) error {
+	for _, value := range values {
+		if err := ValidateString(value, 2, 20); err != nil {
+			return err
+		}
+	}
+	return nil
+}
+
+func ValidateLanguage(values []*pb.LanguageRequest) error {
+	for _, value := range values {
+		if err := ValidateString(value.LanguageCode, 2, 3); err != nil {
+			return err
+		}
+		if err := ValidateString(value.LanguageName, 2, 20); err != nil {
+			return err
+		}
 	}
 	return nil
 }

@@ -24,7 +24,7 @@ option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info : {
     title : "Gojoj API";
-    version : "1.1";
+    version : "1.2";
     contact : {
       name: "Dj Yacine";
       url:  "https://github.com/dj-yacine-flutter";
@@ -150,7 +150,7 @@ service Gojo {
   }
   rpc GetAllAnimeMetas(GetAllAnimeMetasRequest) returns (GetAllAnimeMetasResponse) {
     option (google.api.http) = {
-      get : "/v1/anime/meta/{animeID}"
+      get : "/v1/anime/meta"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to get all anime metas";

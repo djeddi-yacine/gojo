@@ -6,6 +6,6 @@ import "meta.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 
-message GetAllAnimeMetasRequest { int64 animeID = 1; }
+message GetAllAnimeMetasRequest { string animeID = 1; }
 
 message GetAllAnimeMetasResponse { repeated AnimeMetaResponse metas = 1; }

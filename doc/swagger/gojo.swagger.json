@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Gojoj API",
-    "version": "1.1",
+    "version": "1.2",
     "contact": {
       "name": "Dj Yacine",
       "url": "https://github.com/dj-yacine-flutter"
@@ -39,6 +39,22 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
         "tags": [
           "Gojo"
         ]
@@ -112,7 +128,7 @@
         ]
       }
     },
-    "/v1/anime/meta/{animeID}": {
+    "/v1/anime/meta": {
       "get": {
         "summary": "Get all anime metas",
         "description": "Use this API to get all anime metas",
@@ -134,10 +150,9 @@
         "parameters": [
           {
             "name": "animeID",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "format": "int64"
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "tags": [
@@ -198,6 +213,22 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
         "tags": [
           "Gojo"
         ]
@@ -256,6 +287,22 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
         "tags": [
           "Gojo"
         ]

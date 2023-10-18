@@ -6,6 +6,9 @@ import "studio.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 
-message GetAllStudiosRequest {}
+message GetAllStudiosRequest {
+    int32 pageNumber = 1;
+    int32 pageSize = 2;
+}
 
 message GetAllStudiosResponse { repeated Studio studios = 1; }
