@@ -1,13 +1,13 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-10-13T15:58:47.825Z
+-- Generated at: 2023-10-18T14:34:57.393Z
 
 CREATE TABLE "anime_movie" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "original_title" varchar NOT NULL,
   "aired" timestamptz NOT NULL,
   "release_year" integer NOT NULL,
-  "duration" integer NOT NULL,
+  "duration" interval NOT NULL DEFAULT (00h 00m 00s),
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 

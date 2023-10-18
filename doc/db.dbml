@@ -1,9 +1,16 @@
+Project gojo {
+  database_type: 'PostgreSQL'
+  Note: '''
+    # Gojo App Database
+  '''
+}
+
 Table anime_movie {
   id bigserial [primary key, unique, increment, not null]
   original_title varchar [not null]
   aired timestamptz  [not null]
   release_year integer [not null]
-  duration integer  [not null]
+  duration interval  [not null, default: `'00h 00m 00s'`]
   created_at timestamptz  [not null, default: `now()`]
     indexes {
       id

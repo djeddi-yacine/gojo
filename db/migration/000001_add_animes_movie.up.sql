@@ -7,7 +7,7 @@ CREATE TABLE "anime_movie" (
   "original_title" varchar NOT NULL,
   "aired" timestamptz NOT NULL,
   "release_year" integer NOT NULL,
-  "duration" integer NOT NULL,
+  "duration" interval NOT NULL DEFAULT ('00h 00m 00s'),
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
