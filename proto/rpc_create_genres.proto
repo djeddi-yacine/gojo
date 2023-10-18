@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package pb;
+
+import "genre.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb";
+
+message CreateGenresRequest { repeated string names = 1; }
+
+message CreateGenresResponse { repeated Genre genres = 1; }

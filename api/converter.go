@@ -31,3 +31,10 @@ func ConvertLanguage(language db.Language) *pb.LanguageResponse {
 	}
 }
 
+func ConvertMeta(meta db.Meta) *pb.MetaResponse {
+	return &pb.MetaResponse{
+		MetaID:   meta.ID,
+		Title:    meta.Title,
+		Overview: meta.Overview,
+	}
+}

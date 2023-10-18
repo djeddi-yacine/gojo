@@ -24,10 +24,10 @@ RETURNING id, original_title, aired, release_year, duration, created_at
 `
 
 type CreateAnimeMovieParams struct {
-	OriginalTitle string    `json:"original_title"`
-	Aired         time.Time `json:"aired"`
-	ReleaseYear   int32     `json:"release_year"`
-	Duration      int32     `json:"duration"`
+	OriginalTitle string          `json:"original_title"`
+	Aired         time.Time       `json:"aired"`
+	ReleaseYear   int32           `json:"release_year"`
+	Duration      pgtype.Interval `json:"duration"`
 }
 
 func (q *Queries) CreateAnimeMovie(ctx context.Context, arg CreateAnimeMovieParams) (AnimeMovie, error) {
@@ -94,7 +94,7 @@ type UpdateAnimeMovieParams struct {
 	OriginalTitle pgtype.Text        `json:"original_title"`
 	Aired         pgtype.Timestamptz `json:"aired"`
 	ReleaseYear   pgtype.Int4        `json:"release_year"`
-	Duration      pgtype.Int4        `json:"duration"`
+	Duration      pgtype.Interval    `json:"duration"`
 	ID            int64              `json:"id"`
 }
 

@@ -50,11 +50,11 @@ func (server *Server) GetAllStudios(ctx context.Context, req *pb.GetAllStudiosRe
 }
 
 func validateGetAllStudiosRequest(req *pb.GetAllStudiosRequest) (violations []*errdetails.BadRequest_FieldViolation) {
-	if err := utils.ValidateInt(req.GetPageNumber()); err != nil {
+	if err := utils.ValidateInt(int64(req.GetPageNumber())); err != nil {
 		violations = append(violations, fieldViolation("pageNumber", err))
 	}
 
-	if err := utils.ValidateInt(req.GetPageSize()); err != nil {
+	if err := utils.ValidateInt(int64(req.GetPageSize())); err != nil {
 		violations = append(violations, fieldViolation("pageSize", err))
 	}
 

@@ -3,10 +3,7 @@ syntax = "proto3";
 package pb;
 
 import "google/protobuf/timestamp.proto";
-
-import "genre.proto";
-import "studio.proto";
-import "meta.proto";
+import "google/protobuf/duration.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 
@@ -14,16 +11,13 @@ message AnimeMovieRequest {
   string originalTitle = 1;
   google.protobuf.Timestamp aired = 2;
   int32 releaseYear = 3;
-  int32 duration = 4;
+  google.protobuf.Duration duration = 4;
 }
 
 message AnimeMovieResponse {
   string originalTitle = 1;
   google.protobuf.Timestamp aired = 2;
   string premiered = 3;
-  int32 duration = 4;
-  AnimeMetaResponse animeMeta = 5;
-  optional AnimeGenresRequest animeGenres = 6;
-  optional AnimeStudiosRequest animeStudios = 7;
-  google.protobuf.Timestamp createdAt = 8;
+  google.protobuf.Duration duration = 4;
+  google.protobuf.Timestamp createdAt = 5;
 }

@@ -19,19 +19,21 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Gojo_CreateUser_FullMethodName       = "/pb.Gojo/CreateUser"
-	Gojo_LoginUser_FullMethodName        = "/pb.Gojo/LoginUser"
-	Gojo_UpdateUser_FullMethodName       = "/pb.Gojo/UpdateUser"
-	Gojo_VerifyEmail_FullMethodName      = "/pb.Gojo/VerifyEmail"
-	Gojo_RenewToken_FullMethodName       = "/pb.Gojo/RenewToken"
-	Gojo_CreateAnimeMovie_FullMethodName = "/pb.Gojo/CreateAnimeMovie"
-	Gojo_CreateGenre_FullMethodName      = "/pb.Gojo/CreateGenre"
-	Gojo_CreateStudio_FullMethodName     = "/pb.Gojo/CreateStudio"
-	Gojo_CreateLanguage_FullMethodName   = "/pb.Gojo/CreateLanguage"
-	Gojo_GetAllGenres_FullMethodName     = "/pb.Gojo/GetAllGenres"
-	Gojo_GetAllStudios_FullMethodName    = "/pb.Gojo/GetAllStudios"
-	Gojo_GetAllLanguages_FullMethodName  = "/pb.Gojo/GetAllLanguages"
-	Gojo_GetAllAnimeMetas_FullMethodName = "/pb.Gojo/GetAllAnimeMetas"
+	Gojo_CreateUser_FullMethodName           = "/pb.Gojo/CreateUser"
+	Gojo_LoginUser_FullMethodName            = "/pb.Gojo/LoginUser"
+	Gojo_UpdateUser_FullMethodName           = "/pb.Gojo/UpdateUser"
+	Gojo_VerifyEmail_FullMethodName          = "/pb.Gojo/VerifyEmail"
+	Gojo_RenewToken_FullMethodName           = "/pb.Gojo/RenewToken"
+	Gojo_GetAllGenres_FullMethodName         = "/pb.Gojo/GetAllGenres"
+	Gojo_GetAllStudios_FullMethodName        = "/pb.Gojo/GetAllStudios"
+	Gojo_GetAllLanguages_FullMethodName      = "/pb.Gojo/GetAllLanguages"
+	Gojo_GetAllAnimeMetas_FullMethodName     = "/pb.Gojo/GetAllAnimeMetas"
+	Gojo_CreateAnimeMovie_FullMethodName     = "/pb.Gojo/CreateAnimeMovie"
+	Gojo_CreateGenres_FullMethodName         = "/pb.Gojo/CreateGenres"
+	Gojo_CreateStudios_FullMethodName        = "/pb.Gojo/CreateStudios"
+	Gojo_CreateLanguages_FullMethodName      = "/pb.Gojo/CreateLanguages"
+	Gojo_CreateAnimeMovieMeta_FullMethodName = "/pb.Gojo/CreateAnimeMovieMeta"
+	Gojo_AddInfoToAnimeMovie_FullMethodName  = "/pb.Gojo/AddInfoToAnimeMovie"
 )
 
 // GojoClient is the client API for Gojo service.
@@ -43,14 +45,16 @@ type GojoClient interface {
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	VerifyEmail(ctx context.Context, in *VerifyEmailRequest, opts ...grpc.CallOption) (*VerifyEmailResponse, error)
 	RenewToken(ctx context.Context, in *RenewTokenRequest, opts ...grpc.CallOption) (*RenewTokenResponse, error)
-	CreateAnimeMovie(ctx context.Context, in *CreateAnimeMovieRequest, opts ...grpc.CallOption) (*CreateAnimeMovieResponse, error)
-	CreateGenre(ctx context.Context, in *CreateGenreRequest, opts ...grpc.CallOption) (*CreateGenreResponse, error)
-	CreateStudio(ctx context.Context, in *CreateStudioRequest, opts ...grpc.CallOption) (*CreateStudioResponse, error)
-	CreateLanguage(ctx context.Context, in *CreateLanguageRequest, opts ...grpc.CallOption) (*CreateLanguageResponse, error)
 	GetAllGenres(ctx context.Context, in *GetAllGenresRequest, opts ...grpc.CallOption) (*GetAllGenresResponse, error)
 	GetAllStudios(ctx context.Context, in *GetAllStudiosRequest, opts ...grpc.CallOption) (*GetAllStudiosResponse, error)
 	GetAllLanguages(ctx context.Context, in *GetAllLanguagesRequest, opts ...grpc.CallOption) (*GetAllLanguagesResponse, error)
 	GetAllAnimeMetas(ctx context.Context, in *GetAllAnimeMetasRequest, opts ...grpc.CallOption) (*GetAllAnimeMetasResponse, error)
+	CreateAnimeMovie(ctx context.Context, in *CreateAnimeMovieRequest, opts ...grpc.CallOption) (*CreateAnimeMovieResponse, error)
+	CreateGenres(ctx context.Context, in *CreateGenresRequest, opts ...grpc.CallOption) (*CreateGenresResponse, error)
+	CreateStudios(ctx context.Context, in *CreateStudiosRequest, opts ...grpc.CallOption) (*CreateStudiosResponse, error)
+	CreateLanguages(ctx context.Context, in *CreateLanguagesRequest, opts ...grpc.CallOption) (*CreateLanguagesResponse, error)
+	CreateAnimeMovieMeta(ctx context.Context, in *CreateAnimeMovieMetaRequest, opts ...grpc.CallOption) (*CreateAnimeMovieMetaResponse, error)
+	AddInfoToAnimeMovie(ctx context.Context, in *AddInfoAnimeMovieRequest, opts ...grpc.CallOption) (*AddInfoAnimeMovieResponse, error)
 }
 
 type gojoClient struct {
@@ -106,42 +110,6 @@ func (c *gojoClient) RenewToken(ctx context.Context, in *RenewTokenRequest, opts
 	return out, nil
 }
 
-func (c *gojoClient) CreateAnimeMovie(ctx context.Context, in *CreateAnimeMovieRequest, opts ...grpc.CallOption) (*CreateAnimeMovieResponse, error) {
-	out := new(CreateAnimeMovieResponse)
-	err := c.cc.Invoke(ctx, Gojo_CreateAnimeMovie_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *gojoClient) CreateGenre(ctx context.Context, in *CreateGenreRequest, opts ...grpc.CallOption) (*CreateGenreResponse, error) {
-	out := new(CreateGenreResponse)
-	err := c.cc.Invoke(ctx, Gojo_CreateGenre_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *gojoClient) CreateStudio(ctx context.Context, in *CreateStudioRequest, opts ...grpc.CallOption) (*CreateStudioResponse, error) {
-	out := new(CreateStudioResponse)
-	err := c.cc.Invoke(ctx, Gojo_CreateStudio_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *gojoClient) CreateLanguage(ctx context.Context, in *CreateLanguageRequest, opts ...grpc.CallOption) (*CreateLanguageResponse, error) {
-	out := new(CreateLanguageResponse)
-	err := c.cc.Invoke(ctx, Gojo_CreateLanguage_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *gojoClient) GetAllGenres(ctx context.Context, in *GetAllGenresRequest, opts ...grpc.CallOption) (*GetAllGenresResponse, error) {
 	out := new(GetAllGenresResponse)
 	err := c.cc.Invoke(ctx, Gojo_GetAllGenres_FullMethodName, in, out, opts...)
@@ -178,6 +146,60 @@ func (c *gojoClient) GetAllAnimeMetas(ctx context.Context, in *GetAllAnimeMetasR
 	return out, nil
 }
 
+func (c *gojoClient) CreateAnimeMovie(ctx context.Context, in *CreateAnimeMovieRequest, opts ...grpc.CallOption) (*CreateAnimeMovieResponse, error) {
+	out := new(CreateAnimeMovieResponse)
+	err := c.cc.Invoke(ctx, Gojo_CreateAnimeMovie_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gojoClient) CreateGenres(ctx context.Context, in *CreateGenresRequest, opts ...grpc.CallOption) (*CreateGenresResponse, error) {
+	out := new(CreateGenresResponse)
+	err := c.cc.Invoke(ctx, Gojo_CreateGenres_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gojoClient) CreateStudios(ctx context.Context, in *CreateStudiosRequest, opts ...grpc.CallOption) (*CreateStudiosResponse, error) {
+	out := new(CreateStudiosResponse)
+	err := c.cc.Invoke(ctx, Gojo_CreateStudios_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gojoClient) CreateLanguages(ctx context.Context, in *CreateLanguagesRequest, opts ...grpc.CallOption) (*CreateLanguagesResponse, error) {
+	out := new(CreateLanguagesResponse)
+	err := c.cc.Invoke(ctx, Gojo_CreateLanguages_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gojoClient) CreateAnimeMovieMeta(ctx context.Context, in *CreateAnimeMovieMetaRequest, opts ...grpc.CallOption) (*CreateAnimeMovieMetaResponse, error) {
+	out := new(CreateAnimeMovieMetaResponse)
+	err := c.cc.Invoke(ctx, Gojo_CreateAnimeMovieMeta_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gojoClient) AddInfoToAnimeMovie(ctx context.Context, in *AddInfoAnimeMovieRequest, opts ...grpc.CallOption) (*AddInfoAnimeMovieResponse, error) {
+	out := new(AddInfoAnimeMovieResponse)
+	err := c.cc.Invoke(ctx, Gojo_AddInfoToAnimeMovie_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GojoServer is the server API for Gojo service.
 // All implementations must embed UnimplementedGojoServer
 // for forward compatibility
@@ -187,14 +209,16 @@ type GojoServer interface {
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	VerifyEmail(context.Context, *VerifyEmailRequest) (*VerifyEmailResponse, error)
 	RenewToken(context.Context, *RenewTokenRequest) (*RenewTokenResponse, error)
-	CreateAnimeMovie(context.Context, *CreateAnimeMovieRequest) (*CreateAnimeMovieResponse, error)
-	CreateGenre(context.Context, *CreateGenreRequest) (*CreateGenreResponse, error)
-	CreateStudio(context.Context, *CreateStudioRequest) (*CreateStudioResponse, error)
-	CreateLanguage(context.Context, *CreateLanguageRequest) (*CreateLanguageResponse, error)
 	GetAllGenres(context.Context, *GetAllGenresRequest) (*GetAllGenresResponse, error)
 	GetAllStudios(context.Context, *GetAllStudiosRequest) (*GetAllStudiosResponse, error)
 	GetAllLanguages(context.Context, *GetAllLanguagesRequest) (*GetAllLanguagesResponse, error)
 	GetAllAnimeMetas(context.Context, *GetAllAnimeMetasRequest) (*GetAllAnimeMetasResponse, error)
+	CreateAnimeMovie(context.Context, *CreateAnimeMovieRequest) (*CreateAnimeMovieResponse, error)
+	CreateGenres(context.Context, *CreateGenresRequest) (*CreateGenresResponse, error)
+	CreateStudios(context.Context, *CreateStudiosRequest) (*CreateStudiosResponse, error)
+	CreateLanguages(context.Context, *CreateLanguagesRequest) (*CreateLanguagesResponse, error)
+	CreateAnimeMovieMeta(context.Context, *CreateAnimeMovieMetaRequest) (*CreateAnimeMovieMetaResponse, error)
+	AddInfoToAnimeMovie(context.Context, *AddInfoAnimeMovieRequest) (*AddInfoAnimeMovieResponse, error)
 	mustEmbedUnimplementedGojoServer()
 }
 
@@ -217,18 +241,6 @@ func (UnimplementedGojoServer) VerifyEmail(context.Context, *VerifyEmailRequest)
 func (UnimplementedGojoServer) RenewToken(context.Context, *RenewTokenRequest) (*RenewTokenResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RenewToken not implemented")
 }
-func (UnimplementedGojoServer) CreateAnimeMovie(context.Context, *CreateAnimeMovieRequest) (*CreateAnimeMovieResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeMovie not implemented")
-}
-func (UnimplementedGojoServer) CreateGenre(context.Context, *CreateGenreRequest) (*CreateGenreResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateGenre not implemented")
-}
-func (UnimplementedGojoServer) CreateStudio(context.Context, *CreateStudioRequest) (*CreateStudioResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateStudio not implemented")
-}
-func (UnimplementedGojoServer) CreateLanguage(context.Context, *CreateLanguageRequest) (*CreateLanguageResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateLanguage not implemented")
-}
 func (UnimplementedGojoServer) GetAllGenres(context.Context, *GetAllGenresRequest) (*GetAllGenresResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllGenres not implemented")
 }
@@ -240,6 +252,24 @@ func (UnimplementedGojoServer) GetAllLanguages(context.Context, *GetAllLanguages
 }
 func (UnimplementedGojoServer) GetAllAnimeMetas(context.Context, *GetAllAnimeMetasRequest) (*GetAllAnimeMetasResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllAnimeMetas not implemented")
+}
+func (UnimplementedGojoServer) CreateAnimeMovie(context.Context, *CreateAnimeMovieRequest) (*CreateAnimeMovieResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeMovie not implemented")
+}
+func (UnimplementedGojoServer) CreateGenres(context.Context, *CreateGenresRequest) (*CreateGenresResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateGenres not implemented")
+}
+func (UnimplementedGojoServer) CreateStudios(context.Context, *CreateStudiosRequest) (*CreateStudiosResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateStudios not implemented")
+}
+func (UnimplementedGojoServer) CreateLanguages(context.Context, *CreateLanguagesRequest) (*CreateLanguagesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateLanguages not implemented")
+}
+func (UnimplementedGojoServer) CreateAnimeMovieMeta(context.Context, *CreateAnimeMovieMetaRequest) (*CreateAnimeMovieMetaResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeMovieMeta not implemented")
+}
+func (UnimplementedGojoServer) AddInfoToAnimeMovie(context.Context, *AddInfoAnimeMovieRequest) (*AddInfoAnimeMovieResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddInfoToAnimeMovie not implemented")
 }
 func (UnimplementedGojoServer) mustEmbedUnimplementedGojoServer() {}
 
@@ -344,78 +374,6 @@ func _Gojo_RenewToken_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Gojo_CreateAnimeMovie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateAnimeMovieRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GojoServer).CreateAnimeMovie(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Gojo_CreateAnimeMovie_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GojoServer).CreateAnimeMovie(ctx, req.(*CreateAnimeMovieRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Gojo_CreateGenre_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateGenreRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GojoServer).CreateGenre(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Gojo_CreateGenre_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GojoServer).CreateGenre(ctx, req.(*CreateGenreRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Gojo_CreateStudio_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateStudioRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GojoServer).CreateStudio(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Gojo_CreateStudio_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GojoServer).CreateStudio(ctx, req.(*CreateStudioRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Gojo_CreateLanguage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateLanguageRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GojoServer).CreateLanguage(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Gojo_CreateLanguage_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GojoServer).CreateLanguage(ctx, req.(*CreateLanguageRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Gojo_GetAllGenres_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetAllGenresRequest)
 	if err := dec(in); err != nil {
@@ -488,6 +446,114 @@ func _Gojo_GetAllAnimeMetas_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Gojo_CreateAnimeMovie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAnimeMovieRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).CreateAnimeMovie(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_CreateAnimeMovie_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).CreateAnimeMovie(ctx, req.(*CreateAnimeMovieRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gojo_CreateGenres_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateGenresRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).CreateGenres(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_CreateGenres_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).CreateGenres(ctx, req.(*CreateGenresRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gojo_CreateStudios_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateStudiosRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).CreateStudios(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_CreateStudios_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).CreateStudios(ctx, req.(*CreateStudiosRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gojo_CreateLanguages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateLanguagesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).CreateLanguages(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_CreateLanguages_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).CreateLanguages(ctx, req.(*CreateLanguagesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gojo_CreateAnimeMovieMeta_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAnimeMovieMetaRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).CreateAnimeMovieMeta(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_CreateAnimeMovieMeta_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).CreateAnimeMovieMeta(ctx, req.(*CreateAnimeMovieMetaRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gojo_AddInfoToAnimeMovie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddInfoAnimeMovieRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).AddInfoToAnimeMovie(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_AddInfoToAnimeMovie_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).AddInfoToAnimeMovie(ctx, req.(*AddInfoAnimeMovieRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Gojo_ServiceDesc is the grpc.ServiceDesc for Gojo service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -516,22 +582,6 @@ var Gojo_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Gojo_RenewToken_Handler,
 		},
 		{
-			MethodName: "CreateAnimeMovie",
-			Handler:    _Gojo_CreateAnimeMovie_Handler,
-		},
-		{
-			MethodName: "CreateGenre",
-			Handler:    _Gojo_CreateGenre_Handler,
-		},
-		{
-			MethodName: "CreateStudio",
-			Handler:    _Gojo_CreateStudio_Handler,
-		},
-		{
-			MethodName: "CreateLanguage",
-			Handler:    _Gojo_CreateLanguage_Handler,
-		},
-		{
 			MethodName: "GetAllGenres",
 			Handler:    _Gojo_GetAllGenres_Handler,
 		},
@@ -546,6 +596,30 @@ var Gojo_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAllAnimeMetas",
 			Handler:    _Gojo_GetAllAnimeMetas_Handler,
+		},
+		{
+			MethodName: "CreateAnimeMovie",
+			Handler:    _Gojo_CreateAnimeMovie_Handler,
+		},
+		{
+			MethodName: "CreateGenres",
+			Handler:    _Gojo_CreateGenres_Handler,
+		},
+		{
+			MethodName: "CreateStudios",
+			Handler:    _Gojo_CreateStudios_Handler,
+		},
+		{
+			MethodName: "CreateLanguages",
+			Handler:    _Gojo_CreateLanguages_Handler,
+		},
+		{
+			MethodName: "CreateAnimeMovieMeta",
+			Handler:    _Gojo_CreateAnimeMovieMeta_Handler,
+		},
+		{
+			MethodName: "AddInfoToAnimeMovie",
+			Handler:    _Gojo_AddInfoToAnimeMovie_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

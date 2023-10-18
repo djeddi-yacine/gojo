@@ -23,7 +23,7 @@ func ValidateString(value string, minLength int, maxLength int) error {
 	return nil
 }
 
-func ValidateInt(value int32) error {
+func ValidateInt(value int64) error {
 	if value <= 0 {
 		return fmt.Errorf("%d must be a unsigned number", value)
 	}

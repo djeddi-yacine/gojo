@@ -25,12 +25,12 @@ type AnimeMeta struct {
 }
 
 type AnimeMovie struct {
-	ID            int64     `json:"id"`
-	OriginalTitle string    `json:"original_title"`
-	Aired         time.Time `json:"aired"`
-	ReleaseYear   int32     `json:"release_year"`
-	Duration      int32     `json:"duration"`
-	CreatedAt     time.Time `json:"created_at"`
+	ID            int64           `json:"id"`
+	OriginalTitle string          `json:"original_title"`
+	Aired         time.Time       `json:"aired"`
+	ReleaseYear   int32           `json:"release_year"`
+	Duration      pgtype.Interval `json:"duration"`
+	CreatedAt     time.Time       `json:"created_at"`
 }
 
 type AnimeStudio struct {

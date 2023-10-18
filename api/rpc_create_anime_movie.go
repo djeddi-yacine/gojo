@@ -8,29 +8,39 @@ import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/pb"
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/jackc/pgx/v5/pgtype"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func (server *Server) CreateAnimeMovie(ctx context.Context, req *pb.CreateAnimeMovieRequest) (*pb.CreateAnimeMovieResponse, error) {
+	authPayload, err := server.authorizeUser(ctx, []string{utils.AdminRole, utils.RootRoll})
+	if err != nil {
+		return nil, unAuthenticatedError(err)
+	}
+
+	if authPayload.Role != utils.RootRoll {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot create anime movie")
+	}
+
 	if violations := validateCreateAnimeMovieRequest(req); violations != nil {
 		return nil, invalidArgumentError(violations)
 	}
 
-	argAnimeTx := db.CreateAnimeMovieTxParams{
-		CreateAnimeMovieParams: db.CreateAnimeMovieParams{
-			OriginalTitle: req.AnimeMovie.GetOriginalTitle(),
-			Aired:         req.AnimeMovie.GetAired().AsTime(),
-			ReleaseYear:   req.AnimeMovie.GetReleaseYear(),
-			Duration:      req.AnimeMovie.GetDuration(),
+	arg := db.CreateAnimeMovieParams{
+		OriginalTitle: req.AnimeMovie.GetOriginalTitle(),
+		Aired:         req.AnimeMovie.GetAired().AsTime(),
+		ReleaseYear:   req.AnimeMovie.GetReleaseYear(),
+		Duration: pgtype.Interval{
+			Valid:        true,
+			Microseconds: req.AnimeMovie.GetDuration().AsDuration().Microseconds(),
 		},
-		GenreIDs:  req.GetAnimeGenres().GetGenreID(),
-		StudioIDs: req.GetAnimeStudios().GetStudioID(),
 	}
 
-	resultAnime, err := server.gojo.CreateAnimeMovieTx(ctx, argAnimeTx)
+	anime, err := server.gojo.CreateAnimeMovie(ctx, arg)
 	if err != nil {
 		db.ErrorSQL(err)
 		return nil, status.Errorf(codes.Internal, "failed to create anime movie : %s", err)
@@ -39,32 +49,26 @@ func (server *Server) CreateAnimeMovie(ctx context.Context, req *pb.CreateAnimeM
 	res := &pb.CreateAnimeMovieResponse{
 		AnimeMovie: &pb.AnimeMovieResponse{
 			OriginalTitle: req.AnimeMovie.GetOriginalTitle(),
-			Aired:         timestamppb.New(resultAnime.AnimeMovie.Aired),
-			Premiered:     fmt.Sprint(resultAnime.AnimeMovie.ReleaseYear),
-			Duration:      resultAnime.AnimeMovie.Duration,
-			CreatedAt:     timestamppb.New(resultAnime.AnimeMovie.CreatedAt),
+			Aired:         timestamppb.New(anime.Aired),
+			Premiered:     fmt.Sprint(anime.ReleaseYear),
+			Duration:      durationpb.New(time.Duration(anime.Duration.Microseconds)),
+			CreatedAt:     timestamppb.New(anime.CreatedAt),
 		},
 	}
 	return res, nil
 }
 
 func validateCreateAnimeMovieRequest(req *pb.CreateAnimeMovieRequest) (violations []*errdetails.BadRequest_FieldViolation) {
-	if req.AnimeMovie.OriginalTitle != "" {
-		if err := utils.ValidateString(req.GetAnimeMovie().GetOriginalTitle(), 1, 100); err != nil {
-			violations = append(violations, fieldViolation("originalTitle", err))
-		}
+	if err := utils.ValidateString(req.GetAnimeMovie().GetOriginalTitle(), 2, 100); err != nil {
+		violations = append(violations, fieldViolation("originalTitle", err))
 	}
 
-	if req.AnimeMovie.Aired != nil {
-		if err := utils.ValidateDate(req.GetAnimeMovie().GetAired().AsTime().Format(time.DateOnly)); err != nil {
-			violations = append(violations, fieldViolation("aired", err))
-		}
+	if err := utils.ValidateDate(req.GetAnimeMovie().GetAired().AsTime().Format(time.DateOnly)); err != nil {
+		violations = append(violations, fieldViolation("aired", err))
 	}
 
-	if req.AnimeMovie.ReleaseYear != 0 {
-		if err := utils.ValidateYear(req.GetAnimeMovie().GetReleaseYear()); err != nil {
-			violations = append(violations, fieldViolation("releaseYear", err))
-		}
+	if err := utils.ValidateYear(req.GetAnimeMovie().GetReleaseYear()); err != nil {
+		violations = append(violations, fieldViolation("releaseYear", err))
 	}
 
 	return violations

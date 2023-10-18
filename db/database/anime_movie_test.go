@@ -15,7 +15,10 @@ func createRandomAnimeMovie(t *testing.T) AnimeMovie {
 		OriginalTitle: utils.RandomString(6),
 		Aired:         time.Now(),
 		ReleaseYear:   utils.RandomInt(1900, 2024),
-		Duration:      utils.RandomInt(60, 180),
+		Duration:      pgtype.Interval{
+			Valid: true,
+			Microseconds: int64(utils.RandomInt(0, 999999)),
+		},
 	}
 
 	anime, err := testGojo.CreateAnimeMovie(context.Background(), arg)
@@ -66,8 +69,8 @@ func TestUpdateAnimeMovie(t *testing.T) {
 			Int32: createRandomAnimeMovie(t).ReleaseYear,
 			Valid: true,
 		},
-		Duration: pgtype.Int4{
-			Int32: createRandomAnimeMovie(t).Duration,
+		Duration: pgtype.Interval{
+			Microseconds: createRandomAnimeMovie(t).Duration.Microseconds,
 			Valid: true,
 		},
 	}

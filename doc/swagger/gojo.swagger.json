@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Gojoj API",
-    "version": "1.2",
+    "version": "1.3",
     "contact": {
       "name": "Dj Yacine",
       "url": "https://github.com/dj-yacine-flutter"
@@ -62,14 +62,14 @@
     },
     "/v1/anime/genre/create": {
       "post": {
-        "summary": "Create new genre",
-        "description": "Use this API to create a new genre",
-        "operationId": "Gojo_CreateGenre",
+        "summary": "Create new genres",
+        "description": "Use this API to create a new genres",
+        "operationId": "Gojo_CreateGenres",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbCreateGenreResponse"
+              "$ref": "#/definitions/pbCreateGenresResponse"
             }
           },
           "default": {
@@ -85,8 +85,63 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbCreateGenreRequest"
+              "$ref": "#/definitions/pbCreateGenresRequest"
             }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/info": {
+      "post": {
+        "summary": "add info to anime movie",
+        "description": "Use this API to add info to anime movie like studios and genres",
+        "operationId": "Gojo_AddInfoToAnimeMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbAddInfoAnimeMovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "genres.genreID",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "studios.studioID",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
           }
         ],
         "tags": [
@@ -96,14 +151,14 @@
     },
     "/v1/anime/language/create": {
       "post": {
-        "summary": "Create new language",
-        "description": "Use this API to create a new language",
-        "operationId": "Gojo_CreateLanguage",
+        "summary": "Create new languages",
+        "description": "Use this API to create a new languages",
+        "operationId": "Gojo_CreateLanguages",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbCreateLanguageResponse"
+              "$ref": "#/definitions/pbCreateLanguagesResponse"
             }
           },
           "default": {
@@ -119,7 +174,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbCreateLanguageRequest"
+              "$ref": "#/definitions/pbCreateLanguagesRequest"
             }
           }
         ],
@@ -194,6 +249,40 @@
         ]
       }
     },
+    "/v1/anime/movie/meta/create": {
+      "post": {
+        "summary": "Create new anime meta",
+        "description": "Use this API to create a new anime meta",
+        "operationId": "Gojo_CreateAnimeMovieMeta",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateAnimeMovieMetaResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateAnimeMovieMetaRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/studio": {
       "get": {
         "summary": "Get all anime studios",
@@ -236,14 +325,14 @@
     },
     "/v1/anime/studio/create": {
       "post": {
-        "summary": "Create new studio",
-        "description": "Use this API to create a new studio",
-        "operationId": "Gojo_CreateStudio",
+        "summary": "Create new studios",
+        "description": "Use this API to create a new studios",
+        "operationId": "Gojo_CreateStudios",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbCreateStudioResponse"
+              "$ref": "#/definitions/pbCreateStudiosResponse"
             }
           },
           "default": {
@@ -259,7 +348,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbCreateStudioRequest"
+              "$ref": "#/definitions/pbCreateStudiosRequest"
             }
           }
         ],
@@ -483,6 +572,20 @@
     }
   },
   "definitions": {
+    "pbAddInfoAnimeMovieResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/pbAnimeMovieResponse"
+        },
+        "genres": {
+          "$ref": "#/definitions/pbAnimeGenresResponse"
+        },
+        "studios": {
+          "$ref": "#/definitions/pbAnimeStudiosResponse"
+        }
+      }
+    },
     "pbAnimeGenresRequest": {
       "type": "object",
       "properties": {
@@ -491,6 +594,18 @@
           "items": {
             "type": "integer",
             "format": "int32"
+          }
+        }
+      }
+    },
+    "pbAnimeGenresResponse": {
+      "type": "object",
+      "properties": {
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbGenre"
           }
         }
       }
@@ -515,6 +630,10 @@
         },
         "meta": {
           "$ref": "#/definitions/pbMetaResponse"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -533,8 +652,7 @@
           "format": "int32"
         },
         "duration": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string"
         }
       }
     },
@@ -552,17 +670,7 @@
           "type": "string"
         },
         "duration": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "animeMeta": {
-          "$ref": "#/definitions/pbAnimeMetaResponse"
-        },
-        "animeGenres": {
-          "$ref": "#/definitions/pbAnimeGenresRequest"
-        },
-        "animeStudios": {
-          "$ref": "#/definitions/pbAnimeStudiosRequest"
+          "type": "string"
         },
         "createdAt": {
           "type": "string",
@@ -582,24 +690,47 @@
         }
       }
     },
+    "pbAnimeStudiosResponse": {
+      "type": "object",
+      "properties": {
+        "studios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbStudio"
+          }
+        }
+      }
+    },
+    "pbCreateAnimeMovieMetaRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeMeta": {
+          "$ref": "#/definitions/pbAnimeMetaRequest"
+        }
+      }
+    },
+    "pbCreateAnimeMovieMetaResponse": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeMeta": {
+          "$ref": "#/definitions/pbAnimeMetaResponse"
+        }
+      }
+    },
     "pbCreateAnimeMovieRequest": {
       "type": "object",
       "properties": {
         "animeMovie": {
           "$ref": "#/definitions/pbAnimeMovieRequest"
-        },
-        "animeGenres": {
-          "$ref": "#/definitions/pbAnimeGenresRequest"
-        },
-        "animeStudios": {
-          "$ref": "#/definitions/pbAnimeStudiosRequest"
-        },
-        "animeMetas": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pbAnimeMetaRequest"
-          }
         }
       }
     },
@@ -611,7 +742,7 @@
         }
       }
     },
-    "pbCreateGenreRequest": {
+    "pbCreateGenresRequest": {
       "type": "object",
       "properties": {
         "names": {
@@ -622,7 +753,7 @@
         }
       }
     },
-    "pbCreateGenreResponse": {
+    "pbCreateGenresResponse": {
       "type": "object",
       "properties": {
         "genres": {
@@ -634,7 +765,7 @@
         }
       }
     },
-    "pbCreateLanguageRequest": {
+    "pbCreateLanguagesRequest": {
       "type": "object",
       "properties": {
         "languages": {
@@ -646,7 +777,7 @@
         }
       }
     },
-    "pbCreateLanguageResponse": {
+    "pbCreateLanguagesResponse": {
       "type": "object",
       "properties": {
         "languages": {
@@ -658,7 +789,7 @@
         }
       }
     },
-    "pbCreateStudioRequest": {
+    "pbCreateStudiosRequest": {
       "type": "object",
       "properties": {
         "names": {
@@ -669,7 +800,7 @@
         }
       }
     },
-    "pbCreateStudioResponse": {
+    "pbCreateStudiosResponse": {
       "type": "object",
       "properties": {
         "studios": {
@@ -850,15 +981,15 @@
     "pbMetaResponse": {
       "type": "object",
       "properties": {
+        "metaID": {
+          "type": "string",
+          "format": "int64"
+        },
         "title": {
           "type": "string"
         },
         "overview": {
           "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
         }
       }
     },
