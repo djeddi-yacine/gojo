@@ -94,61 +94,6 @@
         ]
       }
     },
-    "/v1/anime/info": {
-      "post": {
-        "summary": "add info to anime movie",
-        "description": "Use this API to add info to anime movie like studios and genres",
-        "operationId": "Gojo_AddInfoToAnimeMovie",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/pbAddInfoAnimeMovieResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "animeID",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "int64"
-          },
-          {
-            "name": "genres.genreID",
-            "in": "query",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "collectionFormat": "multi"
-          },
-          {
-            "name": "studios.studioID",
-            "in": "query",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "collectionFormat": "multi"
-          }
-        ],
-        "tags": [
-          "Gojo"
-        ]
-      }
-    },
     "/v1/anime/language/create": {
       "post": {
         "summary": "Create new languages",
@@ -264,6 +209,61 @@
         ]
       }
     },
+    "/v1/anime/movie/info": {
+      "post": {
+        "summary": "add info to anime movie",
+        "description": "Use this API to add info to anime movie like studios and genres",
+        "operationId": "Gojo_AddInfoToAnimeMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbAddInfoAnimeMovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "genres.genreID",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "studios.studioID",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/movie/meta": {
       "get": {
         "summary": "Get all anime movie metas",
@@ -299,8 +299,8 @@
     },
     "/v1/anime/movie/meta/create": {
       "post": {
-        "summary": "Create new anime meta",
-        "description": "Use this API to create a new anime meta",
+        "summary": "Create new anime movie meta",
+        "description": "Use this API to create a new anime movie meta",
         "operationId": "Gojo_CreateAnimeMovieMeta",
         "responses": {
           "200": {
@@ -323,6 +323,209 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/pbCreateAnimeMovieMetaRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/serie": {
+      "get": {
+        "summary": "list anime series",
+        "description": "Use this API to get all anime series or by year",
+        "operationId": "Gojo_GetAllAnimeSeries",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetAllAnimeSeriesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/serie/create": {
+      "post": {
+        "summary": "Create new anime serie",
+        "description": "Use this API to create a new anime serie",
+        "operationId": "Gojo_CreateAnimeSerie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateAnimeSerieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateAnimeSerieRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/serie/info": {
+      "post": {
+        "summary": "add info to anime serie",
+        "description": "Use this API to add info to anime serie like studios and genres",
+        "operationId": "Gojo_AddInfoToAnimeSerie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbAddInfoAnimeSerieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "genres.genreID",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "studios.studioID",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/serie/meta": {
+      "get": {
+        "summary": "Get all anime serie metas",
+        "description": "Use this API to get all anime serie metas",
+        "operationId": "Gojo_GetAllAnimeSerieMetas",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetAllAnimeSerieMetasResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/serie/meta/create": {
+      "post": {
+        "summary": "Create new anime serie meta",
+        "description": "Use this API to create a new anime serie meta",
+        "operationId": "Gojo_CreateAnimeSerieMeta",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateAnimeSerieMetaResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateAnimeSerieMetaRequest"
             }
           }
         ],
@@ -634,6 +837,20 @@
         }
       }
     },
+    "pbAddInfoAnimeSerieResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/pbAnimeSerieResponse"
+        },
+        "genres": {
+          "$ref": "#/definitions/pbAnimeGenresResponse"
+        },
+        "studios": {
+          "$ref": "#/definitions/pbAnimeStudiosResponse"
+        }
+      }
+    },
     "pbAnimeGenresRequest": {
       "type": "object",
       "properties": {
@@ -731,6 +948,52 @@
         }
       }
     },
+    "pbAnimeSerieRequest": {
+      "type": "object",
+      "properties": {
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "duration": {
+          "type": "string"
+        }
+      }
+    },
+    "pbAnimeSerieResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "pbAnimeStudiosRequest": {
       "type": "object",
       "properties": {
@@ -792,6 +1055,46 @@
       "properties": {
         "animeMovie": {
           "$ref": "#/definitions/pbAnimeMovieResponse"
+        }
+      }
+    },
+    "pbCreateAnimeSerieMetaRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeMeta": {
+          "$ref": "#/definitions/pbAnimeMetaRequest"
+        }
+      }
+    },
+    "pbCreateAnimeSerieMetaResponse": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeMeta": {
+          "$ref": "#/definitions/pbAnimeMetaResponse"
+        }
+      }
+    },
+    "pbCreateAnimeSerieRequest": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/pbAnimeSerieRequest"
+        }
+      }
+    },
+    "pbCreateAnimeSerieResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/pbAnimeSerieResponse"
         }
       }
     },
@@ -926,6 +1229,30 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/pbAnimeMovieResponse"
+          }
+        }
+      }
+    },
+    "pbGetAllAnimeSerieMetasResponse": {
+      "type": "object",
+      "properties": {
+        "metas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbAnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "pbGetAllAnimeSeriesResponse": {
+      "type": "object",
+      "properties": {
+        "AnimeSeries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbAnimeSerieResponse"
           }
         }
       }

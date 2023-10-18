@@ -5,11 +5,14 @@ package pb;
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
-import "rpc_create_anime_movie.proto";
 import "rpc_create_genres.proto";
 import "rpc_create_studios.proto";
 import "rpc_create_languages.proto";
+
+import "rpc_create_anime_movie.proto";
 import "rpc_create_anime_movie_meta.proto";
+import "rpc_create_anime_serie.proto";
+import "rpc_create_anime_serie_meta.proto";
 
 import "rpc_create_user.proto";
 import "rpc_login_user.proto";
@@ -20,10 +23,14 @@ import "rpc_renew_token.proto";
 import "rpc_get_all_genres.proto";
 import "rpc_get_all_studios.proto";
 import "rpc_get_all_languages.proto";
+
 import "rpc_get_all_anime_movie_metas.proto";
 import "rpc_get_all_anime_movies.proto";
+import "rpc_get_all_anime_serie_metas.proto";
+import "rpc_get_all_anime_series.proto";
 
 import "rpc_add_info_anime_movie.proto";
+import "rpc_add_info_anime_serie.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 
@@ -123,6 +130,15 @@ service Gojo {
       summary:  "Get all anime movie metas";
     };
   }
+  rpc GetAllAnimeSerieMetas(GetAllAnimeSerieMetasRequest) returns (GetAllAnimeSerieMetasResponse) {
+    option (google.api.http) = {
+      get : "/v1/anime/serie/meta"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to get all anime serie metas";
+      summary:  "Get all anime serie metas";
+    };
+  }
   rpc GetAllAnimeMovies(GetAllAnimeMoviesRequest) returns (GetAllAnimeMoviesResponse) {
     option (google.api.http) = {
       get : "/v1/anime/movie"
@@ -130,6 +146,15 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to get all anime movies or by year";
       summary:  "list anime movies";
+    };
+  }
+  rpc GetAllAnimeSeries(GetAllAnimeSeriesRequest) returns (GetAllAnimeSeriesResponse) {
+    option (google.api.http) = {
+      get : "/v1/anime/serie"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to get all anime series or by year";
+      summary:  "list anime series";
     };
   }
   rpc CreateAnimeMovie(CreateAnimeMovieRequest) returns (CreateAnimeMovieResponse) {
@@ -140,6 +165,16 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to create a new anime movie";
       summary:  "Create new anime movie";
+    };
+  }
+  rpc CreateAnimeSerie(CreateAnimeSerieRequest) returns (CreateAnimeSerieResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/serie/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime serie";
+      summary:  "Create new anime serie";
     };
   }
   rpc CreateGenres(CreateGenresRequest) returns (CreateGenresResponse) {
@@ -178,17 +213,36 @@ service Gojo {
       body : "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to create a new anime meta";
-      summary:  "Create new anime meta";
+      description : "Use this API to create a new anime movie meta";
+      summary:  "Create new anime movie meta";
+    };
+  }
+  rpc CreateAnimeSerieMeta(CreateAnimeSerieMetaRequest) returns (CreateAnimeSerieMetaResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/serie/meta/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime serie meta";
+      summary:  "Create new anime serie meta";
     };
   }
   rpc AddInfoToAnimeMovie(AddInfoAnimeMovieRequest) returns (AddInfoAnimeMovieResponse) {
     option (google.api.http) = {
-      post : "/v1/anime/info"
+      post : "/v1/anime/movie/info"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to add info to anime movie like studios and genres";
       summary:  "add info to anime movie";
+    };
+  }
+  rpc AddInfoToAnimeSerie(AddInfoAnimeSerieRequest) returns (AddInfoAnimeSerieResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/serie/info"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to add info to anime serie like studios and genres";
+      summary:  "add info to anime serie";
     };
   }
 }
