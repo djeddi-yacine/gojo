@@ -2,8 +2,6 @@ package db
 
 import (
 	"context"
-
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
 type VerifyEmailTxParams struct {
@@ -31,11 +29,8 @@ func (gojo *SQLGojo) VerifyEmailTx(ctx context.Context, arg VerifyEmailTxParams)
 		}
 
 		result.User, err = q.UpdateUser(ctx, UpdateUserParams{
-			Username: result.VerifyEmail.Username,
-			IsEmailVerified: pgtype.Bool{
-				Bool:  true,
-				Valid: true,
-			},
+			Username:        result.VerifyEmail.Username,
+			IsEmailVerified: true,
 		})
 		return err
 	})

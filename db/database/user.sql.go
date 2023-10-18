@@ -7,8 +7,7 @@ package db
 
 import (
 	"context"
-
-	"github.com/jackc/pgx/v5/pgtype"
+	"time"
 )
 
 const createUser = `-- name: CreateUser :one
@@ -151,33 +150,33 @@ func (q *Queries) ListUsers(ctx context.Context, arg ListUsersParams) ([]User, e
 const updateUser = `-- name: UpdateUser :one
 UPDATE users
 SET
-  hashed_password = COALESCE($1, hashed_password),
-  password_changed_at = COALESCE($2, password_changed_at),
-  full_name = COALESCE($3, full_name),
-  email = COALESCE($4, email),
-  is_email_verified = COALESCE($5, is_email_verified)
+  hashed_password = COALESCE($2, hashed_password),
+  password_changed_at = COALESCE($3, password_changed_at),
+  full_name = COALESCE($4, full_name),
+  email = COALESCE($5, email),
+  is_email_verified = COALESCE($6, is_email_verified)
 WHERE
-  username = $6
+  username = $1
 RETURNING id, username, email, hashed_password, full_name, password_changed_at, created_at, is_email_verified, role
 `
 
 type UpdateUserParams struct {
-	HashedPassword    pgtype.Text        `json:"hashed_password"`
-	PasswordChangedAt pgtype.Timestamptz `json:"password_changed_at"`
-	FullName          pgtype.Text        `json:"full_name"`
-	Email             pgtype.Text        `json:"email"`
-	IsEmailVerified   pgtype.Bool        `json:"is_email_verified"`
-	Username          string             `json:"username"`
+	Username          string    `json:"username"`
+	HashedPassword    string    `json:"hashed_password"`
+	PasswordChangedAt time.Time `json:"password_changed_at"`
+	FullName          string    `json:"full_name"`
+	Email             string    `json:"email"`
+	IsEmailVerified   bool      `json:"is_email_verified"`
 }
 
 func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error) {
 	row := q.db.QueryRow(ctx, updateUser,
+		arg.Username,
 		arg.HashedPassword,
 		arg.PasswordChangedAt,
 		arg.FullName,
 		arg.Email,
 		arg.IsEmailVerified,
-		arg.Username,
 	)
 	var i User
 	err := row.Scan(

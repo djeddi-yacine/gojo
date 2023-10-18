@@ -2,13 +2,11 @@ package api
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/pb"
 	"github.com/dj-yacine-flutter/gojo/utils"
-	"github.com/jackc/pgx/v5/pgtype"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -34,10 +32,7 @@ func (server *Server) CreateAnimeMovie(ctx context.Context, req *pb.CreateAnimeM
 		OriginalTitle: req.AnimeMovie.GetOriginalTitle(),
 		Aired:         req.AnimeMovie.GetAired().AsTime(),
 		ReleaseYear:   req.AnimeMovie.GetReleaseYear(),
-		Duration: pgtype.Interval{
-			Valid:        true,
-			Microseconds: req.AnimeMovie.GetDuration().AsDuration().Microseconds(),
-		},
+		Duration:      req.AnimeMovie.GetDuration().AsDuration(),
 	}
 
 	anime, err := server.gojo.CreateAnimeMovie(ctx, arg)
@@ -48,10 +43,11 @@ func (server *Server) CreateAnimeMovie(ctx context.Context, req *pb.CreateAnimeM
 
 	res := &pb.CreateAnimeMovieResponse{
 		AnimeMovie: &pb.AnimeMovieResponse{
+			ID:            anime.ID,
 			OriginalTitle: req.AnimeMovie.GetOriginalTitle(),
 			Aired:         timestamppb.New(anime.Aired),
-			Premiered:     fmt.Sprint(anime.ReleaseYear),
-			Duration:      durationpb.New(time.Duration(anime.Duration.Microseconds)),
+			ReleaseYear:   anime.ReleaseYear,
+			Duration:      durationpb.New(anime.Duration),
 			CreatedAt:     timestamppb.New(anime.CreatedAt),
 		},
 	}

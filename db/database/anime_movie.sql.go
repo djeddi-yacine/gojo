@@ -8,8 +8,6 @@ package db
 import (
 	"context"
 	"time"
-
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createAnimeMovie = `-- name: CreateAnimeMovie :one
@@ -24,10 +22,10 @@ RETURNING id, original_title, aired, release_year, duration, created_at
 `
 
 type CreateAnimeMovieParams struct {
-	OriginalTitle string          `json:"original_title"`
-	Aired         time.Time       `json:"aired"`
-	ReleaseYear   int32           `json:"release_year"`
-	Duration      pgtype.Interval `json:"duration"`
+	OriginalTitle string        `json:"original_title"`
+	Aired         time.Time     `json:"aired"`
+	ReleaseYear   int32         `json:"release_year"`
+	Duration      time.Duration `json:"duration"`
 }
 
 func (q *Queries) CreateAnimeMovie(ctx context.Context, arg CreateAnimeMovieParams) (AnimeMovie, error) {
@@ -78,33 +76,73 @@ func (q *Queries) GetAnimeMovie(ctx context.Context, id int64) (AnimeMovie, erro
 	return i, err
 }
 
+const listAnimeMovies = `-- name: ListAnimeMovies :many
+SELECT id, original_title, aired, release_year, duration, created_at FROM anime_movie
+WHERE release_year = $1 OR $1 = 0
+LIMIT $2
+OFFSET $3
+`
+
+type ListAnimeMoviesParams struct {
+	ReleaseYear int32 `json:"release_year"`
+	Limit       int32 `json:"limit"`
+	Offset      int32 `json:"offset"`
+}
+
+func (q *Queries) ListAnimeMovies(ctx context.Context, arg ListAnimeMoviesParams) ([]AnimeMovie, error) {
+	rows, err := q.db.Query(ctx, listAnimeMovies, arg.ReleaseYear, arg.Limit, arg.Offset)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []AnimeMovie{}
+	for rows.Next() {
+		var i AnimeMovie
+		if err := rows.Scan(
+			&i.ID,
+			&i.OriginalTitle,
+			&i.Aired,
+			&i.ReleaseYear,
+			&i.Duration,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const updateAnimeMovie = `-- name: UpdateAnimeMovie :one
 UPDATE anime_movie
 SET
-  original_title = COALESCE($1, original_title),
-  aired = COALESCE($2, aired),
-  release_year = COALESCE($3, release_year),
-  duration = COALESCE($4, duration)
+  original_title = COALESCE($2, original_title),
+  aired = COALESCE($3, aired),
+  release_year = COALESCE($4, release_year),
+  duration = COALESCE($5, duration)
 WHERE
-  id = $5
+  id = $1
 RETURNING id, original_title, aired, release_year, duration, created_at
 `
 
 type UpdateAnimeMovieParams struct {
-	OriginalTitle pgtype.Text        `json:"original_title"`
-	Aired         pgtype.Timestamptz `json:"aired"`
-	ReleaseYear   pgtype.Int4        `json:"release_year"`
-	Duration      pgtype.Interval    `json:"duration"`
-	ID            int64              `json:"id"`
+	ID            int64         `json:"id"`
+	OriginalTitle string        `json:"original_title"`
+	Aired         time.Time     `json:"aired"`
+	ReleaseYear   int32         `json:"release_year"`
+	Duration      time.Duration `json:"duration"`
 }
 
 func (q *Queries) UpdateAnimeMovie(ctx context.Context, arg UpdateAnimeMovieParams) (AnimeMovie, error) {
 	row := q.db.QueryRow(ctx, updateAnimeMovie,
+		arg.ID,
 		arg.OriginalTitle,
 		arg.Aired,
 		arg.ReleaseYear,
 		arg.Duration,
-		arg.ID,
 	)
 	var i AnimeMovie
 	err := row.Scan(

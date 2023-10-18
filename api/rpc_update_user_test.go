@@ -11,7 +11,6 @@ import (
 	"github.com/dj-yacine-flutter/gojo/token"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/golang/mock/gomock"
-	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -44,14 +43,8 @@ func TestUpdateUserAPI(t *testing.T) {
 			buildStubs: func(gojo *mockdb.MockGojo) {
 				arg := db.UpdateUserParams{
 					Username: user.Username,
-					FullName: pgtype.Text{
-						String: newName,
-						Valid:  true,
-					},
-					Email: pgtype.Text{
-						String: newEmail,
-						Valid:  true,
-					},
+					FullName: newName,
+					Email:    newEmail,
 				}
 				updatedUser := db.User{
 					Username:          user.Username,

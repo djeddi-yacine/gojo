@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/dj-yacine-flutter/gojo/utils"
-	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
 )
 
@@ -15,10 +14,7 @@ func createRandomAnimeMovie(t *testing.T) AnimeMovie {
 		OriginalTitle: utils.RandomString(6),
 		Aired:         time.Now(),
 		ReleaseYear:   utils.RandomInt(1900, 2024),
-		Duration:      pgtype.Interval{
-			Valid: true,
-			Microseconds: int64(utils.RandomInt(0, 999999)),
-		},
+		Duration:      time.Duration(int64(utils.RandomInt(0, 999999))),
 	}
 
 	anime, err := testGojo.CreateAnimeMovie(context.Background(), arg)
@@ -56,23 +52,11 @@ func TestGetAnimeMovie(t *testing.T) {
 func TestUpdateAnimeMovie(t *testing.T) {
 	anime1 := createRandomAnimeMovie(t)
 	arg := UpdateAnimeMovieParams{
-		ID: anime1.ID,
-		OriginalTitle: pgtype.Text{
-			String: createRandomAnimeMovie(t).OriginalTitle,
-			Valid:  true,
-		},
-		Aired: pgtype.Timestamptz{
-			Time:  createRandomAnimeMovie(t).Aired,
-			Valid: true,
-		},
-		ReleaseYear: pgtype.Int4{
-			Int32: createRandomAnimeMovie(t).ReleaseYear,
-			Valid: true,
-		},
-		Duration: pgtype.Interval{
-			Microseconds: createRandomAnimeMovie(t).Duration.Microseconds,
-			Valid: true,
-		},
+		ID:            anime1.ID,
+		OriginalTitle: createRandomAnimeMovie(t).OriginalTitle,
+		Aired:         createRandomAnimeMovie(t).Aired,
+		ReleaseYear:   createRandomAnimeMovie(t).ReleaseYear,
+		Duration:      createRandomAnimeMovie(t).Duration,
 	}
 	anime2, err := testGojo.UpdateAnimeMovie(context.Background(), arg)
 	require.NoError(t, err)
