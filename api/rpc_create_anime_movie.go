@@ -55,7 +55,7 @@ func (server *Server) CreateAnimeMovie(ctx context.Context, req *pb.CreateAnimeM
 }
 
 func validateCreateAnimeMovieRequest(req *pb.CreateAnimeMovieRequest) (violations []*errdetails.BadRequest_FieldViolation) {
-	if err := utils.ValidateString(req.GetAnimeMovie().GetOriginalTitle(), 2, 100); err != nil {
+	if err := utils.ValidateString(req.GetAnimeMovie().GetOriginalTitle(), 2, 500); err != nil {
 		violations = append(violations, fieldViolation("originalTitle", err))
 	}
 

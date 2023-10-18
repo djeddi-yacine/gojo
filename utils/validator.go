@@ -81,7 +81,7 @@ func ValidateDuration(value string) error {
 }
 
 func ValidateYear(value int32) error {
-	if value < 1000 || value > 9999 {
+	if value < 1900 || value > 2100 {
 		return fmt.Errorf("invalid year number")
 	}
 	return nil
@@ -102,7 +102,7 @@ func ValidateToken(value string) error {
 
 func ValidateGenreAndStudio(values []string) error {
 	for _, value := range values {
-		if err := ValidateString(value, 2, 20); err != nil {
+		if err := ValidateString(value, 2, 50); err != nil {
 			return err
 		}
 	}
@@ -114,7 +114,7 @@ func ValidateLanguage(values []*pb.LanguageRequest) error {
 		if err := ValidateString(value.LanguageCode, 2, 3); err != nil {
 			return err
 		}
-		if err := ValidateString(value.LanguageName, 2, 20); err != nil {
+		if err := ValidateString(value.LanguageName, 2, 30); err != nil {
 			return err
 		}
 	}

@@ -183,38 +183,6 @@
         ]
       }
     },
-    "/v1/anime/meta": {
-      "get": {
-        "summary": "Get all anime metas",
-        "description": "Use this API to get all anime metas",
-        "operationId": "Gojo_GetAllAnimeMetas",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/pbGetAllAnimeMetasResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "animeID",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "tags": [
-          "Gojo"
-        ]
-      }
-    },
     "/v1/anime/movie": {
       "get": {
         "summary": "list anime movies",
@@ -289,6 +257,39 @@
             "schema": {
               "$ref": "#/definitions/pbCreateAnimeMovieRequest"
             }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/movie/meta": {
+      "get": {
+        "summary": "Get all anime movie metas",
+        "description": "Use this API to get all anime movie metas",
+        "operationId": "Gojo_GetAllAnimeMovieMetas",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetAllAnimeMovieMetasResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
           }
         ],
         "tags": [
@@ -905,7 +906,7 @@
         }
       }
     },
-    "pbGetAllAnimeMetasResponse": {
+    "pbGetAllAnimeMovieMetasResponse": {
       "type": "object",
       "properties": {
         "metas": {

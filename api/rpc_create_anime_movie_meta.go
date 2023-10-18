@@ -61,13 +61,13 @@ func validateCreateAnimeMovieMetaRequest(req *pb.CreateAnimeMovieMetaRequest) (v
 		violations = append(violations, fieldViolation("languageID", err))
 	}
 
-	if err := utils.ValidateString(req.GetAnimeMeta().GetMeta().GetTitle(), 2, 100); err != nil {
+	if err := utils.ValidateString(req.GetAnimeMeta().GetMeta().GetTitle(), 2, 500); err != nil {
 		violations = append(violations, fieldViolation("title", err))
 	}
 
-	if err := utils.ValidateString(req.GetAnimeMeta().GetMeta().GetOverview(), 5, 100); err != nil {
+	if err := utils.ValidateString(req.GetAnimeMeta().GetMeta().GetOverview(), 5, 5000); err != nil {
 		violations = append(violations, fieldViolation("overview", err))
 	}
-	
+
 	return violations
 }
