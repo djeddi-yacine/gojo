@@ -20,13 +20,13 @@ WHERE username = $1 LIMIT 1;
 -- name: UpdateUser :one
 UPDATE users
 SET
-  hashed_password = COALESCE($2, hashed_password),
-  password_changed_at = COALESCE($3, password_changed_at),
-  full_name = COALESCE($4, full_name),
-  email = COALESCE($5, email),
-  is_email_verified = COALESCE($6, is_email_verified)
+  hashed_password = COALESCE(sqlc.narg(hashed_password), hashed_password),
+  password_changed_at = COALESCE(sqlc.narg(password_changed_at), password_changed_at),
+  full_name = COALESCE(sqlc.narg(full_name), full_name),
+  email = COALESCE(sqlc.narg(email), email),
+  is_email_verified = COALESCE(sqlc.narg(is_email_verified), is_email_verified)
 WHERE
-  username = $1
+  username = sqlc.arg(username)
 RETURNING *;
 
 -- name: DeleteUser :exec

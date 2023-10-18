@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
 )
 
@@ -57,7 +58,10 @@ func TestUpdateUserOnlyFullName(t *testing.T) {
 	newFullName := utils.RandomString(6)
 	updatedUser, err := testGojo.UpdateUser(context.Background(), UpdateUserParams{
 		Username: oldUser.Username,
-		FullName: newFullName,
+		FullName: pgtype.Text{
+			String: newFullName,
+			Valid:  true,
+		},
 	})
 
 	require.NoError(t, err)
@@ -73,7 +77,10 @@ func TestUpdateUserOnlyEmail(t *testing.T) {
 	newEmail := utils.RandomEmail()
 	updatedUser, err := testGojo.UpdateUser(context.Background(), UpdateUserParams{
 		Username: oldUser.Username,
-		Email:    newEmail,
+		Email: pgtype.Text{
+			String: newEmail,
+			Valid:  true,
+		},
 	})
 
 	require.NoError(t, err)
@@ -91,8 +98,11 @@ func TestUpdateUserOnlyPassword(t *testing.T) {
 	require.NoError(t, err)
 
 	updatedUser, err := testGojo.UpdateUser(context.Background(), UpdateUserParams{
-		Username:       oldUser.Username,
-		HashedPassword: newHashedPassword,
+		Username: oldUser.Username,
+		HashedPassword: pgtype.Text{
+			String: newHashedPassword,
+			Valid:  true,
+		},
 	})
 
 	require.NoError(t, err)
@@ -112,10 +122,19 @@ func TestUpdateUserAllFields(t *testing.T) {
 	require.NoError(t, err)
 
 	updatedUser, err := testGojo.UpdateUser(context.Background(), UpdateUserParams{
-		Username:       oldUser.Username,
-		FullName:       newFullName,
-		Email:          newEmail,
-		HashedPassword: newHashedPassword,
+		Username: oldUser.Username,
+		FullName: pgtype.Text{
+			String: newFullName,
+			Valid:  true,
+		},
+		Email: pgtype.Text{
+			String: newEmail,
+			Valid:  true,
+		},
+		HashedPassword: pgtype.Text{
+			String: newHashedPassword,
+			Valid:  true,
+		},
 	})
 
 	require.NoError(t, err)

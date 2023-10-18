@@ -15,12 +15,12 @@ WHERE id = $1 LIMIT 1;
 -- name: UpdateAnimeMovie :one
 UPDATE anime_movie
 SET
-  original_title = COALESCE($2, original_title),
-  aired = COALESCE($3, aired),
-  release_year = COALESCE($4, release_year),
-  duration = COALESCE($5, duration)
+  original_title = COALESCE(sqlc.narg(original_title), original_title),
+  aired = COALESCE(sqlc.narg(aired), aired),
+  release_year = COALESCE(sqlc.narg(release_year), release_year),
+  duration = COALESCE(sqlc.narg(duration), duration)
 WHERE
-  id = $1
+  id = sqlc.arg(id)
 RETURNING *;
 
 -- name: DeleteAnimeMovie :exec

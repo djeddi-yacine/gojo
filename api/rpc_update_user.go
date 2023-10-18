@@ -8,6 +8,7 @@ import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/pb"
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/jackc/pgx/v5/pgtype"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -30,13 +31,14 @@ func (server *Server) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest)
 
 	arg := db.UpdateUserParams{
 		Username: req.GetUsername(),
-	}
-	if req.FullName != nil {
-		arg.FullName = req.GetFullName()
-	}
-
-	if req.Email != nil {
-		arg.Email = req.GetEmail()
+		FullName: pgtype.Text{
+			String: req.GetFullName(),
+			Valid:  req.FullName != nil,
+		},
+		Email: pgtype.Text{
+			String: req.GetEmail(),
+			Valid:  req.Email != nil,
+		},
 	}
 
 	if req.Password != nil {
@@ -44,8 +46,14 @@ func (server *Server) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest)
 		if err != nil {
 			return nil, status.Errorf(codes.Internal, "failed to hash password : %s", err)
 		}
-		arg.HashedPassword = hashedPassword
-		arg.PasswordChangedAt = time.Now()
+		arg.HashedPassword = pgtype.Text{
+			String: hashedPassword,
+			Valid:  true,
+		}
+		arg.PasswordChangedAt = pgtype.Timestamptz{
+			Time:  time.Now(),
+			Valid: true,
+		}
 	}
 
 	user, err := server.gojo.UpdateUser(ctx, arg)

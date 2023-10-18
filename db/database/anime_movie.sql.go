@@ -8,6 +8,8 @@ package db
 import (
 	"context"
 	"time"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createAnimeMovie = `-- name: CreateAnimeMovie :one
@@ -119,30 +121,30 @@ func (q *Queries) ListAnimeMovies(ctx context.Context, arg ListAnimeMoviesParams
 const updateAnimeMovie = `-- name: UpdateAnimeMovie :one
 UPDATE anime_movie
 SET
-  original_title = COALESCE($2, original_title),
-  aired = COALESCE($3, aired),
-  release_year = COALESCE($4, release_year),
-  duration = COALESCE($5, duration)
+  original_title = COALESCE($1, original_title),
+  aired = COALESCE($2, aired),
+  release_year = COALESCE($3, release_year),
+  duration = COALESCE($4, duration)
 WHERE
-  id = $1
+  id = $5
 RETURNING id, original_title, aired, release_year, duration, created_at
 `
 
 type UpdateAnimeMovieParams struct {
-	ID            int64         `json:"id"`
-	OriginalTitle string        `json:"original_title"`
-	Aired         time.Time     `json:"aired"`
-	ReleaseYear   int32         `json:"release_year"`
-	Duration      time.Duration `json:"duration"`
+	OriginalTitle pgtype.Text        `json:"original_title"`
+	Aired         pgtype.Timestamptz `json:"aired"`
+	ReleaseYear   pgtype.Int4        `json:"release_year"`
+	Duration      pgtype.Interval    `json:"duration"`
+	ID            int64              `json:"id"`
 }
 
 func (q *Queries) UpdateAnimeMovie(ctx context.Context, arg UpdateAnimeMovieParams) (AnimeMovie, error) {
 	row := q.db.QueryRow(ctx, updateAnimeMovie,
-		arg.ID,
 		arg.OriginalTitle,
 		arg.Aired,
 		arg.ReleaseYear,
 		arg.Duration,
+		arg.ID,
 	)
 	var i AnimeMovie
 	err := row.Scan(
