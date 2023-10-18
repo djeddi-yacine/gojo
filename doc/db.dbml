@@ -5,140 +5,6 @@ Project gojo {
   '''
 }
 
-Table anime_movies {
-  id bigserial [primary key, unique, increment, not null]
-  original_title varchar [not null]
-  aired timestamptz  [not null]
-  release_year integer [not null]
-  duration interval  [not null, default: `'00h 00m 00s'`]
-  created_at timestamptz  [not null, default: `now()`]
-    indexes {
-      id
-      original_title
-      release_year
-      (original_title, duration, aired) [unique]
-    }
-}
-
-Table anime_series {
-  id bigserial [primary key, unique, increment, not null]
-  original_title varchar [not null]
-  aired timestamptz  [not null]
-  release_year integer [not null]
-  duration interval  [not null, default: `'00h 00m 00s'`]
-  created_at timestamptz  [not null, default: `now()`]
-    indexes {
-      id
-      original_title
-      release_year
-      (original_title, duration, aired) [unique]
-    }
-}
-
-Table studios {
-  id integer [primary key,unique, increment, not null]
-  studio_name varchar [unique, not null]
-  created_at timestamptz [not null, default: `now()`]
-    indexes {
-      id
-      studio_name
-    }
-}
-
-Table anime_movie_studio {
-  id bigserial [primary key, unique, increment, not null]
-  anime_id bigserial [not null]
-  studio_id integer [ref: > studios.id]
-  indexes {
-    anime_id
-    studio_id
-  }
-}
-
-Table anime_serie_studio {
-  id bigserial [primary key, unique, increment, not null]
-  anime_id bigserial [not null]
-  studio_id integer [ref: > studios.id]
-  indexes {
-    anime_id
-    studio_id
-  }
-}
-
-Table genres {
-  id integer [primary key, unique, increment, not null]
-  genre_name varchar [unique, not null]
-  created_at timestamptz [not null, default: `now()`]
-    indexes {
-      id
-      genre_name
-    }
-}
-
-Table anime_movie_genre {
-  id bigserial [primary key, unique, increment, not null]
-  anime_id bigserial [not null]
-  genre_id integer [ref: > genres.id]
-  indexes {
-    anime_id
-    genre_id
-  }
-}
-
-Table anime_serie_genre {
-  id bigserial [primary key, unique, increment, not null]
-  anime_id bigserial [not null]
-  genre_id integer [ref: > genres.id]
-  indexes {
-    anime_id
-    genre_id
-  }
-}
-
-Table languages {
-  id integer [primary key, unique, increment, not null]
-  language_code varchar [unique, not null]
-  language_name varchar [not null]
-  created_at timestamptz [not null, default: `now()`]
-    indexes {
-      id
-      language_code
-    }
-}
-
-Table anime_movie_metas {
-  id bigserial [primary key, unique, increment, not null]
-  anime_id bigserial [not null]
-  language_id integer [not null]
-  meta_id bigserial [not null]
-    indexes {
-      id
-      (anime_id, language_id) [unique]
-    }
-}
-
-Table anime_serie_metas {
-  id bigserial [primary key, unique, increment, not null]
-  anime_id bigserial [not null]
-  language_id integer [not null]
-  meta_id bigserial [not null]
-    indexes {
-      id
-      (anime_id, language_id) [unique]
-    }
-}
-
-Table metas {
-  id bigserial [primary key, unique, increment, not null]
-  title varchar [not null]
-  overview varchar [not null]
-  created_at timestamptz [not null, default: `now()`]
-    indexes {
-      id
-      title
-    }
-}
-
 Table users {
   id bigserial [pk, unique, increment, not null]
   role varchar [not null, default: 'member']
@@ -176,24 +42,164 @@ Table verify_emails {
   expired_at timestamptz [not null, default: `now() + interval '15 minutes'`]
 }
 
+Table anime_movies {
+  id bigserial [primary key, unique, increment, not null]
+  original_title varchar [not null]
+  aired timestamptz  [not null]
+  release_year integer [not null]
+  duration interval  [not null, default: `'00h 00m 00s'`]
+  created_at timestamptz  [not null, default: `now()`]
+    indexes {
+      id
+      original_title
+      release_year
+      (original_title, duration, aired) [unique]
+    }
+}
 
+Table anime_series {
+  id bigserial [primary key, unique, increment, not null]
+  original_title varchar [not null]
+  aired timestamptz  [not null]
+  release_year integer [not null]
+  duration interval  [not null, default: `'00h 00m 00s'`]
+  created_at timestamptz  [not null, default: `now()`]
+    indexes {
+      id
+      original_title
+      release_year
+      (original_title, duration, aired) [unique]
+    }
+}
+
+Table languages {
+  id integer [primary key, unique, increment, not null]
+  language_code varchar [unique, not null]
+  language_name varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      language_code
+    }
+}
+
+Table studios {
+  id integer [primary key,unique, increment, not null]
+  studio_name varchar [unique, not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      studio_name
+    }
+}
+
+Table genres {
+  id integer [primary key, unique, increment, not null]
+  genre_name varchar [unique, not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      genre_name
+    }
+}
+
+Table metas {
+  id bigserial [primary key, unique, increment, not null]
+  title varchar [not null]
+  overview varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      title
+    }
+}
+
+Table anime_movie_studios {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  studio_id integer [ref: > studios.id]
+  indexes {
+    anime_id
+    studio_id
+  }
+}
+
+Table anime_serie_studios {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  studio_id integer [ref: > studios.id]
+  indexes {
+    anime_id
+    studio_id
+  }
+}
+
+Table anime_movie_genres {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  genre_id integer [ref: > genres.id]
+  indexes {
+    anime_id
+    genre_id
+  }
+}
+
+Table anime_serie_genres {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  genre_id integer [ref: > genres.id]
+  indexes {
+    anime_id
+    genre_id
+  }
+}
+
+Table anime_movie_metas {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  language_id integer [not null]
+  meta_id bigserial [not null]
+    indexes {
+      id
+      (anime_id, language_id) [unique]
+    }
+}
+
+Table anime_serie_metas {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  language_id integer [not null]
+  meta_id bigserial [not null]
+    indexes {
+      id
+      (anime_id, language_id) [unique]
+    }
+}
+
+
+Ref {
+  users.username - sessions.username [delete: cascade]
+}
+Ref {
+  users.username - verify_emails.username [delete: cascade]
+}
 Ref {
   anime_movies.id - anime_movie_metas.anime_id [delete: cascade]
 }
 Ref {
-  anime_movies.id - anime_movie_studio.anime_id [delete: cascade]
+  anime_movies.id - anime_movie_studios.anime_id [delete: cascade]
 }
 Ref {
-  anime_movies.id - anime_movie_genre.anime_id [delete: cascade]
+  anime_movies.id - anime_movie_genres.anime_id [delete: cascade]
 }
 Ref {
   anime_series.id - anime_serie_metas.anime_id [delete: cascade]
 }
 Ref {
-  anime_series.id - anime_serie_studio.anime_id [delete: cascade]
+  anime_series.id - anime_serie_studios.anime_id [delete: cascade]
 }
 Ref {
-  anime_series.id - anime_serie_genre.anime_id [delete: cascade]
+  anime_series.id - anime_serie_genres.anime_id [delete: cascade]
 }
 Ref {
   languages.id - anime_movie_metas.language_id [delete: cascade]
@@ -206,10 +212,4 @@ Ref {
 }
 Ref {
   metas.id - anime_serie_metas.meta_id [delete: cascade]
-}
-Ref {
-  users.username - sessions.username [delete: cascade]
-}
-Ref {
-  users.username - verify_emails.username [delete: cascade]
 }

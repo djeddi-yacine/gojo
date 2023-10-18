@@ -7,13 +7,13 @@ CREATE TABLE "anime_movies" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-CREATE TABLE "anime_movie_studio" (
+CREATE TABLE "anime_movie_studios" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
   "studio_id" integer
 );
 
-CREATE TABLE "anime_movie_genre" (
+CREATE TABLE "anime_movie_genres" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
   "genre_id" integer
@@ -35,28 +35,28 @@ CREATE INDEX ON "anime_movies" ("release_year");
 
 CREATE UNIQUE INDEX ON "anime_movies" ("original_title", "duration", "aired");
 
-CREATE INDEX ON "anime_movie_studio" ("anime_id");
+CREATE INDEX ON "anime_movie_studios" ("anime_id");
 
-CREATE INDEX ON "anime_movie_studio" ("studio_id");
+CREATE INDEX ON "anime_movie_studios" ("studio_id");
 
-CREATE INDEX ON "anime_movie_genre" ("anime_id");
+CREATE INDEX ON "anime_movie_genres" ("anime_id");
 
-CREATE INDEX ON "anime_movie_genre" ("genre_id");
+CREATE INDEX ON "anime_movie_genres" ("genre_id");
 
 CREATE INDEX ON "anime_movie_metas" ("id");
 
 CREATE UNIQUE INDEX ON "anime_movie_metas" ("anime_id", "language_id");
 
 
-ALTER TABLE "anime_movie_studio" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id");
+ALTER TABLE "anime_movie_studios" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id");
 
-ALTER TABLE "anime_movie_genre" ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id");
+ALTER TABLE "anime_movie_genres" ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id");
 
 ALTER TABLE "anime_movie_metas" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_movie_studio" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_movie_studios" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_movie_genre" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_movie_genres" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_metas" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
 
