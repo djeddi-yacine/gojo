@@ -11,19 +11,6 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
-type AnimeGenre struct {
-	ID      int64       `json:"id"`
-	AnimeID int64       `json:"anime_id"`
-	GenreID pgtype.Int4 `json:"genre_id"`
-}
-
-type AnimeMeta struct {
-	ID         int64 `json:"id"`
-	AnimeID    int64 `json:"anime_id"`
-	LanguageID int32 `json:"language_id"`
-	MetaID     int64 `json:"meta_id"`
-}
-
 type AnimeMovie struct {
 	ID            int64         `json:"id"`
 	OriginalTitle string        `json:"original_title"`
@@ -33,7 +20,48 @@ type AnimeMovie struct {
 	CreatedAt     time.Time     `json:"created_at"`
 }
 
-type AnimeStudio struct {
+type AnimeMovieGenre struct {
+	ID      int64       `json:"id"`
+	AnimeID int64       `json:"anime_id"`
+	GenreID pgtype.Int4 `json:"genre_id"`
+}
+
+type AnimeMovieMeta struct {
+	ID         int64 `json:"id"`
+	AnimeID    int64 `json:"anime_id"`
+	LanguageID int32 `json:"language_id"`
+	MetaID     int64 `json:"meta_id"`
+}
+
+type AnimeMovieStudio struct {
+	ID       int64       `json:"id"`
+	AnimeID  int64       `json:"anime_id"`
+	StudioID pgtype.Int4 `json:"studio_id"`
+}
+
+type AnimeSerie struct {
+	ID            int64         `json:"id"`
+	OriginalTitle string        `json:"original_title"`
+	Aired         time.Time     `json:"aired"`
+	ReleaseYear   int32         `json:"release_year"`
+	Duration      time.Duration `json:"duration"`
+	CreatedAt     time.Time     `json:"created_at"`
+}
+
+type AnimeSerieGenre struct {
+	ID      int64       `json:"id"`
+	AnimeID int64       `json:"anime_id"`
+	GenreID pgtype.Int4 `json:"genre_id"`
+}
+
+type AnimeSerieMeta struct {
+	ID         int64 `json:"id"`
+	AnimeID    int64 `json:"anime_id"`
+	LanguageID int32 `json:"language_id"`
+	MetaID     int64 `json:"meta_id"`
+}
+
+type AnimeSerieStudio struct {
 	ID       int64       `json:"id"`
 	AnimeID  int64       `json:"anime_id"`
 	StudioID pgtype.Int4 `json:"studio_id"`

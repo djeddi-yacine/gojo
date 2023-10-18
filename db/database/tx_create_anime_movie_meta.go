@@ -27,12 +27,12 @@ func (gojo *SQLGojo) CreateAnimeMovieMetaTx(ctx context.Context, arg CreateAnime
 			return err
 		}
 
-		arg := CreateAnimeMetaParams{
+		arg := CreateAnimeMovieMetaParams{
 			AnimeID:    arg.AnimeID,
 			LanguageID: arg.LanguageID,
 			MetaID:     meta.ID,
 		}
-		animeMeta, err := q.CreateAnimeMeta(ctx, arg)
+		animeMeta, err := q.CreateAnimeMovieMeta(ctx, arg)
 		if err != nil {
 			ErrorSQL(err)
 			return err

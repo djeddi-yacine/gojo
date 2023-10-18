@@ -7,91 +7,91 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func createRandomAnimeMeta(t *testing.T) AnimeMeta {
-	a := createRandomAnimeMovie(t)
+func createRandomAnimeSerieMeta(t *testing.T) AnimeSerieMeta {
+	a := createRandomAnimeSerie(t)
 	require.NotEmpty(t, a)
 	m := createRandomMeta(t)
 	require.NotEmpty(t, m)
 	l := createRandomLanguage(t)
 	require.NotEmpty(t, l)
-	arg := CreateAnimeMetaParams{
+	arg := CreateAnimeSerieMetaParams{
 		AnimeID:    a.ID,
 		MetaID:     m.ID,
 		LanguageID: l.ID,
 	}
 
-	animeMeta, err := testGojo.CreateAnimeMeta(context.Background(), arg)
+	animeSerieMeta, err := testGojo.CreateAnimeSerieMeta(context.Background(), arg)
 	require.NoError(t, err)
-	require.NotEmpty(t, animeMeta)
+	require.NotEmpty(t, animeSerieMeta)
 
-	require.Equal(t, arg.AnimeID, animeMeta.AnimeID)
-	require.Equal(t, arg.MetaID, animeMeta.MetaID)
-	require.Equal(t, arg.LanguageID, animeMeta.LanguageID)
+	require.Equal(t, arg.AnimeID, animeSerieMeta.AnimeID)
+	require.Equal(t, arg.MetaID, animeSerieMeta.MetaID)
+	require.Equal(t, arg.LanguageID, animeSerieMeta.LanguageID)
 
-	require.NotZero(t, animeMeta.ID)
+	require.NotZero(t, animeSerieMeta.ID)
 
-	return animeMeta
+	return animeSerieMeta
 }
 
-func TestCreateAnimeMeta(t *testing.T) {
-	createRandomAnimeMeta(t)
+func TestCreateAnimeSerieMeta(t *testing.T) {
+	createRandomAnimeSerieMeta(t)
 }
 
-func TestGetAnimeMeta(t *testing.T) {
-	a := createRandomAnimeMovie(t)
+func TestGetAnimeSerieMeta(t *testing.T) {
+	a := createRandomAnimeSerie(t)
 	require.NotEmpty(t, a)
 	m := createRandomMeta(t)
 	require.NotEmpty(t, m)
 	l := createRandomLanguage(t)
 	require.NotEmpty(t, l)
-	arg1 := CreateAnimeMetaParams{
+	arg1 := CreateAnimeSerieMetaParams{
 		AnimeID:    a.ID,
 		MetaID:     m.ID,
 		LanguageID: l.ID,
 	}
 
-	Meta1, err := testGojo.CreateAnimeMeta(context.Background(), arg1)
+	Meta1, err := testGojo.CreateAnimeSerieMeta(context.Background(), arg1)
 	require.NoError(t, err)
 	require.NotEmpty(t, Meta1)
 
-	arg2 := GetAnimeMetaParams{
+	arg2 := GetAnimeSerieMetaParams{
 		AnimeID:    a.ID,
 		LanguageID: l.ID,
 	}
 
-	mID, err := testGojo.GetAnimeMeta(context.Background(), arg2)
+	mID, err := testGojo.GetAnimeSerieMeta(context.Background(), arg2)
 	require.NoError(t, err)
 	require.NotZero(t, mID)
 	require.Equal(t, m.ID, mID)
 }
 
-func TestUpdateAnimeMeta(t *testing.T) {
-	a := createRandomAnimeMovie(t)
+func TestUpdateAnimeSerieMeta(t *testing.T) {
+	a := createRandomAnimeSerie(t)
 	require.NotEmpty(t, a)
 	m := createRandomMeta(t)
 	require.NotEmpty(t, m)
 	l := createRandomLanguage(t)
 	require.NotEmpty(t, l)
-	arg1 := CreateAnimeMetaParams{
+	arg1 := CreateAnimeSerieMetaParams{
 		AnimeID:    a.ID,
 		MetaID:     m.ID,
 		LanguageID: l.ID,
 	}
 
-	Meta1, err := testGojo.CreateAnimeMeta(context.Background(), arg1)
+	Meta1, err := testGojo.CreateAnimeSerieMeta(context.Background(), arg1)
 	require.NoError(t, err)
 	require.NotEmpty(t, Meta1)
 
 	nm := createRandomMeta(t)
 	require.NotEmpty(t, nm)
 
-	arg2 := UpdateAnimeMetaParams{
+	arg2 := UpdateAnimeSerieMetaParams{
 		AnimeID:    a.ID,
 		LanguageID: l.ID,
 		MetaID:     nm.ID,
 	}
 
-	Meta2, err := testGojo.UpdateAnimeMeta(context.Background(), arg2)
+	Meta2, err := testGojo.UpdateAnimeSerieMeta(context.Background(), arg2)
 	require.NoError(t, err)
 	require.NotEmpty(t, Meta2)
 
@@ -101,34 +101,34 @@ func TestUpdateAnimeMeta(t *testing.T) {
 	require.NotEqual(t, Meta1.MetaID, Meta2.MetaID)
 }
 
-func TestDeleteAnimeMeta(t *testing.T) {
-	a := createRandomAnimeMovie(t)
+func TestDeleteAnimeSerieMeta(t *testing.T) {
+	a := createRandomAnimeSerie(t)
 	require.NotEmpty(t, a)
 	m := createRandomMeta(t)
 	require.NotEmpty(t, m)
 	l := createRandomLanguage(t)
 	require.NotEmpty(t, l)
-	arg1 := CreateAnimeMetaParams{
+	arg1 := CreateAnimeSerieMetaParams{
 		AnimeID:    a.ID,
 		MetaID:     m.ID,
 		LanguageID: l.ID,
 	}
 
-	Meta, err := testGojo.CreateAnimeMeta(context.Background(), arg1)
+	Meta, err := testGojo.CreateAnimeSerieMeta(context.Background(), arg1)
 	require.NoError(t, err)
 	require.NotEmpty(t, Meta)
 
-	arg2 := DeleteAnimeMetaParams{
+	arg2 := DeleteAnimeSerieMetaParams{
 		AnimeID:    Meta.AnimeID,
 		LanguageID: Meta.LanguageID,
 	}
 
-	err = testGojo.DeleteAnimeMeta(context.Background(), arg2)
+	err = testGojo.DeleteAnimeSerieMeta(context.Background(), arg2)
 	require.NoError(t, err)
 }
 
-func TestListAnimeMetas(t *testing.T) {
-	a := createRandomAnimeMovie(t)
+func TestListAnimeSerieMetas(t *testing.T) {
+	a := createRandomAnimeSerie(t)
 	require.NotEmpty(t, a)
 
 	for i := 0; i < 3; i++ {
@@ -136,21 +136,21 @@ func TestListAnimeMetas(t *testing.T) {
 		require.NotEmpty(t, m)
 		l := createRandomLanguage(t)
 		require.NotEmpty(t, l)
-		arg := CreateAnimeMetaParams{
+		arg := CreateAnimeSerieMetaParams{
 			AnimeID:    a.ID,
 			LanguageID: l.ID,
 			MetaID:     m.ID,
 		}
-		testGojo.CreateAnimeMeta(context.Background(), arg)
+		testGojo.CreateAnimeSerieMeta(context.Background(), arg)
 	}
 
-	arg := ListAnimeMetasParams{
+	arg := ListAnimeSerieMetasParams{
 		AnimeID: a.ID,
 		Limit:   3,
 		Offset:  0,
 	}
 
-	Metas, err := testGojo.ListAnimeMetas(context.Background(), arg)
+	Metas, err := testGojo.ListAnimeSerieMetas(context.Background(), arg)
 	require.NoError(t, err)
 	require.NotNil(t, Metas)
 	require.Len(t, Metas, 3)

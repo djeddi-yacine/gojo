@@ -14,8 +14,8 @@ type AddInfoAnimeMovieTxParams struct {
 
 type AddInfoAnimeMovieTxResult struct {
 	AnimeMovie
-	AnimeGenres  []AnimeGenre
-	AnimeStudios []AnimeStudio
+	AnimeMovieGenres  []AnimeMovieGenre
+	AnimeMovieStudios []AnimeMovieStudio
 }
 
 func (gojo *SQLGojo) AddInfoAnimeMovieTx(ctx context.Context, arg AddInfoAnimeMovieTxParams) (AddInfoAnimeMovieTxResult, error) {
@@ -31,28 +31,28 @@ func (gojo *SQLGojo) AddInfoAnimeMovieTx(ctx context.Context, arg AddInfoAnimeMo
 		}
 
 		if arg.GenreIDs != nil {
-			var argGenre CreateAnimeGenreParams
+			var argGenre CreateAnimeMovieGenreParams
 			for _, g := range arg.GenreIDs {
-				argGenre = CreateAnimeGenreParams{
+				argGenre = CreateAnimeMovieGenreParams{
 					AnimeID: result.AnimeMovie.ID,
 					GenreID: pgtype.Int4{
 						Int32: g,
 						Valid: true,
 					},
 				}
-				ag, err := q.CreateAnimeGenre(ctx, argGenre)
+				ag, err := q.CreateAnimeMovieGenre(ctx, argGenre)
 				if err != nil {
 					ErrorSQL(err)
 					return err
 				}
-				result.AnimeGenres = append(result.AnimeGenres, ag)
+				result.AnimeMovieGenres = append(result.AnimeMovieGenres, ag)
 			}
 		}
 
 		if arg.StudioIDs != nil {
-			var argStudio CreateAnimeStudioParams
+			var argStudio CreateAnimeMovieStudioParams
 			for _, s := range arg.StudioIDs {
-				argStudio = CreateAnimeStudioParams{
+				argStudio = CreateAnimeMovieStudioParams{
 					AnimeID: result.AnimeMovie.ID,
 					StudioID: pgtype.Int4{
 						Int32: s,
@@ -60,12 +60,12 @@ func (gojo *SQLGojo) AddInfoAnimeMovieTx(ctx context.Context, arg AddInfoAnimeMo
 					},
 				}
 
-				as, err := q.CreateAnimeStudio(ctx, argStudio)
+				as, err := q.CreateAnimeMovieStudio(ctx, argStudio)
 				if err != nil {
 					ErrorSQL(err)
 					return err
 				}
-				result.AnimeStudios = append(result.AnimeStudios, as)
+				result.AnimeMovieStudios = append(result.AnimeMovieStudios, as)
 			}
 		}
 
