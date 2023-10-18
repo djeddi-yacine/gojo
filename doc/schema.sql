@@ -1,8 +1,17 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-10-18T14:34:57.393Z
+-- Generated at: 2023-10-18T20:04:17.370Z
 
-CREATE TABLE "anime_movie" (
+CREATE TABLE "anime_movies" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "original_title" varchar NOT NULL,
+  "aired" timestamptz NOT NULL,
+  "release_year" integer NOT NULL,
+  "duration" interval NOT NULL DEFAULT ('00h 00m 00s'),
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_series" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "original_title" varchar NOT NULL,
   "aired" timestamptz NOT NULL,
@@ -17,7 +26,13 @@ CREATE TABLE "studios" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-CREATE TABLE "anime_studio" (
+CREATE TABLE "anime_movie_studio" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "studio_id" integer
+);
+
+CREATE TABLE "anime_serie_studio" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
   "studio_id" integer
@@ -29,7 +44,13 @@ CREATE TABLE "genres" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-CREATE TABLE "anime_genre" (
+CREATE TABLE "anime_movie_genre" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "genre_id" integer
+);
+
+CREATE TABLE "anime_serie_genre" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
   "genre_id" integer
@@ -42,7 +63,14 @@ CREATE TABLE "languages" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-CREATE TABLE "anime_metas" (
+CREATE TABLE "anime_movie_metas" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "language_id" integer NOT NULL,
+  "meta_id" bigserial NOT NULL
+);
+
+CREATE TABLE "anime_serie_metas" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
   "language_id" integer NOT NULL,
@@ -90,37 +118,57 @@ CREATE TABLE "verify_emails" (
   "expired_at" timestamptz NOT NULL DEFAULT (now() + interval '15 minutes')
 );
 
-CREATE INDEX ON "anime_movie" ("id");
+CREATE INDEX ON "anime_movies" ("id");
 
-CREATE INDEX ON "anime_movie" ("original_title");
+CREATE INDEX ON "anime_movies" ("original_title");
 
-CREATE INDEX ON "anime_movie" ("release_year");
+CREATE INDEX ON "anime_movies" ("release_year");
 
-CREATE UNIQUE INDEX ON "anime_movie" ("original_title", "duration", "aired");
+CREATE UNIQUE INDEX ON "anime_movies" ("original_title", "duration", "aired");
+
+CREATE INDEX ON "anime_series" ("id");
+
+CREATE INDEX ON "anime_series" ("original_title");
+
+CREATE INDEX ON "anime_series" ("release_year");
+
+CREATE UNIQUE INDEX ON "anime_series" ("original_title", "duration", "aired");
 
 CREATE INDEX ON "studios" ("id");
 
 CREATE INDEX ON "studios" ("studio_name");
 
-CREATE INDEX ON "anime_studio" ("anime_id");
+CREATE INDEX ON "anime_movie_studio" ("anime_id");
 
-CREATE INDEX ON "anime_studio" ("studio_id");
+CREATE INDEX ON "anime_movie_studio" ("studio_id");
+
+CREATE INDEX ON "anime_serie_studio" ("anime_id");
+
+CREATE INDEX ON "anime_serie_studio" ("studio_id");
 
 CREATE INDEX ON "genres" ("id");
 
 CREATE INDEX ON "genres" ("genre_name");
 
-CREATE INDEX ON "anime_genre" ("anime_id");
+CREATE INDEX ON "anime_movie_genre" ("anime_id");
 
-CREATE INDEX ON "anime_genre" ("genre_id");
+CREATE INDEX ON "anime_movie_genre" ("genre_id");
+
+CREATE INDEX ON "anime_serie_genre" ("anime_id");
+
+CREATE INDEX ON "anime_serie_genre" ("genre_id");
 
 CREATE INDEX ON "languages" ("id");
 
 CREATE INDEX ON "languages" ("language_code");
 
-CREATE INDEX ON "anime_metas" ("id");
+CREATE INDEX ON "anime_movie_metas" ("id");
 
-CREATE UNIQUE INDEX ON "anime_metas" ("anime_id", "language_id");
+CREATE UNIQUE INDEX ON "anime_movie_metas" ("anime_id", "language_id");
+
+CREATE INDEX ON "anime_serie_metas" ("id");
+
+CREATE UNIQUE INDEX ON "anime_serie_metas" ("anime_id", "language_id");
 
 CREATE INDEX ON "metas" ("id");
 
@@ -130,19 +178,33 @@ CREATE INDEX ON "users" ("username");
 
 CREATE INDEX ON "users" ("full_name");
 
-ALTER TABLE "anime_studio" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id");
+ALTER TABLE "anime_movie_studio" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id");
 
-ALTER TABLE "anime_genre" ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id");
+ALTER TABLE "anime_serie_studio" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id");
 
-ALTER TABLE "anime_metas" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movie" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_movie_genre" ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id");
 
-ALTER TABLE "anime_studio" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movie" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_serie_genre" ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id");
 
-ALTER TABLE "anime_genre" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movie" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_movie_metas" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_metas" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_movie_studio" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_metas" ADD FOREIGN KEY ("meta_id") REFERENCES "metas" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_movie_genre" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_metas" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_studio" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_genre" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_movie_metas" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_metas" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_movie_metas" ADD FOREIGN KEY ("meta_id") REFERENCES "metas" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_metas" ADD FOREIGN KEY ("meta_id") REFERENCES "metas" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "sessions" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
 

@@ -1,0 +1,4 @@
+DROP TABLE IF EXISTS "metas";
+DROP TABLE IF EXISTS "genres";
+DROP TABLE IF EXISTS "studios";
+DROP TABLE IF EXISTS "languages";

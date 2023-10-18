@@ -5,7 +5,22 @@ Project gojo {
   '''
 }
 
-Table anime_movie {
+Table anime_movies {
+  id bigserial [primary key, unique, increment, not null]
+  original_title varchar [not null]
+  aired timestamptz  [not null]
+  release_year integer [not null]
+  duration interval  [not null, default: `'00h 00m 00s'`]
+  created_at timestamptz  [not null, default: `now()`]
+    indexes {
+      id
+      original_title
+      release_year
+      (original_title, duration, aired) [unique]
+    }
+}
+
+Table anime_series {
   id bigserial [primary key, unique, increment, not null]
   original_title varchar [not null]
   aired timestamptz  [not null]
@@ -30,7 +45,7 @@ Table studios {
     }
 }
 
-Table anime_studio {
+Table anime_movie_studio {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
   studio_id integer [ref: > studios.id]
@@ -40,6 +55,15 @@ Table anime_studio {
   }
 }
 
+Table anime_serie_studio {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  studio_id integer [ref: > studios.id]
+  indexes {
+    anime_id
+    studio_id
+  }
+}
 
 Table genres {
   id integer [primary key, unique, increment, not null]
@@ -51,7 +75,17 @@ Table genres {
     }
 }
 
-Table anime_genre {
+Table anime_movie_genre {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  genre_id integer [ref: > genres.id]
+  indexes {
+    anime_id
+    genre_id
+  }
+}
+
+Table anime_serie_genre {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
   genre_id integer [ref: > genres.id]
@@ -72,7 +106,18 @@ Table languages {
     }
 }
 
-Table anime_metas {
+Table anime_movie_metas {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  language_id integer [not null]
+  meta_id bigserial [not null]
+    indexes {
+      id
+      (anime_id, language_id) [unique]
+    }
+}
+
+Table anime_serie_metas {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
   language_id integer [not null]
@@ -133,19 +178,34 @@ Table verify_emails {
 
 
 Ref {
-  anime_movie.id - anime_metas.anime_id [delete: cascade]
+  anime_movies.id - anime_movie_metas.anime_id [delete: cascade]
 }
 Ref {
-  anime_movie.id - anime_studio.anime_id [delete: cascade]
+  anime_movies.id - anime_movie_studio.anime_id [delete: cascade]
 }
 Ref {
-  anime_movie.id - anime_genre.anime_id [delete: cascade]
+  anime_movies.id - anime_movie_genre.anime_id [delete: cascade]
 }
 Ref {
-  languages.id - anime_metas.language_id [delete: cascade]
+  anime_series.id - anime_serie_metas.anime_id [delete: cascade]
 }
 Ref {
-  metas.id - anime_metas.meta_id [delete: cascade]
+  anime_series.id - anime_serie_studio.anime_id [delete: cascade]
+}
+Ref {
+  anime_series.id - anime_serie_genre.anime_id [delete: cascade]
+}
+Ref {
+  languages.id - anime_movie_metas.language_id [delete: cascade]
+}
+Ref {
+  languages.id - anime_serie_metas.language_id [delete: cascade]
+}
+Ref {
+  metas.id - anime_movie_metas.meta_id [delete: cascade]
+}
+Ref {
+  metas.id - anime_serie_metas.meta_id [delete: cascade]
 }
 Ref {
   users.username - sessions.username [delete: cascade]

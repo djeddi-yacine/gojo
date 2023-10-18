@@ -1,5 +1,5 @@
--- name: CreateAnimeMovie :one
-INSERT INTO anime_movies (
+-- name: CreateAnimeSerie :one
+INSERT INTO anime_series (
     original_title,
     aired,
     release_year,
@@ -8,12 +8,12 @@ INSERT INTO anime_movies (
 VALUES ($1, $2, $3, $4)
 RETURNING *;
 
--- name: GetAnimeMovie :one
-SELECT * FROM anime_movies 
+-- name: GetAnimeSerie :one
+SELECT * FROM anime_series 
 WHERE id = $1 LIMIT 1;
 
--- name: UpdateAnimeMovie :one
-UPDATE anime_movies
+-- name: UpdateAnimeSerie :one
+UPDATE anime_series
 SET
   original_title = COALESCE(sqlc.narg(original_title), original_title),
   aired = COALESCE(sqlc.narg(aired), aired),
@@ -23,12 +23,12 @@ WHERE
   id = sqlc.arg(id)
 RETURNING *;
 
--- name: DeleteAnimeMovie :exec
-DELETE FROM anime_movies 
+-- name: DeleteAnimeSerie :exec
+DELETE FROM anime_series 
 WHERE id = $1;
 
--- name: ListAnimeMovies :many
-SELECT * FROM anime_movies
+-- name: ListAnimeSeries :many
+SELECT * FROM anime_series
 WHERE release_year = $1 OR $1 = 0
 LIMIT $2
 OFFSET $3;
