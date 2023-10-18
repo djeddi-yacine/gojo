@@ -2,7 +2,7 @@
 FROM golang:1.21-alpine3.18 AS builder
 WORKDIR /gojo
 COPY . .
-RUN GOOS=linux GOARCH=amd64 go build -ldflags "-s -w" -gcflags="-N -l" -trimpath -mod=readonly -buildmode=pie -a -o main .
+RUN GOOS=linux GOARCH=amd64 go build -v -ldflags "-s -w" -gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie -a -o main .
 
 # Run 
 FROM alpine:3.18
