@@ -243,14 +243,14 @@ func TestCreateUserAPI(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			GojoCtrl := gomock.NewController(t)
 			defer GojoCtrl.Finish()
-			store := mockdb.NewMockGojo(GojoCtrl)
+			gojo := mockdb.NewMockGojo(GojoCtrl)
 
 			taskCtrl := gomock.NewController(t)
 			defer taskCtrl.Finish()
 			taskDistributor := mockwk.NewMockTaskDistributor(taskCtrl)
 
-			tc.buildStubs(store, taskDistributor)
-			server := newTestServer(t, store, taskDistributor)
+			tc.buildStubs(gojo, taskDistributor)
+			server := newTestServer(t, gojo, taskDistributor)
 
 			res, err := server.CreateUser(context.Background(), tc.req)
 			tc.checkResponse(t, res, err)
