@@ -32,7 +32,8 @@ func (gojo *SQLGojo) AddInfoAnimeMovieTx(ctx context.Context, arg AddInfoAnimeMo
 
 		if arg.GenreIDs != nil {
 			var argGenre CreateAnimeMovieGenreParams
-			for _, g := range arg.GenreIDs {
+			result.AnimeMovieGenres = make([]AnimeMovieGenre, len(arg.GenreIDs))
+			for i, g := range arg.GenreIDs {
 				argGenre = CreateAnimeMovieGenreParams{
 					AnimeID: result.AnimeMovie.ID,
 					GenreID: pgtype.Int4{
@@ -45,13 +46,14 @@ func (gojo *SQLGojo) AddInfoAnimeMovieTx(ctx context.Context, arg AddInfoAnimeMo
 					ErrorSQL(err)
 					return err
 				}
-				result.AnimeMovieGenres = append(result.AnimeMovieGenres, ag)
+				result.AnimeMovieGenres[i] = ag
 			}
 		}
 
 		if arg.StudioIDs != nil {
 			var argStudio CreateAnimeMovieStudioParams
-			for _, s := range arg.StudioIDs {
+			result.AnimeMovieStudios = make([]AnimeMovieStudio, len(arg.StudioIDs))
+			for i, s := range arg.StudioIDs {
 				argStudio = CreateAnimeMovieStudioParams{
 					AnimeID: result.AnimeMovie.ID,
 					StudioID: pgtype.Int4{
@@ -65,7 +67,7 @@ func (gojo *SQLGojo) AddInfoAnimeMovieTx(ctx context.Context, arg AddInfoAnimeMo
 					ErrorSQL(err)
 					return err
 				}
-				result.AnimeMovieStudios = append(result.AnimeMovieStudios, as)
+				result.AnimeMovieStudios[i] = as
 			}
 		}
 

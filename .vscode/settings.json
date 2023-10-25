@@ -2,5 +2,6 @@
     "go.testFlags": [
         "-v",
         "-count=1"
-    ]
+    ],
+    "editor.fontSize": 17
 }
