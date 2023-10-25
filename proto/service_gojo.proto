@@ -10,9 +10,9 @@ import "rpc_create_studios.proto";
 import "rpc_create_languages.proto";
 
 import "rpc_create_anime_movie.proto";
-import "rpc_create_anime_movie_meta.proto";
+import "rpc_create_anime_movie_metas.proto";
 import "rpc_create_anime_serie.proto";
-import "rpc_create_anime_serie_meta.proto";
+import "rpc_create_anime_serie_metas.proto";
 
 import "rpc_create_user.proto";
 import "rpc_login_user.proto";
@@ -207,7 +207,7 @@ service Gojo {
       summary:  "Create new languages";
     };
   }
-  rpc CreateAnimeMovieMeta(CreateAnimeMovieMetaRequest) returns (CreateAnimeMovieMetaResponse) {
+  rpc CreateAnimeMovieMetas(CreateAnimeMovieMetasRequest) returns (CreateAnimeMovieMetasResponse) {
     option (google.api.http) = {
       post : "/v1/anime/movie/meta/create"
       body : "*"
@@ -217,7 +217,7 @@ service Gojo {
       summary:  "Create new anime movie meta";
     };
   }
-  rpc CreateAnimeSerieMeta(CreateAnimeSerieMetaRequest) returns (CreateAnimeSerieMetaResponse) {
+  rpc CreateAnimeSerieMetas(CreateAnimeSerieMetasRequest) returns (CreateAnimeSerieMetasResponse) {
     option (google.api.http) = {
       post : "/v1/anime/serie/meta/create"
       body : "*"

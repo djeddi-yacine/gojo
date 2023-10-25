@@ -301,12 +301,12 @@
       "post": {
         "summary": "Create new anime movie meta",
         "description": "Use this API to create a new anime movie meta",
-        "operationId": "Gojo_CreateAnimeMovieMeta",
+        "operationId": "Gojo_CreateAnimeMovieMetas",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbCreateAnimeMovieMetaResponse"
+              "$ref": "#/definitions/pbCreateAnimeMovieMetasResponse"
             }
           },
           "default": {
@@ -322,7 +322,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbCreateAnimeMovieMetaRequest"
+              "$ref": "#/definitions/pbCreateAnimeMovieMetasRequest"
             }
           }
         ],
@@ -504,12 +504,12 @@
       "post": {
         "summary": "Create new anime serie meta",
         "description": "Use this API to create a new anime serie meta",
-        "operationId": "Gojo_CreateAnimeSerieMeta",
+        "operationId": "Gojo_CreateAnimeSerieMetas",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbCreateAnimeSerieMetaResponse"
+              "$ref": "#/definitions/pbCreateAnimeSerieMetasResponse"
             }
           },
           "default": {
@@ -525,7 +525,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbCreateAnimeSerieMetaRequest"
+              "$ref": "#/definitions/pbCreateAnimeSerieMetasRequest"
             }
           }
         ],
@@ -1018,27 +1018,35 @@
         }
       }
     },
-    "pbCreateAnimeMovieMetaRequest": {
+    "pbCreateAnimeMovieMetasRequest": {
       "type": "object",
       "properties": {
         "animeID": {
           "type": "string",
           "format": "int64"
         },
-        "animeMeta": {
-          "$ref": "#/definitions/pbAnimeMetaRequest"
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbAnimeMetaRequest"
+          }
         }
       }
     },
-    "pbCreateAnimeMovieMetaResponse": {
+    "pbCreateAnimeMovieMetasResponse": {
       "type": "object",
       "properties": {
         "animeID": {
           "type": "string",
           "format": "int64"
         },
-        "animeMeta": {
-          "$ref": "#/definitions/pbAnimeMetaResponse"
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbAnimeMetaResponse"
+          }
         }
       }
     },
@@ -1058,27 +1066,35 @@
         }
       }
     },
-    "pbCreateAnimeSerieMetaRequest": {
+    "pbCreateAnimeSerieMetasRequest": {
       "type": "object",
       "properties": {
         "animeID": {
           "type": "string",
           "format": "int64"
         },
-        "animeMeta": {
-          "$ref": "#/definitions/pbAnimeMetaRequest"
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbAnimeMetaRequest"
+          }
         }
       }
     },
-    "pbCreateAnimeSerieMetaResponse": {
+    "pbCreateAnimeSerieMetasResponse": {
       "type": "object",
       "properties": {
         "animeID": {
           "type": "string",
           "format": "int64"
         },
-        "animeMeta": {
-          "$ref": "#/definitions/pbAnimeMetaResponse"
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbAnimeMetaResponse"
+          }
         }
       }
     },

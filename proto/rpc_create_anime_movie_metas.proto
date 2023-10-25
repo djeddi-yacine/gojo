@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package pb;
+
+import "meta.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb";
+
+message CreateAnimeMovieMetasRequest {
+  int64 animeID = 1;
+  repeated AnimeMetaRequest animeMetas = 2;
+}
+
+message CreateAnimeMovieMetasResponse {
+  int64 animeID = 1;
+  repeated AnimeMetaResponse animeMetas = 2;
+}
