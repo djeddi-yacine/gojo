@@ -1,3 +1,4 @@
 /gojo.env
 /dbml-error.*
-/main
+/gojo
+/graph

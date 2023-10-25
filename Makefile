@@ -56,7 +56,6 @@ proto:
     proto/*.proto 
 	statik -src=./doc/swagger -dest=./doc
 
-
 evans:
 	evans --host localhost --port 9090 -r repl
 
@@ -67,10 +66,10 @@ db:
 	dbml2sql --postgres -o doc/schema.sql doc/db.dbml
 
 build:
-	GOOS=linux GOARCH=amd64 go build -v -ldflags "-s -w" -gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie -a -o main .
+	GOOS=linux GOARCH=amd64 go build -v -ldflags "-s -w" -gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie -a -o gojo .
 
-rs:
+ds:
 	sudo docker stop redisGOJO postgresGOJO
 	sudo docker start redisGOJO postgresGOJO
 
-.PHONY: postgres createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans redis  db build rs
+.PHONY: postgres createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans redis  db build ds
