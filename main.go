@@ -28,7 +28,7 @@ import (
 )
 
 func main() {
-	config, err := utils.LoadConfig(".")
+	config, err := utils.LoadConfig(".", "gojo")
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot load config file")
 	}

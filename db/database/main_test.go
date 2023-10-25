@@ -13,7 +13,7 @@ import (
 var testGojo Gojo
 
 func TestMain(m *testing.M) {
-	config, err := utils.LoadConfig("../..")
+	config, err := utils.LoadConfig("../..", "example.gojo")
 	if err != nil {
 		log.Fatal("cannot load config:", err)
 	}

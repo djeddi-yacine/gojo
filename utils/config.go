@@ -21,9 +21,9 @@ type Config struct {
 	EmailSenderPassword  string        `mapstructure:"EMAIL_SENDER_PASSWORD"`
 }
 
-func LoadConfig(path string) (config Config, err error) {
+func LoadConfig(path string, name string) (config Config, err error) {
 	viper.AddConfigPath(path)
-	viper.SetConfigName("gojo")
+	viper.SetConfigName(name)
 	viper.SetConfigType("env")
 	viper.AutomaticEnv()
 
