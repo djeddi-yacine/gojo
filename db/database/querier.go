@@ -8,7 +8,6 @@ import (
 	"context"
 
 	"github.com/google/uuid"
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
 type Querier interface {
@@ -55,13 +54,13 @@ type Querier interface {
 	GetStudio(ctx context.Context, id int32) (Studio, error)
 	GetUserByID(ctx context.Context, id int64) (User, error)
 	GetUserByUsername(ctx context.Context, username string) (User, error)
-	ListAnimeMovieGenres(ctx context.Context, arg ListAnimeMovieGenresParams) ([]pgtype.Int4, error)
+	ListAnimeMovieGenres(ctx context.Context, arg ListAnimeMovieGenresParams) ([]int32, error)
 	ListAnimeMovieMetas(ctx context.Context, arg ListAnimeMovieMetasParams) ([]int64, error)
-	ListAnimeMovieStudios(ctx context.Context, arg ListAnimeMovieStudiosParams) ([]pgtype.Int4, error)
+	ListAnimeMovieStudios(ctx context.Context, arg ListAnimeMovieStudiosParams) ([]int32, error)
 	ListAnimeMovies(ctx context.Context, arg ListAnimeMoviesParams) ([]AnimeMovie, error)
-	ListAnimeSerieGenres(ctx context.Context, arg ListAnimeSerieGenresParams) ([]pgtype.Int4, error)
+	ListAnimeSerieGenres(ctx context.Context, arg ListAnimeSerieGenresParams) ([]int32, error)
 	ListAnimeSerieMetas(ctx context.Context, arg ListAnimeSerieMetasParams) ([]int64, error)
-	ListAnimeSerieStudios(ctx context.Context, arg ListAnimeSerieStudiosParams) ([]pgtype.Int4, error)
+	ListAnimeSerieStudios(ctx context.Context, arg ListAnimeSerieStudiosParams) ([]int32, error)
 	ListAnimeSeries(ctx context.Context, arg ListAnimeSeriesParams) ([]AnimeSerie, error)
 	ListGenres(ctx context.Context, arg ListGenresParams) ([]Genre, error)
 	ListLanguages(ctx context.Context, arg ListLanguagesParams) ([]Language, error)

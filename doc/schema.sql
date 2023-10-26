@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-10-18T21:32:11.881Z
+-- Generated at: 2023-10-26T20:37:48.379Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE "users" (
 );
 
 CREATE TABLE "sessions" (
-  "id" uuid PRIMARY KEY,
+  "id" uuid PRIMARY KEY NOT NULL,
   "username" varchar NOT NULL,
   "refresh_token" varchar NOT NULL,
   "user_agent" varchar NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE "sessions" (
 );
 
 CREATE TABLE "verify_emails" (
-  "id" bigserial PRIMARY KEY,
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "username" varchar NOT NULL,
   "email" varchar NOT NULL,
   "secret_code" varchar NOT NULL,
@@ -83,25 +83,25 @@ CREATE TABLE "metas" (
 CREATE TABLE "anime_movie_studios" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
-  "studio_id" integer
+  "studio_id" integer NOT NULL
 );
 
 CREATE TABLE "anime_serie_studios" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
-  "studio_id" integer
+  "studio_id" integer NOT NULL
 );
 
 CREATE TABLE "anime_movie_genres" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
-  "genre_id" integer
+  "genre_id" integer NOT NULL
 );
 
 CREATE TABLE "anime_serie_genres" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
-  "genre_id" integer
+  "genre_id" integer NOT NULL
 );
 
 CREATE TABLE "anime_movie_metas" (
@@ -178,14 +178,6 @@ CREATE INDEX ON "anime_serie_metas" ("id");
 
 CREATE UNIQUE INDEX ON "anime_serie_metas" ("anime_id", "language_id");
 
-ALTER TABLE "anime_movie_studios" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id");
-
-ALTER TABLE "anime_serie_studios" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id");
-
-ALTER TABLE "anime_movie_genres" ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id");
-
-ALTER TABLE "anime_serie_genres" ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id");
-
 ALTER TABLE "sessions" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
 
 ALTER TABLE "verify_emails" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
@@ -209,3 +201,11 @@ ALTER TABLE "anime_serie_metas" ADD FOREIGN KEY ("language_id") REFERENCES "lang
 ALTER TABLE "anime_movie_metas" ADD FOREIGN KEY ("meta_id") REFERENCES "metas" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_metas" ADD FOREIGN KEY ("meta_id") REFERENCES "metas" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_movie_genres" ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_genres" ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_movie_studios" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_studios" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id") ON DELETE CASCADE;

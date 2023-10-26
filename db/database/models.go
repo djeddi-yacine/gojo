@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
 type AnimeMovie struct {
@@ -21,9 +20,9 @@ type AnimeMovie struct {
 }
 
 type AnimeMovieGenre struct {
-	ID      int64       `json:"id"`
-	AnimeID int64       `json:"anime_id"`
-	GenreID pgtype.Int4 `json:"genre_id"`
+	ID      int64 `json:"id"`
+	AnimeID int64 `json:"anime_id"`
+	GenreID int32 `json:"genre_id"`
 }
 
 type AnimeMovieMeta struct {
@@ -34,9 +33,9 @@ type AnimeMovieMeta struct {
 }
 
 type AnimeMovieStudio struct {
-	ID       int64       `json:"id"`
-	AnimeID  int64       `json:"anime_id"`
-	StudioID pgtype.Int4 `json:"studio_id"`
+	ID       int64 `json:"id"`
+	AnimeID  int64 `json:"anime_id"`
+	StudioID int32 `json:"studio_id"`
 }
 
 type AnimeSerie struct {
@@ -49,9 +48,9 @@ type AnimeSerie struct {
 }
 
 type AnimeSerieGenre struct {
-	ID      int64       `json:"id"`
-	AnimeID int64       `json:"anime_id"`
-	GenreID pgtype.Int4 `json:"genre_id"`
+	ID      int64 `json:"id"`
+	AnimeID int64 `json:"anime_id"`
+	GenreID int32 `json:"genre_id"`
 }
 
 type AnimeSerieMeta struct {
@@ -62,9 +61,9 @@ type AnimeSerieMeta struct {
 }
 
 type AnimeSerieStudio struct {
-	ID       int64       `json:"id"`
-	AnimeID  int64       `json:"anime_id"`
-	StudioID pgtype.Int4 `json:"studio_id"`
+	ID       int64 `json:"id"`
+	AnimeID  int64 `json:"anime_id"`
+	StudioID int32 `json:"studio_id"`
 }
 
 type Genre struct {

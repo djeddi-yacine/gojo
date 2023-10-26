@@ -4,7 +4,6 @@ import (
 	"context"
 	"testing"
 
-	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
 )
 
@@ -12,11 +11,8 @@ func createRandomAnimeMovieStudio(t *testing.T) AnimeMovieStudio {
 	anime := createRandomAnimeMovie(t)
 	studio := createRandomStudio(t)
 	arg := CreateAnimeMovieStudioParams{
-		AnimeID: anime.ID,
-		StudioID: pgtype.Int4{
-			Int32: studio.ID,
-			Valid: true,
-		},
+		AnimeID:  anime.ID,
+		StudioID: studio.ID,
 	}
 
 	animeMovieStudio, err := testGojo.CreateAnimeMovieStudio(context.Background(), arg)
@@ -26,8 +22,7 @@ func createRandomAnimeMovieStudio(t *testing.T) AnimeMovieStudio {
 	require.Equal(t, arg.AnimeID, animeMovieStudio.AnimeID)
 	require.Equal(t, arg.StudioID, animeMovieStudio.StudioID)
 	require.NotZero(t, animeMovieStudio.ID)
-	require.NotZero(t, animeMovieStudio.StudioID.Int32)
-	require.True(t, animeMovieStudio.StudioID.Valid)
+	require.NotZero(t, animeMovieStudio.StudioID)
 
 	return animeMovieStudio
 }
@@ -40,11 +35,8 @@ func TestGetAnimeMovieStudio(t *testing.T) {
 	a := createRandomAnimeMovie(t)
 	s := createRandomStudio(t)
 	arg := CreateAnimeMovieStudioParams{
-		AnimeID: a.ID,
-		StudioID: pgtype.Int4{
-			Int32: s.ID,
-			Valid: true,
-		},
+		AnimeID:  a.ID,
+		StudioID: s.ID,
 	}
 
 	studio1, err := testGojo.CreateAnimeMovieStudio(context.Background(), arg)
@@ -63,11 +55,8 @@ func TestDeleteAnimeMovieStudio(t *testing.T) {
 	a := createRandomAnimeMovie(t)
 	s := createRandomStudio(t)
 	arg1 := CreateAnimeMovieStudioParams{
-		AnimeID: a.ID,
-		StudioID: pgtype.Int4{
-			Int32: s.ID,
-			Valid: true,
-		},
+		AnimeID:  a.ID,
+		StudioID: s.ID,
 	}
 
 	studio, err := testGojo.CreateAnimeMovieStudio(context.Background(), arg1)
@@ -90,11 +79,8 @@ func TestListAnimeMovieStudios(t *testing.T) {
 	for i := 0; i < 3; i++ {
 		studio := createRandomStudio(t)
 		arg := CreateAnimeMovieStudioParams{
-			AnimeID: a.ID,
-			StudioID: pgtype.Int4{
-				Int32: studio.ID,
-				Valid: true,
-			},
+			AnimeID:  a.ID,
+			StudioID: studio.ID,
 		}
 		testGojo.CreateAnimeMovieStudio(context.Background(), arg)
 	}

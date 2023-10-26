@@ -7,8 +7,6 @@ package db
 
 import (
 	"context"
-
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createAnimeSerieGenre = `-- name: CreateAnimeSerieGenre :one
@@ -18,8 +16,8 @@ RETURNING id, anime_id, genre_id
 `
 
 type CreateAnimeSerieGenreParams struct {
-	AnimeID int64       `json:"anime_id"`
-	GenreID pgtype.Int4 `json:"genre_id"`
+	AnimeID int64 `json:"anime_id"`
+	GenreID int32 `json:"genre_id"`
 }
 
 func (q *Queries) CreateAnimeSerieGenre(ctx context.Context, arg CreateAnimeSerieGenreParams) (AnimeSerieGenre, error) {
@@ -35,8 +33,8 @@ WHERE anime_id = $1 AND genre_id = $2
 `
 
 type DeleteAnimeSerieGenreParams struct {
-	AnimeID int64       `json:"anime_id"`
-	GenreID pgtype.Int4 `json:"genre_id"`
+	AnimeID int64 `json:"anime_id"`
+	GenreID int32 `json:"genre_id"`
 }
 
 func (q *Queries) DeleteAnimeSerieGenre(ctx context.Context, arg DeleteAnimeSerieGenreParams) error {
@@ -70,15 +68,15 @@ type ListAnimeSerieGenresParams struct {
 	Offset  int32 `json:"offset"`
 }
 
-func (q *Queries) ListAnimeSerieGenres(ctx context.Context, arg ListAnimeSerieGenresParams) ([]pgtype.Int4, error) {
+func (q *Queries) ListAnimeSerieGenres(ctx context.Context, arg ListAnimeSerieGenresParams) ([]int32, error) {
 	rows, err := q.db.Query(ctx, listAnimeSerieGenres, arg.AnimeID, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	items := []pgtype.Int4{}
+	items := []int32{}
 	for rows.Next() {
-		var genre_id pgtype.Int4
+		var genre_id int32
 		if err := rows.Scan(&genre_id); err != nil {
 			return nil, err
 		}

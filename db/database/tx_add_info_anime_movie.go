@@ -2,8 +2,6 @@ package db
 
 import (
 	"context"
-
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
 type AddInfoAnimeMovieTxParams struct {
@@ -36,10 +34,7 @@ func (gojo *SQLGojo) AddInfoAnimeMovieTx(ctx context.Context, arg AddInfoAnimeMo
 			for i, g := range arg.GenreIDs {
 				argGenre = CreateAnimeMovieGenreParams{
 					AnimeID: result.AnimeMovie.ID,
-					GenreID: pgtype.Int4{
-						Int32: g,
-						Valid: true,
-					},
+					GenreID: g,
 				}
 				ag, err := q.CreateAnimeMovieGenre(ctx, argGenre)
 				if err != nil {
@@ -55,11 +50,8 @@ func (gojo *SQLGojo) AddInfoAnimeMovieTx(ctx context.Context, arg AddInfoAnimeMo
 			result.AnimeMovieStudios = make([]AnimeMovieStudio, len(arg.StudioIDs))
 			for i, s := range arg.StudioIDs {
 				argStudio = CreateAnimeMovieStudioParams{
-					AnimeID: result.AnimeMovie.ID,
-					StudioID: pgtype.Int4{
-						Int32: s,
-						Valid: true,
-					},
+					AnimeID:  result.AnimeMovie.ID,
+					StudioID: s,
 				}
 
 				as, err := q.CreateAnimeMovieStudio(ctx, argStudio)

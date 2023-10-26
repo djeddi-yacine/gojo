@@ -10,13 +10,13 @@ CREATE TABLE "anime_series" (
 CREATE TABLE "anime_serie_studios" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
-  "studio_id" integer
+  "studio_id" integer NOT NULL
 );
 
 CREATE TABLE "anime_serie_genres" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
-  "genre_id" integer
+  "genre_id" integer NOT NULL
 );
 
 CREATE TABLE "anime_serie_metas" (
@@ -48,9 +48,9 @@ CREATE INDEX ON "anime_serie_metas" ("id");
 CREATE UNIQUE INDEX ON "anime_serie_metas" ("anime_id", "language_id");
 
 
-ALTER TABLE "anime_serie_studios" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id");
+ALTER TABLE "anime_serie_studios" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_serie_genres" ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id");
+ALTER TABLE "anime_serie_genres" ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_metas" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 

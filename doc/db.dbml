@@ -6,9 +6,9 @@ Project gojo {
 }
 
 Table users {
-  id bigserial [pk, unique, increment, not null]
+  id bigserial [primary key, unique, increment, not null]
   role varchar [not null, default: 'member']
-  username varchar [pk, unique, not null]
+  username varchar [primary key, unique, not null]
   email varchar [not null]
   hashed_password varchar [not null]
   is_email_verified bool [not null, default: false]
@@ -22,7 +22,7 @@ Table users {
 }
 
 Table sessions {
-  id uuid [pk]
+  id uuid [primary key, not null]
   username varchar [not null]
   refresh_token varchar [not null]
   user_agent varchar [not null]
@@ -33,7 +33,7 @@ Table sessions {
 }
 
 Table verify_emails {
-  id bigserial [pk]
+  id bigserial [primary key, unique, increment, not null]
   username varchar [not null]
   email varchar [not null]
   secret_code varchar [not null]
@@ -117,7 +117,7 @@ Table metas {
 Table anime_movie_studios {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
-  studio_id integer [ref: > studios.id]
+  studio_id integer [not null]
   indexes {
     anime_id
     studio_id
@@ -127,7 +127,7 @@ Table anime_movie_studios {
 Table anime_serie_studios {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
-  studio_id integer [ref: > studios.id]
+  studio_id integer [not null]
   indexes {
     anime_id
     studio_id
@@ -137,7 +137,7 @@ Table anime_serie_studios {
 Table anime_movie_genres {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
-  genre_id integer [ref: > genres.id]
+  genre_id integer [not null]
   indexes {
     anime_id
     genre_id
@@ -147,7 +147,7 @@ Table anime_movie_genres {
 Table anime_serie_genres {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
-  genre_id integer [ref: > genres.id]
+  genre_id integer [not null]
   indexes {
     anime_id
     genre_id
@@ -212,4 +212,16 @@ Ref {
 }
 Ref {
   metas.id - anime_serie_metas.meta_id [delete: cascade]
+}
+Ref {
+  genres.id - anime_movie_genres.genre_id [delete: cascade]
+}
+Ref {
+  genres.id - anime_serie_genres.genre_id [delete: cascade]
+}
+Ref {
+  studios.id - anime_movie_studios.studio_id [delete: cascade]
+}
+Ref {
+  studios.id - anime_serie_studios.studio_id [delete: cascade]
 }

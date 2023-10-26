@@ -50,3 +50,14 @@ func ConvertAnimeMovie(a db.AnimeMovie) *pb.AnimeMovieResponse {
 		CreatedAt:     timestamppb.New(a.CreatedAt),
 	}
 }
+
+func ConvertAnimeSerie(a db.AnimeSerie) *pb.AnimeSerieResponse {
+	return &pb.AnimeSerieResponse{
+		ID:            a.ID,
+		OriginalTitle: a.OriginalTitle,
+		Aired:         timestamppb.New(a.Aired),
+		ReleaseYear:   a.ReleaseYear,
+		Duration:      durationpb.New(a.Duration),
+		CreatedAt:     timestamppb.New(a.CreatedAt),
+	}
+}

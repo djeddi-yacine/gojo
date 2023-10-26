@@ -4,7 +4,6 @@ import (
 	"context"
 	"testing"
 
-	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
 )
 
@@ -13,10 +12,7 @@ func createRandomAnimeSerieGenre(t *testing.T) AnimeSerieGenre {
 	genre := createRandomGenre(t)
 	arg := CreateAnimeSerieGenreParams{
 		AnimeID: anime.ID,
-		GenreID: pgtype.Int4{
-			Int32: genre.ID,
-			Valid: true,
-		},
+		GenreID: genre.ID,
 	}
 
 	animeSerieGenre, err := testGojo.CreateAnimeSerieGenre(context.Background(), arg)
@@ -26,8 +22,7 @@ func createRandomAnimeSerieGenre(t *testing.T) AnimeSerieGenre {
 	require.Equal(t, arg.AnimeID, animeSerieGenre.AnimeID)
 	require.Equal(t, arg.GenreID, animeSerieGenre.GenreID)
 	require.NotZero(t, animeSerieGenre.ID)
-	require.NotZero(t, animeSerieGenre.GenreID.Int32)
-	require.True(t, animeSerieGenre.GenreID.Valid)
+	require.NotZero(t, animeSerieGenre.GenreID)
 
 	return animeSerieGenre
 }
@@ -41,10 +36,7 @@ func TestGetAnimeSerieGenre(t *testing.T) {
 	g := createRandomGenre(t)
 	arg := CreateAnimeSerieGenreParams{
 		AnimeID: a.ID,
-		GenreID: pgtype.Int4{
-			Int32: g.ID,
-			Valid: true,
-		},
+		GenreID: g.ID,
 	}
 
 	Genre1, err := testGojo.CreateAnimeSerieGenre(context.Background(), arg)
@@ -64,10 +56,7 @@ func TestDeleteAnimeSerieGenre(t *testing.T) {
 	g := createRandomGenre(t)
 	arg1 := CreateAnimeSerieGenreParams{
 		AnimeID: a.ID,
-		GenreID: pgtype.Int4{
-			Int32: g.ID,
-			Valid: true,
-		},
+		GenreID: g.ID,
 	}
 
 	genre, err := testGojo.CreateAnimeSerieGenre(context.Background(), arg1)
@@ -91,10 +80,7 @@ func TestListAnimeSerieGenres(t *testing.T) {
 		genre := createRandomGenre(t)
 		arg := CreateAnimeSerieGenreParams{
 			AnimeID: a.ID,
-			GenreID: pgtype.Int4{
-				Int32: genre.ID,
-				Valid: true,
-			},
+			GenreID: genre.ID,
 		}
 		testGojo.CreateAnimeSerieGenre(context.Background(), arg)
 	}

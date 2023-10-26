@@ -11,7 +11,6 @@ import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	gomock "github.com/golang/mock/gomock"
 	uuid "github.com/google/uuid"
-	pgtype "github.com/jackc/pgx/v5/pgtype"
 )
 
 // MockGojo is a mock of Gojo interface.
@@ -790,10 +789,10 @@ func (mr *MockGojoMockRecorder) GetUserByUsername(arg0, arg1 interface{}) *gomoc
 }
 
 // ListAnimeMovieGenres mocks base method.
-func (m *MockGojo) ListAnimeMovieGenres(arg0 context.Context, arg1 db.ListAnimeMovieGenresParams) ([]pgtype.Int4, error) {
+func (m *MockGojo) ListAnimeMovieGenres(arg0 context.Context, arg1 db.ListAnimeMovieGenresParams) ([]int32, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListAnimeMovieGenres", arg0, arg1)
-	ret0, _ := ret[0].([]pgtype.Int4)
+	ret0, _ := ret[0].([]int32)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -820,10 +819,10 @@ func (mr *MockGojoMockRecorder) ListAnimeMovieMetas(arg0, arg1 interface{}) *gom
 }
 
 // ListAnimeMovieStudios mocks base method.
-func (m *MockGojo) ListAnimeMovieStudios(arg0 context.Context, arg1 db.ListAnimeMovieStudiosParams) ([]pgtype.Int4, error) {
+func (m *MockGojo) ListAnimeMovieStudios(arg0 context.Context, arg1 db.ListAnimeMovieStudiosParams) ([]int32, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListAnimeMovieStudios", arg0, arg1)
-	ret0, _ := ret[0].([]pgtype.Int4)
+	ret0, _ := ret[0].([]int32)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -850,10 +849,10 @@ func (mr *MockGojoMockRecorder) ListAnimeMovies(arg0, arg1 interface{}) *gomock.
 }
 
 // ListAnimeSerieGenres mocks base method.
-func (m *MockGojo) ListAnimeSerieGenres(arg0 context.Context, arg1 db.ListAnimeSerieGenresParams) ([]pgtype.Int4, error) {
+func (m *MockGojo) ListAnimeSerieGenres(arg0 context.Context, arg1 db.ListAnimeSerieGenresParams) ([]int32, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListAnimeSerieGenres", arg0, arg1)
-	ret0, _ := ret[0].([]pgtype.Int4)
+	ret0, _ := ret[0].([]int32)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -880,10 +879,10 @@ func (mr *MockGojoMockRecorder) ListAnimeSerieMetas(arg0, arg1 interface{}) *gom
 }
 
 // ListAnimeSerieStudios mocks base method.
-func (m *MockGojo) ListAnimeSerieStudios(arg0 context.Context, arg1 db.ListAnimeSerieStudiosParams) ([]pgtype.Int4, error) {
+func (m *MockGojo) ListAnimeSerieStudios(arg0 context.Context, arg1 db.ListAnimeSerieStudiosParams) ([]int32, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListAnimeSerieStudios", arg0, arg1)
-	ret0, _ := ret[0].([]pgtype.Int4)
+	ret0, _ := ret[0].([]int32)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

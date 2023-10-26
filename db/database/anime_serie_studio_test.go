@@ -4,7 +4,6 @@ import (
 	"context"
 	"testing"
 
-	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
 )
 
@@ -12,11 +11,8 @@ func createRandomAnimeSerieStudio(t *testing.T) AnimeSerieStudio {
 	anime := createRandomAnimeSerie(t)
 	studio := createRandomStudio(t)
 	arg := CreateAnimeSerieStudioParams{
-		AnimeID: anime.ID,
-		StudioID: pgtype.Int4{
-			Int32: studio.ID,
-			Valid: true,
-		},
+		AnimeID:  anime.ID,
+		StudioID: studio.ID,
 	}
 
 	animeSerieStudio, err := testGojo.CreateAnimeSerieStudio(context.Background(), arg)
@@ -26,8 +22,7 @@ func createRandomAnimeSerieStudio(t *testing.T) AnimeSerieStudio {
 	require.Equal(t, arg.AnimeID, animeSerieStudio.AnimeID)
 	require.Equal(t, arg.StudioID, animeSerieStudio.StudioID)
 	require.NotZero(t, animeSerieStudio.ID)
-	require.NotZero(t, animeSerieStudio.StudioID.Int32)
-	require.True(t, animeSerieStudio.StudioID.Valid)
+	require.NotZero(t, animeSerieStudio.StudioID)
 
 	return animeSerieStudio
 }
@@ -40,11 +35,8 @@ func TestGetAnimeSerieStudio(t *testing.T) {
 	a := createRandomAnimeSerie(t)
 	s := createRandomStudio(t)
 	arg := CreateAnimeSerieStudioParams{
-		AnimeID: a.ID,
-		StudioID: pgtype.Int4{
-			Int32: s.ID,
-			Valid: true,
-		},
+		AnimeID:  a.ID,
+		StudioID: s.ID,
 	}
 
 	studio1, err := testGojo.CreateAnimeSerieStudio(context.Background(), arg)
@@ -63,11 +55,8 @@ func TestDeleteAnimeSerieStudio(t *testing.T) {
 	a := createRandomAnimeSerie(t)
 	s := createRandomStudio(t)
 	arg1 := CreateAnimeSerieStudioParams{
-		AnimeID: a.ID,
-		StudioID: pgtype.Int4{
-			Int32: s.ID,
-			Valid: true,
-		},
+		AnimeID:  a.ID,
+		StudioID: s.ID,
 	}
 
 	studio, err := testGojo.CreateAnimeSerieStudio(context.Background(), arg1)
@@ -90,11 +79,8 @@ func TestListAnimeSerieStudios(t *testing.T) {
 	for i := 0; i < 3; i++ {
 		studio := createRandomStudio(t)
 		arg := CreateAnimeSerieStudioParams{
-			AnimeID: a.ID,
-			StudioID: pgtype.Int4{
-				Int32: studio.ID,
-				Valid: true,
-			},
+			AnimeID:  a.ID,
+			StudioID: studio.ID,
 		}
 		testGojo.CreateAnimeSerieStudio(context.Background(), arg)
 	}
