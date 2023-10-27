@@ -22,7 +22,7 @@ Table users {
 }
 
 Table sessions {
-  id uuid [primary key, not null]
+  id uuid [primary key, unique, not null]
   username varchar [not null]
   refresh_token varchar [not null]
   user_agent varchar [not null]
@@ -30,6 +30,9 @@ Table sessions {
   is_blocked boolean [not null, default: false]
   expires_at timestamptz [not null]
   created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+    }
 }
 
 Table verify_emails {

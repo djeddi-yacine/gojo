@@ -60,6 +60,16 @@ func (q *Queries) CreateSession(ctx context.Context, arg CreateSessionParams) (S
 	return i, err
 }
 
+const deleteSession = `-- name: DeleteSession :exec
+DELETE FROM sessions
+WHERE id = $1
+`
+
+func (q *Queries) DeleteSession(ctx context.Context, id uuid.UUID) error {
+	_, err := q.db.Exec(ctx, deleteSession, id)
+	return err
+}
+
 const getSession = `-- name: GetSession :one
 SELECT id, username, refresh_token, user_agent, client_ip, is_blocked, expires_at, created_at FROM sessions
 WHERE id = $1 LIMIT 1
@@ -79,4 +89,38 @@ func (q *Queries) GetSession(ctx context.Context, id uuid.UUID) (Session, error)
 		&i.CreatedAt,
 	)
 	return i, err
+}
+
+const refreshSessions = `-- name: RefreshSessions :exec
+DELETE FROM sessions AS s1
+WHERE s1.username = $1
+AND s1.is_blocked = true
+AND (s1.expires_at < NOW()
+     OR s1.expires_at != (SELECT MAX(expires_at) FROM sessions AS s2
+                         WHERE s2.username = $1 AND s2.is_blocked = true)
+)
+`
+
+func (q *Queries) RefreshSessions(ctx context.Context, username string) error {
+	_, err := q.db.Exec(ctx, refreshSessions, username)
+	return err
+}
+
+const updateSession = `-- name: UpdateSession :one
+UPDATE sessions
+SET is_blocked = $2
+WHERE username = $1
+RETURNING username
+`
+
+type UpdateSessionParams struct {
+	Username  string `json:"username"`
+	IsBlocked bool   `json:"is_blocked"`
+}
+
+func (q *Queries) UpdateSession(ctx context.Context, arg UpdateSessionParams) (string, error) {
+	row := q.db.QueryRow(ctx, updateSession, arg.Username, arg.IsBlocked)
+	var username string
+	err := row.Scan(&username)
+	return username, err
 }

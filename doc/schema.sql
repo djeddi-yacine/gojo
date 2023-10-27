@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-10-26T20:37:48.379Z
+-- Generated at: 2023-10-27T13:24:19.176Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -16,7 +16,7 @@ CREATE TABLE "users" (
 );
 
 CREATE TABLE "sessions" (
-  "id" uuid PRIMARY KEY NOT NULL,
+  "id" uuid UNIQUE PRIMARY KEY NOT NULL,
   "username" varchar NOT NULL,
   "refresh_token" varchar NOT NULL,
   "user_agent" varchar NOT NULL,
@@ -121,6 +121,8 @@ CREATE TABLE "anime_serie_metas" (
 CREATE INDEX ON "users" ("username");
 
 CREATE INDEX ON "users" ("full_name");
+
+CREATE INDEX ON "sessions" ("id");
 
 CREATE INDEX ON "anime_movies" ("id");
 

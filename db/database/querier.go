@@ -37,6 +37,7 @@ type Querier interface {
 	DeleteGenre(ctx context.Context, id int32) error
 	DeleteLanguage(ctx context.Context, id int32) error
 	DeleteMeta(ctx context.Context, id int64) error
+	DeleteSession(ctx context.Context, id uuid.UUID) error
 	DeleteStudio(ctx context.Context, id int32) error
 	DeleteUser(ctx context.Context, id int64) error
 	GetAnimeMovie(ctx context.Context, id int64) (AnimeMovie, error)
@@ -66,6 +67,7 @@ type Querier interface {
 	ListLanguages(ctx context.Context, arg ListLanguagesParams) ([]Language, error)
 	ListStudios(ctx context.Context, arg ListStudiosParams) ([]Studio, error)
 	ListUsers(ctx context.Context, arg ListUsersParams) ([]User, error)
+	RefreshSessions(ctx context.Context, username string) error
 	UpdateAnimeMovie(ctx context.Context, arg UpdateAnimeMovieParams) (AnimeMovie, error)
 	UpdateAnimeMovieMeta(ctx context.Context, arg UpdateAnimeMovieMetaParams) (AnimeMovieMeta, error)
 	UpdateAnimeSerie(ctx context.Context, arg UpdateAnimeSerieParams) (AnimeSerie, error)
@@ -73,6 +75,7 @@ type Querier interface {
 	UpdateGenre(ctx context.Context, arg UpdateGenreParams) (Genre, error)
 	UpdateLanguage(ctx context.Context, arg UpdateLanguageParams) (Language, error)
 	UpdateMeta(ctx context.Context, arg UpdateMetaParams) (Meta, error)
+	UpdateSession(ctx context.Context, arg UpdateSessionParams) (string, error)
 	UpdateStudio(ctx context.Context, arg UpdateStudioParams) (Studio, error)
 	UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error)
 	UpdateVerifyEmail(ctx context.Context, arg UpdateVerifyEmailParams) (VerifyEmail, error)

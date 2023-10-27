@@ -23,7 +23,7 @@ const (
 	Gojo_LoginUser_FullMethodName             = "/pb.Gojo/LoginUser"
 	Gojo_UpdateUser_FullMethodName            = "/pb.Gojo/UpdateUser"
 	Gojo_VerifyEmail_FullMethodName           = "/pb.Gojo/VerifyEmail"
-	Gojo_RenewToken_FullMethodName            = "/pb.Gojo/RenewToken"
+	Gojo_RenewTokens_FullMethodName           = "/pb.Gojo/RenewTokens"
 	Gojo_GetAllGenres_FullMethodName          = "/pb.Gojo/GetAllGenres"
 	Gojo_GetAllStudios_FullMethodName         = "/pb.Gojo/GetAllStudios"
 	Gojo_GetAllLanguages_FullMethodName       = "/pb.Gojo/GetAllLanguages"
@@ -52,7 +52,7 @@ type GojoClient interface {
 	LoginUser(ctx context.Context, in *LoginUserRequest, opts ...grpc.CallOption) (*LoginUserResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	VerifyEmail(ctx context.Context, in *VerifyEmailRequest, opts ...grpc.CallOption) (*VerifyEmailResponse, error)
-	RenewToken(ctx context.Context, in *RenewTokenRequest, opts ...grpc.CallOption) (*RenewTokenResponse, error)
+	RenewTokens(ctx context.Context, in *RenewTokensRequest, opts ...grpc.CallOption) (*RenewTokensResponse, error)
 	GetAllGenres(ctx context.Context, in *GetAllGenresRequest, opts ...grpc.CallOption) (*GetAllGenresResponse, error)
 	GetAllStudios(ctx context.Context, in *GetAllStudiosRequest, opts ...grpc.CallOption) (*GetAllStudiosResponse, error)
 	GetAllLanguages(ctx context.Context, in *GetAllLanguagesRequest, opts ...grpc.CallOption) (*GetAllLanguagesResponse, error)
@@ -117,9 +117,9 @@ func (c *gojoClient) VerifyEmail(ctx context.Context, in *VerifyEmailRequest, op
 	return out, nil
 }
 
-func (c *gojoClient) RenewToken(ctx context.Context, in *RenewTokenRequest, opts ...grpc.CallOption) (*RenewTokenResponse, error) {
-	out := new(RenewTokenResponse)
-	err := c.cc.Invoke(ctx, Gojo_RenewToken_FullMethodName, in, out, opts...)
+func (c *gojoClient) RenewTokens(ctx context.Context, in *RenewTokensRequest, opts ...grpc.CallOption) (*RenewTokensResponse, error) {
+	out := new(RenewTokensResponse)
+	err := c.cc.Invoke(ctx, Gojo_RenewTokens_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -296,7 +296,7 @@ type GojoServer interface {
 	LoginUser(context.Context, *LoginUserRequest) (*LoginUserResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	VerifyEmail(context.Context, *VerifyEmailRequest) (*VerifyEmailResponse, error)
-	RenewToken(context.Context, *RenewTokenRequest) (*RenewTokenResponse, error)
+	RenewTokens(context.Context, *RenewTokensRequest) (*RenewTokensResponse, error)
 	GetAllGenres(context.Context, *GetAllGenresRequest) (*GetAllGenresResponse, error)
 	GetAllStudios(context.Context, *GetAllStudiosRequest) (*GetAllStudiosResponse, error)
 	GetAllLanguages(context.Context, *GetAllLanguagesRequest) (*GetAllLanguagesResponse, error)
@@ -334,8 +334,8 @@ func (UnimplementedGojoServer) UpdateUser(context.Context, *UpdateUserRequest) (
 func (UnimplementedGojoServer) VerifyEmail(context.Context, *VerifyEmailRequest) (*VerifyEmailResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyEmail not implemented")
 }
-func (UnimplementedGojoServer) RenewToken(context.Context, *RenewTokenRequest) (*RenewTokenResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RenewToken not implemented")
+func (UnimplementedGojoServer) RenewTokens(context.Context, *RenewTokensRequest) (*RenewTokensResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RenewTokens not implemented")
 }
 func (UnimplementedGojoServer) GetAllGenres(context.Context, *GetAllGenresRequest) (*GetAllGenresResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllGenres not implemented")
@@ -476,20 +476,20 @@ func _Gojo_VerifyEmail_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Gojo_RenewToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RenewTokenRequest)
+func _Gojo_RenewTokens_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RenewTokensRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GojoServer).RenewToken(ctx, in)
+		return srv.(GojoServer).RenewTokens(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Gojo_RenewToken_FullMethodName,
+		FullMethod: Gojo_RenewTokens_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GojoServer).RenewToken(ctx, req.(*RenewTokenRequest))
+		return srv.(GojoServer).RenewTokens(ctx, req.(*RenewTokensRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -842,8 +842,8 @@ var Gojo_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Gojo_VerifyEmail_Handler,
 		},
 		{
-			MethodName: "RenewToken",
-			Handler:    _Gojo_RenewToken_Handler,
+			MethodName: "RenewTokens",
+			Handler:    _Gojo_RenewTokens_Handler,
 		},
 		{
 			MethodName: "GetAllGenres",

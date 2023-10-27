@@ -12,6 +12,11 @@ type TaskDistributor interface {
 		payload *PayloadSendVerifyEmail,
 		opts ...asynq.Option,
 	) error
+	DistributeTaskDeleteSession(
+		ctx context.Context,
+		payload *PayloadDeleteSession,
+		opts ...asynq.Option,
+	) error
 }
 
 type RedisTaskDistributor struct {

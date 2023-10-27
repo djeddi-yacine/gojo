@@ -17,11 +17,12 @@ const (
 type TaskProcessor interface {
 	Start() error
 	ProcessTaskSendVerifyEmail(ctx context.Context, task *asynq.Task) error
+	ProcessTaskDeleteSession(ctx context.Context, task *asynq.Task) error
 }
 
 type RedisTaskProcessor struct {
 	server *asynq.Server
-	gojo db.Gojo
+	gojo   db.Gojo
 	mailer mail.EmailSender
 }
 
@@ -41,7 +42,7 @@ func NewRedisTaskProcessor(redisOpt asynq.RedisClientOpt, gojo db.Gojo, mailer m
 
 	return &RedisTaskProcessor{
 		server: server,
-		gojo: gojo,
+		gojo:   gojo,
 		mailer: mailer,
 	}
 }
@@ -50,6 +51,7 @@ func (processor *RedisTaskProcessor) Start() error {
 	mux := asynq.NewServeMux()
 
 	mux.HandleFunc(TaskSendVerifyEmail, processor.ProcessTaskSendVerifyEmail)
+	mux.HandleFunc(TaskDeleteSession, processor.ProcessTaskDeleteSession)
 
 	return processor.server.Start(mux)
 }

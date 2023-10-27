@@ -682,16 +682,16 @@
         ]
       }
     },
-    "/v1/renew_token": {
+    "/v1/renew_tokens": {
       "post": {
-        "summary": "Renew access token",
-        "description": "Use this API to renew user's access token",
-        "operationId": "Gojo_RenewToken",
+        "summary": "Renew access token \u0026 refresh token",
+        "description": "Use this API to renew user's access token \u0026 refresh token",
+        "operationId": "Gojo_RenewTokens",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbRenewTokenResponse"
+              "$ref": "#/definitions/pbRenewTokensResponse"
             }
           },
           "default": {
@@ -1430,12 +1430,12 @@
         "accessToken": {
           "type": "string"
         },
-        "refreshToken": {
-          "type": "string"
-        },
         "accessTokenExpiresAt": {
           "type": "string",
           "format": "date-time"
+        },
+        "refreshToken": {
+          "type": "string"
         },
         "refreshTokenExpiresAt": {
           "type": "string",
@@ -1469,13 +1469,23 @@
         }
       }
     },
-    "pbRenewTokenResponse": {
+    "pbRenewTokensResponse": {
       "type": "object",
       "properties": {
+        "sessionID": {
+          "type": "string"
+        },
         "accessToken": {
           "type": "string"
         },
         "accessTokenExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "refreshToken": {
+          "type": "string"
+        },
+        "refreshTokenExpiresAt": {
           "type": "string",
           "format": "date-time"
         }

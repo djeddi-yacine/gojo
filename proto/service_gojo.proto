@@ -18,7 +18,7 @@ import "rpc_create_user.proto";
 import "rpc_login_user.proto";
 import "rpc_update_user.proto";
 import "rpc_verify_email.proto";
-import "rpc_renew_token.proto";
+import "rpc_renew_tokens.proto";
 
 import "rpc_get_all_genres.proto";
 import "rpc_get_all_studios.proto";
@@ -88,13 +88,13 @@ service Gojo {
       summary:  "Verify email";
     };
   }
-  rpc RenewToken(RenewTokenRequest) returns (RenewTokenResponse) {
+  rpc RenewTokens(RenewTokensRequest) returns (RenewTokensResponse) {
     option (google.api.http) = {
-      post : "/v1/renew_token"
+      post : "/v1/renew_tokens"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to renew user's access token";
-      summary:  "Renew access token";
+      description : "Use this API to renew user's access token & refresh token";
+      summary:  "Renew access token & refresh token";
     };
   }
   rpc GetAllGenres(GetAllGenresRequest) returns (GetAllGenresResponse) {

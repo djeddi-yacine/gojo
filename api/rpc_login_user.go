@@ -3,10 +3,13 @@ package api
 import (
 	"context"
 	"errors"
+	"time"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/pb"
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/dj-yacine-flutter/gojo/worker"
+	"github.com/hibiken/asynq"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -50,17 +53,33 @@ func (server *Server) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (
 	}
 
 	md := server.extractMetadata(ctx)
-	session, err := server.gojo.CreateSession(ctx, db.CreateSessionParams{
-		ID:           refreshPayload.ID,
-		Username:     user.Username,
-		RefreshToken: refreshToken,
-		UserAgent:    md.UserAgent,
-		ClientIp:     md.ClientIP,
-		IsBlocked:    false,
-		ExpiresAt:    refreshPayload.ExpiredAt,
-	})
+	arg := db.RenewSessionTxParams{
+		CreateSessionParams: db.CreateSessionParams{
+			ID:           refreshPayload.ID,
+			Username:     user.Username,
+			RefreshToken: refreshToken,
+			UserAgent:    md.UserAgent,
+			ClientIp:     md.ClientIP,
+			IsBlocked:    false,
+			ExpiresAt:    refreshPayload.ExpiredAt,
+		},
+		AfterRenew: func(username string) error {
+			taskPayload := &worker.PayloadDeleteSession{
+				Username: username,
+			}
+			opts := []asynq.Option{
+				asynq.MaxRetry(10),
+				asynq.ProcessIn(10 * time.Second),
+				asynq.Queue(worker.QueueCritical),
+			}
+
+			return server.taskDistributor.DistributeTaskDeleteSession(ctx, taskPayload, opts...)
+		},
+	}
+
+	session, err := server.gojo.RenewSessionTx(ctx, arg)
 	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to create session : %s", err)
+		return nil, status.Errorf(codes.Internal, "failed to renew session : %s", err)
 	}
 
 	res := &pb.LoginUserResponse{
