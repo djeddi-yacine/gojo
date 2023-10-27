@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package pb;
+
+import "anime_serie.proto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb";
+
+message UpdateAnimeSerieRequest { 
+    int64 ID = 1;
+    optional string originalTitle = 2;
+    optional google.protobuf.Timestamp aired = 3;
+    optional int32 releaseYear = 4;
+    optional google.protobuf.Duration duration = 5;
+}
+
+message UpdateAnimeSerieResponse { AnimeSerieResponse animeSerie = 1; }

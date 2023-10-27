@@ -32,6 +32,9 @@ import "rpc_get_all_anime_series.proto";
 import "rpc_add_info_anime_movie.proto";
 import "rpc_add_info_anime_serie.proto";
 
+import "rpc_update_anime_movie.proto";
+import "rpc_update_anime_serie.proto";
+
 option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
@@ -243,6 +246,26 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to add info to anime serie like studios and genres";
       summary:  "add info to anime serie";
+    };
+  }
+  rpc UpdateAnimeSerie(UpdateAnimeSerieRequest) returns (UpdateAnimeSerieResponse) {
+    option (google.api.http) = {
+      patch : "/v1/serie/update"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to update all anime serie fields using the ID";
+      summary: "Update anime serie";
+    };
+  }
+  rpc UpdateAnimeMovie(UpdateAnimeMovieRequest) returns (UpdateAnimeMovieResponse) {
+    option (google.api.http) = {
+      patch : "/v1/movie/update"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to update all anime movie fields using the ID";
+      summary: "Update anime movie";
     };
   }
 }

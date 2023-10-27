@@ -40,6 +40,8 @@ const (
 	Gojo_CreateAnimeSerieMetas_FullMethodName = "/pb.Gojo/CreateAnimeSerieMetas"
 	Gojo_AddInfoToAnimeMovie_FullMethodName   = "/pb.Gojo/AddInfoToAnimeMovie"
 	Gojo_AddInfoToAnimeSerie_FullMethodName   = "/pb.Gojo/AddInfoToAnimeSerie"
+	Gojo_UpdateAnimeSerie_FullMethodName      = "/pb.Gojo/UpdateAnimeSerie"
+	Gojo_UpdateAnimeMovie_FullMethodName      = "/pb.Gojo/UpdateAnimeMovie"
 )
 
 // GojoClient is the client API for Gojo service.
@@ -67,6 +69,8 @@ type GojoClient interface {
 	CreateAnimeSerieMetas(ctx context.Context, in *CreateAnimeSerieMetasRequest, opts ...grpc.CallOption) (*CreateAnimeSerieMetasResponse, error)
 	AddInfoToAnimeMovie(ctx context.Context, in *AddInfoAnimeMovieRequest, opts ...grpc.CallOption) (*AddInfoAnimeMovieResponse, error)
 	AddInfoToAnimeSerie(ctx context.Context, in *AddInfoAnimeSerieRequest, opts ...grpc.CallOption) (*AddInfoAnimeSerieResponse, error)
+	UpdateAnimeSerie(ctx context.Context, in *UpdateAnimeSerieRequest, opts ...grpc.CallOption) (*UpdateAnimeSerieResponse, error)
+	UpdateAnimeMovie(ctx context.Context, in *UpdateAnimeMovieRequest, opts ...grpc.CallOption) (*UpdateAnimeMovieResponse, error)
 }
 
 type gojoClient struct {
@@ -266,6 +270,24 @@ func (c *gojoClient) AddInfoToAnimeSerie(ctx context.Context, in *AddInfoAnimeSe
 	return out, nil
 }
 
+func (c *gojoClient) UpdateAnimeSerie(ctx context.Context, in *UpdateAnimeSerieRequest, opts ...grpc.CallOption) (*UpdateAnimeSerieResponse, error) {
+	out := new(UpdateAnimeSerieResponse)
+	err := c.cc.Invoke(ctx, Gojo_UpdateAnimeSerie_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gojoClient) UpdateAnimeMovie(ctx context.Context, in *UpdateAnimeMovieRequest, opts ...grpc.CallOption) (*UpdateAnimeMovieResponse, error) {
+	out := new(UpdateAnimeMovieResponse)
+	err := c.cc.Invoke(ctx, Gojo_UpdateAnimeMovie_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GojoServer is the server API for Gojo service.
 // All implementations must embed UnimplementedGojoServer
 // for forward compatibility
@@ -291,6 +313,8 @@ type GojoServer interface {
 	CreateAnimeSerieMetas(context.Context, *CreateAnimeSerieMetasRequest) (*CreateAnimeSerieMetasResponse, error)
 	AddInfoToAnimeMovie(context.Context, *AddInfoAnimeMovieRequest) (*AddInfoAnimeMovieResponse, error)
 	AddInfoToAnimeSerie(context.Context, *AddInfoAnimeSerieRequest) (*AddInfoAnimeSerieResponse, error)
+	UpdateAnimeSerie(context.Context, *UpdateAnimeSerieRequest) (*UpdateAnimeSerieResponse, error)
+	UpdateAnimeMovie(context.Context, *UpdateAnimeMovieRequest) (*UpdateAnimeMovieResponse, error)
 	mustEmbedUnimplementedGojoServer()
 }
 
@@ -360,6 +384,12 @@ func (UnimplementedGojoServer) AddInfoToAnimeMovie(context.Context, *AddInfoAnim
 }
 func (UnimplementedGojoServer) AddInfoToAnimeSerie(context.Context, *AddInfoAnimeSerieRequest) (*AddInfoAnimeSerieResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddInfoToAnimeSerie not implemented")
+}
+func (UnimplementedGojoServer) UpdateAnimeSerie(context.Context, *UpdateAnimeSerieRequest) (*UpdateAnimeSerieResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAnimeSerie not implemented")
+}
+func (UnimplementedGojoServer) UpdateAnimeMovie(context.Context, *UpdateAnimeMovieRequest) (*UpdateAnimeMovieResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAnimeMovie not implemented")
 }
 func (UnimplementedGojoServer) mustEmbedUnimplementedGojoServer() {}
 
@@ -752,6 +782,42 @@ func _Gojo_AddInfoToAnimeSerie_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Gojo_UpdateAnimeSerie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAnimeSerieRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).UpdateAnimeSerie(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_UpdateAnimeSerie_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).UpdateAnimeSerie(ctx, req.(*UpdateAnimeSerieRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gojo_UpdateAnimeMovie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAnimeMovieRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).UpdateAnimeMovie(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_UpdateAnimeMovie_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).UpdateAnimeMovie(ctx, req.(*UpdateAnimeMovieRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Gojo_ServiceDesc is the grpc.ServiceDesc for Gojo service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -842,6 +908,14 @@ var Gojo_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddInfoToAnimeSerie",
 			Handler:    _Gojo_AddInfoToAnimeSerie_Handler,
+		},
+		{
+			MethodName: "UpdateAnimeSerie",
+			Handler:    _Gojo_UpdateAnimeSerie_Handler,
+		},
+		{
+			MethodName: "UpdateAnimeMovie",
+			Handler:    _Gojo_UpdateAnimeMovie_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

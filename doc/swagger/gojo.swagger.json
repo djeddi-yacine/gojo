@@ -648,6 +648,40 @@
         ]
       }
     },
+    "/v1/movie/update": {
+      "patch": {
+        "summary": "Update anime movie",
+        "description": "Use this API to update all anime movie fields using the ID",
+        "operationId": "Gojo_UpdateAnimeMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbUpdateAnimeMovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbUpdateAnimeMovieRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/renew_token": {
       "post": {
         "summary": "Renew access token",
@@ -673,6 +707,40 @@
             "in": "query",
             "required": false,
             "type": "string"
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/serie/update": {
+      "patch": {
+        "summary": "Update anime serie",
+        "description": "Use this API to update all anime serie fields using the ID",
+        "operationId": "Gojo_UpdateAnimeSerie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbUpdateAnimeSerieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbUpdateAnimeSerieRequest"
+            }
           }
         ],
         "tags": [
@@ -1426,6 +1494,68 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "pbUpdateAnimeMovieRequest": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "duration": {
+          "type": "string"
+        }
+      }
+    },
+    "pbUpdateAnimeMovieResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/pbAnimeMovieResponse"
+        }
+      }
+    },
+    "pbUpdateAnimeSerieRequest": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "duration": {
+          "type": "string"
+        }
+      }
+    },
+    "pbUpdateAnimeSerieResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/pbAnimeSerieResponse"
         }
       }
     },

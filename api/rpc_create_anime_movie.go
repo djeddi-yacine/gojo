@@ -67,5 +67,9 @@ func validateCreateAnimeMovieRequest(req *pb.CreateAnimeMovieRequest) (violation
 		violations = append(violations, fieldViolation("releaseYear", err))
 	}
 
+	if err := utils.ValidateDuration(req.GetAnimeMovie().GetDuration().AsDuration().String()); err != nil {
+		violations = append(violations, fieldViolation("duration", err))
+	}
+
 	return violations
 }
