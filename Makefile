@@ -70,8 +70,17 @@ db:
 build:
 	GOOS=linux GOARCH=amd64 go build -v -ldflags "-s -w" -gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie -a -o gojo .
 
-ds:
+restart:
 	sudo docker stop redisGOJO postgresGOJO
 	sudo docker start redisGOJO postgresGOJO
 
-.PHONY: postgres createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans redis  db build ds
+dcs:
+	sudo docker stop redisGOJO postgresGOJO
+	sudo docker compose build
+	sudo docker compose up
+
+dcd:
+	sudo docker compose down
+	docker volume rm gojo_data-volume
+
+.PHONY: postgres createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans redis  db build restart dcs dcd

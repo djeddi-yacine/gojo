@@ -14,9 +14,6 @@ import (
 	"github.com/dj-yacine-flutter/gojo/pb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
-	"github.com/golang-migrate/migrate/v4"
-	_ "github.com/golang-migrate/migrate/v4/database/postgres"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/hibiken/asynq"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -42,8 +39,6 @@ func main() {
 		log.Fatal().Err(err).Msg("cannot connect to the DB")
 	}
 
-	runDBMigration(config.MigrationURL, config.DBSource)
-
 	gojo := db.NewGojo(conn)
 
 	redisOpt := asynq.RedisClientOpt{
@@ -52,8 +47,8 @@ func main() {
 
 	taskDistributot := worker.NewRedisTaskDistributor(redisOpt)
 
-	go runGatewayServer(config, gojo, taskDistributot)
 	go runTaskProcessor(config, redisOpt, gojo)
+	go runGatewayServer(config, gojo, taskDistributot)
 
 	fmt.Printf(`
 	 ██████╗  ██████╗      ██╗ ██████╗ 
@@ -67,22 +62,10 @@ func main() {
 	runGRPCServer(config, gojo, taskDistributot)
 }
 
-func runDBMigration(migrationURL string, dbSource string) {
-	migration, err := migrate.New(migrationURL, dbSource)
-	if err != nil {
-		log.Fatal().Err(err).Msg("cannot create new migrate instance")
-	}
-
-	if err = migration.Up(); err != nil && err != migrate.ErrNoChange {
-		log.Fatal().Err(err).Msg("failed to run migrate up")
-	}
-
-	log.Info().Msg("db migrated successfully")
-}
-
 func runTaskProcessor(config utils.Config, redisOpt asynq.RedisClientOpt, gojo db.Gojo) {
 	mailer := mail.NewGmailSender(config.EmailSenderName, config.EmailSenderAddress, config.EmailSenderPassword)
 	taskProcessor := worker.NewRedisTaskProcessor(redisOpt, gojo, mailer)
+
 	log.Info().Msg("start task processor")
 	err := taskProcessor.Start()
 	if err != nil {
