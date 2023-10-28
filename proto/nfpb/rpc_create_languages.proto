@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package nfpb;
+
+import "nfpb/language.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/nfpb";
+
+message CreateLanguagesRequest { 
+    repeated LanguageRequest languages = 1; 
+}
+
+message CreateLanguagesResponse { 
+    repeated LanguageResponse languages = 1; 
+}

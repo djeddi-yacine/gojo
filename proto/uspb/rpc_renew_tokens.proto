@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package uspb;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/uspb";
+
+message RenewTokensRequest {
+  string refreshToken = 1;
+}
+
+message RenewTokensResponse {
+  string sessionID = 1;
+  string accessToken = 2;
+  google.protobuf.Timestamp accessTokenExpiresAt = 3;
+  string refreshToken = 4;
+  google.protobuf.Timestamp refreshTokenExpiresAt = 5;
+}

@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
 )
 
 var (
@@ -109,7 +109,7 @@ func ValidateGenreAndStudio(values []string) error {
 	return nil
 }
 
-func ValidateLanguage(values []*pb.LanguageRequest) error {
+func ValidateLanguage(values []*nfpb.LanguageRequest) error {
 	for _, value := range values {
 		if err := ValidateString(value.LanguageCode, 2, 3); err != nil {
 			return err

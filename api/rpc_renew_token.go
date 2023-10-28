@@ -6,7 +6,7 @@ import (
 	"time"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
 	"github.com/hibiken/asynq"
@@ -16,7 +16,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *Server) RenewTokens(ctx context.Context, req *pb.RenewTokensRequest) (*pb.RenewTokensResponse, error) {
+func (server *Server) RenewTokens(ctx context.Context, req *uspb.RenewTokensRequest) (*uspb.RenewTokensResponse, error) {
 	if violations := validateRenewTokensRequest(req); violations != nil {
 		return nil, invalidArgumentError(violations)
 	}
@@ -98,7 +98,7 @@ func (server *Server) RenewTokens(ctx context.Context, req *pb.RenewTokensReques
 		return nil, status.Errorf(codes.Internal, "failed to renew session : %s", err)
 	}
 
-	res := &pb.RenewTokensResponse{
+	res := &uspb.RenewTokensResponse{
 		SessionID:             s.ID.String(),
 		AccessToken:           accessToken,
 		AccessTokenExpiresAt:  timestamppb.New(accessPayload.ExpiredAt),
@@ -109,7 +109,7 @@ func (server *Server) RenewTokens(ctx context.Context, req *pb.RenewTokensReques
 	return res, nil
 }
 
-func validateRenewTokensRequest(req *pb.RenewTokensRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateRenewTokensRequest(req *uspb.RenewTokensRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateToken(req.GetRefreshToken()); err != nil {
 		violations = append(violations, fieldViolation("refreshToken", err))
 	}

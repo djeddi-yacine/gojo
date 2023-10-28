@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package nfpb;
+
+import "google/protobuf/timestamp.proto";
+
+import "nfpb/language.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/nfpb";
+
+message MetaRequest {
+  string title = 1;
+  string overview = 2;
+}
+
+message MetaResponse {
+  int64 metaID = 1;
+  string title = 2;
+  string overview = 3;
+}
+
+message AnimeMetaRequest {
+  int32 languageID = 1;
+  MetaRequest meta = 2;
+}
+
+message AnimeMetaResponse {
+  LanguageResponse language = 1;
+  MetaResponse meta = 2;
+  google.protobuf.Timestamp createdAt = 3;
+}

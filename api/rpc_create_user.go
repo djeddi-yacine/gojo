@@ -5,7 +5,7 @@ import (
 	"time"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
 	"github.com/hibiken/asynq"
@@ -15,7 +15,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest) (*pb.CreateUserResponse, error) {
+func (server *Server) CreateUser(ctx context.Context, req *uspb.CreateUserRequest) (*uspb.CreateUserResponse, error) {
 	if violations := validateCreateUserRequest(req); violations != nil {
 		return nil, invalidArgumentError(violations)
 	}
@@ -55,8 +55,8 @@ func (server *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest)
 		return nil, status.Errorf(codes.Internal, "failed to create user : %s", err)
 	}
 
-	res := &pb.CreateUserResponse{
-		User: &pb.User{
+	res := &uspb.CreateUserResponse{
+		User: &uspb.User{
 			Username:          txResult.User.Username,
 			FullName:          txResult.User.FullName,
 			Email:             txResult.User.Email,
@@ -67,7 +67,7 @@ func (server *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest)
 	return res, nil
 }
 
-func validateCreateUserRequest(req *pb.CreateUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateCreateUserRequest(req *uspb.CreateUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateUsername(req.GetUsername()); err != nil {
 		violations = append(violations, fieldViolation("username", err))
 	}

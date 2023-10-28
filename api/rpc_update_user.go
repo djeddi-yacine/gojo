@@ -6,7 +6,7 @@ import (
 	"time"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/jackc/pgx/v5/pgtype"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -15,7 +15,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *Server) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest) (*pb.UpdateUserResponse, error) {
+func (server *Server) UpdateUser(ctx context.Context, req *uspb.UpdateUserRequest) (*uspb.UpdateUserResponse, error) {
 	authPayload, err := server.authorizeUser(ctx, utils.AllRolls)
 	if err != nil {
 		return nil, unAuthenticatedError(err)
@@ -64,8 +64,8 @@ func (server *Server) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest)
 		return nil, status.Errorf(codes.Internal, "failed to update user : %s", err)
 	}
 
-	res := &pb.UpdateUserResponse{
-		User: &pb.User{
+	res := &uspb.UpdateUserResponse{
+		User: &uspb.User{
 			Username:          user.Username,
 			FullName:          user.FullName,
 			Email:             user.Email,
@@ -76,7 +76,7 @@ func (server *Server) UpdateUser(ctx context.Context, req *pb.UpdateUserRequest)
 	return res, nil
 }
 
-func validateUpdateUserRequest(req *pb.UpdateUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateUpdateUserRequest(req *uspb.UpdateUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateUsername(req.GetUsername()); err != nil {
 		violations = append(violations, fieldViolation("username", err))
 	}

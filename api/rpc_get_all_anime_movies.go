@@ -4,14 +4,14 @@ import (
 	"context"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/ampb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-func (server *Server) GetAllAnimeMovies(ctx context.Context, req *pb.GetAllAnimeMoviesRequest) (*pb.GetAllAnimeMoviesResponse, error) {
+func (server *Server) GetAllAnimeMovies(ctx context.Context, req *ampb.GetAllAnimeMoviesRequest) (*ampb.GetAllAnimeMoviesResponse, error) {
 	authPayload, err := server.authorizeUser(ctx, []string{utils.AdminRole, utils.RootRoll})
 	if err != nil {
 		return nil, unAuthenticatedError(err)
@@ -39,18 +39,18 @@ func (server *Server) GetAllAnimeMovies(ctx context.Context, req *pb.GetAllAnime
 		return nil, status.Errorf(codes.Internal, "failed to list the anime movies : %s", err)
 	}
 
-	var PBAnimeMovies []*pb.AnimeMovieResponse
+	var PBAnimeMovies []*ampb.AnimeMovieResponse
 	for _, a := range DBAnimeMovies {
 		PBAnimeMovies = append(PBAnimeMovies, ConvertAnimeMovie(a))
 	}
 
-	res := &pb.GetAllAnimeMoviesResponse{
+	res := &ampb.GetAllAnimeMoviesResponse{
 		AnimeMovies: PBAnimeMovies,
 	}
 	return res, nil
 }
 
-func validateGetAllAnimeMoviesRequest(req *pb.GetAllAnimeMoviesRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateGetAllAnimeMoviesRequest(req *ampb.GetAllAnimeMoviesRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(int64(req.GetPageNumber())); err != nil {
 		violations = append(violations, fieldViolation("pageNumber", err))
 	}

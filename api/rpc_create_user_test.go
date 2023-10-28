@@ -8,7 +8,7 @@ import (
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	mockdb "github.com/dj-yacine-flutter/gojo/db/mock"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
 	mockwk "github.com/dj-yacine-flutter/gojo/worker/mock"
@@ -72,13 +72,13 @@ func TestCreateUserAPI(t *testing.T) {
 
 	testCases := []struct {
 		name          string
-		req           *pb.CreateUserRequest
+		req           *uspb.CreateUserRequest
 		buildStubs    func(gojo *mockdb.MockGojo, taskDistributor *mockwk.MockTaskDistributor)
-		checkResponse func(t *testing.T, res *pb.CreateUserResponse, err error)
+		checkResponse func(t *testing.T, res *uspb.CreateUserResponse, err error)
 	}{
 		{
 			name: "OK",
-			req: &pb.CreateUserRequest{
+			req: &uspb.CreateUserRequest{
 				Username: user.Username,
 				Password: password,
 				FullName: user.FullName,
@@ -105,7 +105,7 @@ func TestCreateUserAPI(t *testing.T) {
 					Times(1).
 					Return(nil)
 			},
-			checkResponse: func(t *testing.T, res *pb.CreateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspb.CreateUserResponse, err error) {
 				require.NoError(t, err)
 				require.NotNil(t, res)
 				createdUser := res.GetUser()
@@ -116,7 +116,7 @@ func TestCreateUserAPI(t *testing.T) {
 		},
 		{
 			name: "InvalidEmail",
-			req: &pb.CreateUserRequest{
+			req: &uspb.CreateUserRequest{
 				Username: user.Username,
 				Password: password,
 				FullName: user.FullName,
@@ -131,7 +131,7 @@ func TestCreateUserAPI(t *testing.T) {
 					DistributeTaskSendVerifyEmail(gomock.Any(), gomock.Any(), gomock.Any()).
 					Times(0)
 			},
-			checkResponse: func(t *testing.T, res *pb.CreateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspb.CreateUserResponse, err error) {
 				require.Error(t, err)
 				st, ok := status.FromError(err)
 				require.True(t, ok)
@@ -140,7 +140,7 @@ func TestCreateUserAPI(t *testing.T) {
 		},
 		{
 			name: "InvalidPassword",
-			req: &pb.CreateUserRequest{
+			req: &uspb.CreateUserRequest{
 				Username: user.Username,
 				Password: "000",
 				FullName: user.FullName,
@@ -155,7 +155,7 @@ func TestCreateUserAPI(t *testing.T) {
 					DistributeTaskSendVerifyEmail(gomock.Any(), gomock.Any(), gomock.Any()).
 					Times(0)
 			},
-			checkResponse: func(t *testing.T, res *pb.CreateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspb.CreateUserResponse, err error) {
 				require.Error(t, err)
 				st, ok := status.FromError(err)
 				require.True(t, ok)
@@ -164,7 +164,7 @@ func TestCreateUserAPI(t *testing.T) {
 		},
 		{
 			name: "InvalidUsername",
-			req: &pb.CreateUserRequest{
+			req: &uspb.CreateUserRequest{
 				Username: "UU",
 				Password: password,
 				FullName: user.FullName,
@@ -179,7 +179,7 @@ func TestCreateUserAPI(t *testing.T) {
 					DistributeTaskSendVerifyEmail(gomock.Any(), gomock.Any(), gomock.Any()).
 					Times(0)
 			},
-			checkResponse: func(t *testing.T, res *pb.CreateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspb.CreateUserResponse, err error) {
 				require.Error(t, err)
 				st, ok := status.FromError(err)
 				require.True(t, ok)
@@ -188,7 +188,7 @@ func TestCreateUserAPI(t *testing.T) {
 		},
 		{
 			name: "InvalidFullName",
-			req: &pb.CreateUserRequest{
+			req: &uspb.CreateUserRequest{
 				Username: user.Username,
 				Password: password,
 				FullName: "00",
@@ -203,7 +203,7 @@ func TestCreateUserAPI(t *testing.T) {
 					DistributeTaskSendVerifyEmail(gomock.Any(), gomock.Any(), gomock.Any()).
 					Times(0)
 			},
-			checkResponse: func(t *testing.T, res *pb.CreateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspb.CreateUserResponse, err error) {
 				require.Error(t, err)
 				st, ok := status.FromError(err)
 				require.True(t, ok)
@@ -212,7 +212,7 @@ func TestCreateUserAPI(t *testing.T) {
 		},
 		{
 			name: "DuplicateUsername",
-			req: &pb.CreateUserRequest{
+			req: &uspb.CreateUserRequest{
 				Username: user.Username,
 				Password: password,
 				FullName: user.FullName,
@@ -228,7 +228,7 @@ func TestCreateUserAPI(t *testing.T) {
 					DistributeTaskSendVerifyEmail(gomock.Any(), gomock.Any(), gomock.Any()).
 					Times(0)
 			},
-			checkResponse: func(t *testing.T, res *pb.CreateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspb.CreateUserResponse, err error) {
 				require.Error(t, err)
 				st, ok := status.FromError(err)
 				require.True(t, ok)

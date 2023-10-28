@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package aspb;
+
+import "aspb/anime_serie.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
+
+message CreateAnimeSerieRequest { AnimeSerieRequest animeSerie = 1; }
+
+message CreateAnimeSerieResponse { AnimeSerieResponse animeSerie = 1; }

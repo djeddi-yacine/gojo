@@ -4,14 +4,14 @@ import (
 	"context"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-func (server *Server) VerifyEmail(ctx context.Context, req *pb.VerifyEmailRequest) (*pb.VerifyEmailResponse, error) {
+func (server *Server) VerifyEmail(ctx context.Context, req *uspb.VerifyEmailRequest) (*uspb.VerifyEmailResponse, error) {
 	violations := validateVerifyEmailRequest(req)
 	if violations != nil {
 		return nil, invalidArgumentError(violations)
@@ -25,13 +25,13 @@ func (server *Server) VerifyEmail(ctx context.Context, req *pb.VerifyEmailReques
 		return nil, status.Errorf(codes.Internal, "failed to verify email")
 	}
 
-	rsp := &pb.VerifyEmailResponse{
+	rsp := &uspb.VerifyEmailResponse{
 		IsVerified: txResult.User.IsEmailVerified,
 	}
 	return rsp, nil
 }
 
-func validateVerifyEmailRequest(req *pb.VerifyEmailRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateVerifyEmailRequest(req *uspb.VerifyEmailRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateEmailID(req.GetEmailID()); err != nil {
 		violations = append(violations, fieldViolation("emailID", err))
 	}

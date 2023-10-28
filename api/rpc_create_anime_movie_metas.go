@@ -5,7 +5,8 @@ import (
 	"errors"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/ampb"
+	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
@@ -13,7 +14,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *Server) CreateAnimeMovieMetas(ctx context.Context, req *pb.CreateAnimeMovieMetasRequest) (*pb.CreateAnimeMovieMetasResponse, error) {
+func (server *Server) CreateAnimeMovieMetas(ctx context.Context, req *ampb.CreateAnimeMovieMetasRequest) (*ampb.CreateAnimeMovieMetasResponse, error) {
 	authPayload, err := server.authorizeUser(ctx, []string{utils.AdminRole, utils.RootRoll})
 	if err != nil {
 		return nil, unAuthenticatedError(err)
@@ -49,24 +50,24 @@ func (server *Server) CreateAnimeMovieMetas(ctx context.Context, req *pb.CreateA
 		return nil, status.Errorf(codes.Internal, "failed to create anime movie metadata : %s", err)
 	}
 
-	var PBAM = make([]*pb.AnimeMetaResponse, len(metas.CreateAnimeMovieMetasTxResults))
+	var anime_metas = make([]*nfpb.AnimeMetaResponse, len(metas.CreateAnimeMovieMetasTxResults))
 
 	for i, am := range metas.CreateAnimeMovieMetasTxResults {
-		PBAM[i] = &pb.AnimeMetaResponse{
+		anime_metas[i] = &nfpb.AnimeMetaResponse{
 			Meta:      ConvertMeta(am.Meta),
 			Language:  ConvertLanguage(am.Language),
 			CreatedAt: timestamppb.New(am.Meta.CreatedAt),
 		}
 	}
 
-	res := &pb.CreateAnimeMovieMetasResponse{
+	res := &ampb.CreateAnimeMovieMetasResponse{
 		AnimeID:    req.GetAnimeID(),
-		AnimeMetas: PBAM,
+		AnimeMetas: anime_metas,
 	}
 	return res, nil
 }
 
-func validateCreateAnimeMovieMetasRequest(req *pb.CreateAnimeMovieMetasRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateCreateAnimeMovieMetasRequest(req *ampb.CreateAnimeMovieMetasRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.GetAnimeID()); err != nil {
 		violations = append(violations, fieldViolation("animeID", err))
 	}

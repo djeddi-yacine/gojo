@@ -6,7 +6,7 @@ import (
 	"time"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
 	"github.com/hibiken/asynq"
@@ -16,7 +16,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *Server) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (*pb.LoginUserResponse, error) {
+func (server *Server) LoginUser(ctx context.Context, req *uspb.LoginUserRequest) (*uspb.LoginUserResponse, error) {
 	if violations := validateLoginUserRequest(req); violations != nil {
 		return nil, invalidArgumentError(violations)
 	}
@@ -82,8 +82,8 @@ func (server *Server) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (
 		return nil, status.Errorf(codes.Internal, "failed to renew session : %s", err)
 	}
 
-	res := &pb.LoginUserResponse{
-		User: &pb.User{
+	res := &uspb.LoginUserResponse{
+		User: &uspb.User{
 			Username:          user.Username,
 			FullName:          user.FullName,
 			Email:             user.Email,
@@ -100,7 +100,7 @@ func (server *Server) LoginUser(ctx context.Context, req *pb.LoginUserRequest) (
 	return res, nil
 }
 
-func validateLoginUserRequest(req *pb.LoginUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateLoginUserRequest(req *uspb.LoginUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateUsername(req.GetUsername()); err != nil {
 		violations = append(violations, fieldViolation("username", err))
 	}

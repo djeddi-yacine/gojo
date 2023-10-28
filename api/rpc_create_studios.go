@@ -4,14 +4,14 @@ import (
 	"context"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-func (server *Server) CreateStudios(ctx context.Context, req *pb.CreateStudiosRequest) (*pb.CreateStudiosResponse, error) {
+func (server *Server) CreateStudios(ctx context.Context, req *nfpb.CreateStudiosRequest) (*nfpb.CreateStudiosResponse, error) {
 	authPayload, err := server.authorizeUser(ctx, []string{utils.AdminRole, utils.RootRoll})
 	if err != nil {
 		return nil, unAuthenticatedError(err)
@@ -35,20 +35,20 @@ func (server *Server) CreateStudios(ctx context.Context, req *pb.CreateStudiosRe
 		return nil, status.Errorf(codes.Internal, "failed to create studio : %s", err)
 	}
 
-	var PBStudios []*pb.Studio
+	var PBStudios []*nfpb.Studio
 	for _, s := range result.Studios {
 		studio := ConvertStudio(s)
 		PBStudios = append(PBStudios, studio)
 	}
 
-	res := &pb.CreateStudiosResponse{
+	res := &nfpb.CreateStudiosResponse{
 		Studios: PBStudios,
 	}
 
 	return res, nil
 }
 
-func validateCreateStudioRequest(req *pb.CreateStudiosRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateCreateStudioRequest(req *nfpb.CreateStudiosRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateGenreAndStudio(req.GetNames()); err != nil {
 		violations = append(violations, fieldViolation("names", err))
 	}

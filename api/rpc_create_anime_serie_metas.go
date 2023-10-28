@@ -5,7 +5,8 @@ import (
 	"errors"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/aspb"
+	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
@@ -13,7 +14,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *Server) CreateAnimeSerieMetas(ctx context.Context, req *pb.CreateAnimeSerieMetasRequest) (*pb.CreateAnimeSerieMetasResponse, error) {
+func (server *Server) CreateAnimeSerieMetas(ctx context.Context, req *aspb.CreateAnimeSerieMetasRequest) (*aspb.CreateAnimeSerieMetasResponse, error) {
 	authPayload, err := server.authorizeUser(ctx, []string{utils.AdminRole, utils.RootRoll})
 	if err != nil {
 		return nil, unAuthenticatedError(err)
@@ -49,24 +50,24 @@ func (server *Server) CreateAnimeSerieMetas(ctx context.Context, req *pb.CreateA
 		return nil, status.Errorf(codes.Internal, "failed to create anime serie metadata : %s", err)
 	}
 
-	var PBAM = make([]*pb.AnimeMetaResponse, len(metas.CreateAnimeSerieMetasTxResults))
+	var PBAM = make([]*nfpb.AnimeMetaResponse, len(metas.CreateAnimeSerieMetasTxResults))
 
 	for i, am := range metas.CreateAnimeSerieMetasTxResults {
-		PBAM[i] = &pb.AnimeMetaResponse{
+		PBAM[i] = &nfpb.AnimeMetaResponse{
 			Meta:      ConvertMeta(am.Meta),
 			Language:  ConvertLanguage(am.Language),
 			CreatedAt: timestamppb.New(am.Meta.CreatedAt),
 		}
 	}
 
-	res := &pb.CreateAnimeSerieMetasResponse{
+	res := &aspb.CreateAnimeSerieMetasResponse{
 		AnimeID:    req.GetAnimeID(),
 		AnimeMetas: PBAM,
 	}
 	return res, nil
 }
 
-func validateCreateAnimeSerieMetasRequest(req *pb.CreateAnimeSerieMetasRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateCreateAnimeSerieMetasRequest(req *aspb.CreateAnimeSerieMetasRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.GetAnimeID()); err != nil {
 		violations = append(violations, fieldViolation("animeID", err))
 	}

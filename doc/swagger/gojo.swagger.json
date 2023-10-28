@@ -1,8 +1,8 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Gojoj API",
-    "version": "1.3",
+    "title": "Gojo API",
+    "version": "1.4",
     "contact": {
       "name": "Dj Yacine",
       "url": "https://github.com/dj-yacine-flutter"
@@ -29,7 +29,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbGetAllGenresResponse"
+              "$ref": "#/definitions/nfpbGetAllGenresResponse"
             }
           },
           "default": {
@@ -69,7 +69,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbCreateGenresResponse"
+              "$ref": "#/definitions/nfpbCreateGenresResponse"
             }
           },
           "default": {
@@ -85,7 +85,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbCreateGenresRequest"
+              "$ref": "#/definitions/nfpbCreateGenresRequest"
             }
           }
         ],
@@ -103,7 +103,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbCreateLanguagesResponse"
+              "$ref": "#/definitions/nfpbCreateLanguagesResponse"
             }
           },
           "default": {
@@ -119,7 +119,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbCreateLanguagesRequest"
+              "$ref": "#/definitions/nfpbCreateLanguagesRequest"
             }
           }
         ],
@@ -137,7 +137,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbGetAllAnimeMoviesResponse"
+              "$ref": "#/definitions/ampbGetAllAnimeMoviesResponse"
             }
           },
           "default": {
@@ -184,7 +184,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbCreateAnimeMovieResponse"
+              "$ref": "#/definitions/ampbCreateAnimeMovieResponse"
             }
           },
           "default": {
@@ -200,7 +200,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbCreateAnimeMovieRequest"
+              "$ref": "#/definitions/ampbCreateAnimeMovieRequest"
             }
           }
         ],
@@ -218,7 +218,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbAddInfoAnimeMovieResponse"
+              "$ref": "#/definitions/ampbAddInfoAnimeMovieResponse"
             }
           },
           "default": {
@@ -273,7 +273,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbGetAllAnimeMovieMetasResponse"
+              "$ref": "#/definitions/ampbGetAllAnimeMovieMetasResponse"
             }
           },
           "default": {
@@ -306,7 +306,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbCreateAnimeMovieMetasResponse"
+              "$ref": "#/definitions/ampbCreateAnimeMovieMetasResponse"
             }
           },
           "default": {
@@ -322,7 +322,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbCreateAnimeMovieMetasRequest"
+              "$ref": "#/definitions/ampbCreateAnimeMovieMetasRequest"
             }
           }
         ],
@@ -340,7 +340,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbGetAllAnimeSeriesResponse"
+              "$ref": "#/definitions/aspbGetAllAnimeSeriesResponse"
             }
           },
           "default": {
@@ -387,7 +387,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbCreateAnimeSerieResponse"
+              "$ref": "#/definitions/aspbCreateAnimeSerieResponse"
             }
           },
           "default": {
@@ -403,7 +403,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbCreateAnimeSerieRequest"
+              "$ref": "#/definitions/aspbCreateAnimeSerieRequest"
             }
           }
         ],
@@ -421,7 +421,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbAddInfoAnimeSerieResponse"
+              "$ref": "#/definitions/aspbAddInfoAnimeSerieResponse"
             }
           },
           "default": {
@@ -476,7 +476,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbGetAllAnimeSerieMetasResponse"
+              "$ref": "#/definitions/aspbGetAllAnimeSerieMetasResponse"
             }
           },
           "default": {
@@ -509,7 +509,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbCreateAnimeSerieMetasResponse"
+              "$ref": "#/definitions/aspbCreateAnimeSerieMetasResponse"
             }
           },
           "default": {
@@ -525,7 +525,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbCreateAnimeSerieMetasRequest"
+              "$ref": "#/definitions/aspbCreateAnimeSerieMetasRequest"
             }
           }
         ],
@@ -543,7 +543,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbGetAllStudiosResponse"
+              "$ref": "#/definitions/nfpbGetAllStudiosResponse"
             }
           },
           "default": {
@@ -583,7 +583,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbCreateStudiosResponse"
+              "$ref": "#/definitions/nfpbCreateStudiosResponse"
             }
           },
           "default": {
@@ -599,7 +599,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbCreateStudiosRequest"
+              "$ref": "#/definitions/nfpbCreateStudiosRequest"
             }
           }
         ],
@@ -617,7 +617,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbGetAllLanguagesResponse"
+              "$ref": "#/definitions/nfpbGetAllLanguagesResponse"
             }
           },
           "default": {
@@ -657,7 +657,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbUpdateAnimeMovieResponse"
+              "$ref": "#/definitions/ampbUpdateAnimeMovieResponse"
             }
           },
           "default": {
@@ -673,7 +673,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbUpdateAnimeMovieRequest"
+              "$ref": "#/definitions/ampbUpdateAnimeMovieRequest"
             }
           }
         ],
@@ -691,7 +691,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbRenewTokensResponse"
+              "$ref": "#/definitions/uspbRenewTokensResponse"
             }
           },
           "default": {
@@ -723,7 +723,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbUpdateAnimeSerieResponse"
+              "$ref": "#/definitions/aspbUpdateAnimeSerieResponse"
             }
           },
           "default": {
@@ -739,7 +739,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbUpdateAnimeSerieRequest"
+              "$ref": "#/definitions/aspbUpdateAnimeSerieRequest"
             }
           }
         ],
@@ -757,7 +757,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbCreateUserResponse"
+              "$ref": "#/definitions/uspbCreateUserResponse"
             }
           },
           "default": {
@@ -773,7 +773,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbCreateUserRequest"
+              "$ref": "#/definitions/uspbCreateUserRequest"
             }
           }
         ],
@@ -791,7 +791,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbLoginUserResponse"
+              "$ref": "#/definitions/uspbLoginUserResponse"
             }
           },
           "default": {
@@ -807,7 +807,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbLoginUserRequest"
+              "$ref": "#/definitions/uspbLoginUserRequest"
             }
           }
         ],
@@ -825,7 +825,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbUpdateUserResponse"
+              "$ref": "#/definitions/uspbUpdateUserResponse"
             }
           },
           "default": {
@@ -841,7 +841,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbUpdateUserRequest"
+              "$ref": "#/definitions/uspbUpdateUserRequest"
             }
           }
         ],
@@ -859,7 +859,7 @@
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbVerifyEmailResponse"
+              "$ref": "#/definitions/uspbVerifyEmailResponse"
             }
           },
           "default": {
@@ -891,35 +891,333 @@
     }
   },
   "definitions": {
-    "pbAddInfoAnimeMovieResponse": {
+    "ampbAddInfoAnimeMovieResponse": {
       "type": "object",
       "properties": {
         "animeMovie": {
-          "$ref": "#/definitions/pbAnimeMovieResponse"
+          "$ref": "#/definitions/ampbAnimeMovieResponse"
         },
         "genres": {
-          "$ref": "#/definitions/pbAnimeGenresResponse"
+          "$ref": "#/definitions/nfpbAnimeGenresResponse"
         },
         "studios": {
-          "$ref": "#/definitions/pbAnimeStudiosResponse"
+          "$ref": "#/definitions/nfpbAnimeStudiosResponse"
         }
       }
     },
-    "pbAddInfoAnimeSerieResponse": {
+    "ampbAnimeMovieRequest": {
+      "type": "object",
+      "properties": {
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "duration": {
+          "type": "string"
+        }
+      }
+    },
+    "ampbAnimeMovieResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ampbCreateAnimeMovieMetasRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbAnimeMetaRequest"
+          }
+        }
+      }
+    },
+    "ampbCreateAnimeMovieMetasResponse": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbAnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "ampbCreateAnimeMovieRequest": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbAnimeMovieRequest"
+        }
+      }
+    },
+    "ampbCreateAnimeMovieResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbAnimeMovieResponse"
+        }
+      }
+    },
+    "ampbGetAllAnimeMovieMetasResponse": {
+      "type": "object",
+      "properties": {
+        "metas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbAnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "ampbGetAllAnimeMoviesResponse": {
+      "type": "object",
+      "properties": {
+        "AnimeMovies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbAnimeMovieResponse"
+          }
+        }
+      }
+    },
+    "ampbUpdateAnimeMovieRequest": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "duration": {
+          "type": "string"
+        }
+      }
+    },
+    "ampbUpdateAnimeMovieResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbAnimeMovieResponse"
+        }
+      }
+    },
+    "aspbAddInfoAnimeSerieResponse": {
       "type": "object",
       "properties": {
         "animeSerie": {
-          "$ref": "#/definitions/pbAnimeSerieResponse"
+          "$ref": "#/definitions/aspbAnimeSerieResponse"
         },
         "genres": {
-          "$ref": "#/definitions/pbAnimeGenresResponse"
+          "$ref": "#/definitions/nfpbAnimeGenresResponse"
         },
         "studios": {
-          "$ref": "#/definitions/pbAnimeStudiosResponse"
+          "$ref": "#/definitions/nfpbAnimeStudiosResponse"
         }
       }
     },
-    "pbAnimeGenresRequest": {
+    "aspbAnimeSerieRequest": {
+      "type": "object",
+      "properties": {
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "duration": {
+          "type": "string"
+        }
+      }
+    },
+    "aspbAnimeSerieResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "aspbCreateAnimeSerieMetasRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbAnimeMetaRequest"
+          }
+        }
+      }
+    },
+    "aspbCreateAnimeSerieMetasResponse": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbAnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "aspbCreateAnimeSerieRequest": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/aspbAnimeSerieRequest"
+        }
+      }
+    },
+    "aspbCreateAnimeSerieResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/aspbAnimeSerieResponse"
+        }
+      }
+    },
+    "aspbGetAllAnimeSerieMetasResponse": {
+      "type": "object",
+      "properties": {
+        "metas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbAnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "aspbGetAllAnimeSeriesResponse": {
+      "type": "object",
+      "properties": {
+        "AnimeSeries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbAnimeSerieResponse"
+          }
+        }
+      }
+    },
+    "aspbUpdateAnimeSerieRequest": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "duration": {
+          "type": "string"
+        }
+      }
+    },
+    "aspbUpdateAnimeSerieResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/aspbAnimeSerieResponse"
+        }
+      }
+    },
+    "nfpbAnimeGenresRequest": {
       "type": "object",
       "properties": {
         "genreID": {
@@ -931,19 +1229,19 @@
         }
       }
     },
-    "pbAnimeGenresResponse": {
+    "nfpbAnimeGenresResponse": {
       "type": "object",
       "properties": {
         "genres": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/pbGenre"
+            "$ref": "#/definitions/nfpbGenre"
           }
         }
       }
     },
-    "pbAnimeMetaRequest": {
+    "nfpbAnimeMetaRequest": {
       "type": "object",
       "properties": {
         "languageID": {
@@ -951,18 +1249,18 @@
           "format": "int32"
         },
         "meta": {
-          "$ref": "#/definitions/pbMetaRequest"
+          "$ref": "#/definitions/nfpbMetaRequest"
         }
       }
     },
-    "pbAnimeMetaResponse": {
+    "nfpbAnimeMetaResponse": {
       "type": "object",
       "properties": {
         "language": {
-          "$ref": "#/definitions/pbLanguageResponse"
+          "$ref": "#/definitions/nfpbLanguageResponse"
         },
         "meta": {
-          "$ref": "#/definitions/pbMetaResponse"
+          "$ref": "#/definitions/nfpbMetaResponse"
         },
         "createdAt": {
           "type": "string",
@@ -970,99 +1268,7 @@
         }
       }
     },
-    "pbAnimeMovieRequest": {
-      "type": "object",
-      "properties": {
-        "originalTitle": {
-          "type": "string"
-        },
-        "aired": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "releaseYear": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "duration": {
-          "type": "string"
-        }
-      }
-    },
-    "pbAnimeMovieResponse": {
-      "type": "object",
-      "properties": {
-        "ID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "originalTitle": {
-          "type": "string"
-        },
-        "aired": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "releaseYear": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "duration": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "pbAnimeSerieRequest": {
-      "type": "object",
-      "properties": {
-        "originalTitle": {
-          "type": "string"
-        },
-        "aired": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "releaseYear": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "duration": {
-          "type": "string"
-        }
-      }
-    },
-    "pbAnimeSerieResponse": {
-      "type": "object",
-      "properties": {
-        "ID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "originalTitle": {
-          "type": "string"
-        },
-        "aired": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "releaseYear": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "duration": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "pbAnimeStudiosRequest": {
+    "nfpbAnimeStudiosRequest": {
       "type": "object",
       "properties": {
         "studioID": {
@@ -1074,115 +1280,19 @@
         }
       }
     },
-    "pbAnimeStudiosResponse": {
+    "nfpbAnimeStudiosResponse": {
       "type": "object",
       "properties": {
         "studios": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/pbStudio"
+            "$ref": "#/definitions/nfpbStudio"
           }
         }
       }
     },
-    "pbCreateAnimeMovieMetasRequest": {
-      "type": "object",
-      "properties": {
-        "animeID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "animeMetas": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pbAnimeMetaRequest"
-          }
-        }
-      }
-    },
-    "pbCreateAnimeMovieMetasResponse": {
-      "type": "object",
-      "properties": {
-        "animeID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "animeMetas": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pbAnimeMetaResponse"
-          }
-        }
-      }
-    },
-    "pbCreateAnimeMovieRequest": {
-      "type": "object",
-      "properties": {
-        "animeMovie": {
-          "$ref": "#/definitions/pbAnimeMovieRequest"
-        }
-      }
-    },
-    "pbCreateAnimeMovieResponse": {
-      "type": "object",
-      "properties": {
-        "animeMovie": {
-          "$ref": "#/definitions/pbAnimeMovieResponse"
-        }
-      }
-    },
-    "pbCreateAnimeSerieMetasRequest": {
-      "type": "object",
-      "properties": {
-        "animeID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "animeMetas": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pbAnimeMetaRequest"
-          }
-        }
-      }
-    },
-    "pbCreateAnimeSerieMetasResponse": {
-      "type": "object",
-      "properties": {
-        "animeID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "animeMetas": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pbAnimeMetaResponse"
-          }
-        }
-      }
-    },
-    "pbCreateAnimeSerieRequest": {
-      "type": "object",
-      "properties": {
-        "animeSerie": {
-          "$ref": "#/definitions/pbAnimeSerieRequest"
-        }
-      }
-    },
-    "pbCreateAnimeSerieResponse": {
-      "type": "object",
-      "properties": {
-        "animeSerie": {
-          "$ref": "#/definitions/pbAnimeSerieResponse"
-        }
-      }
-    },
-    "pbCreateGenresRequest": {
+    "nfpbCreateGenresRequest": {
       "type": "object",
       "properties": {
         "names": {
@@ -1193,43 +1303,43 @@
         }
       }
     },
-    "pbCreateGenresResponse": {
+    "nfpbCreateGenresResponse": {
       "type": "object",
       "properties": {
         "genres": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/pbGenre"
+            "$ref": "#/definitions/nfpbGenre"
           }
         }
       }
     },
-    "pbCreateLanguagesRequest": {
+    "nfpbCreateLanguagesRequest": {
       "type": "object",
       "properties": {
         "languages": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/pbLanguageRequest"
+            "$ref": "#/definitions/nfpbLanguageRequest"
           }
         }
       }
     },
-    "pbCreateLanguagesResponse": {
+    "nfpbCreateLanguagesResponse": {
       "type": "object",
       "properties": {
         "languages": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/pbLanguageResponse"
+            "$ref": "#/definitions/nfpbLanguageResponse"
           }
         }
       }
     },
-    "pbCreateStudiosRequest": {
+    "nfpbCreateStudiosRequest": {
       "type": "object",
       "properties": {
         "names": {
@@ -1240,44 +1350,19 @@
         }
       }
     },
-    "pbCreateStudiosResponse": {
+    "nfpbCreateStudiosResponse": {
       "type": "object",
       "properties": {
         "studios": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/pbStudio"
+            "$ref": "#/definitions/nfpbStudio"
           }
         }
       }
     },
-    "pbCreateUserRequest": {
-      "type": "object",
-      "properties": {
-        "username": {
-          "type": "string"
-        },
-        "fullName": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        }
-      }
-    },
-    "pbCreateUserResponse": {
-      "type": "object",
-      "properties": {
-        "user": {
-          "$ref": "#/definitions/pbUser"
-        }
-      }
-    },
-    "pbGenre": {
+    "nfpbGenre": {
       "type": "object",
       "properties": {
         "genreID": {
@@ -1293,91 +1378,43 @@
         }
       }
     },
-    "pbGetAllAnimeMovieMetasResponse": {
-      "type": "object",
-      "properties": {
-        "metas": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pbAnimeMetaResponse"
-          }
-        }
-      }
-    },
-    "pbGetAllAnimeMoviesResponse": {
-      "type": "object",
-      "properties": {
-        "AnimeMovies": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pbAnimeMovieResponse"
-          }
-        }
-      }
-    },
-    "pbGetAllAnimeSerieMetasResponse": {
-      "type": "object",
-      "properties": {
-        "metas": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pbAnimeMetaResponse"
-          }
-        }
-      }
-    },
-    "pbGetAllAnimeSeriesResponse": {
-      "type": "object",
-      "properties": {
-        "AnimeSeries": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/pbAnimeSerieResponse"
-          }
-        }
-      }
-    },
-    "pbGetAllGenresResponse": {
+    "nfpbGetAllGenresResponse": {
       "type": "object",
       "properties": {
         "genres": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/pbGenre"
+            "$ref": "#/definitions/nfpbGenre"
           }
         }
       }
     },
-    "pbGetAllLanguagesResponse": {
+    "nfpbGetAllLanguagesResponse": {
       "type": "object",
       "properties": {
         "languages": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/pbLanguageResponse"
+            "$ref": "#/definitions/nfpbLanguageResponse"
           }
         }
       }
     },
-    "pbGetAllStudiosResponse": {
+    "nfpbGetAllStudiosResponse": {
       "type": "object",
       "properties": {
         "studios": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/pbStudio"
+            "$ref": "#/definitions/nfpbStudio"
           }
         }
       }
     },
-    "pbLanguageRequest": {
+    "nfpbLanguageRequest": {
       "type": "object",
       "properties": {
         "LanguageCode": {
@@ -1388,7 +1425,7 @@
         }
       }
     },
-    "pbLanguageResponse": {
+    "nfpbLanguageResponse": {
       "type": "object",
       "properties": {
         "LanguageID": {
@@ -1407,43 +1444,7 @@
         }
       }
     },
-    "pbLoginUserRequest": {
-      "type": "object",
-      "properties": {
-        "username": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        }
-      }
-    },
-    "pbLoginUserResponse": {
-      "type": "object",
-      "properties": {
-        "user": {
-          "$ref": "#/definitions/pbUser"
-        },
-        "sessionID": {
-          "type": "string"
-        },
-        "accessToken": {
-          "type": "string"
-        },
-        "accessTokenExpiresAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "refreshToken": {
-          "type": "string"
-        },
-        "refreshTokenExpiresAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "pbMetaRequest": {
+    "nfpbMetaRequest": {
       "type": "object",
       "properties": {
         "title": {
@@ -1454,7 +1455,7 @@
         }
       }
     },
-    "pbMetaResponse": {
+    "nfpbMetaResponse": {
       "type": "object",
       "properties": {
         "metaID": {
@@ -1469,29 +1470,7 @@
         }
       }
     },
-    "pbRenewTokensResponse": {
-      "type": "object",
-      "properties": {
-        "sessionID": {
-          "type": "string"
-        },
-        "accessToken": {
-          "type": "string"
-        },
-        "accessTokenExpiresAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "refreshToken": {
-          "type": "string"
-        },
-        "refreshTokenExpiresAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "pbStudio": {
+    "nfpbStudio": {
       "type": "object",
       "properties": {
         "studioID": {
@@ -1504,123 +1483,6 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
-        }
-      }
-    },
-    "pbUpdateAnimeMovieRequest": {
-      "type": "object",
-      "properties": {
-        "ID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "originalTitle": {
-          "type": "string"
-        },
-        "aired": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "releaseYear": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "duration": {
-          "type": "string"
-        }
-      }
-    },
-    "pbUpdateAnimeMovieResponse": {
-      "type": "object",
-      "properties": {
-        "animeMovie": {
-          "$ref": "#/definitions/pbAnimeMovieResponse"
-        }
-      }
-    },
-    "pbUpdateAnimeSerieRequest": {
-      "type": "object",
-      "properties": {
-        "ID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "originalTitle": {
-          "type": "string"
-        },
-        "aired": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "releaseYear": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "duration": {
-          "type": "string"
-        }
-      }
-    },
-    "pbUpdateAnimeSerieResponse": {
-      "type": "object",
-      "properties": {
-        "animeSerie": {
-          "$ref": "#/definitions/pbAnimeSerieResponse"
-        }
-      }
-    },
-    "pbUpdateUserRequest": {
-      "type": "object",
-      "properties": {
-        "username": {
-          "type": "string"
-        },
-        "fullName": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        }
-      }
-    },
-    "pbUpdateUserResponse": {
-      "type": "object",
-      "properties": {
-        "user": {
-          "$ref": "#/definitions/pbUser"
-        }
-      }
-    },
-    "pbUser": {
-      "type": "object",
-      "properties": {
-        "username": {
-          "type": "string"
-        },
-        "fullName": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "passwordChangedAt": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "pbVerifyEmailResponse": {
-      "type": "object",
-      "properties": {
-        "isVerified": {
-          "type": "boolean"
         }
       }
     },
@@ -1649,6 +1511,144 @@
             "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
+        }
+      }
+    },
+    "uspbCreateUserRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "uspbCreateUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/uspbUser"
+        }
+      }
+    },
+    "uspbLoginUserRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "uspbLoginUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/uspbUser"
+        },
+        "sessionID": {
+          "type": "string"
+        },
+        "accessToken": {
+          "type": "string"
+        },
+        "accessTokenExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "refreshToken": {
+          "type": "string"
+        },
+        "refreshTokenExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "uspbRenewTokensResponse": {
+      "type": "object",
+      "properties": {
+        "sessionID": {
+          "type": "string"
+        },
+        "accessToken": {
+          "type": "string"
+        },
+        "accessTokenExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "refreshToken": {
+          "type": "string"
+        },
+        "refreshTokenExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "uspbUpdateUserRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "uspbUpdateUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/uspbUser"
+        }
+      }
+    },
+    "uspbUser": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "passwordChangedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "uspbVerifyEmailResponse": {
+      "type": "object",
+      "properties": {
+        "isVerified": {
+          "type": "boolean"
         }
       }
     }

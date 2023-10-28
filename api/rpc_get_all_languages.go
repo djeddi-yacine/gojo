@@ -4,14 +4,14 @@ import (
 	"context"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-func (server *Server) GetAllLanguages(ctx context.Context, req *pb.GetAllLanguagesRequest) (*pb.GetAllLanguagesResponse, error) {
+func (server *Server) GetAllLanguages(ctx context.Context, req *nfpb.GetAllLanguagesRequest) (*nfpb.GetAllLanguagesResponse, error) {
 	authPayload, err := server.authorizeUser(ctx, []string{utils.AdminRole, utils.RootRoll})
 	if err != nil {
 		return nil, unAuthenticatedError(err)
@@ -38,18 +38,18 @@ func (server *Server) GetAllLanguages(ctx context.Context, req *pb.GetAllLanguag
 		return nil, status.Errorf(codes.Internal, "failed to list the Languages : %s", err)
 	}
 
-	var PBLanguages []*pb.LanguageResponse
+	var PBLanguages []*nfpb.LanguageResponse
 	for _, g := range DBLanguages {
 		PBLanguages = append(PBLanguages, ConvertLanguage(g))
 	}
 
-	res := &pb.GetAllLanguagesResponse{
+	res := &nfpb.GetAllLanguagesResponse{
 		Languages: PBLanguages,
 	}
 	return res, nil
 }
 
-func validateGetAllLanguagesRequest(req *pb.GetAllLanguagesRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateGetAllLanguagesRequest(req *nfpb.GetAllLanguagesRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(int64(req.GetPageNumber())); err != nil {
 		violations = append(violations, fieldViolation("pageNumber", err))
 	}

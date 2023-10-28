@@ -5,7 +5,7 @@ import (
 	"time"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/aspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
@@ -14,7 +14,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *Server) CreateAnimeSerie(ctx context.Context, req *pb.CreateAnimeSerieRequest) (*pb.CreateAnimeSerieResponse, error) {
+func (server *Server) CreateAnimeSerie(ctx context.Context, req *aspb.CreateAnimeSerieRequest) (*aspb.CreateAnimeSerieResponse, error) {
 	authPayload, err := server.authorizeUser(ctx, []string{utils.AdminRole, utils.RootRoll})
 	if err != nil {
 		return nil, unAuthenticatedError(err)
@@ -41,8 +41,8 @@ func (server *Server) CreateAnimeSerie(ctx context.Context, req *pb.CreateAnimeS
 		return nil, status.Errorf(codes.Internal, "failed to create anime serie : %s", err)
 	}
 
-	res := &pb.CreateAnimeSerieResponse{
-		AnimeSerie: &pb.AnimeSerieResponse{
+	res := &aspb.CreateAnimeSerieResponse{
+		AnimeSerie: &aspb.AnimeSerieResponse{
 			ID:            anime.ID,
 			OriginalTitle: req.AnimeSerie.GetOriginalTitle(),
 			Aired:         timestamppb.New(anime.Aired),
@@ -54,7 +54,7 @@ func (server *Server) CreateAnimeSerie(ctx context.Context, req *pb.CreateAnimeS
 	return res, nil
 }
 
-func validateCreateAnimeSerieRequest(req *pb.CreateAnimeSerieRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateCreateAnimeSerieRequest(req *aspb.CreateAnimeSerieRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateString(req.GetAnimeSerie().GetOriginalTitle(), 2, 500); err != nil {
 		violations = append(violations, fieldViolation("originalTitle", err))
 	}

@@ -4,14 +4,14 @@ import (
 	"context"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
-func (server *Server) CreateLanguages(ctx context.Context, req *pb.CreateLanguagesRequest) (*pb.CreateLanguagesResponse, error) {
+func (server *Server) CreateLanguages(ctx context.Context, req *nfpb.CreateLanguagesRequest) (*nfpb.CreateLanguagesResponse, error) {
 	authPayload, err := server.authorizeUser(ctx, []string{utils.AdminRole, utils.RootRoll})
 	if err != nil {
 		return nil, unAuthenticatedError(err)
@@ -43,20 +43,20 @@ func (server *Server) CreateLanguages(ctx context.Context, req *pb.CreateLanguag
 		return nil, status.Errorf(codes.Internal, "failed to create language : %s", err)
 	}
 
-	var Languages []*pb.LanguageResponse
+	var Languages []*nfpb.LanguageResponse
 	for _, l := range result.Languages {
 		language := ConvertLanguage(l)
 		Languages = append(Languages, language)
 	}
 
-	res := &pb.CreateLanguagesResponse{
+	res := &nfpb.CreateLanguagesResponse{
 		Languages: Languages,
 	}
 
 	return res, nil
 }
 
-func validateCreateLanguageRequest(req *pb.CreateLanguagesRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateCreateLanguageRequest(req *nfpb.CreateLanguagesRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateLanguage(req.GetLanguages()); err != nil {
 		violations = append(violations, fieldViolation("languages", err))
 	}

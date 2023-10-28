@@ -6,7 +6,7 @@ import (
 	"time"
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/pb/aspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/jackc/pgx/v5/pgtype"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -16,7 +16,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *Server) UpdateAnimeSerie(ctx context.Context, req *pb.UpdateAnimeSerieRequest) (*pb.UpdateAnimeSerieResponse, error) {
+func (server *Server) UpdateAnimeSerie(ctx context.Context, req *aspb.UpdateAnimeSerieRequest) (*aspb.UpdateAnimeSerieResponse, error) {
 	authPayload, err := server.authorizeUser(ctx, []string{utils.AdminRole, utils.RootRoll})
 	if err != nil {
 		return nil, unAuthenticatedError(err)
@@ -56,8 +56,8 @@ func (server *Server) UpdateAnimeSerie(ctx context.Context, req *pb.UpdateAnimeS
 		return nil, status.Errorf(codes.Internal, "failed to update anime serie : %s", err)
 	}
 
-	res := &pb.UpdateAnimeSerieResponse{
-		AnimeSerie: &pb.AnimeSerieResponse{
+	res := &aspb.UpdateAnimeSerieResponse{
+		AnimeSerie: &aspb.AnimeSerieResponse{
 			ID:            anime.ID,
 			OriginalTitle: req.GetOriginalTitle(),
 			Aired:         timestamppb.New(anime.Aired),
@@ -69,7 +69,7 @@ func (server *Server) UpdateAnimeSerie(ctx context.Context, req *pb.UpdateAnimeS
 	return res, nil
 }
 
-func validateUpdateAnimeSerieRequest(req *pb.UpdateAnimeSerieRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateUpdateAnimeSerieRequest(req *aspb.UpdateAnimeSerieRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.ID); err != nil {
 		violations = append(violations, fieldViolation("ID", err))
 	}
