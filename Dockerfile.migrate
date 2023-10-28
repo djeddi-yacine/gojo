@@ -1,0 +1,7 @@
+# Migrate
+FROM golang:1.21-alpine3.18
+WORKDIR /gojo
+RUN go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+COPY db/migration ./db/migration
+ENTRYPOINT ["sh", "-c"]
+CMD ["migrate -path db/migration -database $DB_SOURCE -verbose up"]
