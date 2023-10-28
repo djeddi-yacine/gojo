@@ -1,7 +1,9 @@
 version: "3.9"
 services:
   postgres:
+    container_name: Gojo-DB
     image: postgres:16.0-alpine3.18
+    restart: always
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=gojo_secret
@@ -10,11 +12,32 @@ services:
       - "5432:5432"
     volumes:
       - data-volume:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "sh -c 'pg_isready -h postgres'"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+  
   redis:
+    container_name: Gojo-Redis
     image: redis:7.2-alpine3.18
     ports:
       - "6379:6379"
+
+  migration:
+    container_name: Gojo-Migration
+    build:
+      context: .
+      dockerfile: Dockerfile.migrate
+    environment:
+      - DB_SOURCE=postgresql://root:gojo_secret@postgres:5432/gojo?sslmode=disable
+    depends_on:
+      postgres:
+        condition: service_healthy
+        restart: true
+
   api:
+    container_name: Gojo
     build:
       context: .
       dockerfile: Dockerfile
@@ -25,8 +48,12 @@ services:
       - DB_SOURCE=postgresql://root:gojo_secret@postgres:5432/gojo?sslmode=disable
       - REDIS_ADDRESS=redis:6379     
     depends_on:
-      - postgres
-      - redis
-    command: [ "/gojo/main" ]
+      migration:
+        condition: service_completed_successfully
+      postgres:
+        condition: service_started
+      redis:
+        condition: service_started
+
 volumes:
   data-volume:
