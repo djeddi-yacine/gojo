@@ -182,11 +182,11 @@ Table anime_serie_metas {
 Table anime_serie_seasons {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
-  number integer [unique, not null]
+  season_number integer [unique, not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      (anime_id, number) [unique]
+      (anime_id, season_number) [unique]
     }
 }
 
@@ -204,12 +204,12 @@ Table anime_serie_season_episodes {
 
 Table anime_serie_episodes {
   id bigserial [primary key, unique, increment, not null]
-  number integer [unique, not null]
+  episode_number integer [unique, not null]
   season_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      (number, season_id) [unique]
+      (episode_number, season_id) [unique]
     }
 }
 

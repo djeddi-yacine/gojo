@@ -1,7 +1,7 @@
 CREATE TABLE "anime_serie_seasons" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
-  "number" integer UNIQUE NOT NULL,
+  "season_number" integer UNIQUE NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
@@ -14,7 +14,7 @@ CREATE TABLE "anime_serie_season_episodes" (
 
 CREATE TABLE "anime_serie_episodes" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "number" integer UNIQUE NOT NULL,
+  "episode_number" integer UNIQUE NOT NULL,
   "season_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
@@ -61,7 +61,7 @@ CREATE TABLE "anime_serie_videos" (
 
 CREATE INDEX ON "anime_serie_seasons" ("id");
 
-CREATE UNIQUE INDEX ON "anime_serie_seasons" ("anime_id", "number");
+CREATE UNIQUE INDEX ON "anime_serie_seasons" ("anime_id", "season_number");
 
 CREATE INDEX ON "anime_serie_season_episodes" ("season_id");
 
@@ -71,7 +71,7 @@ CREATE UNIQUE INDEX ON "anime_serie_season_episodes" ("season_id", "episode_id")
 
 CREATE INDEX ON "anime_serie_episodes" ("id");
 
-CREATE UNIQUE INDEX ON "anime_serie_episodes" ("number", "season_id");
+CREATE UNIQUE INDEX ON "anime_serie_episodes" ("episode_number", "season_id");
 
 CREATE INDEX ON "anime_serie_episode_servers" ("server_id");
 
