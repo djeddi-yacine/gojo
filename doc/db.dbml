@@ -183,7 +183,6 @@ Table anime_serie_seasons {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
   number integer [unique, not null]
-  episode_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
@@ -207,11 +206,10 @@ Table anime_serie_episodes {
   id bigserial [primary key, unique, increment, not null]
   number integer [unique, not null]
   season_id bigserial [not null]
-  server_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      (season_id, number) [unique]
+      (number, season_id) [unique]
     }
 }
 
@@ -230,11 +228,10 @@ Table anime_serie_episode_servers {
 Table anime_serie_servers {
   id bigserial [primary key, unique, increment, not null]
   episode_id bigserial [not null]
-  dub_id bigserial [not null]
-  sub_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
+      (episode_id) [unique]
     }
 }
 
@@ -278,11 +275,10 @@ Table anime_serie_videos {
 Table anime_movie_servers {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
-  dub_id bigserial [not null]
-  sub_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
+      (anime_id) [unique]
     }
 }
 
@@ -403,26 +399,14 @@ Ref {
 Ref {
   anime_movie_videos.id - anime_movie_server_dub_videos.video_id [delete: cascade]
 }
+
 Ref {
-  anime_movie_server_sub_videos.id - anime_movie_servers.sub_id [delete: cascade]
-}
-Ref {
-  anime_movie_server_dub_videos.id - anime_movie_servers.dub_id [delete: cascade]
+  anime_serie_episodes.id - anime_serie_servers.episode_id [delete: cascade]
 }
 
 Ref {
   anime_serie_seasons.id - anime_serie_episodes.season_id [delete: cascade]
 }
-Ref {
-  anime_serie_episodes.id - anime_serie_seasons.episode_id [delete: cascade]
-}
-Ref {
-  anime_serie_episodes.id - anime_serie_servers.episode_id [delete: cascade]
-}
-Ref {
-  anime_serie_servers.id - anime_serie_episodes.server_id [delete: cascade]
-}
-
 Ref {
   anime_serie_seasons.id - anime_serie_season_episodes.season_id [delete: cascade]
 }
@@ -448,10 +432,4 @@ Ref {
 }
 Ref {
   anime_serie_videos.id - anime_serie_server_dub_videos.video_id [delete: cascade]
-}
-Ref {
-  anime_serie_server_sub_videos.id - anime_serie_servers.sub_id [delete: cascade]
-}
-Ref {
-  anime_serie_server_dub_videos.id - anime_serie_servers.dub_id [delete: cascade]
 }

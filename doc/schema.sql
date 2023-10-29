@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-10-27T23:40:32.535Z
+-- Generated at: 2023-10-29T17:03:50.141Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -122,7 +122,6 @@ CREATE TABLE "anime_serie_seasons" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
   "number" integer UNIQUE NOT NULL,
-  "episode_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
@@ -137,7 +136,6 @@ CREATE TABLE "anime_serie_episodes" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "number" integer UNIQUE NOT NULL,
   "season_id" bigserial NOT NULL,
-  "server_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
@@ -151,8 +149,6 @@ CREATE TABLE "anime_serie_episode_servers" (
 CREATE TABLE "anime_serie_servers" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "episode_id" bigserial NOT NULL,
-  "dub_id" bigserial NOT NULL,
-  "sub_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
@@ -183,8 +179,6 @@ CREATE TABLE "anime_serie_videos" (
 CREATE TABLE "anime_movie_servers" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
-  "dub_id" bigserial NOT NULL,
-  "sub_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
@@ -286,7 +280,7 @@ CREATE UNIQUE INDEX ON "anime_serie_season_episodes" ("season_id", "episode_id")
 
 CREATE INDEX ON "anime_serie_episodes" ("id");
 
-CREATE UNIQUE INDEX ON "anime_serie_episodes" ("season_id", "number");
+CREATE UNIQUE INDEX ON "anime_serie_episodes" ("number", "season_id");
 
 CREATE INDEX ON "anime_serie_episode_servers" ("server_id");
 
@@ -295,6 +289,8 @@ CREATE INDEX ON "anime_serie_episode_servers" ("episode_id");
 CREATE UNIQUE INDEX ON "anime_serie_episode_servers" ("episode_id", "server_id");
 
 CREATE INDEX ON "anime_serie_servers" ("id");
+
+CREATE UNIQUE INDEX ON "anime_serie_servers" ("episode_id");
 
 CREATE INDEX ON "anime_serie_server_sub_videos" ("server_id");
 
@@ -311,6 +307,8 @@ CREATE UNIQUE INDEX ON "anime_serie_server_dub_videos" ("server_id", "video_id")
 CREATE INDEX ON "anime_serie_videos" ("id");
 
 CREATE INDEX ON "anime_movie_servers" ("id");
+
+CREATE UNIQUE INDEX ON "anime_movie_servers" ("anime_id");
 
 CREATE INDEX ON "anime_movie_server_sub_videos" ("server_id");
 
@@ -374,17 +372,9 @@ ALTER TABLE "anime_movie_server_sub_videos" ADD FOREIGN KEY ("video_id") REFEREN
 
 ALTER TABLE "anime_movie_server_dub_videos" ADD FOREIGN KEY ("video_id") REFERENCES "anime_movie_videos" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_movie_servers" ADD FOREIGN KEY ("sub_id") REFERENCES "anime_movie_server_sub_videos" ("id") ON DELETE CASCADE;
-
-ALTER TABLE "anime_movie_servers" ADD FOREIGN KEY ("dub_id") REFERENCES "anime_movie_server_dub_videos" ("id") ON DELETE CASCADE;
-
-ALTER TABLE "anime_serie_episodes" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
-
-ALTER TABLE "anime_serie_seasons" ADD FOREIGN KEY ("episode_id") REFERENCES "anime_serie_episodes" ("id") ON DELETE CASCADE;
-
 ALTER TABLE "anime_serie_servers" ADD FOREIGN KEY ("episode_id") REFERENCES "anime_serie_episodes" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_serie_episodes" ADD FOREIGN KEY ("server_id") REFERENCES "anime_serie_servers" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_serie_episodes" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_season_episodes" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
 
@@ -401,7 +391,3 @@ ALTER TABLE "anime_serie_server_dub_videos" ADD FOREIGN KEY ("server_id") REFERE
 ALTER TABLE "anime_serie_server_sub_videos" ADD FOREIGN KEY ("video_id") REFERENCES "anime_serie_videos" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_server_dub_videos" ADD FOREIGN KEY ("video_id") REFERENCES "anime_serie_videos" ("id") ON DELETE CASCADE;
-
-ALTER TABLE "anime_serie_servers" ADD FOREIGN KEY ("sub_id") REFERENCES "anime_serie_server_sub_videos" ("id") ON DELETE CASCADE;
-
-ALTER TABLE "anime_serie_servers" ADD FOREIGN KEY ("dub_id") REFERENCES "anime_serie_server_dub_videos" ("id") ON DELETE CASCADE;
