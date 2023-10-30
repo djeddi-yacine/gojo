@@ -3,6 +3,7 @@ CREATE TABLE "anime_series" (
   "original_title" varchar NOT NULL,
   "aired" timestamptz NOT NULL,
   "release_year" integer NOT NULL,
+  "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),
   "duration" interval NOT NULL DEFAULT ('00h 00m 00s'),
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );

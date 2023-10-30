@@ -33,6 +33,7 @@ func (server *AnimeMovieServer) CreateAnimeMovie(ctx context.Context, req *ampb.
 		OriginalTitle: req.AnimeMovie.GetOriginalTitle(),
 		Aired:         req.AnimeMovie.GetAired().AsTime(),
 		ReleaseYear:   req.AnimeMovie.GetReleaseYear(),
+		Rating:        req.AnimeMovie.GetRating(),
 		Duration:      req.AnimeMovie.GetDuration().AsDuration(),
 	}
 
@@ -45,9 +46,10 @@ func (server *AnimeMovieServer) CreateAnimeMovie(ctx context.Context, req *ampb.
 	res := &ampb.CreateAnimeMovieResponse{
 		AnimeMovie: &ampb.AnimeMovieResponse{
 			ID:            anime.ID,
-			OriginalTitle: req.AnimeMovie.GetOriginalTitle(),
+			OriginalTitle: anime.OriginalTitle,
 			Aired:         timestamppb.New(anime.Aired),
 			ReleaseYear:   anime.ReleaseYear,
+			Rating:        anime.Rating,
 			Duration:      durationpb.New(anime.Duration),
 			CreatedAt:     timestamppb.New(anime.CreatedAt),
 		},
@@ -67,6 +69,10 @@ func validateCreateAnimeMovieRequest(req *ampb.CreateAnimeMovieRequest) (violati
 
 	if err := utils.ValidateYear(req.GetAnimeMovie().GetReleaseYear()); err != nil {
 		violations = append(violations, shared.FieldViolation("releaseYear", err))
+	}
+
+	if err := utils.ValidateString(req.GetAnimeMovie().GetRating(), 2, 30); err != nil {
+		violations = append(violations, shared.FieldViolation("rating", err))
 	}
 
 	if err := utils.ValidateDuration(req.GetAnimeMovie().GetDuration().AsDuration().String()); err != nil {

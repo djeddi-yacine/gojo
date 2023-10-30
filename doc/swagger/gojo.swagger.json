@@ -2,10 +2,10 @@
   "swagger": "2.0",
   "info": {
     "title": "Gojo API",
-    "version": "1.4",
+    "version": "1.5",
     "contact": {
       "name": "Dj Yacine",
-      "url": "https://github.com/dj-yacine-flutter"
+      "url": "https://github.com/dj-yacine-flutter/gojo"
     }
   },
   "tags": [
@@ -86,40 +86,6 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/nfpbCreateGenresRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Gojo"
-        ]
-      }
-    },
-    "/v1/anime/language/create": {
-      "post": {
-        "summary": "Create new languages",
-        "description": "Use this API to create a new languages",
-        "operationId": "Gojo_CreateLanguages",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/nfpbCreateLanguagesResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/nfpbCreateLanguagesRequest"
             }
           }
         ],
@@ -331,6 +297,40 @@
         ]
       }
     },
+    "/v1/anime/movie/update": {
+      "patch": {
+        "summary": "Update anime movie",
+        "description": "Use this API to update all anime movie fields using the ID",
+        "operationId": "Gojo_UpdateAnimeMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbUpdateAnimeMovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbUpdateAnimeMovieRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/serie": {
       "get": {
         "summary": "list anime series",
@@ -534,6 +534,40 @@
         ]
       }
     },
+    "/v1/anime/serie/update": {
+      "patch": {
+        "summary": "Update anime serie",
+        "description": "Use this API to update all anime serie fields using the ID",
+        "operationId": "Gojo_UpdateAnimeSerie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbUpdateAnimeSerieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbUpdateAnimeSerieRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/studio": {
       "get": {
         "summary": "Get all anime studios",
@@ -648,16 +682,16 @@
         ]
       }
     },
-    "/v1/movie/update": {
-      "patch": {
-        "summary": "Update anime movie",
-        "description": "Use this API to update all anime movie fields using the ID",
-        "operationId": "Gojo_UpdateAnimeMovie",
+    "/v1/language/create": {
+      "post": {
+        "summary": "Create new languages",
+        "description": "Use this API to create a new languages",
+        "operationId": "Gojo_CreateLanguages",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ampbUpdateAnimeMovieResponse"
+              "$ref": "#/definitions/nfpbCreateLanguagesResponse"
             }
           },
           "default": {
@@ -673,7 +707,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ampbUpdateAnimeMovieRequest"
+              "$ref": "#/definitions/nfpbCreateLanguagesRequest"
             }
           }
         ],
@@ -707,40 +741,6 @@
             "in": "query",
             "required": false,
             "type": "string"
-          }
-        ],
-        "tags": [
-          "Gojo"
-        ]
-      }
-    },
-    "/v1/serie/update": {
-      "patch": {
-        "summary": "Update anime serie",
-        "description": "Use this API to update all anime serie fields using the ID",
-        "operationId": "Gojo_UpdateAnimeSerie",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/aspbUpdateAnimeSerieResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/aspbUpdateAnimeSerieRequest"
-            }
           }
         ],
         "tags": [
@@ -919,6 +919,9 @@
           "type": "integer",
           "format": "int32"
         },
+        "rating": {
+          "type": "string"
+        },
         "duration": {
           "type": "string"
         }
@@ -941,6 +944,9 @@
         "releaseYear": {
           "type": "integer",
           "format": "int32"
+        },
+        "rating": {
+          "type": "string"
         },
         "duration": {
           "type": "string"
@@ -1041,6 +1047,9 @@
           "type": "integer",
           "format": "int32"
         },
+        "rating": {
+          "type": "string"
+        },
         "duration": {
           "type": "string"
         }
@@ -1082,6 +1091,9 @@
           "type": "integer",
           "format": "int32"
         },
+        "rating": {
+          "type": "string"
+        },
         "duration": {
           "type": "string"
         }
@@ -1104,6 +1116,9 @@
         "releaseYear": {
           "type": "integer",
           "format": "int32"
+        },
+        "rating": {
+          "type": "string"
         },
         "duration": {
           "type": "string"
@@ -1203,6 +1218,9 @@
         "releaseYear": {
           "type": "integer",
           "format": "int32"
+        },
+        "rating": {
+          "type": "string"
         },
         "duration": {
           "type": "string"

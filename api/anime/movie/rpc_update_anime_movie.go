@@ -45,6 +45,10 @@ func (server *AnimeMovieServer) UpdateAnimeMovie(ctx context.Context, req *ampb.
 			Int32: req.GetReleaseYear(),
 			Valid: req.ReleaseYear != nil,
 		},
+		Rating: pgtype.Text{
+			String: req.GetRating(),
+			Valid: req.Rating != nil,
+		},
 		Duration: pgtype.Interval{
 			Microseconds: req.GetDuration().AsDuration().Microseconds(),
 			Valid:        req.Duration != nil,
@@ -60,9 +64,10 @@ func (server *AnimeMovieServer) UpdateAnimeMovie(ctx context.Context, req *ampb.
 	res := &ampb.UpdateAnimeMovieResponse{
 		AnimeMovie: &ampb.AnimeMovieResponse{
 			ID:            anime.ID,
-			OriginalTitle: req.GetOriginalTitle(),
+			OriginalTitle: anime.OriginalTitle,
 			Aired:         timestamppb.New(anime.Aired),
 			ReleaseYear:   anime.ReleaseYear,
+			Rating:        anime.Rating,
 			Duration:      durationpb.New(anime.Duration),
 			CreatedAt:     timestamppb.New(anime.CreatedAt),
 		},
@@ -90,6 +95,12 @@ func validateUpdateAnimeMovieRequest(req *ampb.UpdateAnimeMovieRequest) (violati
 	if req.ReleaseYear != nil {
 		if err := utils.ValidateYear(req.GetReleaseYear()); err != nil {
 			violations = append(violations, shared.FieldViolation("releaseYear", err))
+		}
+	}
+
+	if req.Rating != nil {
+		if err := utils.ValidateString(req.GetRating(), 2, 30); err != nil {
+			violations = append(violations, shared.FieldViolation("rating", err))
 		}
 	}
 

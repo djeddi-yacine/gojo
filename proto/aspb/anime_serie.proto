@@ -11,7 +11,8 @@ message AnimeSerieRequest {
   string originalTitle = 1;
   google.protobuf.Timestamp aired = 2;
   int32 releaseYear = 3;
-  google.protobuf.Duration duration = 4;
+  string rating = 4;
+  google.protobuf.Duration duration = 5;
 }
 
 message AnimeSerieResponse {
@@ -19,6 +20,7 @@ message AnimeSerieResponse {
   string originalTitle = 2;
   google.protobuf.Timestamp aired = 3;
   int32 releaseYear = 4;
-  google.protobuf.Duration duration = 5;
-  google.protobuf.Timestamp createdAt = 6;
+  string rating = 5;
+  google.protobuf.Duration duration = 6;
+  google.protobuf.Timestamp createdAt = 7;
 }

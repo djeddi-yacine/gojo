@@ -3,9 +3,10 @@ INSERT INTO anime_series (
     original_title,
     aired,
     release_year,
+    rating,
     duration
 )
-VALUES ($1, $2, $3, $4)
+VALUES ($1, $2, $3, $4, $5)
 RETURNING *;
 
 -- name: GetAnimeSerie :one
@@ -18,6 +19,7 @@ SET
   original_title = COALESCE(sqlc.narg(original_title), original_title),
   aired = COALESCE(sqlc.narg(aired), aired),
   release_year = COALESCE(sqlc.narg(release_year), release_year),
+  rating = COALESCE(sqlc.narg(rating), rating),
   duration = COALESCE(sqlc.narg(duration), duration)
 WHERE
   id = sqlc.arg(id)

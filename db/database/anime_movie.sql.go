@@ -17,16 +17,18 @@ INSERT INTO anime_movies (
     original_title,
     aired,
     release_year,
+    rating,
     duration
 )
-VALUES ($1, $2, $3, $4)
-RETURNING id, original_title, aired, release_year, duration, created_at
+VALUES ($1, $2, $3, $4, $5)
+RETURNING id, original_title, aired, release_year, rating, duration, created_at
 `
 
 type CreateAnimeMovieParams struct {
 	OriginalTitle string        `json:"original_title"`
 	Aired         time.Time     `json:"aired"`
 	ReleaseYear   int32         `json:"release_year"`
+	Rating        string        `json:"rating"`
 	Duration      time.Duration `json:"duration"`
 }
 
@@ -35,6 +37,7 @@ func (q *Queries) CreateAnimeMovie(ctx context.Context, arg CreateAnimeMoviePara
 		arg.OriginalTitle,
 		arg.Aired,
 		arg.ReleaseYear,
+		arg.Rating,
 		arg.Duration,
 	)
 	var i AnimeMovie
@@ -43,6 +46,7 @@ func (q *Queries) CreateAnimeMovie(ctx context.Context, arg CreateAnimeMoviePara
 		&i.OriginalTitle,
 		&i.Aired,
 		&i.ReleaseYear,
+		&i.Rating,
 		&i.Duration,
 		&i.CreatedAt,
 	)
@@ -60,7 +64,7 @@ func (q *Queries) DeleteAnimeMovie(ctx context.Context, id int64) error {
 }
 
 const getAnimeMovie = `-- name: GetAnimeMovie :one
-SELECT id, original_title, aired, release_year, duration, created_at FROM anime_movies 
+SELECT id, original_title, aired, release_year, rating, duration, created_at FROM anime_movies 
 WHERE id = $1 LIMIT 1
 `
 
@@ -72,6 +76,7 @@ func (q *Queries) GetAnimeMovie(ctx context.Context, id int64) (AnimeMovie, erro
 		&i.OriginalTitle,
 		&i.Aired,
 		&i.ReleaseYear,
+		&i.Rating,
 		&i.Duration,
 		&i.CreatedAt,
 	)
@@ -79,7 +84,7 @@ func (q *Queries) GetAnimeMovie(ctx context.Context, id int64) (AnimeMovie, erro
 }
 
 const listAnimeMovies = `-- name: ListAnimeMovies :many
-SELECT id, original_title, aired, release_year, duration, created_at FROM anime_movies
+SELECT id, original_title, aired, release_year, rating, duration, created_at FROM anime_movies
 WHERE release_year = $1 OR $1 = 0
 LIMIT $2
 OFFSET $3
@@ -105,6 +110,7 @@ func (q *Queries) ListAnimeMovies(ctx context.Context, arg ListAnimeMoviesParams
 			&i.OriginalTitle,
 			&i.Aired,
 			&i.ReleaseYear,
+			&i.Rating,
 			&i.Duration,
 			&i.CreatedAt,
 		); err != nil {
@@ -124,16 +130,18 @@ SET
   original_title = COALESCE($1, original_title),
   aired = COALESCE($2, aired),
   release_year = COALESCE($3, release_year),
-  duration = COALESCE($4, duration)
+  rating = COALESCE($4, rating),
+  duration = COALESCE($5, duration)
 WHERE
-  id = $5
-RETURNING id, original_title, aired, release_year, duration, created_at
+  id = $6
+RETURNING id, original_title, aired, release_year, rating, duration, created_at
 `
 
 type UpdateAnimeMovieParams struct {
 	OriginalTitle pgtype.Text        `json:"original_title"`
 	Aired         pgtype.Timestamptz `json:"aired"`
 	ReleaseYear   pgtype.Int4        `json:"release_year"`
+	Rating        pgtype.Text        `json:"rating"`
 	Duration      pgtype.Interval    `json:"duration"`
 	ID            int64              `json:"id"`
 }
@@ -143,6 +151,7 @@ func (q *Queries) UpdateAnimeMovie(ctx context.Context, arg UpdateAnimeMoviePara
 		arg.OriginalTitle,
 		arg.Aired,
 		arg.ReleaseYear,
+		arg.Rating,
 		arg.Duration,
 		arg.ID,
 	)
@@ -152,6 +161,7 @@ func (q *Queries) UpdateAnimeMovie(ctx context.Context, arg UpdateAnimeMoviePara
 		&i.OriginalTitle,
 		&i.Aired,
 		&i.ReleaseYear,
+		&i.Rating,
 		&i.Duration,
 		&i.CreatedAt,
 	)

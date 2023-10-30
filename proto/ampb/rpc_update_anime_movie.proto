@@ -14,7 +14,8 @@ message UpdateAnimeMovieRequest {
     optional string originalTitle = 2;
     optional google.protobuf.Timestamp aired = 3;
     optional int32 releaseYear = 4;
-    optional google.protobuf.Duration duration = 5;
+    optional string rating = 5;
+    optional google.protobuf.Duration duration = 6;
 }
 
 message UpdateAnimeMovieResponse { AnimeMovieResponse animeMovie = 1; }

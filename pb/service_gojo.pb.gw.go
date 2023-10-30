@@ -1028,7 +1028,7 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateLanguages", runtime.WithHTTPPathPattern("/v1/anime/language/create"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateLanguages", runtime.WithHTTPPathPattern("/v1/language/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1253,7 +1253,7 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/UpdateAnimeMovie", runtime.WithHTTPPathPattern("/v1/movie/update"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/UpdateAnimeMovie", runtime.WithHTTPPathPattern("/v1/anime/movie/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1403,7 +1403,7 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/UpdateAnimeSerie", runtime.WithHTTPPathPattern("/v1/serie/update"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/UpdateAnimeSerie", runtime.WithHTTPPathPattern("/v1/anime/serie/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1621,7 +1621,7 @@ func RegisterGojoHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateLanguages", runtime.WithHTTPPathPattern("/v1/anime/language/create"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateLanguages", runtime.WithHTTPPathPattern("/v1/language/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1819,7 +1819,7 @@ func RegisterGojoHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/UpdateAnimeMovie", runtime.WithHTTPPathPattern("/v1/movie/update"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/UpdateAnimeMovie", runtime.WithHTTPPathPattern("/v1/anime/movie/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1951,7 +1951,7 @@ func RegisterGojoHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/UpdateAnimeSerie", runtime.WithHTTPPathPattern("/v1/serie/update"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/UpdateAnimeSerie", runtime.WithHTTPPathPattern("/v1/anime/serie/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1985,7 +1985,7 @@ var (
 
 	pattern_Gojo_CreateStudios_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "studio", "create"}, ""))
 
-	pattern_Gojo_CreateLanguages_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "language", "create"}, ""))
+	pattern_Gojo_CreateLanguages_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "language", "create"}, ""))
 
 	pattern_Gojo_GetAllGenres_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "anime", "genre"}, ""))
 
@@ -2003,7 +2003,7 @@ var (
 
 	pattern_Gojo_AddInfoToAnimeMovie_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "movie", "info"}, ""))
 
-	pattern_Gojo_UpdateAnimeMovie_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "movie", "update"}, ""))
+	pattern_Gojo_UpdateAnimeMovie_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "movie", "update"}, ""))
 
 	pattern_Gojo_CreateAnimeSerie_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "serie", "create"}, ""))
 
@@ -2015,7 +2015,7 @@ var (
 
 	pattern_Gojo_AddInfoToAnimeSerie_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "serie", "info"}, ""))
 
-	pattern_Gojo_UpdateAnimeSerie_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "serie", "update"}, ""))
+	pattern_Gojo_UpdateAnimeSerie_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "serie", "update"}, ""))
 )
 
 var (

@@ -33,6 +33,7 @@ func (server *AnimeSerieServer) CreateAnimeSerie(ctx context.Context, req *aspb.
 		OriginalTitle: req.AnimeSerie.GetOriginalTitle(),
 		Aired:         req.AnimeSerie.GetAired().AsTime(),
 		ReleaseYear:   req.AnimeSerie.GetReleaseYear(),
+		Rating:        req.AnimeSerie.GetRating(),
 		Duration:      req.AnimeSerie.GetDuration().AsDuration(),
 	}
 
@@ -45,9 +46,10 @@ func (server *AnimeSerieServer) CreateAnimeSerie(ctx context.Context, req *aspb.
 	res := &aspb.CreateAnimeSerieResponse{
 		AnimeSerie: &aspb.AnimeSerieResponse{
 			ID:            anime.ID,
-			OriginalTitle: req.AnimeSerie.GetOriginalTitle(),
+			OriginalTitle: anime.OriginalTitle,
 			Aired:         timestamppb.New(anime.Aired),
 			ReleaseYear:   anime.ReleaseYear,
+			Rating:        anime.Rating,
 			Duration:      durationpb.New(anime.Duration),
 			CreatedAt:     timestamppb.New(anime.CreatedAt),
 		},
@@ -66,6 +68,10 @@ func validateCreateAnimeSerieRequest(req *aspb.CreateAnimeSerieRequest) (violati
 
 	if err := utils.ValidateYear(req.GetAnimeSerie().GetReleaseYear()); err != nil {
 		violations = append(violations, shared.FieldViolation("releaseYear", err))
+	}
+
+	if err := utils.ValidateString(req.GetAnimeSerie().GetRating(), 2, 30); err != nil {
+		violations = append(violations, shared.FieldViolation("rating", err))
 	}
 
 	if err := utils.ValidateDuration(req.GetAnimeSerie().GetDuration().AsDuration().String()); err != nil {

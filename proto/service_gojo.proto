@@ -41,7 +41,7 @@ option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info : {
     title : "Gojo API";
-    version : "1.4";
+    version : "1.5";
     contact : {
       name: "Dj Yacine";
       url:  "https://github.com/dj-yacine-flutter/gojo";
@@ -130,7 +130,7 @@ service Gojo {
   }
   rpc CreateLanguages(nfpb.CreateLanguagesRequest) returns (nfpb.CreateLanguagesResponse) {
     option (google.api.http) = {
-      post : "/v1/anime/language/create"
+      post : "/v1/language/create"
       body : "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -223,7 +223,7 @@ service Gojo {
   }
   rpc UpdateAnimeMovie(ampb.UpdateAnimeMovieRequest) returns (ampb.UpdateAnimeMovieResponse) {
     option (google.api.http) = {
-      patch : "/v1/movie/update"
+      patch : "/v1/anime/movie/update"
       body : "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -289,7 +289,7 @@ service Gojo {
   }
   rpc UpdateAnimeSerie(aspb.UpdateAnimeSerieRequest) returns (aspb.UpdateAnimeSerieResponse) {
     option (google.api.http) = {
-      patch : "/v1/serie/update"
+      patch : "/v1/anime/serie/update"
       body : "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {

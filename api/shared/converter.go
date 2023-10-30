@@ -48,6 +48,7 @@ func ConvertAnimeMovie(a db.AnimeMovie) *ampb.AnimeMovieResponse {
 		OriginalTitle: a.OriginalTitle,
 		Aired:         timestamppb.New(a.Aired),
 		ReleaseYear:   a.ReleaseYear,
+		Rating:        a.Rating,
 		Duration:      durationpb.New(a.Duration),
 		CreatedAt:     timestamppb.New(a.CreatedAt),
 	}
@@ -59,6 +60,7 @@ func ConvertAnimeSerie(a db.AnimeSerie) *aspb.AnimeSerieResponse {
 		OriginalTitle: a.OriginalTitle,
 		Aired:         timestamppb.New(a.Aired),
 		ReleaseYear:   a.ReleaseYear,
+		Rating:        a.Rating,
 		Duration:      durationpb.New(a.Duration),
 		CreatedAt:     timestamppb.New(a.CreatedAt),
 	}

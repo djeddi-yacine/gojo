@@ -15,6 +15,7 @@ type AnimeMovie struct {
 	OriginalTitle string        `json:"original_title"`
 	Aired         time.Time     `json:"aired"`
 	ReleaseYear   int32         `json:"release_year"`
+	Rating        string        `json:"rating"`
 	Duration      time.Duration `json:"duration"`
 	CreatedAt     time.Time     `json:"created_at"`
 }
@@ -73,6 +74,7 @@ type AnimeSerie struct {
 	OriginalTitle string        `json:"original_title"`
 	Aired         time.Time     `json:"aired"`
 	ReleaseYear   int32         `json:"release_year"`
+	Rating        string        `json:"rating"`
 	Duration      time.Duration `json:"duration"`
 	CreatedAt     time.Time     `json:"created_at"`
 }
