@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/dj-yacine-flutter/gojo/api"
+	"github.com/dj-yacine-flutter/gojo/api/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	_ "github.com/dj-yacine-flutter/gojo/doc/statik"
 	"github.com/dj-yacine-flutter/gojo/mail"
@@ -79,7 +80,7 @@ func runGRPCServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.Ta
 		log.Fatal().Err(err).Msg("cannot create GRPC server")
 	}
 
-	gprcLogger := grpc.UnaryInterceptor(api.GrpcLogger)
+	gprcLogger := grpc.UnaryInterceptor(shared.GrpcLogger)
 	grpcServer := grpc.NewServer(gprcLogger)
 	pb.RegisterGojoServer(grpcServer, server)
 	reflection.Register(grpcServer)
@@ -129,7 +130,7 @@ func runGatewayServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker
 
 	log.Info().Msgf("start HTTP gateway server at %s", listener.Addr().String())
 
-	handler := api.HttpLogger(mux)
+	handler := shared.HttpLogger(mux)
 	err = http.Serve(listener, handler)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot start the Gateway server")
