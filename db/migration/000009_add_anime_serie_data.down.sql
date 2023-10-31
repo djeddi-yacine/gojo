@@ -1,5 +1,5 @@
-ALTER TABLE "anime_serie_season_episodes" DROP CONSTRAINT IF EXISTS "anime_serie_season_episodes_season_id_id_fkey";
-ALTER TABLE "anime_serie_season_episodes" DROP CONSTRAINT IF EXISTS "anime_serie_season_episodes_episode_id_id_fkey";
+ALTER TABLE "anime_serie_season_episodes" DROP CONSTRAINT IF EXISTS "anime_serie_season_episodes_season_id_fkey";
+ALTER TABLE "anime_serie_season_episodes" DROP CONSTRAINT IF EXISTS "anime_serie_season_episodes_episode_id_fkey";
 
 ALTER TABLE "anime_serie_seasons" DROP CONSTRAINT IF EXISTS "anime_serie_seasons_anime_id_fkey";
 

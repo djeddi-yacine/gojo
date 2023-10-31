@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-10-29T18:45:58.366Z
+-- Generated at: 2023-10-30T21:38:46.239Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -41,6 +41,7 @@ CREATE TABLE "anime_movies" (
   "original_title" varchar NOT NULL,
   "aired" timestamptz NOT NULL,
   "release_year" integer NOT NULL,
+  "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),
   "duration" interval NOT NULL DEFAULT ('00h 00m 00s'),
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
@@ -50,6 +51,7 @@ CREATE TABLE "anime_series" (
   "original_title" varchar NOT NULL,
   "aired" timestamptz NOT NULL,
   "release_year" integer NOT NULL,
+  "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),
   "duration" interval NOT NULL DEFAULT ('00h 00m 00s'),
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
@@ -206,6 +208,29 @@ CREATE TABLE "anime_movie_videos" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
+CREATE TABLE "anime_resources" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "tmdb_id" integer UNIQUE NOT NULL,
+  "imdb_id" varchar UNIQUE NOT NULL,
+  "official_website" varchar NOT NULL,
+  "wikipedia_url" varchar NOT NULL,
+  "crunchyroll_url" varchar NOT NULL,
+  "social_media" varchar[] NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_serie_resources" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "resource_id" bigserial NOT NULL
+);
+
+CREATE TABLE "anime_movie_resources" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "resource_id" bigserial NOT NULL
+);
+
 CREATE INDEX ON "users" ("username");
 
 CREATE INDEX ON "users" ("full_name");
@@ -324,6 +349,16 @@ CREATE UNIQUE INDEX ON "anime_movie_server_dub_videos" ("server_id", "video_id")
 
 CREATE INDEX ON "anime_movie_videos" ("id");
 
+CREATE INDEX ON "anime_resources" ("id");
+
+CREATE INDEX ON "anime_serie_resources" ("anime_id");
+
+CREATE INDEX ON "anime_serie_resources" ("resource_id");
+
+CREATE INDEX ON "anime_movie_resources" ("anime_id");
+
+CREATE INDEX ON "anime_movie_resources" ("resource_id");
+
 ALTER TABLE "sessions" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
 
 ALTER TABLE "verify_emails" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
@@ -336,6 +371,8 @@ ALTER TABLE "anime_movie_genres" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_
 
 ALTER TABLE "anime_movie_servers" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
 
+ALTER TABLE "anime_movie_resources" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
+
 ALTER TABLE "anime_serie_metas" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_studios" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
@@ -343,6 +380,8 @@ ALTER TABLE "anime_serie_studios" ADD FOREIGN KEY ("anime_id") REFERENCES "anime
 ALTER TABLE "anime_serie_genres" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_seasons" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_resources" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_metas" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
 
@@ -363,6 +402,10 @@ ALTER TABLE "anime_serie_genres" ADD FOREIGN KEY ("genre_id") REFERENCES "genres
 ALTER TABLE "anime_movie_studios" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_studios" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_movie_resources" ADD FOREIGN KEY ("resource_id") REFERENCES "anime_resources" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_resources" ADD FOREIGN KEY ("resource_id") REFERENCES "anime_resources" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_server_sub_videos" ADD FOREIGN KEY ("server_id") REFERENCES "anime_movie_servers" ("id") ON DELETE CASCADE;
 
