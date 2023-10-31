@@ -6,10 +6,10 @@ sql:
     queries:
       - "./db/sqlc/user"
       - "./db/sqlc/info"
-      - "./db/sqlc/anime_movie"
-      - "./db/sqlc/anime_movie/info"
-      - "./db/sqlc/anime_serie"
-      - "./db/sqlc/anime_serie/info"
+      - "./db/sqlc/anime/movie"
+      - "./db/sqlc/anime/movie/info"
+      - "./db/sqlc/anime/serie"
+      - "./db/sqlc/anime/serie/info"
     schema: "./db/migration"
     strict_function_checks: true
     gen:
@@ -70,3 +70,8 @@ sql:
           anime_serie_server_dub_videos : "AnimeSerieServerDubVideo"
           anime_serie_servers : "AnimeSerieServer"
           anime_serie_videos : "AnimeSerieVideo"
+
+          ## add anime_resources
+          anime_resources: "AnimeResource"
+          anime_movie_resources: "AnimeMovieResource"
+          anime_serie_resources: "AnimeSerieResource"

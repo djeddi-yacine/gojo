@@ -7,11 +7,15 @@ import "google/protobuf/timestamp.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/nfpb";
 
 message Studio {
-  int32 studioID = 1;
-  string studioName = 2;
-  google.protobuf.Timestamp createdAt = 3;
+    int32 studioID = 1;
+    string studioName = 2;
+    google.protobuf.Timestamp createdAt = 3;
 }
 
-message AnimeStudiosRequest { repeated int32 studioID = 1; }
+message AnimeStudiosRequest { 
+    repeated int32 studioID = 1;
+}
 
-message AnimeStudiosResponse { repeated Studio studios = 1; }
+message AnimeStudiosResponse { 
+    repeated Studio studios = 1;
+}

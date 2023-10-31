@@ -6,6 +6,10 @@ import "nfpb/meta.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
-message GetAllAnimeSerieMetasRequest { int64 animeID = 1; }
+message GetAllAnimeSerieMetasRequest { 
+    int64 animeID = 1;
+}
 
-message GetAllAnimeSerieMetasResponse { repeated nfpb.AnimeMetaResponse metas = 1; }
+message GetAllAnimeSerieMetasResponse { 
+    repeated nfpb.AnimeMetaResponse metas = 1;
+}

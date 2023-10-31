@@ -11,4 +11,6 @@ message GetAllStudiosRequest {
     int32 pageSize = 2;
 }
 
-message GetAllStudiosResponse { repeated Studio studios = 1; }
+message GetAllStudiosResponse { 
+    repeated Studio studios = 1;
+}

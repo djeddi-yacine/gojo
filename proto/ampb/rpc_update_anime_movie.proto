@@ -18,4 +18,6 @@ message UpdateAnimeMovieRequest {
     optional google.protobuf.Duration duration = 6;
 }
 
-message UpdateAnimeMovieResponse { AnimeMovieResponse animeMovie = 1; }
+message UpdateAnimeMovieResponse { 
+    AnimeMovieResponse animeMovie = 1;
+}

@@ -50,12 +50,12 @@ proto:
 	rm -rf pb/*/*.go
 	rm -f doc/swagger/*.swagger.json
 	rm -f doc/statik/*.go
-	protoc --proto_path=proto --proto_path=proto/uspb --proto_path=proto/nfpb --proto_path=proto/ampb --proto_path=proto/aspb --proto_path=. \
+	protoc --proto_path=proto --proto_path=proto/uspb --proto_path=proto/nfpb --proto_path=proto/ampb --proto_path=proto/aspb --proto_path=proto/shpb --proto_path=. \
 	--go_out=pb --go_opt=paths=source_relative \
 	--go-grpc_out=pb --go-grpc_opt=paths=source_relative \
 	--grpc-gateway_out=pb --grpc-gateway_opt=paths=source_relative \
 	--openapiv2_out=doc/swagger --openapiv2_opt=allow_merge=true,merge_file_name=gojo \
-	proto/*.proto proto/uspb/*.proto proto/nfpb/*.proto  proto/ampb/*.proto proto/aspb/*.proto
+	proto/*.proto proto/uspb/*.proto proto/nfpb/*.proto  proto/ampb/*.proto proto/aspb/*.proto proto/shpb/*.proto
 	statik -src=./doc/swagger -dest=./doc
 
 evans:

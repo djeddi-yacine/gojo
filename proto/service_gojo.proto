@@ -41,7 +41,7 @@ option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info : {
     title : "Gojo API";
-    version : "1.5";
+    version : "1.6";
     contact : {
       name: "Dj Yacine";
       url:  "https://github.com/dj-yacine-flutter/gojo";

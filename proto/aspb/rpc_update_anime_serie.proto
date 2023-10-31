@@ -18,4 +18,6 @@ message UpdateAnimeSerieRequest {
     optional google.protobuf.Duration duration = 6;
 }
 
-message UpdateAnimeSerieResponse { AnimeSerieResponse animeSerie = 1; }
+message UpdateAnimeSerieResponse { 
+    AnimeSerieResponse animeSerie = 1;
+}

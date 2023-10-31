@@ -8,19 +8,19 @@ import "google/protobuf/duration.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
 message AnimeSerieRequest {
-  string originalTitle = 1;
-  google.protobuf.Timestamp aired = 2;
-  int32 releaseYear = 3;
-  string rating = 4;
-  google.protobuf.Duration duration = 5;
+    string originalTitle = 1;
+    google.protobuf.Timestamp aired = 2;
+    int32 releaseYear = 3;
+    string rating = 4;
+    google.protobuf.Duration duration = 5;
 }
 
 message AnimeSerieResponse {
-  int64 ID = 1;
-  string originalTitle = 2;
-  google.protobuf.Timestamp aired = 3;
-  int32 releaseYear = 4;
-  string rating = 5;
-  google.protobuf.Duration duration = 6;
-  google.protobuf.Timestamp createdAt = 7;
+    int64 ID = 1;
+    string originalTitle = 2;
+    google.protobuf.Timestamp aired = 3;
+    int32 releaseYear = 4;
+    string rating = 5;
+    google.protobuf.Duration duration = 6;
+    google.protobuf.Timestamp createdAt = 7;
 }

@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package shpb;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/shpb";
+
+message AnimeResourceRequest {
+    int32 tmdbID = 1;
+    string imdbID = 2;
+    string officialWebsite = 3;
+    string wikipediaUrl = 4;
+    string crunchyrollUrl = 5;
+    repeated string socialMedia = 6;
+}
+
+message AnimeResourceResponse {
+    int32 tmdbID = 1;
+    string imdbID = 2;
+    string officialWebsite = 3;
+    string wikipediaUrl = 4;
+    string crunchyrollUrl = 5;
+    repeated string socialMedia = 6;
+    google.protobuf.Timestamp createdAt = 7;
+}

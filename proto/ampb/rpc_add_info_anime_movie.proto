@@ -9,13 +9,13 @@ import "nfpb/studio.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/ampb";
 
 message AddInfoAnimeMovieRequest {
-  int64 animeID = 1;
-  nfpb.AnimeGenresRequest genres = 2;
-  nfpb.AnimeStudiosRequest studios = 3;
+    int64 animeID = 1;
+    nfpb.AnimeGenresRequest genres = 2;
+    nfpb.AnimeStudiosRequest studios = 3;
 }
 
 message AddInfoAnimeMovieResponse {
-  AnimeMovieResponse animeMovie = 1;
-  nfpb.AnimeGenresResponse genres = 2;
-  nfpb.AnimeStudiosResponse studios = 3;
+    AnimeMovieResponse animeMovie = 1;
+    nfpb.AnimeGenresResponse genres = 2;
+    nfpb.AnimeStudiosResponse studios = 3;
 }

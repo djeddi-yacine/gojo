@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Gojo API",
-    "version": "1.5",
+    "version": "1.6",
     "contact": {
       "name": "Dj Yacine",
       "url": "https://github.com/dj-yacine-flutter/gojo"
@@ -994,6 +994,9 @@
       "properties": {
         "animeMovie": {
           "$ref": "#/definitions/ampbAnimeMovieRequest"
+        },
+        "resources": {
+          "$ref": "#/definitions/shpbAnimeResourceRequest"
         }
       }
     },
@@ -1002,6 +1005,9 @@
       "properties": {
         "animeMovie": {
           "$ref": "#/definitions/ampbAnimeMovieResponse"
+        },
+        "resources": {
+          "$ref": "#/definitions/shpbAnimeResourceResponse"
         }
       }
     },
@@ -1166,6 +1172,9 @@
       "properties": {
         "animeSerie": {
           "$ref": "#/definitions/aspbAnimeSerieRequest"
+        },
+        "resources": {
+          "$ref": "#/definitions/shpbAnimeResourceRequest"
         }
       }
     },
@@ -1174,6 +1183,9 @@
       "properties": {
         "animeSerie": {
           "$ref": "#/definitions/aspbAnimeSerieResponse"
+        },
+        "resources": {
+          "$ref": "#/definitions/shpbAnimeResourceResponse"
         }
       }
     },
@@ -1529,6 +1541,64 @@
             "type": "object",
             "$ref": "#/definitions/protobufAny"
           }
+        }
+      }
+    },
+    "shpbAnimeResourceRequest": {
+      "type": "object",
+      "properties": {
+        "tmdbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "imdbID": {
+          "type": "string"
+        },
+        "officialWebsite": {
+          "type": "string"
+        },
+        "wikipediaUrl": {
+          "type": "string"
+        },
+        "crunchyrollUrl": {
+          "type": "string"
+        },
+        "socialMedia": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "shpbAnimeResourceResponse": {
+      "type": "object",
+      "properties": {
+        "tmdbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "imdbID": {
+          "type": "string"
+        },
+        "officialWebsite": {
+          "type": "string"
+        },
+        "wikipediaUrl": {
+          "type": "string"
+        },
+        "crunchyrollUrl": {
+          "type": "string"
+        },
+        "socialMedia": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },

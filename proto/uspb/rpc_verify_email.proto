@@ -5,8 +5,10 @@ package uspb;
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/uspb";
 
 message VerifyEmailRequest {
-  int64 emailID = 1;
-  string secretCode = 2;
+    int64 emailID = 1;
+    string secretCode = 2;
 }
 
-message VerifyEmailResponse { bool isVerified = 1; }
+message VerifyEmailResponse { 
+    bool isVerified = 1;
+}

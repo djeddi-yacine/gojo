@@ -33,6 +33,12 @@ type AnimeMovieMeta struct {
 	MetaID     int64 `json:"meta_id"`
 }
 
+type AnimeMovieResource struct {
+	ID         int64 `json:"id"`
+	AnimeID    int64 `json:"anime_id"`
+	ResourceID int64 `json:"resource_id"`
+}
+
 type AnimeMovieServer struct {
 	ID        int64     `json:"id"`
 	AnimeID   int64     `json:"anime_id"`
@@ -67,6 +73,17 @@ type AnimeMovieVideo struct {
 	Link       string    `json:"link"`
 	Quality    string    `json:"quality"`
 	CreatedAt  time.Time `json:"created_at"`
+}
+
+type AnimeResource struct {
+	ID              int64     `json:"id"`
+	TmdbID          int32     `json:"tmdb_id"`
+	ImdbID          string    `json:"imdb_id"`
+	OfficialWebsite string    `json:"official_website"`
+	WikipediaUrl    string    `json:"wikipedia_url"`
+	CrunchyrollUrl  string    `json:"crunchyroll_url"`
+	SocialMedia     []string  `json:"social_media"`
+	CreatedAt       time.Time `json:"created_at"`
 }
 
 type AnimeSerie struct {
@@ -104,6 +121,12 @@ type AnimeSerieMeta struct {
 	AnimeID    int64 `json:"anime_id"`
 	LanguageID int32 `json:"language_id"`
 	MetaID     int64 `json:"meta_id"`
+}
+
+type AnimeSerieResource struct {
+	ID         int64 `json:"id"`
+	AnimeID    int64 `json:"anime_id"`
+	ResourceID int64 `json:"resource_id"`
 }
 
 type AnimeSerieSeason struct {
