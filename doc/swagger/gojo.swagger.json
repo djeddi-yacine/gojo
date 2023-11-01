@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Gojo API",
-    "version": "1.6",
+    "version": "1.7",
     "contact": {
       "name": "Dj Yacine",
       "url": "https://github.com/dj-yacine-flutter/gojo"
@@ -297,6 +297,40 @@
         ]
       }
     },
+    "/v1/anime/movie/resource/create": {
+      "post": {
+        "summary": "Create new anime movie resource",
+        "description": "Use this API to create a new anime movie resource",
+        "operationId": "Gojo_CreateAnimeMovieResource",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbCreateAnimeMovieResourceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbCreateAnimeMovieResourceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/movie/update": {
       "patch": {
         "summary": "Update anime movie",
@@ -526,6 +560,40 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/aspbCreateAnimeSerieMetasRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/serie/resource/create": {
+      "post": {
+        "summary": "Create new anime serie resource",
+        "description": "Use this API to create a new anime serie resource",
+        "operationId": "Gojo_CreateAnimeSerieResource",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSerieResourceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSerieResourceRequest"
             }
           }
         ],
@@ -1000,6 +1068,29 @@
         }
       }
     },
+    "ampbCreateAnimeMovieResourceRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "resources": {
+          "$ref": "#/definitions/shpbAnimeResourceRequest"
+        }
+      }
+    },
+    "ampbCreateAnimeMovieResourceResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbAnimeMovieResponse"
+        },
+        "resources": {
+          "$ref": "#/definitions/shpbAnimeResourceResponse"
+        }
+      }
+    },
     "ampbCreateAnimeMovieResponse": {
       "type": "object",
       "properties": {
@@ -1038,7 +1129,7 @@
     "ampbUpdateAnimeMovieRequest": {
       "type": "object",
       "properties": {
-        "ID": {
+        "AnimeID": {
           "type": "string",
           "format": "int64"
         },
@@ -1178,6 +1269,29 @@
         }
       }
     },
+    "aspbCreateAnimeSerieResourceRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "resources": {
+          "$ref": "#/definitions/shpbAnimeResourceRequest"
+        }
+      }
+    },
+    "aspbCreateAnimeSerieResourceResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/aspbAnimeSerieResponse"
+        },
+        "resources": {
+          "$ref": "#/definitions/shpbAnimeResourceResponse"
+        }
+      }
+    },
     "aspbCreateAnimeSerieResponse": {
       "type": "object",
       "properties": {
@@ -1216,7 +1330,7 @@
     "aspbUpdateAnimeSerieRequest": {
       "type": "object",
       "properties": {
-        "ID": {
+        "AnimeID": {
           "type": "string",
           "format": "int64"
         },
@@ -1547,11 +1661,11 @@
     "shpbAnimeResourceRequest": {
       "type": "object",
       "properties": {
-        "tmdbID": {
+        "TMDbID": {
           "type": "integer",
           "format": "int32"
         },
-        "imdbID": {
+        "IMDbID": {
           "type": "string"
         },
         "officialWebsite": {
@@ -1574,11 +1688,15 @@
     "shpbAnimeResourceResponse": {
       "type": "object",
       "properties": {
-        "tmdbID": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "TMDbID": {
           "type": "integer",
           "format": "int32"
         },
-        "imdbID": {
+        "IMDbID": {
           "type": "string"
         },
         "officialWebsite": {

@@ -20,6 +20,7 @@ type Querier interface {
 	CreateAnimeMovieServerSubVideo(ctx context.Context, arg CreateAnimeMovieServerSubVideoParams) (AnimeMovieServerSubVideo, error)
 	CreateAnimeMovieStudio(ctx context.Context, arg CreateAnimeMovieStudioParams) (AnimeMovieStudio, error)
 	CreateAnimeMovieVideo(ctx context.Context, arg CreateAnimeMovieVideoParams) (AnimeMovieVideo, error)
+	CreateAnimeResource(ctx context.Context, arg CreateAnimeResourceParams) (AnimeResource, error)
 	CreateAnimeSerie(ctx context.Context, arg CreateAnimeSerieParams) (AnimeSerie, error)
 	CreateAnimeSerieEpisode(ctx context.Context, arg CreateAnimeSerieEpisodeParams) (AnimeSerieEpisode, error)
 	CreateAnimeSerieEpisodeServer(ctx context.Context, arg CreateAnimeSerieEpisodeServerParams) (AnimeSerieEpisodeServer, error)
@@ -49,6 +50,7 @@ type Querier interface {
 	DeleteAnimeMovieServerSubVideo(ctx context.Context, id int64) error
 	DeleteAnimeMovieStudio(ctx context.Context, arg DeleteAnimeMovieStudioParams) error
 	DeleteAnimeMovieVideo(ctx context.Context, id int64) error
+	DeleteAnimeResource(ctx context.Context, id int64) error
 	DeleteAnimeSerie(ctx context.Context, id int64) error
 	DeleteAnimeSerieEpisode(ctx context.Context, id int64) error
 	DeleteAnimeSerieEpisodeServer(ctx context.Context, id int64) error
@@ -77,6 +79,7 @@ type Querier interface {
 	GetAnimeMovieServerSubVideo(ctx context.Context, id int64) (AnimeMovieServerSubVideo, error)
 	GetAnimeMovieStudio(ctx context.Context, id int64) (AnimeMovieStudio, error)
 	GetAnimeMovieVideo(ctx context.Context, id int64) (AnimeMovieVideo, error)
+	GetAnimeResource(ctx context.Context, id int64) (AnimeResource, error)
 	GetAnimeSerie(ctx context.Context, id int64) (AnimeSerie, error)
 	GetAnimeSerieEpisode(ctx context.Context, id int64) (AnimeSerieEpisode, error)
 	GetAnimeSerieEpisodeServer(ctx context.Context, id int64) (AnimeSerieEpisodeServer, error)
@@ -130,6 +133,7 @@ type Querier interface {
 	UpdateAnimeMovieServerDubVideo(ctx context.Context, arg UpdateAnimeMovieServerDubVideoParams) (AnimeMovieServerDubVideo, error)
 	UpdateAnimeMovieServerSubVideo(ctx context.Context, arg UpdateAnimeMovieServerSubVideoParams) (AnimeMovieServerSubVideo, error)
 	UpdateAnimeMovieVideo(ctx context.Context, arg UpdateAnimeMovieVideoParams) (AnimeMovieVideo, error)
+	UpdateAnimeResource(ctx context.Context, arg UpdateAnimeResourceParams) (AnimeResource, error)
 	UpdateAnimeSerie(ctx context.Context, arg UpdateAnimeSerieParams) (AnimeSerie, error)
 	UpdateAnimeSerieEpisode(ctx context.Context, arg UpdateAnimeSerieEpisodeParams) (AnimeSerieEpisode, error)
 	UpdateAnimeSerieEpisodeServer(ctx context.Context, arg UpdateAnimeSerieEpisodeServerParams) (AnimeSerieEpisodeServer, error)

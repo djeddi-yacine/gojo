@@ -10,7 +10,7 @@ import "google/protobuf/duration.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/ampb";
 
 message UpdateAnimeMovieRequest { 
-    int64 ID = 1;
+    int64 AnimeID = 1;
     optional string originalTitle = 2;
     optional google.protobuf.Timestamp aired = 3;
     optional int32 releaseYear = 4;

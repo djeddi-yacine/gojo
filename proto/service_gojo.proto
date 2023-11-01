@@ -15,6 +15,7 @@ import "nfpb/rpc_get_all_languages.proto";
 
 import "ampb/rpc_create_anime_movie.proto";
 import "ampb/rpc_create_anime_movie_metas.proto";
+import "ampb/rpc_create_anime_movie_resource.proto";
 import "ampb/rpc_get_all_anime_movie_metas.proto";
 import "ampb/rpc_get_all_anime_movies.proto";
 import "ampb/rpc_add_info_anime_movie.proto";
@@ -23,6 +24,7 @@ import "ampb/rpc_update_anime_movie.proto";
 
 import "aspb/rpc_create_anime_serie.proto";
 import "aspb/rpc_create_anime_serie_metas.proto";
+import "aspb/rpc_create_anime_serie_resource.proto";
 import "aspb/rpc_get_all_anime_serie_metas.proto";
 import "aspb/rpc_get_all_anime_series.proto";
 import "aspb/rpc_add_info_anime_serie.proto";
@@ -41,7 +43,7 @@ option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info : {
     title : "Gojo API";
-    version : "1.6";
+    version : "1.7";
     contact : {
       name: "Dj Yacine";
       url:  "https://github.com/dj-yacine-flutter/gojo";
@@ -194,6 +196,16 @@ service Gojo {
       summary:  "Create new anime movie meta";
     };
   }
+  rpc CreateAnimeMovieResource(ampb.CreateAnimeMovieResourceRequest) returns (ampb.CreateAnimeMovieResourceResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/movie/resource/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime movie resource";
+      summary:  "Create new anime movie resource";
+    };
+  }
   rpc GetAllAnimeMovies(ampb.GetAllAnimeMoviesRequest) returns (ampb.GetAllAnimeMoviesResponse) {
     option (google.api.http) = {
       get : "/v1/anime/movie"
@@ -258,6 +270,16 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to create a new anime serie meta";
       summary:  "Create new anime serie meta";
+    };
+  }
+  rpc CreateAnimeSerieResource(aspb.CreateAnimeSerieResourceRequest) returns (aspb.CreateAnimeSerieResourceResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/serie/resource/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime serie resource";
+      summary:  "Create new anime serie resource";
     };
   }
   rpc GetAllAnimeSeries(aspb.GetAllAnimeSeriesRequest) returns (aspb.GetAllAnimeSeriesResponse) {

@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package aspb;
+
+import "shpb/anime_resource.proto";
+import "aspb/anime_serie.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
+
+message CreateAnimeSerieResourceRequest {
+    int64 animeID = 1;
+    shpb.AnimeResourceRequest resources = 2;
+}
+
+message CreateAnimeSerieResourceResponse {
+    AnimeSerieResponse animeSerie = 1;
+    shpb.AnimeResourceResponse resources = 2;
+}

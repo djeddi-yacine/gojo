@@ -7,20 +7,21 @@ import "google/protobuf/timestamp.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/shpb";
 
 message AnimeResourceRequest {
-    int32 tmdbID = 1;
-    string imdbID = 2;
-    string officialWebsite = 3;
+    int32 TMDbID = 1;
+    optional string IMDbID = 2;
+    optional string officialWebsite = 3;
     string wikipediaUrl = 4;
-    string crunchyrollUrl = 5;
+    optional string crunchyrollUrl = 5;
     repeated string socialMedia = 6;
 }
 
 message AnimeResourceResponse {
-    int32 tmdbID = 1;
-    string imdbID = 2;
-    string officialWebsite = 3;
-    string wikipediaUrl = 4;
-    string crunchyrollUrl = 5;
-    repeated string socialMedia = 6;
-    google.protobuf.Timestamp createdAt = 7;
+    int64 ID = 1;
+    int32 TMDbID = 2;
+    string IMDbID = 3;
+    string officialWebsite = 4;
+    string wikipediaUrl = 5;
+    string crunchyrollUrl = 6;
+    repeated string socialMedia = 7;
+    google.protobuf.Timestamp createdAt = 8;
 }
