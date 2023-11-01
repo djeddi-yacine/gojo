@@ -6,6 +6,7 @@ sql:
     queries:
       - "./db/sqlc/user"
       - "./db/sqlc/info"
+      - "./db/sqlc/anime/"
       - "./db/sqlc/anime/movie"
       - "./db/sqlc/anime/movie/info"
       - "./db/sqlc/anime/serie"

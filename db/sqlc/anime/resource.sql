@@ -14,7 +14,7 @@ SET
   imdb_id = COALESCE(sqlc.narg(imdb_id), imdb_id),
   official_website = COALESCE(sqlc.narg(official_website), official_website),
   wikipedia_url = COALESCE(sqlc.narg(wikipedia_url), wikipedia_url),
-  crunchyroll_url = COALESCE(sqlc.narg(crunchyroll_url), crunchyroll_url)
+  crunchyroll_url = COALESCE(sqlc.narg(crunchyroll_url), crunchyroll_url),
   social_media = COALESCE(sqlc.narg(social_media), social_media)
 WHERE
   id = sqlc.arg(id)

@@ -1,7 +1,7 @@
 CREATE TABLE "anime_resources" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "tmdb_id" integer UNIQUE NOT NULL,
-  "imdb_id" varchar UNIQUE NOT NULL,
+  "tmdb_id" integer NOT NULL,
+  "imdb_id" varchar NOT NULL,
   "official_website" varchar NOT NULL,
   "wikipedia_url" varchar NOT NULL,
   "crunchyroll_url" varchar NOT NULL,
@@ -11,18 +11,20 @@ CREATE TABLE "anime_resources" (
 
 CREATE TABLE "anime_serie_resources" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "anime_id" bigserial NOT NULL,
-  "resource_id" bigserial NOT NULL
+  "anime_id" bigserial UNIQUE NOT NULL,
+  "resource_id" bigserial UNIQUE NOT NULL
 );
 
 CREATE TABLE "anime_movie_resources" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "anime_id" bigserial NOT NULL,
-  "resource_id" bigserial NOT NULL
+  "anime_id" bigserial UNIQUE NOT NULL,
+  "resource_id" bigserial UNIQUE NOT NULL
 );
 
 
 CREATE INDEX ON "anime_resources" ("id");
+
+CREATE UNIQUE INDEX ON "anime_resources" ("tmdb_id", "imdb_id", "wikipedia_url", "official_website");
 
 CREATE INDEX ON "anime_serie_resources" ("anime_id");
 

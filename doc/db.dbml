@@ -324,8 +324,8 @@ Table anime_movie_videos {
 
 Table anime_resources {
   id bigserial [primary key, unique, increment, not null]
-  tmdb_id integer [unique, not null]
-  imdb_id varchar [unique, not null]
+  tmdb_id integer [not null]
+  imdb_id varchar [not null]
   official_website varchar [not null]
   wikipedia_url varchar [not null]
   crunchyroll_url varchar [not null]
@@ -333,14 +333,15 @@ Table anime_resources {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
+      (tmdb_id, imdb_id, wikipedia_url, official_website) [unique]
     }
 }
 
 
 Table anime_serie_resources {
   id bigserial [primary key, unique, increment, not null]
-  anime_id bigserial [not null]
-  resource_id bigserial [not null]
+  anime_id bigserial [unique, not null]
+  resource_id bigserial [unique, not null]
   indexes {
     anime_id
     resource_id
@@ -350,8 +351,8 @@ Table anime_serie_resources {
 
 Table anime_movie_resources {
   id bigserial [primary key, unique, increment, not null]
-  anime_id bigserial [not null]
-  resource_id bigserial [not null]
+  anime_id bigserial [unique, not null]
+  resource_id bigserial [unique, not null]
   indexes {
     anime_id
     resource_id
