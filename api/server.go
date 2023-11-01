@@ -34,8 +34,8 @@ func NewServer(config utils.Config, gojo db.Gojo, taskDistributor worker.TaskDis
 		SharedServer:     shared.NewSharedServer(tokenMaker),
 		UserServer:       user.NewUserServer(config, gojo, tokenMaker, taskDistributor),
 		InfoServer:       info.NewInfoServer(gojo, tokenMaker),
-		AnimeSerieServer: animeSerie.NewAnimeSerieServer(config, gojo, tokenMaker, taskDistributor),
-		AnimeMovieServer: animeMovie.NewAnimeMovieServer(config, gojo, tokenMaker, taskDistributor),
+		AnimeSerieServer: animeSerie.NewAnimeSerieServer(config, gojo, tokenMaker),
+		AnimeMovieServer: animeMovie.NewAnimeMovieServer(config, gojo, tokenMaker),
 	}
 
 	return server, nil
