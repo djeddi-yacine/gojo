@@ -7,6 +7,10 @@ RETURNING *;
 SELECT * FROM anime_movie_resources
 WHERE id = $1 LIMIT 1;
 
+-- name: GetAnimeMovieResourceByAnimeID :one
+SELECT * FROM anime_movie_resources
+WHERE anime_id = $1 LIMIT 1;
+
 -- name: ListAnimeMovieResources :many
 SELECT resource_id
 FROM anime_movie_resources

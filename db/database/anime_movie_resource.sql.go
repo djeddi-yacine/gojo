@@ -54,6 +54,18 @@ func (q *Queries) GetAnimeMovieResource(ctx context.Context, id int64) (AnimeMov
 	return i, err
 }
 
+const getAnimeMovieResourceByAnimeID = `-- name: GetAnimeMovieResourceByAnimeID :one
+SELECT id, anime_id, resource_id FROM anime_movie_resources
+WHERE anime_id = $1 LIMIT 1
+`
+
+func (q *Queries) GetAnimeMovieResourceByAnimeID(ctx context.Context, animeID int64) (AnimeMovieResource, error) {
+	row := q.db.QueryRow(ctx, getAnimeMovieResourceByAnimeID, animeID)
+	var i AnimeMovieResource
+	err := row.Scan(&i.ID, &i.AnimeID, &i.ResourceID)
+	return i, err
+}
+
 const listAnimeMovieResources = `-- name: ListAnimeMovieResources :many
 SELECT resource_id
 FROM anime_movie_resources

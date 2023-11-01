@@ -54,6 +54,18 @@ func (q *Queries) GetAnimeSerieResource(ctx context.Context, id int64) (AnimeSer
 	return i, err
 }
 
+const getAnimeSerieResourceByAnimeID = `-- name: GetAnimeSerieResourceByAnimeID :one
+SELECT id, anime_id, resource_id FROM anime_serie_resources
+WHERE anime_id = $1 LIMIT 1
+`
+
+func (q *Queries) GetAnimeSerieResourceByAnimeID(ctx context.Context, animeID int64) (AnimeSerieResource, error) {
+	row := q.db.QueryRow(ctx, getAnimeSerieResourceByAnimeID, animeID)
+	var i AnimeSerieResource
+	err := row.Scan(&i.ID, &i.AnimeID, &i.ResourceID)
+	return i, err
+}
+
 const listAnimeSerieResources = `-- name: ListAnimeSerieResources :many
 SELECT resource_id
 FROM anime_serie_resources
