@@ -18,6 +18,10 @@ type Gojo interface {
 	CreateStudiosTx(ctx context.Context, arg CreateStudiosTxParams) (CreateStudiosTxResult, error)
 	CreateLanguagesTx(ctx context.Context, arg CreateLanguagesTxParams) (CreateLanguagesTxResult, error)
 	RenewSessionTx(ctx context.Context, arg RenewSessionTxParams) (RenewSessionTxResult, error)
+	CreateAnimeMovieTx(ctx context.Context, arg CreateAnimeMovieTxParams) (CreateAnimeMovieTxResult, error)
+	CreateAnimeSerieTx(ctx context.Context, arg CreateAnimeSerieTxParams) (CreateAnimeSerieTxResult, error)
+	CreateAnimeMovieResourceTx(ctx context.Context, arg CreateAnimeMovieResourceTxParams) (CreateAnimeMovieResourceTxResult, error)
+	CreateAnimeSerieResourceTx(ctx context.Context, arg CreateAnimeSerieResourceTxParams) (CreateAnimeSerieResourceTxResult, error)
 }
 
 type SQLGojo struct {

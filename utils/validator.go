@@ -3,7 +3,9 @@ package utils
 import (
 	"fmt"
 	"net/mail"
+	"net/url"
 	"regexp"
+	"strings"
 	"time"
 
 	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
@@ -64,13 +66,6 @@ func ValidateEmail(value string) error {
 	return nil
 }
 
-func ValidateEmailID(value int64) error {
-	if value <= 0 {
-		return fmt.Errorf("must be a positive integer")
-	}
-	return nil
-}
-
 func ValidateSecretCode(value string) error {
 	return ValidateString(value, 32, 128)
 }
@@ -100,6 +95,14 @@ func ValidateToken(value string) error {
 	return nil
 }
 
+func ValidateIMDbID(value string) error {
+	if !strings.Contains(value, "tt") {
+		return fmt.Errorf("must be a valid IMDb ID")
+
+	}
+	return nil
+}
+
 func ValidateGenreAndStudio(values []string) error {
 	for _, value := range values {
 		if err := ValidateString(value, 2, 50); err != nil {
@@ -118,5 +121,24 @@ func ValidateLanguage(values []*nfpb.LanguageRequest) error {
 			return err
 		}
 	}
+	return nil
+}
+
+func ValidateURL(value, domain string) error {
+	u, err := url.Parse(value)
+	if err != nil {
+		return fmt.Errorf("invalid URL: %w", err)
+	}
+
+	if domain != "" {
+		if u.Scheme == "" || u.Host == "" {
+			return fmt.Errorf("URL is missing scheme or host")
+		}
+
+		if domain != "" && !strings.Contains(u.Host, domain) {
+			return fmt.Errorf("URL domain does not match the expected domain : %s", domain)
+		}
+	}
+
 	return nil
 }

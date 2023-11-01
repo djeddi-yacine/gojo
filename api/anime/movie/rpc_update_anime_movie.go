@@ -32,7 +32,7 @@ func (server *AnimeMovieServer) UpdateAnimeMovie(ctx context.Context, req *ampb.
 	}
 
 	arg := db.UpdateAnimeMovieParams{
-		ID: req.ID,
+		ID: req.GetAnimeID(),
 		OriginalTitle: pgtype.Text{
 			String: req.GetOriginalTitle(),
 			Valid:  req.OriginalTitle != nil,
@@ -76,7 +76,7 @@ func (server *AnimeMovieServer) UpdateAnimeMovie(ctx context.Context, req *ampb.
 }
 
 func validateUpdateAnimeMovieRequest(req *ampb.UpdateAnimeMovieRequest) (violations []*errdetails.BadRequest_FieldViolation) {
-	if err := utils.ValidateInt(req.ID); err != nil {
+	if err := utils.ValidateInt(req.GetAnimeID()); err != nil {
 		violations = append(violations, shared.FieldViolation("ID", err))
 	}
 

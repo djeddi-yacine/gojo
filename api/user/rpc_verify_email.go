@@ -33,7 +33,7 @@ func (server *UserServer) VerifyEmail(ctx context.Context, req *uspb.VerifyEmail
 }
 
 func validateVerifyEmailRequest(req *uspb.VerifyEmailRequest) (violations []*errdetails.BadRequest_FieldViolation) {
-	if err := utils.ValidateEmailID(req.GetEmailID()); err != nil {
+	if err := utils.ValidateInt(req.GetEmailID()); err != nil {
 		violations = append(violations, shared.FieldViolation("emailID", err))
 	}
 

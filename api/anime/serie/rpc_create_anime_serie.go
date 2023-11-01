@@ -2,6 +2,7 @@ package animeSerie
 
 import (
 	"context"
+	"errors"
 	"time"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
@@ -11,8 +12,6 @@ import (
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/types/known/durationpb"
-	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func (server *AnimeSerieServer) CreateAnimeSerie(ctx context.Context, req *aspb.CreateAnimeSerieRequest) (*aspb.CreateAnimeSerieResponse, error) {
@@ -29,53 +28,100 @@ func (server *AnimeSerieServer) CreateAnimeSerie(ctx context.Context, req *aspb.
 		return nil, shared.InvalidArgumentError(violations)
 	}
 
-	arg := db.CreateAnimeSerieParams{
-		OriginalTitle: req.AnimeSerie.GetOriginalTitle(),
-		Aired:         req.AnimeSerie.GetAired().AsTime(),
-		ReleaseYear:   req.AnimeSerie.GetReleaseYear(),
-		Rating:        req.AnimeSerie.GetRating(),
-		Duration:      req.AnimeSerie.GetDuration().AsDuration(),
+	arg := db.CreateAnimeSerieTxParams{
+		CreateAnimeSerieParams: db.CreateAnimeSerieParams{
+			OriginalTitle: req.AnimeSerie.GetOriginalTitle(),
+			Aired:         req.AnimeSerie.GetAired().AsTime(),
+			ReleaseYear:   req.AnimeSerie.GetReleaseYear(),
+			Rating:        req.AnimeSerie.GetRating(),
+			Duration:      req.AnimeSerie.GetDuration().AsDuration(),
+		},
+		CreateAnimeResourceParams: db.CreateAnimeResourceParams{
+			TmdbID:          req.Resources.GetTMDbID(),
+			ImdbID:          req.Resources.GetIMDbID(),
+			WikipediaUrl:    req.Resources.GetWikipediaUrl(),
+			OfficialWebsite: req.Resources.GetOfficialWebsite(),
+			CrunchyrollUrl:  req.Resources.GetCrunchyrollUrl(),
+			SocialMedia:     req.Resources.GetSocialMedia(),
+		},
 	}
 
-	anime, err := server.gojo.CreateAnimeSerie(ctx, arg)
+	data, err := server.gojo.CreateAnimeSerieTx(ctx, arg)
 	if err != nil {
 		db.ErrorSQL(err)
 		return nil, status.Errorf(codes.Internal, "failed to create anime serie : %s", err)
 	}
 
 	res := &aspb.CreateAnimeSerieResponse{
-		AnimeSerie: &aspb.AnimeSerieResponse{
-			ID:            anime.ID,
-			OriginalTitle: anime.OriginalTitle,
-			Aired:         timestamppb.New(anime.Aired),
-			ReleaseYear:   anime.ReleaseYear,
-			Rating:        anime.Rating,
-			Duration:      durationpb.New(anime.Duration),
-			CreatedAt:     timestamppb.New(anime.CreatedAt),
-		},
+		AnimeSerie: shared.ConvertAnimeSerie(data.AnimeSerie),
+		Resources:  shared.ConvertAnimeResource(data.Resource),
 	}
 	return res, nil
 }
 
 func validateCreateAnimeSerieRequest(req *aspb.CreateAnimeSerieRequest) (violations []*errdetails.BadRequest_FieldViolation) {
-	if err := utils.ValidateString(req.GetAnimeSerie().GetOriginalTitle(), 2, 500); err != nil {
-		violations = append(violations, shared.FieldViolation("originalTitle", err))
+
+	if req.GetAnimeSerie() != nil {
+		if err := utils.ValidateString(req.GetAnimeSerie().GetOriginalTitle(), 2, 500); err != nil {
+			violations = append(violations, shared.FieldViolation("originalTitle", err))
+		}
+
+		if err := utils.ValidateDate(req.GetAnimeSerie().GetAired().AsTime().Format(time.DateOnly)); err != nil {
+			violations = append(violations, shared.FieldViolation("aired", err))
+		}
+
+		if err := utils.ValidateYear(req.GetAnimeSerie().GetReleaseYear()); err != nil {
+			violations = append(violations, shared.FieldViolation("releaseYear", err))
+		}
+
+		if err := utils.ValidateString(req.GetAnimeSerie().GetRating(), 2, 30); err != nil {
+			violations = append(violations, shared.FieldViolation("rating", err))
+		}
+
+		if err := utils.ValidateDuration(req.GetAnimeSerie().GetDuration().AsDuration().String()); err != nil {
+			violations = append(violations, shared.FieldViolation("duration", err))
+		}
+
+	} else {
+		violations = append(violations, shared.FieldViolation("animeSerie", errors.New("you need to send the animeSerie model")))
 	}
 
-	if err := utils.ValidateDate(req.GetAnimeSerie().GetAired().AsTime().Format(time.DateOnly)); err != nil {
-		violations = append(violations, shared.FieldViolation("aired", err))
-	}
+	if req.GetResources() != nil {
+		if err := utils.ValidateInt(int64(req.GetResources().GetTMDbID())); err != nil {
+			violations = append(violations, shared.FieldViolation("TMDbID", err))
+		}
 
-	if err := utils.ValidateYear(req.GetAnimeSerie().GetReleaseYear()); err != nil {
-		violations = append(violations, shared.FieldViolation("releaseYear", err))
-	}
+		if err := utils.ValidateURL(req.GetResources().GetWikipediaUrl(), "wikipedia"); err != nil {
+			violations = append(violations, shared.FieldViolation("wikipediaUrl", err))
+		}
 
-	if err := utils.ValidateString(req.GetAnimeSerie().GetRating(), 2, 30); err != nil {
-		violations = append(violations, shared.FieldViolation("rating", err))
-	}
+		if req.GetResources().GetCrunchyrollUrl() != "" {
+			if err := utils.ValidateURL(req.GetResources().GetCrunchyrollUrl(), "crunchyroll"); err != nil {
+				violations = append(violations, shared.FieldViolation("crunchyrollUrl", err))
+			}
+		}
 
-	if err := utils.ValidateDuration(req.GetAnimeSerie().GetDuration().AsDuration().String()); err != nil {
-		violations = append(violations, shared.FieldViolation("duration", err))
+		if req.GetResources().GetOfficialWebsite() != "" {
+			if err := utils.ValidateURL(req.GetResources().GetOfficialWebsite(), ""); err != nil {
+				violations = append(violations, shared.FieldViolation("officialWebsite", err))
+			}
+		}
+
+		if req.GetResources().GetIMDbID() != "" {
+			if err := utils.ValidateIMDbID(req.GetResources().GetIMDbID()); err != nil {
+				violations = append(violations, shared.FieldViolation("IMDbID", err))
+			}
+		}
+
+		if req.GetResources().GetSocialMedia() != nil {
+			for _, s := range req.GetResources().SocialMedia {
+				if err := utils.ValidateURL(s, ""); err != nil {
+					violations = append(violations, shared.FieldViolation("socialMedia", err))
+				}
+			}
+		}
+	} else {
+		violations = append(violations, shared.FieldViolation("resources", errors.New("you need to send the resources model")))
 	}
 
 	return violations
