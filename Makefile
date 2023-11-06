@@ -1,12 +1,17 @@
 DB_URL=postgresql://root:secret@localhost:5432/gojo?sslmode=disable
+
+
 postgres:
-	sudo docker run --name postgresGOJO -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:16.0-alpine3.18
+	docker run --name postgresGOJO -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:16.0-alpine3.18
+
+redis:
+	docker run --name redisGOJO -p 6379:6379 -d redis:7.2-alpine3.18
 
 createdb:
-	sudo docker exec -it postgresGOJO createdb --username=root --owner=root  gojo
+	docker exec -it postgresGOJO createdb --username=root --owner=root  gojo
 
 dropdb:
-	sudo docker exec -it postgresGOJO dropdb gojo
+	docker exec -it postgresGOJO dropdb gojo
 
 mgup:
 	migrate -path db/migration -database "$(DB_URL)" -verbose up
@@ -39,6 +44,8 @@ test:
 	go test -v -cover -count=1 -short ./... -race
 
 server:
+	go clean
+	go clean -cache -x
 	go run main.go
 
 mock:
@@ -61,26 +68,28 @@ proto:
 evans:
 	evans --host localhost --port 9090 -r repl
 
-redis:
-	sudo docker run --name redisGOJO -p 6379:6379 -d redis:7.2-alpine3.18
-
 db:
 	dbml2sql --postgres -o doc/schema.sql doc/db.dbml
 
 build:
-	GOOS=linux GOARCH=amd64 go build -v -ldflags "-s -w" -gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie -a -o gojo .
+	go clean -x
+	go clean -cache -x
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+	go build -v -ldflags "-w -s -extldflags '-static'" \
+	-gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie -a -installsuffix nocgo \
+	-o gojo .
 
 restart:
-	sudo docker stop redisGOJO postgresGOJO
-	sudo docker start redisGOJO postgresGOJO
+	docker stop redisGOJO postgresGOJO
+	docker start redisGOJO postgresGOJO
 
 dcs:
-	sudo docker stop redisGOJO postgresGOJO
-	sudo docker compose build
-	sudo docker compose up
+	docker stop redisGOJO postgresGOJO
+	docker compose build --no-cache
+	docker compose up
 
 dcd:
-	sudo docker compose down
+	docker compose down
 	docker volume rm gojo_data-volume
 
-.PHONY: postgres createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans redis  db build restart dcs dcd
+.PHONY: postgres redis createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans db build restart dcs dcd
