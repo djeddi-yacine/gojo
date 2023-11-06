@@ -363,6 +363,7 @@ Table anime_movie_torrents {
   seeds integer [not null]
   peers integer [not null]
   leechers integer [not null]
+  size_bytes bigserial [not null]
   quality varchar [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
@@ -391,6 +392,7 @@ Table anime_serie_torrents {
   seeds integer [not null]
   peers integer [not null]
   leechers integer [not null]
+  size_bytes bigserial [not null]
   quality varchar [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {

@@ -1,6 +1,6 @@
 -- name: CreateAnimeSerieTorrent :one
-INSERT INTO anime_serie_torrents (language_id, file_name, torrent_hash, torrent_file, seeds, peers, leechers, quality)
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+INSERT INTO anime_serie_torrents (language_id, file_name, torrent_hash, torrent_file, seeds, peers, leechers, size_bytes, quality)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
 RETURNING *;
 
 -- name: GetAnimeSerieTorrent :one
@@ -18,6 +18,7 @@ SET
     seeds = COALESCE(sqlc.narg(seeds), seeds),
     peers = COALESCE(sqlc.narg(peers), peers),
     leechers = COALESCE(sqlc.narg(leechers), leechers),
+    size_bytes = COALESCE(sqlc.narg(size_bytes), size_bytes),
     quality = COALESCE(sqlc.narg(quality), quality)
 WHERE id = $1
 RETURNING *;

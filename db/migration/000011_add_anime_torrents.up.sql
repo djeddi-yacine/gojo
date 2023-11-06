@@ -7,6 +7,7 @@ CREATE TABLE "anime_movie_torrents" (
   "seeds" integer NOT NULL,
   "peers" integer NOT NULL,
   "leechers" integer NOT NULL,
+  "size_bytes" bigserial NOT NULL,
   "quality" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
@@ -27,6 +28,7 @@ CREATE TABLE "anime_serie_torrents" (
   "seeds" integer NOT NULL,
   "peers" integer NOT NULL,
   "leechers" integer NOT NULL,
+  "size_bytes" bigserial NOT NULL,
   "quality" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );

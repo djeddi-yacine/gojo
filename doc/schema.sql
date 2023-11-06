@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-11-06T19:55:19.147Z
+-- Generated at: 2023-11-06T22:48:59.395Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -240,6 +240,7 @@ CREATE TABLE "anime_movie_torrents" (
   "seeds" integer NOT NULL,
   "peers" integer NOT NULL,
   "leechers" integer NOT NULL,
+  "size_bytes" bigserial NOT NULL,
   "quality" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
@@ -260,6 +261,7 @@ CREATE TABLE "anime_serie_torrents" (
   "seeds" integer NOT NULL,
   "peers" integer NOT NULL,
   "leechers" integer NOT NULL,
+  "size_bytes" bigserial NOT NULL,
   "quality" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
