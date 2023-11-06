@@ -32,8 +32,6 @@ CREATE TABLE "anime_movie_videos" (
 
 CREATE INDEX ON "anime_movie_servers" ("id");
 
-CREATE UNIQUE INDEX ON "anime_movie_servers" ("anime_id");
-
 CREATE INDEX ON "anime_movie_server_sub_videos" ("server_id");
 
 CREATE INDEX ON "anime_movie_server_sub_videos" ("video_id");

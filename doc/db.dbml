@@ -233,7 +233,6 @@ Table anime_serie_servers {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      (episode_id) [unique]
     }
 }
 
@@ -280,7 +279,6 @@ Table anime_movie_servers {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      (anime_id) [unique]
     }
 }
 
@@ -321,7 +319,6 @@ Table anime_movie_videos {
     }
 }
 
-
 Table anime_resources {
   id bigserial [primary key, unique, increment, not null]
   tmdb_id integer [not null]
@@ -337,7 +334,6 @@ Table anime_resources {
     }
 }
 
-
 Table anime_serie_resources {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [unique, not null]
@@ -348,7 +344,6 @@ Table anime_serie_resources {
   }
 }
 
-
 Table anime_movie_resources {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [unique, not null]
@@ -358,8 +353,6 @@ Table anime_movie_resources {
     resource_id
   }
 }
-
-
 
 Ref {
   users.username - sessions.username [delete: cascade]
