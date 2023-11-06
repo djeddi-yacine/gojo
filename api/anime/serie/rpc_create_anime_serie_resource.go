@@ -20,7 +20,7 @@ func (server *AnimeSerieServer) CreateAnimeSerieResource(ctx context.Context, re
 	}
 
 	if authPayload.Role != utils.RootRoll {
-		return nil, status.Errorf(codes.PermissionDenied, "cannot create anime serie")
+		return nil, status.Errorf(codes.PermissionDenied, "cannot create anime serie resource")
 	}
 
 	if violations := validateCreateAnimeSerieResourceRequest(req); violations != nil {
@@ -42,7 +42,7 @@ func (server *AnimeSerieServer) CreateAnimeSerieResource(ctx context.Context, re
 	data, err := server.gojo.CreateAnimeSerieResourceTx(ctx, arg)
 	if err != nil {
 		db.ErrorSQL(err)
-		return nil, status.Errorf(codes.Internal, "failed to create anime serie : %s", err)
+		return nil, status.Errorf(codes.Internal, "failed to create anime serie resource: %s", err)
 	}
 
 	res := &aspb.CreateAnimeSerieResourceResponse{

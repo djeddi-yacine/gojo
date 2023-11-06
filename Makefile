@@ -46,6 +46,7 @@ test:
 server:
 	go clean
 	go clean -cache -x
+	clear
 	go run main.go
 
 mock:
