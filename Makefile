@@ -89,7 +89,6 @@ dcs:
 	docker compose up
 
 dcd:
-	docker compose down
-	docker volume rm gojo_data-volume
+	docker compose down -v
 
 .PHONY: postgres redis createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans db build restart dcs dcd

@@ -21,6 +21,7 @@ services:
   redis:
     container_name: Gojo-Redis
     image: redis:7.2-alpine3.18
+    restart: always
     ports:
       - "6379:6379"
 
