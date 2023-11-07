@@ -45,25 +45,32 @@ func ConvertMeta(meta db.Meta) *nfpb.MetaResponse {
 
 func ConvertAnimeMovie(a db.AnimeMovie) *ampb.AnimeMovieResponse {
 	return &ampb.AnimeMovieResponse{
-		ID:            a.ID,
-		OriginalTitle: a.OriginalTitle,
-		Aired:         timestamppb.New(a.Aired),
-		ReleaseYear:   a.ReleaseYear,
-		Rating:        a.Rating,
-		Duration:      durationpb.New(a.Duration),
-		CreatedAt:     timestamppb.New(a.CreatedAt),
+		ID:                a.ID,
+		OriginalTitle:     a.OriginalTitle,
+		Aired:             timestamppb.New(a.Aired),
+		ReleaseYear:       a.ReleaseYear,
+		Rating:            a.Rating,
+		Duration:          durationpb.New(a.Duration),
+		PortriatPoster:    a.PortriatPoster,
+		PortriatBlurHash:  a.PortriatBlurHash,
+		LandscapePoster:   a.LandscapePoster,
+		LandscapeBlurHash: a.LandscapeBlurHash,
+		CreatedAt:         timestamppb.New(a.CreatedAt),
 	}
 }
 
 func ConvertAnimeSerie(a db.AnimeSerie) *aspb.AnimeSerieResponse {
 	return &aspb.AnimeSerieResponse{
-		ID:            a.ID,
-		OriginalTitle: a.OriginalTitle,
-		Aired:         timestamppb.New(a.Aired),
-		ReleaseYear:   a.ReleaseYear,
-		Rating:        a.Rating,
-		Duration:      durationpb.New(a.Duration),
-		CreatedAt:     timestamppb.New(a.CreatedAt),
+		ID:                a.ID,
+		OriginalTitle:     a.OriginalTitle,
+		Aired:             timestamppb.New(a.Aired),
+		ReleaseYear:       a.ReleaseYear,
+		Rating:            a.Rating,
+		PortriatPoster:    a.PortriatPoster,
+		PortriatBlurHash:  a.PortriatBlurHash,
+		LandscapePoster:   a.LandscapePoster,
+		LandscapeBlurHash: a.LandscapeBlurHash,
+		CreatedAt:         timestamppb.New(a.CreatedAt),
 	}
 }
 

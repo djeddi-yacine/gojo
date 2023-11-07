@@ -30,11 +30,15 @@ func (server *AnimeMovieServer) CreateAnimeMovie(ctx context.Context, req *ampb.
 
 	arg := db.CreateAnimeMovieTxParams{
 		CreateAnimeMovieParams: db.CreateAnimeMovieParams{
-			OriginalTitle: req.AnimeMovie.GetOriginalTitle(),
-			Aired:         req.AnimeMovie.GetAired().AsTime(),
-			ReleaseYear:   req.AnimeMovie.GetReleaseYear(),
-			Rating:        req.AnimeMovie.GetRating(),
-			Duration:      req.AnimeMovie.GetDuration().AsDuration(),
+			OriginalTitle:     req.AnimeMovie.GetOriginalTitle(),
+			Aired:             req.AnimeMovie.GetAired().AsTime(),
+			ReleaseYear:       req.AnimeMovie.GetReleaseYear(),
+			Rating:            req.AnimeMovie.GetRating(),
+			Duration:          req.AnimeMovie.GetDuration().AsDuration(),
+			PortriatPoster:    req.AnimeMovie.GetPortriatPoster(),
+			PortriatBlurHash:  req.AnimeMovie.GetPortriatBlurHash(),
+			LandscapePoster:   req.AnimeMovie.GetLandscapePoster(),
+			LandscapeBlurHash: req.AnimeMovie.GetLandscapeBlurHash(),
 		},
 		CreateAnimeResourceParams: db.CreateAnimeResourceParams{
 			TmdbID:          req.Resources.GetTMDbID(),
@@ -81,6 +85,23 @@ func validateCreateAnimeMovieRequest(req *ampb.CreateAnimeMovieRequest) (violati
 		if err := utils.ValidateDuration(req.GetAnimeMovie().GetDuration().AsDuration().String()); err != nil {
 			violations = append(violations, shared.FieldViolation("duration", err))
 		}
+
+		if err := utils.ValidateImage(req.GetAnimeMovie().GetPortriatPoster()); err != nil {
+			violations = append(violations, shared.FieldViolation("portriatPoster", err))
+		}
+
+		if err := utils.ValidateString(req.GetAnimeMovie().GetPortriatBlurHash(), 0, 100); err != nil {
+			violations = append(violations, shared.FieldViolation("portriatBlurHash", err))
+		}
+
+		if err := utils.ValidateImage(req.GetAnimeMovie().GetLandscapePoster()); err != nil {
+			violations = append(violations, shared.FieldViolation("landscapePoster", err))
+		}
+
+		if err := utils.ValidateString(req.GetAnimeMovie().GetLandscapeBlurHash(), 0, 100); err != nil {
+			violations = append(violations, shared.FieldViolation("landscapeBlurHash", err))
+		}
+
 	} else {
 		violations = append(violations, shared.FieldViolation("animeMovie", errors.New("you need to send the animeMovie model")))
 	}
@@ -119,6 +140,7 @@ func validateCreateAnimeMovieRequest(req *ampb.CreateAnimeMovieRequest) (violati
 				}
 			}
 		}
+
 	} else {
 		violations = append(violations, shared.FieldViolation("resources", errors.New("you need to send the resources model")))
 	}

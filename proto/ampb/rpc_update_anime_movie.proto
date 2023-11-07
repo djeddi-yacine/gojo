@@ -16,6 +16,10 @@ message UpdateAnimeMovieRequest {
     optional int32 releaseYear = 4;
     optional string rating = 5;
     optional google.protobuf.Duration duration = 6;
+    optional string portriatPoster = 7;
+    optional string portriatBlurHash = 8;
+    optional string landscapePoster = 9;
+    optional string landscapeBlurHash = 10;
 }
 
 message UpdateAnimeMovieResponse { 
