@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package ampb;
 
+import "google/protobuf/timestamp.proto";
+
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/ampb";
 
 
@@ -12,4 +14,5 @@ message CreateAnimeMovieServerRequest {
 message CreateAnimeMovieServerResponse {
     int64 animeID = 1;
     int64 serverID = 2;
+    google.protobuf.Timestamp createdAt = 3;
 }

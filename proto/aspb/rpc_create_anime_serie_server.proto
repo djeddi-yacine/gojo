@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package aspb;
 
+import "google/protobuf/timestamp.proto";
+
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
 
@@ -12,4 +14,5 @@ message CreateAnimeSerieServerRequest {
 message CreateAnimeSerieServerResponse {
     int64 episodeID = 1;
     int64 serverID = 2;
+    google.protobuf.Timestamp createdAt = 3;
 }

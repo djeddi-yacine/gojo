@@ -10,6 +10,7 @@ import (
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func (server *AnimeMovieServer) CreateAnimeMovieServer(ctx context.Context, req *ampb.CreateAnimeMovieServerRequest) (*ampb.CreateAnimeMovieServerResponse, error) {
@@ -33,8 +34,9 @@ func (server *AnimeMovieServer) CreateAnimeMovieServer(ctx context.Context, req 
 	}
 
 	res := &ampb.CreateAnimeMovieServerResponse{
-		AnimeID:  srv.AnimeID,
-		ServerID: srv.ID,
+		AnimeID:   srv.AnimeID,
+		ServerID:  srv.ID,
+		CreatedAt: timestamppb.New(srv.CreatedAt),
 	}
 	return res, nil
 }
