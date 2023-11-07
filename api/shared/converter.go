@@ -126,3 +126,43 @@ func ConvertAnimeMovieTorrents(amt []db.AnimeMovieTorrent) []*ampb.AnimeMovieTor
 		return nil
 	}
 }
+
+func ConvertGenres(gg []db.Genre) *nfpb.AnimeGenresResponse {
+	if gg != nil {
+		Genres := make([]*nfpb.Genre, len(gg))
+
+		for i, g := range gg {
+			Genres[i] = &nfpb.Genre{
+				GenreID:   g.ID,
+				GenreName: g.GenreName,
+				CreatedAt: timestamppb.New(g.CreatedAt),
+			}
+		}
+
+		return &nfpb.AnimeGenresResponse{
+			Genres: Genres,
+		}
+	} else {
+		return nil
+	}
+}
+
+func ConvertStudios(ss []db.Studio) *nfpb.AnimeStudiosResponse {
+	if ss != nil {
+		Studios := make([]*nfpb.Studio, len(ss))
+
+		for i, s := range ss {
+			Studios[i] = &nfpb.Studio{
+				StudioID:   s.ID,
+				StudioName: s.StudioName,
+				CreatedAt:  timestamppb.New(s.CreatedAt),
+			}
+		}
+
+		return &nfpb.AnimeStudiosResponse{
+			Studios: Studios,
+		}
+	} else {
+		return nil
+	}
+}

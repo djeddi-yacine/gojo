@@ -19,7 +19,7 @@ import "ampb/rpc_create_anime_movie_resource.proto";
 import "ampb/rpc_create_anime_movie_server.proto";
 import "ampb/rpc_get_all_anime_movie_metas.proto";
 import "ampb/rpc_get_all_anime_movies.proto";
-import "ampb/rpc_add_info_anime_movie.proto";
+import "ampb/rpc_add_anime_movie_info.proto";
 import "ampb/rpc_add_anime_movie_data.proto";
 import "ampb/rpc_update_anime_movie.proto";
 
@@ -30,7 +30,7 @@ import "aspb/rpc_create_anime_serie_resource.proto";
 import "aspb/rpc_create_anime_serie_server.proto";
 import "aspb/rpc_get_all_anime_serie_metas.proto";
 import "aspb/rpc_get_all_anime_series.proto";
-import "aspb/rpc_add_info_anime_serie.proto";
+import "aspb/rpc_add_anime_serie_info.proto";
 import "aspb/rpc_update_anime_serie.proto";
 
 
@@ -46,7 +46,7 @@ option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info : {
     title : "Gojo API";
-    version : "1.7";
+    version : "1.8";
     contact : {
       name: "Dj Yacine";
       url:  "https://github.com/dj-yacine-flutter/gojo";
@@ -227,7 +227,7 @@ service Gojo {
       summary:  "Get all anime movie metas";
     };
   }
-  rpc AddInfoToAnimeMovie(ampb.AddInfoAnimeMovieRequest) returns (ampb.AddInfoAnimeMovieResponse) {
+  rpc AddAnimeMovieInfo(ampb.AddAnimeMovieInfoRequest) returns (ampb.AddAnimeMovieInfoResponse) {
     option (google.api.http) = {
       post : "/v1/anime/movie/info"
     };
@@ -322,7 +322,7 @@ service Gojo {
       summary:  "Get all anime serie metas";
     };
   }
-  rpc AddInfoToAnimeSerie(aspb.AddInfoAnimeSerieRequest) returns (aspb.AddInfoAnimeSerieResponse) {
+  rpc AddAnimeSerieInfo(aspb.AddAnimeSerieInfoRequest) returns (aspb.AddAnimeSerieInfoResponse) {
     option (google.api.http) = {
       post : "/v1/anime/serie/info"
     };

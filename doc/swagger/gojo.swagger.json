@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Gojo API",
-    "version": "1.7",
+    "version": "1.8",
     "contact": {
       "name": "Dj Yacine",
       "url": "https://github.com/dj-yacine-flutter/gojo"
@@ -213,12 +213,12 @@
       "post": {
         "summary": "add info to anime movie",
         "description": "Use this API to add info to anime movie like studios and genres",
-        "operationId": "Gojo_AddInfoToAnimeMovie",
+        "operationId": "Gojo_AddAnimeMovieInfo",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ampbAddInfoAnimeMovieResponse"
+              "$ref": "#/definitions/ampbAddAnimeMovieInfoResponse"
             }
           },
           "default": {
@@ -518,12 +518,12 @@
       "post": {
         "summary": "add info to anime serie",
         "description": "Use this API to add info to anime serie like studios and genres",
-        "operationId": "Gojo_AddInfoToAnimeSerie",
+        "operationId": "Gojo_AddAnimeSerieInfo",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/aspbAddInfoAnimeSerieResponse"
+              "$ref": "#/definitions/aspbAddAnimeSerieInfoResponse"
             }
           },
           "default": {
@@ -1090,7 +1090,7 @@
         }
       }
     },
-    "ampbAddInfoAnimeMovieResponse": {
+    "ampbAddAnimeMovieInfoResponse": {
       "type": "object",
       "properties": {
         "animeMovie": {
@@ -1521,7 +1521,7 @@
         }
       }
     },
-    "aspbAddInfoAnimeSerieResponse": {
+    "aspbAddAnimeSerieInfoResponse": {
       "type": "object",
       "properties": {
         "animeSerie": {

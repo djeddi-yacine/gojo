@@ -139,7 +139,7 @@ func validateAddAnimeMovieDataRequest(req *ampb.AddAnimeMovieDataRequest) (viola
 						violations = append(violations, shared.FieldViolation("link", err))
 					}
 
-					if err := utils.ValidateQuality(s.Quality); err != nil {
+					if err := utils.ValidateQuality(s.GetQuality()); err != nil {
 						violations = append(violations, shared.FieldViolation("quality", err))
 					}
 
@@ -206,7 +206,7 @@ func validateAddAnimeMovieDataRequest(req *ampb.AddAnimeMovieDataRequest) (viola
 						violations = append(violations, shared.FieldViolation("link", err))
 					}
 
-					if err := utils.ValidateQuality(d.Quality); err != nil {
+					if err := utils.ValidateQuality(d.GetQuality()); err != nil {
 						violations = append(violations, shared.FieldViolation("quality", err))
 					}
 
