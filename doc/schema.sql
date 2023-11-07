@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-11-07T21:22:15.408Z
+-- Generated at: 2023-11-07T22:50:13.921Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -141,6 +141,7 @@ CREATE TABLE "anime_serie_seasons" (
 CREATE TABLE "anime_serie_season_metas" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "season_id" bigserial NOT NULL,
+  "language_id" integer NOT NULL,
   "meta_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
@@ -155,6 +156,7 @@ CREATE TABLE "anime_serie_episodes" (
 CREATE TABLE "anime_serie_episode_metas" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "episode_id" bigserial NOT NULL,
+  "language_id" integer NOT NULL,
   "meta_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
@@ -487,6 +489,10 @@ ALTER TABLE "anime_serie_videos" ADD FOREIGN KEY ("language_id") REFERENCES "lan
 ALTER TABLE "anime_movie_torrents" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_torrents" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_season_metas" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_episode_metas" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_metas" ADD FOREIGN KEY ("meta_id") REFERENCES "metas" ("id") ON DELETE CASCADE;
 

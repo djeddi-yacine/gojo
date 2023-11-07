@@ -12,6 +12,7 @@ CREATE TABLE "anime_serie_seasons" (
 CREATE TABLE "anime_serie_season_metas" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "season_id" bigserial NOT NULL,
+  "language_id" integer NOT NULL,
   "meta_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
@@ -26,6 +27,7 @@ CREATE TABLE "anime_serie_episodes" (
 CREATE TABLE "anime_serie_episode_metas" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "episode_id" bigserial NOT NULL,
+  "language_id" integer NOT NULL,
   "meta_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
@@ -137,6 +139,10 @@ ALTER TABLE "anime_serie_episode_metas" ADD FOREIGN KEY ("meta_id") REFERENCES "
 ALTER TABLE "anime_serie_season_metas" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_episode_metas" ADD FOREIGN KEY ("episode_id") REFERENCES "anime_serie_episodes" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_season_metas" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_episode_metas" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_season_episodes" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
 

@@ -206,6 +206,7 @@ Table anime_serie_seasons {
 Table anime_serie_season_metas {
   id bigserial [primary key, unique, increment, not null]
   season_id bigserial [not null]
+  language_id integer [not null]
   meta_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
@@ -228,6 +229,7 @@ Table anime_serie_episodes {
 Table anime_serie_episode_metas {
   id bigserial [primary key, unique, increment, not null]
   episode_id bigserial [not null]
+  language_id integer [not null]
   meta_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
@@ -511,6 +513,12 @@ Ref {
 }
 Ref {
   languages.id - anime_serie_torrents.language_id [delete: cascade]
+}
+Ref {
+  languages.id - anime_serie_season_metas.language_id [delete: cascade]
+}
+Ref {
+  languages.id - anime_serie_episode_metas.language_id [delete: cascade]
 }
 
 

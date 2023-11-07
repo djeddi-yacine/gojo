@@ -1,12 +1,11 @@
 -- name: CreateAnimeSerieSeasonMeta :one
-INSERT INTO anime_serie_season_metas (season_id, meta_id)
-VALUES ($1, $2)
+INSERT INTO anime_serie_season_metas (season_id, language_id, meta_id)
+VALUES ($1, $2, $3)
 RETURNING *;
 
 -- name: GetAnimeSerieSeasonMeta :one
 SELECT * FROM anime_serie_season_metas
-WHERE id = $1
-LIMIT 1;
+WHERE season_id = $1 AND language_id = $2;
 
 -- name: ListAnimeSerieSeasonMetasBySeason :many
 SELECT * FROM anime_serie_season_metas
@@ -19,11 +18,12 @@ OFFSET $3;
 UPDATE anime_serie_season_metas
 SET
   meta_id = COALESCE(sqlc.narg(meta_id), meta_id),
-  season_id = COALESCE(sqlc.narg(season_id), season_id)
+  season_id = COALESCE(sqlc.narg(season_id), season_id),
+  language_id = COALESCE(sqlc.narg(language_id), language_id)
 WHERE
   id = sqlc.arg(id)
 RETURNING *;
 
 -- name: DeleteAnimeSerieSeasonMeta :exec
 DELETE FROM anime_serie_season_metas
-WHERE id = $1;
+WHERE season_id = $1 AND language_id = $2;
