@@ -124,8 +124,8 @@ Table anime_movie_studios {
   anime_id bigserial [not null]
   studio_id integer [not null]
   indexes {
-    anime_id
-    studio_id
+    id
+    (anime_id, studio_id) [unique]
   }
 }
 
@@ -134,8 +134,8 @@ Table anime_serie_studios {
   anime_id bigserial [not null]
   studio_id integer [not null]
   indexes {
-    anime_id
-    studio_id
+    id
+    (anime_id, studio_id) [unique]
   }
 }
 
@@ -144,8 +144,8 @@ Table anime_movie_genres {
   anime_id bigserial [not null]
   genre_id integer [not null]
   indexes {
-    anime_id
-    genre_id
+    id
+    (anime_id, genre_id) [unique]
   }
 }
 
@@ -154,8 +154,8 @@ Table anime_serie_genres {
   anime_id bigserial [not null]
   genre_id integer [not null]
   indexes {
-    anime_id
-    genre_id
+    id
+    (anime_id, genre_id) [unique]
   }
 }
 

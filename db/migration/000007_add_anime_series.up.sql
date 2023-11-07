@@ -36,13 +36,13 @@ CREATE INDEX ON "anime_series" ("release_year");
 
 CREATE UNIQUE INDEX ON "anime_series" ("original_title", "duration", "aired");
 
-CREATE INDEX ON "anime_serie_studios" ("anime_id");
+CREATE INDEX ON "anime_serie_studios" ("id");
 
-CREATE INDEX ON "anime_serie_studios" ("studio_id");
+CREATE UNIQUE INDEX ON "anime_serie_studios" ("anime_id", "studio_id");
 
-CREATE INDEX ON "anime_serie_genres" ("anime_id");
+CREATE INDEX ON "anime_serie_genres" ("id");
 
-CREATE INDEX ON "anime_serie_genres" ("genre_id");
+CREATE UNIQUE INDEX ON "anime_serie_genres" ("anime_id", "genre_id");
 
 CREATE INDEX ON "anime_serie_metas" ("id");
 

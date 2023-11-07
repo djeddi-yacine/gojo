@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-11-07T13:09:05.253Z
+-- Generated at: 2023-11-07T15:18:28.360Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -311,21 +311,21 @@ CREATE INDEX ON "metas" ("id");
 
 CREATE INDEX ON "metas" ("title");
 
-CREATE INDEX ON "anime_movie_studios" ("anime_id");
+CREATE INDEX ON "anime_movie_studios" ("id");
 
-CREATE INDEX ON "anime_movie_studios" ("studio_id");
+CREATE UNIQUE INDEX ON "anime_movie_studios" ("anime_id", "studio_id");
 
-CREATE INDEX ON "anime_serie_studios" ("anime_id");
+CREATE INDEX ON "anime_serie_studios" ("id");
 
-CREATE INDEX ON "anime_serie_studios" ("studio_id");
+CREATE UNIQUE INDEX ON "anime_serie_studios" ("anime_id", "studio_id");
 
-CREATE INDEX ON "anime_movie_genres" ("anime_id");
+CREATE INDEX ON "anime_movie_genres" ("id");
 
-CREATE INDEX ON "anime_movie_genres" ("genre_id");
+CREATE UNIQUE INDEX ON "anime_movie_genres" ("anime_id", "genre_id");
 
-CREATE INDEX ON "anime_serie_genres" ("anime_id");
+CREATE INDEX ON "anime_serie_genres" ("id");
 
-CREATE INDEX ON "anime_serie_genres" ("genre_id");
+CREATE UNIQUE INDEX ON "anime_serie_genres" ("anime_id", "genre_id");
 
 CREATE INDEX ON "anime_movie_metas" ("id");
 
