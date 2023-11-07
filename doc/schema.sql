@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-11-06T22:48:59.395Z
+-- Generated at: 2023-11-07T13:09:05.253Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -401,6 +401,8 @@ CREATE INDEX ON "anime_movie_resources" ("resource_id");
 
 CREATE INDEX ON "anime_movie_torrents" ("id");
 
+CREATE UNIQUE INDEX ON "anime_movie_torrents" ("file_name", "language_id", "torrent_hash", "torrent_file", "size_bytes");
+
 CREATE INDEX ON "anime_movie_server_torrents" ("server_id");
 
 CREATE INDEX ON "anime_movie_server_torrents" ("torrent_id");
@@ -408,6 +410,8 @@ CREATE INDEX ON "anime_movie_server_torrents" ("torrent_id");
 CREATE UNIQUE INDEX ON "anime_movie_server_torrents" ("server_id", "torrent_id");
 
 CREATE INDEX ON "anime_serie_torrents" ("id");
+
+CREATE UNIQUE INDEX ON "anime_serie_torrents" ("file_name", "language_id", "torrent_hash", "torrent_file", "size_bytes");
 
 CREATE INDEX ON "anime_serie_server_torrents" ("server_id");
 

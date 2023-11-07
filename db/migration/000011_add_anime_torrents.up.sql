@@ -43,6 +43,8 @@ CREATE TABLE "anime_serie_server_torrents" (
 
 CREATE INDEX ON "anime_movie_torrents" ("id");
 
+CREATE UNIQUE INDEX ON "anime_movie_torrents" ("file_name", "language_id", "torrent_hash", "torrent_file", "size_bytes");
+
 CREATE INDEX ON "anime_movie_server_torrents" ("server_id");
 
 CREATE INDEX ON "anime_movie_server_torrents" ("torrent_id");
@@ -50,6 +52,8 @@ CREATE INDEX ON "anime_movie_server_torrents" ("torrent_id");
 CREATE UNIQUE INDEX ON "anime_movie_server_torrents" ("server_id", "torrent_id");
 
 CREATE INDEX ON "anime_serie_torrents" ("id");
+
+CREATE UNIQUE INDEX ON "anime_serie_torrents" ("file_name", "language_id", "torrent_hash", "torrent_file", "size_bytes");
 
 CREATE INDEX ON "anime_serie_server_torrents" ("server_id");
 

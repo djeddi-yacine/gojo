@@ -368,6 +368,7 @@ Table anime_movie_torrents {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
+      (file_name, language_id, torrent_hash, torrent_file, size_bytes) [unique]
     }
 }
 
@@ -397,6 +398,7 @@ Table anime_serie_torrents {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
+      (file_name, language_id, torrent_hash, torrent_file, size_bytes) [unique]
     }
 }
 
