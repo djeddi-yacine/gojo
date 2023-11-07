@@ -4,7 +4,10 @@ CREATE TABLE "anime_series" (
   "aired" timestamptz NOT NULL,
   "release_year" integer NOT NULL,
   "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),
-  "duration" interval NOT NULL DEFAULT ('00h 00m 00s'),
+  "portriat_poster" varchar NOT NULL,
+  "portriat_blur_hash" varchar NOT NULL,
+  "landscape_poster" varchar NOT NULL,
+  "landscape_blur_hash" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
@@ -34,7 +37,7 @@ CREATE INDEX ON "anime_series" ("original_title");
 
 CREATE INDEX ON "anime_series" ("release_year");
 
-CREATE UNIQUE INDEX ON "anime_series" ("original_title", "duration", "aired");
+CREATE UNIQUE INDEX ON "anime_series" ("original_title", "aired");
 
 CREATE INDEX ON "anime_serie_studios" ("id");
 

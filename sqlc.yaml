@@ -67,6 +67,8 @@ sql:
           anime_serie_episodes : "AnimeSerieEpisode"
           anime_serie_servers : "AnimeSerieServer"
           anime_serie_videos : "AnimeSerieVideo"
+          anime_serie_season_metas : "AnimeSerieSeasonMeta"
+          anime_serie_episode_metas : "AnimeSerieEpisodeMeta"
           anime_serie_season_episodes : "AnimeSerieSeasonEpisode"
           anime_serie_episode_servers : "AnimeSerieEpisodeServer"
           anime_serie_server_sub_videos : "AnimeSerieServerSubVideo"

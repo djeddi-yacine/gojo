@@ -4,9 +4,13 @@ INSERT INTO anime_movies (
     aired,
     release_year,
     rating,
-    duration
+    duration,
+    portriat_poster,
+    portriat_blur_hash,
+    landscape_poster,
+    landscape_blur_hash
 )
-VALUES ($1, $2, $3, $4, $5)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
 RETURNING *;
 
 -- name: GetAnimeMovie :one
@@ -20,7 +24,11 @@ SET
   aired = COALESCE(sqlc.narg(aired), aired),
   release_year = COALESCE(sqlc.narg(release_year), release_year),
   rating = COALESCE(sqlc.narg(rating), rating),
-  duration = COALESCE(sqlc.narg(duration), duration)
+  duration = COALESCE(sqlc.narg(duration), duration),
+  portriat_poster = COALESCE(sqlc.narg(portriat_poster), portriat_poster),
+  portriat_blur_hash = COALESCE(sqlc.narg(portriat_blur_hash), portriat_blur_hash),
+  landscape_poster = COALESCE(sqlc.narg(landscape_poster), landscape_poster),
+  landscape_blur_hash = COALESCE(sqlc.narg(landscape_blur_hash), landscape_blur_hash)
 WHERE
   id = sqlc.arg(id)
 RETURNING *;
