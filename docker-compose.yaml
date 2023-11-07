@@ -1,4 +1,15 @@
 version: "3.9"
+
+networks:
+  default:
+    name: Gojo-Network
+    external: false
+
+volumes:
+  data-volume:
+    name: Gojo-Volume
+    driver: local
+
 services:
   postgres:
     container_name: Gojo-DB
@@ -38,7 +49,7 @@ services:
         restart: true
 
   api:
-    container_name: Gojo
+    container_name: Gojo-Api
     build:
       context: .
       dockerfile: Dockerfile
@@ -55,6 +66,3 @@ services:
         condition: service_started
       redis:
         condition: service_started
-
-volumes:
-  data-volume:
