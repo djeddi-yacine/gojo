@@ -192,6 +192,10 @@ Table anime_serie_seasons {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
   season_number integer [unique, not null]
+  portriat_poster varchar [not null]
+  portriat_blur_hash varchar [not null]
+  landscape_poster varchar [not null]
+  landscape_blur_hash varchar [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id

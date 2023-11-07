@@ -2,6 +2,10 @@ CREATE TABLE "anime_serie_seasons" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
   "season_number" integer UNIQUE NOT NULL,
+  "portriat_poster" varchar NOT NULL,
+  "portriat_blur_hash" varchar NOT NULL,
+  "landscape_poster" varchar NOT NULL,
+  "landscape_blur_hash" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
