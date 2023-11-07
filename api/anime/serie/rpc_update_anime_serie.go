@@ -2,7 +2,6 @@ package animeSerie
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
@@ -13,8 +12,6 @@ import (
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/types/known/durationpb"
-	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func (server *AnimeSerieServer) UpdateAnimeSerie(ctx context.Context, req *aspb.UpdateAnimeSerieRequest) (*aspb.UpdateAnimeSerieResponse, error) {
@@ -49,9 +46,21 @@ func (server *AnimeSerieServer) UpdateAnimeSerie(ctx context.Context, req *aspb.
 			String: req.GetRating(),
 			Valid:  req.Rating != nil,
 		},
-		Duration: pgtype.Interval{
-			Microseconds: req.GetDuration().AsDuration().Microseconds(),
-			Valid:        req.Duration != nil,
+		PortriatPoster: pgtype.Text{
+			String: req.GetPortriatPoster(),
+			Valid:  req.PortriatPoster != nil,
+		},
+		PortriatBlurHash: pgtype.Text{
+			String: req.GetPortriatBlurHash(),
+			Valid:  req.PortriatBlurHash != nil,
+		},
+		LandscapePoster: pgtype.Text{
+			String: req.GetLandscapePoster(),
+			Valid:  req.LandscapePoster != nil,
+		},
+		LandscapeBlurHash: pgtype.Text{
+			String: req.GetLandscapeBlurHash(),
+			Valid:  req.LandscapeBlurHash != nil,
 		},
 	}
 
@@ -62,15 +71,7 @@ func (server *AnimeSerieServer) UpdateAnimeSerie(ctx context.Context, req *aspb.
 	}
 
 	res := &aspb.UpdateAnimeSerieResponse{
-		AnimeSerie: &aspb.AnimeSerieResponse{
-			ID:            anime.ID,
-			OriginalTitle: anime.OriginalTitle,
-			Aired:         timestamppb.New(anime.Aired),
-			ReleaseYear:   anime.ReleaseYear,
-			Rating:        anime.Rating,
-			Duration:      durationpb.New(anime.Duration),
-			CreatedAt:     timestamppb.New(anime.CreatedAt),
-		},
+		AnimeSerie: shared.ConvertAnimeSerie(anime),
 	}
 	return res, nil
 }
@@ -104,10 +105,27 @@ func validateUpdateAnimeSerieRequest(req *aspb.UpdateAnimeSerieRequest) (violati
 		}
 	}
 
-	if req.Duration != nil {
-		fmt.Println(req.GetDuration().String())
-		if err := utils.ValidateDuration(req.GetDuration().AsDuration().String()); err != nil {
-			violations = append(violations, shared.FieldViolation("duration", err))
+	if req.PortriatPoster != nil {
+		if err := utils.ValidateImage(req.GetPortriatPoster()); err != nil {
+			violations = append(violations, shared.FieldViolation("portriatPoster", err))
+		}
+	}
+
+	if req.PortriatBlurHash != nil {
+		if err := utils.ValidateString(req.GetPortriatBlurHash(), 0, 100); err != nil {
+			violations = append(violations, shared.FieldViolation("portriatBlurHash", err))
+		}
+	}
+
+	if req.LandscapePoster != nil {
+		if err := utils.ValidateImage(req.GetLandscapePoster()); err != nil {
+			violations = append(violations, shared.FieldViolation("landscapePoster", err))
+		}
+	}
+
+	if req.LandscapeBlurHash != nil {
+		if err := utils.ValidateString(req.GetLandscapeBlurHash(), 0, 100); err != nil {
+			violations = append(violations, shared.FieldViolation("landscapeBlurHash", err))
 		}
 	}
 

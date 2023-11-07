@@ -15,7 +15,6 @@ func createRandomAnimeSerie(t *testing.T) AnimeSerie {
 		OriginalTitle: utils.RandomString(10),
 		Aired:         time.Now(),
 		ReleaseYear:   utils.RandomInt(1900, 2020),
-		Duration:      time.Duration(100000),
 	}
 
 	anime, err := testGojo.CreateAnimeSerie(context.Background(), arg)
@@ -24,7 +23,6 @@ func createRandomAnimeSerie(t *testing.T) AnimeSerie {
 
 	require.Equal(t, arg.OriginalTitle, anime.OriginalTitle)
 	require.Equal(t, arg.ReleaseYear, anime.ReleaseYear)
-	require.Equal(t, arg.Duration, anime.Duration)
 	require.WithinDuration(t, arg.Aired, anime.Aired, time.Second)
 	require.NotZero(t, anime.ID)
 	require.NotZero(t, anime.CreatedAt)
@@ -44,7 +42,6 @@ func TestGetAnimeSerie(t *testing.T) {
 
 	require.Equal(t, anime1.OriginalTitle, anime2.OriginalTitle)
 	require.Equal(t, anime1.ReleaseYear, anime2.ReleaseYear)
-	require.Equal(t, anime1.Duration, anime2.Duration)
 	require.Equal(t, anime1.ID, anime2.ID)
 	require.WithinDuration(t, anime1.Aired, anime2.Aired, time.Second)
 	require.WithinDuration(t, anime1.CreatedAt, anime2.CreatedAt, time.Second)
@@ -66,10 +63,6 @@ func TestUpdateAnimeSerie(t *testing.T) {
 			Int32: createRandomAnimeSerie(t).ReleaseYear,
 			Valid: true,
 		},
-		Duration: pgtype.Interval{
-			Microseconds: createRandomAnimeSerie(t).Duration.Microseconds(),
-			Valid:        true,
-		},
 	}
 	anime2, err := testGojo.UpdateAnimeSerie(context.Background(), arg)
 	require.NoError(t, err)
@@ -77,7 +70,6 @@ func TestUpdateAnimeSerie(t *testing.T) {
 
 	require.NotEqual(t, anime1.OriginalTitle, anime2.OriginalTitle)
 	require.NotEqual(t, anime1.ReleaseYear, anime2.ReleaseYear)
-	require.Equal(t, anime1.Duration, anime2.Duration)
 	require.Equal(t, anime1.ID, anime2.ID)
 	require.WithinDuration(t, anime1.CreatedAt, anime2.CreatedAt, time.Second)
 }

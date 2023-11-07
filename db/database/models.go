@@ -11,13 +11,17 @@ import (
 )
 
 type AnimeMovie struct {
-	ID            int64         `json:"id"`
-	OriginalTitle string        `json:"original_title"`
-	Aired         time.Time     `json:"aired"`
-	ReleaseYear   int32         `json:"release_year"`
-	Rating        string        `json:"rating"`
-	Duration      time.Duration `json:"duration"`
-	CreatedAt     time.Time     `json:"created_at"`
+	ID                int64         `json:"id"`
+	OriginalTitle     string        `json:"original_title"`
+	Aired             time.Time     `json:"aired"`
+	ReleaseYear       int32         `json:"release_year"`
+	Rating            string        `json:"rating"`
+	Duration          time.Duration `json:"duration"`
+	PortriatPoster    string        `json:"portriat_poster"`
+	PortriatBlurHash  string        `json:"portriat_blur_hash"`
+	LandscapePoster   string        `json:"landscape_poster"`
+	LandscapeBlurHash string        `json:"landscape_blur_hash"`
+	CreatedAt         time.Time     `json:"created_at"`
 }
 
 type AnimeMovieGenre struct {
@@ -108,13 +112,16 @@ type AnimeResource struct {
 }
 
 type AnimeSerie struct {
-	ID            int64         `json:"id"`
-	OriginalTitle string        `json:"original_title"`
-	Aired         time.Time     `json:"aired"`
-	ReleaseYear   int32         `json:"release_year"`
-	Rating        string        `json:"rating"`
-	Duration      time.Duration `json:"duration"`
-	CreatedAt     time.Time     `json:"created_at"`
+	ID                int64     `json:"id"`
+	OriginalTitle     string    `json:"original_title"`
+	Aired             time.Time `json:"aired"`
+	ReleaseYear       int32     `json:"release_year"`
+	Rating            string    `json:"rating"`
+	PortriatPoster    string    `json:"portriat_poster"`
+	PortriatBlurHash  string    `json:"portriat_blur_hash"`
+	LandscapePoster   string    `json:"landscape_poster"`
+	LandscapeBlurHash string    `json:"landscape_blur_hash"`
+	CreatedAt         time.Time `json:"created_at"`
 }
 
 type AnimeSerieEpisode struct {
@@ -122,6 +129,13 @@ type AnimeSerieEpisode struct {
 	EpisodeNumber int32     `json:"episode_number"`
 	SeasonID      int64     `json:"season_id"`
 	CreatedAt     time.Time `json:"created_at"`
+}
+
+type AnimeSerieEpisodeMeta struct {
+	ID        int64     `json:"id"`
+	EpisodeID int64     `json:"episode_id"`
+	MetaID    int64     `json:"meta_id"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type AnimeSerieEpisodeServer struct {
@@ -151,16 +165,27 @@ type AnimeSerieResource struct {
 }
 
 type AnimeSerieSeason struct {
-	ID           int64     `json:"id"`
-	AnimeID      int64     `json:"anime_id"`
-	SeasonNumber int32     `json:"season_number"`
-	CreatedAt    time.Time `json:"created_at"`
+	ID                int64     `json:"id"`
+	AnimeID           int64     `json:"anime_id"`
+	SeasonNumber      int32     `json:"season_number"`
+	PortriatPoster    string    `json:"portriat_poster"`
+	PortriatBlurHash  string    `json:"portriat_blur_hash"`
+	LandscapePoster   string    `json:"landscape_poster"`
+	LandscapeBlurHash string    `json:"landscape_blur_hash"`
+	CreatedAt         time.Time `json:"created_at"`
 }
 
 type AnimeSerieSeasonEpisode struct {
 	ID        int64     `json:"id"`
 	SeasonID  int64     `json:"season_id"`
 	EpisodeID int64     `json:"episode_id"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type AnimeSerieSeasonMeta struct {
+	ID        int64     `json:"id"`
+	SeasonID  int64     `json:"season_id"`
+	MetaID    int64     `json:"meta_id"`
 	CreatedAt time.Time `json:"created_at"`
 }
 

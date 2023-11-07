@@ -30,11 +30,14 @@ func (server *AnimeSerieServer) CreateAnimeSerie(ctx context.Context, req *aspb.
 
 	arg := db.CreateAnimeSerieTxParams{
 		CreateAnimeSerieParams: db.CreateAnimeSerieParams{
-			OriginalTitle: req.AnimeSerie.GetOriginalTitle(),
-			Aired:         req.AnimeSerie.GetAired().AsTime(),
-			ReleaseYear:   req.AnimeSerie.GetReleaseYear(),
-			Rating:        req.AnimeSerie.GetRating(),
-			Duration:      req.AnimeSerie.GetDuration().AsDuration(),
+			OriginalTitle:     req.AnimeSerie.GetOriginalTitle(),
+			Aired:             req.AnimeSerie.GetAired().AsTime(),
+			ReleaseYear:       req.AnimeSerie.GetReleaseYear(),
+			Rating:            req.AnimeSerie.GetRating(),
+			PortriatPoster:    req.AnimeSerie.GetPortriatPoster(),
+			PortriatBlurHash:  req.AnimeSerie.GetPortriatBlurHash(),
+			LandscapePoster:   req.AnimeSerie.GetLandscapePoster(),
+			LandscapeBlurHash: req.AnimeSerie.GetLandscapeBlurHash(),
 		},
 		CreateAnimeResourceParams: db.CreateAnimeResourceParams{
 			TmdbID:          req.Resources.GetTMDbID(),
@@ -78,8 +81,20 @@ func validateCreateAnimeSerieRequest(req *aspb.CreateAnimeSerieRequest) (violati
 			violations = append(violations, shared.FieldViolation("rating", err))
 		}
 
-		if err := utils.ValidateDuration(req.GetAnimeSerie().GetDuration().AsDuration().String()); err != nil {
-			violations = append(violations, shared.FieldViolation("duration", err))
+		if err := utils.ValidateImage(req.GetAnimeSerie().GetPortriatPoster()); err != nil {
+			violations = append(violations, shared.FieldViolation("portriatPoster", err))
+		}
+
+		if err := utils.ValidateString(req.GetAnimeSerie().GetPortriatBlurHash(), 0, 100); err != nil {
+			violations = append(violations, shared.FieldViolation("portriatBlurHash", err))
+		}
+
+		if err := utils.ValidateImage(req.GetAnimeSerie().GetLandscapePoster()); err != nil {
+			violations = append(violations, shared.FieldViolation("landscapePoster", err))
+		}
+
+		if err := utils.ValidateString(req.GetAnimeSerie().GetLandscapeBlurHash(), 0, 100); err != nil {
+			violations = append(violations, shared.FieldViolation("landscapeBlurHash", err))
 		}
 
 	} else {

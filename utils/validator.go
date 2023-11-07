@@ -16,6 +16,7 @@ var (
 	isValidFullName = regexp.MustCompile(`^[a-zA-Z\s]+$`).MatchString
 	isValidToken    = regexp.MustCompile(`^v2\.[^.]*\.[^.]*\.[^.]*$`).MatchString
 	isValidQuality  = regexp.MustCompile(`^(auto|1080p|720p|480p|480p|360p|240p|144p|SD|HD|FHD|4K)$`).MatchString
+	isValidImage    = regexp.MustCompile(`(?i)\.(jpg|jpeg|png|gif|bmp|tiff|webp|svg|ico)$`).MatchString
 )
 
 func ValidateString(value string, minLength int, maxLength int) error {
@@ -147,6 +148,14 @@ func ValidateURL(value, domain string) error {
 func ValidateQuality(value string) error {
 	if !isValidQuality(value) {
 		return fmt.Errorf("quality text is wrong. must be one of : 'auto|1080p|720p|480p|480p|360p|240p|144p|SD|HD|FHD|4K'")
+	}
+	return nil
+}
+
+func ValidateImage(value string) error {
+	if !isValidImage(value) {
+		return fmt.Errorf("must be a valid image url")
+
 	}
 	return nil
 }

@@ -1161,6 +1161,18 @@
         },
         "duration": {
           "type": "string"
+        },
+        "portriatPoster": {
+          "type": "string"
+        },
+        "portriatBlurHash": {
+          "type": "string"
+        },
+        "landscapePoster": {
+          "type": "string"
+        },
+        "landscapeBlurHash": {
+          "type": "string"
         }
       }
     },
@@ -1186,6 +1198,18 @@
           "type": "string"
         },
         "duration": {
+          "type": "string"
+        },
+        "portriatPoster": {
+          "type": "string"
+        },
+        "portriatBlurHash": {
+          "type": "string"
+        },
+        "landscapePoster": {
+          "type": "string"
+        },
+        "landscapeBlurHash": {
           "type": "string"
         },
         "createdAt": {
@@ -1460,6 +1484,10 @@
         "serverID": {
           "type": "string",
           "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -1510,6 +1538,18 @@
         },
         "duration": {
           "type": "string"
+        },
+        "portriatPoster": {
+          "type": "string"
+        },
+        "portriatBlurHash": {
+          "type": "string"
+        },
+        "landscapePoster": {
+          "type": "string"
+        },
+        "landscapeBlurHash": {
+          "type": "string"
         }
       }
     },
@@ -1552,7 +1592,16 @@
         "rating": {
           "type": "string"
         },
-        "duration": {
+        "portriatPoster": {
+          "type": "string"
+        },
+        "portriatBlurHash": {
+          "type": "string"
+        },
+        "landscapePoster": {
+          "type": "string"
+        },
+        "landscapeBlurHash": {
           "type": "string"
         }
       }
@@ -1578,7 +1627,16 @@
         "rating": {
           "type": "string"
         },
-        "duration": {
+        "portriatPoster": {
+          "type": "string"
+        },
+        "portriatBlurHash": {
+          "type": "string"
+        },
+        "landscapePoster": {
+          "type": "string"
+        },
+        "landscapeBlurHash": {
           "type": "string"
         },
         "createdAt": {
@@ -1683,6 +1741,10 @@
         "serverID": {
           "type": "string",
           "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -1731,7 +1793,16 @@
         "rating": {
           "type": "string"
         },
-        "duration": {
+        "portriatPoster": {
+          "type": "string"
+        },
+        "portriatBlurHash": {
+          "type": "string"
+        },
+        "landscapePoster": {
+          "type": "string"
+        },
+        "landscapeBlurHash": {
           "type": "string"
         }
       }

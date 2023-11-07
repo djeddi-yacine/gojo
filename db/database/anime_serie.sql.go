@@ -18,18 +18,24 @@ INSERT INTO anime_series (
     aired,
     release_year,
     rating,
-    duration
+    portriat_poster,
+    portriat_blur_hash,
+    landscape_poster,
+    landscape_blur_hash
 )
-VALUES ($1, $2, $3, $4, $5)
-RETURNING id, original_title, aired, release_year, rating, duration, created_at
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+RETURNING id, original_title, aired, release_year, rating, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at
 `
 
 type CreateAnimeSerieParams struct {
-	OriginalTitle string        `json:"original_title"`
-	Aired         time.Time     `json:"aired"`
-	ReleaseYear   int32         `json:"release_year"`
-	Rating        string        `json:"rating"`
-	Duration      time.Duration `json:"duration"`
+	OriginalTitle     string    `json:"original_title"`
+	Aired             time.Time `json:"aired"`
+	ReleaseYear       int32     `json:"release_year"`
+	Rating            string    `json:"rating"`
+	PortriatPoster    string    `json:"portriat_poster"`
+	PortriatBlurHash  string    `json:"portriat_blur_hash"`
+	LandscapePoster   string    `json:"landscape_poster"`
+	LandscapeBlurHash string    `json:"landscape_blur_hash"`
 }
 
 func (q *Queries) CreateAnimeSerie(ctx context.Context, arg CreateAnimeSerieParams) (AnimeSerie, error) {
@@ -38,7 +44,10 @@ func (q *Queries) CreateAnimeSerie(ctx context.Context, arg CreateAnimeSeriePara
 		arg.Aired,
 		arg.ReleaseYear,
 		arg.Rating,
-		arg.Duration,
+		arg.PortriatPoster,
+		arg.PortriatBlurHash,
+		arg.LandscapePoster,
+		arg.LandscapeBlurHash,
 	)
 	var i AnimeSerie
 	err := row.Scan(
@@ -47,7 +56,10 @@ func (q *Queries) CreateAnimeSerie(ctx context.Context, arg CreateAnimeSeriePara
 		&i.Aired,
 		&i.ReleaseYear,
 		&i.Rating,
-		&i.Duration,
+		&i.PortriatPoster,
+		&i.PortriatBlurHash,
+		&i.LandscapePoster,
+		&i.LandscapeBlurHash,
 		&i.CreatedAt,
 	)
 	return i, err
@@ -64,7 +76,7 @@ func (q *Queries) DeleteAnimeSerie(ctx context.Context, id int64) error {
 }
 
 const getAnimeSerie = `-- name: GetAnimeSerie :one
-SELECT id, original_title, aired, release_year, rating, duration, created_at FROM anime_series 
+SELECT id, original_title, aired, release_year, rating, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series 
 WHERE id = $1 LIMIT 1
 `
 
@@ -77,14 +89,17 @@ func (q *Queries) GetAnimeSerie(ctx context.Context, id int64) (AnimeSerie, erro
 		&i.Aired,
 		&i.ReleaseYear,
 		&i.Rating,
-		&i.Duration,
+		&i.PortriatPoster,
+		&i.PortriatBlurHash,
+		&i.LandscapePoster,
+		&i.LandscapeBlurHash,
 		&i.CreatedAt,
 	)
 	return i, err
 }
 
 const listAnimeSeries = `-- name: ListAnimeSeries :many
-SELECT id, original_title, aired, release_year, rating, duration, created_at FROM anime_series
+SELECT id, original_title, aired, release_year, rating, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series
 WHERE release_year = $1 OR $1 = 0
 LIMIT $2
 OFFSET $3
@@ -111,7 +126,10 @@ func (q *Queries) ListAnimeSeries(ctx context.Context, arg ListAnimeSeriesParams
 			&i.Aired,
 			&i.ReleaseYear,
 			&i.Rating,
-			&i.Duration,
+			&i.PortriatPoster,
+			&i.PortriatBlurHash,
+			&i.LandscapePoster,
+			&i.LandscapeBlurHash,
 			&i.CreatedAt,
 		); err != nil {
 			return nil, err
@@ -131,19 +149,25 @@ SET
   aired = COALESCE($2, aired),
   release_year = COALESCE($3, release_year),
   rating = COALESCE($4, rating),
-  duration = COALESCE($5, duration)
+  portriat_poster = COALESCE($5, portriat_poster),
+  portriat_blur_hash = COALESCE($6, portriat_blur_hash),
+  landscape_poster = COALESCE($7, landscape_poster),
+  landscape_blur_hash = COALESCE($8, landscape_blur_hash)
 WHERE
-  id = $6
-RETURNING id, original_title, aired, release_year, rating, duration, created_at
+  id = $9
+RETURNING id, original_title, aired, release_year, rating, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at
 `
 
 type UpdateAnimeSerieParams struct {
-	OriginalTitle pgtype.Text        `json:"original_title"`
-	Aired         pgtype.Timestamptz `json:"aired"`
-	ReleaseYear   pgtype.Int4        `json:"release_year"`
-	Rating        pgtype.Text        `json:"rating"`
-	Duration      pgtype.Interval    `json:"duration"`
-	ID            int64              `json:"id"`
+	OriginalTitle     pgtype.Text        `json:"original_title"`
+	Aired             pgtype.Timestamptz `json:"aired"`
+	ReleaseYear       pgtype.Int4        `json:"release_year"`
+	Rating            pgtype.Text        `json:"rating"`
+	PortriatPoster    pgtype.Text        `json:"portriat_poster"`
+	PortriatBlurHash  pgtype.Text        `json:"portriat_blur_hash"`
+	LandscapePoster   pgtype.Text        `json:"landscape_poster"`
+	LandscapeBlurHash pgtype.Text        `json:"landscape_blur_hash"`
+	ID                int64              `json:"id"`
 }
 
 func (q *Queries) UpdateAnimeSerie(ctx context.Context, arg UpdateAnimeSerieParams) (AnimeSerie, error) {
@@ -152,7 +176,10 @@ func (q *Queries) UpdateAnimeSerie(ctx context.Context, arg UpdateAnimeSeriePara
 		arg.Aired,
 		arg.ReleaseYear,
 		arg.Rating,
-		arg.Duration,
+		arg.PortriatPoster,
+		arg.PortriatBlurHash,
+		arg.LandscapePoster,
+		arg.LandscapeBlurHash,
 		arg.ID,
 	)
 	var i AnimeSerie
@@ -162,7 +189,10 @@ func (q *Queries) UpdateAnimeSerie(ctx context.Context, arg UpdateAnimeSeriePara
 		&i.Aired,
 		&i.ReleaseYear,
 		&i.Rating,
-		&i.Duration,
+		&i.PortriatPoster,
+		&i.PortriatBlurHash,
+		&i.LandscapePoster,
+		&i.LandscapeBlurHash,
 		&i.CreatedAt,
 	)
 	return i, err
