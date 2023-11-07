@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-11-07T15:18:28.360Z
+-- Generated at: 2023-11-07T19:38:51.355Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -43,6 +43,10 @@ CREATE TABLE "anime_movies" (
   "release_year" integer NOT NULL,
   "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),
   "duration" interval NOT NULL DEFAULT ('00h 00m 00s'),
+  "portriat_poster" varchar NOT NULL,
+  "portriat_blur_hash" varchar NOT NULL,
+  "landscape_poster" varchar NOT NULL,
+  "landscape_blur_hash" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
@@ -52,7 +56,10 @@ CREATE TABLE "anime_series" (
   "aired" timestamptz NOT NULL,
   "release_year" integer NOT NULL,
   "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),
-  "duration" interval NOT NULL DEFAULT ('00h 00m 00s'),
+  "portriat_poster" varchar NOT NULL,
+  "portriat_blur_hash" varchar NOT NULL,
+  "landscape_poster" varchar NOT NULL,
+  "landscape_blur_hash" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
@@ -127,10 +134,10 @@ CREATE TABLE "anime_serie_seasons" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-CREATE TABLE "anime_serie_season_episodes" (
+CREATE TABLE "anime_serie_season_metas" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "season_id" bigserial NOT NULL,
-  "episode_id" bigserial NOT NULL,
+  "meta_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
@@ -141,16 +148,30 @@ CREATE TABLE "anime_serie_episodes" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-CREATE TABLE "anime_serie_episode_servers" (
+CREATE TABLE "anime_serie_episode_metas" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "episode_id" bigserial NOT NULL,
-  "server_id" bigserial NOT NULL,
+  "meta_id" bigserial NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_serie_season_episodes" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "season_id" bigserial NOT NULL,
+  "episode_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE "anime_serie_servers" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "episode_id" bigserial NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_serie_episode_servers" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "episode_id" bigserial NOT NULL,
+  "server_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
@@ -293,7 +314,7 @@ CREATE INDEX ON "anime_series" ("original_title");
 
 CREATE INDEX ON "anime_series" ("release_year");
 
-CREATE UNIQUE INDEX ON "anime_series" ("original_title", "duration", "aired");
+CREATE UNIQUE INDEX ON "anime_series" ("original_title", "aired");
 
 CREATE INDEX ON "languages" ("id");
 
@@ -339,23 +360,31 @@ CREATE INDEX ON "anime_serie_seasons" ("id");
 
 CREATE UNIQUE INDEX ON "anime_serie_seasons" ("anime_id", "season_number");
 
+CREATE INDEX ON "anime_serie_season_metas" ("id");
+
+CREATE UNIQUE INDEX ON "anime_serie_season_metas" ("season_id", "meta_id");
+
+CREATE INDEX ON "anime_serie_episodes" ("id");
+
+CREATE UNIQUE INDEX ON "anime_serie_episodes" ("episode_number", "season_id");
+
+CREATE INDEX ON "anime_serie_episode_metas" ("id");
+
+CREATE UNIQUE INDEX ON "anime_serie_episode_metas" ("episode_id", "meta_id");
+
 CREATE INDEX ON "anime_serie_season_episodes" ("season_id");
 
 CREATE INDEX ON "anime_serie_season_episodes" ("episode_id");
 
 CREATE UNIQUE INDEX ON "anime_serie_season_episodes" ("season_id", "episode_id");
 
-CREATE INDEX ON "anime_serie_episodes" ("id");
-
-CREATE UNIQUE INDEX ON "anime_serie_episodes" ("episode_number", "season_id");
+CREATE INDEX ON "anime_serie_servers" ("id");
 
 CREATE INDEX ON "anime_serie_episode_servers" ("server_id");
 
 CREATE INDEX ON "anime_serie_episode_servers" ("episode_id");
 
 CREATE UNIQUE INDEX ON "anime_serie_episode_servers" ("episode_id", "server_id");
-
-CREATE INDEX ON "anime_serie_servers" ("id");
 
 CREATE INDEX ON "anime_serie_server_sub_videos" ("server_id");
 
@@ -459,6 +488,10 @@ ALTER TABLE "anime_movie_metas" ADD FOREIGN KEY ("meta_id") REFERENCES "metas" (
 
 ALTER TABLE "anime_serie_metas" ADD FOREIGN KEY ("meta_id") REFERENCES "metas" ("id") ON DELETE CASCADE;
 
+ALTER TABLE "anime_serie_season_metas" ADD FOREIGN KEY ("meta_id") REFERENCES "metas" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_episode_metas" ADD FOREIGN KEY ("meta_id") REFERENCES "metas" ("id") ON DELETE CASCADE;
+
 ALTER TABLE "anime_movie_genres" ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_genres" ADD FOREIGN KEY ("genre_id") REFERENCES "genres" ("id") ON DELETE CASCADE;
@@ -475,6 +508,8 @@ ALTER TABLE "anime_movie_server_sub_videos" ADD FOREIGN KEY ("server_id") REFERE
 
 ALTER TABLE "anime_movie_server_dub_videos" ADD FOREIGN KEY ("server_id") REFERENCES "anime_movie_servers" ("id") ON DELETE CASCADE;
 
+ALTER TABLE "anime_movie_server_torrents" ADD FOREIGN KEY ("server_id") REFERENCES "anime_movie_servers" ("id") ON DELETE CASCADE;
+
 ALTER TABLE "anime_movie_server_sub_videos" ADD FOREIGN KEY ("video_id") REFERENCES "anime_movie_videos" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_server_dub_videos" ADD FOREIGN KEY ("video_id") REFERENCES "anime_movie_videos" ("id") ON DELETE CASCADE;
@@ -483,17 +518,23 @@ ALTER TABLE "anime_serie_episodes" ADD FOREIGN KEY ("season_id") REFERENCES "ani
 
 ALTER TABLE "anime_serie_season_episodes" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
 
+ALTER TABLE "anime_serie_season_metas" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
+
 ALTER TABLE "anime_serie_servers" ADD FOREIGN KEY ("episode_id") REFERENCES "anime_serie_episodes" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_season_episodes" ADD FOREIGN KEY ("episode_id") REFERENCES "anime_serie_episodes" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_episode_servers" ADD FOREIGN KEY ("episode_id") REFERENCES "anime_serie_episodes" ("id") ON DELETE CASCADE;
 
+ALTER TABLE "anime_serie_episode_metas" ADD FOREIGN KEY ("episode_id") REFERENCES "anime_serie_episodes" ("id") ON DELETE CASCADE;
+
 ALTER TABLE "anime_serie_episode_servers" ADD FOREIGN KEY ("server_id") REFERENCES "anime_serie_servers" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_server_sub_videos" ADD FOREIGN KEY ("server_id") REFERENCES "anime_serie_servers" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_server_dub_videos" ADD FOREIGN KEY ("server_id") REFERENCES "anime_serie_servers" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_server_torrents" ADD FOREIGN KEY ("server_id") REFERENCES "anime_serie_servers" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_server_sub_videos" ADD FOREIGN KEY ("video_id") REFERENCES "anime_serie_videos" ("id") ON DELETE CASCADE;
 
@@ -502,7 +543,3 @@ ALTER TABLE "anime_serie_server_dub_videos" ADD FOREIGN KEY ("video_id") REFEREN
 ALTER TABLE "anime_movie_server_torrents" ADD FOREIGN KEY ("torrent_id") REFERENCES "anime_movie_torrents" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_server_torrents" ADD FOREIGN KEY ("torrent_id") REFERENCES "anime_serie_torrents" ("id") ON DELETE CASCADE;
-
-ALTER TABLE "anime_movie_server_torrents" ADD FOREIGN KEY ("server_id") REFERENCES "anime_movie_servers" ("id") ON DELETE CASCADE;
-
-ALTER TABLE "anime_serie_server_torrents" ADD FOREIGN KEY ("server_id") REFERENCES "anime_serie_servers" ("id") ON DELETE CASCADE;

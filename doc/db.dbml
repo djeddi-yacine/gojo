@@ -52,6 +52,10 @@ Table anime_movies {
   release_year integer [not null]
   rating  varchar [not null, default: `'PG-13 - Teens 13 or older'`]
   duration interval  [not null, default: `'00h 00m 00s'`]
+  portriat_poster varchar [not null]
+  portriat_blur_hash varchar [not null]
+  landscape_poster varchar [not null]
+  landscape_blur_hash varchar [not null]
   created_at timestamptz  [not null, default: `now()`]
     indexes {
       id
@@ -67,13 +71,16 @@ Table anime_series {
   aired timestamptz  [not null]
   release_year integer [not null]
   rating  varchar [not null, default: `'PG-13 - Teens 13 or older'`]
-  duration interval  [not null, default: `'00h 00m 00s'`]
+  portriat_poster varchar [not null]
+  portriat_blur_hash varchar [not null]
+  landscape_poster varchar [not null]
+  landscape_blur_hash varchar [not null]
   created_at timestamptz  [not null, default: `now()`]
     indexes {
       id
       original_title
       release_year
-      (original_title, duration, aired) [unique]
+      (original_title, aired) [unique]
     }
 }
 
@@ -192,15 +199,14 @@ Table anime_serie_seasons {
     }
 }
 
-Table anime_serie_season_episodes {
+Table anime_serie_season_metas {
   id bigserial [primary key, unique, increment, not null]
   season_id bigserial [not null]
-  episode_id bigserial [not null]
+  meta_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
-      season_id
-      episode_id
-      (season_id, episode_id) [unique]
+      id
+      (season_id, meta_id) [unique]
     }
 }
 
@@ -215,15 +221,26 @@ Table anime_serie_episodes {
     }
 }
 
-Table anime_serie_episode_servers {
+Table anime_serie_episode_metas {
   id bigserial [primary key, unique, increment, not null]
   episode_id bigserial [not null]
-  server_id bigserial [not null]
+  meta_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
-      server_id
+      id
+      (episode_id, meta_id) [unique]
+    }
+}
+
+Table anime_serie_season_episodes {
+  id bigserial [primary key, unique, increment, not null]
+  season_id bigserial [not null]
+  episode_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      season_id
       episode_id
-      (episode_id, server_id) [unique]
+      (season_id, episode_id) [unique]
     }
 }
 
@@ -233,6 +250,18 @@ Table anime_serie_servers {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
+    }
+}
+
+Table anime_serie_episode_servers {
+  id bigserial [primary key, unique, increment, not null]
+  episode_id bigserial [not null]
+  server_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      server_id
+      episode_id
+      (episode_id, server_id) [unique]
     }
 }
 
@@ -414,12 +443,17 @@ Table anime_serie_server_torrents {
     }
 }
 
+
+
 Ref {
   users.username - sessions.username [delete: cascade]
 }
 Ref {
   users.username - verify_emails.username [delete: cascade]
 }
+
+
+
 Ref {
   anime_movies.id - anime_movie_metas.anime_id [delete: cascade]
 }
@@ -436,6 +470,8 @@ Ref {
   anime_movies.id - anime_movie_resources.anime_id [delete: cascade]
 }
 
+
+
 Ref {
   anime_series.id - anime_serie_metas.anime_id [delete: cascade]
 }
@@ -451,6 +487,8 @@ Ref {
 Ref {
   anime_series.id - anime_serie_resources.anime_id [delete: cascade]
 }
+
+
 
 Ref {
   languages.id - anime_movie_metas.language_id [delete: cascade]
@@ -471,12 +509,22 @@ Ref {
   languages.id - anime_serie_torrents.language_id [delete: cascade]
 }
 
+
+
 Ref {
   metas.id - anime_movie_metas.meta_id [delete: cascade]
 }
 Ref {
   metas.id - anime_serie_metas.meta_id [delete: cascade]
 }
+Ref {
+  metas.id - anime_serie_season_metas.meta_id [delete: cascade]
+}
+Ref {
+  metas.id - anime_serie_episode_metas.meta_id [delete: cascade]
+}
+
+
 
 Ref {
   genres.id - anime_movie_genres.genre_id [delete: cascade]
@@ -485,12 +533,16 @@ Ref {
   genres.id - anime_serie_genres.genre_id [delete: cascade]
 }
 
+
+
 Ref {
   studios.id - anime_movie_studios.studio_id [delete: cascade]
 }
 Ref {
   studios.id - anime_serie_studios.studio_id [delete: cascade]
 }
+
+
 
 Ref {
   anime_resources.id - anime_movie_resources.resource_id [delete: cascade]
@@ -499,6 +551,8 @@ Ref {
   anime_resources.id - anime_serie_resources.resource_id [delete: cascade]
 }
 
+
+
 Ref {
   anime_movie_servers.id - anime_movie_server_sub_videos.server_id [delete: cascade]
 }
@@ -506,11 +560,19 @@ Ref {
   anime_movie_servers.id - anime_movie_server_dub_videos.server_id [delete: cascade]
 }
 Ref {
+  anime_movie_servers.id - anime_movie_server_torrents.server_id [delete: cascade]
+}
+
+
+
+Ref {
   anime_movie_videos.id - anime_movie_server_sub_videos.video_id [delete: cascade]
 }
 Ref {
   anime_movie_videos.id - anime_movie_server_dub_videos.video_id [delete: cascade]
 }
+
+
 
 Ref {
   anime_serie_seasons.id - anime_serie_episodes.season_id [delete: cascade]
@@ -518,6 +580,11 @@ Ref {
 Ref {
   anime_serie_seasons.id - anime_serie_season_episodes.season_id [delete: cascade]
 }
+Ref {
+  anime_serie_seasons.id - anime_serie_season_metas.season_id [delete: cascade]
+}
+
+
 
 Ref {
   anime_serie_episodes.id - anime_serie_servers.episode_id [delete: cascade]
@@ -528,6 +595,11 @@ Ref {
 Ref {
   anime_serie_episodes.id - anime_serie_episode_servers.episode_id [delete: cascade]
 }
+Ref {
+  anime_serie_episodes.id - anime_serie_episode_metas.episode_id [delete: cascade]
+}
+
+
 
 Ref {
   anime_serie_servers.id - anime_serie_episode_servers.server_id [delete: cascade]
@@ -538,6 +610,11 @@ Ref {
 Ref {
   anime_serie_servers.id - anime_serie_server_dub_videos.server_id [delete: cascade]
 }
+Ref {
+  anime_serie_servers.id - anime_serie_server_torrents.server_id [delete: cascade]
+}
+
+
 
 Ref {
   anime_serie_videos.id - anime_serie_server_sub_videos.video_id [delete: cascade]
@@ -547,15 +624,12 @@ Ref {
 }
 
 
+
 Ref {
   anime_movie_torrents.id - anime_movie_server_torrents.torrent_id [delete: cascade]
 }
 Ref {
   anime_serie_torrents.id - anime_serie_server_torrents.torrent_id [delete: cascade]
 }
-Ref {
-  anime_movie_servers.id - anime_movie_server_torrents.server_id [delete: cascade]
-}
-Ref {
-  anime_serie_servers.id - anime_serie_server_torrents.server_id [delete: cascade]
-}
+
+
