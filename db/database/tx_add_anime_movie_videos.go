@@ -22,16 +22,6 @@ type AddAnimeMovieDataTxResult struct {
 	AnimeMovieDubTorrents []AnimeMovieTorrent
 }
 
-func checkLanguage(languages []Language, n int32) bool {
-	for _, language := range languages {
-		if language.ID == n {
-			return true
-		}
-	}
-
-	return false
-}
-
 func (gojo *SQLGojo) AddAnimeMovieDataTx(ctx context.Context, arg AddAnimeMovieDataTxParams) (AddAnimeMovieDataTxResult, error) {
 	var result AddAnimeMovieDataTxResult
 

@@ -12,22 +12,24 @@ import (
 )
 
 const createAnimeSerieSeasonMeta = `-- name: CreateAnimeSerieSeasonMeta :one
-INSERT INTO anime_serie_season_metas (season_id, meta_id)
-VALUES ($1, $2)
-RETURNING id, season_id, meta_id, created_at
+INSERT INTO anime_serie_season_metas (season_id, language_id, meta_id)
+VALUES ($1, $2, $3)
+RETURNING id, season_id, language_id, meta_id, created_at
 `
 
 type CreateAnimeSerieSeasonMetaParams struct {
-	SeasonID int64 `json:"season_id"`
-	MetaID   int64 `json:"meta_id"`
+	SeasonID   int64 `json:"season_id"`
+	LanguageID int32 `json:"language_id"`
+	MetaID     int64 `json:"meta_id"`
 }
 
 func (q *Queries) CreateAnimeSerieSeasonMeta(ctx context.Context, arg CreateAnimeSerieSeasonMetaParams) (AnimeSerieSeasonMeta, error) {
-	row := q.db.QueryRow(ctx, createAnimeSerieSeasonMeta, arg.SeasonID, arg.MetaID)
+	row := q.db.QueryRow(ctx, createAnimeSerieSeasonMeta, arg.SeasonID, arg.LanguageID, arg.MetaID)
 	var i AnimeSerieSeasonMeta
 	err := row.Scan(
 		&i.ID,
 		&i.SeasonID,
+		&i.LanguageID,
 		&i.MetaID,
 		&i.CreatedAt,
 	)
@@ -36,26 +38,36 @@ func (q *Queries) CreateAnimeSerieSeasonMeta(ctx context.Context, arg CreateAnim
 
 const deleteAnimeSerieSeasonMeta = `-- name: DeleteAnimeSerieSeasonMeta :exec
 DELETE FROM anime_serie_season_metas
-WHERE id = $1
+WHERE season_id = $1 AND language_id = $2
 `
 
-func (q *Queries) DeleteAnimeSerieSeasonMeta(ctx context.Context, id int64) error {
-	_, err := q.db.Exec(ctx, deleteAnimeSerieSeasonMeta, id)
+type DeleteAnimeSerieSeasonMetaParams struct {
+	SeasonID   int64 `json:"season_id"`
+	LanguageID int32 `json:"language_id"`
+}
+
+func (q *Queries) DeleteAnimeSerieSeasonMeta(ctx context.Context, arg DeleteAnimeSerieSeasonMetaParams) error {
+	_, err := q.db.Exec(ctx, deleteAnimeSerieSeasonMeta, arg.SeasonID, arg.LanguageID)
 	return err
 }
 
 const getAnimeSerieSeasonMeta = `-- name: GetAnimeSerieSeasonMeta :one
-SELECT id, season_id, meta_id, created_at FROM anime_serie_season_metas
-WHERE id = $1
-LIMIT 1
+SELECT id, season_id, language_id, meta_id, created_at FROM anime_serie_season_metas
+WHERE season_id = $1 AND language_id = $2
 `
 
-func (q *Queries) GetAnimeSerieSeasonMeta(ctx context.Context, id int64) (AnimeSerieSeasonMeta, error) {
-	row := q.db.QueryRow(ctx, getAnimeSerieSeasonMeta, id)
+type GetAnimeSerieSeasonMetaParams struct {
+	SeasonID   int64 `json:"season_id"`
+	LanguageID int32 `json:"language_id"`
+}
+
+func (q *Queries) GetAnimeSerieSeasonMeta(ctx context.Context, arg GetAnimeSerieSeasonMetaParams) (AnimeSerieSeasonMeta, error) {
+	row := q.db.QueryRow(ctx, getAnimeSerieSeasonMeta, arg.SeasonID, arg.LanguageID)
 	var i AnimeSerieSeasonMeta
 	err := row.Scan(
 		&i.ID,
 		&i.SeasonID,
+		&i.LanguageID,
 		&i.MetaID,
 		&i.CreatedAt,
 	)
@@ -63,7 +75,7 @@ func (q *Queries) GetAnimeSerieSeasonMeta(ctx context.Context, id int64) (AnimeS
 }
 
 const listAnimeSerieSeasonMetasBySeason = `-- name: ListAnimeSerieSeasonMetasBySeason :many
-SELECT id, season_id, meta_id, created_at FROM anime_serie_season_metas
+SELECT id, season_id, language_id, meta_id, created_at FROM anime_serie_season_metas
 WHERE season_id = $1
 ORDER BY id
 LIMIT $2
@@ -88,6 +100,7 @@ func (q *Queries) ListAnimeSerieSeasonMetasBySeason(ctx context.Context, arg Lis
 		if err := rows.Scan(
 			&i.ID,
 			&i.SeasonID,
+			&i.LanguageID,
 			&i.MetaID,
 			&i.CreatedAt,
 		); err != nil {
@@ -105,24 +118,32 @@ const updateAnimeSerieSeasonMeta = `-- name: UpdateAnimeSerieSeasonMeta :one
 UPDATE anime_serie_season_metas
 SET
   meta_id = COALESCE($1, meta_id),
-  season_id = COALESCE($2, season_id)
+  season_id = COALESCE($2, season_id),
+  language_id = COALESCE($3, language_id)
 WHERE
-  id = $3
-RETURNING id, season_id, meta_id, created_at
+  id = $4
+RETURNING id, season_id, language_id, meta_id, created_at
 `
 
 type UpdateAnimeSerieSeasonMetaParams struct {
-	MetaID   pgtype.Int8 `json:"meta_id"`
-	SeasonID pgtype.Int8 `json:"season_id"`
-	ID       int64       `json:"id"`
+	MetaID     pgtype.Int8 `json:"meta_id"`
+	SeasonID   pgtype.Int8 `json:"season_id"`
+	LanguageID pgtype.Int4 `json:"language_id"`
+	ID         int64       `json:"id"`
 }
 
 func (q *Queries) UpdateAnimeSerieSeasonMeta(ctx context.Context, arg UpdateAnimeSerieSeasonMetaParams) (AnimeSerieSeasonMeta, error) {
-	row := q.db.QueryRow(ctx, updateAnimeSerieSeasonMeta, arg.MetaID, arg.SeasonID, arg.ID)
+	row := q.db.QueryRow(ctx, updateAnimeSerieSeasonMeta,
+		arg.MetaID,
+		arg.SeasonID,
+		arg.LanguageID,
+		arg.ID,
+	)
 	var i AnimeSerieSeasonMeta
 	err := row.Scan(
 		&i.ID,
 		&i.SeasonID,
+		&i.LanguageID,
 		&i.MetaID,
 		&i.CreatedAt,
 	)

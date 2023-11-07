@@ -173,3 +173,16 @@ func ConvertStudios(ss []db.Studio) *nfpb.AnimeStudiosResponse {
 		return nil
 	}
 }
+
+func ConvertAnimeSerieSeason(a db.AnimeSerieSeason) *aspb.AnimeSerieSeasonResponse {
+	return &aspb.AnimeSerieSeasonResponse{
+		ID:                a.ID,
+		AnimeID:           a.AnimeID,
+		SeasonNumber:      a.SeasonNumber,
+		PortriatPoster:    a.PortriatPoster,
+		PortriatBlurHash:  a.PortriatBlurHash,
+		LandscapePoster:   a.LandscapePoster,
+		LandscapeBlurHash: a.LandscapeBlurHash,
+		CreatedAt:         timestamppb.New(a.CreatedAt),
+	}
+}

@@ -29,9 +29,9 @@ func (server *AnimeSerieServer) CreateAnimeSerieMetas(ctx context.Context, req *
 		return nil, shared.InvalidArgumentError(violations)
 	}
 
-	var DBAM = make([]db.CreateAnimeSerieMetaTxParam, len(req.AnimeMetas))
+	var DBAM = make([]db.AnimeMetaTxParam, len(req.AnimeMetas))
 	for i, am := range req.AnimeMetas {
-		DBAM[i] = db.CreateAnimeSerieMetaTxParam{
+		DBAM[i] = db.AnimeMetaTxParam{
 			LanguageID: am.GetLanguageID(),
 			CreateMetaParams: db.CreateMetaParams{
 				Title:    am.GetMeta().GetTitle(),
@@ -51,9 +51,9 @@ func (server *AnimeSerieServer) CreateAnimeSerieMetas(ctx context.Context, req *
 		return nil, status.Errorf(codes.Internal, "failed to create anime serie metadata : %s", err)
 	}
 
-	var PBAM = make([]*nfpb.AnimeMetaResponse, len(metas.CreateAnimeSerieMetasTxResults))
+	var PBAM = make([]*nfpb.AnimeMetaResponse, len(metas.AnimeSerieMetasTxResults))
 
-	for i, am := range metas.CreateAnimeSerieMetasTxResults {
+	for i, am := range metas.AnimeSerieMetasTxResults {
 		PBAM[i] = &nfpb.AnimeMetaResponse{
 			Meta:      shared.ConvertMeta(am.Meta),
 			Language:  shared.ConvertLanguage(am.Language),

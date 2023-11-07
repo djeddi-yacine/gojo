@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Gojo API",
-    "version": "1.8",
+    "version": "1.9",
     "contact": {
       "name": "Dj Yacine",
       "url": "https://github.com/dj-yacine-flutter/gojo"
@@ -662,6 +662,40 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/aspbCreateAnimeSerieResourceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/serie/season/create": {
+      "post": {
+        "summary": "create new anime serie season",
+        "description": "Use this API to create a new anime serie season",
+        "operationId": "Gojo_CreateAnimeSerieSeason",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSerieSeasonResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSerieSeasonRequest"
             }
           }
         ],
@@ -1645,6 +1679,64 @@
         }
       }
     },
+    "aspbAnimeSerieSeasonRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "portriatPoster": {
+          "type": "string"
+        },
+        "portriatBlurHash": {
+          "type": "string"
+        },
+        "landscapePoster": {
+          "type": "string"
+        },
+        "landscapeBlurHash": {
+          "type": "string"
+        }
+      }
+    },
+    "aspbAnimeSerieSeasonResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "portriatPoster": {
+          "type": "string"
+        },
+        "portriatBlurHash": {
+          "type": "string"
+        },
+        "landscapePoster": {
+          "type": "string"
+        },
+        "landscapeBlurHash": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "aspbCreateAnimeSerieMetasRequest": {
       "type": "object",
       "properties": {
@@ -1719,6 +1811,36 @@
         },
         "resources": {
           "$ref": "#/definitions/shpbAnimeResourceResponse"
+        }
+      }
+    },
+    "aspbCreateAnimeSerieSeasonRequest": {
+      "type": "object",
+      "properties": {
+        "season": {
+          "$ref": "#/definitions/aspbAnimeSerieSeasonRequest"
+        },
+        "seasonMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbAnimeMetaRequest"
+          }
+        }
+      }
+    },
+    "aspbCreateAnimeSerieSeasonResponse": {
+      "type": "object",
+      "properties": {
+        "season": {
+          "$ref": "#/definitions/aspbAnimeSerieSeasonResponse"
+        },
+        "seasonMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbAnimeMetaResponse"
+          }
         }
       }
     },

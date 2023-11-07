@@ -132,10 +132,11 @@ type AnimeSerieEpisode struct {
 }
 
 type AnimeSerieEpisodeMeta struct {
-	ID        int64     `json:"id"`
-	EpisodeID int64     `json:"episode_id"`
-	MetaID    int64     `json:"meta_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID         int64     `json:"id"`
+	EpisodeID  int64     `json:"episode_id"`
+	LanguageID int32     `json:"language_id"`
+	MetaID     int64     `json:"meta_id"`
+	CreatedAt  time.Time `json:"created_at"`
 }
 
 type AnimeSerieEpisodeServer struct {
@@ -183,10 +184,11 @@ type AnimeSerieSeasonEpisode struct {
 }
 
 type AnimeSerieSeasonMeta struct {
-	ID        int64     `json:"id"`
-	SeasonID  int64     `json:"season_id"`
-	MetaID    int64     `json:"meta_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID         int64     `json:"id"`
+	SeasonID   int64     `json:"season_id"`
+	LanguageID int32     `json:"language_id"`
+	MetaID     int64     `json:"meta_id"`
+	CreatedAt  time.Time `json:"created_at"`
 }
 
 type AnimeSerieServer struct {

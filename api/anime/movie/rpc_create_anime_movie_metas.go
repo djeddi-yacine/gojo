@@ -29,9 +29,9 @@ func (server *AnimeMovieServer) CreateAnimeMovieMetas(ctx context.Context, req *
 		return nil, shared.InvalidArgumentError(violations)
 	}
 
-	var DBAM = make([]db.CreateAnimeMovieMetaTxParam, len(req.AnimeMetas))
+	var DBAM = make([]db.AnimeMetaTxParam, len(req.AnimeMetas))
 	for i, am := range req.AnimeMetas {
-		DBAM[i] = db.CreateAnimeMovieMetaTxParam{
+		DBAM[i] = db.AnimeMetaTxParam{
 			LanguageID: am.GetLanguageID(),
 			CreateMetaParams: db.CreateMetaParams{
 				Title:    am.GetMeta().GetTitle(),
@@ -51,9 +51,9 @@ func (server *AnimeMovieServer) CreateAnimeMovieMetas(ctx context.Context, req *
 		return nil, status.Errorf(codes.Internal, "failed to create anime movie metadata : %s", err)
 	}
 
-	var anime_metas = make([]*nfpb.AnimeMetaResponse, len(metas.CreateAnimeMovieMetasTxResults))
+	var anime_metas = make([]*nfpb.AnimeMetaResponse, len(metas.AnimeMovieMetasTxResults))
 
-	for i, am := range metas.CreateAnimeMovieMetasTxResults {
+	for i, am := range metas.AnimeMovieMetasTxResults {
 		anime_metas[i] = &nfpb.AnimeMetaResponse{
 			Meta:      shared.ConvertMeta(am.Meta),
 			Language:  shared.ConvertLanguage(am.Language),

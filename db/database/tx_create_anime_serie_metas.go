@@ -4,23 +4,13 @@ import (
 	"context"
 )
 
-type CreateAnimeSerieMetaTxParam struct {
-	LanguageID int32
-	CreateMetaParams
-}
-
-type CreateAnimeSerieMetaTxResult struct {
-	Language Language
-	Meta     Meta
-}
-
 type CreateAnimeSerieMetasTxParams struct {
 	AnimeID                       int64
-	CreateAnimeSerieMetasTxParams []CreateAnimeSerieMetaTxParam
+	CreateAnimeSerieMetasTxParams []AnimeMetaTxParam
 }
 
 type CreateAnimeSerieMetasTxResult struct {
-	CreateAnimeSerieMetasTxResults []CreateAnimeSerieMetaTxResult
+	AnimeSerieMetasTxResults []AnimeMetaTxResult
 }
 
 func (gojo *SQLGojo) CreateAnimeSerieMetasTx(ctx context.Context, arg CreateAnimeSerieMetasTxParams) (CreateAnimeSerieMetasTxResult, error) {
@@ -28,7 +18,7 @@ func (gojo *SQLGojo) CreateAnimeSerieMetasTx(ctx context.Context, arg CreateAnim
 
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
-		result.CreateAnimeSerieMetasTxResults = make([]CreateAnimeSerieMetaTxResult, len(arg.CreateAnimeSerieMetasTxParams))
+		result.AnimeSerieMetasTxResults = make([]AnimeMetaTxResult, len(arg.CreateAnimeSerieMetasTxParams))
 
 		for i, cs := range arg.CreateAnimeSerieMetasTxParams {
 			meta, err := q.CreateMeta(ctx, cs.CreateMetaParams)
@@ -48,13 +38,13 @@ func (gojo *SQLGojo) CreateAnimeSerieMetasTx(ctx context.Context, arg CreateAnim
 				return err
 			}
 
-			result.CreateAnimeSerieMetasTxResults[i].Meta, err = q.GetMeta(ctx, animeMeta.MetaID)
+			result.AnimeSerieMetasTxResults[i].Meta, err = q.GetMeta(ctx, animeMeta.MetaID)
 			if err != nil {
 				ErrorSQL(err)
 				return err
 			}
 
-			result.CreateAnimeSerieMetasTxResults[i].Language, err = q.GetLanguage(ctx, animeMeta.LanguageID)
+			result.AnimeSerieMetasTxResults[i].Language, err = q.GetLanguage(ctx, animeMeta.LanguageID)
 			if err != nil {
 				ErrorSQL(err)
 				return err
