@@ -79,3 +79,50 @@ func ConvertAnimeResource(r db.AnimeResource) *shpb.AnimeResourceResponse {
 		CreatedAt:       timestamppb.New(r.CreatedAt),
 	}
 }
+
+func ConvertAnimeMovieVideos(amv []db.AnimeMovieVideo) []*ampb.AnimeMovieVideoResponse {
+	if amv != nil {
+		Videos := make([]*ampb.AnimeMovieVideoResponse, len(amv))
+
+		for i, v := range amv {
+			Videos[i] = &ampb.AnimeMovieVideoResponse{
+				ID:         v.ID,
+				LanguageID: v.LanguageID,
+				Autority:   v.Autority,
+				Referer:    v.Referer,
+				Link:       v.Link,
+				Quality:    v.Quality,
+				CreatedAt:  timestamppb.New(v.CreatedAt),
+			}
+		}
+		return Videos
+	} else {
+		return nil
+	}
+}
+
+func ConvertAnimeMovieTorrents(amt []db.AnimeMovieTorrent) []*ampb.AnimeMovieTorrentResponse {
+	if amt != nil {
+		Torrents := make([]*ampb.AnimeMovieTorrentResponse, len(amt))
+
+		for i, t := range amt {
+			Torrents[i] = &ampb.AnimeMovieTorrentResponse{
+				ID:          t.ID,
+				LanguageID:  t.LanguageID,
+				FileName:    t.FileName,
+				TorrentHash: t.TorrentHash,
+				TorrentFile: t.TorrentFile,
+				Seeds:       t.Seeds,
+				Peers:       t.Peers,
+				Leechers:    t.Leechers,
+				SizeBytes:   t.SizeBytes,
+				Quality:     t.Quality,
+				CreatedAt:   timestamppb.New(t.CreatedAt),
+			}
+		}
+
+		return Torrents
+	} else {
+		return nil
+	}
+}

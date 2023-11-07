@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package ampb;
+
+import "ampb/anime_movie.proto";
+import "ampb/servers.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/ampb";
+
+
+message AddAnimeMovieDataRequest {
+    int64 serverID = 1;
+    AnimeMovieSubDataRequest sub = 2;
+    AnimeMovieDubDataRequest dub = 3;
+}
+
+message AddAnimeMovieDataResponse {
+    AnimeMovieResponse animeMovie = 1;
+    AnimeMovieSubDataResponse sub = 2;
+    AnimeMovieDubDataResponse dub = 3;
+}

@@ -59,10 +59,31 @@ type AnimeMovieServerSubVideo struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
+type AnimeMovieServerTorrent struct {
+	ID        int64     `json:"id"`
+	ServerID  int64     `json:"server_id"`
+	TorrentID int64     `json:"torrent_id"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
 type AnimeMovieStudio struct {
 	ID       int64 `json:"id"`
 	AnimeID  int64 `json:"anime_id"`
 	StudioID int32 `json:"studio_id"`
+}
+
+type AnimeMovieTorrent struct {
+	ID          int64     `json:"id"`
+	FileName    string    `json:"file_name"`
+	LanguageID  int32     `json:"language_id"`
+	TorrentHash string    `json:"torrent_hash"`
+	TorrentFile string    `json:"torrent_file"`
+	Seeds       int32     `json:"seeds"`
+	Peers       int32     `json:"peers"`
+	Leechers    int32     `json:"leechers"`
+	SizeBytes   int64     `json:"size_bytes"`
+	Quality     string    `json:"quality"`
+	CreatedAt   time.Time `json:"created_at"`
 }
 
 type AnimeMovieVideo struct {
@@ -163,10 +184,31 @@ type AnimeSerieServerSubVideo struct {
 	CreatedAt time.Time `json:"created_at"`
 }
 
+type AnimeSerieServerTorrent struct {
+	ID        int64     `json:"id"`
+	ServerID  int64     `json:"server_id"`
+	TorrentID int64     `json:"torrent_id"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
 type AnimeSerieStudio struct {
 	ID       int64 `json:"id"`
 	AnimeID  int64 `json:"anime_id"`
 	StudioID int32 `json:"studio_id"`
+}
+
+type AnimeSerieTorrent struct {
+	ID          int64     `json:"id"`
+	FileName    string    `json:"file_name"`
+	LanguageID  int32     `json:"language_id"`
+	TorrentHash string    `json:"torrent_hash"`
+	TorrentFile string    `json:"torrent_file"`
+	Seeds       int32     `json:"seeds"`
+	Peers       int32     `json:"peers"`
+	Leechers    int32     `json:"leechers"`
+	SizeBytes   int64     `json:"size_bytes"`
+	Quality     string    `json:"quality"`
+	CreatedAt   time.Time `json:"created_at"`
 }
 
 type AnimeSerieVideo struct {

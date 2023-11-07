@@ -16,15 +16,18 @@ import "nfpb/rpc_get_all_languages.proto";
 import "ampb/rpc_create_anime_movie.proto";
 import "ampb/rpc_create_anime_movie_metas.proto";
 import "ampb/rpc_create_anime_movie_resource.proto";
+import "ampb/rpc_create_anime_movie_server.proto";
 import "ampb/rpc_get_all_anime_movie_metas.proto";
 import "ampb/rpc_get_all_anime_movies.proto";
 import "ampb/rpc_add_info_anime_movie.proto";
+import "ampb/rpc_add_anime_movie_data.proto";
 import "ampb/rpc_update_anime_movie.proto";
 
 
 import "aspb/rpc_create_anime_serie.proto";
 import "aspb/rpc_create_anime_serie_metas.proto";
 import "aspb/rpc_create_anime_serie_resource.proto";
+import "aspb/rpc_create_anime_serie_server.proto";
 import "aspb/rpc_get_all_anime_serie_metas.proto";
 import "aspb/rpc_get_all_anime_series.proto";
 import "aspb/rpc_add_info_anime_serie.proto";
@@ -243,7 +246,26 @@ service Gojo {
       summary: "Update anime movie";
     };
   }
-
+  rpc CreateAnimeMovieServer(ampb.CreateAnimeMovieServerRequest) returns (ampb.CreateAnimeMovieServerResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/movie/server/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime movie server";
+      summary:  "create new anime movie server";
+    };
+  }
+  rpc AddAnimeMovieData(ampb.AddAnimeMovieDataRequest) returns (ampb.AddAnimeMovieDataResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/movie/data/add"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to add a new anime movie data";
+      summary:  "add new anime movie data";
+    };
+  }
 
 
 
@@ -317,6 +339,16 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to update all anime serie fields using the ID";
       summary: "Update anime serie";
+    };
+  }
+  rpc CreateAnimeSerieServer(aspb.CreateAnimeSerieServerRequest) returns (aspb.CreateAnimeSerieServerResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/serie/server/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime serie server";
+      summary:  "create new anime serie server";
     };
   }
 }

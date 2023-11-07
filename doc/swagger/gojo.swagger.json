@@ -175,6 +175,40 @@
         ]
       }
     },
+    "/v1/anime/movie/data/add": {
+      "post": {
+        "summary": "add new anime movie data",
+        "description": "Use this API to add a new anime movie data",
+        "operationId": "Gojo_AddAnimeMovieData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbAddAnimeMovieDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbAddAnimeMovieDataRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/movie/info": {
       "post": {
         "summary": "add info to anime movie",
@@ -323,6 +357,40 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/ampbCreateAnimeMovieResourceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/movie/server/create": {
+      "post": {
+        "summary": "create new anime movie server",
+        "description": "Use this API to create a new anime movie server",
+        "operationId": "Gojo_CreateAnimeMovieServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbCreateAnimeMovieServerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbCreateAnimeMovieServerRequest"
             }
           }
         ],
@@ -594,6 +662,40 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/aspbCreateAnimeSerieResourceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/serie/server/create": {
+      "post": {
+        "summary": "create new anime serie server",
+        "description": "Use this API to create a new anime serie server",
+        "operationId": "Gojo_CreateAnimeSerieServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSerieServerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSerieServerRequest"
             }
           }
         ],
@@ -959,6 +1061,35 @@
     }
   },
   "definitions": {
+    "ampbAddAnimeMovieDataRequest": {
+      "type": "object",
+      "properties": {
+        "serverID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "sub": {
+          "$ref": "#/definitions/ampbAnimeMovieSubDataRequest"
+        },
+        "dub": {
+          "$ref": "#/definitions/ampbAnimeMovieDubDataRequest"
+        }
+      }
+    },
+    "ampbAddAnimeMovieDataResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbAnimeMovieResponse"
+        },
+        "sub": {
+          "$ref": "#/definitions/ampbAnimeMovieSubDataResponse"
+        },
+        "dub": {
+          "$ref": "#/definitions/ampbAnimeMovieDubDataResponse"
+        }
+      }
+    },
     "ampbAddInfoAnimeMovieResponse": {
       "type": "object",
       "properties": {
@@ -970,6 +1101,44 @@
         },
         "studios": {
           "$ref": "#/definitions/nfpbAnimeStudiosResponse"
+        }
+      }
+    },
+    "ampbAnimeMovieDubDataRequest": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbAnimeMovieVideoRequest"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbAnimeMovieTorrentRequest"
+          }
+        }
+      }
+    },
+    "ampbAnimeMovieDubDataResponse": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbAnimeMovieVideoResponse"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbAnimeMovieTorrentResponse"
+          }
         }
       }
     },
@@ -1017,6 +1186,176 @@
           "type": "string"
         },
         "duration": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ampbAnimeMovieSubDataRequest": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbAnimeMovieVideoRequest"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbAnimeMovieTorrentRequest"
+          }
+        }
+      }
+    },
+    "ampbAnimeMovieSubDataResponse": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbAnimeMovieVideoResponse"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbAnimeMovieTorrentResponse"
+          }
+        }
+      }
+    },
+    "ampbAnimeMovieTorrentRequest": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "torrentHash": {
+          "type": "string"
+        },
+        "torrentFile": {
+          "type": "string"
+        },
+        "seeds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "peers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "leechers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sizeBytes": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quality": {
+          "type": "string"
+        }
+      }
+    },
+    "ampbAnimeMovieTorrentResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "torrentHash": {
+          "type": "string"
+        },
+        "torrentFile": {
+          "type": "string"
+        },
+        "seeds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "peers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "leechers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sizeBytes": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quality": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ampbAnimeMovieVideoRequest": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "autority": {
+          "type": "string"
+        },
+        "referer": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "quality": {
+          "type": "string"
+        }
+      }
+    },
+    "ampbAnimeMovieVideoResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "autority": {
+          "type": "string"
+        },
+        "referer": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "quality": {
           "type": "string"
         },
         "createdAt": {
@@ -1099,6 +1438,28 @@
         },
         "resources": {
           "$ref": "#/definitions/shpbAnimeResourceResponse"
+        }
+      }
+    },
+    "ampbCreateAnimeMovieServerRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "ampbCreateAnimeMovieServerResponse": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "serverID": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },
@@ -1300,6 +1661,28 @@
         },
         "resources": {
           "$ref": "#/definitions/shpbAnimeResourceResponse"
+        }
+      }
+    },
+    "aspbCreateAnimeSerieServerRequest": {
+      "type": "object",
+      "properties": {
+        "episodeID": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "aspbCreateAnimeSerieServerResponse": {
+      "type": "object",
+      "properties": {
+        "episodeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "serverID": {
+          "type": "string",
+          "format": "int64"
         }
       }
     },

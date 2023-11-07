@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package aspb;
+
+import "aspb/video.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
+
+
+message AnimeSerieSubVideoRequest {
+    repeated AnimeSerieVideoRequest videos = 1;
+}
+
+message AnimeSerieDubVideoRequest {
+    repeated AnimeSerieVideoRequest videos = 1;
+}
+
+message AnimeSerieSubVideoResponse {
+    repeated AnimeSerieVideoResponse videos = 1;
+}
+
+message AnimeSerieDubVideoResponse {
+    repeated AnimeSerieVideoResponse videos = 1;
+}
