@@ -23,36 +23,38 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Gojo_CreateUser_FullMethodName               = "/pb.Gojo/CreateUser"
-	Gojo_LoginUser_FullMethodName                = "/pb.Gojo/LoginUser"
-	Gojo_UpdateUser_FullMethodName               = "/pb.Gojo/UpdateUser"
-	Gojo_VerifyEmail_FullMethodName              = "/pb.Gojo/VerifyEmail"
-	Gojo_RenewTokens_FullMethodName              = "/pb.Gojo/RenewTokens"
-	Gojo_CreateGenres_FullMethodName             = "/pb.Gojo/CreateGenres"
-	Gojo_CreateStudios_FullMethodName            = "/pb.Gojo/CreateStudios"
-	Gojo_CreateLanguages_FullMethodName          = "/pb.Gojo/CreateLanguages"
-	Gojo_GetAllGenres_FullMethodName             = "/pb.Gojo/GetAllGenres"
-	Gojo_GetAllStudios_FullMethodName            = "/pb.Gojo/GetAllStudios"
-	Gojo_GetAllLanguages_FullMethodName          = "/pb.Gojo/GetAllLanguages"
-	Gojo_CreateAnimeMovie_FullMethodName         = "/pb.Gojo/CreateAnimeMovie"
-	Gojo_CreateAnimeMovieMetas_FullMethodName    = "/pb.Gojo/CreateAnimeMovieMetas"
-	Gojo_CreateAnimeMovieResource_FullMethodName = "/pb.Gojo/CreateAnimeMovieResource"
-	Gojo_GetAllAnimeMovies_FullMethodName        = "/pb.Gojo/GetAllAnimeMovies"
-	Gojo_GetAllAnimeMovieMetas_FullMethodName    = "/pb.Gojo/GetAllAnimeMovieMetas"
-	Gojo_AddAnimeMovieInfo_FullMethodName        = "/pb.Gojo/AddAnimeMovieInfo"
-	Gojo_UpdateAnimeMovie_FullMethodName         = "/pb.Gojo/UpdateAnimeMovie"
-	Gojo_CreateAnimeMovieServer_FullMethodName   = "/pb.Gojo/CreateAnimeMovieServer"
-	Gojo_AddAnimeMovieData_FullMethodName        = "/pb.Gojo/AddAnimeMovieData"
-	Gojo_CreateAnimeSerie_FullMethodName         = "/pb.Gojo/CreateAnimeSerie"
-	Gojo_CreateAnimeSerieMetas_FullMethodName    = "/pb.Gojo/CreateAnimeSerieMetas"
-	Gojo_CreateAnimeSerieResource_FullMethodName = "/pb.Gojo/CreateAnimeSerieResource"
-	Gojo_GetAllAnimeSeries_FullMethodName        = "/pb.Gojo/GetAllAnimeSeries"
-	Gojo_GetAllAnimeSerieMetas_FullMethodName    = "/pb.Gojo/GetAllAnimeSerieMetas"
-	Gojo_AddAnimeSerieInfo_FullMethodName        = "/pb.Gojo/AddAnimeSerieInfo"
-	Gojo_UpdateAnimeSerie_FullMethodName         = "/pb.Gojo/UpdateAnimeSerie"
-	Gojo_CreateAnimeSerieServer_FullMethodName   = "/pb.Gojo/CreateAnimeSerieServer"
-	Gojo_CreateAnimeSerieSeason_FullMethodName   = "/pb.Gojo/CreateAnimeSerieSeason"
-	Gojo_AddAnimeSerieSeasonMetas_FullMethodName = "/pb.Gojo/AddAnimeSerieSeasonMetas"
+	Gojo_CreateUser_FullMethodName                = "/pb.Gojo/CreateUser"
+	Gojo_LoginUser_FullMethodName                 = "/pb.Gojo/LoginUser"
+	Gojo_UpdateUser_FullMethodName                = "/pb.Gojo/UpdateUser"
+	Gojo_VerifyEmail_FullMethodName               = "/pb.Gojo/VerifyEmail"
+	Gojo_RenewTokens_FullMethodName               = "/pb.Gojo/RenewTokens"
+	Gojo_CreateGenres_FullMethodName              = "/pb.Gojo/CreateGenres"
+	Gojo_CreateStudios_FullMethodName             = "/pb.Gojo/CreateStudios"
+	Gojo_CreateLanguages_FullMethodName           = "/pb.Gojo/CreateLanguages"
+	Gojo_GetAllGenres_FullMethodName              = "/pb.Gojo/GetAllGenres"
+	Gojo_GetAllStudios_FullMethodName             = "/pb.Gojo/GetAllStudios"
+	Gojo_GetAllLanguages_FullMethodName           = "/pb.Gojo/GetAllLanguages"
+	Gojo_CreateAnimeMovie_FullMethodName          = "/pb.Gojo/CreateAnimeMovie"
+	Gojo_CreateAnimeMovieMetas_FullMethodName     = "/pb.Gojo/CreateAnimeMovieMetas"
+	Gojo_CreateAnimeMovieResource_FullMethodName  = "/pb.Gojo/CreateAnimeMovieResource"
+	Gojo_GetAllAnimeMovies_FullMethodName         = "/pb.Gojo/GetAllAnimeMovies"
+	Gojo_GetAllAnimeMovieMetas_FullMethodName     = "/pb.Gojo/GetAllAnimeMovieMetas"
+	Gojo_AddAnimeMovieInfo_FullMethodName         = "/pb.Gojo/AddAnimeMovieInfo"
+	Gojo_UpdateAnimeMovie_FullMethodName          = "/pb.Gojo/UpdateAnimeMovie"
+	Gojo_CreateAnimeMovieServer_FullMethodName    = "/pb.Gojo/CreateAnimeMovieServer"
+	Gojo_AddAnimeMovieData_FullMethodName         = "/pb.Gojo/AddAnimeMovieData"
+	Gojo_CreateAnimeSerie_FullMethodName          = "/pb.Gojo/CreateAnimeSerie"
+	Gojo_CreateAnimeSerieMetas_FullMethodName     = "/pb.Gojo/CreateAnimeSerieMetas"
+	Gojo_CreateAnimeSerieResource_FullMethodName  = "/pb.Gojo/CreateAnimeSerieResource"
+	Gojo_GetAllAnimeSeries_FullMethodName         = "/pb.Gojo/GetAllAnimeSeries"
+	Gojo_GetAllAnimeSerieMetas_FullMethodName     = "/pb.Gojo/GetAllAnimeSerieMetas"
+	Gojo_AddAnimeSerieInfo_FullMethodName         = "/pb.Gojo/AddAnimeSerieInfo"
+	Gojo_UpdateAnimeSerie_FullMethodName          = "/pb.Gojo/UpdateAnimeSerie"
+	Gojo_CreateAnimeSerieServer_FullMethodName    = "/pb.Gojo/CreateAnimeSerieServer"
+	Gojo_CreateAnimeSerieSeason_FullMethodName    = "/pb.Gojo/CreateAnimeSerieSeason"
+	Gojo_AddAnimeSerieSeasonMetas_FullMethodName  = "/pb.Gojo/AddAnimeSerieSeasonMetas"
+	Gojo_CreateAnimeSerieEpisode_FullMethodName   = "/pb.Gojo/CreateAnimeSerieEpisode"
+	Gojo_AddAnimeSerieEpisodeMetas_FullMethodName = "/pb.Gojo/AddAnimeSerieEpisodeMetas"
 )
 
 // GojoClient is the client API for Gojo service.
@@ -89,6 +91,8 @@ type GojoClient interface {
 	CreateAnimeSerieServer(ctx context.Context, in *aspb.CreateAnimeSerieServerRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieServerResponse, error)
 	CreateAnimeSerieSeason(ctx context.Context, in *aspb.CreateAnimeSerieSeasonRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieSeasonResponse, error)
 	AddAnimeSerieSeasonMetas(ctx context.Context, in *aspb.AddAnimeSerieSeasonMetasRequest, opts ...grpc.CallOption) (*aspb.AddAnimeSerieSeasonMetasResponse, error)
+	CreateAnimeSerieEpisode(ctx context.Context, in *aspb.CreateAnimeSerieEpisodeRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieEpisodeResponse, error)
+	AddAnimeSerieEpisodeMetas(ctx context.Context, in *aspb.AddAnimeSerieEpisodeMetasRequest, opts ...grpc.CallOption) (*aspb.AddAnimeSerieEpisodeMetasResponse, error)
 }
 
 type gojoClient struct {
@@ -369,6 +373,24 @@ func (c *gojoClient) AddAnimeSerieSeasonMetas(ctx context.Context, in *aspb.AddA
 	return out, nil
 }
 
+func (c *gojoClient) CreateAnimeSerieEpisode(ctx context.Context, in *aspb.CreateAnimeSerieEpisodeRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieEpisodeResponse, error) {
+	out := new(aspb.CreateAnimeSerieEpisodeResponse)
+	err := c.cc.Invoke(ctx, Gojo_CreateAnimeSerieEpisode_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gojoClient) AddAnimeSerieEpisodeMetas(ctx context.Context, in *aspb.AddAnimeSerieEpisodeMetasRequest, opts ...grpc.CallOption) (*aspb.AddAnimeSerieEpisodeMetasResponse, error) {
+	out := new(aspb.AddAnimeSerieEpisodeMetasResponse)
+	err := c.cc.Invoke(ctx, Gojo_AddAnimeSerieEpisodeMetas_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GojoServer is the server API for Gojo service.
 // All implementations must embed UnimplementedGojoServer
 // for forward compatibility
@@ -403,6 +425,8 @@ type GojoServer interface {
 	CreateAnimeSerieServer(context.Context, *aspb.CreateAnimeSerieServerRequest) (*aspb.CreateAnimeSerieServerResponse, error)
 	CreateAnimeSerieSeason(context.Context, *aspb.CreateAnimeSerieSeasonRequest) (*aspb.CreateAnimeSerieSeasonResponse, error)
 	AddAnimeSerieSeasonMetas(context.Context, *aspb.AddAnimeSerieSeasonMetasRequest) (*aspb.AddAnimeSerieSeasonMetasResponse, error)
+	CreateAnimeSerieEpisode(context.Context, *aspb.CreateAnimeSerieEpisodeRequest) (*aspb.CreateAnimeSerieEpisodeResponse, error)
+	AddAnimeSerieEpisodeMetas(context.Context, *aspb.AddAnimeSerieEpisodeMetasRequest) (*aspb.AddAnimeSerieEpisodeMetasResponse, error)
 	mustEmbedUnimplementedGojoServer()
 }
 
@@ -499,6 +523,12 @@ func (UnimplementedGojoServer) CreateAnimeSerieSeason(context.Context, *aspb.Cre
 }
 func (UnimplementedGojoServer) AddAnimeSerieSeasonMetas(context.Context, *aspb.AddAnimeSerieSeasonMetasRequest) (*aspb.AddAnimeSerieSeasonMetasResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddAnimeSerieSeasonMetas not implemented")
+}
+func (UnimplementedGojoServer) CreateAnimeSerieEpisode(context.Context, *aspb.CreateAnimeSerieEpisodeRequest) (*aspb.CreateAnimeSerieEpisodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSerieEpisode not implemented")
+}
+func (UnimplementedGojoServer) AddAnimeSerieEpisodeMetas(context.Context, *aspb.AddAnimeSerieEpisodeMetasRequest) (*aspb.AddAnimeSerieEpisodeMetasResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddAnimeSerieEpisodeMetas not implemented")
 }
 func (UnimplementedGojoServer) mustEmbedUnimplementedGojoServer() {}
 
@@ -1053,6 +1083,42 @@ func _Gojo_AddAnimeSerieSeasonMetas_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Gojo_CreateAnimeSerieEpisode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(aspb.CreateAnimeSerieEpisodeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).CreateAnimeSerieEpisode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_CreateAnimeSerieEpisode_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).CreateAnimeSerieEpisode(ctx, req.(*aspb.CreateAnimeSerieEpisodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gojo_AddAnimeSerieEpisodeMetas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(aspb.AddAnimeSerieEpisodeMetasRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).AddAnimeSerieEpisodeMetas(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_AddAnimeSerieEpisodeMetas_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).AddAnimeSerieEpisodeMetas(ctx, req.(*aspb.AddAnimeSerieEpisodeMetasRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Gojo_ServiceDesc is the grpc.ServiceDesc for Gojo service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1179,6 +1245,14 @@ var Gojo_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddAnimeSerieSeasonMetas",
 			Handler:    _Gojo_AddAnimeSerieSeasonMetas_Handler,
+		},
+		{
+			MethodName: "CreateAnimeSerieEpisode",
+			Handler:    _Gojo_CreateAnimeSerieEpisode_Handler,
+		},
+		{
+			MethodName: "AddAnimeSerieEpisodeMetas",
+			Handler:    _Gojo_AddAnimeSerieEpisodeMetas_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

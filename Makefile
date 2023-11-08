@@ -44,6 +44,7 @@ test:
 	go test -v -cover -count=1 -short ./... -race
 
 server:
+	go fmt
 	go clean
 	go clean -cache -x
 	clear

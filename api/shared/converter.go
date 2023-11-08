@@ -174,15 +174,26 @@ func ConvertStudios(ss []db.Studio) *nfpb.AnimeStudiosResponse {
 	}
 }
 
-func ConvertAnimeSerieSeason(a db.AnimeSerieSeason) *aspb.AnimeSerieSeasonResponse {
+func ConvertAnimeSerieSeason(s db.AnimeSerieSeason) *aspb.AnimeSerieSeasonResponse {
 	return &aspb.AnimeSerieSeasonResponse{
-		ID:                a.ID,
-		AnimeID:           a.AnimeID,
-		SeasonNumber:      a.SeasonNumber,
-		PortriatPoster:    a.PortriatPoster,
-		PortriatBlurHash:  a.PortriatBlurHash,
-		LandscapePoster:   a.LandscapePoster,
-		LandscapeBlurHash: a.LandscapeBlurHash,
-		CreatedAt:         timestamppb.New(a.CreatedAt),
+		ID:                s.ID,
+		AnimeID:           s.AnimeID,
+		SeasonNumber:      s.SeasonNumber,
+		PortriatPoster:    s.PortriatPoster,
+		PortriatBlurHash:  s.PortriatBlurHash,
+		LandscapePoster:   s.LandscapePoster,
+		LandscapeBlurHash: s.LandscapeBlurHash,
+		CreatedAt:         timestamppb.New(s.CreatedAt),
+	}
+}
+
+func ConvertAnimeSerieEpisode(e db.AnimeSerieEpisode) *aspb.AnimeSerieEpisodeResponse {
+	return &aspb.AnimeSerieEpisodeResponse{
+		ID:                 e.ID,
+		SeasonID:           e.SeasonID,
+		EpisodeNumber:      e.EpisodeNumber,
+		Thumbnails:         e.Thumbnails,
+		ThumbnailsBlurHash: e.ThumbnailsBlurHash,
+		CreatedAt:          timestamppb.New(e.CreatedAt),
 	}
 }

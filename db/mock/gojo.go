@@ -66,6 +66,21 @@ func (mr *MockGojoMockRecorder) AddAnimeMovieInfoTx(arg0, arg1 interface{}) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddAnimeMovieInfoTx", reflect.TypeOf((*MockGojo)(nil).AddAnimeMovieInfoTx), arg0, arg1)
 }
 
+// AddAnimeSerieEpisodeMetasTx mocks base method.
+func (m *MockGojo) AddAnimeSerieEpisodeMetasTx(arg0 context.Context, arg1 db.AddAnimeSerieEpisodeMetasTxParams) (db.AddAnimeSerieEpisodeMetasTxResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AddAnimeSerieEpisodeMetasTx", arg0, arg1)
+	ret0, _ := ret[0].(db.AddAnimeSerieEpisodeMetasTxResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AddAnimeSerieEpisodeMetasTx indicates an expected call of AddAnimeSerieEpisodeMetasTx.
+func (mr *MockGojoMockRecorder) AddAnimeSerieEpisodeMetasTx(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddAnimeSerieEpisodeMetasTx", reflect.TypeOf((*MockGojo)(nil).AddAnimeSerieEpisodeMetasTx), arg0, arg1)
+}
+
 // AddAnimeSerieInfoTx mocks base method.
 func (m *MockGojo) AddAnimeSerieInfoTx(arg0 context.Context, arg1 db.AddAnimeSerieInfoTxParams) (db.AddAnimeSerieInfoTxResult, error) {
 	m.ctrl.T.Helper()
@@ -409,6 +424,21 @@ func (m *MockGojo) CreateAnimeSerieEpisodeServer(arg0 context.Context, arg1 db.C
 func (mr *MockGojoMockRecorder) CreateAnimeSerieEpisodeServer(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieEpisodeServer", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieEpisodeServer), arg0, arg1)
+}
+
+// CreateAnimeSerieEpisodeTx mocks base method.
+func (m *MockGojo) CreateAnimeSerieEpisodeTx(arg0 context.Context, arg1 db.CreateAnimeSerieEpisodeTxParams) (db.CreateAnimeSerieEpisodeTxResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeSerieEpisodeTx", arg0, arg1)
+	ret0, _ := ret[0].(db.CreateAnimeSerieEpisodeTxResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeSerieEpisodeTx indicates an expected call of CreateAnimeSerieEpisodeTx.
+func (mr *MockGojoMockRecorder) CreateAnimeSerieEpisodeTx(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieEpisodeTx", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieEpisodeTx), arg0, arg1)
 }
 
 // CreateAnimeSerieGenre mocks base method.
