@@ -15,7 +15,7 @@ SELECT * FROM anime_serie_seasons
 WHERE id = $1
 LIMIT 1;
 
--- name: ListAnimeSerieSeasonsByAnime :many
+-- name: ListAnimeSerieSeasonsByAnimeID :many
 SELECT * FROM anime_serie_seasons
 WHERE anime_id = $1
 ORDER BY season_number

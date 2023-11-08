@@ -219,6 +219,8 @@ Table anime_serie_episodes {
   id bigserial [primary key, unique, increment, not null]
   episode_number integer [unique, not null]
   season_id bigserial [not null]
+  thumbnails varchar [not null]
+  thumbnails_blur_hash varchar [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id

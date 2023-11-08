@@ -141,10 +141,12 @@ type AnimeSerie struct {
 }
 
 type AnimeSerieEpisode struct {
-	ID            int64     `json:"id"`
-	EpisodeNumber int32     `json:"episode_number"`
-	SeasonID      int64     `json:"season_id"`
-	CreatedAt     time.Time `json:"created_at"`
+	ID                 int64     `json:"id"`
+	EpisodeNumber      int32     `json:"episode_number"`
+	SeasonID           int64     `json:"season_id"`
+	Thumbnails         string    `json:"thumbnails"`
+	ThumbnailsBlurHash string    `json:"thumbnails_blur_hash"`
+	CreatedAt          time.Time `json:"created_at"`
 }
 
 type AnimeSerieEpisodeMeta struct {

@@ -21,6 +21,8 @@ CREATE TABLE "anime_serie_episodes" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "episode_number" integer UNIQUE NOT NULL,
   "season_id" bigserial NOT NULL,
+  "thumbnails" varchar NOT NULL,
+  "thumbnails_blur_hash" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
