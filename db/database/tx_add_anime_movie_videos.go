@@ -2,8 +2,6 @@ package db
 
 import (
 	"context"
-	"fmt"
-	"math"
 )
 
 type AddAnimeMovieDataTxParams struct {
@@ -40,42 +38,29 @@ func (gojo *SQLGojo) AddAnimeMovieDataTx(ctx context.Context, arg AddAnimeMovieD
 			return err
 		}
 
-		languages, err := q.ListLanguages(ctx, ListLanguagesParams{
-			Limit:  math.MaxInt32,
-			Offset: 0,
-		})
-		if err != nil {
-			ErrorSQL(err)
-			return err
-		}
-
 		if arg.SubVideos != nil {
 			var videoArg CreateAnimeMovieVideoParams
 			subVideos := make([]CreateAnimeMovieServerSubVideoParams, len(arg.SubVideos))
 			result.AnimeMovieSubVideos = make([]AnimeMovieVideo, len(arg.SubVideos))
 
 			for i, s := range arg.SubVideos {
-				if checkLanguage(languages, s.LanguageID) {
-					videoArg = CreateAnimeMovieVideoParams{
-						LanguageID: s.LanguageID,
-						Autority:   s.Autority,
-						Referer:    s.Referer,
-						Link:       s.Link,
-						Quality:    s.Quality,
-					}
-
-					v, err := q.CreateAnimeMovieVideo(ctx, videoArg)
-					if err != nil {
-						ErrorSQL(err)
-						return err
-					}
-
-					result.AnimeMovieSubVideos[i] = v
-					subVideos[i].VideoID = v.ID
-					subVideos[i].ServerID = server.ID
-				} else {
-					return fmt.Errorf("sub > videos: there is no language with ID : %d", s.LanguageID)
+				videoArg = CreateAnimeMovieVideoParams{
+					LanguageID: s.LanguageID,
+					Autority:   s.Autority,
+					Referer:    s.Referer,
+					Link:       s.Link,
+					Quality:    s.Quality,
 				}
+
+				v, err := q.CreateAnimeMovieVideo(ctx, videoArg)
+				if err != nil {
+					ErrorSQL(err)
+					return err
+				}
+
+				result.AnimeMovieSubVideos[i] = v
+				subVideos[i].VideoID = v.ID
+				subVideos[i].ServerID = server.ID
 			}
 
 			for _, amsv := range subVideos {
@@ -93,27 +78,24 @@ func (gojo *SQLGojo) AddAnimeMovieDataTx(ctx context.Context, arg AddAnimeMovieD
 			result.AnimeMovieDubVideos = make([]AnimeMovieVideo, len(arg.DubVideos))
 
 			for i, d := range arg.DubVideos {
-				if checkLanguage(languages, d.LanguageID) {
-					videoArg = CreateAnimeMovieVideoParams{
-						LanguageID: d.LanguageID,
-						Autority:   d.Autority,
-						Referer:    d.Referer,
-						Link:       d.Link,
-						Quality:    d.Quality,
-					}
-
-					v, err := q.CreateAnimeMovieVideo(ctx, videoArg)
-					if err != nil {
-						ErrorSQL(err)
-						return err
-					}
-
-					result.AnimeMovieSubVideos[i] = v
-					dubVideos[i].VideoID = v.ID
-					dubVideos[i].ServerID = server.ID
-				} else {
-					return fmt.Errorf("dub > videos: there is no language with ID : %d", d.LanguageID)
+				videoArg = CreateAnimeMovieVideoParams{
+					LanguageID: d.LanguageID,
+					Autority:   d.Autority,
+					Referer:    d.Referer,
+					Link:       d.Link,
+					Quality:    d.Quality,
 				}
+
+				v, err := q.CreateAnimeMovieVideo(ctx, videoArg)
+				if err != nil {
+					ErrorSQL(err)
+					return err
+				}
+
+				result.AnimeMovieSubVideos[i] = v
+				dubVideos[i].VideoID = v.ID
+				dubVideos[i].ServerID = server.ID
+
 			}
 
 			for _, amdv := range dubVideos {
@@ -131,31 +113,28 @@ func (gojo *SQLGojo) AddAnimeMovieDataTx(ctx context.Context, arg AddAnimeMovieD
 			result.AnimeMovieSubTorrents = make([]AnimeMovieTorrent, len(arg.SubTorrents))
 
 			for i, s := range arg.SubTorrents {
-				if checkLanguage(languages, s.LanguageID) {
-					torrentArg = CreateAnimeMovieTorrentParams{
-						LanguageID:  s.LanguageID,
-						FileName:    s.FileName,
-						TorrentHash: s.TorrentHash,
-						TorrentFile: s.TorrentFile,
-						Seeds:       s.Seeds,
-						Peers:       s.Peers,
-						Leechers:    s.Leechers,
-						SizeBytes:   s.SizeBytes,
-						Quality:     s.Quality,
-					}
-
-					t, err := q.CreateAnimeMovieTorrent(ctx, torrentArg)
-					if err != nil {
-						ErrorSQL(err)
-						return err
-					}
-
-					result.AnimeMovieSubTorrents[i] = t
-					subTorrents[i].TorrentID = t.ID
-					subTorrents[i].ServerID = server.ID
-				} else {
-					return fmt.Errorf("sub > torrent: there is no language with ID : %d", s.LanguageID)
+				torrentArg = CreateAnimeMovieTorrentParams{
+					LanguageID:  s.LanguageID,
+					FileName:    s.FileName,
+					TorrentHash: s.TorrentHash,
+					TorrentFile: s.TorrentFile,
+					Seeds:       s.Seeds,
+					Peers:       s.Peers,
+					Leechers:    s.Leechers,
+					SizeBytes:   s.SizeBytes,
+					Quality:     s.Quality,
 				}
+
+				t, err := q.CreateAnimeMovieTorrent(ctx, torrentArg)
+				if err != nil {
+					ErrorSQL(err)
+					return err
+				}
+
+				result.AnimeMovieSubTorrents[i] = t
+				subTorrents[i].TorrentID = t.ID
+				subTorrents[i].ServerID = server.ID
+
 			}
 
 			for _, amst := range subTorrents {
@@ -173,31 +152,28 @@ func (gojo *SQLGojo) AddAnimeMovieDataTx(ctx context.Context, arg AddAnimeMovieD
 			result.AnimeMovieDubTorrents = make([]AnimeMovieTorrent, len(arg.DubTorrents))
 
 			for i, d := range arg.DubTorrents {
-				if checkLanguage(languages, d.LanguageID) {
-					torrentArg = CreateAnimeMovieTorrentParams{
-						LanguageID:  d.LanguageID,
-						FileName:    d.FileName,
-						TorrentHash: d.TorrentHash,
-						TorrentFile: d.TorrentFile,
-						Seeds:       d.Seeds,
-						Peers:       d.Peers,
-						Leechers:    d.Leechers,
-						SizeBytes:   d.SizeBytes,
-						Quality:     d.Quality,
-					}
-
-					t, err := q.CreateAnimeMovieTorrent(ctx, torrentArg)
-					if err != nil {
-						ErrorSQL(err)
-						return err
-					}
-
-					result.AnimeMovieDubTorrents[i] = t
-					dubTorrents[i].TorrentID = t.ID
-					dubTorrents[i].ServerID = server.ID
-				} else {
-					return fmt.Errorf("dub > torrent: there is no language with ID : %d", d.LanguageID)
+				torrentArg = CreateAnimeMovieTorrentParams{
+					LanguageID:  d.LanguageID,
+					FileName:    d.FileName,
+					TorrentHash: d.TorrentHash,
+					TorrentFile: d.TorrentFile,
+					Seeds:       d.Seeds,
+					Peers:       d.Peers,
+					Leechers:    d.Leechers,
+					SizeBytes:   d.SizeBytes,
+					Quality:     d.Quality,
 				}
+
+				t, err := q.CreateAnimeMovieTorrent(ctx, torrentArg)
+				if err != nil {
+					ErrorSQL(err)
+					return err
+				}
+
+				result.AnimeMovieDubTorrents[i] = t
+				dubTorrents[i].TorrentID = t.ID
+				dubTorrents[i].ServerID = server.ID
+
 			}
 
 			for _, amdt := range dubTorrents {
