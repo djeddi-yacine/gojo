@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-11-08T13:58:19.341Z
+-- Generated at: 2023-11-08T14:15:13.436Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -305,25 +305,29 @@ CREATE TABLE "anime_media" (
   "media_type" varchar NOT NULL,
   "media_url" varchar NOT NULL,
   "media_author" varchar NOT NULL,
-  "media_platform" varchar NOT NULL
+  "media_platform" varchar NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE "anime_serie_media" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
-  "media_id" bigserial NOT NULL
+  "media_id" bigserial NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE "anime_serie_season_media" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "season_id" bigserial NOT NULL,
-  "media_id" bigserial NOT NULL
+  "media_id" bigserial NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
 CREATE TABLE "anime_movie_media" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
-  "media_id" bigserial NOT NULL
+  "media_id" bigserial NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
 CREATE INDEX ON "users" ("username");

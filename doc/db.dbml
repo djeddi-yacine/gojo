@@ -455,6 +455,7 @@ Table anime_media {
   media_url  varchar [not null]
   media_author  varchar [not null]
   media_platform  varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
     indexes {
       id
     }
@@ -464,6 +465,7 @@ Table anime_serie_media {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
   media_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
     indexes {
       id
       (anime_id, media_id) [unique]
@@ -474,6 +476,7 @@ Table anime_serie_season_media {
   id bigserial [primary key, unique, increment, not null]
   season_id bigserial [not null]
   media_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
     indexes {
       id
       (season_id, media_id) [unique]
@@ -484,6 +487,7 @@ Table anime_movie_media {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
   media_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
     indexes {
       id
       (anime_id, media_id) [unique]
