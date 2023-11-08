@@ -449,6 +449,47 @@ Table anime_serie_server_torrents {
     }
 }
 
+Table anime_media {
+  id bigserial [primary key, unique, increment, not null]
+  media_type varchar [not null]
+  media_url  varchar [not null]
+  media_author  varchar [not null]
+  media_platform  varchar [not null]
+    indexes {
+      id
+    }
+}
+
+Table anime_serie_media {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  media_id bigserial [not null]
+    indexes {
+      id
+      (anime_id, media_id) [unique]
+    }
+}
+
+Table anime_serie_season_media {
+  id bigserial [primary key, unique, increment, not null]
+  season_id bigserial [not null]
+  media_id bigserial [not null]
+    indexes {
+      id
+      (season_id, media_id) [unique]
+    }
+}
+
+Table anime_movie_media {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  media_id bigserial [not null]
+    indexes {
+      id
+      (anime_id, media_id) [unique]
+    }
+}
+
 
 
 Ref {
@@ -475,6 +516,9 @@ Ref {
 Ref {
   anime_movies.id - anime_movie_resources.anime_id [delete: cascade]
 }
+Ref {
+  anime_movies.id - anime_movie_media.anime_id [delete: cascade]
+}
 
 
 
@@ -492,6 +536,9 @@ Ref {
 }
 Ref {
   anime_series.id - anime_serie_resources.anime_id [delete: cascade]
+}
+Ref {
+  anime_series.id - anime_serie_media.anime_id [delete: cascade]
 }
 
 
@@ -595,6 +642,9 @@ Ref {
 Ref {
   anime_serie_seasons.id - anime_serie_season_metas.season_id [delete: cascade]
 }
+Ref {
+  anime_serie_seasons.id - anime_serie_season_media.season_id [delete: cascade]
+}
 
 
 
@@ -645,3 +695,13 @@ Ref {
 }
 
 
+
+Ref {
+  anime_media.id - anime_movie_media.media_id [delete: cascade]
+}
+Ref {
+  anime_media.id - anime_serie_media.media_id [delete: cascade]
+}
+Ref {
+  anime_media.id - anime_serie_season_media.media_id [delete: cascade]
+}

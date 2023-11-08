@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-11-08T10:41:23.427Z
+-- Generated at: 2023-11-08T13:58:19.341Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -300,6 +300,32 @@ CREATE TABLE "anime_serie_server_torrents" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
+CREATE TABLE "anime_media" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "media_type" varchar NOT NULL,
+  "media_url" varchar NOT NULL,
+  "media_author" varchar NOT NULL,
+  "media_platform" varchar NOT NULL
+);
+
+CREATE TABLE "anime_serie_media" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "media_id" bigserial NOT NULL
+);
+
+CREATE TABLE "anime_serie_season_media" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "season_id" bigserial NOT NULL,
+  "media_id" bigserial NOT NULL
+);
+
+CREATE TABLE "anime_movie_media" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "media_id" bigserial NOT NULL
+);
+
 CREATE INDEX ON "users" ("username");
 
 CREATE INDEX ON "users" ("full_name");
@@ -454,6 +480,20 @@ CREATE INDEX ON "anime_serie_server_torrents" ("torrent_id");
 
 CREATE UNIQUE INDEX ON "anime_serie_server_torrents" ("server_id", "torrent_id");
 
+CREATE INDEX ON "anime_media" ("id");
+
+CREATE INDEX ON "anime_serie_media" ("id");
+
+CREATE UNIQUE INDEX ON "anime_serie_media" ("anime_id", "media_id");
+
+CREATE INDEX ON "anime_serie_season_media" ("id");
+
+CREATE UNIQUE INDEX ON "anime_serie_season_media" ("season_id", "media_id");
+
+CREATE INDEX ON "anime_movie_media" ("id");
+
+CREATE UNIQUE INDEX ON "anime_movie_media" ("anime_id", "media_id");
+
 ALTER TABLE "sessions" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
 
 ALTER TABLE "verify_emails" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
@@ -468,6 +508,8 @@ ALTER TABLE "anime_movie_servers" ADD FOREIGN KEY ("anime_id") REFERENCES "anime
 
 ALTER TABLE "anime_movie_resources" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
 
+ALTER TABLE "anime_movie_media" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
+
 ALTER TABLE "anime_serie_metas" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_studios" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
@@ -477,6 +519,8 @@ ALTER TABLE "anime_serie_genres" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_
 ALTER TABLE "anime_serie_seasons" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_resources" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_media" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_metas" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
 
@@ -530,6 +574,8 @@ ALTER TABLE "anime_serie_season_episodes" ADD FOREIGN KEY ("season_id") REFERENC
 
 ALTER TABLE "anime_serie_season_metas" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
 
+ALTER TABLE "anime_serie_season_media" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
+
 ALTER TABLE "anime_serie_servers" ADD FOREIGN KEY ("episode_id") REFERENCES "anime_serie_episodes" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_season_episodes" ADD FOREIGN KEY ("episode_id") REFERENCES "anime_serie_episodes" ("id") ON DELETE CASCADE;
@@ -553,3 +599,9 @@ ALTER TABLE "anime_serie_server_dub_videos" ADD FOREIGN KEY ("video_id") REFEREN
 ALTER TABLE "anime_movie_server_torrents" ADD FOREIGN KEY ("torrent_id") REFERENCES "anime_movie_torrents" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_server_torrents" ADD FOREIGN KEY ("torrent_id") REFERENCES "anime_serie_torrents" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_movie_media" ADD FOREIGN KEY ("media_id") REFERENCES "anime_media" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_media" ADD FOREIGN KEY ("media_id") REFERENCES "anime_media" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_season_media" ADD FOREIGN KEY ("media_id") REFERENCES "anime_media" ("id") ON DELETE CASCADE;
