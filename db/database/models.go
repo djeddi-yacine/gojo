@@ -10,6 +10,15 @@ import (
 	"github.com/google/uuid"
 )
 
+type AnimeMedium struct {
+	ID            int64     `json:"id"`
+	MediaType     string    `json:"media_type"`
+	MediaUrl      string    `json:"media_url"`
+	MediaAuthor   string    `json:"media_author"`
+	MediaPlatform string    `json:"media_platform"`
+	CreatedAt     time.Time `json:"created_at"`
+}
+
 type AnimeMovie struct {
 	ID                int64         `json:"id"`
 	OriginalTitle     string        `json:"original_title"`
@@ -28,6 +37,13 @@ type AnimeMovieGenre struct {
 	ID      int64 `json:"id"`
 	AnimeID int64 `json:"anime_id"`
 	GenreID int32 `json:"genre_id"`
+}
+
+type AnimeMovieMedium struct {
+	ID        int64     `json:"id"`
+	AnimeID   int64     `json:"anime_id"`
+	MediaID   int64     `json:"media_id"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type AnimeMovieMeta struct {
@@ -152,6 +168,13 @@ type AnimeSerieGenre struct {
 	GenreID int32 `json:"genre_id"`
 }
 
+type AnimeSerieMedium struct {
+	ID        int64     `json:"id"`
+	AnimeID   int64     `json:"anime_id"`
+	MediaID   int64     `json:"media_id"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
 type AnimeSerieMeta struct {
 	ID         int64 `json:"id"`
 	AnimeID    int64 `json:"anime_id"`
@@ -180,6 +203,13 @@ type AnimeSerieSeasonEpisode struct {
 	ID        int64     `json:"id"`
 	SeasonID  int64     `json:"season_id"`
 	EpisodeID int64     `json:"episode_id"`
+	CreatedAt time.Time `json:"created_at"`
+}
+
+type AnimeSerieSeasonMedium struct {
+	ID        int64     `json:"id"`
+	SeasonID  int64     `json:"season_id"`
+	MediaID   int64     `json:"media_id"`
 	CreatedAt time.Time `json:"created_at"`
 }
 
