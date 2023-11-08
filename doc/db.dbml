@@ -211,7 +211,7 @@ Table anime_serie_season_metas {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      (season_id, meta_id) [unique]
+      (season_id, language_id) [unique]
     }
 }
 
@@ -234,7 +234,7 @@ Table anime_serie_episode_metas {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      (episode_id, meta_id) [unique]
+      (episode_id, language_id) [unique]
     }
 }
 

@@ -32,6 +32,7 @@ import "aspb/rpc_create_anime_serie_season.proto";
 import "aspb/rpc_get_all_anime_serie_metas.proto";
 import "aspb/rpc_get_all_anime_series.proto";
 import "aspb/rpc_add_anime_serie_info.proto";
+import "aspb/rpc_add_anime_serie_season_metas.proto";
 import "aspb/rpc_update_anime_serie.proto";
 
 
@@ -47,7 +48,7 @@ option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info : {
     title : "Gojo API";
-    version : "1.9";
+    version : "2.0";
     contact : {
       name: "Dj Yacine";
       url:  "https://github.com/dj-yacine-flutter/gojo";
@@ -360,6 +361,16 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to create a new anime serie season";
       summary:  "create new anime serie season";
+    };
+  }
+  rpc AddAnimeSerieSeasonMetas(aspb.AddAnimeSerieSeasonMetasRequest) returns (aspb.AddAnimeSerieSeasonMetasResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/serie/season/meta/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to add a new metas to anime serie season";
+      summary:  "create new metas to anime serie season";
     };
   }
 }

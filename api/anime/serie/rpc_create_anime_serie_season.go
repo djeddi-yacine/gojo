@@ -22,7 +22,7 @@ func (server *AnimeSerieServer) CreateAnimeSerieSeason(ctx context.Context, req 
 	}
 
 	if authPayload.Role != utils.RootRoll {
-		return nil, status.Errorf(codes.PermissionDenied, "cannot create anime serie")
+		return nil, status.Errorf(codes.PermissionDenied, "cannot create anime serie season")
 	}
 
 	if violations := validateCreateAnimeSerieSeasonRequest(req); violations != nil {
@@ -55,7 +55,7 @@ func (server *AnimeSerieServer) CreateAnimeSerieSeason(ctx context.Context, req 
 	data, err := server.gojo.CreateAnimeSerieSeasonTx(ctx, arg)
 	if err != nil {
 		db.ErrorSQL(err)
-		return nil, status.Errorf(codes.Internal, "failed to create anime serie : %s", err)
+		return nil, status.Errorf(codes.Internal, "failed to create anime serie season : %s", err)
 	}
 
 	var PBSM = make([]*nfpb.AnimeMetaResponse, len(data.AnimeSerieSeasonMetas))

@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Gojo API",
-    "version": "1.9",
+    "version": "2.0",
     "contact": {
       "name": "Dj Yacine",
       "url": "https://github.com/dj-yacine-flutter/gojo"
@@ -696,6 +696,40 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/aspbCreateAnimeSerieSeasonRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/serie/season/meta/create": {
+      "post": {
+        "summary": "create new metas to anime serie season",
+        "description": "Use this API to add a new metas to anime serie season",
+        "operationId": "Gojo_AddAnimeSerieSeasonMetas",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbAddAnimeSerieSeasonMetasResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbAddAnimeSerieSeasonMetasRequest"
             }
           }
         ],
@@ -1606,6 +1640,37 @@
         },
         "studios": {
           "$ref": "#/definitions/nfpbAnimeStudiosResponse"
+        }
+      }
+    },
+    "aspbAddAnimeSerieSeasonMetasRequest": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "seasonMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbAnimeMetaRequest"
+          }
+        }
+      }
+    },
+    "aspbAddAnimeSerieSeasonMetasResponse": {
+      "type": "object",
+      "properties": {
+        "season": {
+          "$ref": "#/definitions/aspbAnimeSerieSeasonResponse"
+        },
+        "seasonMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbAnimeMetaResponse"
+          }
         }
       }
     },

@@ -84,7 +84,7 @@ CREATE UNIQUE INDEX ON "anime_serie_seasons" ("anime_id", "season_number");
 
 CREATE INDEX ON "anime_serie_season_metas" ("id");
 
-CREATE UNIQUE INDEX ON "anime_serie_season_metas" ("season_id", "meta_id");
+CREATE UNIQUE INDEX ON "anime_serie_season_metas" ("season_id", "language_id");
 
 CREATE INDEX ON "anime_serie_episodes" ("id");
 
@@ -92,7 +92,7 @@ CREATE UNIQUE INDEX ON "anime_serie_episodes" ("episode_number", "season_id");
 
 CREATE INDEX ON "anime_serie_episode_metas" ("id");
 
-CREATE UNIQUE INDEX ON "anime_serie_episode_metas" ("episode_id", "meta_id");
+CREATE UNIQUE INDEX ON "anime_serie_episode_metas" ("episode_id", "language_id");
 
 CREATE INDEX ON "anime_serie_season_episodes" ("season_id");
 
