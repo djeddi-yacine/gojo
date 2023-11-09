@@ -3,7 +3,6 @@ syntax = "proto3";
 package aspb;
 
 import "google/protobuf/timestamp.proto";
-import "google/protobuf/duration.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 

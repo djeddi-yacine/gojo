@@ -55,6 +55,7 @@ const (
 	Gojo_AddAnimeSerieSeasonMetas_FullMethodName  = "/pb.Gojo/AddAnimeSerieSeasonMetas"
 	Gojo_CreateAnimeSerieEpisode_FullMethodName   = "/pb.Gojo/CreateAnimeSerieEpisode"
 	Gojo_AddAnimeSerieEpisodeMetas_FullMethodName = "/pb.Gojo/AddAnimeSerieEpisodeMetas"
+	Gojo_AddAnimeSerieData_FullMethodName         = "/pb.Gojo/AddAnimeSerieData"
 )
 
 // GojoClient is the client API for Gojo service.
@@ -93,6 +94,7 @@ type GojoClient interface {
 	AddAnimeSerieSeasonMetas(ctx context.Context, in *aspb.AddAnimeSerieSeasonMetasRequest, opts ...grpc.CallOption) (*aspb.AddAnimeSerieSeasonMetasResponse, error)
 	CreateAnimeSerieEpisode(ctx context.Context, in *aspb.CreateAnimeSerieEpisodeRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieEpisodeResponse, error)
 	AddAnimeSerieEpisodeMetas(ctx context.Context, in *aspb.AddAnimeSerieEpisodeMetasRequest, opts ...grpc.CallOption) (*aspb.AddAnimeSerieEpisodeMetasResponse, error)
+	AddAnimeSerieData(ctx context.Context, in *aspb.AddAnimeSerieDataRequest, opts ...grpc.CallOption) (*aspb.AddAnimeSerieDataResponse, error)
 }
 
 type gojoClient struct {
@@ -391,6 +393,15 @@ func (c *gojoClient) AddAnimeSerieEpisodeMetas(ctx context.Context, in *aspb.Add
 	return out, nil
 }
 
+func (c *gojoClient) AddAnimeSerieData(ctx context.Context, in *aspb.AddAnimeSerieDataRequest, opts ...grpc.CallOption) (*aspb.AddAnimeSerieDataResponse, error) {
+	out := new(aspb.AddAnimeSerieDataResponse)
+	err := c.cc.Invoke(ctx, Gojo_AddAnimeSerieData_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GojoServer is the server API for Gojo service.
 // All implementations must embed UnimplementedGojoServer
 // for forward compatibility
@@ -427,6 +438,7 @@ type GojoServer interface {
 	AddAnimeSerieSeasonMetas(context.Context, *aspb.AddAnimeSerieSeasonMetasRequest) (*aspb.AddAnimeSerieSeasonMetasResponse, error)
 	CreateAnimeSerieEpisode(context.Context, *aspb.CreateAnimeSerieEpisodeRequest) (*aspb.CreateAnimeSerieEpisodeResponse, error)
 	AddAnimeSerieEpisodeMetas(context.Context, *aspb.AddAnimeSerieEpisodeMetasRequest) (*aspb.AddAnimeSerieEpisodeMetasResponse, error)
+	AddAnimeSerieData(context.Context, *aspb.AddAnimeSerieDataRequest) (*aspb.AddAnimeSerieDataResponse, error)
 	mustEmbedUnimplementedGojoServer()
 }
 
@@ -529,6 +541,9 @@ func (UnimplementedGojoServer) CreateAnimeSerieEpisode(context.Context, *aspb.Cr
 }
 func (UnimplementedGojoServer) AddAnimeSerieEpisodeMetas(context.Context, *aspb.AddAnimeSerieEpisodeMetasRequest) (*aspb.AddAnimeSerieEpisodeMetasResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddAnimeSerieEpisodeMetas not implemented")
+}
+func (UnimplementedGojoServer) AddAnimeSerieData(context.Context, *aspb.AddAnimeSerieDataRequest) (*aspb.AddAnimeSerieDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddAnimeSerieData not implemented")
 }
 func (UnimplementedGojoServer) mustEmbedUnimplementedGojoServer() {}
 
@@ -1119,6 +1134,24 @@ func _Gojo_AddAnimeSerieEpisodeMetas_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Gojo_AddAnimeSerieData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(aspb.AddAnimeSerieDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).AddAnimeSerieData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_AddAnimeSerieData_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).AddAnimeSerieData(ctx, req.(*aspb.AddAnimeSerieDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Gojo_ServiceDesc is the grpc.ServiceDesc for Gojo service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1253,6 +1286,10 @@ var Gojo_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddAnimeSerieEpisodeMetas",
 			Handler:    _Gojo_AddAnimeSerieEpisodeMetas_Handler,
+		},
+		{
+			MethodName: "AddAnimeSerieData",
+			Handler:    _Gojo_AddAnimeSerieData_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

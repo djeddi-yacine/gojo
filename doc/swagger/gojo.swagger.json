@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Gojo API",
-    "version": "2.1",
+    "version": "2.2",
     "contact": {
       "name": "Dj Yacine",
       "url": "https://github.com/dj-yacine-flutter/gojo"
@@ -506,6 +506,40 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/aspbCreateAnimeSerieRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/serie/data/add": {
+      "post": {
+        "summary": "add new anime serie data",
+        "description": "Use this API to add a new anime serie data",
+        "operationId": "Gojo_AddAnimeSerieData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbAddAnimeSerieDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbAddAnimeSerieDataRequest"
             }
           }
         ],
@@ -1697,6 +1731,35 @@
         }
       }
     },
+    "aspbAddAnimeSerieDataRequest": {
+      "type": "object",
+      "properties": {
+        "serverID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "sub": {
+          "$ref": "#/definitions/aspbAnimeSerieSubDataRequest"
+        },
+        "dub": {
+          "$ref": "#/definitions/aspbAnimeSerieDubDataRequest"
+        }
+      }
+    },
+    "aspbAddAnimeSerieDataResponse": {
+      "type": "object",
+      "properties": {
+        "episode": {
+          "$ref": "#/definitions/aspbAnimeSerieEpisodeResponse"
+        },
+        "sub": {
+          "$ref": "#/definitions/aspbAnimeSerieSubDataResponse"
+        },
+        "dub": {
+          "$ref": "#/definitions/aspbAnimeSerieDubDataResponse"
+        }
+      }
+    },
     "aspbAddAnimeSerieEpisodeMetasRequest": {
       "type": "object",
       "properties": {
@@ -1769,6 +1832,44 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/nfpbAnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "aspbAnimeSerieDubDataRequest": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbAnimeSerieVideoRequest"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbAnimeSerieTorrentRequest"
+          }
+        }
+      }
+    },
+    "aspbAnimeSerieDubDataResponse": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbAnimeSerieVideoResponse"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbAnimeSerieTorrentResponse"
           }
         }
       }
@@ -1947,6 +2048,176 @@
         }
       }
     },
+    "aspbAnimeSerieSubDataRequest": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbAnimeSerieVideoRequest"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbAnimeSerieTorrentRequest"
+          }
+        }
+      }
+    },
+    "aspbAnimeSerieSubDataResponse": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbAnimeSerieVideoResponse"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbAnimeSerieTorrentResponse"
+          }
+        }
+      }
+    },
+    "aspbAnimeSerieTorrentRequest": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "torrentHash": {
+          "type": "string"
+        },
+        "torrentFile": {
+          "type": "string"
+        },
+        "seeds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "peers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "leechers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sizeBytes": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quality": {
+          "type": "string"
+        }
+      }
+    },
+    "aspbAnimeSerieTorrentResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "torrentHash": {
+          "type": "string"
+        },
+        "torrentFile": {
+          "type": "string"
+        },
+        "seeds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "peers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "leechers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sizeBytes": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quality": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "aspbAnimeSerieVideoRequest": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "autority": {
+          "type": "string"
+        },
+        "referer": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "quality": {
+          "type": "string"
+        }
+      }
+    },
+    "aspbAnimeSerieVideoResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "autority": {
+          "type": "string"
+        },
+        "referer": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "quality": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "aspbCreateAnimeSerieEpisodeRequest": {
       "type": "object",
       "properties": {
@@ -1965,6 +2236,9 @@
     "aspbCreateAnimeSerieEpisodeResponse": {
       "type": "object",
       "properties": {
+        "season": {
+          "$ref": "#/definitions/aspbAnimeSerieSeasonResponse"
+        },
         "episode": {
           "$ref": "#/definitions/aspbAnimeSerieEpisodeResponse"
         },

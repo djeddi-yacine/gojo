@@ -87,53 +87,6 @@ func ConvertAnimeResource(r db.AnimeResource) *shpb.AnimeResourceResponse {
 	}
 }
 
-func ConvertAnimeMovieVideos(amv []db.AnimeMovieVideo) []*ampb.AnimeMovieVideoResponse {
-	if amv != nil {
-		Videos := make([]*ampb.AnimeMovieVideoResponse, len(amv))
-
-		for i, v := range amv {
-			Videos[i] = &ampb.AnimeMovieVideoResponse{
-				ID:         v.ID,
-				LanguageID: v.LanguageID,
-				Autority:   v.Autority,
-				Referer:    v.Referer,
-				Link:       v.Link,
-				Quality:    v.Quality,
-				CreatedAt:  timestamppb.New(v.CreatedAt),
-			}
-		}
-		return Videos
-	} else {
-		return nil
-	}
-}
-
-func ConvertAnimeMovieTorrents(amt []db.AnimeMovieTorrent) []*ampb.AnimeMovieTorrentResponse {
-	if amt != nil {
-		Torrents := make([]*ampb.AnimeMovieTorrentResponse, len(amt))
-
-		for i, t := range amt {
-			Torrents[i] = &ampb.AnimeMovieTorrentResponse{
-				ID:          t.ID,
-				LanguageID:  t.LanguageID,
-				FileName:    t.FileName,
-				TorrentHash: t.TorrentHash,
-				TorrentFile: t.TorrentFile,
-				Seeds:       t.Seeds,
-				Peers:       t.Peers,
-				Leechers:    t.Leechers,
-				SizeBytes:   t.SizeBytes,
-				Quality:     t.Quality,
-				CreatedAt:   timestamppb.New(t.CreatedAt),
-			}
-		}
-
-		return Torrents
-	} else {
-		return nil
-	}
-}
-
 func ConvertGenres(gg []db.Genre) *nfpb.AnimeGenresResponse {
 	if gg != nil {
 		Genres := make([]*nfpb.Genre, len(gg))
@@ -195,5 +148,99 @@ func ConvertAnimeSerieEpisode(e db.AnimeSerieEpisode) *aspb.AnimeSerieEpisodeRes
 		Thumbnails:         e.Thumbnails,
 		ThumbnailsBlurHash: e.ThumbnailsBlurHash,
 		CreatedAt:          timestamppb.New(e.CreatedAt),
+	}
+}
+
+func ConvertAnimeMovieVideos(amv []db.AnimeMovieVideo) []*ampb.AnimeMovieVideoResponse {
+	if amv != nil {
+		Videos := make([]*ampb.AnimeMovieVideoResponse, len(amv))
+
+		for i, v := range amv {
+			Videos[i] = &ampb.AnimeMovieVideoResponse{
+				ID:         v.ID,
+				LanguageID: v.LanguageID,
+				Autority:   v.Autority,
+				Referer:    v.Referer,
+				Link:       v.Link,
+				Quality:    v.Quality,
+				CreatedAt:  timestamppb.New(v.CreatedAt),
+			}
+		}
+		return Videos
+	} else {
+		return nil
+	}
+}
+
+func ConvertAnimeMovieTorrents(amt []db.AnimeMovieTorrent) []*ampb.AnimeMovieTorrentResponse {
+	if amt != nil {
+		Torrents := make([]*ampb.AnimeMovieTorrentResponse, len(amt))
+
+		for i, t := range amt {
+			Torrents[i] = &ampb.AnimeMovieTorrentResponse{
+				ID:          t.ID,
+				LanguageID:  t.LanguageID,
+				FileName:    t.FileName,
+				TorrentHash: t.TorrentHash,
+				TorrentFile: t.TorrentFile,
+				Seeds:       t.Seeds,
+				Peers:       t.Peers,
+				Leechers:    t.Leechers,
+				SizeBytes:   t.SizeBytes,
+				Quality:     t.Quality,
+				CreatedAt:   timestamppb.New(t.CreatedAt),
+			}
+		}
+
+		return Torrents
+	} else {
+		return nil
+	}
+}
+
+func ConvertAnimeSerieVideos(asv []db.AnimeSerieVideo) []*aspb.AnimeSerieVideoResponse {
+	if asv != nil {
+		Videos := make([]*aspb.AnimeSerieVideoResponse, len(asv))
+
+		for i, v := range asv {
+			Videos[i] = &aspb.AnimeSerieVideoResponse{
+				ID:         v.ID,
+				LanguageID: v.LanguageID,
+				Autority:   v.Autority,
+				Referer:    v.Referer,
+				Link:       v.Link,
+				Quality:    v.Quality,
+				CreatedAt:  timestamppb.New(v.CreatedAt),
+			}
+		}
+		return Videos
+	} else {
+		return nil
+	}
+}
+
+func ConvertAnimeSerieTorrents(ast []db.AnimeSerieTorrent) []*aspb.AnimeSerieTorrentResponse {
+	if ast != nil {
+		Torrents := make([]*aspb.AnimeSerieTorrentResponse, len(ast))
+
+		for i, t := range ast {
+			Torrents[i] = &aspb.AnimeSerieTorrentResponse{
+				ID:          t.ID,
+				LanguageID:  t.LanguageID,
+				FileName:    t.FileName,
+				TorrentHash: t.TorrentHash,
+				TorrentFile: t.TorrentFile,
+				Seeds:       t.Seeds,
+				Peers:       t.Peers,
+				Leechers:    t.Leechers,
+				SizeBytes:   t.SizeBytes,
+				Quality:     t.Quality,
+				CreatedAt:   timestamppb.New(t.CreatedAt),
+			}
+		}
+
+		return Torrents
+	} else {
+		return nil
 	}
 }

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package aspb;
+
+import "aspb/anime_serie.proto";
+import "aspb/server.proto";
+import "aspb/anime_serie_episode.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
+
+
+message AddAnimeSerieDataRequest {
+    int64 serverID = 1;
+    AnimeSerieSubDataRequest sub = 2;
+    AnimeSerieDubDataRequest dub = 3;
+}
+
+message AddAnimeSerieDataResponse {
+    AnimeSerieEpisodeResponse episode = 1;
+    AnimeSerieSubDataResponse sub = 2;
+    AnimeSerieDubDataResponse dub = 3;
+}
