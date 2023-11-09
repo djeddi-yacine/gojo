@@ -3,6 +3,7 @@ syntax = "proto3";
 package aspb;
 
 import "aspb/anime_serie_episode.proto";
+import "aspb/anime_serie_season.proto";
 import "nfpb/meta.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
@@ -14,6 +15,7 @@ message CreateAnimeSerieEpisodeRequest {
 }
 
 message CreateAnimeSerieEpisodeResponse {
-    AnimeSerieEpisodeResponse episode = 1;
-    repeated nfpb.AnimeMetaResponse episodeMetas = 2;
+    AnimeSerieSeasonResponse season = 1;
+    AnimeSerieEpisodeResponse episode = 2;
+    repeated nfpb.AnimeMetaResponse episodeMetas = 3;
 }

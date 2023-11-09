@@ -67,6 +67,7 @@ func (server *AnimeSerieServer) CreateAnimeSerieEpisode(ctx context.Context, req
 	}
 
 	res := &aspb.CreateAnimeSerieEpisodeResponse{
+		Season:       shared.ConvertAnimeSerieSeason(data.AnimeSerieSeason),
 		Episode:      shared.ConvertAnimeSerieEpisode(data.AnimeSerieEpisode),
 		EpisodeMetas: PBSM,
 	}
