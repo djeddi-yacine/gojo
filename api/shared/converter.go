@@ -88,7 +88,7 @@ func ConvertAnimeResource(r db.AnimeResource) *shpb.AnimeResourceResponse {
 }
 
 func ConvertGenres(gg []db.Genre) *nfpb.AnimeGenresResponse {
-	if gg != nil {
+	if len(gg) > 0 {
 		Genres := make([]*nfpb.Genre, len(gg))
 
 		for i, g := range gg {
@@ -108,7 +108,7 @@ func ConvertGenres(gg []db.Genre) *nfpb.AnimeGenresResponse {
 }
 
 func ConvertStudios(ss []db.Studio) *nfpb.AnimeStudiosResponse {
-	if ss != nil {
+	if len(ss) > 0 {
 		Studios := make([]*nfpb.Studio, len(ss))
 
 		for i, s := range ss {
@@ -152,7 +152,7 @@ func ConvertAnimeSerieEpisode(e db.AnimeSerieEpisode) *aspb.AnimeSerieEpisodeRes
 }
 
 func ConvertAnimeMovieVideos(amv []db.AnimeMovieVideo) []*ampb.AnimeMovieVideoResponse {
-	if amv != nil {
+	if len(amv) > 0 {
 		Videos := make([]*ampb.AnimeMovieVideoResponse, len(amv))
 
 		for i, v := range amv {
@@ -173,7 +173,7 @@ func ConvertAnimeMovieVideos(amv []db.AnimeMovieVideo) []*ampb.AnimeMovieVideoRe
 }
 
 func ConvertAnimeMovieTorrents(amt []db.AnimeMovieTorrent) []*ampb.AnimeMovieTorrentResponse {
-	if amt != nil {
+	if len(amt) > 0 {
 		Torrents := make([]*ampb.AnimeMovieTorrentResponse, len(amt))
 
 		for i, t := range amt {
@@ -199,7 +199,7 @@ func ConvertAnimeMovieTorrents(amt []db.AnimeMovieTorrent) []*ampb.AnimeMovieTor
 }
 
 func ConvertAnimeSerieVideos(asv []db.AnimeSerieVideo) []*aspb.AnimeSerieVideoResponse {
-	if asv != nil {
+	if len(asv) > 0 {
 		Videos := make([]*aspb.AnimeSerieVideoResponse, len(asv))
 
 		for i, v := range asv {
@@ -220,7 +220,7 @@ func ConvertAnimeSerieVideos(asv []db.AnimeSerieVideo) []*aspb.AnimeSerieVideoRe
 }
 
 func ConvertAnimeSerieTorrents(ast []db.AnimeSerieTorrent) []*aspb.AnimeSerieTorrentResponse {
-	if ast != nil {
+	if len(ast) > 0 {
 		Torrents := make([]*aspb.AnimeSerieTorrentResponse, len(ast))
 
 		for i, t := range ast {
