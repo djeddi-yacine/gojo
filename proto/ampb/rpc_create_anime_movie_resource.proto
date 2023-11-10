@@ -15,4 +15,4 @@ message CreateAnimeMovieResourceRequest {
 message CreateAnimeMovieResourceResponse {
     AnimeMovieResponse animeMovie = 1;
     shpb.AnimeResourceResponse resources = 2;
- }
+}

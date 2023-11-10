@@ -94,7 +94,7 @@
         ]
       }
     },
-    "/v1/anime/movie": {
+    "/v1/anime/movie/all": {
       "get": {
         "summary": "list anime movies",
         "description": "Use this API to get all anime movies or by year",
@@ -426,6 +426,52 @@
             "schema": {
               "$ref": "#/definitions/ampbUpdateAnimeMovieRequest"
             }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/movie/{animeID}": {
+      "get": {
+        "summary": "get anime movie",
+        "description": "Use this API to get full anime movie by ID",
+        "operationId": "Gojo_GetFullAnimeMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbGetFullAnimeMovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "languageID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "allData",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
           }
         ],
         "tags": [
@@ -1676,12 +1722,42 @@
     "ampbGetAllAnimeMoviesResponse": {
       "type": "object",
       "properties": {
-        "AnimeMovies": {
+        "animeMovies": {
           "type": "array",
           "items": {
             "type": "object",
             "$ref": "#/definitions/ampbAnimeMovieResponse"
           }
+        }
+      }
+    },
+    "ampbGetFullAnimeMovieResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbAnimeMovieResponse"
+        },
+        "animeMeta": {
+          "$ref": "#/definitions/nfpbAnimeMetaResponse"
+        },
+        "animeResources": {
+          "$ref": "#/definitions/shpbAnimeResourceResponse"
+        },
+        "animeGenres": {
+          "$ref": "#/definitions/nfpbAnimeGenresResponse"
+        },
+        "animeStudios": {
+          "$ref": "#/definitions/nfpbAnimeStudiosResponse"
+        },
+        "serverID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "sub": {
+          "$ref": "#/definitions/ampbAnimeMovieSubDataResponse"
+        },
+        "dub": {
+          "$ref": "#/definitions/ampbAnimeMovieDubDataResponse"
         }
       }
     },
@@ -2399,7 +2475,7 @@
     "aspbGetAllAnimeSeriesResponse": {
       "type": "object",
       "properties": {
-        "AnimeSeries": {
+        "animeSeries": {
           "type": "array",
           "items": {
             "type": "object",
@@ -2490,8 +2566,9 @@
     "nfpbAnimeMetaResponse": {
       "type": "object",
       "properties": {
-        "language": {
-          "$ref": "#/definitions/nfpbLanguageResponse"
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
         },
         "meta": {
           "$ref": "#/definitions/nfpbMetaResponse"

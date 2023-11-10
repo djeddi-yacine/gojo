@@ -13,5 +13,5 @@ message GetAllAnimeMoviesRequest {
 }
 
 message GetAllAnimeMoviesResponse { 
-    repeated AnimeMovieResponse AnimeMovies = 1;
+    repeated AnimeMovieResponse animeMovies = 1;
 }
