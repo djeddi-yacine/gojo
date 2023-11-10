@@ -33,6 +33,7 @@ import "aspb/rpc_create_anime_serie_season.proto";
 import "aspb/rpc_create_anime_serie_episode.proto";
 import "aspb/rpc_get_all_anime_serie_metas.proto";
 import "aspb/rpc_get_all_anime_series.proto";
+import "aspb/rpc_get_full_anime_serie.proto";
 import "aspb/rpc_add_anime_serie_info.proto";
 import "aspb/rpc_add_anime_serie_season_metas.proto";
 import "aspb/rpc_add_anime_serie_episode_metas.proto";
@@ -280,7 +281,7 @@ service Gojo {
         description : "Use this API to get full anime movie by ID";
         summary:  "get anime movie";
     };
-}
+  }
 
 
 
@@ -414,6 +415,15 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to add a new anime serie data";
       summary:  "add new anime serie data";
+    };
+  }
+  rpc GetFullAnimeSerie(aspb.GetFullAnimeSerieRequest) returns (aspb.GetFullAnimeSerieResponse) {
+    option (google.api.http) = {
+        get : "/v1/anime/serie/{animeID}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        description : "Use this API to get full anime serie by ID";
+        summary:  "get serie movie";
     };
   }
 }

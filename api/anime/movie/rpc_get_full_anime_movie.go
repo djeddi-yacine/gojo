@@ -75,7 +75,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		return nil, status.Errorf(codes.Internal, "error when get anime movie movie resources : %s", err)
 	}
 
-	if animeMovieResources.AnimeID == req.AnimeID {
+	if animeMovieResources.AnimeID == req.GetAnimeID() {
 		animeResources, err := server.gojo.GetAnimeResource(ctx, animeMovieResources.ResourceID)
 		if err != nil && err != db.ErrRecordNotFound {
 			return nil, status.Errorf(codes.Internal, "error when get anime movie resources : %s", err)
@@ -122,7 +122,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		return nil, status.Errorf(codes.Internal, "error when get anime movie server ID : %s", err)
 	}
 
-	if sv.AnimeID == req.AnimeID {
+	if sv.AnimeID == req.GetAnimeID() {
 		res.ServerID = &sv.ID
 		ss, err := server.gojo.ListAnimeMovieServerSubVideos(ctx, sv.ID)
 		if err != nil && err != db.ErrRecordNotFound {

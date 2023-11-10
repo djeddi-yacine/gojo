@@ -110,7 +110,7 @@ type Querier interface {
 	GetAnimeMovieVideo(ctx context.Context, id int64) (AnimeMovieVideo, error)
 	GetAnimeResource(ctx context.Context, id int64) (AnimeResource, error)
 	GetAnimeSerie(ctx context.Context, id int64) (AnimeSerie, error)
-	GetAnimeSerieEpisode(ctx context.Context, id int64) (AnimeSerieEpisode, error)
+	GetAnimeSerieEpisodeByEpisodeID(ctx context.Context, id int64) (AnimeSerieEpisode, error)
 	GetAnimeSerieEpisodeMeta(ctx context.Context, arg GetAnimeSerieEpisodeMetaParams) (AnimeSerieEpisodeMeta, error)
 	GetAnimeSerieEpisodeServer(ctx context.Context, id int64) (AnimeSerieEpisodeServer, error)
 	GetAnimeSerieGenre(ctx context.Context, arg GetAnimeSerieGenreParams) (AnimeSerieGenre, error)

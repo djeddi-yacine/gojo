@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package aspb;
+
+import "aspb/anime_serie.proto";
+import "aspb/anime_serie_season.proto";
+import "aspb/anime_serie_episode.proto";
+import "nfpb/meta.proto";
+import "nfpb/genre.proto";
+import "nfpb/studio.proto";
+import "shpb/anime_resource.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
+
+message AnimeSerieSeasonDetails {
+    AnimeSerieSeasonResponse season = 1;
+    nfpb.AnimeMetaResponse seasonMetas = 2;
+    repeated AnimeSerieEpisodeResponse seasonEpisodes = 3;
+}
+
+message AnimeSerieSeasonDetailsRsponse {
+    repeated AnimeSerieSeasonDetails seasons = 1;
+}
+
+message GetFullAnimeSerieRequest {
+    int64 animeID = 1;
+    int32 languageID = 2;
+}
+
+message GetFullAnimeSerieResponse { 
+    AnimeSerieResponse animeSerie = 1;
+    optional nfpb.AnimeMetaResponse animeMeta = 2;
+    optional shpb.AnimeResourceResponse animeResources = 3;
+    optional nfpb.AnimeGenresResponse animeGenres = 4;
+    optional nfpb.AnimeStudiosResponse animeStudios = 5;
+    optional AnimeSerieSeasonDetailsRsponse animeSeasons = 6;
+}

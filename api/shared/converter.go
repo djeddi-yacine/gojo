@@ -244,3 +244,23 @@ func ConvertAnimeSerieTorrents(ast []db.AnimeSerieTorrent) []*aspb.AnimeSerieTor
 		return nil
 	}
 }
+
+func ConvertAnimeMovieEpiosdes(ase []db.AnimeSerieEpisode) []*aspb.AnimeSerieEpisodeResponse {
+	if len(ase) > 0 {
+		episodes := make([]*aspb.AnimeSerieEpisodeResponse, len(ase))
+
+		for i, e := range ase {
+			episodes[i] = &aspb.AnimeSerieEpisodeResponse{
+				ID:                 e.ID,
+				SeasonID:           e.SeasonID,
+				EpisodeNumber:      e.EpisodeNumber,
+				Thumbnails:         e.Thumbnails,
+				ThumbnailsBlurHash: e.ThumbnailsBlurHash,
+				CreatedAt:          timestamppb.New(e.CreatedAt),
+			}
+		}
+		return episodes
+	} else {
+		return nil
+	}
+}

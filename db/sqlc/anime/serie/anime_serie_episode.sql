@@ -8,7 +8,7 @@ INSERT INTO anime_serie_episodes (
 VALUES ($1, $2, $3, $4)
 RETURNING *;
 
--- name: GetAnimeSerieEpisode :one
+-- name: GetAnimeSerieEpisodeByEpisodeID :one
 SELECT * FROM anime_serie_episodes
 WHERE id = $1
 LIMIT 1;

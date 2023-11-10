@@ -32,7 +32,7 @@ func (gojo *SQLGojo) AddAnimeSerieDataTx(ctx context.Context, arg AddAnimeSerieD
 			return err
 		}
 
-		result.Episode, err = q.GetAnimeSerieEpisode(ctx, server.EpisodeID)
+		result.Episode, err = q.GetAnimeSerieEpisodeByEpisodeID(ctx, server.EpisodeID)
 		if err != nil {
 			ErrorSQL(err)
 			return err

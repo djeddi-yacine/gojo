@@ -21,7 +21,7 @@ func (gojo *SQLGojo) AddAnimeSerieEpisodeMetasTx(ctx context.Context, arg AddAni
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
 
-		Episode, err := q.GetAnimeSerieEpisode(ctx, arg.EpisodeID)
+		Episode, err := q.GetAnimeSerieEpisodeByEpisodeID(ctx, arg.EpisodeID)
 		if err != nil {
 			ErrorSQL(err)
 			return err
@@ -57,9 +57,9 @@ func (gojo *SQLGojo) AddAnimeSerieEpisodeMetasTx(ctx context.Context, arg AddAni
 					ErrorSQL(err)
 					return err
 				}
-				
+
 				result.AnimeSerieEpisodeMetas[i] = AnimeMetaTxResult{
-					Meta:     meta,
+					Meta:       meta,
 					LanguageID: m.LanguageID,
 				}
 
