@@ -25,7 +25,7 @@ message AnimeMetaRequest {
 }
 
 message AnimeMetaResponse {
-    LanguageResponse language = 1;
+    int32 languageID = 1;
     MetaResponse meta = 2;
     google.protobuf.Timestamp createdAt = 3;
 }
