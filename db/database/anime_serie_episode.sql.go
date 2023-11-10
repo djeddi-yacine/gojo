@@ -23,10 +23,10 @@ RETURNING id, episode_number, season_id, thumbnails, thumbnails_blur_hash, creat
 `
 
 type CreateAnimeSerieEpisodeParams struct {
-	EpisodeNumber      int32  `json:"episode_number"`
-	SeasonID           int64  `json:"season_id"`
-	Thumbnails         string `json:"thumbnails"`
-	ThumbnailsBlurHash string `json:"thumbnails_blur_hash"`
+	EpisodeNumber      int32
+	SeasonID           int64
+	Thumbnails         string
+	ThumbnailsBlurHash string
 }
 
 func (q *Queries) CreateAnimeSerieEpisode(ctx context.Context, arg CreateAnimeSerieEpisodeParams) (AnimeSerieEpisode, error) {
@@ -87,9 +87,9 @@ OFFSET $3
 `
 
 type ListAnimeSerieEpisodesBySeasonIDParams struct {
-	SeasonID int64 `json:"season_id"`
-	Limit    int32 `json:"limit"`
-	Offset   int32 `json:"offset"`
+	SeasonID int64
+	Limit    int32
+	Offset   int32
 }
 
 func (q *Queries) ListAnimeSerieEpisodesBySeasonID(ctx context.Context, arg ListAnimeSerieEpisodesBySeasonIDParams) ([]AnimeSerieEpisode, error) {
@@ -132,10 +132,10 @@ RETURNING id, episode_number, season_id, thumbnails, thumbnails_blur_hash, creat
 `
 
 type UpdateAnimeSerieEpisodeParams struct {
-	EpisodeNumber      pgtype.Int4 `json:"episode_number"`
-	Thumbnails         pgtype.Text `json:"thumbnails"`
-	ThumbnailsBlurHash pgtype.Text `json:"thumbnails_blur_hash"`
-	ID                 int64       `json:"id"`
+	EpisodeNumber      pgtype.Int4
+	Thumbnails         pgtype.Text
+	ThumbnailsBlurHash pgtype.Text
+	ID                 int64
 }
 
 func (q *Queries) UpdateAnimeSerieEpisode(ctx context.Context, arg UpdateAnimeSerieEpisodeParams) (AnimeSerieEpisode, error) {

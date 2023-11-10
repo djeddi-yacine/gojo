@@ -16,8 +16,8 @@ RETURNING  id, language_code, language_name, created_at
 `
 
 type CreateLanguageParams struct {
-	LanguageName string `json:"language_name"`
-	LanguageCode string `json:"language_code"`
+	LanguageName string
+	LanguageCode string
 }
 
 func (q *Queries) CreateLanguage(ctx context.Context, arg CreateLanguageParams) (Language, error) {
@@ -67,8 +67,8 @@ OFFSET $2
 `
 
 type ListLanguagesParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
+	Limit  int32
+	Offset int32
 }
 
 func (q *Queries) ListLanguages(ctx context.Context, arg ListLanguagesParams) ([]Language, error) {
@@ -105,9 +105,9 @@ RETURNING id, language_code, language_name, created_at
 `
 
 type UpdateLanguageParams struct {
-	ID           int32  `json:"id"`
-	LanguageCode string `json:"language_code"`
-	LanguageName string `json:"language_name"`
+	ID           int32
+	LanguageCode string
+	LanguageName string
 }
 
 func (q *Queries) UpdateLanguage(ctx context.Context, arg UpdateLanguageParams) (Language, error) {

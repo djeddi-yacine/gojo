@@ -10,9 +10,8 @@ LIMIT 1;
 
 -- name: ListAnimeSerieServerDubVideos :many
 SELECT * FROM anime_serie_server_dub_videos
-ORDER BY id
-LIMIT $1
-OFFSET $2;
+WHERE server_id = $1
+ORDER BY id;
 
 -- name: UpdateAnimeSerieServerDubVideo :one
 UPDATE anime_serie_server_dub_videos

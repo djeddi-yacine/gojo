@@ -52,8 +52,8 @@ OFFSET $2
 `
 
 type ListGenresParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
+	Limit  int32
+	Offset int32
 }
 
 func (q *Queries) ListGenres(ctx context.Context, arg ListGenresParams) ([]Genre, error) {
@@ -84,8 +84,8 @@ RETURNING id, genre_name, created_at
 `
 
 type UpdateGenreParams struct {
-	ID        int32  `json:"id"`
-	GenreName string `json:"genre_name"`
+	ID        int32
+	GenreName string
 }
 
 func (q *Queries) UpdateGenre(ctx context.Context, arg UpdateGenreParams) (Genre, error) {

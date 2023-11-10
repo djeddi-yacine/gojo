@@ -10,9 +10,8 @@ LIMIT 1;
 
 -- name: ListAnimeSerieServerTorrents :many
 SELECT * FROM anime_serie_server_torrents
-ORDER BY id
-LIMIT $1
-OFFSET $2;
+WHERE server_id = $1
+ORDER BY id;
 
 -- name: UpdateAnimeSerieServerTorrent :one
 UPDATE anime_serie_server_torrents

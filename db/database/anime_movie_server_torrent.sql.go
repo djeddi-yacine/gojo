@@ -18,8 +18,8 @@ RETURNING id, server_id, torrent_id, created_at
 `
 
 type CreateAnimeMovieServerTorrentParams struct {
-	ServerID  int64 `json:"server_id"`
-	TorrentID int64 `json:"torrent_id"`
+	ServerID  int64
+	TorrentID int64
 }
 
 func (q *Queries) CreateAnimeMovieServerTorrent(ctx context.Context, arg CreateAnimeMovieServerTorrentParams) (AnimeMovieServerTorrent, error) {
@@ -64,18 +64,12 @@ func (q *Queries) GetAnimeMovieServerTorrent(ctx context.Context, id int64) (Ani
 
 const listAnimeMovieServerTorrents = `-- name: ListAnimeMovieServerTorrents :many
 SELECT id, server_id, torrent_id, created_at FROM anime_movie_server_torrents
+WHERE server_id = $1
 ORDER BY id
-LIMIT $1
-OFFSET $2
 `
 
-type ListAnimeMovieServerTorrentsParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
-}
-
-func (q *Queries) ListAnimeMovieServerTorrents(ctx context.Context, arg ListAnimeMovieServerTorrentsParams) ([]AnimeMovieServerTorrent, error) {
-	rows, err := q.db.Query(ctx, listAnimeMovieServerTorrents, arg.Limit, arg.Offset)
+func (q *Queries) ListAnimeMovieServerTorrents(ctx context.Context, serverID int64) ([]AnimeMovieServerTorrent, error) {
+	rows, err := q.db.Query(ctx, listAnimeMovieServerTorrents, serverID)
 	if err != nil {
 		return nil, err
 	}
@@ -110,9 +104,9 @@ RETURNING id, server_id, torrent_id, created_at
 `
 
 type UpdateAnimeMovieServerTorrentParams struct {
-	ServerID  pgtype.Int8 `json:"server_id"`
-	TorrentID pgtype.Int8 `json:"torrent_id"`
-	ID        int64       `json:"id"`
+	ServerID  pgtype.Int8
+	TorrentID pgtype.Int8
+	ID        int64
 }
 
 func (q *Queries) UpdateAnimeMovieServerTorrent(ctx context.Context, arg UpdateAnimeMovieServerTorrentParams) (AnimeMovieServerTorrent, error) {

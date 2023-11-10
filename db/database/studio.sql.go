@@ -52,8 +52,8 @@ OFFSET $2
 `
 
 type ListStudiosParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
+	Limit  int32
+	Offset int32
 }
 
 func (q *Queries) ListStudios(ctx context.Context, arg ListStudiosParams) ([]Studio, error) {
@@ -84,8 +84,8 @@ RETURNING id, studio_name, created_at
 `
 
 type UpdateStudioParams struct {
-	ID         int32  `json:"id"`
-	StudioName string `json:"studio_name"`
+	ID         int32
+	StudioName string
 }
 
 func (q *Queries) UpdateStudio(ctx context.Context, arg UpdateStudioParams) (Studio, error) {

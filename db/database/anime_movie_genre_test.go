@@ -43,7 +43,10 @@ func TestGetAnimeMovieGenre(t *testing.T) {
 	require.NoError(t, err)
 	require.NotEmpty(t, Genre1)
 
-	Genre2, err := testGojo.GetAnimeMovieGenre(context.Background(), Genre1.ID)
+	Genre2, err := testGojo.GetAnimeMovieGenre(context.Background(), GetAnimeMovieGenreParams{
+		AnimeID: a.ID,
+		GenreID: Genre1.GenreID,
+	})
 	require.NoError(t, err)
 	require.NotEmpty(t, Genre2)
 
@@ -85,14 +88,7 @@ func TestListAnimeMovieGenres(t *testing.T) {
 		testGojo.CreateAnimeMovieGenre(context.Background(), arg)
 	}
 
-	arg := ListAnimeMovieGenresParams{
-		AnimeID: a.ID,
-		Limit:   3,
-		Offset:  0,
-	}
-
-	genres, err := testGojo.ListAnimeMovieGenres(context.Background(), arg)
+	genres, err := testGojo.ListAnimeMovieGenres(context.Background(), a.ID)
 	require.NoError(t, err)
 	require.NotNil(t, genres)
-	require.Len(t, genres, 3)
 }

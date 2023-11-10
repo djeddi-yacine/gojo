@@ -28,14 +28,14 @@ RETURNING id, original_title, aired, release_year, rating, portriat_poster, port
 `
 
 type CreateAnimeSerieParams struct {
-	OriginalTitle     string    `json:"original_title"`
-	Aired             time.Time `json:"aired"`
-	ReleaseYear       int32     `json:"release_year"`
-	Rating            string    `json:"rating"`
-	PortriatPoster    string    `json:"portriat_poster"`
-	PortriatBlurHash  string    `json:"portriat_blur_hash"`
-	LandscapePoster   string    `json:"landscape_poster"`
-	LandscapeBlurHash string    `json:"landscape_blur_hash"`
+	OriginalTitle     string
+	Aired             time.Time
+	ReleaseYear       int32
+	Rating            string
+	PortriatPoster    string
+	PortriatBlurHash  string
+	LandscapePoster   string
+	LandscapeBlurHash string
 }
 
 func (q *Queries) CreateAnimeSerie(ctx context.Context, arg CreateAnimeSerieParams) (AnimeSerie, error) {
@@ -106,9 +106,9 @@ OFFSET $3
 `
 
 type ListAnimeSeriesParams struct {
-	ReleaseYear int32 `json:"release_year"`
-	Limit       int32 `json:"limit"`
-	Offset      int32 `json:"offset"`
+	ReleaseYear int32
+	Limit       int32
+	Offset      int32
 }
 
 func (q *Queries) ListAnimeSeries(ctx context.Context, arg ListAnimeSeriesParams) ([]AnimeSerie, error) {
@@ -159,15 +159,15 @@ RETURNING id, original_title, aired, release_year, rating, portriat_poster, port
 `
 
 type UpdateAnimeSerieParams struct {
-	OriginalTitle     pgtype.Text        `json:"original_title"`
-	Aired             pgtype.Timestamptz `json:"aired"`
-	ReleaseYear       pgtype.Int4        `json:"release_year"`
-	Rating            pgtype.Text        `json:"rating"`
-	PortriatPoster    pgtype.Text        `json:"portriat_poster"`
-	PortriatBlurHash  pgtype.Text        `json:"portriat_blur_hash"`
-	LandscapePoster   pgtype.Text        `json:"landscape_poster"`
-	LandscapeBlurHash pgtype.Text        `json:"landscape_blur_hash"`
-	ID                int64              `json:"id"`
+	OriginalTitle     pgtype.Text
+	Aired             pgtype.Timestamptz
+	ReleaseYear       pgtype.Int4
+	Rating            pgtype.Text
+	PortriatPoster    pgtype.Text
+	PortriatBlurHash  pgtype.Text
+	LandscapePoster   pgtype.Text
+	LandscapeBlurHash pgtype.Text
+	ID                int64
 }
 
 func (q *Queries) UpdateAnimeSerie(ctx context.Context, arg UpdateAnimeSerieParams) (AnimeSerie, error) {

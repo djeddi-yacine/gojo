@@ -16,8 +16,8 @@ RETURNING id, anime_id, resource_id
 `
 
 type CreateAnimeMovieResourceParams struct {
-	AnimeID    int64 `json:"anime_id"`
-	ResourceID int64 `json:"resource_id"`
+	AnimeID    int64
+	ResourceID int64
 }
 
 func (q *Queries) CreateAnimeMovieResource(ctx context.Context, arg CreateAnimeMovieResourceParams) (AnimeMovieResource, error) {
@@ -33,8 +33,8 @@ WHERE anime_id = $1 AND resource_id = $2
 `
 
 type DeleteAnimeMovieResourceParams struct {
-	AnimeID    int64 `json:"anime_id"`
-	ResourceID int64 `json:"resource_id"`
+	AnimeID    int64
+	ResourceID int64
 }
 
 func (q *Queries) DeleteAnimeMovieResource(ctx context.Context, arg DeleteAnimeMovieResourceParams) error {
@@ -44,7 +44,7 @@ func (q *Queries) DeleteAnimeMovieResource(ctx context.Context, arg DeleteAnimeM
 
 const getAnimeMovieResource = `-- name: GetAnimeMovieResource :one
 SELECT id, anime_id, resource_id FROM anime_movie_resources
-WHERE id = $1 LIMIT 1
+WHERE id = $1
 `
 
 func (q *Queries) GetAnimeMovieResource(ctx context.Context, id int64) (AnimeMovieResource, error) {
@@ -54,45 +54,25 @@ func (q *Queries) GetAnimeMovieResource(ctx context.Context, id int64) (AnimeMov
 	return i, err
 }
 
-const getAnimeMovieResourceByAnimeID = `-- name: GetAnimeMovieResourceByAnimeID :one
+const listAnimeMovieResourcesByAnimeID = `-- name: ListAnimeMovieResourcesByAnimeID :many
 SELECT id, anime_id, resource_id FROM anime_movie_resources
-WHERE anime_id = $1 LIMIT 1
+WHERE anime_id = $1 
+ORDER BY id
 `
 
-func (q *Queries) GetAnimeMovieResourceByAnimeID(ctx context.Context, animeID int64) (AnimeMovieResource, error) {
-	row := q.db.QueryRow(ctx, getAnimeMovieResourceByAnimeID, animeID)
-	var i AnimeMovieResource
-	err := row.Scan(&i.ID, &i.AnimeID, &i.ResourceID)
-	return i, err
-}
-
-const listAnimeMovieResources = `-- name: ListAnimeMovieResources :many
-SELECT resource_id
-FROM anime_movie_resources
-WHERE anime_id = $1
-LIMIT $2
-OFFSET $3
-`
-
-type ListAnimeMovieResourcesParams struct {
-	AnimeID int64 `json:"anime_id"`
-	Limit   int32 `json:"limit"`
-	Offset  int32 `json:"offset"`
-}
-
-func (q *Queries) ListAnimeMovieResources(ctx context.Context, arg ListAnimeMovieResourcesParams) ([]int64, error) {
-	rows, err := q.db.Query(ctx, listAnimeMovieResources, arg.AnimeID, arg.Limit, arg.Offset)
+func (q *Queries) ListAnimeMovieResourcesByAnimeID(ctx context.Context, animeID int64) ([]AnimeMovieResource, error) {
+	rows, err := q.db.Query(ctx, listAnimeMovieResourcesByAnimeID, animeID)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	items := []int64{}
+	items := []AnimeMovieResource{}
 	for rows.Next() {
-		var resource_id int64
-		if err := rows.Scan(&resource_id); err != nil {
+		var i AnimeMovieResource
+		if err := rows.Scan(&i.ID, &i.AnimeID, &i.ResourceID); err != nil {
 			return nil, err
 		}
-		items = append(items, resource_id)
+		items = append(items, i)
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err

@@ -25,7 +25,7 @@ sql:
             go_type: "time.Duration"
           - db_type: "uuid"
             go_type: "github.com/google/uuid.UUID"
-        emit_json_tags: true
+        emit_json_tags: false
         emit_interface: true
         emit_empty_slices: true
         rename:

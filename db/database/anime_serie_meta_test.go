@@ -144,14 +144,7 @@ func TestListAnimeSerieMetas(t *testing.T) {
 		testGojo.CreateAnimeSerieMeta(context.Background(), arg)
 	}
 
-	arg := ListAnimeSerieMetasParams{
-		AnimeID: a.ID,
-		Limit:   3,
-		Offset:  0,
-	}
-
-	Metas, err := testGojo.ListAnimeSerieMetas(context.Background(), arg)
+	Metas, err := testGojo.ListAnimeSerieMetas(context.Background(), a.ID)
 	require.NoError(t, err)
 	require.NotNil(t, Metas)
-	require.Len(t, Metas, 3)
 }

@@ -144,14 +144,7 @@ func TestListAnimeMovieMetas(t *testing.T) {
 		testGojo.CreateAnimeMovieMeta(context.Background(), arg)
 	}
 
-	arg := ListAnimeMovieMetasParams{
-		AnimeID: a.ID,
-		Limit:   3,
-		Offset:  0,
-	}
-
-	Metas, err := testGojo.ListAnimeMovieMetas(context.Background(), arg)
+	Metas, err := testGojo.ListAnimeMovieMetas(context.Background(), a.ID)
 	require.NoError(t, err)
 	require.NotNil(t, Metas)
-	require.Len(t, Metas, 3)
 }

@@ -16,8 +16,8 @@ RETURNING id, anime_id, media_id, created_at
 `
 
 type CreateAnimeSerieMediaParams struct {
-	AnimeID int64 `json:"anime_id"`
-	MediaID int64 `json:"media_id"`
+	AnimeID int64
+	MediaID int64
 }
 
 func (q *Queries) CreateAnimeSerieMedia(ctx context.Context, arg CreateAnimeSerieMediaParams) (AnimeSerieMedium, error) {
@@ -38,8 +38,8 @@ WHERE anime_id = $1 AND media_id = $2
 `
 
 type DeleteAnimeSerieMediaParams struct {
-	AnimeID int64 `json:"anime_id"`
-	MediaID int64 `json:"media_id"`
+	AnimeID int64
+	MediaID int64
 }
 
 func (q *Queries) DeleteAnimeSerieMedia(ctx context.Context, arg DeleteAnimeSerieMediaParams) error {
@@ -90,9 +90,9 @@ OFFSET $3
 `
 
 type ListAnimeSerieMediasParams struct {
-	AnimeID int64 `json:"anime_id"`
-	Limit   int32 `json:"limit"`
-	Offset  int32 `json:"offset"`
+	AnimeID int64
+	Limit   int32
+	Offset  int32
 }
 
 func (q *Queries) ListAnimeSerieMedias(ctx context.Context, arg ListAnimeSerieMediasParams) ([]int64, error) {

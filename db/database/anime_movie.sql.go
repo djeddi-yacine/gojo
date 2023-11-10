@@ -29,15 +29,15 @@ RETURNING id, original_title, aired, release_year, rating, duration, portriat_po
 `
 
 type CreateAnimeMovieParams struct {
-	OriginalTitle     string        `json:"original_title"`
-	Aired             time.Time     `json:"aired"`
-	ReleaseYear       int32         `json:"release_year"`
-	Rating            string        `json:"rating"`
-	Duration          time.Duration `json:"duration"`
-	PortriatPoster    string        `json:"portriat_poster"`
-	PortriatBlurHash  string        `json:"portriat_blur_hash"`
-	LandscapePoster   string        `json:"landscape_poster"`
-	LandscapeBlurHash string        `json:"landscape_blur_hash"`
+	OriginalTitle     string
+	Aired             time.Time
+	ReleaseYear       int32
+	Rating            string
+	Duration          time.Duration
+	PortriatPoster    string
+	PortriatBlurHash  string
+	LandscapePoster   string
+	LandscapeBlurHash string
 }
 
 func (q *Queries) CreateAnimeMovie(ctx context.Context, arg CreateAnimeMovieParams) (AnimeMovie, error) {
@@ -111,9 +111,9 @@ OFFSET $3
 `
 
 type ListAnimeMoviesParams struct {
-	ReleaseYear int32 `json:"release_year"`
-	Limit       int32 `json:"limit"`
-	Offset      int32 `json:"offset"`
+	ReleaseYear int32
+	Limit       int32
+	Offset      int32
 }
 
 func (q *Queries) ListAnimeMovies(ctx context.Context, arg ListAnimeMoviesParams) ([]AnimeMovie, error) {
@@ -166,16 +166,16 @@ RETURNING id, original_title, aired, release_year, rating, duration, portriat_po
 `
 
 type UpdateAnimeMovieParams struct {
-	OriginalTitle     pgtype.Text        `json:"original_title"`
-	Aired             pgtype.Timestamptz `json:"aired"`
-	ReleaseYear       pgtype.Int4        `json:"release_year"`
-	Rating            pgtype.Text        `json:"rating"`
-	Duration          pgtype.Interval    `json:"duration"`
-	PortriatPoster    pgtype.Text        `json:"portriat_poster"`
-	PortriatBlurHash  pgtype.Text        `json:"portriat_blur_hash"`
-	LandscapePoster   pgtype.Text        `json:"landscape_poster"`
-	LandscapeBlurHash pgtype.Text        `json:"landscape_blur_hash"`
-	ID                int64              `json:"id"`
+	OriginalTitle     pgtype.Text
+	Aired             pgtype.Timestamptz
+	ReleaseYear       pgtype.Int4
+	Rating            pgtype.Text
+	Duration          pgtype.Interval
+	PortriatPoster    pgtype.Text
+	PortriatBlurHash  pgtype.Text
+	LandscapePoster   pgtype.Text
+	LandscapeBlurHash pgtype.Text
+	ID                int64
 }
 
 func (q *Queries) UpdateAnimeMovie(ctx context.Context, arg UpdateAnimeMovieParams) (AnimeMovie, error) {

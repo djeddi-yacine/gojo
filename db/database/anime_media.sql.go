@@ -18,10 +18,10 @@ RETURNING  id, media_type, media_url, media_author, media_platform, created_at
 `
 
 type CreateAnimeMediaParams struct {
-	MediaType     string `json:"media_type"`
-	MediaUrl      string `json:"media_url"`
-	MediaAuthor   string `json:"media_author"`
-	MediaPlatform string `json:"media_platform"`
+	MediaType     string
+	MediaUrl      string
+	MediaAuthor   string
+	MediaPlatform string
 }
 
 func (q *Queries) CreateAnimeMedia(ctx context.Context, arg CreateAnimeMediaParams) (AnimeMedium, error) {
@@ -85,11 +85,11 @@ RETURNING id, media_type, media_url, media_author, media_platform, created_at
 `
 
 type UpdateAnimeMediaParams struct {
-	MediaType     pgtype.Text `json:"media_type"`
-	MediaUrl      pgtype.Text `json:"media_url"`
-	MediaAuthor   pgtype.Text `json:"media_author"`
-	MediaPlatform pgtype.Text `json:"media_platform"`
-	ID            int64       `json:"id"`
+	MediaType     pgtype.Text
+	MediaUrl      pgtype.Text
+	MediaAuthor   pgtype.Text
+	MediaPlatform pgtype.Text
+	ID            int64
 }
 
 func (q *Queries) UpdateAnimeMedia(ctx context.Context, arg UpdateAnimeMediaParams) (AnimeMedium, error) {

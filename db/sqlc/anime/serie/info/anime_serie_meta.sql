@@ -18,8 +18,7 @@ RETURNING * ;
 SELECT meta_id
 FROM anime_serie_metas
 WHERE anime_id = $1
-LIMIT $2
-OFFSET $3;
+ORDER BY id;
 
 -- name: DeleteAnimeSerieMeta :exec
 DELETE FROM anime_serie_metas

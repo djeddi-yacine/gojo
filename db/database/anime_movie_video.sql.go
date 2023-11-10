@@ -18,11 +18,11 @@ RETURNING id, language_id, autority, referer, link, quality, created_at
 `
 
 type CreateAnimeMovieVideoParams struct {
-	LanguageID int32  `json:"language_id"`
-	Autority   string `json:"autority"`
-	Referer    string `json:"referer"`
-	Link       string `json:"link"`
-	Quality    string `json:"quality"`
+	LanguageID int32
+	Autority   string
+	Referer    string
+	Link       string
+	Quality    string
 }
 
 func (q *Queries) CreateAnimeMovieVideo(ctx context.Context, arg CreateAnimeMovieVideoParams) (AnimeMovieVideo, error) {
@@ -85,8 +85,8 @@ OFFSET $2
 `
 
 type ListAnimeMovieVideosParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
+	Limit  int32
+	Offset int32
 }
 
 func (q *Queries) ListAnimeMovieVideos(ctx context.Context, arg ListAnimeMovieVideosParams) ([]AnimeMovieVideo, error) {
@@ -130,12 +130,12 @@ RETURNING id, language_id, autority, referer, link, quality, created_at
 `
 
 type UpdateAnimeMovieVideoParams struct {
-	ID         int64       `json:"id"`
-	LanguageID pgtype.Int4 `json:"language_id"`
-	Autority   pgtype.Text `json:"autority"`
-	Referer    pgtype.Text `json:"referer"`
-	Link       pgtype.Text `json:"link"`
-	Quality    pgtype.Text `json:"quality"`
+	ID         int64
+	LanguageID pgtype.Int4
+	Autority   pgtype.Text
+	Referer    pgtype.Text
+	Link       pgtype.Text
+	Quality    pgtype.Text
 }
 
 func (q *Queries) UpdateAnimeMovieVideo(ctx context.Context, arg UpdateAnimeMovieVideoParams) (AnimeMovieVideo, error) {

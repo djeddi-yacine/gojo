@@ -10,9 +10,8 @@ LIMIT 1;
 
 -- name: ListAnimeMovieServerSubVideos :many
 SELECT * FROM anime_movie_server_sub_videos
-ORDER BY id
-LIMIT $1
-OFFSET $2;
+WHERE server_id = $1
+ORDER BY id;
 
 -- name: UpdateAnimeMovieServerSubVideo :one
 UPDATE anime_movie_server_sub_videos

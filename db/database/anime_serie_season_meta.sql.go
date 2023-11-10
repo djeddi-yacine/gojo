@@ -18,9 +18,9 @@ RETURNING id, season_id, language_id, meta_id, created_at
 `
 
 type CreateAnimeSerieSeasonMetaParams struct {
-	SeasonID   int64 `json:"season_id"`
-	LanguageID int32 `json:"language_id"`
-	MetaID     int64 `json:"meta_id"`
+	SeasonID   int64
+	LanguageID int32
+	MetaID     int64
 }
 
 func (q *Queries) CreateAnimeSerieSeasonMeta(ctx context.Context, arg CreateAnimeSerieSeasonMetaParams) (AnimeSerieSeasonMeta, error) {
@@ -42,8 +42,8 @@ WHERE season_id = $1 AND language_id = $2
 `
 
 type DeleteAnimeSerieSeasonMetaParams struct {
-	SeasonID   int64 `json:"season_id"`
-	LanguageID int32 `json:"language_id"`
+	SeasonID   int64
+	LanguageID int32
 }
 
 func (q *Queries) DeleteAnimeSerieSeasonMeta(ctx context.Context, arg DeleteAnimeSerieSeasonMetaParams) error {
@@ -57,8 +57,8 @@ WHERE season_id = $1 AND language_id = $2
 `
 
 type GetAnimeSerieSeasonMetaParams struct {
-	SeasonID   int64 `json:"season_id"`
-	LanguageID int32 `json:"language_id"`
+	SeasonID   int64
+	LanguageID int32
 }
 
 func (q *Queries) GetAnimeSerieSeasonMeta(ctx context.Context, arg GetAnimeSerieSeasonMetaParams) (AnimeSerieSeasonMeta, error) {
@@ -83,9 +83,9 @@ OFFSET $3
 `
 
 type ListAnimeSerieSeasonMetasBySeasonParams struct {
-	SeasonID int64 `json:"season_id"`
-	Limit    int32 `json:"limit"`
-	Offset   int32 `json:"offset"`
+	SeasonID int64
+	Limit    int32
+	Offset   int32
 }
 
 func (q *Queries) ListAnimeSerieSeasonMetasBySeason(ctx context.Context, arg ListAnimeSerieSeasonMetasBySeasonParams) ([]AnimeSerieSeasonMeta, error) {
@@ -126,10 +126,10 @@ RETURNING id, season_id, language_id, meta_id, created_at
 `
 
 type UpdateAnimeSerieSeasonMetaParams struct {
-	MetaID     pgtype.Int8 `json:"meta_id"`
-	SeasonID   pgtype.Int8 `json:"season_id"`
-	LanguageID pgtype.Int4 `json:"language_id"`
-	ID         int64       `json:"id"`
+	MetaID     pgtype.Int8
+	SeasonID   pgtype.Int8
+	LanguageID pgtype.Int4
+	ID         int64
 }
 
 func (q *Queries) UpdateAnimeSerieSeasonMeta(ctx context.Context, arg UpdateAnimeSerieSeasonMetaParams) (AnimeSerieSeasonMeta, error) {

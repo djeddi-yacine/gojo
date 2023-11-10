@@ -25,12 +25,12 @@ RETURNING id, anime_id, season_number, portriat_poster, portriat_blur_hash, land
 `
 
 type CreateAnimeSerieSeasonParams struct {
-	AnimeID           int64  `json:"anime_id"`
-	SeasonNumber      int32  `json:"season_number"`
-	PortriatPoster    string `json:"portriat_poster"`
-	PortriatBlurHash  string `json:"portriat_blur_hash"`
-	LandscapePoster   string `json:"landscape_poster"`
-	LandscapeBlurHash string `json:"landscape_blur_hash"`
+	AnimeID           int64
+	SeasonNumber      int32
+	PortriatPoster    string
+	PortriatBlurHash  string
+	LandscapePoster   string
+	LandscapeBlurHash string
 }
 
 func (q *Queries) CreateAnimeSerieSeason(ctx context.Context, arg CreateAnimeSerieSeasonParams) (AnimeSerieSeason, error) {
@@ -97,9 +97,9 @@ OFFSET $3
 `
 
 type ListAnimeSerieSeasonsByAnimeIDParams struct {
-	AnimeID int64 `json:"anime_id"`
-	Limit   int32 `json:"limit"`
-	Offset  int32 `json:"offset"`
+	AnimeID int64
+	Limit   int32
+	Offset  int32
 }
 
 func (q *Queries) ListAnimeSerieSeasonsByAnimeID(ctx context.Context, arg ListAnimeSerieSeasonsByAnimeIDParams) ([]AnimeSerieSeason, error) {
@@ -145,12 +145,12 @@ RETURNING id, anime_id, season_number, portriat_poster, portriat_blur_hash, land
 `
 
 type UpdateAnimeSerieSeasonParams struct {
-	SeasonNumber      pgtype.Int4 `json:"season_number"`
-	PortriatPoster    pgtype.Text `json:"portriat_poster"`
-	PortriatBlurHash  pgtype.Text `json:"portriat_blur_hash"`
-	LandscapePoster   pgtype.Text `json:"landscape_poster"`
-	LandscapeBlurHash pgtype.Text `json:"landscape_blur_hash"`
-	ID                int64       `json:"id"`
+	SeasonNumber      pgtype.Int4
+	PortriatPoster    pgtype.Text
+	PortriatBlurHash  pgtype.Text
+	LandscapePoster   pgtype.Text
+	LandscapeBlurHash pgtype.Text
+	ID                int64
 }
 
 func (q *Queries) UpdateAnimeSerieSeason(ctx context.Context, arg UpdateAnimeSerieSeasonParams) (AnimeSerieSeason, error) {

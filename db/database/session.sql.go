@@ -27,13 +27,13 @@ INSERT INTO sessions (
 `
 
 type CreateSessionParams struct {
-	ID           uuid.UUID `json:"id"`
-	Username     string    `json:"username"`
-	RefreshToken string    `json:"refresh_token"`
-	UserAgent    string    `json:"user_agent"`
-	ClientIp     string    `json:"client_ip"`
-	IsBlocked    bool      `json:"is_blocked"`
-	ExpiresAt    time.Time `json:"expires_at"`
+	ID           uuid.UUID
+	Username     string
+	RefreshToken string
+	UserAgent    string
+	ClientIp     string
+	IsBlocked    bool
+	ExpiresAt    time.Time
 }
 
 func (q *Queries) CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error) {
@@ -114,8 +114,8 @@ RETURNING username
 `
 
 type UpdateSessionParams struct {
-	Username  string `json:"username"`
-	IsBlocked bool   `json:"is_blocked"`
+	Username  string
+	IsBlocked bool
 }
 
 func (q *Queries) UpdateSession(ctx context.Context, arg UpdateSessionParams) (string, error) {

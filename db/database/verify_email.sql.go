@@ -22,9 +22,9 @@ RETURNING id, username, email, secret_code, is_used, created_at, expired_at
 `
 
 type CreateVerifyEmailParams struct {
-	Username   string `json:"username"`
-	Email      string `json:"email"`
-	SecretCode string `json:"secret_code"`
+	Username   string
+	Email      string
+	SecretCode string
 }
 
 func (q *Queries) CreateVerifyEmail(ctx context.Context, arg CreateVerifyEmailParams) (VerifyEmail, error) {
@@ -55,8 +55,8 @@ RETURNING id, username, email, secret_code, is_used, created_at, expired_at
 `
 
 type UpdateVerifyEmailParams struct {
-	ID         int64  `json:"id"`
-	SecretCode string `json:"secret_code"`
+	ID         int64
+	SecretCode string
 }
 
 func (q *Queries) UpdateVerifyEmail(ctx context.Context, arg UpdateVerifyEmailParams) (VerifyEmail, error) {

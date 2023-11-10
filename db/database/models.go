@@ -11,330 +11,330 @@ import (
 )
 
 type AnimeMedium struct {
-	ID            int64     `json:"id"`
-	MediaType     string    `json:"media_type"`
-	MediaUrl      string    `json:"media_url"`
-	MediaAuthor   string    `json:"media_author"`
-	MediaPlatform string    `json:"media_platform"`
-	CreatedAt     time.Time `json:"created_at"`
+	ID            int64
+	MediaType     string
+	MediaUrl      string
+	MediaAuthor   string
+	MediaPlatform string
+	CreatedAt     time.Time
 }
 
 type AnimeMovie struct {
-	ID                int64         `json:"id"`
-	OriginalTitle     string        `json:"original_title"`
-	Aired             time.Time     `json:"aired"`
-	ReleaseYear       int32         `json:"release_year"`
-	Rating            string        `json:"rating"`
-	Duration          time.Duration `json:"duration"`
-	PortriatPoster    string        `json:"portriat_poster"`
-	PortriatBlurHash  string        `json:"portriat_blur_hash"`
-	LandscapePoster   string        `json:"landscape_poster"`
-	LandscapeBlurHash string        `json:"landscape_blur_hash"`
-	CreatedAt         time.Time     `json:"created_at"`
+	ID                int64
+	OriginalTitle     string
+	Aired             time.Time
+	ReleaseYear       int32
+	Rating            string
+	Duration          time.Duration
+	PortriatPoster    string
+	PortriatBlurHash  string
+	LandscapePoster   string
+	LandscapeBlurHash string
+	CreatedAt         time.Time
 }
 
 type AnimeMovieGenre struct {
-	ID      int64 `json:"id"`
-	AnimeID int64 `json:"anime_id"`
-	GenreID int32 `json:"genre_id"`
+	ID      int64
+	AnimeID int64
+	GenreID int32
 }
 
 type AnimeMovieMedium struct {
-	ID        int64     `json:"id"`
-	AnimeID   int64     `json:"anime_id"`
-	MediaID   int64     `json:"media_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int64
+	AnimeID   int64
+	MediaID   int64
+	CreatedAt time.Time
 }
 
 type AnimeMovieMeta struct {
-	ID         int64 `json:"id"`
-	AnimeID    int64 `json:"anime_id"`
-	LanguageID int32 `json:"language_id"`
-	MetaID     int64 `json:"meta_id"`
+	ID         int64
+	AnimeID    int64
+	LanguageID int32
+	MetaID     int64
 }
 
 type AnimeMovieResource struct {
-	ID         int64 `json:"id"`
-	AnimeID    int64 `json:"anime_id"`
-	ResourceID int64 `json:"resource_id"`
+	ID         int64
+	AnimeID    int64
+	ResourceID int64
 }
 
 type AnimeMovieServer struct {
-	ID        int64     `json:"id"`
-	AnimeID   int64     `json:"anime_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int64
+	AnimeID   int64
+	CreatedAt time.Time
 }
 
 type AnimeMovieServerDubVideo struct {
-	ID        int64     `json:"id"`
-	ServerID  int64     `json:"server_id"`
-	VideoID   int64     `json:"video_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int64
+	ServerID  int64
+	VideoID   int64
+	CreatedAt time.Time
 }
 
 type AnimeMovieServerSubVideo struct {
-	ID        int64     `json:"id"`
-	ServerID  int64     `json:"server_id"`
-	VideoID   int64     `json:"video_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int64
+	ServerID  int64
+	VideoID   int64
+	CreatedAt time.Time
 }
 
 type AnimeMovieServerTorrent struct {
-	ID        int64     `json:"id"`
-	ServerID  int64     `json:"server_id"`
-	TorrentID int64     `json:"torrent_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int64
+	ServerID  int64
+	TorrentID int64
+	CreatedAt time.Time
 }
 
 type AnimeMovieStudio struct {
-	ID       int64 `json:"id"`
-	AnimeID  int64 `json:"anime_id"`
-	StudioID int32 `json:"studio_id"`
+	ID       int64
+	AnimeID  int64
+	StudioID int32
 }
 
 type AnimeMovieTorrent struct {
-	ID          int64     `json:"id"`
-	FileName    string    `json:"file_name"`
-	LanguageID  int32     `json:"language_id"`
-	TorrentHash string    `json:"torrent_hash"`
-	TorrentFile string    `json:"torrent_file"`
-	Seeds       int32     `json:"seeds"`
-	Peers       int32     `json:"peers"`
-	Leechers    int32     `json:"leechers"`
-	SizeBytes   int64     `json:"size_bytes"`
-	Quality     string    `json:"quality"`
-	CreatedAt   time.Time `json:"created_at"`
+	ID          int64
+	FileName    string
+	LanguageID  int32
+	TorrentHash string
+	TorrentFile string
+	Seeds       int32
+	Peers       int32
+	Leechers    int32
+	SizeBytes   int64
+	Quality     string
+	CreatedAt   time.Time
 }
 
 type AnimeMovieVideo struct {
-	ID         int64     `json:"id"`
-	LanguageID int32     `json:"language_id"`
-	Autority   string    `json:"autority"`
-	Referer    string    `json:"referer"`
-	Link       string    `json:"link"`
-	Quality    string    `json:"quality"`
-	CreatedAt  time.Time `json:"created_at"`
+	ID         int64
+	LanguageID int32
+	Autority   string
+	Referer    string
+	Link       string
+	Quality    string
+	CreatedAt  time.Time
 }
 
 type AnimeResource struct {
-	ID              int64     `json:"id"`
-	TmdbID          int32     `json:"tmdb_id"`
-	ImdbID          string    `json:"imdb_id"`
-	OfficialWebsite string    `json:"official_website"`
-	WikipediaUrl    string    `json:"wikipedia_url"`
-	CrunchyrollUrl  string    `json:"crunchyroll_url"`
-	SocialMedia     []string  `json:"social_media"`
-	CreatedAt       time.Time `json:"created_at"`
+	ID              int64
+	TmdbID          int32
+	ImdbID          string
+	OfficialWebsite string
+	WikipediaUrl    string
+	CrunchyrollUrl  string
+	SocialMedia     []string
+	CreatedAt       time.Time
 }
 
 type AnimeSerie struct {
-	ID                int64     `json:"id"`
-	OriginalTitle     string    `json:"original_title"`
-	Aired             time.Time `json:"aired"`
-	ReleaseYear       int32     `json:"release_year"`
-	Rating            string    `json:"rating"`
-	PortriatPoster    string    `json:"portriat_poster"`
-	PortriatBlurHash  string    `json:"portriat_blur_hash"`
-	LandscapePoster   string    `json:"landscape_poster"`
-	LandscapeBlurHash string    `json:"landscape_blur_hash"`
-	CreatedAt         time.Time `json:"created_at"`
+	ID                int64
+	OriginalTitle     string
+	Aired             time.Time
+	ReleaseYear       int32
+	Rating            string
+	PortriatPoster    string
+	PortriatBlurHash  string
+	LandscapePoster   string
+	LandscapeBlurHash string
+	CreatedAt         time.Time
 }
 
 type AnimeSerieEpisode struct {
-	ID                 int64     `json:"id"`
-	EpisodeNumber      int32     `json:"episode_number"`
-	SeasonID           int64     `json:"season_id"`
-	Thumbnails         string    `json:"thumbnails"`
-	ThumbnailsBlurHash string    `json:"thumbnails_blur_hash"`
-	CreatedAt          time.Time `json:"created_at"`
+	ID                 int64
+	EpisodeNumber      int32
+	SeasonID           int64
+	Thumbnails         string
+	ThumbnailsBlurHash string
+	CreatedAt          time.Time
 }
 
 type AnimeSerieEpisodeMeta struct {
-	ID         int64     `json:"id"`
-	EpisodeID  int64     `json:"episode_id"`
-	LanguageID int32     `json:"language_id"`
-	MetaID     int64     `json:"meta_id"`
-	CreatedAt  time.Time `json:"created_at"`
+	ID         int64
+	EpisodeID  int64
+	LanguageID int32
+	MetaID     int64
+	CreatedAt  time.Time
 }
 
 type AnimeSerieEpisodeServer struct {
-	ID        int64     `json:"id"`
-	EpisodeID int64     `json:"episode_id"`
-	ServerID  int64     `json:"server_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int64
+	EpisodeID int64
+	ServerID  int64
+	CreatedAt time.Time
 }
 
 type AnimeSerieGenre struct {
-	ID      int64 `json:"id"`
-	AnimeID int64 `json:"anime_id"`
-	GenreID int32 `json:"genre_id"`
+	ID      int64
+	AnimeID int64
+	GenreID int32
 }
 
 type AnimeSerieMedium struct {
-	ID        int64     `json:"id"`
-	AnimeID   int64     `json:"anime_id"`
-	MediaID   int64     `json:"media_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int64
+	AnimeID   int64
+	MediaID   int64
+	CreatedAt time.Time
 }
 
 type AnimeSerieMeta struct {
-	ID         int64 `json:"id"`
-	AnimeID    int64 `json:"anime_id"`
-	LanguageID int32 `json:"language_id"`
-	MetaID     int64 `json:"meta_id"`
+	ID         int64
+	AnimeID    int64
+	LanguageID int32
+	MetaID     int64
 }
 
 type AnimeSerieResource struct {
-	ID         int64 `json:"id"`
-	AnimeID    int64 `json:"anime_id"`
-	ResourceID int64 `json:"resource_id"`
+	ID         int64
+	AnimeID    int64
+	ResourceID int64
 }
 
 type AnimeSerieSeason struct {
-	ID                int64     `json:"id"`
-	AnimeID           int64     `json:"anime_id"`
-	SeasonNumber      int32     `json:"season_number"`
-	PortriatPoster    string    `json:"portriat_poster"`
-	PortriatBlurHash  string    `json:"portriat_blur_hash"`
-	LandscapePoster   string    `json:"landscape_poster"`
-	LandscapeBlurHash string    `json:"landscape_blur_hash"`
-	CreatedAt         time.Time `json:"created_at"`
+	ID                int64
+	AnimeID           int64
+	SeasonNumber      int32
+	PortriatPoster    string
+	PortriatBlurHash  string
+	LandscapePoster   string
+	LandscapeBlurHash string
+	CreatedAt         time.Time
 }
 
 type AnimeSerieSeasonEpisode struct {
-	ID        int64     `json:"id"`
-	SeasonID  int64     `json:"season_id"`
-	EpisodeID int64     `json:"episode_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int64
+	SeasonID  int64
+	EpisodeID int64
+	CreatedAt time.Time
 }
 
 type AnimeSerieSeasonMedium struct {
-	ID        int64     `json:"id"`
-	SeasonID  int64     `json:"season_id"`
-	MediaID   int64     `json:"media_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int64
+	SeasonID  int64
+	MediaID   int64
+	CreatedAt time.Time
 }
 
 type AnimeSerieSeasonMeta struct {
-	ID         int64     `json:"id"`
-	SeasonID   int64     `json:"season_id"`
-	LanguageID int32     `json:"language_id"`
-	MetaID     int64     `json:"meta_id"`
-	CreatedAt  time.Time `json:"created_at"`
+	ID         int64
+	SeasonID   int64
+	LanguageID int32
+	MetaID     int64
+	CreatedAt  time.Time
 }
 
 type AnimeSerieServer struct {
-	ID        int64     `json:"id"`
-	EpisodeID int64     `json:"episode_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int64
+	EpisodeID int64
+	CreatedAt time.Time
 }
 
 type AnimeSerieServerDubVideo struct {
-	ID        int64     `json:"id"`
-	ServerID  int64     `json:"server_id"`
-	VideoID   int64     `json:"video_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int64
+	ServerID  int64
+	VideoID   int64
+	CreatedAt time.Time
 }
 
 type AnimeSerieServerSubVideo struct {
-	ID        int64     `json:"id"`
-	ServerID  int64     `json:"server_id"`
-	VideoID   int64     `json:"video_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int64
+	ServerID  int64
+	VideoID   int64
+	CreatedAt time.Time
 }
 
 type AnimeSerieServerTorrent struct {
-	ID        int64     `json:"id"`
-	ServerID  int64     `json:"server_id"`
-	TorrentID int64     `json:"torrent_id"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int64
+	ServerID  int64
+	TorrentID int64
+	CreatedAt time.Time
 }
 
 type AnimeSerieStudio struct {
-	ID       int64 `json:"id"`
-	AnimeID  int64 `json:"anime_id"`
-	StudioID int32 `json:"studio_id"`
+	ID       int64
+	AnimeID  int64
+	StudioID int32
 }
 
 type AnimeSerieTorrent struct {
-	ID          int64     `json:"id"`
-	FileName    string    `json:"file_name"`
-	LanguageID  int32     `json:"language_id"`
-	TorrentHash string    `json:"torrent_hash"`
-	TorrentFile string    `json:"torrent_file"`
-	Seeds       int32     `json:"seeds"`
-	Peers       int32     `json:"peers"`
-	Leechers    int32     `json:"leechers"`
-	SizeBytes   int64     `json:"size_bytes"`
-	Quality     string    `json:"quality"`
-	CreatedAt   time.Time `json:"created_at"`
+	ID          int64
+	FileName    string
+	LanguageID  int32
+	TorrentHash string
+	TorrentFile string
+	Seeds       int32
+	Peers       int32
+	Leechers    int32
+	SizeBytes   int64
+	Quality     string
+	CreatedAt   time.Time
 }
 
 type AnimeSerieVideo struct {
-	ID         int64     `json:"id"`
-	LanguageID int32     `json:"language_id"`
-	Autority   string    `json:"autority"`
-	Referer    string    `json:"referer"`
-	Link       string    `json:"link"`
-	Quality    string    `json:"quality"`
-	CreatedAt  time.Time `json:"created_at"`
+	ID         int64
+	LanguageID int32
+	Autority   string
+	Referer    string
+	Link       string
+	Quality    string
+	CreatedAt  time.Time
 }
 
 type Genre struct {
-	ID        int32     `json:"id"`
-	GenreName string    `json:"genre_name"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int32
+	GenreName string
+	CreatedAt time.Time
 }
 
 type Language struct {
-	ID           int32     `json:"id"`
-	LanguageCode string    `json:"language_code"`
-	LanguageName string    `json:"language_name"`
-	CreatedAt    time.Time `json:"created_at"`
+	ID           int32
+	LanguageCode string
+	LanguageName string
+	CreatedAt    time.Time
 }
 
 type Meta struct {
-	ID        int64     `json:"id"`
-	Title     string    `json:"title"`
-	Overview  string    `json:"overview"`
-	CreatedAt time.Time `json:"created_at"`
+	ID        int64
+	Title     string
+	Overview  string
+	CreatedAt time.Time
 }
 
 type Session struct {
-	ID           uuid.UUID `json:"id"`
-	Username     string    `json:"username"`
-	RefreshToken string    `json:"refresh_token"`
-	UserAgent    string    `json:"user_agent"`
-	ClientIp     string    `json:"client_ip"`
-	IsBlocked    bool      `json:"is_blocked"`
-	ExpiresAt    time.Time `json:"expires_at"`
-	CreatedAt    time.Time `json:"created_at"`
+	ID           uuid.UUID
+	Username     string
+	RefreshToken string
+	UserAgent    string
+	ClientIp     string
+	IsBlocked    bool
+	ExpiresAt    time.Time
+	CreatedAt    time.Time
 }
 
 type Studio struct {
-	ID         int32     `json:"id"`
-	StudioName string    `json:"studio_name"`
-	CreatedAt  time.Time `json:"created_at"`
+	ID         int32
+	StudioName string
+	CreatedAt  time.Time
 }
 
 type User struct {
-	ID                int64     `json:"id"`
-	Username          string    `json:"username"`
-	Email             string    `json:"email"`
-	HashedPassword    string    `json:"hashed_password"`
-	FullName          string    `json:"full_name"`
-	PasswordChangedAt time.Time `json:"password_changed_at"`
-	CreatedAt         time.Time `json:"created_at"`
-	IsEmailVerified   bool      `json:"is_email_verified"`
-	Role              string    `json:"role"`
+	ID                int64
+	Username          string
+	Email             string
+	HashedPassword    string
+	FullName          string
+	PasswordChangedAt time.Time
+	CreatedAt         time.Time
+	IsEmailVerified   bool
+	Role              string
 }
 
 type VerifyEmail struct {
-	ID         int64     `json:"id"`
-	Username   string    `json:"username"`
-	Email      string    `json:"email"`
-	SecretCode string    `json:"secret_code"`
-	IsUsed     bool      `json:"is_used"`
-	CreatedAt  time.Time `json:"created_at"`
-	ExpiredAt  time.Time `json:"expired_at"`
+	ID         int64
+	Username   string
+	Email      string
+	SecretCode string
+	IsUsed     bool
+	CreatedAt  time.Time
+	ExpiredAt  time.Time
 }

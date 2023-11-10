@@ -4,7 +4,7 @@ VALUES ($1, $2, $3)
 RETURNING *;
 
 -- name: GetAnimeMovieMeta :one
-SELECT meta_id
+SELECT meta_id 
 FROM anime_movie_metas
 WHERE anime_id = $1 AND language_id = $2;
 
@@ -15,11 +15,10 @@ WHERE anime_id = $1 AND language_id = $2
 RETURNING * ;
 
 -- name: ListAnimeMovieMetas :many
-SELECT meta_id
+SELECT meta_id 
 FROM anime_movie_metas
 WHERE anime_id = $1
-LIMIT $2
-OFFSET $3;
+ORDER BY id;
 
 -- name: DeleteAnimeMovieMeta :exec
 DELETE FROM anime_movie_metas

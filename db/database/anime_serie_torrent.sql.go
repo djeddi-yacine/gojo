@@ -18,15 +18,15 @@ RETURNING id, file_name, language_id, torrent_hash, torrent_file, seeds, peers, 
 `
 
 type CreateAnimeSerieTorrentParams struct {
-	LanguageID  int32  `json:"language_id"`
-	FileName    string `json:"file_name"`
-	TorrentHash string `json:"torrent_hash"`
-	TorrentFile string `json:"torrent_file"`
-	Seeds       int32  `json:"seeds"`
-	Peers       int32  `json:"peers"`
-	Leechers    int32  `json:"leechers"`
-	SizeBytes   int64  `json:"size_bytes"`
-	Quality     string `json:"quality"`
+	LanguageID  int32
+	FileName    string
+	TorrentHash string
+	TorrentFile string
+	Seeds       int32
+	Peers       int32
+	Leechers    int32
+	SizeBytes   int64
+	Quality     string
 }
 
 func (q *Queries) CreateAnimeSerieTorrent(ctx context.Context, arg CreateAnimeSerieTorrentParams) (AnimeSerieTorrent, error) {
@@ -101,8 +101,8 @@ OFFSET $2
 `
 
 type ListAnimeSerieTorrentsParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
+	Limit  int32
+	Offset int32
 }
 
 func (q *Queries) ListAnimeSerieTorrents(ctx context.Context, arg ListAnimeSerieTorrentsParams) ([]AnimeSerieTorrent, error) {
@@ -154,16 +154,16 @@ RETURNING id, file_name, language_id, torrent_hash, torrent_file, seeds, peers, 
 `
 
 type UpdateAnimeSerieTorrentParams struct {
-	ID          int64       `json:"id"`
-	LanguageID  pgtype.Int4 `json:"language_id"`
-	FileName    pgtype.Text `json:"file_name"`
-	TorrentHash pgtype.Text `json:"torrent_hash"`
-	TorrentFile pgtype.Text `json:"torrent_file"`
-	Seeds       pgtype.Int4 `json:"seeds"`
-	Peers       pgtype.Int4 `json:"peers"`
-	Leechers    pgtype.Int4 `json:"leechers"`
-	SizeBytes   pgtype.Int8 `json:"size_bytes"`
-	Quality     pgtype.Text `json:"quality"`
+	ID          int64
+	LanguageID  pgtype.Int4
+	FileName    pgtype.Text
+	TorrentHash pgtype.Text
+	TorrentFile pgtype.Text
+	Seeds       pgtype.Int4
+	Peers       pgtype.Int4
+	Leechers    pgtype.Int4
+	SizeBytes   pgtype.Int8
+	Quality     pgtype.Text
 }
 
 func (q *Queries) UpdateAnimeSerieTorrent(ctx context.Context, arg UpdateAnimeSerieTorrentParams) (AnimeSerieTorrent, error) {

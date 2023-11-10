@@ -18,9 +18,9 @@ RETURNING id, episode_id, language_id, meta_id, created_at
 `
 
 type CreateAnimeSerieEpisodeMetaParams struct {
-	EpisodeID  int64 `json:"episode_id"`
-	LanguageID int32 `json:"language_id"`
-	MetaID     int64 `json:"meta_id"`
+	EpisodeID  int64
+	LanguageID int32
+	MetaID     int64
 }
 
 func (q *Queries) CreateAnimeSerieEpisodeMeta(ctx context.Context, arg CreateAnimeSerieEpisodeMetaParams) (AnimeSerieEpisodeMeta, error) {
@@ -42,8 +42,8 @@ WHERE episode_id = $1 AND language_id = $2
 `
 
 type DeleteAnimeSerieEpisodeMetaParams struct {
-	EpisodeID  int64 `json:"episode_id"`
-	LanguageID int32 `json:"language_id"`
+	EpisodeID  int64
+	LanguageID int32
 }
 
 func (q *Queries) DeleteAnimeSerieEpisodeMeta(ctx context.Context, arg DeleteAnimeSerieEpisodeMetaParams) error {
@@ -57,8 +57,8 @@ WHERE episode_id = $1 AND language_id = $2
 `
 
 type GetAnimeSerieEpisodeMetaParams struct {
-	EpisodeID  int64 `json:"episode_id"`
-	LanguageID int32 `json:"language_id"`
+	EpisodeID  int64
+	LanguageID int32
 }
 
 func (q *Queries) GetAnimeSerieEpisodeMeta(ctx context.Context, arg GetAnimeSerieEpisodeMetaParams) (AnimeSerieEpisodeMeta, error) {
@@ -83,9 +83,9 @@ OFFSET $3
 `
 
 type ListAnimeSerieEpisodeMetasByEpisodeParams struct {
-	EpisodeID int64 `json:"episode_id"`
-	Limit     int32 `json:"limit"`
-	Offset    int32 `json:"offset"`
+	EpisodeID int64
+	Limit     int32
+	Offset    int32
 }
 
 func (q *Queries) ListAnimeSerieEpisodeMetasByEpisode(ctx context.Context, arg ListAnimeSerieEpisodeMetasByEpisodeParams) ([]AnimeSerieEpisodeMeta, error) {
@@ -126,10 +126,10 @@ RETURNING id, episode_id, language_id, meta_id, created_at
 `
 
 type UpdateAnimeSerieEpisodeMetaParams struct {
-	MetaID     pgtype.Int8 `json:"meta_id"`
-	EpisodeID  pgtype.Int8 `json:"episode_id"`
-	LanguageID pgtype.Int4 `json:"language_id"`
-	ID         int64       `json:"id"`
+	MetaID     pgtype.Int8
+	EpisodeID  pgtype.Int8
+	LanguageID pgtype.Int4
+	ID         int64
 }
 
 func (q *Queries) UpdateAnimeSerieEpisodeMeta(ctx context.Context, arg UpdateAnimeSerieEpisodeMetaParams) (AnimeSerieEpisodeMeta, error) {

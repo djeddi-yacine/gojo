@@ -43,7 +43,10 @@ func TestGetAnimeMovieStudio(t *testing.T) {
 	require.NoError(t, err)
 	require.NotEmpty(t, studio1)
 
-	studio2, err := testGojo.GetAnimeMovieStudio(context.Background(), studio1.ID)
+	studio2, err := testGojo.GetAnimeMovieStudio(context.Background(), GetAnimeMovieStudioParams{
+		AnimeID: a.ID,
+		StudioID: studio1.StudioID,
+	})
 	require.NoError(t, err)
 	require.NotEmpty(t, studio2)
 
@@ -85,14 +88,7 @@ func TestListAnimeMovieStudios(t *testing.T) {
 		testGojo.CreateAnimeMovieStudio(context.Background(), arg)
 	}
 
-	arg := ListAnimeMovieStudiosParams{
-		AnimeID: a.ID,
-		Limit:   3,
-		Offset:  0,
-	}
-
-	studios, err := testGojo.ListAnimeMovieStudios(context.Background(), arg)
+	studios, err := testGojo.ListAnimeMovieStudios(context.Background(), a.ID)
 	require.NoError(t, err)
 	require.NotNil(t, studios)
-	require.Len(t, studios, 3)
 }

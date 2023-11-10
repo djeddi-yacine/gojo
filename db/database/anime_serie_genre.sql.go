@@ -16,8 +16,8 @@ RETURNING id, anime_id, genre_id
 `
 
 type CreateAnimeSerieGenreParams struct {
-	AnimeID int64 `json:"anime_id"`
-	GenreID int32 `json:"genre_id"`
+	AnimeID int64
+	GenreID int32
 }
 
 func (q *Queries) CreateAnimeSerieGenre(ctx context.Context, arg CreateAnimeSerieGenreParams) (AnimeSerieGenre, error) {
@@ -33,8 +33,8 @@ WHERE anime_id = $1 AND genre_id = $2
 `
 
 type DeleteAnimeSerieGenreParams struct {
-	AnimeID int64 `json:"anime_id"`
-	GenreID int32 `json:"genre_id"`
+	AnimeID int64
+	GenreID int32
 }
 
 func (q *Queries) DeleteAnimeSerieGenre(ctx context.Context, arg DeleteAnimeSerieGenreParams) error {
@@ -44,11 +44,16 @@ func (q *Queries) DeleteAnimeSerieGenre(ctx context.Context, arg DeleteAnimeSeri
 
 const getAnimeSerieGenre = `-- name: GetAnimeSerieGenre :one
 SELECT id, anime_id, genre_id FROM anime_serie_genres
-WHERE id = $1 LIMIT 1
+WHERE anime_id = $1 AND genre_id = $2
 `
 
-func (q *Queries) GetAnimeSerieGenre(ctx context.Context, id int64) (AnimeSerieGenre, error) {
-	row := q.db.QueryRow(ctx, getAnimeSerieGenre, id)
+type GetAnimeSerieGenreParams struct {
+	AnimeID int64
+	GenreID int32
+}
+
+func (q *Queries) GetAnimeSerieGenre(ctx context.Context, arg GetAnimeSerieGenreParams) (AnimeSerieGenre, error) {
+	row := q.db.QueryRow(ctx, getAnimeSerieGenre, arg.AnimeID, arg.GenreID)
 	var i AnimeSerieGenre
 	err := row.Scan(&i.ID, &i.AnimeID, &i.GenreID)
 	return i, err
@@ -58,18 +63,11 @@ const listAnimeSerieGenres = `-- name: ListAnimeSerieGenres :many
 SELECT genre_id
 FROM anime_serie_genres
 WHERE anime_id = $1
-LIMIT $2
-OFFSET $3
+ORDER BY id
 `
 
-type ListAnimeSerieGenresParams struct {
-	AnimeID int64 `json:"anime_id"`
-	Limit   int32 `json:"limit"`
-	Offset  int32 `json:"offset"`
-}
-
-func (q *Queries) ListAnimeSerieGenres(ctx context.Context, arg ListAnimeSerieGenresParams) ([]int32, error) {
-	rows, err := q.db.Query(ctx, listAnimeSerieGenres, arg.AnimeID, arg.Limit, arg.Offset)
+func (q *Queries) ListAnimeSerieGenres(ctx context.Context, animeID int64) ([]int32, error) {
+	rows, err := q.db.Query(ctx, listAnimeSerieGenres, animeID)
 	if err != nil {
 		return nil, err
 	}

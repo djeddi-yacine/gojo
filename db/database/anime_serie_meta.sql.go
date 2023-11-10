@@ -16,9 +16,9 @@ RETURNING id, anime_id, language_id, meta_id
 `
 
 type CreateAnimeSerieMetaParams struct {
-	AnimeID    int64 `json:"anime_id"`
-	LanguageID int32 `json:"language_id"`
-	MetaID     int64 `json:"meta_id"`
+	AnimeID    int64
+	LanguageID int32
+	MetaID     int64
 }
 
 func (q *Queries) CreateAnimeSerieMeta(ctx context.Context, arg CreateAnimeSerieMetaParams) (AnimeSerieMeta, error) {
@@ -39,8 +39,8 @@ WHERE anime_id = $1 AND language_id = $2
 `
 
 type DeleteAnimeSerieMetaParams struct {
-	AnimeID    int64 `json:"anime_id"`
-	LanguageID int32 `json:"language_id"`
+	AnimeID    int64
+	LanguageID int32
 }
 
 func (q *Queries) DeleteAnimeSerieMeta(ctx context.Context, arg DeleteAnimeSerieMetaParams) error {
@@ -55,8 +55,8 @@ WHERE anime_id = $1 AND language_id = $2
 `
 
 type GetAnimeSerieMetaParams struct {
-	AnimeID    int64 `json:"anime_id"`
-	LanguageID int32 `json:"language_id"`
+	AnimeID    int64
+	LanguageID int32
 }
 
 func (q *Queries) GetAnimeSerieMeta(ctx context.Context, arg GetAnimeSerieMetaParams) (int64, error) {
@@ -70,18 +70,11 @@ const listAnimeSerieMetas = `-- name: ListAnimeSerieMetas :many
 SELECT meta_id
 FROM anime_serie_metas
 WHERE anime_id = $1
-LIMIT $2
-OFFSET $3
+ORDER BY id
 `
 
-type ListAnimeSerieMetasParams struct {
-	AnimeID int64 `json:"anime_id"`
-	Limit   int32 `json:"limit"`
-	Offset  int32 `json:"offset"`
-}
-
-func (q *Queries) ListAnimeSerieMetas(ctx context.Context, arg ListAnimeSerieMetasParams) ([]int64, error) {
-	rows, err := q.db.Query(ctx, listAnimeSerieMetas, arg.AnimeID, arg.Limit, arg.Offset)
+func (q *Queries) ListAnimeSerieMetas(ctx context.Context, animeID int64) ([]int64, error) {
+	rows, err := q.db.Query(ctx, listAnimeSerieMetas, animeID)
 	if err != nil {
 		return nil, err
 	}
@@ -108,9 +101,9 @@ RETURNING id, anime_id, language_id, meta_id
 `
 
 type UpdateAnimeSerieMetaParams struct {
-	AnimeID    int64 `json:"anime_id"`
-	LanguageID int32 `json:"language_id"`
-	MetaID     int64 `json:"meta_id"`
+	AnimeID    int64
+	LanguageID int32
+	MetaID     int64
 }
 
 func (q *Queries) UpdateAnimeSerieMeta(ctx context.Context, arg UpdateAnimeSerieMetaParams) (AnimeSerieMeta, error) {

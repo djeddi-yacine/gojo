@@ -16,8 +16,8 @@ RETURNING id, anime_id, studio_id
 `
 
 type CreateAnimeSerieStudioParams struct {
-	AnimeID  int64 `json:"anime_id"`
-	StudioID int32 `json:"studio_id"`
+	AnimeID  int64
+	StudioID int32
 }
 
 func (q *Queries) CreateAnimeSerieStudio(ctx context.Context, arg CreateAnimeSerieStudioParams) (AnimeSerieStudio, error) {
@@ -33,8 +33,8 @@ WHERE anime_id = $1 AND studio_id = $2
 `
 
 type DeleteAnimeSerieStudioParams struct {
-	AnimeID  int64 `json:"anime_id"`
-	StudioID int32 `json:"studio_id"`
+	AnimeID  int64
+	StudioID int32
 }
 
 func (q *Queries) DeleteAnimeSerieStudio(ctx context.Context, arg DeleteAnimeSerieStudioParams) error {
@@ -44,11 +44,16 @@ func (q *Queries) DeleteAnimeSerieStudio(ctx context.Context, arg DeleteAnimeSer
 
 const getAnimeSerieStudio = `-- name: GetAnimeSerieStudio :one
 SELECT id, anime_id, studio_id FROM anime_serie_studios
-WHERE id = $1 LIMIT 1
+WHERE anime_id = $1 AND studio_id = $2
 `
 
-func (q *Queries) GetAnimeSerieStudio(ctx context.Context, id int64) (AnimeSerieStudio, error) {
-	row := q.db.QueryRow(ctx, getAnimeSerieStudio, id)
+type GetAnimeSerieStudioParams struct {
+	AnimeID  int64
+	StudioID int32
+}
+
+func (q *Queries) GetAnimeSerieStudio(ctx context.Context, arg GetAnimeSerieStudioParams) (AnimeSerieStudio, error) {
+	row := q.db.QueryRow(ctx, getAnimeSerieStudio, arg.AnimeID, arg.StudioID)
 	var i AnimeSerieStudio
 	err := row.Scan(&i.ID, &i.AnimeID, &i.StudioID)
 	return i, err
@@ -58,18 +63,11 @@ const listAnimeSerieStudios = `-- name: ListAnimeSerieStudios :many
 SELECT studio_id
 FROM anime_serie_studios
 WHERE anime_id = $1
-LIMIT $2
-OFFSET $3
+ORDER BY id
 `
 
-type ListAnimeSerieStudiosParams struct {
-	AnimeID int64 `json:"anime_id"`
-	Limit   int32 `json:"limit"`
-	Offset  int32 `json:"offset"`
-}
-
-func (q *Queries) ListAnimeSerieStudios(ctx context.Context, arg ListAnimeSerieStudiosParams) ([]int32, error) {
-	rows, err := q.db.Query(ctx, listAnimeSerieStudios, arg.AnimeID, arg.Limit, arg.Offset)
+func (q *Queries) ListAnimeSerieStudios(ctx context.Context, animeID int64) ([]int32, error) {
+	rows, err := q.db.Query(ctx, listAnimeSerieStudios, animeID)
 	if err != nil {
 		return nil, err
 	}

@@ -18,12 +18,12 @@ RETURNING  id, tmdb_id, imdb_id, official_website, wikipedia_url, crunchyroll_ur
 `
 
 type CreateAnimeResourceParams struct {
-	TmdbID          int32    `json:"tmdb_id"`
-	ImdbID          string   `json:"imdb_id"`
-	OfficialWebsite string   `json:"official_website"`
-	WikipediaUrl    string   `json:"wikipedia_url"`
-	CrunchyrollUrl  string   `json:"crunchyroll_url"`
-	SocialMedia     []string `json:"social_media"`
+	TmdbID          int32
+	ImdbID          string
+	OfficialWebsite string
+	WikipediaUrl    string
+	CrunchyrollUrl  string
+	SocialMedia     []string
 }
 
 func (q *Queries) CreateAnimeResource(ctx context.Context, arg CreateAnimeResourceParams) (AnimeResource, error) {
@@ -95,13 +95,13 @@ RETURNING id, tmdb_id, imdb_id, official_website, wikipedia_url, crunchyroll_url
 `
 
 type UpdateAnimeResourceParams struct {
-	TmdbID          pgtype.Int4 `json:"tmdb_id"`
-	ImdbID          pgtype.Text `json:"imdb_id"`
-	OfficialWebsite pgtype.Text `json:"official_website"`
-	WikipediaUrl    pgtype.Text `json:"wikipedia_url"`
-	CrunchyrollUrl  pgtype.Text `json:"crunchyroll_url"`
-	SocialMedia     []string    `json:"social_media"`
-	ID              int64       `json:"id"`
+	TmdbID          pgtype.Int4
+	ImdbID          pgtype.Text
+	OfficialWebsite pgtype.Text
+	WikipediaUrl    pgtype.Text
+	CrunchyrollUrl  pgtype.Text
+	SocialMedia     []string
+	ID              int64
 }
 
 func (q *Queries) UpdateAnimeResource(ctx context.Context, arg UpdateAnimeResourceParams) (AnimeResource, error) {

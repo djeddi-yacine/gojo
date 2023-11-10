@@ -16,9 +16,9 @@ RETURNING id, anime_id, language_id, meta_id
 `
 
 type CreateAnimeMovieMetaParams struct {
-	AnimeID    int64 `json:"anime_id"`
-	LanguageID int32 `json:"language_id"`
-	MetaID     int64 `json:"meta_id"`
+	AnimeID    int64
+	LanguageID int32
+	MetaID     int64
 }
 
 func (q *Queries) CreateAnimeMovieMeta(ctx context.Context, arg CreateAnimeMovieMetaParams) (AnimeMovieMeta, error) {
@@ -39,8 +39,8 @@ WHERE anime_id = $1 AND language_id = $2
 `
 
 type DeleteAnimeMovieMetaParams struct {
-	AnimeID    int64 `json:"anime_id"`
-	LanguageID int32 `json:"language_id"`
+	AnimeID    int64
+	LanguageID int32
 }
 
 func (q *Queries) DeleteAnimeMovieMeta(ctx context.Context, arg DeleteAnimeMovieMetaParams) error {
@@ -49,14 +49,13 @@ func (q *Queries) DeleteAnimeMovieMeta(ctx context.Context, arg DeleteAnimeMovie
 }
 
 const getAnimeMovieMeta = `-- name: GetAnimeMovieMeta :one
-SELECT meta_id
-FROM anime_movie_metas
+SELECT meta_id FROM anime_movie_metas
 WHERE anime_id = $1 AND language_id = $2
 `
 
 type GetAnimeMovieMetaParams struct {
-	AnimeID    int64 `json:"anime_id"`
-	LanguageID int32 `json:"language_id"`
+	AnimeID    int64
+	LanguageID int32
 }
 
 func (q *Queries) GetAnimeMovieMeta(ctx context.Context, arg GetAnimeMovieMetaParams) (int64, error) {
@@ -67,21 +66,13 @@ func (q *Queries) GetAnimeMovieMeta(ctx context.Context, arg GetAnimeMovieMetaPa
 }
 
 const listAnimeMovieMetas = `-- name: ListAnimeMovieMetas :many
-SELECT meta_id
-FROM anime_movie_metas
+SELECT meta_id FROM anime_movie_metas
 WHERE anime_id = $1
-LIMIT $2
-OFFSET $3
+ORDER BY id
 `
 
-type ListAnimeMovieMetasParams struct {
-	AnimeID int64 `json:"anime_id"`
-	Limit   int32 `json:"limit"`
-	Offset  int32 `json:"offset"`
-}
-
-func (q *Queries) ListAnimeMovieMetas(ctx context.Context, arg ListAnimeMovieMetasParams) ([]int64, error) {
-	rows, err := q.db.Query(ctx, listAnimeMovieMetas, arg.AnimeID, arg.Limit, arg.Offset)
+func (q *Queries) ListAnimeMovieMetas(ctx context.Context, animeID int64) ([]int64, error) {
+	rows, err := q.db.Query(ctx, listAnimeMovieMetas, animeID)
 	if err != nil {
 		return nil, err
 	}
@@ -108,9 +99,9 @@ RETURNING id, anime_id, language_id, meta_id
 `
 
 type UpdateAnimeMovieMetaParams struct {
-	AnimeID    int64 `json:"anime_id"`
-	LanguageID int32 `json:"language_id"`
-	MetaID     int64 `json:"meta_id"`
+	AnimeID    int64
+	LanguageID int32
+	MetaID     int64
 }
 
 func (q *Queries) UpdateAnimeMovieMeta(ctx context.Context, arg UpdateAnimeMovieMetaParams) (AnimeMovieMeta, error) {

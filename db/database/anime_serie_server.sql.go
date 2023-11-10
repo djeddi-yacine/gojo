@@ -53,8 +53,8 @@ OFFSET $2
 `
 
 type ListAnimeSerieServersParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
+	Limit  int32
+	Offset int32
 }
 
 func (q *Queries) ListAnimeSerieServers(ctx context.Context, arg ListAnimeSerieServersParams) ([]AnimeSerieServer, error) {
@@ -85,8 +85,8 @@ RETURNING id, episode_id, created_at
 `
 
 type UpdateAnimeSerieServerParams struct {
-	ID        int64 `json:"id"`
-	EpisodeID int64 `json:"episode_id"`
+	ID        int64
+	EpisodeID int64
 }
 
 func (q *Queries) UpdateAnimeSerieServer(ctx context.Context, arg UpdateAnimeSerieServerParams) (AnimeSerieServer, error) {

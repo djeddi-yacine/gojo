@@ -18,8 +18,8 @@ RETURNING id, season_id, episode_id, created_at
 `
 
 type CreateAnimeSerieSeasonEpisodeParams struct {
-	SeasonID  int64 `json:"season_id"`
-	EpisodeID int64 `json:"episode_id"`
+	SeasonID  int64
+	EpisodeID int64
 }
 
 func (q *Queries) CreateAnimeSerieSeasonEpisode(ctx context.Context, arg CreateAnimeSerieSeasonEpisodeParams) (AnimeSerieSeasonEpisode, error) {
@@ -71,9 +71,9 @@ OFFSET $3
 `
 
 type ListAnimeSerieSeasonEpisodesBySeasonParams struct {
-	SeasonID int64 `json:"season_id"`
-	Limit    int32 `json:"limit"`
-	Offset   int32 `json:"offset"`
+	SeasonID int64
+	Limit    int32
+	Offset   int32
 }
 
 func (q *Queries) ListAnimeSerieSeasonEpisodesBySeason(ctx context.Context, arg ListAnimeSerieSeasonEpisodesBySeasonParams) ([]AnimeSerieSeasonEpisode, error) {
@@ -112,9 +112,9 @@ RETURNING id, season_id, episode_id, created_at
 `
 
 type UpdateAnimeSerieSeasonEpisodeParams struct {
-	EpisodeID pgtype.Int8 `json:"episode_id"`
-	SeasonID  pgtype.Int8 `json:"season_id"`
-	ID        int64       `json:"id"`
+	EpisodeID pgtype.Int8
+	SeasonID  pgtype.Int8
+	ID        int64
 }
 
 func (q *Queries) UpdateAnimeSerieSeasonEpisode(ctx context.Context, arg UpdateAnimeSerieSeasonEpisodeParams) (AnimeSerieSeasonEpisode, error) {

@@ -5,14 +5,13 @@ RETURNING *;
 
 -- name: GetAnimeSerieGenre :one
 SELECT * FROM anime_serie_genres
-WHERE id = $1 LIMIT 1;
+WHERE anime_id = $1 AND genre_id = $2;
 
 -- name: ListAnimeSerieGenres :many
 SELECT genre_id
 FROM anime_serie_genres
 WHERE anime_id = $1
-LIMIT $2
-OFFSET $3;
+ORDER BY id;
 
 -- name: DeleteAnimeSerieGenre :exec
 DELETE FROM anime_serie_genres

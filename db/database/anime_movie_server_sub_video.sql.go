@@ -18,8 +18,8 @@ RETURNING id, server_id, video_id, created_at
 `
 
 type CreateAnimeMovieServerSubVideoParams struct {
-	ServerID int64 `json:"server_id"`
-	VideoID  int64 `json:"video_id"`
+	ServerID int64
+	VideoID  int64
 }
 
 func (q *Queries) CreateAnimeMovieServerSubVideo(ctx context.Context, arg CreateAnimeMovieServerSubVideoParams) (AnimeMovieServerSubVideo, error) {
@@ -64,18 +64,12 @@ func (q *Queries) GetAnimeMovieServerSubVideo(ctx context.Context, id int64) (An
 
 const listAnimeMovieServerSubVideos = `-- name: ListAnimeMovieServerSubVideos :many
 SELECT id, server_id, video_id, created_at FROM anime_movie_server_sub_videos
+WHERE server_id = $1
 ORDER BY id
-LIMIT $1
-OFFSET $2
 `
 
-type ListAnimeMovieServerSubVideosParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
-}
-
-func (q *Queries) ListAnimeMovieServerSubVideos(ctx context.Context, arg ListAnimeMovieServerSubVideosParams) ([]AnimeMovieServerSubVideo, error) {
-	rows, err := q.db.Query(ctx, listAnimeMovieServerSubVideos, arg.Limit, arg.Offset)
+func (q *Queries) ListAnimeMovieServerSubVideos(ctx context.Context, serverID int64) ([]AnimeMovieServerSubVideo, error) {
+	rows, err := q.db.Query(ctx, listAnimeMovieServerSubVideos, serverID)
 	if err != nil {
 		return nil, err
 	}
@@ -110,9 +104,9 @@ RETURNING id, server_id, video_id, created_at
 `
 
 type UpdateAnimeMovieServerSubVideoParams struct {
-	ServerID pgtype.Int8 `json:"server_id"`
-	VideoID  pgtype.Int8 `json:"video_id"`
-	ID       int64       `json:"id"`
+	ServerID pgtype.Int8
+	VideoID  pgtype.Int8
+	ID       int64
 }
 
 func (q *Queries) UpdateAnimeMovieServerSubVideo(ctx context.Context, arg UpdateAnimeMovieServerSubVideoParams) (AnimeMovieServerSubVideo, error) {

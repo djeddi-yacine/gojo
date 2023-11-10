@@ -16,8 +16,8 @@ RETURNING  id, title, overview, created_at
 `
 
 type CreateMetaParams struct {
-	Title    string `json:"title"`
-	Overview string `json:"overview"`
+	Title    string
+	Overview string
 }
 
 func (q *Queries) CreateMeta(ctx context.Context, arg CreateMetaParams) (Meta, error) {
@@ -68,9 +68,9 @@ RETURNING  id, title, overview, created_at
 `
 
 type UpdateMetaParams struct {
-	ID       int64  `json:"id"`
-	Title    string `json:"title"`
-	Overview string `json:"overview"`
+	ID       int64
+	Title    string
+	Overview string
 }
 
 func (q *Queries) UpdateMeta(ctx context.Context, arg UpdateMetaParams) (Meta, error) {

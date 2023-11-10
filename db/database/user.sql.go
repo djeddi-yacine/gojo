@@ -24,10 +24,10 @@ RETURNING id, username, email, hashed_password, full_name, password_changed_at, 
 `
 
 type CreateUserParams struct {
-	Username       string `json:"username"`
-	Email          string `json:"email"`
-	HashedPassword string `json:"hashed_password"`
-	FullName       string `json:"full_name"`
+	Username       string
+	Email          string
+	HashedPassword string
+	FullName       string
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
@@ -114,8 +114,8 @@ OFFSET $2
 `
 
 type ListUsersParams struct {
-	Limit  int32 `json:"limit"`
-	Offset int32 `json:"offset"`
+	Limit  int32
+	Offset int32
 }
 
 func (q *Queries) ListUsers(ctx context.Context, arg ListUsersParams) ([]User, error) {
@@ -162,12 +162,12 @@ RETURNING id, username, email, hashed_password, full_name, password_changed_at, 
 `
 
 type UpdateUserParams struct {
-	HashedPassword    pgtype.Text        `json:"hashed_password"`
-	PasswordChangedAt pgtype.Timestamptz `json:"password_changed_at"`
-	FullName          pgtype.Text        `json:"full_name"`
-	Email             pgtype.Text        `json:"email"`
-	IsEmailVerified   pgtype.Bool        `json:"is_email_verified"`
-	Username          string             `json:"username"`
+	HashedPassword    pgtype.Text
+	PasswordChangedAt pgtype.Timestamptz
+	FullName          pgtype.Text
+	Email             pgtype.Text
+	IsEmailVerified   pgtype.Bool
+	Username          string
 }
 
 func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error) {
