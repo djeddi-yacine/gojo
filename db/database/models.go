@@ -65,6 +65,13 @@ type AnimeMovieServer struct {
 	CreatedAt time.Time
 }
 
+type AnimeMovieServerDubTorrent struct {
+	ID        int64
+	ServerID  int64
+	TorrentID int64
+	CreatedAt time.Time
+}
+
 type AnimeMovieServerDubVideo struct {
 	ID        int64
 	ServerID  int64
@@ -72,17 +79,17 @@ type AnimeMovieServerDubVideo struct {
 	CreatedAt time.Time
 }
 
+type AnimeMovieServerSubTorrent struct {
+	ID        int64
+	ServerID  int64
+	TorrentID int64
+	CreatedAt time.Time
+}
+
 type AnimeMovieServerSubVideo struct {
 	ID        int64
 	ServerID  int64
 	VideoID   int64
-	CreatedAt time.Time
-}
-
-type AnimeMovieServerTorrent struct {
-	ID        int64
-	ServerID  int64
-	TorrentID int64
 	CreatedAt time.Time
 }
 
@@ -229,6 +236,13 @@ type AnimeSerieServer struct {
 	CreatedAt time.Time
 }
 
+type AnimeSerieServerDubTorrent struct {
+	ID        int64
+	ServerID  int64
+	TorrentID int64
+	CreatedAt time.Time
+}
+
 type AnimeSerieServerDubVideo struct {
 	ID        int64
 	ServerID  int64
@@ -236,17 +250,17 @@ type AnimeSerieServerDubVideo struct {
 	CreatedAt time.Time
 }
 
+type AnimeSerieServerSubTorrent struct {
+	ID        int64
+	ServerID  int64
+	TorrentID int64
+	CreatedAt time.Time
+}
+
 type AnimeSerieServerSubVideo struct {
 	ID        int64
 	ServerID  int64
 	VideoID   int64
-	CreatedAt time.Time
-}
-
-type AnimeSerieServerTorrent struct {
-	ID        int64
-	ServerID  int64
-	TorrentID int64
 	CreatedAt time.Time
 }
 

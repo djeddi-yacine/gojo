@@ -12,7 +12,14 @@ CREATE TABLE "anime_movie_torrents" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-CREATE TABLE "anime_movie_server_torrents" (
+CREATE TABLE "anime_movie_server_sub_torrents" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "server_id" bigserial NOT NULL,
+  "torrent_id" bigserial NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_movie_server_dub_torrents" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "server_id" bigserial NOT NULL,
   "torrent_id" bigserial NOT NULL,
@@ -33,7 +40,14 @@ CREATE TABLE "anime_serie_torrents" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-CREATE TABLE "anime_serie_server_torrents" (
+CREATE TABLE "anime_serie_server_sub_torrents" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "server_id" bigserial NOT NULL,
+  "torrent_id" bigserial NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_serie_server_dub_torrents" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "server_id" bigserial NOT NULL,
   "torrent_id" bigserial NOT NULL,
@@ -45,31 +59,51 @@ CREATE INDEX ON "anime_movie_torrents" ("id");
 
 CREATE UNIQUE INDEX ON "anime_movie_torrents" ("file_name", "language_id", "torrent_hash", "torrent_file", "size_bytes");
 
-CREATE INDEX ON "anime_movie_server_torrents" ("server_id");
+CREATE INDEX ON "anime_movie_server_sub_torrents" ("server_id");
 
-CREATE INDEX ON "anime_movie_server_torrents" ("torrent_id");
+CREATE INDEX ON "anime_movie_server_sub_torrents" ("torrent_id");
 
-CREATE UNIQUE INDEX ON "anime_movie_server_torrents" ("server_id", "torrent_id");
+CREATE UNIQUE INDEX ON "anime_movie_server_sub_torrents" ("server_id", "torrent_id");
+
+CREATE INDEX ON "anime_movie_server_dub_torrents" ("server_id");
+
+CREATE INDEX ON "anime_movie_server_dub_torrents" ("torrent_id");
+
+CREATE UNIQUE INDEX ON "anime_movie_server_dub_torrents" ("server_id", "torrent_id");
 
 CREATE INDEX ON "anime_serie_torrents" ("id");
 
 CREATE UNIQUE INDEX ON "anime_serie_torrents" ("file_name", "language_id", "torrent_hash", "torrent_file", "size_bytes");
 
-CREATE INDEX ON "anime_serie_server_torrents" ("server_id");
+CREATE INDEX ON "anime_serie_server_sub_torrents" ("server_id");
 
-CREATE INDEX ON "anime_serie_server_torrents" ("torrent_id");
+CREATE INDEX ON "anime_serie_server_sub_torrents" ("torrent_id");
 
-CREATE UNIQUE INDEX ON "anime_serie_server_torrents" ("server_id", "torrent_id");
+CREATE UNIQUE INDEX ON "anime_serie_server_sub_torrents" ("server_id", "torrent_id");
+
+CREATE INDEX ON "anime_serie_server_dub_torrents" ("server_id");
+
+CREATE INDEX ON "anime_serie_server_dub_torrents" ("torrent_id");
+
+CREATE UNIQUE INDEX ON "anime_serie_server_dub_torrents" ("server_id", "torrent_id");
 
 
 ALTER TABLE "anime_movie_torrents" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_torrents" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_movie_server_torrents" ADD FOREIGN KEY ("torrent_id") REFERENCES "anime_movie_torrents" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_movie_server_sub_torrents" ADD FOREIGN KEY ("torrent_id") REFERENCES "anime_movie_torrents" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_serie_server_torrents" ADD FOREIGN KEY ("torrent_id") REFERENCES "anime_serie_torrents" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_movie_server_sub_torrents" ADD FOREIGN KEY ("server_id") REFERENCES "anime_movie_servers" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_movie_server_torrents" ADD FOREIGN KEY ("server_id") REFERENCES "anime_movie_servers" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_movie_server_dub_torrents" ADD FOREIGN KEY ("torrent_id") REFERENCES "anime_movie_torrents" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_serie_server_torrents" ADD FOREIGN KEY ("server_id") REFERENCES "anime_serie_servers" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_movie_server_dub_torrents" ADD FOREIGN KEY ("server_id") REFERENCES "anime_movie_servers" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_server_sub_torrents" ADD FOREIGN KEY ("server_id") REFERENCES "anime_serie_servers" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_server_sub_torrents" ADD FOREIGN KEY ("torrent_id") REFERENCES "anime_serie_torrents" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_server_dub_torrents" ADD FOREIGN KEY ("server_id") REFERENCES "anime_serie_servers" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_server_dub_torrents" ADD FOREIGN KEY ("torrent_id") REFERENCES "anime_serie_torrents" ("id") ON DELETE CASCADE;

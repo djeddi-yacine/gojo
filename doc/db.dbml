@@ -409,7 +409,19 @@ Table anime_movie_torrents {
     }
 }
 
-Table anime_movie_server_torrents {
+Table anime_movie_server_sub_torrents {
+  id bigserial [primary key, unique, increment, not null]
+  server_id bigserial [not null]
+  torrent_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      server_id
+      torrent_id
+      (server_id, torrent_id) [unique]
+    }
+}
+
+Table anime_movie_server_dub_torrents {
   id bigserial [primary key, unique, increment, not null]
   server_id bigserial [not null]
   torrent_id bigserial [not null]
@@ -439,7 +451,19 @@ Table anime_serie_torrents {
     }
 }
 
-Table anime_serie_server_torrents {
+Table anime_serie_server_sub_torrents {
+  id bigserial [primary key, unique, increment, not null]
+  server_id bigserial [not null]
+  torrent_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      server_id
+      torrent_id
+      (server_id, torrent_id) [unique]
+    }
+}
+
+Table anime_serie_server_dub_torrents {
   id bigserial [primary key, unique, increment, not null]
   server_id bigserial [not null]
   torrent_id bigserial [not null]
@@ -625,9 +649,11 @@ Ref {
   anime_movie_servers.id - anime_movie_server_dub_videos.server_id [delete: cascade]
 }
 Ref {
-  anime_movie_servers.id - anime_movie_server_torrents.server_id [delete: cascade]
+  anime_movie_servers.id - anime_movie_server_sub_torrents.server_id [delete: cascade]
 }
-
+Ref {
+  anime_movie_servers.id - anime_movie_server_dub_torrents.server_id [delete: cascade]
+}
 
 
 Ref {
@@ -679,7 +705,10 @@ Ref {
   anime_serie_servers.id - anime_serie_server_dub_videos.server_id [delete: cascade]
 }
 Ref {
-  anime_serie_servers.id - anime_serie_server_torrents.server_id [delete: cascade]
+  anime_serie_servers.id - anime_serie_server_sub_torrents.server_id [delete: cascade]
+}
+Ref {
+  anime_serie_servers.id - anime_serie_server_dub_torrents.server_id [delete: cascade]
 }
 
 
@@ -694,10 +723,16 @@ Ref {
 
 
 Ref {
-  anime_movie_torrents.id - anime_movie_server_torrents.torrent_id [delete: cascade]
+  anime_movie_torrents.id - anime_movie_server_sub_torrents.torrent_id [delete: cascade]
 }
 Ref {
-  anime_serie_torrents.id - anime_serie_server_torrents.torrent_id [delete: cascade]
+  anime_movie_torrents.id - anime_movie_server_dub_torrents.torrent_id [delete: cascade]
+}
+Ref {
+  anime_serie_torrents.id - anime_serie_server_sub_torrents.torrent_id [delete: cascade]
+}
+Ref {
+  anime_serie_torrents.id - anime_serie_server_dub_torrents.torrent_id [delete: cascade]
 }
 
 

@@ -82,8 +82,10 @@ sql:
           ## add anime_torrents
           anime_movie_torrents: "AnimeMovieTorrent"
           anime_serie_torrents: "AnimeSerieTorrent"
-          anime_movie_server_torrents: "AnimeMovieServerTorrent"
-          anime_serie_server_torrents: "AnimeSerieServerTorrent"
+          anime_movie_server_sub_torrents: "AnimeMovieServerSubTorrent"
+          anime_serie_server_sub_torrents: "AnimeSerieServerSubTorrent"
+          anime_movie_server_dub_torrents: "AnimeMovieServerDubTorrent"
+          anime_serie_server_dub_torrents: "AnimeSerieServerDubTorrent"
 
           ## add anime_media
           anime_media: "AnimeMedia"

@@ -109,7 +109,7 @@ func (gojo *SQLGojo) AddAnimeSerieDataTx(ctx context.Context, arg AddAnimeSerieD
 
 		if arg.SubTorrents != nil {
 			var torrentArg CreateAnimeSerieTorrentParams
-			subTorrents := make([]CreateAnimeSerieServerTorrentParams, len(arg.SubTorrents))
+			subTorrents := make([]CreateAnimeSerieServerSubTorrentParams, len(arg.SubTorrents))
 			result.AnimeSerieSubTorrents = make([]AnimeSerieTorrent, len(arg.SubTorrents))
 
 			for i, s := range arg.SubTorrents {
@@ -138,7 +138,7 @@ func (gojo *SQLGojo) AddAnimeSerieDataTx(ctx context.Context, arg AddAnimeSerieD
 			}
 
 			for _, est := range subTorrents {
-				_, err = q.CreateAnimeSerieServerTorrent(ctx, est)
+				_, err = q.CreateAnimeSerieServerSubTorrent(ctx, est)
 				if err != nil {
 					ErrorSQL(err)
 					return err
@@ -148,7 +148,7 @@ func (gojo *SQLGojo) AddAnimeSerieDataTx(ctx context.Context, arg AddAnimeSerieD
 
 		if arg.DubTorrents != nil {
 			var torrentArg CreateAnimeSerieTorrentParams
-			dubTorrents := make([]CreateAnimeSerieServerTorrentParams, len(arg.DubTorrents))
+			dubTorrents := make([]CreateAnimeSerieServerDubTorrentParams, len(arg.DubTorrents))
 			result.AnimeSerieDubTorrents = make([]AnimeSerieTorrent, len(arg.DubTorrents))
 
 			for i, d := range arg.DubTorrents {
@@ -177,7 +177,7 @@ func (gojo *SQLGojo) AddAnimeSerieDataTx(ctx context.Context, arg AddAnimeSerieD
 			}
 
 			for _, edt := range dubTorrents {
-				_, err = q.CreateAnimeSerieServerTorrent(ctx, edt)
+				_, err = q.CreateAnimeSerieServerDubTorrent(ctx, edt)
 				if err != nil {
 					ErrorSQL(err)
 					return err

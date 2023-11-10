@@ -261,6 +261,21 @@ func (mr *MockGojoMockRecorder) CreateAnimeMovieServer(arg0, arg1 interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeMovieServer", reflect.TypeOf((*MockGojo)(nil).CreateAnimeMovieServer), arg0, arg1)
 }
 
+// CreateAnimeMovieServerDubTorrent mocks base method.
+func (m *MockGojo) CreateAnimeMovieServerDubTorrent(arg0 context.Context, arg1 db.CreateAnimeMovieServerDubTorrentParams) (db.AnimeMovieServerDubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeMovieServerDubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeMovieServerDubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeMovieServerDubTorrent indicates an expected call of CreateAnimeMovieServerDubTorrent.
+func (mr *MockGojoMockRecorder) CreateAnimeMovieServerDubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeMovieServerDubTorrent", reflect.TypeOf((*MockGojo)(nil).CreateAnimeMovieServerDubTorrent), arg0, arg1)
+}
+
 // CreateAnimeMovieServerDubVideo mocks base method.
 func (m *MockGojo) CreateAnimeMovieServerDubVideo(arg0 context.Context, arg1 db.CreateAnimeMovieServerDubVideoParams) (db.AnimeMovieServerDubVideo, error) {
 	m.ctrl.T.Helper()
@@ -276,6 +291,21 @@ func (mr *MockGojoMockRecorder) CreateAnimeMovieServerDubVideo(arg0, arg1 interf
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeMovieServerDubVideo", reflect.TypeOf((*MockGojo)(nil).CreateAnimeMovieServerDubVideo), arg0, arg1)
 }
 
+// CreateAnimeMovieServerSubTorrent mocks base method.
+func (m *MockGojo) CreateAnimeMovieServerSubTorrent(arg0 context.Context, arg1 db.CreateAnimeMovieServerSubTorrentParams) (db.AnimeMovieServerSubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeMovieServerSubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeMovieServerSubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeMovieServerSubTorrent indicates an expected call of CreateAnimeMovieServerSubTorrent.
+func (mr *MockGojoMockRecorder) CreateAnimeMovieServerSubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeMovieServerSubTorrent", reflect.TypeOf((*MockGojo)(nil).CreateAnimeMovieServerSubTorrent), arg0, arg1)
+}
+
 // CreateAnimeMovieServerSubVideo mocks base method.
 func (m *MockGojo) CreateAnimeMovieServerSubVideo(arg0 context.Context, arg1 db.CreateAnimeMovieServerSubVideoParams) (db.AnimeMovieServerSubVideo, error) {
 	m.ctrl.T.Helper()
@@ -289,21 +319,6 @@ func (m *MockGojo) CreateAnimeMovieServerSubVideo(arg0 context.Context, arg1 db.
 func (mr *MockGojoMockRecorder) CreateAnimeMovieServerSubVideo(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeMovieServerSubVideo", reflect.TypeOf((*MockGojo)(nil).CreateAnimeMovieServerSubVideo), arg0, arg1)
-}
-
-// CreateAnimeMovieServerTorrent mocks base method.
-func (m *MockGojo) CreateAnimeMovieServerTorrent(arg0 context.Context, arg1 db.CreateAnimeMovieServerTorrentParams) (db.AnimeMovieServerTorrent, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateAnimeMovieServerTorrent", arg0, arg1)
-	ret0, _ := ret[0].(db.AnimeMovieServerTorrent)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// CreateAnimeMovieServerTorrent indicates an expected call of CreateAnimeMovieServerTorrent.
-func (mr *MockGojoMockRecorder) CreateAnimeMovieServerTorrent(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeMovieServerTorrent", reflect.TypeOf((*MockGojo)(nil).CreateAnimeMovieServerTorrent), arg0, arg1)
 }
 
 // CreateAnimeMovieStudio mocks base method.
@@ -621,6 +636,21 @@ func (mr *MockGojoMockRecorder) CreateAnimeSerieServer(arg0, arg1 interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieServer", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieServer), arg0, arg1)
 }
 
+// CreateAnimeSerieServerDubTorrent mocks base method.
+func (m *MockGojo) CreateAnimeSerieServerDubTorrent(arg0 context.Context, arg1 db.CreateAnimeSerieServerDubTorrentParams) (db.AnimeSerieServerDubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeSerieServerDubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeSerieServerDubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeSerieServerDubTorrent indicates an expected call of CreateAnimeSerieServerDubTorrent.
+func (mr *MockGojoMockRecorder) CreateAnimeSerieServerDubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieServerDubTorrent", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieServerDubTorrent), arg0, arg1)
+}
+
 // CreateAnimeSerieServerDubVideo mocks base method.
 func (m *MockGojo) CreateAnimeSerieServerDubVideo(arg0 context.Context, arg1 db.CreateAnimeSerieServerDubVideoParams) (db.AnimeSerieServerDubVideo, error) {
 	m.ctrl.T.Helper()
@@ -636,6 +666,21 @@ func (mr *MockGojoMockRecorder) CreateAnimeSerieServerDubVideo(arg0, arg1 interf
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieServerDubVideo", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieServerDubVideo), arg0, arg1)
 }
 
+// CreateAnimeSerieServerSubTorrent mocks base method.
+func (m *MockGojo) CreateAnimeSerieServerSubTorrent(arg0 context.Context, arg1 db.CreateAnimeSerieServerSubTorrentParams) (db.AnimeSerieServerSubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeSerieServerSubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeSerieServerSubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeSerieServerSubTorrent indicates an expected call of CreateAnimeSerieServerSubTorrent.
+func (mr *MockGojoMockRecorder) CreateAnimeSerieServerSubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieServerSubTorrent", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieServerSubTorrent), arg0, arg1)
+}
+
 // CreateAnimeSerieServerSubVideo mocks base method.
 func (m *MockGojo) CreateAnimeSerieServerSubVideo(arg0 context.Context, arg1 db.CreateAnimeSerieServerSubVideoParams) (db.AnimeSerieServerSubVideo, error) {
 	m.ctrl.T.Helper()
@@ -649,21 +694,6 @@ func (m *MockGojo) CreateAnimeSerieServerSubVideo(arg0 context.Context, arg1 db.
 func (mr *MockGojoMockRecorder) CreateAnimeSerieServerSubVideo(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieServerSubVideo", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieServerSubVideo), arg0, arg1)
-}
-
-// CreateAnimeSerieServerTorrent mocks base method.
-func (m *MockGojo) CreateAnimeSerieServerTorrent(arg0 context.Context, arg1 db.CreateAnimeSerieServerTorrentParams) (db.AnimeSerieServerTorrent, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateAnimeSerieServerTorrent", arg0, arg1)
-	ret0, _ := ret[0].(db.AnimeSerieServerTorrent)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// CreateAnimeSerieServerTorrent indicates an expected call of CreateAnimeSerieServerTorrent.
-func (mr *MockGojoMockRecorder) CreateAnimeSerieServerTorrent(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieServerTorrent", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieServerTorrent), arg0, arg1)
 }
 
 // CreateAnimeSerieStudio mocks base method.
@@ -989,6 +1019,20 @@ func (mr *MockGojoMockRecorder) DeleteAnimeMovieServer(arg0, arg1 interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeMovieServer", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeMovieServer), arg0, arg1)
 }
 
+// DeleteAnimeMovieServerDubTorrent mocks base method.
+func (m *MockGojo) DeleteAnimeMovieServerDubTorrent(arg0 context.Context, arg1 int64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteAnimeMovieServerDubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteAnimeMovieServerDubTorrent indicates an expected call of DeleteAnimeMovieServerDubTorrent.
+func (mr *MockGojoMockRecorder) DeleteAnimeMovieServerDubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeMovieServerDubTorrent", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeMovieServerDubTorrent), arg0, arg1)
+}
+
 // DeleteAnimeMovieServerDubVideo mocks base method.
 func (m *MockGojo) DeleteAnimeMovieServerDubVideo(arg0 context.Context, arg1 int64) error {
 	m.ctrl.T.Helper()
@@ -1003,6 +1047,20 @@ func (mr *MockGojoMockRecorder) DeleteAnimeMovieServerDubVideo(arg0, arg1 interf
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeMovieServerDubVideo", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeMovieServerDubVideo), arg0, arg1)
 }
 
+// DeleteAnimeMovieServerSubTorrent mocks base method.
+func (m *MockGojo) DeleteAnimeMovieServerSubTorrent(arg0 context.Context, arg1 int64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteAnimeMovieServerSubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteAnimeMovieServerSubTorrent indicates an expected call of DeleteAnimeMovieServerSubTorrent.
+func (mr *MockGojoMockRecorder) DeleteAnimeMovieServerSubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeMovieServerSubTorrent", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeMovieServerSubTorrent), arg0, arg1)
+}
+
 // DeleteAnimeMovieServerSubVideo mocks base method.
 func (m *MockGojo) DeleteAnimeMovieServerSubVideo(arg0 context.Context, arg1 int64) error {
 	m.ctrl.T.Helper()
@@ -1015,20 +1073,6 @@ func (m *MockGojo) DeleteAnimeMovieServerSubVideo(arg0 context.Context, arg1 int
 func (mr *MockGojoMockRecorder) DeleteAnimeMovieServerSubVideo(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeMovieServerSubVideo", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeMovieServerSubVideo), arg0, arg1)
-}
-
-// DeleteAnimeMovieServerTorrent mocks base method.
-func (m *MockGojo) DeleteAnimeMovieServerTorrent(arg0 context.Context, arg1 int64) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteAnimeMovieServerTorrent", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// DeleteAnimeMovieServerTorrent indicates an expected call of DeleteAnimeMovieServerTorrent.
-func (mr *MockGojoMockRecorder) DeleteAnimeMovieServerTorrent(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeMovieServerTorrent", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeMovieServerTorrent), arg0, arg1)
 }
 
 // DeleteAnimeMovieStudio mocks base method.
@@ -1255,6 +1299,20 @@ func (mr *MockGojoMockRecorder) DeleteAnimeSerieServer(arg0, arg1 interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeSerieServer", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeSerieServer), arg0, arg1)
 }
 
+// DeleteAnimeSerieServerDubTorrent mocks base method.
+func (m *MockGojo) DeleteAnimeSerieServerDubTorrent(arg0 context.Context, arg1 int64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteAnimeSerieServerDubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteAnimeSerieServerDubTorrent indicates an expected call of DeleteAnimeSerieServerDubTorrent.
+func (mr *MockGojoMockRecorder) DeleteAnimeSerieServerDubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeSerieServerDubTorrent", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeSerieServerDubTorrent), arg0, arg1)
+}
+
 // DeleteAnimeSerieServerDubVideo mocks base method.
 func (m *MockGojo) DeleteAnimeSerieServerDubVideo(arg0 context.Context, arg1 int64) error {
 	m.ctrl.T.Helper()
@@ -1269,6 +1327,20 @@ func (mr *MockGojoMockRecorder) DeleteAnimeSerieServerDubVideo(arg0, arg1 interf
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeSerieServerDubVideo", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeSerieServerDubVideo), arg0, arg1)
 }
 
+// DeleteAnimeSerieServerSubTorrent mocks base method.
+func (m *MockGojo) DeleteAnimeSerieServerSubTorrent(arg0 context.Context, arg1 int64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteAnimeSerieServerSubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteAnimeSerieServerSubTorrent indicates an expected call of DeleteAnimeSerieServerSubTorrent.
+func (mr *MockGojoMockRecorder) DeleteAnimeSerieServerSubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeSerieServerSubTorrent", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeSerieServerSubTorrent), arg0, arg1)
+}
+
 // DeleteAnimeSerieServerSubVideo mocks base method.
 func (m *MockGojo) DeleteAnimeSerieServerSubVideo(arg0 context.Context, arg1 int64) error {
 	m.ctrl.T.Helper()
@@ -1281,20 +1353,6 @@ func (m *MockGojo) DeleteAnimeSerieServerSubVideo(arg0 context.Context, arg1 int
 func (mr *MockGojoMockRecorder) DeleteAnimeSerieServerSubVideo(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeSerieServerSubVideo", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeSerieServerSubVideo), arg0, arg1)
-}
-
-// DeleteAnimeSerieServerTorrent mocks base method.
-func (m *MockGojo) DeleteAnimeSerieServerTorrent(arg0 context.Context, arg1 int64) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteAnimeSerieServerTorrent", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// DeleteAnimeSerieServerTorrent indicates an expected call of DeleteAnimeSerieServerTorrent.
-func (mr *MockGojoMockRecorder) DeleteAnimeSerieServerTorrent(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeSerieServerTorrent", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeSerieServerTorrent), arg0, arg1)
 }
 
 // DeleteAnimeSerieStudio mocks base method.
@@ -1558,6 +1616,21 @@ func (mr *MockGojoMockRecorder) GetAnimeMovieServer(arg0, arg1 interface{}) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieServer", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieServer), arg0, arg1)
 }
 
+// GetAnimeMovieServerDubTorrent mocks base method.
+func (m *MockGojo) GetAnimeMovieServerDubTorrent(arg0 context.Context, arg1 int64) (db.AnimeMovieServerDubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeMovieServerDubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeMovieServerDubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeMovieServerDubTorrent indicates an expected call of GetAnimeMovieServerDubTorrent.
+func (mr *MockGojoMockRecorder) GetAnimeMovieServerDubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieServerDubTorrent", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieServerDubTorrent), arg0, arg1)
+}
+
 // GetAnimeMovieServerDubVideo mocks base method.
 func (m *MockGojo) GetAnimeMovieServerDubVideo(arg0 context.Context, arg1 int64) (db.AnimeMovieServerDubVideo, error) {
 	m.ctrl.T.Helper()
@@ -1573,6 +1646,21 @@ func (mr *MockGojoMockRecorder) GetAnimeMovieServerDubVideo(arg0, arg1 interface
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieServerDubVideo", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieServerDubVideo), arg0, arg1)
 }
 
+// GetAnimeMovieServerSubTorrent mocks base method.
+func (m *MockGojo) GetAnimeMovieServerSubTorrent(arg0 context.Context, arg1 int64) (db.AnimeMovieServerSubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeMovieServerSubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeMovieServerSubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeMovieServerSubTorrent indicates an expected call of GetAnimeMovieServerSubTorrent.
+func (mr *MockGojoMockRecorder) GetAnimeMovieServerSubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieServerSubTorrent", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieServerSubTorrent), arg0, arg1)
+}
+
 // GetAnimeMovieServerSubVideo mocks base method.
 func (m *MockGojo) GetAnimeMovieServerSubVideo(arg0 context.Context, arg1 int64) (db.AnimeMovieServerSubVideo, error) {
 	m.ctrl.T.Helper()
@@ -1586,21 +1674,6 @@ func (m *MockGojo) GetAnimeMovieServerSubVideo(arg0 context.Context, arg1 int64)
 func (mr *MockGojoMockRecorder) GetAnimeMovieServerSubVideo(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieServerSubVideo", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieServerSubVideo), arg0, arg1)
-}
-
-// GetAnimeMovieServerTorrent mocks base method.
-func (m *MockGojo) GetAnimeMovieServerTorrent(arg0 context.Context, arg1 int64) (db.AnimeMovieServerTorrent, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetAnimeMovieServerTorrent", arg0, arg1)
-	ret0, _ := ret[0].(db.AnimeMovieServerTorrent)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetAnimeMovieServerTorrent indicates an expected call of GetAnimeMovieServerTorrent.
-func (mr *MockGojoMockRecorder) GetAnimeMovieServerTorrent(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieServerTorrent", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieServerTorrent), arg0, arg1)
 }
 
 // GetAnimeMovieStudio mocks base method.
@@ -1873,6 +1946,21 @@ func (mr *MockGojoMockRecorder) GetAnimeSerieServer(arg0, arg1 interface{}) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeSerieServer", reflect.TypeOf((*MockGojo)(nil).GetAnimeSerieServer), arg0, arg1)
 }
 
+// GetAnimeSerieServerDubTorrent mocks base method.
+func (m *MockGojo) GetAnimeSerieServerDubTorrent(arg0 context.Context, arg1 int64) (db.AnimeSerieServerDubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeSerieServerDubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeSerieServerDubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeSerieServerDubTorrent indicates an expected call of GetAnimeSerieServerDubTorrent.
+func (mr *MockGojoMockRecorder) GetAnimeSerieServerDubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeSerieServerDubTorrent", reflect.TypeOf((*MockGojo)(nil).GetAnimeSerieServerDubTorrent), arg0, arg1)
+}
+
 // GetAnimeSerieServerDubVideo mocks base method.
 func (m *MockGojo) GetAnimeSerieServerDubVideo(arg0 context.Context, arg1 int64) (db.AnimeSerieServerDubVideo, error) {
 	m.ctrl.T.Helper()
@@ -1888,6 +1976,21 @@ func (mr *MockGojoMockRecorder) GetAnimeSerieServerDubVideo(arg0, arg1 interface
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeSerieServerDubVideo", reflect.TypeOf((*MockGojo)(nil).GetAnimeSerieServerDubVideo), arg0, arg1)
 }
 
+// GetAnimeSerieServerSubTorrent mocks base method.
+func (m *MockGojo) GetAnimeSerieServerSubTorrent(arg0 context.Context, arg1 int64) (db.AnimeSerieServerSubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeSerieServerSubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeSerieServerSubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeSerieServerSubTorrent indicates an expected call of GetAnimeSerieServerSubTorrent.
+func (mr *MockGojoMockRecorder) GetAnimeSerieServerSubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeSerieServerSubTorrent", reflect.TypeOf((*MockGojo)(nil).GetAnimeSerieServerSubTorrent), arg0, arg1)
+}
+
 // GetAnimeSerieServerSubVideo mocks base method.
 func (m *MockGojo) GetAnimeSerieServerSubVideo(arg0 context.Context, arg1 int64) (db.AnimeSerieServerSubVideo, error) {
 	m.ctrl.T.Helper()
@@ -1901,21 +2004,6 @@ func (m *MockGojo) GetAnimeSerieServerSubVideo(arg0 context.Context, arg1 int64)
 func (mr *MockGojoMockRecorder) GetAnimeSerieServerSubVideo(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeSerieServerSubVideo", reflect.TypeOf((*MockGojo)(nil).GetAnimeSerieServerSubVideo), arg0, arg1)
-}
-
-// GetAnimeSerieServerTorrent mocks base method.
-func (m *MockGojo) GetAnimeSerieServerTorrent(arg0 context.Context, arg1 int64) (db.AnimeSerieServerTorrent, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetAnimeSerieServerTorrent", arg0, arg1)
-	ret0, _ := ret[0].(db.AnimeSerieServerTorrent)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetAnimeSerieServerTorrent indicates an expected call of GetAnimeSerieServerTorrent.
-func (mr *MockGojoMockRecorder) GetAnimeSerieServerTorrent(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeSerieServerTorrent", reflect.TypeOf((*MockGojo)(nil).GetAnimeSerieServerTorrent), arg0, arg1)
 }
 
 // GetAnimeSerieStudio mocks base method.
@@ -2128,6 +2216,21 @@ func (mr *MockGojoMockRecorder) ListAnimeMovieResourcesByAnimeID(arg0, arg1 inte
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeMovieResourcesByAnimeID", reflect.TypeOf((*MockGojo)(nil).ListAnimeMovieResourcesByAnimeID), arg0, arg1)
 }
 
+// ListAnimeMovieServerDubTorrents mocks base method.
+func (m *MockGojo) ListAnimeMovieServerDubTorrents(arg0 context.Context, arg1 int64) ([]db.AnimeMovieServerDubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListAnimeMovieServerDubTorrents", arg0, arg1)
+	ret0, _ := ret[0].([]db.AnimeMovieServerDubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListAnimeMovieServerDubTorrents indicates an expected call of ListAnimeMovieServerDubTorrents.
+func (mr *MockGojoMockRecorder) ListAnimeMovieServerDubTorrents(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeMovieServerDubTorrents", reflect.TypeOf((*MockGojo)(nil).ListAnimeMovieServerDubTorrents), arg0, arg1)
+}
+
 // ListAnimeMovieServerDubVideos mocks base method.
 func (m *MockGojo) ListAnimeMovieServerDubVideos(arg0 context.Context, arg1 int64) ([]db.AnimeMovieServerDubVideo, error) {
 	m.ctrl.T.Helper()
@@ -2143,6 +2246,21 @@ func (mr *MockGojoMockRecorder) ListAnimeMovieServerDubVideos(arg0, arg1 interfa
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeMovieServerDubVideos", reflect.TypeOf((*MockGojo)(nil).ListAnimeMovieServerDubVideos), arg0, arg1)
 }
 
+// ListAnimeMovieServerSubTorrents mocks base method.
+func (m *MockGojo) ListAnimeMovieServerSubTorrents(arg0 context.Context, arg1 int64) ([]db.AnimeMovieServerSubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListAnimeMovieServerSubTorrents", arg0, arg1)
+	ret0, _ := ret[0].([]db.AnimeMovieServerSubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListAnimeMovieServerSubTorrents indicates an expected call of ListAnimeMovieServerSubTorrents.
+func (mr *MockGojoMockRecorder) ListAnimeMovieServerSubTorrents(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeMovieServerSubTorrents", reflect.TypeOf((*MockGojo)(nil).ListAnimeMovieServerSubTorrents), arg0, arg1)
+}
+
 // ListAnimeMovieServerSubVideos mocks base method.
 func (m *MockGojo) ListAnimeMovieServerSubVideos(arg0 context.Context, arg1 int64) ([]db.AnimeMovieServerSubVideo, error) {
 	m.ctrl.T.Helper()
@@ -2156,21 +2274,6 @@ func (m *MockGojo) ListAnimeMovieServerSubVideos(arg0 context.Context, arg1 int6
 func (mr *MockGojoMockRecorder) ListAnimeMovieServerSubVideos(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeMovieServerSubVideos", reflect.TypeOf((*MockGojo)(nil).ListAnimeMovieServerSubVideos), arg0, arg1)
-}
-
-// ListAnimeMovieServerTorrents mocks base method.
-func (m *MockGojo) ListAnimeMovieServerTorrents(arg0 context.Context, arg1 int64) ([]db.AnimeMovieServerTorrent, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListAnimeMovieServerTorrents", arg0, arg1)
-	ret0, _ := ret[0].([]db.AnimeMovieServerTorrent)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// ListAnimeMovieServerTorrents indicates an expected call of ListAnimeMovieServerTorrents.
-func (mr *MockGojoMockRecorder) ListAnimeMovieServerTorrents(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeMovieServerTorrents", reflect.TypeOf((*MockGojo)(nil).ListAnimeMovieServerTorrents), arg0, arg1)
 }
 
 // ListAnimeMovieServers mocks base method.
@@ -2398,6 +2501,21 @@ func (mr *MockGojoMockRecorder) ListAnimeSerieSeasonsByAnimeID(arg0, arg1 interf
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeSerieSeasonsByAnimeID", reflect.TypeOf((*MockGojo)(nil).ListAnimeSerieSeasonsByAnimeID), arg0, arg1)
 }
 
+// ListAnimeSerieServerDubTorrents mocks base method.
+func (m *MockGojo) ListAnimeSerieServerDubTorrents(arg0 context.Context, arg1 int64) ([]db.AnimeSerieServerDubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListAnimeSerieServerDubTorrents", arg0, arg1)
+	ret0, _ := ret[0].([]db.AnimeSerieServerDubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListAnimeSerieServerDubTorrents indicates an expected call of ListAnimeSerieServerDubTorrents.
+func (mr *MockGojoMockRecorder) ListAnimeSerieServerDubTorrents(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeSerieServerDubTorrents", reflect.TypeOf((*MockGojo)(nil).ListAnimeSerieServerDubTorrents), arg0, arg1)
+}
+
 // ListAnimeSerieServerDubVideos mocks base method.
 func (m *MockGojo) ListAnimeSerieServerDubVideos(arg0 context.Context, arg1 int64) ([]db.AnimeSerieServerDubVideo, error) {
 	m.ctrl.T.Helper()
@@ -2413,6 +2531,21 @@ func (mr *MockGojoMockRecorder) ListAnimeSerieServerDubVideos(arg0, arg1 interfa
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeSerieServerDubVideos", reflect.TypeOf((*MockGojo)(nil).ListAnimeSerieServerDubVideos), arg0, arg1)
 }
 
+// ListAnimeSerieServerSubTorrents mocks base method.
+func (m *MockGojo) ListAnimeSerieServerSubTorrents(arg0 context.Context, arg1 int64) ([]db.AnimeSerieServerSubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListAnimeSerieServerSubTorrents", arg0, arg1)
+	ret0, _ := ret[0].([]db.AnimeSerieServerSubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListAnimeSerieServerSubTorrents indicates an expected call of ListAnimeSerieServerSubTorrents.
+func (mr *MockGojoMockRecorder) ListAnimeSerieServerSubTorrents(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeSerieServerSubTorrents", reflect.TypeOf((*MockGojo)(nil).ListAnimeSerieServerSubTorrents), arg0, arg1)
+}
+
 // ListAnimeSerieServerSubVideos mocks base method.
 func (m *MockGojo) ListAnimeSerieServerSubVideos(arg0 context.Context, arg1 int64) ([]db.AnimeSerieServerSubVideo, error) {
 	m.ctrl.T.Helper()
@@ -2426,21 +2559,6 @@ func (m *MockGojo) ListAnimeSerieServerSubVideos(arg0 context.Context, arg1 int6
 func (mr *MockGojoMockRecorder) ListAnimeSerieServerSubVideos(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeSerieServerSubVideos", reflect.TypeOf((*MockGojo)(nil).ListAnimeSerieServerSubVideos), arg0, arg1)
-}
-
-// ListAnimeSerieServerTorrents mocks base method.
-func (m *MockGojo) ListAnimeSerieServerTorrents(arg0 context.Context, arg1 int64) ([]db.AnimeSerieServerTorrent, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListAnimeSerieServerTorrents", arg0, arg1)
-	ret0, _ := ret[0].([]db.AnimeSerieServerTorrent)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// ListAnimeSerieServerTorrents indicates an expected call of ListAnimeSerieServerTorrents.
-func (mr *MockGojoMockRecorder) ListAnimeSerieServerTorrents(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeSerieServerTorrents", reflect.TypeOf((*MockGojo)(nil).ListAnimeSerieServerTorrents), arg0, arg1)
 }
 
 // ListAnimeSerieServers mocks base method.
@@ -2667,6 +2785,21 @@ func (mr *MockGojoMockRecorder) UpdateAnimeMovieServer(arg0, arg1 interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeMovieServer", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeMovieServer), arg0, arg1)
 }
 
+// UpdateAnimeMovieServerDubTorrent mocks base method.
+func (m *MockGojo) UpdateAnimeMovieServerDubTorrent(arg0 context.Context, arg1 db.UpdateAnimeMovieServerDubTorrentParams) (db.AnimeMovieServerDubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateAnimeMovieServerDubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeMovieServerDubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateAnimeMovieServerDubTorrent indicates an expected call of UpdateAnimeMovieServerDubTorrent.
+func (mr *MockGojoMockRecorder) UpdateAnimeMovieServerDubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeMovieServerDubTorrent", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeMovieServerDubTorrent), arg0, arg1)
+}
+
 // UpdateAnimeMovieServerDubVideo mocks base method.
 func (m *MockGojo) UpdateAnimeMovieServerDubVideo(arg0 context.Context, arg1 db.UpdateAnimeMovieServerDubVideoParams) (db.AnimeMovieServerDubVideo, error) {
 	m.ctrl.T.Helper()
@@ -2682,6 +2815,21 @@ func (mr *MockGojoMockRecorder) UpdateAnimeMovieServerDubVideo(arg0, arg1 interf
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeMovieServerDubVideo", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeMovieServerDubVideo), arg0, arg1)
 }
 
+// UpdateAnimeMovieServerSubTorrent mocks base method.
+func (m *MockGojo) UpdateAnimeMovieServerSubTorrent(arg0 context.Context, arg1 db.UpdateAnimeMovieServerSubTorrentParams) (db.AnimeMovieServerSubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateAnimeMovieServerSubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeMovieServerSubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateAnimeMovieServerSubTorrent indicates an expected call of UpdateAnimeMovieServerSubTorrent.
+func (mr *MockGojoMockRecorder) UpdateAnimeMovieServerSubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeMovieServerSubTorrent", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeMovieServerSubTorrent), arg0, arg1)
+}
+
 // UpdateAnimeMovieServerSubVideo mocks base method.
 func (m *MockGojo) UpdateAnimeMovieServerSubVideo(arg0 context.Context, arg1 db.UpdateAnimeMovieServerSubVideoParams) (db.AnimeMovieServerSubVideo, error) {
 	m.ctrl.T.Helper()
@@ -2695,21 +2843,6 @@ func (m *MockGojo) UpdateAnimeMovieServerSubVideo(arg0 context.Context, arg1 db.
 func (mr *MockGojoMockRecorder) UpdateAnimeMovieServerSubVideo(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeMovieServerSubVideo", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeMovieServerSubVideo), arg0, arg1)
-}
-
-// UpdateAnimeMovieServerTorrent mocks base method.
-func (m *MockGojo) UpdateAnimeMovieServerTorrent(arg0 context.Context, arg1 db.UpdateAnimeMovieServerTorrentParams) (db.AnimeMovieServerTorrent, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateAnimeMovieServerTorrent", arg0, arg1)
-	ret0, _ := ret[0].(db.AnimeMovieServerTorrent)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// UpdateAnimeMovieServerTorrent indicates an expected call of UpdateAnimeMovieServerTorrent.
-func (mr *MockGojoMockRecorder) UpdateAnimeMovieServerTorrent(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeMovieServerTorrent", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeMovieServerTorrent), arg0, arg1)
 }
 
 // UpdateAnimeMovieTorrent mocks base method.
@@ -2892,6 +3025,21 @@ func (mr *MockGojoMockRecorder) UpdateAnimeSerieServer(arg0, arg1 interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeSerieServer", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeSerieServer), arg0, arg1)
 }
 
+// UpdateAnimeSerieServerDubTorrent mocks base method.
+func (m *MockGojo) UpdateAnimeSerieServerDubTorrent(arg0 context.Context, arg1 db.UpdateAnimeSerieServerDubTorrentParams) (db.AnimeSerieServerDubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateAnimeSerieServerDubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeSerieServerDubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateAnimeSerieServerDubTorrent indicates an expected call of UpdateAnimeSerieServerDubTorrent.
+func (mr *MockGojoMockRecorder) UpdateAnimeSerieServerDubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeSerieServerDubTorrent", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeSerieServerDubTorrent), arg0, arg1)
+}
+
 // UpdateAnimeSerieServerDubVideo mocks base method.
 func (m *MockGojo) UpdateAnimeSerieServerDubVideo(arg0 context.Context, arg1 db.UpdateAnimeSerieServerDubVideoParams) (db.AnimeSerieServerDubVideo, error) {
 	m.ctrl.T.Helper()
@@ -2907,6 +3055,21 @@ func (mr *MockGojoMockRecorder) UpdateAnimeSerieServerDubVideo(arg0, arg1 interf
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeSerieServerDubVideo", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeSerieServerDubVideo), arg0, arg1)
 }
 
+// UpdateAnimeSerieServerSubTorrent mocks base method.
+func (m *MockGojo) UpdateAnimeSerieServerSubTorrent(arg0 context.Context, arg1 db.UpdateAnimeSerieServerSubTorrentParams) (db.AnimeSerieServerSubTorrent, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateAnimeSerieServerSubTorrent", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeSerieServerSubTorrent)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateAnimeSerieServerSubTorrent indicates an expected call of UpdateAnimeSerieServerSubTorrent.
+func (mr *MockGojoMockRecorder) UpdateAnimeSerieServerSubTorrent(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeSerieServerSubTorrent", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeSerieServerSubTorrent), arg0, arg1)
+}
+
 // UpdateAnimeSerieServerSubVideo mocks base method.
 func (m *MockGojo) UpdateAnimeSerieServerSubVideo(arg0 context.Context, arg1 db.UpdateAnimeSerieServerSubVideoParams) (db.AnimeSerieServerSubVideo, error) {
 	m.ctrl.T.Helper()
@@ -2920,21 +3083,6 @@ func (m *MockGojo) UpdateAnimeSerieServerSubVideo(arg0 context.Context, arg1 db.
 func (mr *MockGojoMockRecorder) UpdateAnimeSerieServerSubVideo(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeSerieServerSubVideo", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeSerieServerSubVideo), arg0, arg1)
-}
-
-// UpdateAnimeSerieServerTorrent mocks base method.
-func (m *MockGojo) UpdateAnimeSerieServerTorrent(arg0 context.Context, arg1 db.UpdateAnimeSerieServerTorrentParams) (db.AnimeSerieServerTorrent, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateAnimeSerieServerTorrent", arg0, arg1)
-	ret0, _ := ret[0].(db.AnimeSerieServerTorrent)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// UpdateAnimeSerieServerTorrent indicates an expected call of UpdateAnimeSerieServerTorrent.
-func (mr *MockGojoMockRecorder) UpdateAnimeSerieServerTorrent(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeSerieServerTorrent", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeSerieServerTorrent), arg0, arg1)
 }
 
 // UpdateAnimeSerieTorrent mocks base method.
