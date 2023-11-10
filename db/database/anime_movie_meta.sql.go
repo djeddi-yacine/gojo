@@ -49,7 +49,8 @@ func (q *Queries) DeleteAnimeMovieMeta(ctx context.Context, arg DeleteAnimeMovie
 }
 
 const getAnimeMovieMeta = `-- name: GetAnimeMovieMeta :one
-SELECT meta_id FROM anime_movie_metas
+SELECT meta_id 
+FROM anime_movie_metas
 WHERE anime_id = $1 AND language_id = $2
 `
 
@@ -65,8 +66,28 @@ func (q *Queries) GetAnimeMovieMeta(ctx context.Context, arg GetAnimeMovieMetaPa
 	return meta_id, err
 }
 
+const getAnimeMovieMetaByID = `-- name: GetAnimeMovieMetaByID :one
+SELECT id, anime_id, language_id, meta_id 
+FROM anime_movie_metas
+WHERE id = $1
+ORDER BY id
+`
+
+func (q *Queries) GetAnimeMovieMetaByID(ctx context.Context, id int64) (AnimeMovieMeta, error) {
+	row := q.db.QueryRow(ctx, getAnimeMovieMetaByID, id)
+	var i AnimeMovieMeta
+	err := row.Scan(
+		&i.ID,
+		&i.AnimeID,
+		&i.LanguageID,
+		&i.MetaID,
+	)
+	return i, err
+}
+
 const listAnimeMovieMetas = `-- name: ListAnimeMovieMetas :many
-SELECT meta_id FROM anime_movie_metas
+SELECT meta_id 
+FROM anime_movie_metas
 WHERE anime_id = $1
 ORDER BY id
 `

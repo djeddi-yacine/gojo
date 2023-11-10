@@ -75,15 +75,9 @@ func (gojo *SQLGojo) CreateAnimeSerieEpisodeTx(ctx context.Context, arg CreateAn
 					return err
 				}
 
-				l, err := q.GetLanguage(ctx, m.LanguageID)
-				if err != nil {
-					ErrorSQL(err)
-					return err
-				}
-
 				result.AnimeSerieEpisodeMetas[i] = AnimeMetaTxResult{
-					Meta:     meta,
-					Language: l,
+					Meta:       meta,
+					LanguageID: m.LanguageID,
 				}
 
 			}

@@ -6,7 +6,6 @@ type AnimeMetaTxParam struct {
 }
 
 type AnimeMetaTxResult struct {
-	Language Language
-	Meta     Meta
+	LanguageID int32
+	Meta       Meta
 }
-

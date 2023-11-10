@@ -4,7 +4,7 @@ VALUES ($1, $2, $3)
 RETURNING *;
 
 -- name: GetAnimeMovieMetaByID :one
-SELECT meta_id 
+SELECT * 
 FROM anime_movie_metas
 WHERE id = $1
 ORDER BY id;

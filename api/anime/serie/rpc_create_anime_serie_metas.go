@@ -55,9 +55,9 @@ func (server *AnimeSerieServer) CreateAnimeSerieMetas(ctx context.Context, req *
 
 	for i, am := range metas.AnimeSerieMetasTxResults {
 		PBAM[i] = &nfpb.AnimeMetaResponse{
-			Meta:      shared.ConvertMeta(am.Meta),
-			Language:  shared.ConvertLanguage(am.Language),
-			CreatedAt: timestamppb.New(am.Meta.CreatedAt),
+			Meta:       shared.ConvertMeta(am.Meta),
+			LanguageID: am.LanguageID,
+			CreatedAt:  timestamppb.New(am.Meta.CreatedAt),
 		}
 	}
 

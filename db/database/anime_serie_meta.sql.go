@@ -66,6 +66,25 @@ func (q *Queries) GetAnimeSerieMeta(ctx context.Context, arg GetAnimeSerieMetaPa
 	return meta_id, err
 }
 
+const getAnimeSerieMetaByID = `-- name: GetAnimeSerieMetaByID :one
+SELECT id, anime_id, language_id, meta_id 
+FROM anime_serie_metas
+WHERE id = $1
+ORDER BY id
+`
+
+func (q *Queries) GetAnimeSerieMetaByID(ctx context.Context, id int64) (AnimeSerieMeta, error) {
+	row := q.db.QueryRow(ctx, getAnimeSerieMetaByID, id)
+	var i AnimeSerieMeta
+	err := row.Scan(
+		&i.ID,
+		&i.AnimeID,
+		&i.LanguageID,
+		&i.MetaID,
+	)
+	return i, err
+}
+
 const listAnimeSerieMetas = `-- name: ListAnimeSerieMetas :many
 SELECT meta_id
 FROM anime_serie_metas

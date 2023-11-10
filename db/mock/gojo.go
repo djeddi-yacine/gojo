@@ -1513,6 +1513,21 @@ func (mr *MockGojoMockRecorder) GetAnimeMovieMeta(arg0, arg1 interface{}) *gomoc
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieMeta", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieMeta), arg0, arg1)
 }
 
+// GetAnimeMovieMetaByID mocks base method.
+func (m *MockGojo) GetAnimeMovieMetaByID(arg0 context.Context, arg1 int64) (db.AnimeMovieMeta, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeMovieMetaByID", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeMovieMeta)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeMovieMetaByID indicates an expected call of GetAnimeMovieMetaByID.
+func (mr *MockGojoMockRecorder) GetAnimeMovieMetaByID(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieMetaByID", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieMetaByID), arg0, arg1)
+}
+
 // GetAnimeMovieResource mocks base method.
 func (m *MockGojo) GetAnimeMovieResource(arg0 context.Context, arg1 int64) (db.AnimeMovieResource, error) {
 	m.ctrl.T.Helper()
@@ -1766,6 +1781,21 @@ func (m *MockGojo) GetAnimeSerieMeta(arg0 context.Context, arg1 db.GetAnimeSerie
 func (mr *MockGojoMockRecorder) GetAnimeSerieMeta(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeSerieMeta", reflect.TypeOf((*MockGojo)(nil).GetAnimeSerieMeta), arg0, arg1)
+}
+
+// GetAnimeSerieMetaByID mocks base method.
+func (m *MockGojo) GetAnimeSerieMetaByID(arg0 context.Context, arg1 int64) (db.AnimeSerieMeta, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeSerieMetaByID", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeSerieMeta)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeSerieMetaByID indicates an expected call of GetAnimeSerieMetaByID.
+func (mr *MockGojoMockRecorder) GetAnimeSerieMetaByID(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeSerieMetaByID", reflect.TypeOf((*MockGojo)(nil).GetAnimeSerieMetaByID), arg0, arg1)
 }
 
 // GetAnimeSerieResource mocks base method.
