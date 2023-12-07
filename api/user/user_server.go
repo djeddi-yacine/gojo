@@ -16,12 +16,10 @@ type UserServer struct {
 }
 
 func NewUserServer(config utils.Config, gojo db.Gojo, tokenMaker token.Maker, taskDistributor worker.TaskDistributor) *UserServer {
-	server := &UserServer{
+	return &UserServer{
 		config:          config,
 		gojo:            gojo,
 		tokenMaker:      tokenMaker,
 		taskDistributor: taskDistributor,
 	}
-
-	return server
 }

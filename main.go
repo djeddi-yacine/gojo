@@ -6,6 +6,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	rt "runtime"
 
 	"github.com/dj-yacine-flutter/gojo/api"
 	"github.com/dj-yacine-flutter/gojo/api/shared"
@@ -24,6 +25,11 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
+
+func init() {
+	// Set GOMAXPROCS to the number of available CPU cores
+	rt.GOMAXPROCS(rt.NumCPU())
+}
 
 func main() {
 	config, err := utils.LoadConfig(".", "gojo")

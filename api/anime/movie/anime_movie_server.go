@@ -14,11 +14,9 @@ type AnimeMovieServer struct {
 }
 
 func NewAnimeMovieServer(config utils.Config, gojo db.Gojo, tokenMaker token.Maker) *AnimeMovieServer {
-	server := &AnimeMovieServer{
+	return &AnimeMovieServer{
 		config:     config,
 		gojo:       gojo,
 		tokenMaker: tokenMaker,
 	}
-
-	return server
 }

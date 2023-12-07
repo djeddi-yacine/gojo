@@ -19,7 +19,7 @@ func (gojo *SQLGojo) CreateAnimeMovieResourceTx(ctx context.Context, arg CreateA
 
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
-		
+
 		anime, err := q.GetAnimeMovie(ctx, arg.AnimeID)
 		if err != nil {
 			ErrorSQL(err)

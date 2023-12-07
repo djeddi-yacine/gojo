@@ -13,7 +13,7 @@ type AddAnimeSerieDataTxParams struct {
 }
 
 type AddAnimeSerieDataTxResult struct {
-	Episode            AnimeSerieEpisode
+	Episode               AnimeSerieEpisode
 	AnimeSerieSubVideos   []AnimeSerieVideo
 	AnimeSerieDubVideos   []AnimeSerieVideo
 	AnimeSerieSubTorrents []AnimeSerieTorrent

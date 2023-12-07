@@ -10,13 +10,16 @@ import (
 	"github.com/google/uuid"
 )
 
-type AnimeMedium struct {
-	ID            int64
-	MediaType     string
-	MediaUrl      string
-	MediaAuthor   string
-	MediaPlatform string
-	CreatedAt     time.Time
+type AnimeImage struct {
+	ID              int64
+	ImageType       int32
+	ImageHost       string
+	ImageUrl        string
+	ImageThumbnails string
+	ImageBlurhash   string
+	ImageHeight     int32
+	ImageWidth      int32
+	CreatedAt       time.Time
 }
 
 type AnimeMovie struct {
@@ -39,10 +42,10 @@ type AnimeMovieGenre struct {
 	GenreID int32
 }
 
-type AnimeMovieMedium struct {
+type AnimeMovieImage struct {
 	ID        int64
 	AnimeID   int64
-	MediaID   int64
+	ImageID   int64
 	CreatedAt time.Time
 }
 
@@ -177,10 +180,10 @@ type AnimeSerieGenre struct {
 	GenreID int32
 }
 
-type AnimeSerieMedium struct {
+type AnimeSerieImage struct {
 	ID        int64
 	AnimeID   int64
-	MediaID   int64
+	ImageID   int64
 	CreatedAt time.Time
 }
 
@@ -215,10 +218,10 @@ type AnimeSerieSeasonEpisode struct {
 	CreatedAt time.Time
 }
 
-type AnimeSerieSeasonMedium struct {
+type AnimeSerieSeasonImage struct {
 	ID        int64
 	SeasonID  int64
-	MediaID   int64
+	ImageID   int64
 	CreatedAt time.Time
 }
 

@@ -12,10 +12,8 @@ type InfoServer struct {
 }
 
 func NewInfoServer(gojo db.Gojo, tokenMaker token.Maker) *InfoServer {
-	server := &InfoServer{
+	return &InfoServer{
 		gojo:       gojo,
 		tokenMaker: tokenMaker,
 	}
-
-	return server
 }

@@ -12,8 +12,7 @@ type SharedServer struct {
 }
 
 func NewSharedServer(tokenMaker token.Maker) *SharedServer {
-	server := &SharedServer{
+	return &SharedServer{
 		tokenMaker: tokenMaker,
 	}
-	return server
 }

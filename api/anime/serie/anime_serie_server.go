@@ -14,11 +14,9 @@ type AnimeSerieServer struct {
 }
 
 func NewAnimeSerieServer(config utils.Config, gojo db.Gojo, tokenMaker token.Maker) *AnimeSerieServer {
-	server := &AnimeSerieServer{
+	return &AnimeSerieServer{
 		config:     config,
 		gojo:       gojo,
 		tokenMaker: tokenMaker,
 	}
-
-	return server
 }

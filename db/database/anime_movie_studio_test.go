@@ -44,7 +44,7 @@ func TestGetAnimeMovieStudio(t *testing.T) {
 	require.NotEmpty(t, studio1)
 
 	studio2, err := testGojo.GetAnimeMovieStudio(context.Background(), GetAnimeMovieStudioParams{
-		AnimeID: a.ID,
+		AnimeID:  a.ID,
 		StudioID: studio1.StudioID,
 	})
 	require.NoError(t, err)

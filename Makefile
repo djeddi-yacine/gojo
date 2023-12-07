@@ -43,8 +43,7 @@ graph:
 test:
 	go test -v -cover -count=1 -short ./... -race
 
-server:
-	go fmt
+server: fmt
 	go clean
 	go clean -cache -x
 	clear
@@ -73,7 +72,7 @@ evans:
 db:
 	dbml2sql --postgres -o doc/schema.sql doc/db.dbml
 
-build:
+build: fmt
 	go clean -x
 	go clean -cache -x
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
@@ -93,4 +92,7 @@ dcs:
 dcd:
 	docker compose down -v
 
-.PHONY: postgres redis createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans db build restart dcs dcd
+fmt:
+	find . -name "*.go" -print0 | xargs -0 gofmt -w
+
+.PHONY: postgres redis createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans db build restart dcs dcd fmt
