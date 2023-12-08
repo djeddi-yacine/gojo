@@ -92,3 +92,8 @@ sql:
           anime_movie_images: "AnimeMovieImage"
           anime_serie_images: "AnimeSerieImage"
           anime_serie_season_images: "AnimeSerieSeasonImage"
+
+          ## add anime_links
+          anime_links: "AnimeLink"
+          anime_movie_links: "AnimeMovieLink"
+          anime_serie_links: "AnimeSerieLink"
