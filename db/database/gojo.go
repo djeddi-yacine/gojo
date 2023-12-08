@@ -21,7 +21,7 @@ type Gojo interface {
 	CreateAnimeMovieTx(ctx context.Context, arg CreateAnimeMovieTxParams) (CreateAnimeMovieTxResult, error)
 	CreateAnimeSerieTx(ctx context.Context, arg CreateAnimeSerieTxParams) (CreateAnimeSerieTxResult, error)
 	CreateAnimeMovieResourceTx(ctx context.Context, arg CreateAnimeMovieResourceTxParams) (CreateAnimeMovieResourceTxResult, error)
-	CreateAnimeSerieResourceTx(ctx context.Context, arg CreateAnimeSerieResourceTxParams) (CreateAnimeSerieResourceTxResult, error)
+	CreateAnimeSeasonResourceTx(ctx context.Context, arg CreateAnimeSeasonResourceTxParams) (CreateAnimeSeasonResourceTxResult, error)
 	AddAnimeMovieDataTx(ctx context.Context, arg AddAnimeMovieDataTxParams) (AddAnimeMovieDataTxResult, error)
 	CreateAnimeSerieSeasonTx(ctx context.Context, arg CreateAnimeSerieSeasonTxParams) (CreateAnimeSerieSeasonTxResult, error)
 	AddAnimeSerieSeasonMetasTx(ctx context.Context, arg AddAnimeSerieSeasonMetasTxParams) (AddAnimeSerieSeasonMetasTxResult, error)

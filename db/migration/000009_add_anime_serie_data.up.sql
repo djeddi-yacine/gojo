@@ -1,11 +1,11 @@
 CREATE TABLE "anime_serie_seasons" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
-  "season_number" integer UNIQUE NOT NULL,
+  "aired" timestamptz NOT NULL,
+  "release_year" integer NOT NULL,
   "portriat_poster" varchar NOT NULL,
   "portriat_blur_hash" varchar NOT NULL,
-  "landscape_poster" varchar NOT NULL,
-  "landscape_blur_hash" varchar NOT NULL,
+  "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
@@ -82,7 +82,7 @@ CREATE TABLE "anime_serie_server_dub_videos" (
 
 CREATE INDEX ON "anime_serie_seasons" ("id");
 
-CREATE UNIQUE INDEX ON "anime_serie_seasons" ("anime_id", "season_number");
+CREATE INDEX ON "anime_serie_seasons" ("release_year");
 
 CREATE INDEX ON "anime_serie_season_metas" ("id");
 

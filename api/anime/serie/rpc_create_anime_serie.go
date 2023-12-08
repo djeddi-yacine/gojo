@@ -3,7 +3,6 @@ package animeSerie
 import (
 	"context"
 	"errors"
-	"time"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
@@ -30,22 +29,22 @@ func (server *AnimeSerieServer) CreateAnimeSerie(ctx context.Context, req *aspb.
 
 	arg := db.CreateAnimeSerieTxParams{
 		CreateAnimeSerieParams: db.CreateAnimeSerieParams{
-			OriginalTitle:     req.AnimeSerie.GetOriginalTitle(),
-			Aired:             req.AnimeSerie.GetAired().AsTime(),
-			ReleaseYear:       req.AnimeSerie.GetReleaseYear(),
-			Rating:            req.AnimeSerie.GetRating(),
-			PortriatPoster:    req.AnimeSerie.GetPortriatPoster(),
-			PortriatBlurHash:  req.AnimeSerie.GetPortriatBlurHash(),
-			LandscapePoster:   req.AnimeSerie.GetLandscapePoster(),
-			LandscapeBlurHash: req.AnimeSerie.GetLandscapeBlurHash(),
+			OriginalTitle:     req.GetAnimeSerie().GetOriginalTitle(),
+			FirstYear:         req.GetAnimeSerie().GetFirstYear(),
+			LastYear:          req.GetAnimeSerie().GetLastYear(),
+			MalID:             req.GetAnimeSerie().GetMalID(),
+			TvdbID:            req.GetAnimeSerie().GetTvdbID(),
+			TmdbID:            req.GetAnimeSerie().GetTmdbID(),
+			PortriatPoster:    req.GetAnimeSerie().GetPortriatPoster(),
+			PortriatBlurHash:  req.GetAnimeSerie().GetPortriatBlurHash(),
+			LandscapePoster:   req.GetAnimeSerie().GetLandscapePoster(),
+			LandscapeBlurHash: req.GetAnimeSerie().GetLandscapeBlurHash(),
 		},
-		CreateAnimeResourceParams: db.CreateAnimeResourceParams{
-			TmdbID:          req.Resources.GetTMDbID(),
-			ImdbID:          req.Resources.GetIMDbID(),
-			WikipediaUrl:    req.Resources.GetWikipediaUrl(),
-			OfficialWebsite: req.Resources.GetOfficialWebsite(),
-			CrunchyrollUrl:  req.Resources.GetCrunchyrollUrl(),
-			SocialMedia:     req.Resources.GetSocialMedia(),
+		CreateAnimeLinkParams: db.CreateAnimeLinkParams{
+			OfficialWebsite: req.GetAnimeLinks().GetOfficialWebsite(),
+			WikipediaUrl:    req.GetAnimeLinks().GetWikipediaUrl(),
+			CrunchyrollUrl:  req.GetAnimeLinks().GetCrunchyrollUrl(),
+			SocialMedia:     req.GetAnimeLinks().GetSocialMedia(),
 		},
 	}
 
@@ -57,28 +56,36 @@ func (server *AnimeSerieServer) CreateAnimeSerie(ctx context.Context, req *aspb.
 
 	res := &aspb.CreateAnimeSerieResponse{
 		AnimeSerie: shared.ConvertAnimeSerie(data.AnimeSerie),
-		Resources:  shared.ConvertAnimeResource(data.Resource),
+		AnimeLinks: shared.ConvertAnimeLink(data.AnimeLink),
 	}
 	return res, nil
 }
 
 func validateCreateAnimeSerieRequest(req *aspb.CreateAnimeSerieRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 
-	if req.GetAnimeSerie() != nil {
+	if req.AnimeSerie != nil {
 		if err := utils.ValidateString(req.GetAnimeSerie().GetOriginalTitle(), 2, 500); err != nil {
 			violations = append(violations, shared.FieldViolation("originalTitle", err))
 		}
 
-		if err := utils.ValidateDate(req.GetAnimeSerie().GetAired().AsTime().Format(time.DateOnly)); err != nil {
-			violations = append(violations, shared.FieldViolation("aired", err))
+		if err := utils.ValidateYear(req.GetAnimeSerie().GetFirstYear()); err != nil {
+			violations = append(violations, shared.FieldViolation("firstYear", err))
 		}
 
-		if err := utils.ValidateYear(req.GetAnimeSerie().GetReleaseYear()); err != nil {
-			violations = append(violations, shared.FieldViolation("releaseYear", err))
+		if err := utils.ValidateYear(req.GetAnimeSerie().GetLastYear()); err != nil {
+			violations = append(violations, shared.FieldViolation("lastYear", err))
 		}
 
-		if err := utils.ValidateString(req.GetAnimeSerie().GetRating(), 2, 30); err != nil {
-			violations = append(violations, shared.FieldViolation("rating", err))
+		if err := utils.ValidateInt(int64(req.GetAnimeSerie().GetMalID())); err != nil {
+			violations = append(violations, shared.FieldViolation("malID", err))
+		}
+
+		if err := utils.ValidateInt(int64(req.GetAnimeSerie().GetTmdbID())); err != nil {
+			violations = append(violations, shared.FieldViolation("tmdbID", err))
+		}
+
+		if err := utils.ValidateInt(int64(req.GetAnimeSerie().GetTvdbID())); err != nil {
+			violations = append(violations, shared.FieldViolation("tvdbID", err))
 		}
 
 		if err := utils.ValidateImage(req.GetAnimeSerie().GetPortriatPoster()); err != nil {
@@ -101,42 +108,21 @@ func validateCreateAnimeSerieRequest(req *aspb.CreateAnimeSerieRequest) (violati
 		violations = append(violations, shared.FieldViolation("animeSerie", errors.New("you need to send the animeSerie model")))
 	}
 
-	if req.GetResources() != nil {
-		if err := utils.ValidateInt(int64(req.GetResources().GetTMDbID())); err != nil {
-			violations = append(violations, shared.FieldViolation("TMDbID", err))
+	if req.AnimeLinks != nil {
+		if err := utils.ValidateURL(req.GetAnimeLinks().GetOfficialWebsite(), ""); err != nil {
+			violations = append(violations, shared.FieldViolation("officialWebsite", err))
 		}
 
-		if err := utils.ValidateURL(req.GetResources().GetWikipediaUrl(), "wikipedia"); err != nil {
+		if err := utils.ValidateURL(req.GetAnimeLinks().GetCrunchyrollUrl(), "crunchyroll"); err != nil {
+			violations = append(violations, shared.FieldViolation("crunchyrollUrl", err))
+		}
+
+		if err := utils.ValidateURL(req.GetAnimeLinks().GetWikipediaUrl(), "wikipedia"); err != nil {
 			violations = append(violations, shared.FieldViolation("wikipediaUrl", err))
 		}
 
-		if req.GetResources().GetCrunchyrollUrl() != "" {
-			if err := utils.ValidateURL(req.GetResources().GetCrunchyrollUrl(), "crunchyroll"); err != nil {
-				violations = append(violations, shared.FieldViolation("crunchyrollUrl", err))
-			}
-		}
-
-		if req.GetResources().GetOfficialWebsite() != "" {
-			if err := utils.ValidateURL(req.GetResources().GetOfficialWebsite(), ""); err != nil {
-				violations = append(violations, shared.FieldViolation("officialWebsite", err))
-			}
-		}
-
-		if req.GetResources().GetIMDbID() != "" {
-			if err := utils.ValidateIMDbID(req.GetResources().GetIMDbID()); err != nil {
-				violations = append(violations, shared.FieldViolation("IMDbID", err))
-			}
-		}
-
-		if req.GetResources().GetSocialMedia() != nil {
-			for _, s := range req.GetResources().SocialMedia {
-				if err := utils.ValidateURL(s, ""); err != nil {
-					violations = append(violations, shared.FieldViolation("socialMedia", err))
-				}
-			}
-		}
 	} else {
-		violations = append(violations, shared.FieldViolation("resources", errors.New("you need to send the resources model")))
+		violations = append(violations, shared.FieldViolation("animeResources", errors.New("you need to send the AnimeResources model")))
 	}
 
 	return violations

@@ -28,9 +28,9 @@ func (server *AnimeSerieServer) GetAllAnimeSeries(ctx context.Context, req *aspb
 	}
 
 	arg := db.ListAnimeSeriesParams{
-		ReleaseYear: req.GetYear(),
-		Limit:       req.GetPageSize(),
-		Offset:      (req.GetPageNumber() - 1) * req.GetPageSize(),
+		FirstYear: req.GetYear(),
+		Limit:     req.GetPageSize(),
+		Offset:    (req.GetPageNumber() - 1) * req.GetPageSize(),
 	}
 	DBAnimeSeries, err := server.gojo.ListAnimeSeries(ctx, arg)
 	if err != nil {
@@ -60,7 +60,7 @@ func validateGetAllAnimeSeriesRequest(req *aspb.GetAllAnimeSeriesRequest) (viola
 		violations = append(violations, shared.FieldViolation("pageSize", err))
 	}
 
-	if req.GetYear() != 0 {
+	if req.Year != nil {
 		if err := utils.ValidateYear(req.GetYear()); err != nil {
 			violations = append(violations, shared.FieldViolation("year", err))
 		}

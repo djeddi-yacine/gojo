@@ -63,9 +63,8 @@ func ConvertAnimeSerie(a db.AnimeSerie) *aspb.AnimeSerieResponse {
 	return &aspb.AnimeSerieResponse{
 		ID:                a.ID,
 		OriginalTitle:     a.OriginalTitle,
-		Aired:             timestamppb.New(a.Aired),
-		ReleaseYear:       a.ReleaseYear,
-		Rating:            a.Rating,
+		FirstYear:         a.FirstYear,
+		LastYear:          a.LastYear,
 		PortriatPoster:    a.PortriatPoster,
 		PortriatBlurHash:  a.PortriatBlurHash,
 		LandscapePoster:   a.LandscapePoster,
@@ -76,14 +75,30 @@ func ConvertAnimeSerie(a db.AnimeSerie) *aspb.AnimeSerieResponse {
 
 func ConvertAnimeResource(r db.AnimeResource) *shpb.AnimeResourceResponse {
 	return &shpb.AnimeResourceResponse{
-		ID:              r.ID,
-		TMDbID:          r.TmdbID,
-		IMDbID:          r.ImdbID,
-		WikipediaUrl:    r.WikipediaUrl,
-		OfficialWebsite: r.OfficialWebsite,
-		CrunchyrollUrl:  r.CrunchyrollUrl,
-		SocialMedia:     r.SocialMedia,
-		CreatedAt:       timestamppb.New(r.CreatedAt),
+		ID:            r.ID,
+		TvdbID:        r.TvdbID,
+		TmdbID:        r.TvdbID,
+		ImdbID:        r.ImdbID,
+		LivechartID:   r.LivechartID,
+		AnimePlanetID: r.AnimePlanetID,
+		AnisearchID:   r.AnisearchID,
+		AnidbID:       r.AnidbID,
+		KitsuID:       r.KitsuID,
+		MalID:         r.MalID,
+		NotifyMoeID:   r.NotifyMoeID,
+		AnilistID:     r.AnilistID,
+		CreatedAt:     timestamppb.New(r.CreatedAt),
+	}
+}
+
+func ConvertAnimeLink(l db.AnimeLink) *shpb.AnimeLinkResponse {
+	return &shpb.AnimeLinkResponse{
+		ID:              l.ID,
+		OfficialWebsite: l.OfficialWebsite,
+		WikipediaUrl:    l.WikipediaUrl,
+		CrunchyrollUrl:  l.CrunchyrollUrl,
+		SocialMedia:     l.SocialMedia,
+		CreatedAt:       timestamppb.New(l.CreatedAt),
 	}
 }
 
@@ -129,14 +144,14 @@ func ConvertStudios(ss []db.Studio) *nfpb.AnimeStudiosResponse {
 
 func ConvertAnimeSerieSeason(s db.AnimeSerieSeason) *aspb.AnimeSerieSeasonResponse {
 	return &aspb.AnimeSerieSeasonResponse{
-		ID:                s.ID,
-		AnimeID:           s.AnimeID,
-		SeasonNumber:      s.SeasonNumber,
-		PortriatPoster:    s.PortriatPoster,
-		PortriatBlurHash:  s.PortriatBlurHash,
-		LandscapePoster:   s.LandscapePoster,
-		LandscapeBlurHash: s.LandscapeBlurHash,
-		CreatedAt:         timestamppb.New(s.CreatedAt),
+		ID:               s.ID,
+		AnimeID:          s.AnimeID,
+		Aired:            timestamppb.New(s.Aired),
+		ReleaseYear:      s.ReleaseYear,
+		Rating:           s.Rating,
+		PortriatPoster:   s.PortriatPoster,
+		PortriatBlurHash: s.PortriatBlurHash,
+		CreatedAt:        timestamppb.New(s.CreatedAt),
 	}
 }
 

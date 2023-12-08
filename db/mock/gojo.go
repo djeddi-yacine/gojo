@@ -141,6 +141,21 @@ func (mr *MockGojoMockRecorder) CreateAnimeImage(arg0, arg1 interface{}) *gomock
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeImage", reflect.TypeOf((*MockGojo)(nil).CreateAnimeImage), arg0, arg1)
 }
 
+// CreateAnimeLink mocks base method.
+func (m *MockGojo) CreateAnimeLink(arg0 context.Context, arg1 db.CreateAnimeLinkParams) (db.AnimeLink, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeLink", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeLink)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeLink indicates an expected call of CreateAnimeLink.
+func (mr *MockGojoMockRecorder) CreateAnimeLink(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeLink", reflect.TypeOf((*MockGojo)(nil).CreateAnimeLink), arg0, arg1)
+}
+
 // CreateAnimeMovie mocks base method.
 func (m *MockGojo) CreateAnimeMovie(arg0 context.Context, arg1 db.CreateAnimeMovieParams) (db.AnimeMovie, error) {
 	m.ctrl.T.Helper()
@@ -184,6 +199,21 @@ func (m *MockGojo) CreateAnimeMovieImage(arg0 context.Context, arg1 db.CreateAni
 func (mr *MockGojoMockRecorder) CreateAnimeMovieImage(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeMovieImage", reflect.TypeOf((*MockGojo)(nil).CreateAnimeMovieImage), arg0, arg1)
+}
+
+// CreateAnimeMovieLink mocks base method.
+func (m *MockGojo) CreateAnimeMovieLink(arg0 context.Context, arg1 db.CreateAnimeMovieLinkParams) (db.AnimeMovieLink, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeMovieLink", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeMovieLink)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeMovieLink indicates an expected call of CreateAnimeMovieLink.
+func (mr *MockGojoMockRecorder) CreateAnimeMovieLink(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeMovieLink", reflect.TypeOf((*MockGojo)(nil).CreateAnimeMovieLink), arg0, arg1)
 }
 
 // CreateAnimeMovieMeta mocks base method.
@@ -396,6 +426,36 @@ func (mr *MockGojoMockRecorder) CreateAnimeResource(arg0, arg1 interface{}) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeResource", reflect.TypeOf((*MockGojo)(nil).CreateAnimeResource), arg0, arg1)
 }
 
+// CreateAnimeSeasonResource mocks base method.
+func (m *MockGojo) CreateAnimeSeasonResource(arg0 context.Context, arg1 db.CreateAnimeSeasonResourceParams) (db.AnimeSeasonResource, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeSeasonResource", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeSeasonResource)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeSeasonResource indicates an expected call of CreateAnimeSeasonResource.
+func (mr *MockGojoMockRecorder) CreateAnimeSeasonResource(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSeasonResource", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSeasonResource), arg0, arg1)
+}
+
+// CreateAnimeSeasonResourceTx mocks base method.
+func (m *MockGojo) CreateAnimeSeasonResourceTx(arg0 context.Context, arg1 db.CreateAnimeSeasonResourceTxParams) (db.CreateAnimeSeasonResourceTxResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeSeasonResourceTx", arg0, arg1)
+	ret0, _ := ret[0].(db.CreateAnimeSeasonResourceTxResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeSeasonResourceTx indicates an expected call of CreateAnimeSeasonResourceTx.
+func (mr *MockGojoMockRecorder) CreateAnimeSeasonResourceTx(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSeasonResourceTx", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSeasonResourceTx), arg0, arg1)
+}
+
 // CreateAnimeSerie mocks base method.
 func (m *MockGojo) CreateAnimeSerie(arg0 context.Context, arg1 db.CreateAnimeSerieParams) (db.AnimeSerie, error) {
 	m.ctrl.T.Helper()
@@ -501,6 +561,21 @@ func (mr *MockGojoMockRecorder) CreateAnimeSerieImage(arg0, arg1 interface{}) *g
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieImage", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieImage), arg0, arg1)
 }
 
+// CreateAnimeSerieLink mocks base method.
+func (m *MockGojo) CreateAnimeSerieLink(arg0 context.Context, arg1 db.CreateAnimeSerieLinkParams) (db.AnimeSerieLink, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeSerieLink", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeSerieLink)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeSerieLink indicates an expected call of CreateAnimeSerieLink.
+func (mr *MockGojoMockRecorder) CreateAnimeSerieLink(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieLink", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieLink), arg0, arg1)
+}
+
 // CreateAnimeSerieMeta mocks base method.
 func (m *MockGojo) CreateAnimeSerieMeta(arg0 context.Context, arg1 db.CreateAnimeSerieMetaParams) (db.AnimeSerieMeta, error) {
 	m.ctrl.T.Helper()
@@ -529,36 +604,6 @@ func (m *MockGojo) CreateAnimeSerieMetasTx(arg0 context.Context, arg1 db.CreateA
 func (mr *MockGojoMockRecorder) CreateAnimeSerieMetasTx(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieMetasTx", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieMetasTx), arg0, arg1)
-}
-
-// CreateAnimeSerieResource mocks base method.
-func (m *MockGojo) CreateAnimeSerieResource(arg0 context.Context, arg1 db.CreateAnimeSerieResourceParams) (db.AnimeSerieResource, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateAnimeSerieResource", arg0, arg1)
-	ret0, _ := ret[0].(db.AnimeSerieResource)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// CreateAnimeSerieResource indicates an expected call of CreateAnimeSerieResource.
-func (mr *MockGojoMockRecorder) CreateAnimeSerieResource(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieResource", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieResource), arg0, arg1)
-}
-
-// CreateAnimeSerieResourceTx mocks base method.
-func (m *MockGojo) CreateAnimeSerieResourceTx(arg0 context.Context, arg1 db.CreateAnimeSerieResourceTxParams) (db.CreateAnimeSerieResourceTxResult, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "CreateAnimeSerieResourceTx", arg0, arg1)
-	ret0, _ := ret[0].(db.CreateAnimeSerieResourceTxResult)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// CreateAnimeSerieResourceTx indicates an expected call of CreateAnimeSerieResourceTx.
-func (mr *MockGojoMockRecorder) CreateAnimeSerieResourceTx(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieResourceTx", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieResourceTx), arg0, arg1)
 }
 
 // CreateAnimeSerieSeason mocks base method.
@@ -935,6 +980,20 @@ func (mr *MockGojoMockRecorder) DeleteAnimeImage(arg0, arg1 interface{}) *gomock
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeImage", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeImage), arg0, arg1)
 }
 
+// DeleteAnimeLink mocks base method.
+func (m *MockGojo) DeleteAnimeLink(arg0 context.Context, arg1 int64) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteAnimeLink", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteAnimeLink indicates an expected call of DeleteAnimeLink.
+func (mr *MockGojoMockRecorder) DeleteAnimeLink(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeLink", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeLink), arg0, arg1)
+}
+
 // DeleteAnimeMovie mocks base method.
 func (m *MockGojo) DeleteAnimeMovie(arg0 context.Context, arg1 int64) error {
 	m.ctrl.T.Helper()
@@ -975,6 +1034,20 @@ func (m *MockGojo) DeleteAnimeMovieImage(arg0 context.Context, arg1 db.DeleteAni
 func (mr *MockGojoMockRecorder) DeleteAnimeMovieImage(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeMovieImage", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeMovieImage), arg0, arg1)
+}
+
+// DeleteAnimeMovieLink mocks base method.
+func (m *MockGojo) DeleteAnimeMovieLink(arg0 context.Context, arg1 db.DeleteAnimeMovieLinkParams) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteAnimeMovieLink", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteAnimeMovieLink indicates an expected call of DeleteAnimeMovieLink.
+func (mr *MockGojoMockRecorder) DeleteAnimeMovieLink(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeMovieLink", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeMovieLink), arg0, arg1)
 }
 
 // DeleteAnimeMovieMeta mocks base method.
@@ -1131,6 +1204,20 @@ func (mr *MockGojoMockRecorder) DeleteAnimeResource(arg0, arg1 interface{}) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeResource", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeResource), arg0, arg1)
 }
 
+// DeleteAnimeSeasonResource mocks base method.
+func (m *MockGojo) DeleteAnimeSeasonResource(arg0 context.Context, arg1 db.DeleteAnimeSeasonResourceParams) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteAnimeSeasonResource", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteAnimeSeasonResource indicates an expected call of DeleteAnimeSeasonResource.
+func (mr *MockGojoMockRecorder) DeleteAnimeSeasonResource(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeSeasonResource", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeSeasonResource), arg0, arg1)
+}
+
 // DeleteAnimeSerie mocks base method.
 func (m *MockGojo) DeleteAnimeSerie(arg0 context.Context, arg1 int64) error {
 	m.ctrl.T.Helper()
@@ -1215,6 +1302,20 @@ func (mr *MockGojoMockRecorder) DeleteAnimeSerieImage(arg0, arg1 interface{}) *g
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeSerieImage", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeSerieImage), arg0, arg1)
 }
 
+// DeleteAnimeSerieLink mocks base method.
+func (m *MockGojo) DeleteAnimeSerieLink(arg0 context.Context, arg1 db.DeleteAnimeSerieLinkParams) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteAnimeSerieLink", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteAnimeSerieLink indicates an expected call of DeleteAnimeSerieLink.
+func (mr *MockGojoMockRecorder) DeleteAnimeSerieLink(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeSerieLink", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeSerieLink), arg0, arg1)
+}
+
 // DeleteAnimeSerieMeta mocks base method.
 func (m *MockGojo) DeleteAnimeSerieMeta(arg0 context.Context, arg1 db.DeleteAnimeSerieMetaParams) error {
 	m.ctrl.T.Helper()
@@ -1227,20 +1328,6 @@ func (m *MockGojo) DeleteAnimeSerieMeta(arg0 context.Context, arg1 db.DeleteAnim
 func (mr *MockGojoMockRecorder) DeleteAnimeSerieMeta(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeSerieMeta", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeSerieMeta), arg0, arg1)
-}
-
-// DeleteAnimeSerieResource mocks base method.
-func (m *MockGojo) DeleteAnimeSerieResource(arg0 context.Context, arg1 db.DeleteAnimeSerieResourceParams) error {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "DeleteAnimeSerieResource", arg0, arg1)
-	ret0, _ := ret[0].(error)
-	return ret0
-}
-
-// DeleteAnimeSerieResource indicates an expected call of DeleteAnimeSerieResource.
-func (mr *MockGojoMockRecorder) DeleteAnimeSerieResource(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeSerieResource", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeSerieResource), arg0, arg1)
 }
 
 // DeleteAnimeSerieSeason mocks base method.
@@ -1496,6 +1583,21 @@ func (mr *MockGojoMockRecorder) GetAnimeImage(arg0, arg1 interface{}) *gomock.Ca
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeImage", reflect.TypeOf((*MockGojo)(nil).GetAnimeImage), arg0, arg1)
 }
 
+// GetAnimeLink mocks base method.
+func (m *MockGojo) GetAnimeLink(arg0 context.Context, arg1 int64) (db.AnimeLink, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeLink", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeLink)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeLink indicates an expected call of GetAnimeLink.
+func (mr *MockGojoMockRecorder) GetAnimeLink(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeLink", reflect.TypeOf((*MockGojo)(nil).GetAnimeLink), arg0, arg1)
+}
+
 // GetAnimeMovie mocks base method.
 func (m *MockGojo) GetAnimeMovie(arg0 context.Context, arg1 int64) (db.AnimeMovie, error) {
 	m.ctrl.T.Helper()
@@ -1554,6 +1656,21 @@ func (m *MockGojo) GetAnimeMovieImageByAnimeID(arg0 context.Context, arg1 int64)
 func (mr *MockGojoMockRecorder) GetAnimeMovieImageByAnimeID(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieImageByAnimeID", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieImageByAnimeID), arg0, arg1)
+}
+
+// GetAnimeMovieLink mocks base method.
+func (m *MockGojo) GetAnimeMovieLink(arg0 context.Context, arg1 int64) (db.AnimeMovieLink, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeMovieLink", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeMovieLink)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeMovieLink indicates an expected call of GetAnimeMovieLink.
+func (mr *MockGojoMockRecorder) GetAnimeMovieLink(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieLink", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieLink), arg0, arg1)
 }
 
 // GetAnimeMovieMeta mocks base method.
@@ -1736,6 +1853,21 @@ func (mr *MockGojoMockRecorder) GetAnimeResource(arg0, arg1 interface{}) *gomock
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeResource", reflect.TypeOf((*MockGojo)(nil).GetAnimeResource), arg0, arg1)
 }
 
+// GetAnimeSeasonResource mocks base method.
+func (m *MockGojo) GetAnimeSeasonResource(arg0 context.Context, arg1 int64) (db.AnimeSeasonResource, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeSeasonResource", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeSeasonResource)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeSeasonResource indicates an expected call of GetAnimeSeasonResource.
+func (mr *MockGojoMockRecorder) GetAnimeSeasonResource(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeSeasonResource", reflect.TypeOf((*MockGojo)(nil).GetAnimeSeasonResource), arg0, arg1)
+}
+
 // GetAnimeSerie mocks base method.
 func (m *MockGojo) GetAnimeSerie(arg0 context.Context, arg1 int64) (db.AnimeSerie, error) {
 	m.ctrl.T.Helper()
@@ -1841,6 +1973,21 @@ func (mr *MockGojoMockRecorder) GetAnimeSerieImageByAnimeID(arg0, arg1 interface
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeSerieImageByAnimeID", reflect.TypeOf((*MockGojo)(nil).GetAnimeSerieImageByAnimeID), arg0, arg1)
 }
 
+// GetAnimeSerieLink mocks base method.
+func (m *MockGojo) GetAnimeSerieLink(arg0 context.Context, arg1 int64) (db.AnimeSerieLink, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeSerieLink", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeSerieLink)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeSerieLink indicates an expected call of GetAnimeSerieLink.
+func (mr *MockGojoMockRecorder) GetAnimeSerieLink(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeSerieLink", reflect.TypeOf((*MockGojo)(nil).GetAnimeSerieLink), arg0, arg1)
+}
+
 // GetAnimeSerieMeta mocks base method.
 func (m *MockGojo) GetAnimeSerieMeta(arg0 context.Context, arg1 db.GetAnimeSerieMetaParams) (int64, error) {
 	m.ctrl.T.Helper()
@@ -1869,21 +2016,6 @@ func (m *MockGojo) GetAnimeSerieMetaByID(arg0 context.Context, arg1 int64) (db.A
 func (mr *MockGojoMockRecorder) GetAnimeSerieMetaByID(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeSerieMetaByID", reflect.TypeOf((*MockGojo)(nil).GetAnimeSerieMetaByID), arg0, arg1)
-}
-
-// GetAnimeSerieResource mocks base method.
-func (m *MockGojo) GetAnimeSerieResource(arg0 context.Context, arg1 int64) (db.AnimeSerieResource, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "GetAnimeSerieResource", arg0, arg1)
-	ret0, _ := ret[0].(db.AnimeSerieResource)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// GetAnimeSerieResource indicates an expected call of GetAnimeSerieResource.
-func (mr *MockGojoMockRecorder) GetAnimeSerieResource(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeSerieResource", reflect.TypeOf((*MockGojo)(nil).GetAnimeSerieResource), arg0, arg1)
 }
 
 // GetAnimeSerieSeason mocks base method.
@@ -2186,6 +2318,21 @@ func (mr *MockGojoMockRecorder) ListAnimeMovieImages(arg0, arg1 interface{}) *go
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeMovieImages", reflect.TypeOf((*MockGojo)(nil).ListAnimeMovieImages), arg0, arg1)
 }
 
+// ListAnimeMovieLinksByAnimeID mocks base method.
+func (m *MockGojo) ListAnimeMovieLinksByAnimeID(arg0 context.Context, arg1 int64) ([]db.AnimeMovieLink, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListAnimeMovieLinksByAnimeID", arg0, arg1)
+	ret0, _ := ret[0].([]db.AnimeMovieLink)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListAnimeMovieLinksByAnimeID indicates an expected call of ListAnimeMovieLinksByAnimeID.
+func (mr *MockGojoMockRecorder) ListAnimeMovieLinksByAnimeID(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeMovieLinksByAnimeID", reflect.TypeOf((*MockGojo)(nil).ListAnimeMovieLinksByAnimeID), arg0, arg1)
+}
+
 // ListAnimeMovieMetas mocks base method.
 func (m *MockGojo) ListAnimeMovieMetas(arg0 context.Context, arg1 int64) ([]int64, error) {
 	m.ctrl.T.Helper()
@@ -2351,6 +2498,21 @@ func (mr *MockGojoMockRecorder) ListAnimeMovies(arg0, arg1 interface{}) *gomock.
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeMovies", reflect.TypeOf((*MockGojo)(nil).ListAnimeMovies), arg0, arg1)
 }
 
+// ListAnimeSeasonResourcesByAnimeID mocks base method.
+func (m *MockGojo) ListAnimeSeasonResourcesByAnimeID(arg0 context.Context, arg1 int64) ([]int64, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListAnimeSeasonResourcesByAnimeID", arg0, arg1)
+	ret0, _ := ret[0].([]int64)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListAnimeSeasonResourcesByAnimeID indicates an expected call of ListAnimeSeasonResourcesByAnimeID.
+func (mr *MockGojoMockRecorder) ListAnimeSeasonResourcesByAnimeID(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeSeasonResourcesByAnimeID", reflect.TypeOf((*MockGojo)(nil).ListAnimeSeasonResourcesByAnimeID), arg0, arg1)
+}
+
 // ListAnimeSerieEpisodeMetasByEpisode mocks base method.
 func (m *MockGojo) ListAnimeSerieEpisodeMetasByEpisode(arg0 context.Context, arg1 db.ListAnimeSerieEpisodeMetasByEpisodeParams) ([]db.AnimeSerieEpisodeMeta, error) {
 	m.ctrl.T.Helper()
@@ -2426,6 +2588,21 @@ func (mr *MockGojoMockRecorder) ListAnimeSerieImages(arg0, arg1 interface{}) *go
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeSerieImages", reflect.TypeOf((*MockGojo)(nil).ListAnimeSerieImages), arg0, arg1)
 }
 
+// ListAnimeSerieLinksByAnimeID mocks base method.
+func (m *MockGojo) ListAnimeSerieLinksByAnimeID(arg0 context.Context, arg1 int64) ([]int64, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListAnimeSerieLinksByAnimeID", arg0, arg1)
+	ret0, _ := ret[0].([]int64)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListAnimeSerieLinksByAnimeID indicates an expected call of ListAnimeSerieLinksByAnimeID.
+func (mr *MockGojoMockRecorder) ListAnimeSerieLinksByAnimeID(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeSerieLinksByAnimeID", reflect.TypeOf((*MockGojo)(nil).ListAnimeSerieLinksByAnimeID), arg0, arg1)
+}
+
 // ListAnimeSerieMetas mocks base method.
 func (m *MockGojo) ListAnimeSerieMetas(arg0 context.Context, arg1 int64) ([]int64, error) {
 	m.ctrl.T.Helper()
@@ -2439,21 +2616,6 @@ func (m *MockGojo) ListAnimeSerieMetas(arg0 context.Context, arg1 int64) ([]int6
 func (mr *MockGojoMockRecorder) ListAnimeSerieMetas(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeSerieMetas", reflect.TypeOf((*MockGojo)(nil).ListAnimeSerieMetas), arg0, arg1)
-}
-
-// ListAnimeSerieResourcesByAnimeID mocks base method.
-func (m *MockGojo) ListAnimeSerieResourcesByAnimeID(arg0 context.Context, arg1 int64) ([]int64, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListAnimeSerieResourcesByAnimeID", arg0, arg1)
-	ret0, _ := ret[0].([]int64)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// ListAnimeSerieResourcesByAnimeID indicates an expected call of ListAnimeSerieResourcesByAnimeID.
-func (mr *MockGojoMockRecorder) ListAnimeSerieResourcesByAnimeID(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeSerieResourcesByAnimeID", reflect.TypeOf((*MockGojo)(nil).ListAnimeSerieResourcesByAnimeID), arg0, arg1)
 }
 
 // ListAnimeSerieSeasonEpisodesBySeason mocks base method.
@@ -2738,6 +2900,21 @@ func (m *MockGojo) UpdateAnimeImage(arg0 context.Context, arg1 db.UpdateAnimeIma
 func (mr *MockGojoMockRecorder) UpdateAnimeImage(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeImage", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeImage), arg0, arg1)
+}
+
+// UpdateAnimeLink mocks base method.
+func (m *MockGojo) UpdateAnimeLink(arg0 context.Context, arg1 db.UpdateAnimeLinkParams) (db.AnimeLink, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateAnimeLink", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeLink)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// UpdateAnimeLink indicates an expected call of UpdateAnimeLink.
+func (mr *MockGojoMockRecorder) UpdateAnimeLink(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeLink", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeLink), arg0, arg1)
 }
 
 // UpdateAnimeMovie mocks base method.

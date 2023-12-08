@@ -4,20 +4,20 @@ package aspb;
 
 import "aspb/anime_serie.proto";
 
-import "google/protobuf/timestamp.proto";
-
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
 message UpdateAnimeSerieRequest { 
-    int64 AnimeID = 1;
+    int64 animeID = 1;
     optional string originalTitle = 2;
-    optional google.protobuf.Timestamp aired = 3;
-    optional int32 releaseYear = 4;
-    optional string rating = 5;
-    optional string portriatPoster = 6;
-    optional string portriatBlurHash = 7;
-    optional string landscapePoster = 8;
-    optional string landscapeBlurHash = 9;
+    optional int32 firstYear = 3;
+    optional int32 lastYear = 4;
+    optional int32 malID = 5;
+    optional int32 tvdbID = 6;
+    optional int32 tmdbID = 7;
+    optional string portriatPoster = 8;
+    optional string portriatBlurHash = 9;
+    optional string landscapePoster = 10;
+    optional string landscapeBlurHash = 11;
 }
 
 message UpdateAnimeSerieResponse { 

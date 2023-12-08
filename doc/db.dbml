@@ -68,9 +68,11 @@ Table anime_movies {
 Table anime_series {
   id bigserial [primary key, unique, increment, not null]
   original_title varchar [not null]
-  aired timestamptz  [not null]
-  release_year integer [not null]
-  rating  varchar [not null, default: `'PG-13 - Teens 13 or older'`]
+  first_year integer [not null]
+  last_year integer [not null]
+  mal_id integer [not null]
+  tvdb_id integer [not null]
+  tmdb_id integer [not null]
   portriat_poster varchar [not null]
   portriat_blur_hash varchar [not null]
   landscape_poster varchar [not null]
@@ -79,8 +81,8 @@ Table anime_series {
     indexes {
       id
       original_title
-      release_year
-      (original_title, aired) [unique]
+      first_year
+      mal_id [unique]
     }
 }
 
@@ -191,15 +193,15 @@ Table anime_serie_metas {
 Table anime_serie_seasons {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
-  season_number integer [unique, not null]
+  aired timestamptz  [not null]
+  release_year integer [not null]
   portriat_poster varchar [not null]
   portriat_blur_hash varchar [not null]
-  landscape_poster varchar [not null]
-  landscape_blur_hash varchar [not null]
+  rating  varchar [not null, default: `'PG-13 - Teens 13 or older'`]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      (anime_id, season_number) [unique]
+      release_year
     }
 }
 
@@ -358,8 +360,26 @@ Table anime_movie_videos {
 
 Table anime_resources {
   id bigserial [primary key, unique, increment, not null]
-  tmdb_id integer [not null]
+  tvdb_id integer [not null]
+  tmdb_id integer [not null] 
   imdb_id varchar [not null]
+  livechart_id integer [not null]
+  anime_planet_id varchar [not null]
+  anisearch_id integer [not null]
+  anidb_id integer [not null]
+  kitsu_id integer [not null]
+  mal_id integer [not null]
+  notify_moe_id varchar [not null]
+  anilist_id integer [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (tmdb_id, imdb_id, tvdb_id) [unique]
+    }
+}
+
+Table anime_links {
+  id bigserial [primary key, unique, increment, not null]
   official_website varchar [not null]
   wikipedia_url varchar [not null]
   crunchyroll_url varchar [not null]
@@ -367,16 +387,36 @@ Table anime_resources {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      (tmdb_id, imdb_id, wikipedia_url, official_website) [unique]
+      (wikipedia_url, official_website) [unique]
     }
 }
 
-Table anime_serie_resources {
+Table anime_serie_links {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [unique, not null]
-  resource_id bigserial [unique, not null]
+  link_id bigserial [unique, not null]
   indexes {
     anime_id
+    link_id
+  }
+}
+
+Table anime_movie_links {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [unique, not null]
+  link_id bigserial [unique, not null]
+  indexes {
+    anime_id
+    link_id
+  }
+}
+
+Table anime_season_resources {
+  id bigserial [primary key, unique, increment, not null]
+  season_id bigserial [unique, not null]
+  resource_id bigserial [unique, not null]
+  indexes {
+    season_id
     resource_id
   }
 }
@@ -553,7 +593,9 @@ Ref {
 Ref {
   anime_movies.id - anime_movie_images.anime_id [delete: cascade]
 }
-
+Ref {
+  anime_movies.id - anime_movie_links.anime_id [delete: cascade]
+}
 
 
 Ref {
@@ -569,12 +611,11 @@ Ref {
   anime_series.id - anime_serie_seasons.anime_id [delete: cascade]
 }
 Ref {
-  anime_series.id - anime_serie_resources.anime_id [delete: cascade]
-}
-Ref {
   anime_series.id - anime_serie_images.anime_id [delete: cascade]
 }
-
+Ref {
+  anime_series.id - anime_serie_links.anime_id [delete: cascade]
+}
 
 
 Ref {
@@ -641,7 +682,7 @@ Ref {
   anime_resources.id - anime_movie_resources.resource_id [delete: cascade]
 }
 Ref {
-  anime_resources.id - anime_serie_resources.resource_id [delete: cascade]
+  anime_resources.id - anime_season_resources.resource_id [delete: cascade]
 }
 
 
@@ -680,6 +721,9 @@ Ref {
 }
 Ref {
   anime_serie_seasons.id - anime_serie_season_images.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_resources.season_id [delete: cascade]
 }
 
 
@@ -749,4 +793,13 @@ Ref {
 }
 Ref {
   anime_images.id - anime_serie_season_images.image_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_links.id - anime_movie_links.link_id [delete: cascade]
+}
+Ref {
+  anime_links.id - anime_serie_links.link_id [delete: cascade]
 }

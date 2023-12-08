@@ -71,17 +71,17 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		}
 	}
 
-	animeSerieResources, err := server.gojo.GetAnimeSerieResource(ctx, req.GetAnimeID())
+	animeSerieLinks, err := server.gojo.GetAnimeSerieLink(ctx, req.GetAnimeID())
 	if err != nil && err != db.ErrRecordNotFound {
-		return nil, status.Errorf(codes.Internal, "error when get anime serie serie resources : %s", err)
+		return nil, status.Errorf(codes.Internal, "error when get anime serie serie links : %s", err)
 	}
 
-	if animeSerieResources.AnimeID == req.AnimeID {
-		animeResources, err := server.gojo.GetAnimeResource(ctx, animeSerieResources.ResourceID)
+	if animeSerieLinks.AnimeID == req.AnimeID {
+		animeLinks, err := server.gojo.GetAnimeLink(ctx, animeSerieLinks.LinkID)
 		if err != nil && err != db.ErrRecordNotFound {
-			return nil, status.Errorf(codes.Internal, "error when get anime serie resources : %s", err)
+			return nil, status.Errorf(codes.Internal, "error when get anime serie links : %s", err)
 		}
-		res.AnimeResources = shared.ConvertAnimeResource(animeResources)
+		res.AnimeLinks = shared.ConvertAnimeLink(animeLinks)
 	}
 
 	animeSerieGenres, err := server.gojo.ListAnimeSerieGenres(ctx, req.GetAnimeID())

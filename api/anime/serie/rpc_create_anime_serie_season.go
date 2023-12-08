@@ -42,12 +42,12 @@ func (server *AnimeSerieServer) CreateAnimeSerieSeason(ctx context.Context, req 
 
 	arg := db.CreateAnimeSerieSeasonTxParams{
 		Season: db.CreateAnimeSerieSeasonParams{
-			AnimeID:           req.GetSeason().GetAnimeID(),
-			SeasonNumber:      req.Season.GetSeasonNumber(),
-			PortriatPoster:    req.Season.GetPortriatPoster(),
-			PortriatBlurHash:  req.Season.GetPortriatBlurHash(),
-			LandscapePoster:   req.Season.GetLandscapePoster(),
-			LandscapeBlurHash: req.Season.GetLandscapeBlurHash(),
+			AnimeID:          req.GetSeason().GetAnimeID(),
+			ReleaseYear:      req.GetSeason().GetReleaseYear(),
+			Aired:            req.GetSeason().GetAired().AsTime(),
+			Rating:           req.GetSeason().GetRating(),
+			PortriatPoster:   req.GetSeason().GetPortriatPoster(),
+			PortriatBlurHash: req.GetSeason().GetPortriatBlurHash(),
 		},
 		SeasonMetas: DBSM,
 	}
@@ -77,13 +77,13 @@ func (server *AnimeSerieServer) CreateAnimeSerieSeason(ctx context.Context, req 
 
 func validateCreateAnimeSerieSeasonRequest(req *aspb.CreateAnimeSerieSeasonRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 
-	if req.GetSeason() != nil {
+	if req.Season != nil {
 		if err := utils.ValidateInt(req.GetSeason().GetAnimeID()); err != nil {
 			violations = append(violations, shared.FieldViolation("animeID", err))
 		}
 
-		if err := utils.ValidateInt(int64(req.GetSeason().GetSeasonNumber())); err != nil {
-			violations = append(violations, shared.FieldViolation("seasonNumber", err))
+		if err := utils.ValidateInt(int64(req.GetSeason().GetReleaseYear())); err != nil {
+			violations = append(violations, shared.FieldViolation("releaseYear", err))
 		}
 
 		if err := utils.ValidateImage(req.GetSeason().GetPortriatPoster()); err != nil {
@@ -94,12 +94,12 @@ func validateCreateAnimeSerieSeasonRequest(req *aspb.CreateAnimeSerieSeasonReque
 			violations = append(violations, shared.FieldViolation("portriatBlurHash", err))
 		}
 
-		if err := utils.ValidateImage(req.GetSeason().GetLandscapePoster()); err != nil {
-			violations = append(violations, shared.FieldViolation("landscapePoster", err))
+		if err := utils.ValidateDate(req.GetSeason().GetAired().String()); err != nil {
+			violations = append(violations, shared.FieldViolation("aired", err))
 		}
 
-		if err := utils.ValidateString(req.GetSeason().GetLandscapeBlurHash(), 0, 100); err != nil {
-			violations = append(violations, shared.FieldViolation("landscapeBlurHash", err))
+		if err := utils.ValidateString(req.GetSeason().GetRating(), 0, 100); err != nil {
+			violations = append(violations, shared.FieldViolation("rating", err))
 		}
 
 	} else {

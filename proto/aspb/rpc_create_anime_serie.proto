@@ -3,16 +3,16 @@ syntax = "proto3";
 package aspb;
 
 import "aspb/anime_serie.proto";
-import "shpb/anime_resource.proto";
+import "shpb/anime_link.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
 message CreateAnimeSerieRequest { 
     AnimeSerieRequest animeSerie = 1;
-    shpb.AnimeResourceRequest resources = 2;
+    shpb.AnimeLinkRequest animeLinks = 2;
 }
 
 message CreateAnimeSerieResponse { 
     AnimeSerieResponse animeSerie = 1;
-    shpb.AnimeResourceResponse resources = 2;
+    shpb.AnimeLinkResponse animeLinks = 2;
 }

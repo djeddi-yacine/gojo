@@ -12,38 +12,65 @@ import (
 )
 
 const createAnimeResource = `-- name: CreateAnimeResource :one
-INSERT INTO anime_resources (tmdb_id, imdb_id, official_website, wikipedia_url, crunchyroll_url, social_media)
-VALUES ($1, $2, $3, $4, $5, $6)
-RETURNING  id, tmdb_id, imdb_id, official_website, wikipedia_url, crunchyroll_url, social_media, created_at
+INSERT INTO anime_resources (
+  tvdb_id,
+  tmdb_id,
+  imdb_id,
+  livechart_id,
+  anime_planet_id,
+  anisearch_id,
+  anidb_id,
+  kitsu_id,
+  mal_id,
+  notify_moe_id,
+  anilist_id
+  ) 
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+RETURNING  id, tvdb_id, tmdb_id, imdb_id, livechart_id, anime_planet_id, anisearch_id, anidb_id, kitsu_id, mal_id, notify_moe_id, anilist_id, created_at
 `
 
 type CreateAnimeResourceParams struct {
-	TmdbID          int32
-	ImdbID          string
-	OfficialWebsite string
-	WikipediaUrl    string
-	CrunchyrollUrl  string
-	SocialMedia     []string
+	TvdbID        int32
+	TmdbID        int32
+	ImdbID        string
+	LivechartID   int32
+	AnimePlanetID string
+	AnisearchID   int32
+	AnidbID       int32
+	KitsuID       int32
+	MalID         int32
+	NotifyMoeID   string
+	AnilistID     int32
 }
 
 func (q *Queries) CreateAnimeResource(ctx context.Context, arg CreateAnimeResourceParams) (AnimeResource, error) {
 	row := q.db.QueryRow(ctx, createAnimeResource,
+		arg.TvdbID,
 		arg.TmdbID,
 		arg.ImdbID,
-		arg.OfficialWebsite,
-		arg.WikipediaUrl,
-		arg.CrunchyrollUrl,
-		arg.SocialMedia,
+		arg.LivechartID,
+		arg.AnimePlanetID,
+		arg.AnisearchID,
+		arg.AnidbID,
+		arg.KitsuID,
+		arg.MalID,
+		arg.NotifyMoeID,
+		arg.AnilistID,
 	)
 	var i AnimeResource
 	err := row.Scan(
 		&i.ID,
+		&i.TvdbID,
 		&i.TmdbID,
 		&i.ImdbID,
-		&i.OfficialWebsite,
-		&i.WikipediaUrl,
-		&i.CrunchyrollUrl,
-		&i.SocialMedia,
+		&i.LivechartID,
+		&i.AnimePlanetID,
+		&i.AnisearchID,
+		&i.AnidbID,
+		&i.KitsuID,
+		&i.MalID,
+		&i.NotifyMoeID,
+		&i.AnilistID,
 		&i.CreatedAt,
 	)
 	return i, err
@@ -60,7 +87,7 @@ func (q *Queries) DeleteAnimeResource(ctx context.Context, id int64) error {
 }
 
 const getAnimeResource = `-- name: GetAnimeResource :one
-SELECT id, tmdb_id, imdb_id, official_website, wikipedia_url, crunchyroll_url, social_media, created_at FROM anime_resources
+SELECT id, tvdb_id, tmdb_id, imdb_id, livechart_id, anime_planet_id, anisearch_id, anidb_id, kitsu_id, mal_id, notify_moe_id, anilist_id, created_at FROM anime_resources
 WHERE id = $1 LIMIT 1
 `
 
@@ -69,12 +96,17 @@ func (q *Queries) GetAnimeResource(ctx context.Context, id int64) (AnimeResource
 	var i AnimeResource
 	err := row.Scan(
 		&i.ID,
+		&i.TvdbID,
 		&i.TmdbID,
 		&i.ImdbID,
-		&i.OfficialWebsite,
-		&i.WikipediaUrl,
-		&i.CrunchyrollUrl,
-		&i.SocialMedia,
+		&i.LivechartID,
+		&i.AnimePlanetID,
+		&i.AnisearchID,
+		&i.AnidbID,
+		&i.KitsuID,
+		&i.MalID,
+		&i.NotifyMoeID,
+		&i.AnilistID,
 		&i.CreatedAt,
 	)
 	return i, err
@@ -83,46 +115,66 @@ func (q *Queries) GetAnimeResource(ctx context.Context, id int64) (AnimeResource
 const updateAnimeResource = `-- name: UpdateAnimeResource :one
 UPDATE anime_resources
 SET
-  tmdb_id = COALESCE($1, tmdb_id),
-  imdb_id = COALESCE($2, imdb_id),
-  official_website = COALESCE($3, official_website),
-  wikipedia_url = COALESCE($4, wikipedia_url),
-  crunchyroll_url = COALESCE($5, crunchyroll_url),
-  social_media = COALESCE($6, social_media)
+  tvdb_id = COALESCE($1, tvdb_id),
+  tmdb_id = COALESCE($2, tmdb_id),
+  imdb_id = COALESCE($3, imdb_id),
+  livechart_id = COALESCE($4, livechart_id),
+  anime_planet_id = COALESCE($5, anime_planet_id),
+  anisearch_id = COALESCE($6, anisearch_id),
+  anidb_id = COALESCE($7, anidb_id),
+  kitsu_id = COALESCE($8, kitsu_id),
+  mal_id = COALESCE($9, mal_id),
+  notify_moe_id = COALESCE($10, notify_moe_id),
+  anilist_id = COALESCE($11, anilist_id)
 WHERE
-  id = $7
-RETURNING id, tmdb_id, imdb_id, official_website, wikipedia_url, crunchyroll_url, social_media, created_at
+  id = $12
+RETURNING id, tvdb_id, tmdb_id, imdb_id, livechart_id, anime_planet_id, anisearch_id, anidb_id, kitsu_id, mal_id, notify_moe_id, anilist_id, created_at
 `
 
 type UpdateAnimeResourceParams struct {
-	TmdbID          pgtype.Int4
-	ImdbID          pgtype.Text
-	OfficialWebsite pgtype.Text
-	WikipediaUrl    pgtype.Text
-	CrunchyrollUrl  pgtype.Text
-	SocialMedia     []string
-	ID              int64
+	TvdbID        pgtype.Int4
+	TmdbID        pgtype.Int4
+	ImdbID        pgtype.Text
+	LivechartID   pgtype.Int4
+	AnimePlanetID pgtype.Text
+	AnisearchID   pgtype.Int4
+	AnidbID       pgtype.Int4
+	KitsuID       pgtype.Int4
+	MalID         pgtype.Int4
+	NotifyMoeID   pgtype.Text
+	AnilistID     pgtype.Int4
+	ID            int64
 }
 
 func (q *Queries) UpdateAnimeResource(ctx context.Context, arg UpdateAnimeResourceParams) (AnimeResource, error) {
 	row := q.db.QueryRow(ctx, updateAnimeResource,
+		arg.TvdbID,
 		arg.TmdbID,
 		arg.ImdbID,
-		arg.OfficialWebsite,
-		arg.WikipediaUrl,
-		arg.CrunchyrollUrl,
-		arg.SocialMedia,
+		arg.LivechartID,
+		arg.AnimePlanetID,
+		arg.AnisearchID,
+		arg.AnidbID,
+		arg.KitsuID,
+		arg.MalID,
+		arg.NotifyMoeID,
+		arg.AnilistID,
 		arg.ID,
 	)
 	var i AnimeResource
 	err := row.Scan(
 		&i.ID,
+		&i.TvdbID,
 		&i.TmdbID,
 		&i.ImdbID,
-		&i.OfficialWebsite,
-		&i.WikipediaUrl,
-		&i.CrunchyrollUrl,
-		&i.SocialMedia,
+		&i.LivechartID,
+		&i.AnimePlanetID,
+		&i.AnisearchID,
+		&i.AnidbID,
+		&i.KitsuID,
+		&i.MalID,
+		&i.NotifyMoeID,
+		&i.AnilistID,
 		&i.CreatedAt,
 	)
 	return i, err

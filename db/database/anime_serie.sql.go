@@ -7,7 +7,6 @@ package db
 
 import (
 	"context"
-	"time"
 
 	"github.com/jackc/pgx/v5/pgtype"
 )
@@ -15,23 +14,27 @@ import (
 const createAnimeSerie = `-- name: CreateAnimeSerie :one
 INSERT INTO anime_series (
     original_title,
-    aired,
-    release_year,
-    rating,
+    first_year,
+    last_year,
+    mal_id,
+    tvdb_id,
+    tmdb_id,
     portriat_poster,
     portriat_blur_hash,
     landscape_poster,
     landscape_blur_hash
 )
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-RETURNING id, original_title, aired, release_year, rating, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+RETURNING id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at
 `
 
 type CreateAnimeSerieParams struct {
 	OriginalTitle     string
-	Aired             time.Time
-	ReleaseYear       int32
-	Rating            string
+	FirstYear         int32
+	LastYear          int32
+	MalID             int32
+	TvdbID            int32
+	TmdbID            int32
 	PortriatPoster    string
 	PortriatBlurHash  string
 	LandscapePoster   string
@@ -41,9 +44,11 @@ type CreateAnimeSerieParams struct {
 func (q *Queries) CreateAnimeSerie(ctx context.Context, arg CreateAnimeSerieParams) (AnimeSerie, error) {
 	row := q.db.QueryRow(ctx, createAnimeSerie,
 		arg.OriginalTitle,
-		arg.Aired,
-		arg.ReleaseYear,
-		arg.Rating,
+		arg.FirstYear,
+		arg.LastYear,
+		arg.MalID,
+		arg.TvdbID,
+		arg.TmdbID,
 		arg.PortriatPoster,
 		arg.PortriatBlurHash,
 		arg.LandscapePoster,
@@ -53,9 +58,11 @@ func (q *Queries) CreateAnimeSerie(ctx context.Context, arg CreateAnimeSeriePara
 	err := row.Scan(
 		&i.ID,
 		&i.OriginalTitle,
-		&i.Aired,
-		&i.ReleaseYear,
-		&i.Rating,
+		&i.FirstYear,
+		&i.LastYear,
+		&i.MalID,
+		&i.TvdbID,
+		&i.TmdbID,
 		&i.PortriatPoster,
 		&i.PortriatBlurHash,
 		&i.LandscapePoster,
@@ -76,7 +83,7 @@ func (q *Queries) DeleteAnimeSerie(ctx context.Context, id int64) error {
 }
 
 const getAnimeSerie = `-- name: GetAnimeSerie :one
-SELECT id, original_title, aired, release_year, rating, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series 
+SELECT id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series 
 WHERE id = $1 LIMIT 1
 `
 
@@ -86,9 +93,11 @@ func (q *Queries) GetAnimeSerie(ctx context.Context, id int64) (AnimeSerie, erro
 	err := row.Scan(
 		&i.ID,
 		&i.OriginalTitle,
-		&i.Aired,
-		&i.ReleaseYear,
-		&i.Rating,
+		&i.FirstYear,
+		&i.LastYear,
+		&i.MalID,
+		&i.TvdbID,
+		&i.TmdbID,
 		&i.PortriatPoster,
 		&i.PortriatBlurHash,
 		&i.LandscapePoster,
@@ -99,20 +108,20 @@ func (q *Queries) GetAnimeSerie(ctx context.Context, id int64) (AnimeSerie, erro
 }
 
 const listAnimeSeries = `-- name: ListAnimeSeries :many
-SELECT id, original_title, aired, release_year, rating, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series
-WHERE release_year = $1 OR $1 = 0
+SELECT id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series
+WHERE first_year = $1 OR $1 = 0
 LIMIT $2
 OFFSET $3
 `
 
 type ListAnimeSeriesParams struct {
-	ReleaseYear int32
-	Limit       int32
-	Offset      int32
+	FirstYear int32
+	Limit     int32
+	Offset    int32
 }
 
 func (q *Queries) ListAnimeSeries(ctx context.Context, arg ListAnimeSeriesParams) ([]AnimeSerie, error) {
-	rows, err := q.db.Query(ctx, listAnimeSeries, arg.ReleaseYear, arg.Limit, arg.Offset)
+	rows, err := q.db.Query(ctx, listAnimeSeries, arg.FirstYear, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
@@ -123,9 +132,11 @@ func (q *Queries) ListAnimeSeries(ctx context.Context, arg ListAnimeSeriesParams
 		if err := rows.Scan(
 			&i.ID,
 			&i.OriginalTitle,
-			&i.Aired,
-			&i.ReleaseYear,
-			&i.Rating,
+			&i.FirstYear,
+			&i.LastYear,
+			&i.MalID,
+			&i.TvdbID,
+			&i.TmdbID,
 			&i.PortriatPoster,
 			&i.PortriatBlurHash,
 			&i.LandscapePoster,
@@ -146,23 +157,27 @@ const updateAnimeSerie = `-- name: UpdateAnimeSerie :one
 UPDATE anime_series
 SET
   original_title = COALESCE($1, original_title),
-  aired = COALESCE($2, aired),
-  release_year = COALESCE($3, release_year),
-  rating = COALESCE($4, rating),
-  portriat_poster = COALESCE($5, portriat_poster),
-  portriat_blur_hash = COALESCE($6, portriat_blur_hash),
-  landscape_poster = COALESCE($7, landscape_poster),
-  landscape_blur_hash = COALESCE($8, landscape_blur_hash)
+  first_year = COALESCE($2, first_year),
+  last_year = COALESCE($3, last_year),
+  mal_id = COALESCE($4, mal_id),
+  tvdb_id = COALESCE($5, tvdb_id),
+  tmdb_id = COALESCE($6, tmdb_id),
+  portriat_poster = COALESCE($7, portriat_poster),
+  portriat_blur_hash = COALESCE($8, portriat_blur_hash),
+  landscape_poster = COALESCE($9, landscape_poster),
+  landscape_blur_hash = COALESCE($10, landscape_blur_hash)
 WHERE
-  id = $9
-RETURNING id, original_title, aired, release_year, rating, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at
+  id = $11
+RETURNING id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at
 `
 
 type UpdateAnimeSerieParams struct {
 	OriginalTitle     pgtype.Text
-	Aired             pgtype.Timestamptz
-	ReleaseYear       pgtype.Int4
-	Rating            pgtype.Text
+	FirstYear         pgtype.Int4
+	LastYear          pgtype.Int4
+	MalID             pgtype.Int4
+	TvdbID            pgtype.Int4
+	TmdbID            pgtype.Int4
 	PortriatPoster    pgtype.Text
 	PortriatBlurHash  pgtype.Text
 	LandscapePoster   pgtype.Text
@@ -173,9 +188,11 @@ type UpdateAnimeSerieParams struct {
 func (q *Queries) UpdateAnimeSerie(ctx context.Context, arg UpdateAnimeSerieParams) (AnimeSerie, error) {
 	row := q.db.QueryRow(ctx, updateAnimeSerie,
 		arg.OriginalTitle,
-		arg.Aired,
-		arg.ReleaseYear,
-		arg.Rating,
+		arg.FirstYear,
+		arg.LastYear,
+		arg.MalID,
+		arg.TvdbID,
+		arg.TmdbID,
 		arg.PortriatPoster,
 		arg.PortriatBlurHash,
 		arg.LandscapePoster,
@@ -186,9 +203,11 @@ func (q *Queries) UpdateAnimeSerie(ctx context.Context, arg UpdateAnimeSeriePara
 	err := row.Scan(
 		&i.ID,
 		&i.OriginalTitle,
-		&i.Aired,
-		&i.ReleaseYear,
-		&i.Rating,
+		&i.FirstYear,
+		&i.LastYear,
+		&i.MalID,
+		&i.TvdbID,
+		&i.TmdbID,
 		&i.PortriatPoster,
 		&i.PortriatBlurHash,
 		&i.LandscapePoster,

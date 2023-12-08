@@ -5,13 +5,13 @@ import (
 )
 
 type CreateAnimeSerieTxParams struct {
-	CreateAnimeSerieParams    CreateAnimeSerieParams
-	CreateAnimeResourceParams CreateAnimeResourceParams
+	CreateAnimeSerieParams CreateAnimeSerieParams
+	CreateAnimeLinkParams  CreateAnimeLinkParams
 }
 
 type CreateAnimeSerieTxResult struct {
 	AnimeSerie AnimeSerie
-	Resource   AnimeResource
+	AnimeLink  AnimeLink
 }
 
 func (gojo *SQLGojo) CreateAnimeSerieTx(ctx context.Context, arg CreateAnimeSerieTxParams) (CreateAnimeSerieTxResult, error) {
@@ -26,25 +26,25 @@ func (gojo *SQLGojo) CreateAnimeSerieTx(ctx context.Context, arg CreateAnimeSeri
 			return err
 		}
 
-		resource, err := q.CreateAnimeResource(ctx, arg.CreateAnimeResourceParams)
+		link, err := q.CreateAnimeLink(ctx, arg.CreateAnimeLinkParams)
 		if err != nil {
 			ErrorSQL(err)
 			return err
 		}
 
-		arg := CreateAnimeSerieResourceParams{
-			AnimeID:    anime.ID,
-			ResourceID: resource.ID,
+		larg := CreateAnimeSerieLinkParams{
+			AnimeID: anime.ID,
+			LinkID:  link.ID,
 		}
 
-		_, err = q.CreateAnimeSerieResource(ctx, arg)
+		_, err = q.CreateAnimeSerieLink(ctx, larg)
 		if err != nil {
 			ErrorSQL(err)
 			return err
 		}
 
 		result.AnimeSerie = anime
-		result.Resource = resource
+		result.AnimeLink = link
 
 		return err
 	})

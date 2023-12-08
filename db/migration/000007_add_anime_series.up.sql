@@ -1,9 +1,11 @@
 CREATE TABLE "anime_series" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "original_title" varchar NOT NULL,
-  "aired" timestamptz NOT NULL,
-  "release_year" integer NOT NULL,
-  "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),
+  "first_year" integer NOT NULL,
+  "last_year" integer NOT NULL,
+  "mal_id" integer NOT NULL,
+  "tvdb_id" integer NOT NULL,
+  "tmdb_id" integer NOT NULL,
   "portriat_poster" varchar NOT NULL,
   "portriat_blur_hash" varchar NOT NULL,
   "landscape_poster" varchar NOT NULL,
@@ -35,9 +37,9 @@ CREATE INDEX ON "anime_series" ("id");
 
 CREATE INDEX ON "anime_series" ("original_title");
 
-CREATE INDEX ON "anime_series" ("release_year");
+CREATE INDEX ON "anime_series" ("first_year");
 
-CREATE UNIQUE INDEX ON "anime_series" ("original_title", "aired");
+CREATE UNIQUE INDEX ON "anime_series" ("mal_id");
 
 CREATE INDEX ON "anime_serie_studios" ("id");
 

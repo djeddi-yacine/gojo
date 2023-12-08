@@ -30,12 +30,17 @@ func (server *AnimeMovieServer) CreateAnimeMovieResource(ctx context.Context, re
 	arg := db.CreateAnimeMovieResourceTxParams{
 		AnimeID: req.GetAnimeID(),
 		CreateAnimeResourceParams: db.CreateAnimeResourceParams{
-			TmdbID:          req.Resources.GetTMDbID(),
-			ImdbID:          req.Resources.GetIMDbID(),
-			WikipediaUrl:    req.Resources.GetWikipediaUrl(),
-			OfficialWebsite: req.Resources.GetOfficialWebsite(),
-			CrunchyrollUrl:  req.Resources.GetCrunchyrollUrl(),
-			SocialMedia:     req.Resources.GetSocialMedia(),
+			TvdbID:        req.AnimeResources.GetTvdbID(),
+			TmdbID:        req.AnimeResources.GetTmdbID(),
+			ImdbID:        req.AnimeResources.GetImdbID(),
+			LivechartID:   req.AnimeResources.GetLivechartID(),
+			AnimePlanetID: req.AnimeResources.GetAnimePlanetID(),
+			AnisearchID:   req.AnimeResources.GetAnisearchID(),
+			AnidbID:       req.AnimeResources.GetAnidbID(),
+			KitsuID:       req.AnimeResources.GetKitsuID(),
+			MalID:         req.AnimeResources.GetMalID(),
+			NotifyMoeID:   req.AnimeResources.GetNotifyMoeID(),
+			AnilistID:     req.AnimeResources.GetAnilistID(),
 		},
 	}
 
@@ -46,8 +51,8 @@ func (server *AnimeMovieServer) CreateAnimeMovieResource(ctx context.Context, re
 	}
 
 	res := &ampb.CreateAnimeMovieResourceResponse{
-		AnimeMovie: shared.ConvertAnimeMovie(data.AnimeMovie),
-		Resources:  shared.ConvertAnimeResource(data.AnimeResource),
+		AnimeMovie:     shared.ConvertAnimeMovie(data.AnimeMovie),
+		AnimeResources: shared.ConvertAnimeResource(data.AnimeResource),
 	}
 	return res, nil
 }
@@ -57,42 +62,41 @@ func validateCreateAnimeMovieResourceRequest(req *ampb.CreateAnimeMovieResourceR
 		violations = append(violations, shared.FieldViolation("ID", err))
 	}
 
-	if req.GetResources() != nil {
-		if err := utils.ValidateInt(int64(req.GetResources().GetTMDbID())); err != nil {
-			violations = append(violations, shared.FieldViolation("TMDbID", err))
+	if req.AnimeResources != nil {
+		if err := utils.ValidateInt(int64(req.GetAnimeResources().GetTvdbID())); err != nil {
+			violations = append(violations, shared.FieldViolation("tvdbID", err))
 		}
 
-		if err := utils.ValidateURL(req.GetResources().GetWikipediaUrl(), "wikipedia"); err != nil {
-			violations = append(violations, shared.FieldViolation("wikipediaUrl", err))
+		if err := utils.ValidateInt(int64(req.GetAnimeResources().GetTmdbID())); err != nil {
+			violations = append(violations, shared.FieldViolation("tmdbID", err))
 		}
 
-		if req.GetResources().GetCrunchyrollUrl() != "" {
-			if err := utils.ValidateURL(req.GetResources().GetCrunchyrollUrl(), "crunchyroll"); err != nil {
-				violations = append(violations, shared.FieldViolation("crunchyrollUrl", err))
-			}
+		if err := utils.ValidateInt(int64(req.GetAnimeResources().GetLivechartID())); err != nil {
+			violations = append(violations, shared.FieldViolation("livechartID", err))
 		}
 
-		if req.GetResources().GetOfficialWebsite() != "" {
-			if err := utils.ValidateURL(req.GetResources().GetOfficialWebsite(), ""); err != nil {
-				violations = append(violations, shared.FieldViolation("officialWebsite", err))
-			}
+		if err := utils.ValidateInt(int64(req.GetAnimeResources().GetAnidbID())); err != nil {
+			violations = append(violations, shared.FieldViolation("anidbID", err))
 		}
 
-		if req.GetResources().GetIMDbID() != "" {
-			if err := utils.ValidateIMDbID(req.GetResources().GetIMDbID()); err != nil {
-				violations = append(violations, shared.FieldViolation("IMDbID", err))
-			}
+		if err := utils.ValidateInt(int64(req.GetAnimeResources().GetAnisearchID())); err != nil {
+			violations = append(violations, shared.FieldViolation("anisearchID", err))
 		}
 
-		if req.GetResources().GetSocialMedia() != nil {
-			for _, s := range req.GetResources().SocialMedia {
-				if err := utils.ValidateURL(s, ""); err != nil {
-					violations = append(violations, shared.FieldViolation("socialMedia", err))
-				}
-			}
+		if err := utils.ValidateInt(int64(req.GetAnimeResources().GetKitsuID())); err != nil {
+			violations = append(violations, shared.FieldViolation("kitsuID", err))
 		}
+
+		if err := utils.ValidateInt(int64(req.GetAnimeResources().GetMalID())); err != nil {
+			violations = append(violations, shared.FieldViolation("malID", err))
+		}
+
+		if err := utils.ValidateInt(int64(req.GetAnimeResources().GetAnilistID())); err != nil {
+			violations = append(violations, shared.FieldViolation("anilistID", err))
+		}
+
 	} else {
-		violations = append(violations, shared.FieldViolation("resources", errors.New("you need to send the resources model")))
+		violations = append(violations, shared.FieldViolation("animeResources", errors.New("you need to send the animeResources model")))
 	}
 
 	return violations

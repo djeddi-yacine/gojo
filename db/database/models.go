@@ -22,6 +22,15 @@ type AnimeImage struct {
 	CreatedAt       time.Time
 }
 
+type AnimeLink struct {
+	ID              int64
+	OfficialWebsite string
+	WikipediaUrl    string
+	CrunchyrollUrl  string
+	SocialMedia     []string
+	CreatedAt       time.Time
+}
+
 type AnimeMovie struct {
 	ID                int64
 	OriginalTitle     string
@@ -47,6 +56,12 @@ type AnimeMovieImage struct {
 	AnimeID   int64
 	ImageID   int64
 	CreatedAt time.Time
+}
+
+type AnimeMovieLink struct {
+	ID      int64
+	AnimeID int64
+	LinkID  int64
 }
 
 type AnimeMovieMeta struct {
@@ -127,22 +142,35 @@ type AnimeMovieVideo struct {
 }
 
 type AnimeResource struct {
-	ID              int64
-	TmdbID          int32
-	ImdbID          string
-	OfficialWebsite string
-	WikipediaUrl    string
-	CrunchyrollUrl  string
-	SocialMedia     []string
-	CreatedAt       time.Time
+	ID            int64
+	TvdbID        int32
+	TmdbID        int32
+	ImdbID        string
+	LivechartID   int32
+	AnimePlanetID string
+	AnisearchID   int32
+	AnidbID       int32
+	KitsuID       int32
+	MalID         int32
+	NotifyMoeID   string
+	AnilistID     int32
+	CreatedAt     time.Time
+}
+
+type AnimeSeasonResource struct {
+	ID         int64
+	SeasonID   int64
+	ResourceID int64
 }
 
 type AnimeSerie struct {
 	ID                int64
 	OriginalTitle     string
-	Aired             time.Time
-	ReleaseYear       int32
-	Rating            string
+	FirstYear         int32
+	LastYear          int32
+	MalID             int32
+	TvdbID            int32
+	TmdbID            int32
 	PortriatPoster    string
 	PortriatBlurHash  string
 	LandscapePoster   string
@@ -187,6 +215,12 @@ type AnimeSerieImage struct {
 	CreatedAt time.Time
 }
 
+type AnimeSerieLink struct {
+	ID      int64
+	AnimeID int64
+	LinkID  int64
+}
+
 type AnimeSerieMeta struct {
 	ID         int64
 	AnimeID    int64
@@ -194,21 +228,15 @@ type AnimeSerieMeta struct {
 	MetaID     int64
 }
 
-type AnimeSerieResource struct {
-	ID         int64
-	AnimeID    int64
-	ResourceID int64
-}
-
 type AnimeSerieSeason struct {
-	ID                int64
-	AnimeID           int64
-	SeasonNumber      int32
-	PortriatPoster    string
-	PortriatBlurHash  string
-	LandscapePoster   string
-	LandscapeBlurHash string
-	CreatedAt         time.Time
+	ID               int64
+	AnimeID          int64
+	Aired            time.Time
+	ReleaseYear      int32
+	PortriatPoster   string
+	PortriatBlurHash string
+	Rating           string
+	CreatedAt        time.Time
 }
 
 type AnimeSerieSeasonEpisode struct {

@@ -2,7 +2,6 @@ syntax = "proto3";
 
 package aspb;
 
-import "aspb/anime_serie.proto";
 import "aspb/server.proto";
 import "aspb/anime_serie_episode.proto";
 

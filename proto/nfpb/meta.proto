@@ -4,8 +4,6 @@ package nfpb;
 
 import "google/protobuf/timestamp.proto";
 
-import "nfpb/language.proto";
-
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/nfpb";
 
 message MetaRequest {

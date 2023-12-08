@@ -2,7 +2,6 @@ package animeSerie
 
 import (
 	"context"
-	"time"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
@@ -34,17 +33,25 @@ func (server *AnimeSerieServer) UpdateAnimeSerie(ctx context.Context, req *aspb.
 			String: req.GetOriginalTitle(),
 			Valid:  req.OriginalTitle != nil,
 		},
-		Aired: pgtype.Timestamptz{
-			Time:  req.GetAired().AsTime(),
-			Valid: req.Aired != nil,
+		FirstYear: pgtype.Int4{
+			Int32: req.GetFirstYear(),
+			Valid: req.FirstYear != nil,
 		},
-		ReleaseYear: pgtype.Int4{
-			Int32: req.GetReleaseYear(),
-			Valid: req.ReleaseYear != nil,
+		LastYear: pgtype.Int4{
+			Int32: req.GetLastYear(),
+			Valid: req.LastYear != nil,
 		},
-		Rating: pgtype.Text{
-			String: req.GetRating(),
-			Valid:  req.Rating != nil,
+		MalID: pgtype.Int4{
+			Int32: req.GetMalID(),
+			Valid: req.MalID != nil,
+		},
+		TvdbID: pgtype.Int4{
+			Int32: req.GetTvdbID(),
+			Valid: req.TvdbID != nil,
+		},
+		TmdbID: pgtype.Int4{
+			Int32: req.GetTmdbID(),
+			Valid: req.LastYear != nil,
 		},
 		PortriatPoster: pgtype.Text{
 			String: req.GetPortriatPoster(),
@@ -87,21 +94,33 @@ func validateUpdateAnimeSerieRequest(req *aspb.UpdateAnimeSerieRequest) (violati
 		}
 	}
 
-	if req.Aired != nil {
-		if err := utils.ValidateDate(req.GetAired().AsTime().Format(time.DateOnly)); err != nil {
-			violations = append(violations, shared.FieldViolation("aired", err))
+	if req.FirstYear != nil {
+		if err := utils.ValidateYear(req.GetFirstYear()); err != nil {
+			violations = append(violations, shared.FieldViolation("firstYear", err))
 		}
 	}
 
-	if req.ReleaseYear != nil {
-		if err := utils.ValidateYear(req.GetReleaseYear()); err != nil {
-			violations = append(violations, shared.FieldViolation("releaseYear", err))
+	if req.LastYear != nil {
+		if err := utils.ValidateYear(req.GetLastYear()); err != nil {
+			violations = append(violations, shared.FieldViolation("lastYear", err))
 		}
 	}
 
-	if req.Rating != nil {
-		if err := utils.ValidateString(req.GetRating(), 2, 30); err != nil {
-			violations = append(violations, shared.FieldViolation("rating", err))
+	if req.MalID != nil {
+		if err := utils.ValidateYear(req.GetMalID()); err != nil {
+			violations = append(violations, shared.FieldViolation("malID", err))
+		}
+	}
+
+	if req.TvdbID != nil {
+		if err := utils.ValidateYear(req.GetTvdbID()); err != nil {
+			violations = append(violations, shared.FieldViolation("tvdbID", err))
+		}
+	}
+
+	if req.TmdbID != nil {
+		if err := utils.ValidateYear(req.GetTmdbID()); err != nil {
+			violations = append(violations, shared.FieldViolation("tmdbID", err))
 		}
 	}
 

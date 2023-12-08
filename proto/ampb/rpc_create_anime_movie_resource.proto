@@ -9,10 +9,10 @@ option go_package = "github.com/dj-yacine-flutter/gojo/pb/ampb";
 
 message CreateAnimeMovieResourceRequest {
     int64 animeID = 1;
-    shpb.AnimeResourceRequest resources = 2;
+    shpb.AnimeResourceRequest animeResources = 2;
 }
 
 message CreateAnimeMovieResourceResponse {
     AnimeMovieResponse animeMovie = 1;
-    shpb.AnimeResourceResponse resources = 2;
+    shpb.AnimeResourceResponse animeResources = 2;
 }
