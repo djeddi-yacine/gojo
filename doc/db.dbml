@@ -416,7 +416,7 @@ Table anime_season_resources {
   season_id bigserial [unique, not null]
   resource_id bigserial [unique, not null]
   indexes {
-    season_id
+    season_id [unique]
     resource_id
   }
 }
@@ -426,7 +426,7 @@ Table anime_movie_resources {
   anime_id bigserial [unique, not null]
   resource_id bigserial [unique, not null]
   indexes {
-    anime_id
+    anime_id [unique]
     resource_id
   }
 }

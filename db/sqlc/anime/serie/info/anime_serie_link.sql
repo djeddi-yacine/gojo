@@ -5,13 +5,8 @@ RETURNING *;
 
 -- name: GetAnimeSerieLink :one
 SELECT * FROM anime_serie_links
-WHERE id = $1;
-
--- name: ListAnimeSerieLinksByAnimeID :many
-SELECT link_id
-FROM anime_serie_links
 WHERE anime_id = $1
-ORDER BY id;
+LIMIT 1;
 
 -- name: DeleteAnimeSerieLink :exec
 DELETE FROM anime_serie_links

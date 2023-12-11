@@ -5,12 +5,8 @@ RETURNING *;
 
 -- name: GetAnimeMovieResource :one
 SELECT * FROM anime_movie_resources
-WHERE id = $1;
-
--- name: ListAnimeMovieResourcesByAnimeID :many
-SELECT * FROM anime_movie_resources
-WHERE anime_id = $1 
-ORDER BY id;
+WHERE anime_id = $1
+LIMIT 1;
 
 -- name: DeleteAnimeMovieResource :exec
 DELETE FROM anime_movie_resources

@@ -5,13 +5,8 @@ RETURNING *;
 
 -- name: GetAnimeSeasonResource :one
 SELECT * FROM anime_season_resources
-WHERE id = $1;
-
--- name: ListAnimeSeasonResourcesByAnimeID :many
-SELECT resource_id
-FROM anime_season_resources
 WHERE season_id = $1
-ORDER BY id;
+LIMIT 1;
 
 -- name: DeleteAnimeSeasonResource :exec
 DELETE FROM anime_season_resources

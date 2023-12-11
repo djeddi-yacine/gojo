@@ -44,39 +44,13 @@ func (q *Queries) DeleteAnimeSerieLink(ctx context.Context, arg DeleteAnimeSerie
 
 const getAnimeSerieLink = `-- name: GetAnimeSerieLink :one
 SELECT id, anime_id, link_id FROM anime_serie_links
-WHERE id = $1
+WHERE anime_id = $1
+LIMIT 1
 `
 
-func (q *Queries) GetAnimeSerieLink(ctx context.Context, id int64) (AnimeSerieLink, error) {
-	row := q.db.QueryRow(ctx, getAnimeSerieLink, id)
+func (q *Queries) GetAnimeSerieLink(ctx context.Context, animeID int64) (AnimeSerieLink, error) {
+	row := q.db.QueryRow(ctx, getAnimeSerieLink, animeID)
 	var i AnimeSerieLink
 	err := row.Scan(&i.ID, &i.AnimeID, &i.LinkID)
 	return i, err
-}
-
-const listAnimeSerieLinksByAnimeID = `-- name: ListAnimeSerieLinksByAnimeID :many
-SELECT link_id
-FROM anime_serie_links
-WHERE anime_id = $1
-ORDER BY id
-`
-
-func (q *Queries) ListAnimeSerieLinksByAnimeID(ctx context.Context, animeID int64) ([]int64, error) {
-	rows, err := q.db.Query(ctx, listAnimeSerieLinksByAnimeID, animeID)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	items := []int64{}
-	for rows.Next() {
-		var link_id int64
-		if err := rows.Scan(&link_id); err != nil {
-			return nil, err
-		}
-		items = append(items, link_id)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
 }

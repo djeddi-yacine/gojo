@@ -44,38 +44,13 @@ func (q *Queries) DeleteAnimeMovieResource(ctx context.Context, arg DeleteAnimeM
 
 const getAnimeMovieResource = `-- name: GetAnimeMovieResource :one
 SELECT id, anime_id, resource_id FROM anime_movie_resources
-WHERE id = $1
+WHERE anime_id = $1
+LIMIT 1
 `
 
-func (q *Queries) GetAnimeMovieResource(ctx context.Context, id int64) (AnimeMovieResource, error) {
-	row := q.db.QueryRow(ctx, getAnimeMovieResource, id)
+func (q *Queries) GetAnimeMovieResource(ctx context.Context, animeID int64) (AnimeMovieResource, error) {
+	row := q.db.QueryRow(ctx, getAnimeMovieResource, animeID)
 	var i AnimeMovieResource
 	err := row.Scan(&i.ID, &i.AnimeID, &i.ResourceID)
 	return i, err
-}
-
-const listAnimeMovieResourcesByAnimeID = `-- name: ListAnimeMovieResourcesByAnimeID :many
-SELECT id, anime_id, resource_id FROM anime_movie_resources
-WHERE anime_id = $1 
-ORDER BY id
-`
-
-func (q *Queries) ListAnimeMovieResourcesByAnimeID(ctx context.Context, animeID int64) ([]AnimeMovieResource, error) {
-	rows, err := q.db.Query(ctx, listAnimeMovieResourcesByAnimeID, animeID)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	items := []AnimeMovieResource{}
-	for rows.Next() {
-		var i AnimeMovieResource
-		if err := rows.Scan(&i.ID, &i.AnimeID, &i.ResourceID); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
 }

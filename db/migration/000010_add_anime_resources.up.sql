@@ -31,11 +31,11 @@ CREATE INDEX ON "anime_resources" ("id");
 
 CREATE UNIQUE INDEX ON "anime_resources" ("tmdb_id", "imdb_id", "tvdb_id");
 
-CREATE INDEX ON "anime_movie_resources" ("anime_id");
+CREATE UNIQUE INDEX ON "anime_movie_resources" ("anime_id");
 
 CREATE INDEX ON "anime_movie_resources" ("resource_id");
 
-CREATE INDEX ON "anime_season_resources" ("season_id");
+CREATE UNIQUE INDEX ON "anime_season_resources" ("season_id");
 
 CREATE INDEX ON "anime_season_resources" ("resource_id");
 

@@ -44,39 +44,13 @@ func (q *Queries) DeleteAnimeSeasonResource(ctx context.Context, arg DeleteAnime
 
 const getAnimeSeasonResource = `-- name: GetAnimeSeasonResource :one
 SELECT id, season_id, resource_id FROM anime_season_resources
-WHERE id = $1
+WHERE season_id = $1
+LIMIT 1
 `
 
-func (q *Queries) GetAnimeSeasonResource(ctx context.Context, id int64) (AnimeSeasonResource, error) {
-	row := q.db.QueryRow(ctx, getAnimeSeasonResource, id)
+func (q *Queries) GetAnimeSeasonResource(ctx context.Context, seasonID int64) (AnimeSeasonResource, error) {
+	row := q.db.QueryRow(ctx, getAnimeSeasonResource, seasonID)
 	var i AnimeSeasonResource
 	err := row.Scan(&i.ID, &i.SeasonID, &i.ResourceID)
 	return i, err
-}
-
-const listAnimeSeasonResourcesByAnimeID = `-- name: ListAnimeSeasonResourcesByAnimeID :many
-SELECT resource_id
-FROM anime_season_resources
-WHERE season_id = $1
-ORDER BY id
-`
-
-func (q *Queries) ListAnimeSeasonResourcesByAnimeID(ctx context.Context, seasonID int64) ([]int64, error) {
-	rows, err := q.db.Query(ctx, listAnimeSeasonResourcesByAnimeID, seasonID)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	items := []int64{}
-	for rows.Next() {
-		var resource_id int64
-		if err := rows.Scan(&resource_id); err != nil {
-			return nil, err
-		}
-		items = append(items, resource_id)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
 }
