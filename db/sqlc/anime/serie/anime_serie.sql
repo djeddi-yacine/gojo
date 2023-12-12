@@ -41,6 +41,6 @@ WHERE id = $1;
 
 -- name: ListAnimeSeries :many
 SELECT * FROM anime_series
-WHERE first_year = $1 OR $1 = 0
+WHERE $1 IN (first_year, last_year) OR $1 = 0
 LIMIT $2
 OFFSET $3;

@@ -109,7 +109,7 @@ func (q *Queries) GetAnimeSerie(ctx context.Context, id int64) (AnimeSerie, erro
 
 const listAnimeSeries = `-- name: ListAnimeSeries :many
 SELECT id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series
-WHERE first_year = $1 OR $1 = 0
+WHERE $1 IN (first_year, last_year) OR $1 = 0
 LIMIT $2
 OFFSET $3
 `

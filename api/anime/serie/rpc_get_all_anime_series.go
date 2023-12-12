@@ -39,7 +39,6 @@ func (server *AnimeSerieServer) GetAllAnimeSeries(ctx context.Context, req *aspb
 			return nil, nil
 		}
 		return nil, shared.DatabaseError("Failed to list all anime series", err)
-		//return nil, shared.DatabaseError("Anime Series", err)
 	}
 
 	var PBAnimeSeries []*aspb.AnimeSerieResponse
@@ -62,7 +61,7 @@ func validateGetAllAnimeSeriesRequest(req *aspb.GetAllAnimeSeriesRequest) (viola
 		violations = append(violations, shared.FieldViolation("pageSize", err))
 	}
 
-	if req.Year != nil {
+	if req.GetYear() != 0 {
 		if err := utils.ValidateYear(req.GetYear()); err != nil {
 			violations = append(violations, shared.FieldViolation("year", err))
 		}

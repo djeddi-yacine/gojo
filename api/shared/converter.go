@@ -63,12 +63,15 @@ func ConvertAnimeSerie(a db.AnimeSerie) *aspb.AnimeSerieResponse {
 	return &aspb.AnimeSerieResponse{
 		ID:                a.ID,
 		OriginalTitle:     a.OriginalTitle,
-		FirstYear:         a.FirstYear,
-		LastYear:          a.LastYear,
 		PortriatPoster:    a.PortriatPoster,
 		PortriatBlurHash:  a.PortriatBlurHash,
 		LandscapePoster:   a.LandscapePoster,
 		LandscapeBlurHash: a.LandscapeBlurHash,
+		FirstYear:         a.FirstYear,
+		LastYear:          a.LastYear,
+		MalID:             a.MalID,
+		TvdbID:            a.TvdbID,
+		TmdbID:            a.TmdbID,
 		CreatedAt:         timestamppb.New(a.CreatedAt),
 	}
 }
