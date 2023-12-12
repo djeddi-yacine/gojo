@@ -8,6 +8,7 @@ import (
 	"github.com/dj-yacine-flutter/gojo/pb/ampb"
 	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/jackc/pgerrcode"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -31,18 +32,12 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 
 	animeMovie, err := server.gojo.GetAnimeMovie(ctx, req.GetAnimeID())
 	if err != nil {
-		if db.ErrorCode(err) == db.ErrRecordNotFound.Error() {
-			return nil, status.Errorf(codes.NotFound, "there is no anime movie with this ID : %s", err)
-		}
-		return nil, status.Errorf(codes.Internal, "failed to get the anime movie : %s", err)
+		return nil, shared.DatabaseError("cannot get anime movie", err)
 	}
 
 	_, err = server.gojo.GetLanguage(ctx, req.GetLanguageID())
 	if err != nil {
-		if db.ErrorCode(err) == db.ErrRecordNotFound.Error() {
-			return nil, status.Errorf(codes.NotFound, "there is no language with this ID : %s", err)
-		}
-		return nil, status.Errorf(codes.Internal, "failed to get the language : %s", err)
+		return nil, shared.DatabaseError("no language found with this language ID", err)
 	}
 
 	res := &ampb.GetFullAnimeMovieResponse{
@@ -54,13 +49,13 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		LanguageID: req.GetLanguageID(),
 	})
 	if err != nil {
-		return nil, status.Errorf(codes.NotFound, "no anime movie found with this languageID : %s", err)
+		return nil, shared.DatabaseError("no anime movie found with this language ID", err)
 	}
 
 	if animeMeta > 0 {
 		meta, err := server.gojo.GetMeta(ctx, animeMeta)
-		if err != nil && err != db.ErrRecordNotFound {
-			return nil, status.Errorf(codes.Internal, "error when return anime movie metadata : %s", err)
+		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+			return nil, shared.DatabaseError("cannot get anime movie metadata", err)
 		}
 
 		res.AnimeMeta = &nfpb.AnimeMetaResponse{
@@ -71,21 +66,19 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 	}
 
 	animeMovieResources, err := server.gojo.GetAnimeMovieResource(ctx, req.GetAnimeID())
-	if err != nil && err != db.ErrRecordNotFound {
-		return nil, status.Errorf(codes.Internal, "error when get anime movie movie resources : %s", err)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get anime movie resources", err)
 	}
 
-	if animeMovieResources.AnimeID == req.GetAnimeID() {
-		animeResources, err := server.gojo.GetAnimeResource(ctx, animeMovieResources.ResourceID)
-		if err != nil && err != db.ErrRecordNotFound {
-			return nil, status.Errorf(codes.Internal, "error when get anime movie resources : %s", err)
-		}
-		res.AnimeResources = shared.ConvertAnimeResource(animeResources)
+	animeResources, err := server.gojo.GetAnimeResource(ctx, animeMovieResources.ResourceID)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get resources data", err)
 	}
+	res.AnimeResources = shared.ConvertAnimeResource(animeResources)
 
 	animeMovieGenres, err := server.gojo.ListAnimeMovieGenres(ctx, req.GetAnimeID())
-	if err != nil && err != db.ErrRecordNotFound {
-		return nil, status.Errorf(codes.Internal, "error when get anime movie genres : %s", err)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get anime movie genres", err)
 	}
 
 	if len(animeMovieGenres) > 0 {
@@ -93,24 +86,24 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 
 		for i, amg := range animeMovieGenres {
 			genres[i], err = server.gojo.GetGenre(ctx, amg)
-			if err != nil && err != db.ErrRecordNotFound {
-				return nil, status.Errorf(codes.Internal, "error when list anime movie genres : %s", err)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot list anime movie genres", err)
 			}
 		}
 		res.AnimeGenres = shared.ConvertGenres(genres)
 	}
 
 	animeMovieStudios, err := server.gojo.ListAnimeMovieStudios(ctx, req.GetAnimeID())
-	if err != nil && err != db.ErrRecordNotFound {
-		return nil, status.Errorf(codes.Internal, "error when get anime movie studios : %s", err)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get anime movie studios", err)
 	}
 
 	if len(animeMovieStudios) > 0 {
 		studios := make([]db.Studio, len(animeMovieStudios))
 		for i, ams := range animeMovieStudios {
 			studios[i], err = server.gojo.GetStudio(ctx, ams)
-			if err != nil && err != db.ErrRecordNotFound {
-				return nil, status.Errorf(codes.Internal, "error when list anime movie studios : %s", err)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot list anime movie studios", err)
 			}
 		}
 		res.AnimeStudios = shared.ConvertStudios(studios)
@@ -118,35 +111,35 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 
 	var sv db.AnimeMovieServer
 	sv, err = server.gojo.GetAnimeMovieServer(ctx, req.GetAnimeID())
-	if err != nil && err != db.ErrRecordNotFound {
-		return nil, status.Errorf(codes.Internal, "error when get anime movie server ID : %s", err)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get anime movie server ID", err)
 	}
 
 	if sv.AnimeID == req.GetAnimeID() {
 		res.ServerID = &sv.ID
 		ss, err := server.gojo.ListAnimeMovieServerSubVideos(ctx, sv.ID)
-		if err != nil && err != db.ErrRecordNotFound {
-			return nil, status.Errorf(codes.Internal, "error when list anime movie server sub videos : %s", err)
+		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+			return nil, shared.DatabaseError("cannot list anime movie server sub videos", err)
 		}
 
 		subV := make([]db.AnimeMovieVideo, len(ss))
 		for i, ks := range ss {
 			subV[i], err = server.gojo.GetAnimeMovieVideo(ctx, ks.VideoID)
-			if err != nil && err != db.ErrRecordNotFound {
-				return nil, status.Errorf(codes.Internal, "error when get anime movie server sub videos : %s", err)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot get anime movie server sub videos", err)
 			}
 		}
 
 		st, err := server.gojo.ListAnimeMovieServerSubTorrents(ctx, sv.ID)
-		if err != nil && err != db.ErrRecordNotFound {
-			return nil, status.Errorf(codes.Internal, "error when list anime movie server sub torrents : %s", err)
+		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+			return nil, shared.DatabaseError("cannot list anime movie server sub torrents", err)
 		}
 
 		subT := make([]db.AnimeMovieTorrent, len(st))
 		for i, kst := range st {
 			subT[i], err = server.gojo.GetAnimeMovieTorrent(ctx, kst.ServerID)
-			if err != nil && err != db.ErrRecordNotFound {
-				return nil, status.Errorf(codes.Internal, "error when get anime movie server sub torrents : %s", err)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot get anime movie server sub torrents", err)
 			}
 		}
 
@@ -156,28 +149,28 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		}
 
 		sd, err := server.gojo.ListAnimeMovieServerDubVideos(ctx, sv.ID)
-		if err != nil && err != db.ErrRecordNotFound {
-			return nil, status.Errorf(codes.Internal, "error when list anime movie server dub videos : %s", err)
+		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+			return nil, shared.DatabaseError("cannot list anime movie server dub videos", err)
 		}
 
 		dubV := make([]db.AnimeMovieVideo, len(sd))
 		for i, kd := range sd {
 			dubV[i], err = server.gojo.GetAnimeMovieVideo(ctx, kd.VideoID)
-			if err != nil && err != db.ErrRecordNotFound {
-				return nil, status.Errorf(codes.Internal, "error when get anime movie server dub videos : %s", err)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot get anime movie server dub videos", err)
 			}
 		}
 
 		dt, err := server.gojo.ListAnimeMovieServerDubTorrents(ctx, sv.ID)
-		if err != nil && err != db.ErrRecordNotFound {
-			return nil, status.Errorf(codes.Internal, "error when list anime movie server sub torrents : %s", err)
+		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+			return nil, shared.DatabaseError("cannot list anime movie server dub torrents", err)
 		}
 
 		dubT := make([]db.AnimeMovieTorrent, len(dt))
 		for i, kdt := range dt {
 			subT[i], err = server.gojo.GetAnimeMovieTorrent(ctx, kdt.ServerID)
-			if err != nil && err != db.ErrRecordNotFound {
-				return nil, status.Errorf(codes.Internal, "error when get anime movie server dub torrents : %s", err)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot get anime movie server dub torrents", err)
 			}
 		}
 

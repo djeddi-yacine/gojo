@@ -73,8 +73,7 @@ func (server *AnimeSerieServer) UpdateAnimeSerie(ctx context.Context, req *aspb.
 
 	anime, err := server.gojo.UpdateAnimeSerie(ctx, arg)
 	if err != nil {
-		db.ErrorSQL(err)
-		return nil, status.Errorf(codes.Internal, "failed to update anime serie : %s", err)
+		return nil, shared.DatabaseError("failed to update anime serie", err)
 	}
 
 	res := &aspb.UpdateAnimeSerieResponse{

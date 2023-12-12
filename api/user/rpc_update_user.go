@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"errors"
 	"time"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
@@ -59,10 +58,7 @@ func (server *UserServer) UpdateUser(ctx context.Context, req *uspb.UpdateUserRe
 
 	user, err := server.gojo.UpdateUser(ctx, arg)
 	if err != nil {
-		if errors.Is(err, db.ErrRecordNotFound) {
-			return nil, status.Errorf(codes.NotFound, "user not found")
-		}
-		return nil, status.Errorf(codes.Internal, "failed to update user : %s", err)
+		return nil, shared.DatabaseError("failed to update user", err)
 	}
 
 	res := &uspb.UpdateUserResponse{

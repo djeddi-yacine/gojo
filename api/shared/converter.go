@@ -77,7 +77,7 @@ func ConvertAnimeResource(r db.AnimeResource) *shpb.AnimeResourceResponse {
 	return &shpb.AnimeResourceResponse{
 		ID:            r.ID,
 		TvdbID:        r.TvdbID,
-		TmdbID:        r.TvdbID,
+		TmdbID:        r.TmdbID,
 		ImdbID:        r.ImdbID,
 		LivechartID:   r.LivechartID,
 		AnimePlanetID: r.AnimePlanetID,

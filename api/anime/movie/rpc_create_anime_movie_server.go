@@ -4,7 +4,6 @@ import (
 	"context"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
-	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/pb/ampb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -29,8 +28,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieServer(ctx context.Context, req 
 
 	srv, err := server.gojo.CreateAnimeMovieServer(ctx, req.AnimeID)
 	if err != nil {
-		db.ErrorSQL(err)
-		return nil, status.Errorf(codes.Internal, "failed to create anime movie server : %s", err)
+		return nil, shared.DatabaseError("failed to create anime movie server", err)
 	}
 
 	res := &ampb.CreateAnimeMovieServerResponse{

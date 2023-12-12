@@ -7,6 +7,7 @@ import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/pb/aspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/jackc/pgerrcode"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -34,10 +35,11 @@ func (server *AnimeSerieServer) GetAllAnimeSeries(ctx context.Context, req *aspb
 	}
 	DBAnimeSeries, err := server.gojo.ListAnimeSeries(ctx, arg)
 	if err != nil {
-		if db.ErrorCode(err) == db.ErrRecordNotFound.Error() {
+		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
 		}
-		return nil, status.Errorf(codes.Internal, "failed to list the anime Series : %s", err)
+		return nil, shared.DatabaseError("Failed to list all anime series", err)
+		//return nil, shared.DatabaseError("Anime Series", err)
 	}
 
 	var PBAnimeSeries []*aspb.AnimeSerieResponse

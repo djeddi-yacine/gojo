@@ -30,24 +30,23 @@ func (server *AnimeMovieServer) CreateAnimeMovieResource(ctx context.Context, re
 	arg := db.CreateAnimeMovieResourceTxParams{
 		AnimeID: req.GetAnimeID(),
 		CreateAnimeResourceParams: db.CreateAnimeResourceParams{
-			TvdbID:        req.AnimeResources.GetTvdbID(),
-			TmdbID:        req.AnimeResources.GetTmdbID(),
-			ImdbID:        req.AnimeResources.GetImdbID(),
-			LivechartID:   req.AnimeResources.GetLivechartID(),
-			AnimePlanetID: req.AnimeResources.GetAnimePlanetID(),
-			AnisearchID:   req.AnimeResources.GetAnisearchID(),
-			AnidbID:       req.AnimeResources.GetAnidbID(),
-			KitsuID:       req.AnimeResources.GetKitsuID(),
-			MalID:         req.AnimeResources.GetMalID(),
-			NotifyMoeID:   req.AnimeResources.GetNotifyMoeID(),
-			AnilistID:     req.AnimeResources.GetAnilistID(),
+			TvdbID:        req.GetAnimeResources().GetTvdbID(),
+			TmdbID:        req.GetAnimeResources().GetTmdbID(),
+			ImdbID:        req.GetAnimeResources().GetImdbID(),
+			LivechartID:   req.GetAnimeResources().GetLivechartID(),
+			AnimePlanetID: req.GetAnimeResources().GetAnimePlanetID(),
+			AnisearchID:   req.GetAnimeResources().GetAnisearchID(),
+			AnidbID:       req.GetAnimeResources().GetAnidbID(),
+			KitsuID:       req.GetAnimeResources().GetKitsuID(),
+			MalID:         req.GetAnimeResources().GetMalID(),
+			NotifyMoeID:   req.GetAnimeResources().GetNotifyMoeID(),
+			AnilistID:     req.GetAnimeResources().GetAnilistID(),
 		},
 	}
 
 	data, err := server.gojo.CreateAnimeMovieResourceTx(ctx, arg)
 	if err != nil {
-		db.ErrorSQL(err)
-		return nil, status.Errorf(codes.Internal, "failed to create anime movie resource: %s", err)
+		return nil, shared.DatabaseError("failed to create anime movie resource", err)
 	}
 
 	res := &ampb.CreateAnimeMovieResourceResponse{

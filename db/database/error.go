@@ -1,60 +1,65 @@
 package db
 
 import (
-	"errors"
-	"fmt"
-
+	"github.com/jackc/pgerrcode"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/rs/zerolog/log"
 )
 
-const (
-	ForeignKeyViolation = "23503"
-	UniqueViolation     = "23505"
-)
-
-var ErrRecordNotFound = pgx.ErrNoRows
-
-var ErrUniqueViolation = &pgconn.PgError{
-	Code: UniqueViolation,
+func ErrorSQL(err error) {
+	if err != nil {
+		if pgErr, ok := err.(*pgconn.PgError); ok {
+			log.Error().Msgf("SQL Message: %v", pgErr.Message)
+			log.Error().Msgf("SQL Code: %v", pgErr.Code)
+		}
+	}
 }
 
-var ErrForeignKeyViolation = &pgconn.PgError{
-	Code: ForeignKeyViolation,
-}
-
-func DatabaseError(err error) error {
-	if pgErr, ok := err.(*pgconn.PgError); ok {
-		switch pgErr.Code {
-		case UniqueViolation:
-			return ErrUniqueViolation
-		case ForeignKeyViolation:
-			return ErrForeignKeyViolation
-		default:
-			return fmt.Errorf("database Error: %s - %s", pgErr.Code, pgErr.Message)
+func ErrorDB(err error) *pgconn.PgError {
+	var pgErr *pgconn.PgError
+	if err == pgx.ErrNoRows {
+		return &pgconn.PgError{
+			Code:    pgerrcode.CaseNotFound,
+			Message: "Not Found",
+			Detail:  err.Error(),
+		}
+	}
+	if err != nil {
+		if pgErr, ok := err.(*pgconn.PgError); ok {
+			return pgErr
 		}
 	}
 
-	if errors.Is(err, pgx.ErrNoRows) {
-		return ErrRecordNotFound
-	}
-
-	return fmt.Errorf("database Error: %s", err.Error())
+	return pgErr
 }
 
-func ErrorCode(err error) string {
-	var pgErr *pgconn.PgError
-	if errors.As(err, &pgErr) {
-		return pgErr.Code
+func ErrorDBType(err error) string {
+	if err != nil {
+		if err == pgx.ErrNoRows {
+			return "Not found"
+		}
+		if pgErr, ok := err.(*pgconn.PgError); ok {
+			switch pgErr.Code {
+			case pgerrcode.UniqueViolation:
+				return "Already exist."
+			case pgerrcode.ForeignKeyViolation:
+				return "Others data have relation with this model."
+			}
+			if pgerrcode.IsCaseNotFound(pgErr.Code) {
+				return "Not found."
+			}
+			if pgerrcode.IsConnectionException(pgErr.Code) {
+				return "Database connection timeout."
+			}
+			if pgerrcode.IsDataException(pgErr.Code) {
+				return "Data exception."
+			}
+			if pgerrcode.IsInvalidTransactionState(pgErr.Code) {
+				return "Failed to add it to database."
+			}
+		}
 	}
+
 	return ""
-}
-
-func ErrorSQL(err error) {
-	var pgErr *pgconn.PgError
-	if errors.As(err, &pgErr) {
-		log.Err(pgErr).Str("SQL Message:", pgErr.Message)
-		log.Err(pgErr).Str("SQL Code:", pgErr.Code)
-	}
 }

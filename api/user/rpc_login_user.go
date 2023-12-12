@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"errors"
 	"time"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
@@ -24,10 +23,7 @@ func (server *UserServer) LoginUser(ctx context.Context, req *uspb.LoginUserRequ
 
 	user, err := server.gojo.GetUserByUsername(ctx, req.Username)
 	if err != nil {
-		if errors.Is(err, db.ErrRecordNotFound) {
-			return nil, status.Errorf(codes.NotFound, "user not found : %s", err)
-		}
-		return nil, status.Errorf(codes.Internal, "failed to find user : %s", err)
+		return nil, shared.DatabaseError("failed to find user", err)
 	}
 
 	err = utils.CheckPassword(req.Password, user.HashedPassword)
@@ -80,7 +76,7 @@ func (server *UserServer) LoginUser(ctx context.Context, req *uspb.LoginUserRequ
 
 	session, err := server.gojo.RenewSessionTx(ctx, arg)
 	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to renew session : %s", err)
+		return nil, shared.DatabaseError("failed to renew session", err)
 	}
 
 	res := &uspb.LoginUserResponse{

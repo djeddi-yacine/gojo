@@ -8,8 +8,6 @@ import (
 	"github.com/dj-yacine-flutter/gojo/pb/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 func (server *UserServer) VerifyEmail(ctx context.Context, req *uspb.VerifyEmailRequest) (*uspb.VerifyEmailResponse, error) {
@@ -23,7 +21,7 @@ func (server *UserServer) VerifyEmail(ctx context.Context, req *uspb.VerifyEmail
 		SecretCode: req.GetSecretCode(),
 	})
 	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to verify email")
+		return nil, shared.DatabaseError("failed to verify email", err)
 	}
 
 	rsp := &uspb.VerifyEmailResponse{

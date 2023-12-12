@@ -38,10 +38,7 @@ func (server *InfoServer) CreateLanguages(ctx context.Context, req *nfpb.CreateL
 		CreateLanguageParams: LanguageParams,
 	})
 	if err != nil {
-		if db.ErrorCode(err) == db.UniqueViolation {
-			return nil, status.Errorf(codes.AlreadyExists, err.Error())
-		}
-		return nil, status.Errorf(codes.Internal, "failed to create language : %s", err)
+		return nil, shared.DatabaseError("failed to create new language", err)
 	}
 
 	var Languages []*nfpb.LanguageResponse

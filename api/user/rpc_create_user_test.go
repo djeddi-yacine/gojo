@@ -13,6 +13,8 @@ import (
 	"github.com/dj-yacine-flutter/gojo/worker"
 	mockwk "github.com/dj-yacine-flutter/gojo/worker/mock"
 	"github.com/golang/mock/gomock"
+	"github.com/jackc/pgerrcode"
+	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -222,7 +224,7 @@ func TestCreateUserAPI(t *testing.T) {
 				gojo.EXPECT().
 					CreateUserTx(gomock.Any(), gomock.Any()).
 					Times(1).
-					Return(db.CreateUserTxResult{}, db.ErrUniqueViolation)
+					Return(db.CreateUserTxResult{}, &pgconn.PgError{Code: pgerrcode.UniqueViolation})
 
 				taskDistributor.EXPECT().
 					DistributeTaskSendVerifyEmail(gomock.Any(), gomock.Any(), gomock.Any()).

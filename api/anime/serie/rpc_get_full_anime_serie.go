@@ -9,6 +9,7 @@ import (
 	"github.com/dj-yacine-flutter/gojo/pb/aspb"
 	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/jackc/pgerrcode"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -32,7 +33,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 
 	animeSerie, err := server.gojo.GetAnimeSerie(ctx, req.GetAnimeID())
 	if err != nil {
-		if db.ErrorCode(err) == db.ErrRecordNotFound.Error() {
+		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, status.Errorf(codes.NotFound, "there is no anime serie with this ID : %s", err)
 		}
 		return nil, status.Errorf(codes.Internal, "failed to get the anime serie : %s", err)
@@ -40,7 +41,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 
 	_, err = server.gojo.GetLanguage(ctx, req.GetLanguageID())
 	if err != nil {
-		if db.ErrorCode(err) == db.ErrRecordNotFound.Error() {
+		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, status.Errorf(codes.NotFound, "there is no language with this ID : %s", err)
 		}
 		return nil, status.Errorf(codes.Internal, "failed to get the language : %s", err)
@@ -60,7 +61,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 
 	if animeMeta > 0 {
 		meta, err := server.gojo.GetMeta(ctx, animeMeta)
-		if err != nil && err != db.ErrRecordNotFound {
+		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return nil, status.Errorf(codes.Internal, "error when return anime serie metadata : %s", err)
 		}
 
@@ -72,20 +73,20 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	}
 
 	animeSerieLinks, err := server.gojo.GetAnimeSerieLink(ctx, req.GetAnimeID())
-	if err != nil && err != db.ErrRecordNotFound {
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 		return nil, status.Errorf(codes.Internal, "error when get anime serie serie links : %s", err)
 	}
 
 	if animeSerieLinks.AnimeID == req.AnimeID {
 		animeLinks, err := server.gojo.GetAnimeLink(ctx, animeSerieLinks.LinkID)
-		if err != nil && err != db.ErrRecordNotFound {
+		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return nil, status.Errorf(codes.Internal, "error when get anime serie links : %s", err)
 		}
 		res.AnimeLinks = shared.ConvertAnimeLink(animeLinks)
 	}
 
 	animeSerieGenres, err := server.gojo.ListAnimeSerieGenres(ctx, req.GetAnimeID())
-	if err != nil && err != db.ErrRecordNotFound {
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 		return nil, status.Errorf(codes.Internal, "error when get anime serie genres : %s", err)
 	}
 
@@ -94,7 +95,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 
 		for i, amg := range animeSerieGenres {
 			genres[i], err = server.gojo.GetGenre(ctx, amg)
-			if err != nil && err != db.ErrRecordNotFound {
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 				return nil, status.Errorf(codes.Internal, "error when list anime serie genres : %s", err)
 			}
 		}
@@ -102,7 +103,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	}
 
 	animeSerieStudios, err := server.gojo.ListAnimeSerieStudios(ctx, req.GetAnimeID())
-	if err != nil && err != db.ErrRecordNotFound {
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 		return nil, status.Errorf(codes.Internal, "error when get anime serie studios : %s", err)
 	}
 
@@ -110,7 +111,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		studios := make([]db.Studio, len(animeSerieStudios))
 		for i, ams := range animeSerieStudios {
 			studios[i], err = server.gojo.GetStudio(ctx, ams)
-			if err != nil && err != db.ErrRecordNotFound {
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 				return nil, status.Errorf(codes.Internal, "error when list anime serie studios : %s", err)
 			}
 		}
@@ -122,7 +123,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		Limit:   math.MaxInt32,
 		Offset:  0,
 	})
-	if err != nil && err != db.ErrRecordNotFound {
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 		return nil, status.Errorf(codes.Internal, "error when get anime serie studios : %s", err)
 	}
 
@@ -137,12 +138,12 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 				SeasonID:   assm.ID,
 				LanguageID: req.GetLanguageID(),
 			})
-			if err != nil && err != db.ErrRecordNotFound {
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 				return nil, status.Errorf(codes.Internal, "error when list anime serie season metadata : %s", err)
 			}
 
 			seasonMeta, err = server.gojo.GetMeta(ctx, meta.MetaID)
-			if err != nil && err != db.ErrRecordNotFound {
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 				return nil, status.Errorf(codes.Internal, "error when get anime serie season metadata : %s", err)
 			}
 
@@ -151,7 +152,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 				Limit:    math.MaxInt32,
 				Offset:   0,
 			})
-			if err != nil && err != db.ErrRecordNotFound {
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 				return nil, status.Errorf(codes.Internal, "error when list anime serie season episodes : %s", err)
 			}
 

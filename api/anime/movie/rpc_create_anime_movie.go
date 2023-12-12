@@ -63,8 +63,7 @@ func (server *AnimeMovieServer) CreateAnimeMovie(ctx context.Context, req *ampb.
 
 	data, err := server.gojo.CreateAnimeMovieTx(ctx, arg)
 	if err != nil {
-		db.ErrorSQL(err)
-		return nil, status.Errorf(codes.Internal, "failed to create anime movie : %s", err)
+		return nil, shared.DatabaseError("cannot create anime movie", err)
 	}
 
 	res := &ampb.CreateAnimeMovieResponse{

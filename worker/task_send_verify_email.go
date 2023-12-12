@@ -9,6 +9,7 @@ import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/hibiken/asynq"
+	"github.com/jackc/pgx/v5"
 	"github.com/rs/zerolog/log"
 )
 
@@ -47,7 +48,7 @@ func (processor *RedisTaskProcessor) ProcessTaskSendVerifyEmail(ctx context.Cont
 
 	user, err := processor.gojo.GetUserByUsername(ctx, payload.Username)
 	if err != nil {
-		if errors.Is(err, db.ErrRecordNotFound) {
+		if errors.Is(err, pgx.ErrNoRows) {
 			return fmt.Errorf("user doesn't exist: %w", asynq.SkipRetry)
 		}
 		return fmt.Errorf("failed to get user: %w", err)

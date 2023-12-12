@@ -20,7 +20,7 @@ func (server *AnimeSerieServer) AddAnimeSerieData(ctx context.Context, req *aspb
 	}
 
 	if authPayload.Role != utils.RootRoll {
-		return nil, status.Errorf(codes.PermissionDenied, "cannot add anime Serie data")
+		return nil, status.Errorf(codes.PermissionDenied, "cannot add anime serie data")
 	}
 
 	if violations := validateAddAnimeSerieDataRequest(req); violations != nil {
@@ -93,8 +93,7 @@ func (server *AnimeSerieServer) AddAnimeSerieData(ctx context.Context, req *aspb
 
 	data, err := server.gojo.AddAnimeSerieDataTx(ctx, arg)
 	if err != nil {
-		db.ErrorSQL(err)
-		return nil, status.Errorf(codes.Internal, "failed to add anime Serie videos & torrents to the server : %s", err)
+		return nil, shared.DatabaseError("failed to add anime serie videos & torrents to the server", err)
 	}
 
 	res := &aspb.AddAnimeSerieDataResponse{

@@ -22,7 +22,7 @@ func (server *AnimeSerieServer) AddAnimeSerieSeasonMetas(ctx context.Context, re
 	}
 
 	if authPayload.Role != utils.RootRoll {
-		return nil, status.Errorf(codes.PermissionDenied, "cannot add anime serie season metas")
+		return nil, status.Errorf(codes.PermissionDenied, "cannot add anime serie season metadata")
 	}
 
 	if violations := validateAddAnimeSerieSeasonMetasRequest(req); violations != nil {
@@ -47,8 +47,7 @@ func (server *AnimeSerieServer) AddAnimeSerieSeasonMetas(ctx context.Context, re
 
 	data, err := server.gojo.AddAnimeSerieSeasonMetasTx(ctx, arg)
 	if err != nil {
-		db.ErrorSQL(err)
-		return nil, status.Errorf(codes.Internal, "failed to add anime serie season metas : %s", err)
+		return nil, shared.DatabaseError("failed to add anime serie season metadata", err)
 	}
 
 	var PBSM = make([]*nfpb.AnimeMetaResponse, len(data.AnimeSerieSeasonMetas))

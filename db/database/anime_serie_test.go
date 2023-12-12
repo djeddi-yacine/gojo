@@ -14,6 +14,9 @@ func createRandomAnimeSerie(t *testing.T) AnimeSerie {
 	arg := CreateAnimeSerieParams{
 		OriginalTitle: utils.RandomString(10),
 		FirstYear:     utils.RandomInt(1900, 2020),
+		MalID:         utils.RandomInt(01, 999999),
+		TvdbID:        utils.RandomInt(01, 999999),
+		TmdbID:        utils.RandomInt(01, 999999),
 	}
 
 	anime, err := testGojo.CreateAnimeSerie(context.Background(), arg)

@@ -7,6 +7,7 @@ import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/jackc/pgerrcode"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -33,10 +34,10 @@ func (server *InfoServer) GetAllGenres(ctx context.Context, req *nfpb.GetAllGenr
 	}
 	DBgenres, err := server.gojo.ListGenres(ctx, arg)
 	if err != nil {
-		if db.ErrorCode(err) == db.ErrRecordNotFound.Error() {
+		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
 		}
-		return nil, status.Errorf(codes.Internal, "failed to list the genres : %s", err)
+		return nil, shared.DatabaseError("failed to list all genres", err)
 	}
 
 	var PBgenres []*nfpb.Genre

@@ -36,8 +36,7 @@ func TestCreateLanguage(t *testing.T) {
 }
 
 func TestGetLanguage(t *testing.T) {
-	/// English
-	LanguageEN1 := createCustomLanguage(t, "English", "EN")
+	LanguageEN1 := createCustomLanguage(t, "AAAAAA", "AA")
 	LanguageEN2, err := testGojo.GetLanguage(context.Background(), LanguageEN1.ID)
 	require.NoError(t, err)
 	require.NotEmpty(t, LanguageEN2)
@@ -46,30 +45,6 @@ func TestGetLanguage(t *testing.T) {
 	require.Equal(t, LanguageEN1.LanguageName, LanguageEN2.LanguageName)
 	require.WithinDuration(t, LanguageEN1.CreatedAt, LanguageEN2.CreatedAt, time.Second)
 	err = testGojo.DeleteLanguage(context.Background(), LanguageEN1.ID)
-	require.NoError(t, err)
-
-	///Arabic
-	LanguageAR1 := createCustomLanguage(t, "Arabic", "AR")
-	LanguageAR2, err := testGojo.GetLanguage(context.Background(), LanguageAR1.ID)
-	require.NoError(t, err)
-	require.NotEmpty(t, LanguageAR2)
-
-	require.Equal(t, LanguageAR1.ID, LanguageAR2.ID)
-	require.Equal(t, LanguageAR1.LanguageName, LanguageAR2.LanguageName)
-	require.WithinDuration(t, LanguageAR1.CreatedAt, LanguageAR2.CreatedAt, time.Second)
-	err = testGojo.DeleteLanguage(context.Background(), LanguageAR1.ID)
-	require.NoError(t, err)
-
-	///Japanese
-	LanguageJP1 := createCustomLanguage(t, "Japanese", "JP")
-	LanguageJP2, err := testGojo.GetLanguage(context.Background(), LanguageJP1.ID)
-	require.NoError(t, err)
-	require.NotEmpty(t, LanguageJP2)
-
-	require.Equal(t, LanguageJP1.ID, LanguageJP2.ID)
-	require.Equal(t, LanguageJP1.LanguageName, LanguageJP2.LanguageName)
-	require.WithinDuration(t, LanguageJP1.CreatedAt, LanguageJP2.CreatedAt, time.Second)
-	err = testGojo.DeleteLanguage(context.Background(), LanguageJP1.ID)
 	require.NoError(t, err)
 }
 

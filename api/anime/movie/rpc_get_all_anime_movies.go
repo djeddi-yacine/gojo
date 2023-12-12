@@ -7,6 +7,7 @@ import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/pb/ampb"
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/jackc/pgerrcode"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -34,10 +35,10 @@ func (server *AnimeMovieServer) GetAllAnimeMovies(ctx context.Context, req *ampb
 	}
 	DBAnimeMovies, err := server.gojo.ListAnimeMovies(ctx, arg)
 	if err != nil {
-		if db.ErrorCode(err) == db.ErrRecordNotFound.Error() {
+		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
 		}
-		return nil, status.Errorf(codes.Internal, "failed to list the anime movies : %s", err)
+		return nil, shared.DatabaseError("failed to list all anime movies", err)
 	}
 
 	var PBAnimeMovies []*ampb.AnimeMovieResponse

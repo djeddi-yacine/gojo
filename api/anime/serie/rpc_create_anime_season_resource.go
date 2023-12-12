@@ -46,8 +46,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonResource(ctx context.Context, r
 
 	data, err := server.gojo.CreateAnimeSeasonResourceTx(ctx, arg)
 	if err != nil {
-		db.ErrorSQL(err)
-		return nil, status.Errorf(codes.Internal, "failed to create anime serie resource: %s", err)
+		return nil, shared.DatabaseError("failed to create anime serie resources", err)
 	}
 
 	res := &aspb.CreateAnimeSeasonResourceResponse{

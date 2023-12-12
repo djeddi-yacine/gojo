@@ -6,8 +6,8 @@ import (
 	"errors"
 	"fmt"
 
-	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/hibiken/asynq"
+	"github.com/jackc/pgx/v5"
 	"github.com/rs/zerolog/log"
 )
 
@@ -49,7 +49,7 @@ func (processor *RedisTaskProcessor) ProcessTaskDeleteSession(
 
 	err := processor.gojo.RefreshSessions(ctx, payload.Username)
 	if err != nil {
-		if errors.Is(err, db.ErrRecordNotFound) {
+		if errors.Is(err, pgx.ErrNoRows) {
 			return fmt.Errorf("session doesn't exist: %w", asynq.SkipRetry)
 		}
 		return fmt.Errorf("failed to delete session: %w", err)

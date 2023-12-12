@@ -11,6 +11,7 @@ import (
 	"github.com/dj-yacine-flutter/gojo/token"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/golang/mock/gomock"
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc/codes"
@@ -90,7 +91,7 @@ func TestUpdateUserAPI(t *testing.T) {
 				gojo.EXPECT().
 					UpdateUser(gomock.Any(), gomock.Any()).
 					Times(1).
-					Return(db.User{}, db.ErrRecordNotFound)
+					Return(db.User{}, pgx.ErrNoRows)
 			},
 			buildContext: func(t *testing.T, tokenMaker token.Maker) context.Context {
 				return newContextWithBearerToken(t, tokenMaker, user.Username, user.Role, time.Minute)

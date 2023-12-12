@@ -35,8 +35,7 @@ func (server *AnimeMovieServer) AddAnimeMovieInfo(ctx context.Context, req *ampb
 
 	data, err := server.gojo.AddAnimeMovieInfoTx(ctx, arg)
 	if err != nil {
-		db.ErrorSQL(err)
-		return nil, status.Errorf(codes.Internal, "failed to add anime movie info : %s", err)
+		return nil, shared.DatabaseError("failed to add anime movie info", err)
 	}
 
 	res := &ampb.AddAnimeMovieInfoResponse{
@@ -54,7 +53,7 @@ func validateAddAnimeMovieInfoRequest(req *ampb.AddAnimeMovieInfoRequest) (viola
 	}
 
 	if req.Genres == nil && req.Studios == nil {
-		violations = append(violations, shared.FieldViolation("studios,genres", errors.New("add one studio or genre at least")))
+		violations = append(violations, shared.FieldViolation("studios,genres", errors.New("add at least one studio or genre")))
 	} else {
 		if req.Genres != nil {
 			for _, g := range req.GetGenres().GenreID {

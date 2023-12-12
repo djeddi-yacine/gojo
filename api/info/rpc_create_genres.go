@@ -19,7 +19,7 @@ func (server *InfoServer) CreateGenres(ctx context.Context, req *nfpb.CreateGenr
 	}
 
 	if authPayload.Role != utils.RootRoll {
-		return nil, status.Errorf(codes.PermissionDenied, "cannot create new genre")
+		return nil, status.Errorf(codes.PermissionDenied, "Cannot create new genre")
 	}
 
 	if violations := validateCreateGenreRequest(req); violations != nil {
@@ -30,10 +30,7 @@ func (server *InfoServer) CreateGenres(ctx context.Context, req *nfpb.CreateGenr
 		Names: req.GetNames(),
 	})
 	if err != nil {
-		if db.ErrorCode(err) == db.UniqueViolation {
-			return nil, status.Errorf(codes.AlreadyExists, err.Error())
-		}
-		return nil, status.Errorf(codes.Internal, "failed to create genre : %s", err)
+		return nil, shared.DatabaseError("failed to create new genre", err)
 	}
 
 	var PBgenres []*nfpb.Genre

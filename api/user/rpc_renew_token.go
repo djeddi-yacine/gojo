@@ -2,7 +2,6 @@ package user
 
 import (
 	"context"
-	"errors"
 	"time"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
@@ -29,10 +28,7 @@ func (server *UserServer) RenewTokens(ctx context.Context, req *uspb.RenewTokens
 
 	session, err := server.gojo.GetSession(ctx, refreshPayload.ID)
 	if err != nil {
-		if errors.Is(err, db.ErrRecordNotFound) {
-			return nil, status.Errorf(codes.NotFound, err.Error())
-		}
-		return nil, status.Errorf(codes.Internal, err.Error())
+		return nil, shared.DatabaseError("failed to get session", err)
 	}
 
 	if session.IsBlocked {
@@ -96,7 +92,7 @@ func (server *UserServer) RenewTokens(ctx context.Context, req *uspb.RenewTokens
 
 	s, err := server.gojo.RenewSessionTx(ctx, arg)
 	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to renew session : %s", err)
+		return nil, shared.DatabaseError("failed to renew session", err)
 	}
 
 	res := &uspb.RenewTokensResponse{

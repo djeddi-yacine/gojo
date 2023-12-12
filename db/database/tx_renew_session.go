@@ -2,6 +2,8 @@ package db
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5"
 )
 
 type RenewSessionTxParams struct {
@@ -25,7 +27,7 @@ func (gojo *SQLGojo) RenewSessionTx(ctx context.Context, arg RenewSessionTxParam
 			IsBlocked: true,
 		})
 		if err != nil {
-			if err != ErrRecordNotFound {
+			if err != pgx.ErrNoRows {
 				return err
 			}
 			err = nil
