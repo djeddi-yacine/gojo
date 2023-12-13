@@ -20,6 +20,10 @@ WHERE
   id = sqlc.arg(id)
 RETURNING *;
 
+-- name: ListAnimeImages :many
+SELECT * FROM anime_images
+WHERE id = $1;
+
 -- name: DeleteAnimeImage :exec
 DELETE FROM anime_images
 WHERE id = $1;

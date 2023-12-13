@@ -80,6 +80,40 @@ func (q *Queries) GetAnimeImage(ctx context.Context, id int64) (AnimeImage, erro
 	return i, err
 }
 
+const listAnimeImages = `-- name: ListAnimeImages :many
+SELECT id, image_host, image_url, image_thumbnails, image_blurhash, image_height, image_width, created_at FROM anime_images
+WHERE id = $1
+`
+
+func (q *Queries) ListAnimeImages(ctx context.Context, id int64) ([]AnimeImage, error) {
+	rows, err := q.db.Query(ctx, listAnimeImages, id)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []AnimeImage{}
+	for rows.Next() {
+		var i AnimeImage
+		if err := rows.Scan(
+			&i.ID,
+			&i.ImageHost,
+			&i.ImageUrl,
+			&i.ImageThumbnails,
+			&i.ImageBlurhash,
+			&i.ImageHeight,
+			&i.ImageWidth,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
+
 const updateAnimeImage = `-- name: UpdateAnimeImage :one
 UPDATE anime_images
 SET

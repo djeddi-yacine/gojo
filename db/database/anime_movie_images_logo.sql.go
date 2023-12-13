@@ -47,56 +47,14 @@ func (q *Queries) DeleteAnimeMovieLogoImage(ctx context.Context, arg DeleteAnime
 	return err
 }
 
-const getAnimeMovieLogoImage = `-- name: GetAnimeMovieLogoImage :one
-SELECT id, anime_id, image_id, created_at FROM anime_movie_logo_images
-WHERE id = $1 LIMIT 1
-`
-
-func (q *Queries) GetAnimeMovieLogoImage(ctx context.Context, id int64) (AnimeMovieLogoImage, error) {
-	row := q.db.QueryRow(ctx, getAnimeMovieLogoImage, id)
-	var i AnimeMovieLogoImage
-	err := row.Scan(
-		&i.ID,
-		&i.AnimeID,
-		&i.ImageID,
-		&i.CreatedAt,
-	)
-	return i, err
-}
-
-const getAnimeMovieLogoImageByAnimeID = `-- name: GetAnimeMovieLogoImageByAnimeID :one
-SELECT id, anime_id, image_id, created_at FROM anime_movie_logo_images
-WHERE anime_id = $1 LIMIT 1
-`
-
-func (q *Queries) GetAnimeMovieLogoImageByAnimeID(ctx context.Context, animeID int64) (AnimeMovieLogoImage, error) {
-	row := q.db.QueryRow(ctx, getAnimeMovieLogoImageByAnimeID, animeID)
-	var i AnimeMovieLogoImage
-	err := row.Scan(
-		&i.ID,
-		&i.AnimeID,
-		&i.ImageID,
-		&i.CreatedAt,
-	)
-	return i, err
-}
-
 const listAnimeMovieLogoImages = `-- name: ListAnimeMovieLogoImages :many
 SELECT image_id
 FROM anime_movie_logo_images
 WHERE anime_id = $1
-LIMIT $2
-OFFSET $3
 `
 
-type ListAnimeMovieLogoImagesParams struct {
-	AnimeID int64
-	Limit   int32
-	Offset  int32
-}
-
-func (q *Queries) ListAnimeMovieLogoImages(ctx context.Context, arg ListAnimeMovieLogoImagesParams) ([]int64, error) {
-	rows, err := q.db.Query(ctx, listAnimeMovieLogoImages, arg.AnimeID, arg.Limit, arg.Offset)
+func (q *Queries) ListAnimeMovieLogoImages(ctx context.Context, animeID int64) ([]int64, error) {
+	rows, err := q.db.Query(ctx, listAnimeMovieLogoImages, animeID)
 	if err != nil {
 		return nil, err
 	}

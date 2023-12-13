@@ -2014,6 +2014,12 @@
         },
         "dub": {
           "$ref": "#/definitions/ampbAnimeMovieDubDataResponse"
+        },
+        "animeLinks": {
+          "$ref": "#/definitions/shpbAnimeLinkResponse"
+        },
+        "animeImages": {
+          "$ref": "#/definitions/shpbAnimeImageResponse"
         }
       }
     },

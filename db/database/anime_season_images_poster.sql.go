@@ -47,56 +47,14 @@ func (q *Queries) DeleteAnimeSeasonPosterImage(ctx context.Context, arg DeleteAn
 	return err
 }
 
-const getAnimeSeasonPosterImage = `-- name: GetAnimeSeasonPosterImage :one
-SELECT id, season_id, image_id, created_at FROM anime_season_poster_images
-WHERE id = $1 LIMIT 1
-`
-
-func (q *Queries) GetAnimeSeasonPosterImage(ctx context.Context, id int64) (AnimeSeasonPosterImage, error) {
-	row := q.db.QueryRow(ctx, getAnimeSeasonPosterImage, id)
-	var i AnimeSeasonPosterImage
-	err := row.Scan(
-		&i.ID,
-		&i.SeasonID,
-		&i.ImageID,
-		&i.CreatedAt,
-	)
-	return i, err
-}
-
-const getAnimeSeasonPosterImageByAnimeID = `-- name: GetAnimeSeasonPosterImageByAnimeID :one
-SELECT id, season_id, image_id, created_at FROM anime_season_poster_images
-WHERE season_id = $1 LIMIT 1
-`
-
-func (q *Queries) GetAnimeSeasonPosterImageByAnimeID(ctx context.Context, seasonID int64) (AnimeSeasonPosterImage, error) {
-	row := q.db.QueryRow(ctx, getAnimeSeasonPosterImageByAnimeID, seasonID)
-	var i AnimeSeasonPosterImage
-	err := row.Scan(
-		&i.ID,
-		&i.SeasonID,
-		&i.ImageID,
-		&i.CreatedAt,
-	)
-	return i, err
-}
-
 const listAnimeSeasonPosterImages = `-- name: ListAnimeSeasonPosterImages :many
 SELECT image_id
 FROM anime_season_poster_images
 WHERE season_id = $1
-LIMIT $2
-OFFSET $3
 `
 
-type ListAnimeSeasonPosterImagesParams struct {
-	SeasonID int64
-	Limit    int32
-	Offset   int32
-}
-
-func (q *Queries) ListAnimeSeasonPosterImages(ctx context.Context, arg ListAnimeSeasonPosterImagesParams) ([]int64, error) {
-	rows, err := q.db.Query(ctx, listAnimeSeasonPosterImages, arg.SeasonID, arg.Limit, arg.Offset)
+func (q *Queries) ListAnimeSeasonPosterImages(ctx context.Context, seasonID int64) ([]int64, error) {
+	rows, err := q.db.Query(ctx, listAnimeSeasonPosterImages, seasonID)
 	if err != nil {
 		return nil, err
 	}

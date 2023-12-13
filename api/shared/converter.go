@@ -263,7 +263,7 @@ func ConvertAnimeSerieTorrents(ast []db.AnimeSerieTorrent) []*aspb.AnimeSerieTor
 	}
 }
 
-func ConvertAnimeMovieEpiosdes(ase []db.AnimeSerieEpisode) []*aspb.AnimeSerieEpisodeResponse {
+func ConvertAnimeSerieEpiosdes(ase []db.AnimeSerieEpisode) []*aspb.AnimeSerieEpisodeResponse {
 	if len(ase) > 0 {
 		episodes := make([]*aspb.AnimeSerieEpisodeResponse, len(ase))
 
@@ -278,6 +278,29 @@ func ConvertAnimeMovieEpiosdes(ase []db.AnimeSerieEpisode) []*aspb.AnimeSerieEpi
 			}
 		}
 		return episodes
+	} else {
+		return nil
+	}
+}
+
+func ConvertAnimeImages(ami []db.AnimeImage) []*shpb.ImageResponse {
+	if len(ami) > 0 {
+		images := make([]*shpb.ImageResponse, len(ami))
+
+		for i, g := range ami {
+			images[i] = &shpb.ImageResponse{
+				ID:         g.ID,
+				Host:       g.ImageHost,
+				Url:        g.ImageUrl,
+				Thumbnails: g.ImageThumbnails,
+				Blurhash:   g.ImageBlurhash,
+				Height:     uint32(g.ImageHeight),
+				Width:      uint32(g.ImageWidth),
+				CreatedAt:  timestamppb.New(g.CreatedAt),
+			}
+		}
+
+		return images
 	} else {
 		return nil
 	}
