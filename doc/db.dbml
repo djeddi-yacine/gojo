@@ -517,7 +517,6 @@ Table anime_serie_server_dub_torrents {
 
 Table anime_images {
   id bigserial [primary key, unique, increment, not null]
-  image_type integer [not null]
   image_host  varchar [not null]
   image_url  varchar [not null]
   image_thumbnails  varchar [not null]
@@ -530,7 +529,7 @@ Table anime_images {
     }
 }
 
-Table anime_movie_images {
+Table anime_movie_poster_images {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
   image_id bigserial [not null]
@@ -541,7 +540,7 @@ Table anime_movie_images {
     }
 }
 
-Table anime_serie_images {
+Table anime_movie_backdrop_images {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
   image_id bigserial [not null]
@@ -552,7 +551,51 @@ Table anime_serie_images {
     }
 }
 
-Table anime_serie_season_images {
+Table anime_movie_logo_images {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  image_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, image_id) [unique]
+    }
+}
+
+Table anime_serie_poster_images {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  image_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, image_id) [unique]
+    }
+}
+
+Table anime_serie_backdrop_images {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  image_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, image_id) [unique]
+    }
+}
+
+Table anime_serie_logo_images {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  image_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, image_id) [unique]
+    }
+}
+
+Table anime_serie_season_poster_images {
   id bigserial [primary key, unique, increment, not null]
   season_id bigserial [not null]
   image_id bigserial [not null]
@@ -591,7 +634,13 @@ Ref {
   anime_movies.id - anime_movie_resources.anime_id [delete: cascade]
 }
 Ref {
-  anime_movies.id - anime_movie_images.anime_id [delete: cascade]
+  anime_movies.id - anime_movie_poster_images.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_backdrop_images.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_logo_images.anime_id [delete: cascade]
 }
 Ref {
   anime_movies.id - anime_movie_links.anime_id [delete: cascade]
@@ -611,7 +660,13 @@ Ref {
   anime_series.id - anime_serie_seasons.anime_id [delete: cascade]
 }
 Ref {
-  anime_series.id - anime_serie_images.anime_id [delete: cascade]
+  anime_series.id - anime_serie_poster_images.anime_id [delete: cascade]
+}
+Ref {
+  anime_series.id - anime_serie_backdrop_images.anime_id [delete: cascade]
+}
+Ref {
+  anime_series.id - anime_serie_logo_images.anime_id [delete: cascade]
 }
 Ref {
   anime_series.id - anime_serie_links.anime_id [delete: cascade]
@@ -720,7 +775,7 @@ Ref {
   anime_serie_seasons.id - anime_serie_season_metas.season_id [delete: cascade]
 }
 Ref {
-  anime_serie_seasons.id - anime_serie_season_images.season_id [delete: cascade]
+  anime_serie_seasons.id - anime_serie_season_poster_images.season_id [delete: cascade]
 }
 Ref {
   anime_serie_seasons.id - anime_season_resources.season_id [delete: cascade]
@@ -786,13 +841,25 @@ Ref {
 
 
 Ref {
-  anime_images.id - anime_movie_images.image_id [delete: cascade]
+  anime_images.id - anime_movie_poster_images.image_id [delete: cascade]
 }
 Ref {
-  anime_images.id - anime_serie_images.image_id [delete: cascade]
+  anime_images.id - anime_movie_backdrop_images.image_id [delete: cascade]
 }
 Ref {
-  anime_images.id - anime_serie_season_images.image_id [delete: cascade]
+  anime_images.id - anime_movie_logo_images.image_id [delete: cascade]
+}
+Ref {
+  anime_images.id - anime_serie_poster_images.image_id [delete: cascade]
+}
+Ref {
+  anime_images.id - anime_serie_backdrop_images.image_id [delete: cascade]
+}
+Ref {
+  anime_images.id - anime_serie_logo_images.image_id [delete: cascade]
+}
+Ref {
+  anime_images.id - anime_serie_season_poster_images.image_id [delete: cascade]
 }
 
 

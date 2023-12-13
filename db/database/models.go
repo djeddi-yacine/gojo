@@ -12,7 +12,6 @@ import (
 
 type AnimeImage struct {
 	ID              int64
-	ImageType       int32
 	ImageHost       string
 	ImageUrl        string
 	ImageThumbnails string
@@ -45,17 +44,17 @@ type AnimeMovie struct {
 	CreatedAt         time.Time
 }
 
-type AnimeMovieGenre struct {
-	ID      int64
-	AnimeID int64
-	GenreID int32
-}
-
-type AnimeMovieImage struct {
+type AnimeMovieBackdropImage struct {
 	ID        int64
 	AnimeID   int64
 	ImageID   int64
 	CreatedAt time.Time
+}
+
+type AnimeMovieGenre struct {
+	ID      int64
+	AnimeID int64
+	GenreID int32
 }
 
 type AnimeMovieLink struct {
@@ -64,11 +63,25 @@ type AnimeMovieLink struct {
 	LinkID  int64
 }
 
+type AnimeMovieLogoImage struct {
+	ID        int64
+	AnimeID   int64
+	ImageID   int64
+	CreatedAt time.Time
+}
+
 type AnimeMovieMeta struct {
 	ID         int64
 	AnimeID    int64
 	LanguageID int32
 	MetaID     int64
+}
+
+type AnimeMoviePosterImage struct {
+	ID        int64
+	AnimeID   int64
+	ImageID   int64
+	CreatedAt time.Time
 }
 
 type AnimeMovieResource struct {
@@ -178,6 +191,13 @@ type AnimeSerie struct {
 	CreatedAt         time.Time
 }
 
+type AnimeSerieBackdropImage struct {
+	ID        int64
+	AnimeID   int64
+	ImageID   int64
+	CreatedAt time.Time
+}
+
 type AnimeSerieEpisode struct {
 	ID                 int64
 	EpisodeNumber      int32
@@ -208,17 +228,17 @@ type AnimeSerieGenre struct {
 	GenreID int32
 }
 
-type AnimeSerieImage struct {
-	ID        int64
-	AnimeID   int64
-	ImageID   int64
-	CreatedAt time.Time
-}
-
 type AnimeSerieLink struct {
 	ID      int64
 	AnimeID int64
 	LinkID  int64
+}
+
+type AnimeSerieLogoImage struct {
+	ID        int64
+	AnimeID   int64
+	ImageID   int64
+	CreatedAt time.Time
 }
 
 type AnimeSerieMeta struct {
@@ -226,6 +246,13 @@ type AnimeSerieMeta struct {
 	AnimeID    int64
 	LanguageID int32
 	MetaID     int64
+}
+
+type AnimeSeriePosterImage struct {
+	ID        int64
+	AnimeID   int64
+	ImageID   int64
+	CreatedAt time.Time
 }
 
 type AnimeSerieSeason struct {
@@ -246,19 +273,19 @@ type AnimeSerieSeasonEpisode struct {
 	CreatedAt time.Time
 }
 
-type AnimeSerieSeasonImage struct {
-	ID        int64
-	SeasonID  int64
-	ImageID   int64
-	CreatedAt time.Time
-}
-
 type AnimeSerieSeasonMeta struct {
 	ID         int64
 	SeasonID   int64
 	LanguageID int32
 	MetaID     int64
 	CreatedAt  time.Time
+}
+
+type AnimeSerieSeasonPosterImage struct {
+	ID        int64
+	SeasonID  int64
+	ImageID   int64
+	CreatedAt time.Time
 }
 
 type AnimeSerieServer struct {
