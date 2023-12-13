@@ -80,6 +80,14 @@ build: fmt
 	-gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie -a -installsuffix nocgo \
 	-o gojo .
 
+cgo: fmt
+	go clean -x
+	go clean -cache -x
+	CGO_ENABLED=1 GOOS=linux GOARCH=amd64 \
+	go build -v -ldflags "-w -s -extldflags '-static'" \
+	-gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie -a -installsuffix cgo \
+	-o gojo .
+
 restart:
 	docker stop redisGOJO postgresGOJO
 	docker start redisGOJO postgresGOJO
@@ -95,4 +103,4 @@ dcd:
 fmt:
 	find . -name "*.go" -print0 | xargs -0 gofmt -w
 
-.PHONY: postgres redis createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans db build restart dcs dcd fmt
+.PHONY: postgres redis createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans db build cgo restart dcs dcd fmt
