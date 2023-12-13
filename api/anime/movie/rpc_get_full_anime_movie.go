@@ -7,6 +7,7 @@ import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/pb/ampb"
 	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
+	"github.com/dj-yacine-flutter/gojo/pb/shpb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/jackc/pgerrcode"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -178,7 +179,80 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 			Videos:   shared.ConvertAnimeMovieVideos(dubV),
 			Torrents: shared.ConvertAnimeMovieTorrents(dubT),
 		}
+	}
 
+	animePosterIDs, err := server.gojo.ListAnimeMoviePosterImages(ctx, req.AnimeID)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get anime movie posters images IDs", err)
+	}
+
+	var animePosters []db.AnimeImage
+	if len(animePosterIDs) > 0 {
+		animePosters = make([]db.AnimeImage, len(animePosterIDs))
+
+		for i, p := range animePosterIDs {
+			poster, err := server.gojo.GetAnimeImage(ctx, p)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot get anime movie poster image", err)
+			}
+			animePosters[i] = poster
+		}
+	}
+
+	animeBackdropIDs, err := server.gojo.ListAnimeMovieBackdropImages(ctx, req.AnimeID)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get anime movie backdrops images IDs", err)
+	}
+
+	var animeBackdrops []db.AnimeImage
+	if len(animeBackdropIDs) > 0 {
+		animeBackdrops = make([]db.AnimeImage, len(animeBackdropIDs))
+
+		for i, p := range animeBackdropIDs {
+			backdrop, err := server.gojo.GetAnimeImage(ctx, p)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot get anime movie backdrop image", err)
+			}
+			animeBackdrops[i] = backdrop
+		}
+	}
+
+	animeLogoIDs, err := server.gojo.ListAnimeMovieLogoImages(ctx, req.AnimeID)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get anime movie logos images IDs", err)
+	}
+
+	var animeLogos []db.AnimeImage
+	if len(animeLogoIDs) > 0 {
+		animeLogos = make([]db.AnimeImage, len(animeLogoIDs))
+
+		for i, p := range animeLogoIDs {
+			logo, err := server.gojo.GetAnimeImage(ctx, p)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot get anime movie logo image", err)
+			}
+			animeLogos[i] = logo
+		}
+	}
+
+	res.AnimeImages = &shpb.AnimeImageResponse{
+		Posters:   shared.ConvertAnimeImages(animePosters),
+		Backdrops: shared.ConvertAnimeImages(animeBackdrops),
+		Logos:     shared.ConvertAnimeImages(animeLogos),
+	}
+
+	animeLinkID, err := server.gojo.GetAnimeMovieLink(ctx, req.AnimeID)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get anime movie logos images IDs", err)
+	}
+
+	if animeLinkID.AnimeID == req.AnimeID {
+		animeLink, err := server.gojo.GetAnimeLink(ctx, animeLinkID.ID)
+		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+			return nil, shared.DatabaseError("cannot get anime movie links", err)
+		}
+
+		res.AnimeLinks = shared.ConvertAnimeLink(animeLink)
 	}
 
 	return res, nil

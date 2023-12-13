@@ -163,7 +163,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 					Meta:       shared.ConvertMeta(seasonMeta),
 					CreatedAt:  timestamppb.New(seasonMeta.CreatedAt),
 				},
-				SeasonEpisodes: shared.ConvertAnimeMovieEpiosdes(seasonEpisodes),
+				SeasonEpisodes: shared.ConvertAnimeSerieEpiosdes(seasonEpisodes),
 			}
 		}
 		res.AnimeSeasons = &aspb.AnimeSerieSeasonDetailsRsponse{
