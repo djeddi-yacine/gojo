@@ -486,6 +486,21 @@ func (mr *MockGojoMockRecorder) CreateAnimeResource(arg0, arg1 interface{}) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeResource", reflect.TypeOf((*MockGojo)(nil).CreateAnimeResource), arg0, arg1)
 }
 
+// CreateAnimeSeasonImageTx mocks base method.
+func (m *MockGojo) CreateAnimeSeasonImageTx(arg0 context.Context, arg1 db.CreateAnimeSeasonImageTxParams) (db.CreateAnimeSeasonImageTxResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeSeasonImageTx", arg0, arg1)
+	ret0, _ := ret[0].(db.CreateAnimeSeasonImageTxResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeSeasonImageTx indicates an expected call of CreateAnimeSeasonImageTx.
+func (mr *MockGojoMockRecorder) CreateAnimeSeasonImageTx(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSeasonImageTx", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSeasonImageTx), arg0, arg1)
+}
+
 // CreateAnimeSeasonPosterImage mocks base method.
 func (m *MockGojo) CreateAnimeSeasonPosterImage(arg0 context.Context, arg1 db.CreateAnimeSeasonPosterImageParams) (db.AnimeSeasonPosterImage, error) {
 	m.ctrl.T.Helper()
@@ -634,6 +649,21 @@ func (m *MockGojo) CreateAnimeSerieGenre(arg0 context.Context, arg1 db.CreateAni
 func (mr *MockGojoMockRecorder) CreateAnimeSerieGenre(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieGenre", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieGenre), arg0, arg1)
+}
+
+// CreateAnimeSerieImageTx mocks base method.
+func (m *MockGojo) CreateAnimeSerieImageTx(arg0 context.Context, arg1 db.CreateAnimeSerieImageTxParams) (db.CreateAnimeSerieImageTxResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeSerieImageTx", arg0, arg1)
+	ret0, _ := ret[0].(db.CreateAnimeSerieImageTxResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeSerieImageTx indicates an expected call of CreateAnimeSerieImageTx.
+func (mr *MockGojoMockRecorder) CreateAnimeSerieImageTx(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeSerieImageTx", reflect.TypeOf((*MockGojo)(nil).CreateAnimeSerieImageTx), arg0, arg1)
 }
 
 // CreateAnimeSerieLink mocks base method.

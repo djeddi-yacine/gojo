@@ -2,12 +2,12 @@ package animeSerie
 
 import (
 	"context"
-	"math"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/pb/aspb"
 	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
+	"github.com/dj-yacine-flutter/gojo/pb/shpb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/jackc/pgerrcode"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -34,17 +34,17 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	animeSerie, err := server.gojo.GetAnimeSerie(ctx, req.GetAnimeID())
 	if err != nil {
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
-			return nil, status.Errorf(codes.NotFound, "there is no anime serie with this ID : %s", err)
+			return nil, shared.DatabaseError("there is no anime serie with this ID", err)
 		}
-		return nil, status.Errorf(codes.Internal, "failed to get the anime serie : %s", err)
+		return nil, shared.DatabaseError("failed to get the anime serie", err)
 	}
 
 	_, err = server.gojo.GetLanguage(ctx, req.GetLanguageID())
 	if err != nil {
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
-			return nil, status.Errorf(codes.NotFound, "there is no language with this ID : %s", err)
+			return nil, shared.DatabaseError("there is no language with this language ID", err)
 		}
-		return nil, status.Errorf(codes.Internal, "failed to get the language : %s", err)
+		return nil, shared.DatabaseError("failed to get the language", err)
 	}
 
 	res := &aspb.GetFullAnimeSerieResponse{
@@ -56,13 +56,13 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		LanguageID: req.GetLanguageID(),
 	})
 	if err != nil {
-		return nil, status.Errorf(codes.NotFound, "no anime serie found with this languageID : %s", err)
+		return nil, shared.DatabaseError("no anime serie found with this language ID", err)
 	}
 
 	if animeMeta > 0 {
 		meta, err := server.gojo.GetMeta(ctx, animeMeta)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return nil, status.Errorf(codes.Internal, "error when return anime serie metadata : %s", err)
+			return nil, shared.DatabaseError("failed to get anime serie metadata", err)
 		}
 
 		res.AnimeMeta = &nfpb.AnimeMetaResponse{
@@ -72,22 +72,22 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		}
 	}
 
-	animeSerieLinks, err := server.gojo.GetAnimeSerieLink(ctx, req.GetAnimeID())
+	animeLinkID, err := server.gojo.GetAnimeSerieLink(ctx, req.GetAnimeID())
 	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, status.Errorf(codes.Internal, "error when get anime serie serie links : %s", err)
+		return nil, shared.DatabaseError("failed to get anime serie links ID", err)
 	}
 
-	if animeSerieLinks.AnimeID == req.AnimeID {
-		animeLinks, err := server.gojo.GetAnimeLink(ctx, animeSerieLinks.LinkID)
+	if animeLinkID.AnimeID == req.AnimeID {
+		animeLinks, err := server.gojo.GetAnimeLink(ctx, animeLinkID.LinkID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return nil, status.Errorf(codes.Internal, "error when get anime serie links : %s", err)
+			return nil, shared.DatabaseError("failed to get anime serie links", err)
 		}
 		res.AnimeLinks = shared.ConvertAnimeLink(animeLinks)
 	}
 
 	animeSerieGenres, err := server.gojo.ListAnimeSerieGenres(ctx, req.GetAnimeID())
 	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, status.Errorf(codes.Internal, "error when get anime serie genres : %s", err)
+		return nil, shared.DatabaseError("failed to get anime serie genres", err)
 	}
 
 	if len(animeSerieGenres) > 0 {
@@ -96,7 +96,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		for i, amg := range animeSerieGenres {
 			genres[i], err = server.gojo.GetGenre(ctx, amg)
 			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return nil, status.Errorf(codes.Internal, "error when list anime serie genres : %s", err)
+				return nil, shared.DatabaseError("failed when list anime serie genres", err)
 			}
 		}
 		res.AnimeGenres = shared.ConvertGenres(genres)
@@ -104,7 +104,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 
 	animeSerieStudios, err := server.gojo.ListAnimeSerieStudios(ctx, req.GetAnimeID())
 	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, status.Errorf(codes.Internal, "error when get anime serie studios : %s", err)
+		return nil, shared.DatabaseError("failed to get anime serie studios", err)
 	}
 
 	if len(animeSerieStudios) > 0 {
@@ -112,63 +112,70 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		for i, ams := range animeSerieStudios {
 			studios[i], err = server.gojo.GetStudio(ctx, ams)
 			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return nil, status.Errorf(codes.Internal, "error when list anime serie studios : %s", err)
+				return nil, shared.DatabaseError("failed when list anime serie studios", err)
 			}
 		}
 		res.AnimeStudios = shared.ConvertStudios(studios)
 	}
 
-	animeSerieSeasons, err := server.gojo.ListAnimeSerieSeasonsByAnimeID(ctx, db.ListAnimeSerieSeasonsByAnimeIDParams{
-		AnimeID: req.GetAnimeID(),
-		Limit:   math.MaxInt32,
-		Offset:  0,
-	})
+	animePosterIDs, err := server.gojo.ListAnimeSeriePosterImages(ctx, req.AnimeID)
 	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, status.Errorf(codes.Internal, "error when get anime serie studios : %s", err)
+		return nil, shared.DatabaseError("cannot get anime serie posters images IDs", err)
 	}
 
-	if len(animeSerieSeasons) > 0 {
-		var meta db.AnimeSerieSeasonMeta
-		var seasonMeta db.Meta
-		var seasonEpisodes []db.AnimeSerieEpisode
-		seasonDetails := make([]*aspb.AnimeSerieSeasonDetails, len(animeSerieSeasons))
+	var animePosters []db.AnimeImage
+	if len(animePosterIDs) > 0 {
+		animePosters = make([]db.AnimeImage, len(animePosterIDs))
 
-		for i, assm := range animeSerieSeasons {
-			meta, err = server.gojo.GetAnimeSerieSeasonMeta(ctx, db.GetAnimeSerieSeasonMetaParams{
-				SeasonID:   assm.ID,
-				LanguageID: req.GetLanguageID(),
-			})
+		for i, p := range animePosterIDs {
+			poster, err := server.gojo.GetAnimeImage(ctx, p)
 			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return nil, status.Errorf(codes.Internal, "error when list anime serie season metadata : %s", err)
+				return nil, shared.DatabaseError("cannot get anime serie poster image", err)
 			}
-
-			seasonMeta, err = server.gojo.GetMeta(ctx, meta.MetaID)
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return nil, status.Errorf(codes.Internal, "error when get anime serie season metadata : %s", err)
-			}
-
-			seasonEpisodes, err = server.gojo.ListAnimeSerieEpisodesBySeasonID(ctx, db.ListAnimeSerieEpisodesBySeasonIDParams{
-				SeasonID: assm.ID,
-				Limit:    math.MaxInt32,
-				Offset:   0,
-			})
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return nil, status.Errorf(codes.Internal, "error when list anime serie season episodes : %s", err)
-			}
-
-			seasonDetails[i] = &aspb.AnimeSerieSeasonDetails{
-				Season: shared.ConvertAnimeSerieSeason(assm),
-				SeasonMetas: &nfpb.AnimeMetaResponse{
-					LanguageID: req.GetLanguageID(),
-					Meta:       shared.ConvertMeta(seasonMeta),
-					CreatedAt:  timestamppb.New(seasonMeta.CreatedAt),
-				},
-				SeasonEpisodes: shared.ConvertAnimeSerieEpiosdes(seasonEpisodes),
-			}
+			animePosters[i] = poster
 		}
-		res.AnimeSeasons = &aspb.AnimeSerieSeasonDetailsRsponse{
-			Seasons: seasonDetails,
+	}
+
+	animeBackdropIDs, err := server.gojo.ListAnimeSerieBackdropImages(ctx, req.AnimeID)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get anime serie backdrops images IDs", err)
+	}
+
+	var animeBackdrops []db.AnimeImage
+	if len(animeBackdropIDs) > 0 {
+		animeBackdrops = make([]db.AnimeImage, len(animeBackdropIDs))
+
+		for i, p := range animeBackdropIDs {
+			backdrop, err := server.gojo.GetAnimeImage(ctx, p)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot get anime serie backdrop image", err)
+			}
+			animeBackdrops[i] = backdrop
 		}
+	}
+
+	animeLogoIDs, err := server.gojo.ListAnimeSerieLogoImages(ctx, req.AnimeID)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get anime serie logos images IDs", err)
+	}
+
+	var animeLogos []db.AnimeImage
+	if len(animeLogoIDs) > 0 {
+		animeLogos = make([]db.AnimeImage, len(animeLogoIDs))
+
+		for i, p := range animeLogoIDs {
+			logo, err := server.gojo.GetAnimeImage(ctx, p)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot get anime serie logo image", err)
+			}
+			animeLogos[i] = logo
+		}
+	}
+
+	res.AnimeImages = &shpb.AnimeImageResponse{
+		Posters:   shared.ConvertAnimeImages(animePosters),
+		Backdrops: shared.ConvertAnimeImages(animeBackdrops),
+		Logos:     shared.ConvertAnimeImages(animeLogos),
 	}
 
 	return res, nil

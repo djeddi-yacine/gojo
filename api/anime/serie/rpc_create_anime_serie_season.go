@@ -3,6 +3,7 @@ package animeSerie
 import (
 	"context"
 	"errors"
+	"time"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
@@ -94,7 +95,7 @@ func validateCreateAnimeSerieSeasonRequest(req *aspb.CreateAnimeSerieSeasonReque
 			violations = append(violations, shared.FieldViolation("portriatBlurHash", err))
 		}
 
-		if err := utils.ValidateDate(req.GetSeason().GetAired().String()); err != nil {
+		if err := utils.ValidateDate(req.GetSeason().GetAired().AsTime().Format(time.DateOnly)); err != nil {
 			violations = append(violations, shared.FieldViolation("aired", err))
 		}
 

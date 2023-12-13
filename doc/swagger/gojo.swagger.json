@@ -2005,6 +2005,12 @@
         "animeStudios": {
           "$ref": "#/definitions/nfpbAnimeStudiosResponse"
         },
+        "animeLinks": {
+          "$ref": "#/definitions/shpbAnimeLinkResponse"
+        },
+        "animeImages": {
+          "$ref": "#/definitions/shpbAnimeImageResponse"
+        },
         "serverID": {
           "type": "string",
           "format": "int64"
@@ -2014,12 +2020,6 @@
         },
         "dub": {
           "$ref": "#/definitions/ampbAnimeMovieDubDataResponse"
-        },
-        "animeLinks": {
-          "$ref": "#/definitions/shpbAnimeLinkResponse"
-        },
-        "animeImages": {
-          "$ref": "#/definitions/shpbAnimeImageResponse"
         }
       }
     },
@@ -2343,39 +2343,6 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
-        }
-      }
-    },
-    "aspbAnimeSerieSeasonDetails": {
-      "type": "object",
-      "properties": {
-        "season": {
-          "$ref": "#/definitions/aspbAnimeSerieSeasonResponse"
-        },
-        "seasonMetas": {
-          "$ref": "#/definitions/nfpbAnimeMetaResponse"
-        },
-        "seasonResources": {
-          "$ref": "#/definitions/shpbAnimeResourceResponse"
-        },
-        "seasonEpisodes": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/aspbAnimeSerieEpisodeResponse"
-          }
-        }
-      }
-    },
-    "aspbAnimeSerieSeasonDetailsRsponse": {
-      "type": "object",
-      "properties": {
-        "seasons": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/aspbAnimeSerieSeasonDetails"
-          }
         }
       }
     },
@@ -2894,8 +2861,8 @@
         "animeStudios": {
           "$ref": "#/definitions/nfpbAnimeStudiosResponse"
         },
-        "animeSeasons": {
-          "$ref": "#/definitions/aspbAnimeSerieSeasonDetailsRsponse"
+        "animeImages": {
+          "$ref": "#/definitions/shpbAnimeImageResponse"
         }
       }
     },

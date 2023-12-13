@@ -66,12 +66,12 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		}
 	}
 
-	animeMovieResources, err := server.gojo.GetAnimeMovieResource(ctx, req.GetAnimeID())
+	animeResourceID, err := server.gojo.GetAnimeMovieResource(ctx, req.GetAnimeID())
 	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 		return nil, shared.DatabaseError("cannot get anime movie resources", err)
 	}
 
-	animeResources, err := server.gojo.GetAnimeResource(ctx, animeMovieResources.ResourceID)
+	animeResources, err := server.gojo.GetAnimeResource(ctx, animeResourceID.ResourceID)
 	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 		return nil, shared.DatabaseError("cannot get resources data", err)
 	}
@@ -243,7 +243,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 
 	animeLinkID, err := server.gojo.GetAnimeMovieLink(ctx, req.AnimeID)
 	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, shared.DatabaseError("cannot get anime movie logos images IDs", err)
+		return nil, shared.DatabaseError("cannot get anime movie links ID", err)
 	}
 
 	if animeLinkID.AnimeID == req.AnimeID {
