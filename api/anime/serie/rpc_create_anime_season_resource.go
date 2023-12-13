@@ -62,11 +62,11 @@ func validateCreateAnimeSerieResourceRequest(req *aspb.CreateAnimeSeasonResource
 	}
 
 	if req.SeasonResources != nil {
-		if err := utils.ValidateInt(int64(req.GetSeasonResources().GetTvdbID())); err != nil {
+		if err := utils.ValidateInt(int64(req.GetSeasonResources().GetTvdbID() + 1)); err != nil {
 			violations = append(violations, shared.FieldViolation("tvdbID", err))
 		}
 
-		if err := utils.ValidateInt(int64(req.GetSeasonResources().GetTmdbID())); err != nil {
+		if err := utils.ValidateInt(int64(req.GetSeasonResources().GetTmdbID() + 1)); err != nil {
 			violations = append(violations, shared.FieldViolation("tmdbID", err))
 		}
 
