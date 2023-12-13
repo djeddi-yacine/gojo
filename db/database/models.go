@@ -170,6 +170,13 @@ type AnimeResource struct {
 	CreatedAt     time.Time
 }
 
+type AnimeSeasonPosterImage struct {
+	ID        int64
+	SeasonID  int64
+	ImageID   int64
+	CreatedAt time.Time
+}
+
 type AnimeSeasonResource struct {
 	ID         int64
 	SeasonID   int64
@@ -279,13 +286,6 @@ type AnimeSerieSeasonMeta struct {
 	LanguageID int32
 	MetaID     int64
 	CreatedAt  time.Time
-}
-
-type AnimeSerieSeasonPosterImage struct {
-	ID        int64
-	SeasonID  int64
-	ImageID   int64
-	CreatedAt time.Time
 }
 
 type AnimeSerieServer struct {

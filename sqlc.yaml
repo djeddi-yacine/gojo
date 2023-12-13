@@ -95,7 +95,7 @@ sql:
           anime_serie_poster_images: "AnimeSeriePosterImage"
           anime_serie_backdrop_images: "AnimeSerieBackdropImage"
           anime_serie_logo_images: "AnimeSerieLogoImage"
-          anime_serie_season_poster_images: "AnimeSerieSeasonPosterImage"
+          anime_season_poster_images: "AnimeSeasonPosterImage"
 
           ## add anime_links
           anime_links: "AnimeLink"

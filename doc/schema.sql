@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-12-13T11:45:31.824Z
+-- Generated at: 2023-12-13T13:15:51.142Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -397,7 +397,7 @@ CREATE TABLE "anime_serie_logo_images" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-CREATE TABLE "anime_serie_season_poster_images" (
+CREATE TABLE "anime_season_poster_images" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "season_id" bigserial NOT NULL,
   "image_id" bigserial NOT NULL,
@@ -608,9 +608,9 @@ CREATE INDEX ON "anime_serie_logo_images" ("id");
 
 CREATE UNIQUE INDEX ON "anime_serie_logo_images" ("anime_id", "image_id");
 
-CREATE INDEX ON "anime_serie_season_poster_images" ("id");
+CREATE INDEX ON "anime_season_poster_images" ("id");
 
-CREATE UNIQUE INDEX ON "anime_serie_season_poster_images" ("season_id", "image_id");
+CREATE UNIQUE INDEX ON "anime_season_poster_images" ("season_id", "image_id");
 
 ALTER TABLE "sessions" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
 
@@ -704,7 +704,7 @@ ALTER TABLE "anime_serie_season_episodes" ADD FOREIGN KEY ("season_id") REFERENC
 
 ALTER TABLE "anime_serie_season_metas" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_serie_season_poster_images" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_season_poster_images" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_season_resources" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
 
@@ -750,7 +750,7 @@ ALTER TABLE "anime_serie_backdrop_images" ADD FOREIGN KEY ("image_id") REFERENCE
 
 ALTER TABLE "anime_serie_logo_images" ADD FOREIGN KEY ("image_id") REFERENCES "anime_images" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_serie_season_poster_images" ADD FOREIGN KEY ("image_id") REFERENCES "anime_images" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_season_poster_images" ADD FOREIGN KEY ("image_id") REFERENCES "anime_images" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_links" ADD FOREIGN KEY ("link_id") REFERENCES "anime_links" ("id") ON DELETE CASCADE;
 

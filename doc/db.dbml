@@ -595,7 +595,7 @@ Table anime_serie_logo_images {
     }
 }
 
-Table anime_serie_season_poster_images {
+Table anime_season_poster_images {
   id bigserial [primary key, unique, increment, not null]
   season_id bigserial [not null]
   image_id bigserial [not null]
@@ -775,7 +775,7 @@ Ref {
   anime_serie_seasons.id - anime_serie_season_metas.season_id [delete: cascade]
 }
 Ref {
-  anime_serie_seasons.id - anime_serie_season_poster_images.season_id [delete: cascade]
+  anime_serie_seasons.id - anime_season_poster_images.season_id [delete: cascade]
 }
 Ref {
   anime_serie_seasons.id - anime_season_resources.season_id [delete: cascade]
@@ -859,7 +859,7 @@ Ref {
   anime_images.id - anime_serie_logo_images.image_id [delete: cascade]
 }
 Ref {
-  anime_images.id - anime_serie_season_poster_images.image_id [delete: cascade]
+  anime_images.id - anime_season_poster_images.image_id [delete: cascade]
 }
 
 
