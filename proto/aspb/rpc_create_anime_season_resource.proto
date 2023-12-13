@@ -7,12 +7,12 @@ import "aspb/anime_serie_season.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
-message CreateAnimeSeasonResourceRequest {
+message CreateAnimeSerieSeasonResourceRequest {
     int64 seasonID = 1;
     shpb.AnimeResourceRequest seasonResources = 2;
 }
 
-message CreateAnimeSeasonResourceResponse {
+message CreateAnimeSerieSeasonResourceResponse {
     AnimeSerieSeasonResponse animeSeason = 1;
     shpb.AnimeResourceResponse seasonResources = 2;
 }

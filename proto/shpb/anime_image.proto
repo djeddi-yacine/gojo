@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package shpb;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/shpb";
+
+
+message ImageRequest {
+    string host = 1;
+    string url = 2;
+    string thumbnails = 3;
+    string blurhash = 4;
+    uint32 height = 5;
+    uint32 width = 6;
+}
+
+message ImageResponse {
+    int64 ID = 1;
+    string host = 2;
+    string url = 3;
+    string thumbnails = 4;
+    string blurhash = 5;
+    uint32 height = 6;
+    uint32 width = 7;
+    google.protobuf.Timestamp createdAt = 8;
+}
+
+message AnimeImageRequest {
+    repeated ImageRequest posters = 1;
+    repeated ImageRequest backdrops = 2;
+    repeated ImageRequest logos = 3;
+}
+
+message AnimeImageResponse {
+    repeated ImageResponse posters = 1;
+    repeated ImageResponse backdrops = 2;
+    repeated ImageResponse logos = 3;
+}

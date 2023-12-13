@@ -209,6 +209,40 @@
         ]
       }
     },
+    "/v1/anime/movie/image/create": {
+      "post": {
+        "summary": "Create new anime movie images",
+        "description": "Use this API to create a new anime movie images",
+        "operationId": "Gojo_CreateAnimeMovieImage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbCreateAnimeMovieImageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbCreateAnimeMovieImageRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/movie/info": {
       "post": {
         "summary": "add info to anime movie",
@@ -690,6 +724,40 @@
         ]
       }
     },
+    "/v1/anime/serie/image/create": {
+      "post": {
+        "summary": "Create new anime images",
+        "description": "Use this API to create a new anime serie images",
+        "operationId": "Gojo_CreateAnimeSerieImage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSerieImageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSerieImageRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/serie/info": {
       "post": {
         "summary": "add info to anime serie",
@@ -846,40 +914,6 @@
         ]
       }
     },
-    "/v1/anime/serie/resource/create": {
-      "post": {
-        "summary": "Create new anime serie resources",
-        "description": "Use this API to create a new anime serie season resources",
-        "operationId": "Gojo_CreateAnimeSeasonResource",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/aspbCreateAnimeSeasonResourceResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/aspbCreateAnimeSeasonResourceRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Gojo"
-        ]
-      }
-    },
     "/v1/anime/serie/season/create": {
       "post": {
         "summary": "create new anime serie season",
@@ -914,6 +948,40 @@
         ]
       }
     },
+    "/v1/anime/serie/season/image/create": {
+      "post": {
+        "summary": "Create new anime serie images",
+        "description": "Use this API to create a new anime serie season images",
+        "operationId": "Gojo_CreateAnimeSerieSeasonImage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSerieSeasonImageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSerieSeasonImageRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/serie/season/meta/create": {
       "post": {
         "summary": "create new metas to anime serie season",
@@ -940,6 +1008,40 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/aspbAddAnimeSerieSeasonMetasRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/serie/season/resource/create": {
+      "post": {
+        "summary": "Create new anime serie resources",
+        "description": "Use this API to create a new anime serie season resources",
+        "operationId": "Gojo_CreateAnimeSerieSeasonResource",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSerieSeasonResourceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSerieSeasonResourceRequest"
             }
           }
         ],
@@ -1703,6 +1805,29 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "ampbCreateAnimeMovieImageRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeImages": {
+          "$ref": "#/definitions/shpbAnimeImageRequest"
+        }
+      }
+    },
+    "ampbCreateAnimeMovieImageResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbAnimeMovieResponse"
+        },
+        "animeImages": {
+          "$ref": "#/definitions/shpbAnimeImageResponse"
         }
       }
     },
@@ -2478,29 +2603,6 @@
         }
       }
     },
-    "aspbCreateAnimeSeasonResourceRequest": {
-      "type": "object",
-      "properties": {
-        "seasonID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "seasonResources": {
-          "$ref": "#/definitions/shpbAnimeResourceRequest"
-        }
-      }
-    },
-    "aspbCreateAnimeSeasonResourceResponse": {
-      "type": "object",
-      "properties": {
-        "animeSeason": {
-          "$ref": "#/definitions/aspbAnimeSerieSeasonResponse"
-        },
-        "seasonResources": {
-          "$ref": "#/definitions/shpbAnimeResourceResponse"
-        }
-      }
-    },
     "aspbCreateAnimeSerieEpisodeRequest": {
       "type": "object",
       "properties": {
@@ -2531,6 +2633,29 @@
             "type": "object",
             "$ref": "#/definitions/nfpbAnimeMetaResponse"
           }
+        }
+      }
+    },
+    "aspbCreateAnimeSerieImageRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeImages": {
+          "$ref": "#/definitions/shpbAnimeImageRequest"
+        }
+      }
+    },
+    "aspbCreateAnimeSerieImageResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/aspbAnimeSerieResponse"
+        },
+        "animeImages": {
+          "$ref": "#/definitions/shpbAnimeImageResponse"
         }
       }
     },
@@ -2611,6 +2736,37 @@
         }
       }
     },
+    "aspbCreateAnimeSerieSeasonImageRequest": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "posters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbImageRequest"
+          }
+        }
+      }
+    },
+    "aspbCreateAnimeSerieSeasonImageResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeason": {
+          "$ref": "#/definitions/aspbAnimeSerieSeasonResponse"
+        },
+        "posters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbImageResponse"
+          }
+        }
+      }
+    },
     "aspbCreateAnimeSerieSeasonRequest": {
       "type": "object",
       "properties": {
@@ -2623,6 +2779,29 @@
             "type": "object",
             "$ref": "#/definitions/nfpbAnimeMetaRequest"
           }
+        }
+      }
+    },
+    "aspbCreateAnimeSerieSeasonResourceRequest": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonResources": {
+          "$ref": "#/definitions/shpbAnimeResourceRequest"
+        }
+      }
+    },
+    "aspbCreateAnimeSerieSeasonResourceResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeason": {
+          "$ref": "#/definitions/aspbAnimeSerieSeasonResponse"
+        },
+        "seasonResources": {
+          "$ref": "#/definitions/shpbAnimeResourceResponse"
         }
       }
     },
@@ -3064,6 +3243,58 @@
         }
       }
     },
+    "shpbAnimeImageRequest": {
+      "type": "object",
+      "properties": {
+        "posters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbImageRequest"
+          }
+        },
+        "backdrops": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbImageRequest"
+          }
+        },
+        "logos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbImageRequest"
+          }
+        }
+      }
+    },
+    "shpbAnimeImageResponse": {
+      "type": "object",
+      "properties": {
+        "posters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbImageResponse"
+          }
+        },
+        "backdrops": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbImageResponse"
+          }
+        },
+        "logos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbImageResponse"
+          }
+        }
+      }
+    },
     "shpbAnimeLinkRequest": {
       "type": "object",
       "properties": {
@@ -3205,6 +3436,64 @@
         "anilistID": {
           "type": "integer",
           "format": "int32"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "shpbImageRequest": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "thumbnails": {
+          "type": "string"
+        },
+        "blurhash": {
+          "type": "string"
+        },
+        "height": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "width": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "shpbImageResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "host": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "thumbnails": {
+          "type": "string"
+        },
+        "blurhash": {
+          "type": "string"
+        },
+        "height": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "width": {
+          "type": "integer",
+          "format": "int64"
         },
         "createdAt": {
           "type": "string",
