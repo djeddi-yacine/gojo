@@ -335,7 +335,7 @@ service Gojo {
       summary:  "Create new anime serie meta";
     };
   }
-  rpc CreateAnimeSerieSeasonResource(aspb.CreateAnimeSerieSeasonResourceRequest) returns (aspb.CreateAnimeSerieSeasonResourceResponse) {
+  rpc CreateAnimeSeasonResource(aspb.CreateAnimeSeasonResourceRequest) returns (aspb.CreateAnimeSeasonResourceResponse) {
     option (google.api.http) = {
       post : "/v1/anime/serie/season/resource/create"
       body : "*"
@@ -345,7 +345,7 @@ service Gojo {
       summary:  "Create new anime serie resources";
     };
   }
-  rpc CreateAnimeSerieSeasonImage(aspb.CreateAnimeSerieSeasonImageRequest) returns (aspb.CreateAnimeSerieSeasonImageResponse) {
+  rpc CreateAnimeSeasonImage(aspb.CreateAnimeSeasonImageRequest) returns (aspb.CreateAnimeSeasonImageResponse) {
     option (google.api.http) = {
       post : "/v1/anime/serie/season/image/create"
       body : "*"

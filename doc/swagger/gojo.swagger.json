@@ -952,12 +952,12 @@
       "post": {
         "summary": "Create new anime serie images",
         "description": "Use this API to create a new anime serie season images",
-        "operationId": "Gojo_CreateAnimeSerieSeasonImage",
+        "operationId": "Gojo_CreateAnimeSeasonImage",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/aspbCreateAnimeSerieSeasonImageResponse"
+              "$ref": "#/definitions/aspbCreateAnimeSeasonImageResponse"
             }
           },
           "default": {
@@ -973,7 +973,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/aspbCreateAnimeSerieSeasonImageRequest"
+              "$ref": "#/definitions/aspbCreateAnimeSeasonImageRequest"
             }
           }
         ],
@@ -1020,12 +1020,12 @@
       "post": {
         "summary": "Create new anime serie resources",
         "description": "Use this API to create a new anime serie season resources",
-        "operationId": "Gojo_CreateAnimeSerieSeasonResource",
+        "operationId": "Gojo_CreateAnimeSeasonResource",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/aspbCreateAnimeSerieSeasonResourceResponse"
+              "$ref": "#/definitions/aspbCreateAnimeSeasonResourceResponse"
             }
           },
           "default": {
@@ -1041,7 +1041,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/aspbCreateAnimeSerieSeasonResourceRequest"
+              "$ref": "#/definitions/aspbCreateAnimeSeasonResourceRequest"
             }
           }
         ],
@@ -2603,6 +2603,60 @@
         }
       }
     },
+    "aspbCreateAnimeSeasonImageRequest": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "posters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbImageRequest"
+          }
+        }
+      }
+    },
+    "aspbCreateAnimeSeasonImageResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeason": {
+          "$ref": "#/definitions/aspbAnimeSerieSeasonResponse"
+        },
+        "posters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbImageResponse"
+          }
+        }
+      }
+    },
+    "aspbCreateAnimeSeasonResourceRequest": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonResources": {
+          "$ref": "#/definitions/shpbAnimeResourceRequest"
+        }
+      }
+    },
+    "aspbCreateAnimeSeasonResourceResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeason": {
+          "$ref": "#/definitions/aspbAnimeSerieSeasonResponse"
+        },
+        "seasonResources": {
+          "$ref": "#/definitions/shpbAnimeResourceResponse"
+        }
+      }
+    },
     "aspbCreateAnimeSerieEpisodeRequest": {
       "type": "object",
       "properties": {
@@ -2736,37 +2790,6 @@
         }
       }
     },
-    "aspbCreateAnimeSerieSeasonImageRequest": {
-      "type": "object",
-      "properties": {
-        "seasonID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "posters": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/shpbImageRequest"
-          }
-        }
-      }
-    },
-    "aspbCreateAnimeSerieSeasonImageResponse": {
-      "type": "object",
-      "properties": {
-        "animeSeason": {
-          "$ref": "#/definitions/aspbAnimeSerieSeasonResponse"
-        },
-        "posters": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/shpbImageResponse"
-          }
-        }
-      }
-    },
     "aspbCreateAnimeSerieSeasonRequest": {
       "type": "object",
       "properties": {
@@ -2779,29 +2802,6 @@
             "type": "object",
             "$ref": "#/definitions/nfpbAnimeMetaRequest"
           }
-        }
-      }
-    },
-    "aspbCreateAnimeSerieSeasonResourceRequest": {
-      "type": "object",
-      "properties": {
-        "seasonID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "seasonResources": {
-          "$ref": "#/definitions/shpbAnimeResourceRequest"
-        }
-      }
-    },
-    "aspbCreateAnimeSerieSeasonResourceResponse": {
-      "type": "object",
-      "properties": {
-        "animeSeason": {
-          "$ref": "#/definitions/aspbAnimeSerieSeasonResponse"
-        },
-        "seasonResources": {
-          "$ref": "#/definitions/shpbAnimeResourceResponse"
         }
       }
     },

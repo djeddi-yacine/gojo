@@ -167,8 +167,16 @@ func validateCreateAnimeMovieRequest(req *ampb.CreateAnimeMovieRequest) (violati
 			violations = append(violations, shared.FieldViolation("wikipediaUrl", err))
 		}
 
+		if len(req.GetAnimeLinks().GetSocialMedia()) > 0 {
+			for _, l := range req.GetAnimeLinks().GetSocialMedia() {
+				if err := utils.ValidateURL(l, ""); err != nil {
+					violations = append(violations, shared.FieldViolation("socialMedia", err))
+				}
+			}
+		}
+
 	} else {
-		violations = append(violations, shared.FieldViolation("animeResources", errors.New("you need to send the AnimeResources model")))
+		violations = append(violations, shared.FieldViolation("animeLinks", errors.New("you need to send the AnimeLinks model")))
 	}
 
 	return violations
