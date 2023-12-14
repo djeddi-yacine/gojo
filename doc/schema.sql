@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-12-14T10:10:04.892Z
+-- Generated at: 2023-12-14T10:22:10.365Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -407,8 +407,8 @@ CREATE TABLE "anime_season_poster_images" (
 CREATE TABLE "anime_trailers" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "isOfficial" bool NOT NULL DEFAULT false,
-  "host" varchar NOT NULL,
-  "key" varchar NOT NULL,
+  "host_name" varchar NOT NULL,
+  "host_key" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
