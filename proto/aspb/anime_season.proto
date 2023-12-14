@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package aspb;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
+
+message AnimeSeasonRequest {
+    int64 animeID = 1;
+    int32 releaseYear = 2;
+    google.protobuf.Timestamp aired = 3;
+    string rating = 4;
+    string portriatPoster = 5;
+    string portriatBlurHash = 6;
+}
+
+message AnimeSeasonResponse {
+    int64 ID = 1;
+    int64 animeID = 2;
+    int32 releaseYear = 3;
+    google.protobuf.Timestamp aired = 4;
+    string rating = 5;
+    string portriatPoster = 6;
+    string portriatBlurHash = 7;
+    google.protobuf.Timestamp createdAt = 8;
+}

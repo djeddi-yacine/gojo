@@ -52,8 +52,6 @@ sql:
 
           ## add anime_series
           anime_series: "AnimeSerie"
-          anime_serie_studios: "AnimeSerieStudio"
-          anime_serie_genres: "AnimeSerieGenre"
           anime_serie_metas: "AnimeSerieMeta"
 
           ## add anime_movie_data
@@ -62,15 +60,20 @@ sql:
           anime_movie_server_sub_videos : "AnimeMovieServerSubVideo"
           anime_movie_server_dub_videos : "AnimeMovieServerDubVideo"
 
-          ## add anime_serie_data
+          ## add anime_season
           anime_serie_seasons : "AnimeSerieSeason"
+          anime_season_metas : "AnimeSeasonMeta"
+          anime_season_studios: "AnimeSeasonStudio"
+          anime_season_genres: "AnimeSeasonGenre"
+
+          ## add anime_episode
           anime_serie_episodes : "AnimeSerieEpisode"
-          anime_serie_servers : "AnimeSerieServer"
+          anime_episode_metas : "AnimeEpisodeMeta"
+          anime_season_episodes : "AnimeSeasonEpisode"
+
+          ## add anime_serie_data
+          anime_episode_servers : "AnimeEpisodeServer"
           anime_serie_videos : "AnimeSerieVideo"
-          anime_serie_season_metas : "AnimeSerieSeasonMeta"
-          anime_serie_episode_metas : "AnimeSerieEpisodeMeta"
-          anime_serie_season_episodes : "AnimeSerieSeasonEpisode"
-          anime_serie_episode_servers : "AnimeSerieEpisodeServer"
           anime_serie_server_sub_videos : "AnimeSerieServerSubVideo"
           anime_serie_server_dub_videos : "AnimeSerieServerDubVideo"
 

@@ -145,8 +145,8 @@ func ConvertStudios(ss []db.Studio) *nfpb.AnimeStudiosResponse {
 	}
 }
 
-func ConvertAnimeSerieSeason(s db.AnimeSerieSeason) *aspb.AnimeSerieSeasonResponse {
-	return &aspb.AnimeSerieSeasonResponse{
+func ConvertAnimeSeason(s db.AnimeSerieSeason) *aspb.AnimeSeasonResponse {
+	return &aspb.AnimeSeasonResponse{
 		ID:               s.ID,
 		AnimeID:          s.AnimeID,
 		Aired:            timestamppb.New(s.Aired),
@@ -158,8 +158,8 @@ func ConvertAnimeSerieSeason(s db.AnimeSerieSeason) *aspb.AnimeSerieSeasonRespon
 	}
 }
 
-func ConvertAnimeSerieEpisode(e db.AnimeSerieEpisode) *aspb.AnimeSerieEpisodeResponse {
-	return &aspb.AnimeSerieEpisodeResponse{
+func ConvertAnimeEpisode(e db.AnimeSerieEpisode) *aspb.AnimeEpisodeResponse {
+	return &aspb.AnimeEpisodeResponse{
 		ID:                 e.ID,
 		SeasonID:           e.SeasonID,
 		EpisodeNumber:      e.EpisodeNumber,
@@ -263,12 +263,12 @@ func ConvertAnimeSerieTorrents(ast []db.AnimeSerieTorrent) []*aspb.AnimeSerieTor
 	}
 }
 
-func ConvertAnimeSerieEpiosdes(ase []db.AnimeSerieEpisode) []*aspb.AnimeSerieEpisodeResponse {
+func ConvertAnimeEpiosdes(ase []db.AnimeSerieEpisode) []*aspb.AnimeEpisodeResponse {
 	if len(ase) > 0 {
-		episodes := make([]*aspb.AnimeSerieEpisodeResponse, len(ase))
+		episodes := make([]*aspb.AnimeEpisodeResponse, len(ase))
 
 		for i, e := range ase {
-			episodes[i] = &aspb.AnimeSerieEpisodeResponse{
+			episodes[i] = &aspb.AnimeEpisodeResponse{
 				ID:                 e.ID,
 				SeasonID:           e.SeasonID,
 				EpisodeNumber:      e.EpisodeNumber,

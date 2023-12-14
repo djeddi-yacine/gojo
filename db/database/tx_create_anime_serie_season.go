@@ -5,18 +5,18 @@ import (
 	"errors"
 )
 
-type CreateAnimeSerieSeasonTxParams struct {
-	Season      CreateAnimeSerieSeasonParams
+type CreateAnimeSeasonTxParams struct {
+	Season      CreateAnimeSeasonParams
 	SeasonMetas []AnimeMetaTxParam
 }
 
-type CreateAnimeSerieSeasonTxResult struct {
-	AnimeSerieSeason      AnimeSerieSeason
-	AnimeSerieSeasonMetas []AnimeMetaTxResult
+type CreateAnimeSeasonTxResult struct {
+	AnimeSeason      AnimeSerieSeason
+	AnimeSeasonMetas []AnimeMetaTxResult
 }
 
-func (gojo *SQLGojo) CreateAnimeSerieSeasonTx(ctx context.Context, arg CreateAnimeSerieSeasonTxParams) (CreateAnimeSerieSeasonTxResult, error) {
-	var result CreateAnimeSerieSeasonTxResult
+func (gojo *SQLGojo) CreateAnimeSeasonTx(ctx context.Context, arg CreateAnimeSeasonTxParams) (CreateAnimeSeasonTxResult, error) {
+	var result CreateAnimeSeasonTxResult
 
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
@@ -27,18 +27,18 @@ func (gojo *SQLGojo) CreateAnimeSerieSeasonTx(ctx context.Context, arg CreateAni
 			return err
 		}
 
-		season, err := q.CreateAnimeSerieSeason(ctx, arg.Season)
+		season, err := q.CreateAnimeSeason(ctx, arg.Season)
 		if err != nil {
 			ErrorSQL(err)
 			return err
 		}
 
-		result.AnimeSerieSeason = season
+		result.AnimeSeason = season
 
 		if arg.SeasonMetas != nil {
 			var metaArg CreateMetaParams
-			var seasonMetaArg CreateAnimeSerieSeasonMetaParams
-			result.AnimeSerieSeasonMetas = make([]AnimeMetaTxResult, len(arg.SeasonMetas))
+			var seasonMetaArg CreateAnimeSeasonMetaParams
+			result.AnimeSeasonMetas = make([]AnimeMetaTxResult, len(arg.SeasonMetas))
 
 			for i, m := range arg.SeasonMetas {
 				metaArg = CreateMetaParams{
@@ -52,19 +52,19 @@ func (gojo *SQLGojo) CreateAnimeSerieSeasonTx(ctx context.Context, arg CreateAni
 					return err
 				}
 
-				seasonMetaArg = CreateAnimeSerieSeasonMetaParams{
+				seasonMetaArg = CreateAnimeSeasonMetaParams{
 					SeasonID:   season.ID,
 					LanguageID: m.LanguageID,
 					MetaID:     meta.ID,
 				}
 
-				_, err = q.CreateAnimeSerieSeasonMeta(ctx, seasonMetaArg)
+				_, err = q.CreateAnimeSeasonMeta(ctx, seasonMetaArg)
 				if err != nil {
 					ErrorSQL(err)
 					return err
 				}
 
-				result.AnimeSerieSeasonMetas[i] = AnimeMetaTxResult{
+				result.AnimeSeasonMetas[i] = AnimeMetaTxResult{
 					Meta:       meta,
 					LanguageID: m.LanguageID,
 				}

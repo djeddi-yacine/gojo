@@ -10,6 +10,20 @@ import (
 	"github.com/google/uuid"
 )
 
+type AnimeEpisodeMeta struct {
+	ID         int64
+	EpisodeID  int64
+	LanguageID int32
+	MetaID     int64
+	CreatedAt  time.Time
+}
+
+type AnimeEpisodeServer struct {
+	ID        int64
+	EpisodeID int64
+	CreatedAt time.Time
+}
+
 type AnimeImage struct {
 	ID              int64
 	ImageHost       string
@@ -177,6 +191,27 @@ type AnimeResource struct {
 	CreatedAt     time.Time
 }
 
+type AnimeSeasonEpisode struct {
+	ID        int64
+	SeasonID  int64
+	EpisodeID int64
+	CreatedAt time.Time
+}
+
+type AnimeSeasonGenre struct {
+	ID       int64
+	SeasonID int64
+	GenreID  int32
+}
+
+type AnimeSeasonMeta struct {
+	ID         int64
+	SeasonID   int64
+	LanguageID int32
+	MetaID     int64
+	CreatedAt  time.Time
+}
+
 type AnimeSeasonPosterImage struct {
 	ID        int64
 	SeasonID  int64
@@ -188,6 +223,12 @@ type AnimeSeasonResource struct {
 	ID         int64
 	SeasonID   int64
 	ResourceID int64
+}
+
+type AnimeSeasonStudio struct {
+	ID       int64
+	SeasonID int64
+	StudioID int32
 }
 
 type AnimeSeasonTrailer struct {
@@ -228,27 +269,6 @@ type AnimeSerieEpisode struct {
 	CreatedAt          time.Time
 }
 
-type AnimeSerieEpisodeMeta struct {
-	ID         int64
-	EpisodeID  int64
-	LanguageID int32
-	MetaID     int64
-	CreatedAt  time.Time
-}
-
-type AnimeSerieEpisodeServer struct {
-	ID        int64
-	EpisodeID int64
-	ServerID  int64
-	CreatedAt time.Time
-}
-
-type AnimeSerieGenre struct {
-	ID      int64
-	AnimeID int64
-	GenreID int32
-}
-
 type AnimeSerieLink struct {
 	ID      int64
 	AnimeID int64
@@ -287,27 +307,6 @@ type AnimeSerieSeason struct {
 	CreatedAt        time.Time
 }
 
-type AnimeSerieSeasonEpisode struct {
-	ID        int64
-	SeasonID  int64
-	EpisodeID int64
-	CreatedAt time.Time
-}
-
-type AnimeSerieSeasonMeta struct {
-	ID         int64
-	SeasonID   int64
-	LanguageID int32
-	MetaID     int64
-	CreatedAt  time.Time
-}
-
-type AnimeSerieServer struct {
-	ID        int64
-	EpisodeID int64
-	CreatedAt time.Time
-}
-
 type AnimeSerieServerDubTorrent struct {
 	ID        int64
 	ServerID  int64
@@ -334,12 +333,6 @@ type AnimeSerieServerSubVideo struct {
 	ServerID  int64
 	VideoID   int64
 	CreatedAt time.Time
-}
-
-type AnimeSerieStudio struct {
-	ID       int64
-	AnimeID  int64
-	StudioID int32
 }
 
 type AnimeSerieTorrent struct {

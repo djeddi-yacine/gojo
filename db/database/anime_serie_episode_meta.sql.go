@@ -11,21 +11,21 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
-const createAnimeSerieEpisodeMeta = `-- name: CreateAnimeSerieEpisodeMeta :one
-INSERT INTO anime_serie_episode_metas (episode_id, language_id, meta_id)
+const createAnimeEpisodeMeta = `-- name: CreateAnimeEpisodeMeta :one
+INSERT INTO anime_episode_metas (episode_id, language_id, meta_id)
 VALUES ($1, $2, $3)
 RETURNING id, episode_id, language_id, meta_id, created_at
 `
 
-type CreateAnimeSerieEpisodeMetaParams struct {
+type CreateAnimeEpisodeMetaParams struct {
 	EpisodeID  int64
 	LanguageID int32
 	MetaID     int64
 }
 
-func (q *Queries) CreateAnimeSerieEpisodeMeta(ctx context.Context, arg CreateAnimeSerieEpisodeMetaParams) (AnimeSerieEpisodeMeta, error) {
-	row := q.db.QueryRow(ctx, createAnimeSerieEpisodeMeta, arg.EpisodeID, arg.LanguageID, arg.MetaID)
-	var i AnimeSerieEpisodeMeta
+func (q *Queries) CreateAnimeEpisodeMeta(ctx context.Context, arg CreateAnimeEpisodeMetaParams) (AnimeEpisodeMeta, error) {
+	row := q.db.QueryRow(ctx, createAnimeEpisodeMeta, arg.EpisodeID, arg.LanguageID, arg.MetaID)
+	var i AnimeEpisodeMeta
 	err := row.Scan(
 		&i.ID,
 		&i.EpisodeID,
@@ -36,67 +36,61 @@ func (q *Queries) CreateAnimeSerieEpisodeMeta(ctx context.Context, arg CreateAni
 	return i, err
 }
 
-const deleteAnimeSerieEpisodeMeta = `-- name: DeleteAnimeSerieEpisodeMeta :exec
-DELETE FROM anime_serie_episode_metas
+const deleteAnimeEpisodeMeta = `-- name: DeleteAnimeEpisodeMeta :exec
+DELETE FROM anime_episode_metas
 WHERE episode_id = $1 AND language_id = $2
 `
 
-type DeleteAnimeSerieEpisodeMetaParams struct {
+type DeleteAnimeEpisodeMetaParams struct {
 	EpisodeID  int64
 	LanguageID int32
 }
 
-func (q *Queries) DeleteAnimeSerieEpisodeMeta(ctx context.Context, arg DeleteAnimeSerieEpisodeMetaParams) error {
-	_, err := q.db.Exec(ctx, deleteAnimeSerieEpisodeMeta, arg.EpisodeID, arg.LanguageID)
+func (q *Queries) DeleteAnimeEpisodeMeta(ctx context.Context, arg DeleteAnimeEpisodeMetaParams) error {
+	_, err := q.db.Exec(ctx, deleteAnimeEpisodeMeta, arg.EpisodeID, arg.LanguageID)
 	return err
 }
 
-const getAnimeSerieEpisodeMeta = `-- name: GetAnimeSerieEpisodeMeta :one
-SELECT id, episode_id, language_id, meta_id, created_at FROM anime_serie_episode_metas
+const getAnimeEpisodeMeta = `-- name: GetAnimeEpisodeMeta :one
+SELECT meta_id FROM anime_episode_metas
 WHERE episode_id = $1 AND language_id = $2
 `
 
-type GetAnimeSerieEpisodeMetaParams struct {
+type GetAnimeEpisodeMetaParams struct {
 	EpisodeID  int64
 	LanguageID int32
 }
 
-func (q *Queries) GetAnimeSerieEpisodeMeta(ctx context.Context, arg GetAnimeSerieEpisodeMetaParams) (AnimeSerieEpisodeMeta, error) {
-	row := q.db.QueryRow(ctx, getAnimeSerieEpisodeMeta, arg.EpisodeID, arg.LanguageID)
-	var i AnimeSerieEpisodeMeta
-	err := row.Scan(
-		&i.ID,
-		&i.EpisodeID,
-		&i.LanguageID,
-		&i.MetaID,
-		&i.CreatedAt,
-	)
-	return i, err
+func (q *Queries) GetAnimeEpisodeMeta(ctx context.Context, arg GetAnimeEpisodeMetaParams) (int64, error) {
+	row := q.db.QueryRow(ctx, getAnimeEpisodeMeta, arg.EpisodeID, arg.LanguageID)
+	var meta_id int64
+	err := row.Scan(&meta_id)
+	return meta_id, err
 }
 
-const listAnimeSerieEpisodeMetasByEpisode = `-- name: ListAnimeSerieEpisodeMetasByEpisode :many
-SELECT id, episode_id, language_id, meta_id, created_at FROM anime_serie_episode_metas
+const listAnimeEpisodeMetasByEpisode = `-- name: ListAnimeEpisodeMetasByEpisode :many
+SELECT id, episode_id, language_id, meta_id, created_at FROM anime_episode_metas
 WHERE episode_id = $1
 ORDER BY id
 LIMIT $2
 OFFSET $3
 `
 
-type ListAnimeSerieEpisodeMetasByEpisodeParams struct {
+type ListAnimeEpisodeMetasByEpisodeParams struct {
 	EpisodeID int64
 	Limit     int32
 	Offset    int32
 }
 
-func (q *Queries) ListAnimeSerieEpisodeMetasByEpisode(ctx context.Context, arg ListAnimeSerieEpisodeMetasByEpisodeParams) ([]AnimeSerieEpisodeMeta, error) {
-	rows, err := q.db.Query(ctx, listAnimeSerieEpisodeMetasByEpisode, arg.EpisodeID, arg.Limit, arg.Offset)
+func (q *Queries) ListAnimeEpisodeMetasByEpisode(ctx context.Context, arg ListAnimeEpisodeMetasByEpisodeParams) ([]AnimeEpisodeMeta, error) {
+	rows, err := q.db.Query(ctx, listAnimeEpisodeMetasByEpisode, arg.EpisodeID, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	items := []AnimeSerieEpisodeMeta{}
+	items := []AnimeEpisodeMeta{}
 	for rows.Next() {
-		var i AnimeSerieEpisodeMeta
+		var i AnimeEpisodeMeta
 		if err := rows.Scan(
 			&i.ID,
 			&i.EpisodeID,
@@ -114,8 +108,8 @@ func (q *Queries) ListAnimeSerieEpisodeMetasByEpisode(ctx context.Context, arg L
 	return items, nil
 }
 
-const updateAnimeSerieEpisodeMeta = `-- name: UpdateAnimeSerieEpisodeMeta :one
-UPDATE anime_serie_episode_metas
+const updateAnimeEpisodeMeta = `-- name: UpdateAnimeEpisodeMeta :one
+UPDATE anime_episode_metas
 SET
   meta_id = COALESCE($1, meta_id),
   episode_id = COALESCE($2, episode_id),
@@ -125,21 +119,21 @@ WHERE
 RETURNING id, episode_id, language_id, meta_id, created_at
 `
 
-type UpdateAnimeSerieEpisodeMetaParams struct {
+type UpdateAnimeEpisodeMetaParams struct {
 	MetaID     pgtype.Int8
 	EpisodeID  pgtype.Int8
 	LanguageID pgtype.Int4
 	ID         int64
 }
 
-func (q *Queries) UpdateAnimeSerieEpisodeMeta(ctx context.Context, arg UpdateAnimeSerieEpisodeMetaParams) (AnimeSerieEpisodeMeta, error) {
-	row := q.db.QueryRow(ctx, updateAnimeSerieEpisodeMeta,
+func (q *Queries) UpdateAnimeEpisodeMeta(ctx context.Context, arg UpdateAnimeEpisodeMetaParams) (AnimeEpisodeMeta, error) {
+	row := q.db.QueryRow(ctx, updateAnimeEpisodeMeta,
 		arg.MetaID,
 		arg.EpisodeID,
 		arg.LanguageID,
 		arg.ID,
 	)
-	var i AnimeSerieEpisodeMeta
+	var i AnimeEpisodeMeta
 	err := row.Scan(
 		&i.ID,
 		&i.EpisodeID,

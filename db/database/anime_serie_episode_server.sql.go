@@ -7,90 +7,66 @@ package db
 
 import (
 	"context"
-
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
-const createAnimeSerieEpisodeServer = `-- name: CreateAnimeSerieEpisodeServer :one
-INSERT INTO anime_serie_episode_servers (episode_id, server_id)
-VALUES ($1, $2)
-RETURNING id, episode_id, server_id, created_at
+const createAnimeEpisodeServer = `-- name: CreateAnimeEpisodeServer :one
+INSERT INTO anime_episode_servers (episode_id)
+VALUES ($1)
+RETURNING id, episode_id, created_at
 `
 
-type CreateAnimeSerieEpisodeServerParams struct {
-	EpisodeID int64
-	ServerID  int64
-}
-
-func (q *Queries) CreateAnimeSerieEpisodeServer(ctx context.Context, arg CreateAnimeSerieEpisodeServerParams) (AnimeSerieEpisodeServer, error) {
-	row := q.db.QueryRow(ctx, createAnimeSerieEpisodeServer, arg.EpisodeID, arg.ServerID)
-	var i AnimeSerieEpisodeServer
-	err := row.Scan(
-		&i.ID,
-		&i.EpisodeID,
-		&i.ServerID,
-		&i.CreatedAt,
-	)
+func (q *Queries) CreateAnimeEpisodeServer(ctx context.Context, episodeID int64) (AnimeEpisodeServer, error) {
+	row := q.db.QueryRow(ctx, createAnimeEpisodeServer, episodeID)
+	var i AnimeEpisodeServer
+	err := row.Scan(&i.ID, &i.EpisodeID, &i.CreatedAt)
 	return i, err
 }
 
-const deleteAnimeSerieEpisodeServer = `-- name: DeleteAnimeSerieEpisodeServer :exec
-DELETE FROM anime_serie_episode_servers
+const deleteAnimeEpisodeServer = `-- name: DeleteAnimeEpisodeServer :exec
+DELETE FROM anime_episode_servers
 WHERE id = $1
 `
 
-func (q *Queries) DeleteAnimeSerieEpisodeServer(ctx context.Context, id int64) error {
-	_, err := q.db.Exec(ctx, deleteAnimeSerieEpisodeServer, id)
+func (q *Queries) DeleteAnimeEpisodeServer(ctx context.Context, id int64) error {
+	_, err := q.db.Exec(ctx, deleteAnimeEpisodeServer, id)
 	return err
 }
 
-const getAnimeSerieEpisodeServer = `-- name: GetAnimeSerieEpisodeServer :one
-SELECT id, episode_id, server_id, created_at FROM anime_serie_episode_servers
+const getAnimeEpisodeServer = `-- name: GetAnimeEpisodeServer :one
+SELECT id, episode_id, created_at FROM anime_episode_servers
 WHERE id = $1
 LIMIT 1
 `
 
-func (q *Queries) GetAnimeSerieEpisodeServer(ctx context.Context, id int64) (AnimeSerieEpisodeServer, error) {
-	row := q.db.QueryRow(ctx, getAnimeSerieEpisodeServer, id)
-	var i AnimeSerieEpisodeServer
-	err := row.Scan(
-		&i.ID,
-		&i.EpisodeID,
-		&i.ServerID,
-		&i.CreatedAt,
-	)
+func (q *Queries) GetAnimeEpisodeServer(ctx context.Context, id int64) (AnimeEpisodeServer, error) {
+	row := q.db.QueryRow(ctx, getAnimeEpisodeServer, id)
+	var i AnimeEpisodeServer
+	err := row.Scan(&i.ID, &i.EpisodeID, &i.CreatedAt)
 	return i, err
 }
 
-const listAnimeSerieEpisodeServersByEpisode = `-- name: ListAnimeSerieEpisodeServersByEpisode :many
-SELECT id, episode_id, server_id, created_at FROM anime_serie_episode_servers
-WHERE episode_id = $1
+const listAnimeEpisodeServers = `-- name: ListAnimeEpisodeServers :many
+SELECT id, episode_id, created_at FROM anime_episode_servers
 ORDER BY id
-LIMIT $2
-OFFSET $3
+LIMIT $1
+OFFSET $2
 `
 
-type ListAnimeSerieEpisodeServersByEpisodeParams struct {
-	EpisodeID int64
-	Limit     int32
-	Offset    int32
+type ListAnimeEpisodeServersParams struct {
+	Limit  int32
+	Offset int32
 }
 
-func (q *Queries) ListAnimeSerieEpisodeServersByEpisode(ctx context.Context, arg ListAnimeSerieEpisodeServersByEpisodeParams) ([]AnimeSerieEpisodeServer, error) {
-	rows, err := q.db.Query(ctx, listAnimeSerieEpisodeServersByEpisode, arg.EpisodeID, arg.Limit, arg.Offset)
+func (q *Queries) ListAnimeEpisodeServers(ctx context.Context, arg ListAnimeEpisodeServersParams) ([]AnimeEpisodeServer, error) {
+	rows, err := q.db.Query(ctx, listAnimeEpisodeServers, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	items := []AnimeSerieEpisodeServer{}
+	items := []AnimeEpisodeServer{}
 	for rows.Next() {
-		var i AnimeSerieEpisodeServer
-		if err := rows.Scan(
-			&i.ID,
-			&i.EpisodeID,
-			&i.ServerID,
-			&i.CreatedAt,
-		); err != nil {
+		var i AnimeEpisodeServer
+		if err := rows.Scan(&i.ID, &i.EpisodeID, &i.CreatedAt); err != nil {
 			return nil, err
 		}
 		items = append(items, i)
@@ -101,30 +77,21 @@ func (q *Queries) ListAnimeSerieEpisodeServersByEpisode(ctx context.Context, arg
 	return items, nil
 }
 
-const updateAnimeSerieEpisodeServer = `-- name: UpdateAnimeSerieEpisodeServer :one
-UPDATE anime_serie_episode_servers
-SET
-  episode_id = COALESCE($1, episode_id),
-  server_id = COALESCE($2, server_id)
-WHERE
-  id = $3
-RETURNING id, episode_id, server_id, created_at
+const updateAnimeEpisodeServer = `-- name: UpdateAnimeEpisodeServer :one
+UPDATE anime_episode_servers
+SET episode_id = $2
+WHERE id = $1
+RETURNING id, episode_id, created_at
 `
 
-type UpdateAnimeSerieEpisodeServerParams struct {
-	EpisodeID pgtype.Int8
-	ServerID  pgtype.Int8
+type UpdateAnimeEpisodeServerParams struct {
 	ID        int64
+	EpisodeID int64
 }
 
-func (q *Queries) UpdateAnimeSerieEpisodeServer(ctx context.Context, arg UpdateAnimeSerieEpisodeServerParams) (AnimeSerieEpisodeServer, error) {
-	row := q.db.QueryRow(ctx, updateAnimeSerieEpisodeServer, arg.EpisodeID, arg.ServerID, arg.ID)
-	var i AnimeSerieEpisodeServer
-	err := row.Scan(
-		&i.ID,
-		&i.EpisodeID,
-		&i.ServerID,
-		&i.CreatedAt,
-	)
+func (q *Queries) UpdateAnimeEpisodeServer(ctx context.Context, arg UpdateAnimeEpisodeServerParams) (AnimeEpisodeServer, error) {
+	row := q.db.QueryRow(ctx, updateAnimeEpisodeServer, arg.ID, arg.EpisodeID)
+	var i AnimeEpisodeServer
+	err := row.Scan(&i.ID, &i.EpisodeID, &i.CreatedAt)
 	return i, err
 }

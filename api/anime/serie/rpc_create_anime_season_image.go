@@ -29,9 +29,9 @@ func (server *AnimeSerieServer) CreateAnimeSeasonImage(ctx context.Context, req 
 	}
 
 	var DBP []db.CreateAnimeImageParams
-	if req.Posters != nil {
-		DBP = make([]db.CreateAnimeImageParams, len(req.GetPosters()))
-		for i, p := range req.GetPosters() {
+	if req.SeasonPosters != nil {
+		DBP = make([]db.CreateAnimeImageParams, len(req.GetSeasonPosters()))
+		for i, p := range req.GetSeasonPosters() {
 			DBP[i].ImageHost = p.Host
 			DBP[i].ImageUrl = p.Url
 			DBP[i].ImageThumbnails = p.Thumbnails
@@ -52,8 +52,8 @@ func (server *AnimeSerieServer) CreateAnimeSeasonImage(ctx context.Context, req 
 	}
 
 	res := &aspb.CreateAnimeSeasonImageResponse{
-		AnimeSeason: shared.ConvertAnimeSerieSeason(data.AnimeSeason),
-		Posters:     shared.ConvertAnimeImages(data.AnimePosters),
+		AnimeSeason:   shared.ConvertAnimeSeason(data.AnimeSeason),
+		SeasonPosters: shared.ConvertAnimeImages(data.AnimePosters),
 	}
 	return res, nil
 }
@@ -63,9 +63,9 @@ func validateCreateAnimeSeasonImageRequest(req *aspb.CreateAnimeSeasonImageReque
 		violations = append(violations, shared.FieldViolation("ID", err))
 	}
 
-	if req.Posters != nil {
-		if len(req.GetPosters()) > 0 {
-			for i, l := range req.GetPosters() {
+	if req.SeasonPosters != nil {
+		if len(req.GetSeasonPosters()) > 0 {
+			for i, l := range req.GetSeasonPosters() {
 				if err := utils.ValidateURL(l.Host, ""); err != nil {
 					violations = append(violations, shared.FieldViolation(fmt.Sprintf("posters > host at index [%d]", i), err))
 				}

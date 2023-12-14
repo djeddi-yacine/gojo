@@ -72,38 +72,38 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		}
 	}
 
-	animeSerieGenres, err := server.gojo.ListAnimeSerieGenres(ctx, req.GetAnimeID())
-	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, shared.DatabaseError("failed to get anime serie genres", err)
-	}
+	/* 	animeSerieGenres, err := server.gojo.ListAnimeSerieGenres(ctx, req.GetAnimeID())
+	   	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+	   		return nil, shared.DatabaseError("failed to get anime serie genres", err)
+	   	}
 
-	if len(animeSerieGenres) > 0 {
-		genres := make([]db.Genre, len(animeSerieGenres))
+	   	if len(animeSerieGenres) > 0 {
+	   		genres := make([]db.Genre, len(animeSerieGenres))
 
-		for i, amg := range animeSerieGenres {
-			genres[i], err = server.gojo.GetGenre(ctx, amg)
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return nil, shared.DatabaseError("failed when list anime serie genres", err)
-			}
-		}
-		res.AnimeGenres = shared.ConvertGenres(genres)
-	}
+	   		for i, amg := range animeSerieGenres {
+	   			genres[i], err = server.gojo.GetGenre(ctx, amg)
+	   			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+	   				return nil, shared.DatabaseError("failed when list anime serie genres", err)
+	   			}
+	   		}
+	   		res.AnimeGenres = shared.ConvertGenres(genres)
+	   	}
 
-	animeSerieStudios, err := server.gojo.ListAnimeSerieStudios(ctx, req.GetAnimeID())
-	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, shared.DatabaseError("failed to get anime serie studios", err)
-	}
+	   	animeSerieStudios, err := server.gojo.ListAnimeSerieStudios(ctx, req.GetAnimeID())
+	   	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+	   		return nil, shared.DatabaseError("failed to get anime serie studios", err)
+	   	}
 
-	if len(animeSerieStudios) > 0 {
-		studios := make([]db.Studio, len(animeSerieStudios))
-		for i, ams := range animeSerieStudios {
-			studios[i], err = server.gojo.GetStudio(ctx, ams)
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return nil, shared.DatabaseError("failed when list anime serie studios", err)
-			}
-		}
-		res.AnimeStudios = shared.ConvertStudios(studios)
-	}
+	   	if len(animeSerieStudios) > 0 {
+	   		studios := make([]db.Studio, len(animeSerieStudios))
+	   		for i, ams := range animeSerieStudios {
+	   			studios[i], err = server.gojo.GetStudio(ctx, ams)
+	   			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+	   				return nil, shared.DatabaseError("failed when list anime serie studios", err)
+	   			}
+	   		}
+	   		res.AnimeStudios = shared.ConvertStudios(studios)
+	   	} */
 
 	animeLinkID, err := server.gojo.GetAnimeSerieLink(ctx, req.GetAnimeID())
 	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {

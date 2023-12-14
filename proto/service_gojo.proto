@@ -28,25 +28,32 @@ import "ampb/rpc_add_anime_movie_data.proto";
 import "ampb/rpc_update_anime_movie.proto";
 
 
+
+
 import "aspb/rpc_create_anime_serie.proto";
 import "aspb/rpc_create_anime_serie_metas.proto";
-import "aspb/rpc_create_anime_season_image.proto";
 import "aspb/rpc_create_anime_serie_link.proto";
 import "aspb/rpc_create_anime_serie_image.proto";
 import "aspb/rpc_create_anime_serie_trailer.proto";
 import "aspb/rpc_create_anime_serie_server.proto";
-import "aspb/rpc_create_anime_serie_season.proto";
+import "aspb/rpc_create_anime_serie_data.proto";
+import "aspb/rpc_create_anime_season.proto";
+import "aspb/rpc_create_anime_season_image.proto";
 import "aspb/rpc_create_anime_season_resource.proto";
 import "aspb/rpc_create_anime_season_trailer.proto";
-import "aspb/rpc_create_anime_serie_episode.proto";
+import "aspb/rpc_create_anime_season_info.proto";
+import "aspb/rpc_create_anime_season_metas.proto";
+import "aspb/rpc_create_anime_episode_metas.proto";
+import "aspb/rpc_create_anime_episode.proto";
+
 import "aspb/rpc_get_all_anime_serie_metas.proto";
 import "aspb/rpc_get_all_anime_series.proto";
 import "aspb/rpc_get_full_anime_serie.proto";
-import "aspb/rpc_add_anime_serie_info.proto";
-import "aspb/rpc_add_anime_serie_season_metas.proto";
-import "aspb/rpc_add_anime_serie_episode_metas.proto";
-import "aspb/rpc_add_anime_serie_data.proto";
+import "aspb/rpc_get_full_anime_season.proto";
+
 import "aspb/rpc_update_anime_serie.proto";
+
+
 
 
 import "uspb/rpc_create_user.proto";
@@ -317,7 +324,7 @@ service Gojo {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         description : "Use this API to get full anime movie by ID";
-        summary:  "get anime movie";
+        summary:  "get full movie";
     };
   }
 
@@ -348,16 +355,6 @@ service Gojo {
       summary:  "Create new anime serie meta";
     };
   }
-  rpc CreateAnimeSeasonImage(aspb.CreateAnimeSeasonImageRequest) returns (aspb.CreateAnimeSeasonImageResponse) {
-    option (google.api.http) = {
-      post : "/v1/anime/serie/season/image/create"
-      body : "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to create a new anime serie season images";
-      summary:  "Create new anime serie images";
-    };
-  }
   rpc CreateAnimeSerieLink(aspb.CreateAnimeSerieLinkRequest) returns (aspb.CreateAnimeSerieLinkResponse) {
     option (google.api.http) = {
       post : "/v1/anime/serie/link/create"
@@ -366,16 +363,6 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to create a new anime serie links";
       summary:  "Create new anime serie links";
-    };
-  }
-  rpc CreateAnimeSerieImage(aspb.CreateAnimeSerieImageRequest) returns (aspb.CreateAnimeSerieImageResponse) {
-    option (google.api.http) = {
-      post : "/v1/anime/serie/image/create"
-      body : "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to create a new anime serie images";
-      summary:  "Create new anime images";
     };
   }
   rpc CreateAnimeSerieTrailer(aspb.CreateAnimeSerieTrailerRequest) returns (aspb.CreateAnimeSerieTrailerResponse) {
@@ -388,41 +375,33 @@ service Gojo {
       summary:  "Create new anime serie trailers";
     };
   }
-  rpc GetAllAnimeSeries(aspb.GetAllAnimeSeriesRequest) returns (aspb.GetAllAnimeSeriesResponse) {
+  rpc CreateAnimeSerieImage(aspb.CreateAnimeSerieImageRequest) returns (aspb.CreateAnimeSerieImageResponse) {
     option (google.api.http) = {
-      get : "/v1/anime/serie"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to get all anime series or by year";
-      summary:  "list anime series";
-    };
-  }
-  rpc GetAllAnimeSerieMetas(aspb.GetAllAnimeSerieMetasRequest) returns (aspb.GetAllAnimeSerieMetasResponse) {
-    option (google.api.http) = {
-      get : "/v1/anime/serie/meta"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to get all anime serie metas";
-      summary:  "Get all anime serie metas";
-    };
-  }
-  rpc AddAnimeSerieInfo(aspb.AddAnimeSerieInfoRequest) returns (aspb.AddAnimeSerieInfoResponse) {
-    option (google.api.http) = {
-      post : "/v1/anime/serie/info"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to add info to anime serie like studios and genres";
-      summary:  "add info to anime serie";
-    };
-  }
-  rpc UpdateAnimeSerie(aspb.UpdateAnimeSerieRequest) returns (aspb.UpdateAnimeSerieResponse) {
-    option (google.api.http) = {
-      patch : "/v1/anime/serie/update"
+      post : "/v1/anime/serie/image/create"
       body : "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to update all anime serie fields using the ID";
-      summary: "Update anime serie";
+      description : "Use this API to create a new anime serie images";
+      summary:  "Create new anime images";
+    };
+  }
+  rpc CreateAnimeSeasonImage(aspb.CreateAnimeSeasonImageRequest) returns (aspb.CreateAnimeSeasonImageResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/serie/season/image/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime serie season images";
+      summary:  "Create new anime serie images";
+    };
+  }
+  rpc CreateAnimeSeasonInfo(aspb.CreateAnimeSeasonInfoRequest) returns (aspb.CreateAnimeSeasonInfoResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/serie/season/info/create"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to add info to anime serie season like studios and genres";
+      summary:  "add info to anime serie season";
     };
   }
   rpc CreateAnimeSerieServer(aspb.CreateAnimeSerieServerRequest) returns (aspb.CreateAnimeSerieServerResponse) {
@@ -435,7 +414,7 @@ service Gojo {
       summary:  "create new anime serie server";
     };
   }
-  rpc CreateAnimeSerieSeason(aspb.CreateAnimeSerieSeasonRequest) returns (aspb.CreateAnimeSerieSeasonResponse) {
+  rpc CreateAnimeSeason(aspb.CreateAnimeSeasonRequest) returns (aspb.CreateAnimeSeasonResponse) {
     option (google.api.http) = {
       post : "/v1/anime/serie/season/create"
       body : "*"
@@ -445,7 +424,7 @@ service Gojo {
       summary:  "create new anime serie season";
     };
   }
-  rpc AddAnimeSerieSeasonMetas(aspb.AddAnimeSerieSeasonMetasRequest) returns (aspb.AddAnimeSerieSeasonMetasResponse) {
+  rpc CreateAnimeSeasonMetas(aspb.CreateAnimeSeasonMetasRequest) returns (aspb.CreateAnimeSeasonMetasResponse) {
     option (google.api.http) = {
       post : "/v1/anime/serie/season/meta/create"
       body : "*"
@@ -475,7 +454,7 @@ service Gojo {
       summary:  "Create new anime serie trailers";
     };
   }
-  rpc CreateAnimeSerieEpisode(aspb.CreateAnimeSerieEpisodeRequest) returns (aspb.CreateAnimeSerieEpisodeResponse) {
+  rpc CreateAnimeEpisode(aspb.CreateAnimeEpisodeRequest) returns (aspb.CreateAnimeEpisodeResponse) {
     option (google.api.http) = {
       post : "/v1/anime/serie/episode/create"
       body : "*"
@@ -485,7 +464,7 @@ service Gojo {
       summary:  "create new anime serie episode";
     };
   }
-  rpc AddAnimeSerieEpisodeMetas(aspb.AddAnimeSerieEpisodeMetasRequest) returns (aspb.AddAnimeSerieEpisodeMetasResponse) {
+  rpc CreateAnimeEpisodeMetas(aspb.CreateAnimeEpisodeMetasRequest) returns (aspb.CreateAnimeEpisodeMetasResponse) {
     option (google.api.http) = {
       post : "/v1/anime/serie/episode/meta/create"
       body : "*"
@@ -495,9 +474,9 @@ service Gojo {
       summary:  "create new metas to anime serie episode";
     };
   }
-  rpc AddAnimeSerieData(aspb.AddAnimeSerieDataRequest) returns (aspb.AddAnimeSerieDataResponse) {
+  rpc CreateAnimeSerieData(aspb.CreateAnimeSerieDataRequest) returns (aspb.CreateAnimeSerieDataResponse) {
     option (google.api.http) = {
-      post : "/v1/anime/serie/data/add"
+      post : "/v1/anime/serie/data/create"
       body : "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -511,7 +490,45 @@ service Gojo {
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         description : "Use this API to get full anime serie by ID";
-        summary:  "get serie movie";
+        summary:  "get full serie";
     };
   }
+  rpc GetAllAnimeSeries(aspb.GetAllAnimeSeriesRequest) returns (aspb.GetAllAnimeSeriesResponse) {
+    option (google.api.http) = {
+      get : "/v1/anime/serie"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to get all anime series or by year";
+      summary:  "list anime series";
+    };
+  }
+  rpc GetFullAnimeSeason(aspb.GetFullAnimeSeasonRequest) returns (aspb.GetFullAnimeSeasonResponse) {
+    option (google.api.http) = {
+        get : "/v1/anime/serie/season/{seasonID}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        description : "Use this API to get full anime serie season by ID";
+        summary:  "get full season";
+    };
+  }
+  rpc GetAllAnimeSerieMetas(aspb.GetAllAnimeSerieMetasRequest) returns (aspb.GetAllAnimeSerieMetasResponse) {
+    option (google.api.http) = {
+      get : "/v1/anime/serie/meta"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to get all anime serie metas";
+      summary:  "Get all anime serie metas";
+    };
+  }
+  rpc UpdateAnimeSerie(aspb.UpdateAnimeSerieRequest) returns (aspb.UpdateAnimeSerieResponse) {
+    option (google.api.http) = {
+      patch : "/v1/anime/serie/update"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to update all anime serie fields using the ID";
+      summary: "Update anime serie";
+    };
+  }
+  
 }

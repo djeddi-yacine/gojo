@@ -11,7 +11,7 @@ import (
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
-const createAnimeSerieEpisode = `-- name: CreateAnimeSerieEpisode :one
+const createAnimeEpisode = `-- name: CreateAnimeEpisode :one
 INSERT INTO anime_serie_episodes (
   episode_number,
   season_id,
@@ -22,15 +22,15 @@ VALUES ($1, $2, $3, $4)
 RETURNING id, episode_number, season_id, thumbnails, thumbnails_blur_hash, created_at
 `
 
-type CreateAnimeSerieEpisodeParams struct {
+type CreateAnimeEpisodeParams struct {
 	EpisodeNumber      int32
 	SeasonID           int64
 	Thumbnails         string
 	ThumbnailsBlurHash string
 }
 
-func (q *Queries) CreateAnimeSerieEpisode(ctx context.Context, arg CreateAnimeSerieEpisodeParams) (AnimeSerieEpisode, error) {
-	row := q.db.QueryRow(ctx, createAnimeSerieEpisode,
+func (q *Queries) CreateAnimeEpisode(ctx context.Context, arg CreateAnimeEpisodeParams) (AnimeSerieEpisode, error) {
+	row := q.db.QueryRow(ctx, createAnimeEpisode,
 		arg.EpisodeNumber,
 		arg.SeasonID,
 		arg.Thumbnails,
@@ -48,24 +48,24 @@ func (q *Queries) CreateAnimeSerieEpisode(ctx context.Context, arg CreateAnimeSe
 	return i, err
 }
 
-const deleteAnimeSerieEpisode = `-- name: DeleteAnimeSerieEpisode :exec
+const deleteAnimeEpisode = `-- name: DeleteAnimeEpisode :exec
 DELETE FROM anime_serie_episodes
 WHERE id = $1
 `
 
-func (q *Queries) DeleteAnimeSerieEpisode(ctx context.Context, id int64) error {
-	_, err := q.db.Exec(ctx, deleteAnimeSerieEpisode, id)
+func (q *Queries) DeleteAnimeEpisode(ctx context.Context, id int64) error {
+	_, err := q.db.Exec(ctx, deleteAnimeEpisode, id)
 	return err
 }
 
-const getAnimeSerieEpisodeByEpisodeID = `-- name: GetAnimeSerieEpisodeByEpisodeID :one
+const getAnimeEpisodeByEpisodeID = `-- name: GetAnimeEpisodeByEpisodeID :one
 SELECT id, episode_number, season_id, thumbnails, thumbnails_blur_hash, created_at FROM anime_serie_episodes
 WHERE id = $1
 LIMIT 1
 `
 
-func (q *Queries) GetAnimeSerieEpisodeByEpisodeID(ctx context.Context, id int64) (AnimeSerieEpisode, error) {
-	row := q.db.QueryRow(ctx, getAnimeSerieEpisodeByEpisodeID, id)
+func (q *Queries) GetAnimeEpisodeByEpisodeID(ctx context.Context, id int64) (AnimeSerieEpisode, error) {
+	row := q.db.QueryRow(ctx, getAnimeEpisodeByEpisodeID, id)
 	var i AnimeSerieEpisode
 	err := row.Scan(
 		&i.ID,
@@ -78,7 +78,7 @@ func (q *Queries) GetAnimeSerieEpisodeByEpisodeID(ctx context.Context, id int64)
 	return i, err
 }
 
-const listAnimeSerieEpisodesBySeasonID = `-- name: ListAnimeSerieEpisodesBySeasonID :many
+const listAnimeEpisodesBySeasonID = `-- name: ListAnimeEpisodesBySeasonID :many
 SELECT id, episode_number, season_id, thumbnails, thumbnails_blur_hash, created_at FROM anime_serie_episodes
 WHERE season_id = $1
 ORDER BY episode_number
@@ -86,14 +86,14 @@ LIMIT $2
 OFFSET $3
 `
 
-type ListAnimeSerieEpisodesBySeasonIDParams struct {
+type ListAnimeEpisodesBySeasonIDParams struct {
 	SeasonID int64
 	Limit    int32
 	Offset   int32
 }
 
-func (q *Queries) ListAnimeSerieEpisodesBySeasonID(ctx context.Context, arg ListAnimeSerieEpisodesBySeasonIDParams) ([]AnimeSerieEpisode, error) {
-	rows, err := q.db.Query(ctx, listAnimeSerieEpisodesBySeasonID, arg.SeasonID, arg.Limit, arg.Offset)
+func (q *Queries) ListAnimeEpisodesBySeasonID(ctx context.Context, arg ListAnimeEpisodesBySeasonIDParams) ([]AnimeSerieEpisode, error) {
+	rows, err := q.db.Query(ctx, listAnimeEpisodesBySeasonID, arg.SeasonID, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +119,7 @@ func (q *Queries) ListAnimeSerieEpisodesBySeasonID(ctx context.Context, arg List
 	return items, nil
 }
 
-const updateAnimeSerieEpisode = `-- name: UpdateAnimeSerieEpisode :one
+const updateAnimeEpisode = `-- name: UpdateAnimeEpisode :one
 UPDATE anime_serie_episodes
 SET
   episode_number = COALESCE($1, episode_number),
@@ -131,15 +131,15 @@ WHERE
 RETURNING id, episode_number, season_id, thumbnails, thumbnails_blur_hash, created_at
 `
 
-type UpdateAnimeSerieEpisodeParams struct {
+type UpdateAnimeEpisodeParams struct {
 	EpisodeNumber      pgtype.Int4
 	Thumbnails         pgtype.Text
 	ThumbnailsBlurHash pgtype.Text
 	ID                 int64
 }
 
-func (q *Queries) UpdateAnimeSerieEpisode(ctx context.Context, arg UpdateAnimeSerieEpisodeParams) (AnimeSerieEpisode, error) {
-	row := q.db.QueryRow(ctx, updateAnimeSerieEpisode,
+func (q *Queries) UpdateAnimeEpisode(ctx context.Context, arg UpdateAnimeEpisodeParams) (AnimeSerieEpisode, error) {
+	row := q.db.QueryRow(ctx, updateAnimeEpisode,
 		arg.EpisodeNumber,
 		arg.Thumbnails,
 		arg.ThumbnailsBlurHash,

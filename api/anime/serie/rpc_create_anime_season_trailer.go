@@ -49,7 +49,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTrailer(ctx context.Context, re
 	}
 
 	res := &aspb.CreateAnimeSeasonTrailerResponse{
-		AnimeSeason:    shared.ConvertAnimeSerieSeason(data.AnimeSeason),
+		AnimeSeason:    shared.ConvertAnimeSeason(data.AnimeSeason),
 		SeasonTrailers: shared.ConvertAnimeTrailers(data.SeasonTrailers),
 	}
 	return res, nil

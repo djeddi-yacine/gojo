@@ -971,40 +971,6 @@ func local_request_Gojo_CreateAnimeSerieMetas_0(ctx context.Context, marshaler r
 
 }
 
-func request_Gojo_CreateAnimeSeasonImage_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.CreateAnimeSeasonImageRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := client.CreateAnimeSeasonImage(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_Gojo_CreateAnimeSeasonImage_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.CreateAnimeSeasonImageRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := server.CreateAnimeSeasonImage(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
 func request_Gojo_CreateAnimeSerieLink_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq aspb.CreateAnimeSerieLinkRequest
 	var metadata runtime.ServerMetadata
@@ -1035,40 +1001,6 @@ func local_request_Gojo_CreateAnimeSerieLink_0(ctx context.Context, marshaler ru
 	}
 
 	msg, err := server.CreateAnimeSerieLink(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
-func request_Gojo_CreateAnimeSerieImage_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.CreateAnimeSerieImageRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := client.CreateAnimeSerieImage(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_Gojo_CreateAnimeSerieImage_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.CreateAnimeSerieImageRequest
-	var metadata runtime.ServerMetadata
-
-	newReader, berr := utilities.IOReaderFactory(req.Body)
-	if berr != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
-	}
-	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := server.CreateAnimeSerieImage(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -1107,116 +1039,8 @@ func local_request_Gojo_CreateAnimeSerieTrailer_0(ctx context.Context, marshaler
 
 }
 
-var (
-	filter_Gojo_GetAllAnimeSeries_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
-
-func request_Gojo_GetAllAnimeSeries_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.GetAllAnimeSeriesRequest
-	var metadata runtime.ServerMetadata
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_GetAllAnimeSeries_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := client.GetAllAnimeSeries(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_Gojo_GetAllAnimeSeries_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.GetAllAnimeSeriesRequest
-	var metadata runtime.ServerMetadata
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_GetAllAnimeSeries_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := server.GetAllAnimeSeries(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
-var (
-	filter_Gojo_GetAllAnimeSerieMetas_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
-
-func request_Gojo_GetAllAnimeSerieMetas_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.GetAllAnimeSerieMetasRequest
-	var metadata runtime.ServerMetadata
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_GetAllAnimeSerieMetas_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := client.GetAllAnimeSerieMetas(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_Gojo_GetAllAnimeSerieMetas_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.GetAllAnimeSerieMetasRequest
-	var metadata runtime.ServerMetadata
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_GetAllAnimeSerieMetas_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := server.GetAllAnimeSerieMetas(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
-var (
-	filter_Gojo_AddAnimeSerieInfo_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
-
-func request_Gojo_AddAnimeSerieInfo_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.AddAnimeSerieInfoRequest
-	var metadata runtime.ServerMetadata
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_AddAnimeSerieInfo_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := client.AddAnimeSerieInfo(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
-	return msg, metadata, err
-
-}
-
-func local_request_Gojo_AddAnimeSerieInfo_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.AddAnimeSerieInfoRequest
-	var metadata runtime.ServerMetadata
-
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_AddAnimeSerieInfo_0); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
-	}
-
-	msg, err := server.AddAnimeSerieInfo(ctx, &protoReq)
-	return msg, metadata, err
-
-}
-
-func request_Gojo_UpdateAnimeSerie_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.UpdateAnimeSerieRequest
+func request_Gojo_CreateAnimeSerieImage_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeSerieImageRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -1227,13 +1051,13 @@ func request_Gojo_UpdateAnimeSerie_0(ctx context.Context, marshaler runtime.Mars
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.UpdateAnimeSerie(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.CreateAnimeSerieImage(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_Gojo_UpdateAnimeSerie_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.UpdateAnimeSerieRequest
+func local_request_Gojo_CreateAnimeSerieImage_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeSerieImageRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -1244,7 +1068,77 @@ func local_request_Gojo_UpdateAnimeSerie_0(ctx context.Context, marshaler runtim
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.UpdateAnimeSerie(ctx, &protoReq)
+	msg, err := server.CreateAnimeSerieImage(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_Gojo_CreateAnimeSeasonImage_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeSeasonImageRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.CreateAnimeSeasonImage(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_Gojo_CreateAnimeSeasonImage_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeSeasonImageRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.CreateAnimeSeasonImage(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_Gojo_CreateAnimeSeasonInfo_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
+func request_Gojo_CreateAnimeSeasonInfo_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeSeasonInfoRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_CreateAnimeSeasonInfo_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.CreateAnimeSeasonInfo(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_Gojo_CreateAnimeSeasonInfo_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeSeasonInfoRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_CreateAnimeSeasonInfo_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.CreateAnimeSeasonInfo(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -1283,8 +1177,8 @@ func local_request_Gojo_CreateAnimeSerieServer_0(ctx context.Context, marshaler 
 
 }
 
-func request_Gojo_CreateAnimeSerieSeason_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.CreateAnimeSerieSeasonRequest
+func request_Gojo_CreateAnimeSeason_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeSeasonRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -1295,13 +1189,13 @@ func request_Gojo_CreateAnimeSerieSeason_0(ctx context.Context, marshaler runtim
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.CreateAnimeSerieSeason(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.CreateAnimeSeason(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_Gojo_CreateAnimeSerieSeason_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.CreateAnimeSerieSeasonRequest
+func local_request_Gojo_CreateAnimeSeason_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeSeasonRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -1312,13 +1206,13 @@ func local_request_Gojo_CreateAnimeSerieSeason_0(ctx context.Context, marshaler 
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.CreateAnimeSerieSeason(ctx, &protoReq)
+	msg, err := server.CreateAnimeSeason(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_Gojo_AddAnimeSerieSeasonMetas_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.AddAnimeSerieSeasonMetasRequest
+func request_Gojo_CreateAnimeSeasonMetas_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeSeasonMetasRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -1329,13 +1223,13 @@ func request_Gojo_AddAnimeSerieSeasonMetas_0(ctx context.Context, marshaler runt
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.AddAnimeSerieSeasonMetas(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.CreateAnimeSeasonMetas(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_Gojo_AddAnimeSerieSeasonMetas_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.AddAnimeSerieSeasonMetasRequest
+func local_request_Gojo_CreateAnimeSeasonMetas_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeSeasonMetasRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -1346,7 +1240,7 @@ func local_request_Gojo_AddAnimeSerieSeasonMetas_0(ctx context.Context, marshale
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.AddAnimeSerieSeasonMetas(ctx, &protoReq)
+	msg, err := server.CreateAnimeSeasonMetas(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -1419,8 +1313,8 @@ func local_request_Gojo_CreateAnimeSeasonTrailer_0(ctx context.Context, marshale
 
 }
 
-func request_Gojo_CreateAnimeSerieEpisode_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.CreateAnimeSerieEpisodeRequest
+func request_Gojo_CreateAnimeEpisode_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeEpisodeRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -1431,13 +1325,13 @@ func request_Gojo_CreateAnimeSerieEpisode_0(ctx context.Context, marshaler runti
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.CreateAnimeSerieEpisode(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.CreateAnimeEpisode(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_Gojo_CreateAnimeSerieEpisode_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.CreateAnimeSerieEpisodeRequest
+func local_request_Gojo_CreateAnimeEpisode_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeEpisodeRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -1448,13 +1342,13 @@ func local_request_Gojo_CreateAnimeSerieEpisode_0(ctx context.Context, marshaler
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.CreateAnimeSerieEpisode(ctx, &protoReq)
+	msg, err := server.CreateAnimeEpisode(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_Gojo_AddAnimeSerieEpisodeMetas_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.AddAnimeSerieEpisodeMetasRequest
+func request_Gojo_CreateAnimeEpisodeMetas_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeEpisodeMetasRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -1465,13 +1359,13 @@ func request_Gojo_AddAnimeSerieEpisodeMetas_0(ctx context.Context, marshaler run
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.AddAnimeSerieEpisodeMetas(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.CreateAnimeEpisodeMetas(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_Gojo_AddAnimeSerieEpisodeMetas_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.AddAnimeSerieEpisodeMetasRequest
+func local_request_Gojo_CreateAnimeEpisodeMetas_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeEpisodeMetasRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -1482,13 +1376,13 @@ func local_request_Gojo_AddAnimeSerieEpisodeMetas_0(ctx context.Context, marshal
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.AddAnimeSerieEpisodeMetas(ctx, &protoReq)
+	msg, err := server.CreateAnimeEpisodeMetas(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_Gojo_AddAnimeSerieData_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.AddAnimeSerieDataRequest
+func request_Gojo_CreateAnimeSerieData_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeSerieDataRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -1499,13 +1393,13 @@ func request_Gojo_AddAnimeSerieData_0(ctx context.Context, marshaler runtime.Mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.AddAnimeSerieData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.CreateAnimeSerieData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_Gojo_AddAnimeSerieData_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspb.AddAnimeSerieDataRequest
+func local_request_Gojo_CreateAnimeSerieData_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.CreateAnimeSerieDataRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -1516,7 +1410,7 @@ func local_request_Gojo_AddAnimeSerieData_0(ctx context.Context, marshaler runti
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.AddAnimeSerieData(ctx, &protoReq)
+	msg, err := server.CreateAnimeSerieData(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -1587,6 +1481,182 @@ func local_request_Gojo_GetFullAnimeSerie_0(ctx context.Context, marshaler runti
 	}
 
 	msg, err := server.GetFullAnimeSerie(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_Gojo_GetAllAnimeSeries_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
+func request_Gojo_GetAllAnimeSeries_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.GetAllAnimeSeriesRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_GetAllAnimeSeries_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetAllAnimeSeries(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_Gojo_GetAllAnimeSeries_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.GetAllAnimeSeriesRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_GetAllAnimeSeries_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetAllAnimeSeries(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_Gojo_GetFullAnimeSeason_0 = &utilities.DoubleArray{Encoding: map[string]int{"seasonID": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
+func request_Gojo_GetFullAnimeSeason_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.GetFullAnimeSeasonRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["seasonID"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "seasonID")
+	}
+
+	protoReq.SeasonID, err = runtime.Int64(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "seasonID", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_GetFullAnimeSeason_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetFullAnimeSeason(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_Gojo_GetFullAnimeSeason_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.GetFullAnimeSeasonRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["seasonID"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "seasonID")
+	}
+
+	protoReq.SeasonID, err = runtime.Int64(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "seasonID", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_GetFullAnimeSeason_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetFullAnimeSeason(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+var (
+	filter_Gojo_GetAllAnimeSerieMetas_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+)
+
+func request_Gojo_GetAllAnimeSerieMetas_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.GetAllAnimeSerieMetasRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_GetAllAnimeSerieMetas_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.GetAllAnimeSerieMetas(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_Gojo_GetAllAnimeSerieMetas_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.GetAllAnimeSerieMetasRequest
+	var metadata runtime.ServerMetadata
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_GetAllAnimeSerieMetas_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.GetAllAnimeSerieMetas(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_Gojo_UpdateAnimeSerie_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.UpdateAnimeSerieRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.UpdateAnimeSerie(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_Gojo_UpdateAnimeSerie_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq aspb.UpdateAnimeSerieRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.UpdateAnimeSerie(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -2247,31 +2317,6 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_CreateAnimeSeasonImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSeasonImage", runtime.WithHTTPPathPattern("/v1/anime/serie/season/image/create"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_Gojo_CreateAnimeSeasonImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_Gojo_CreateAnimeSeasonImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
 	mux.Handle("POST", pattern_Gojo_CreateAnimeSerieLink_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -2294,31 +2339,6 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		}
 
 		forward_Gojo_CreateAnimeSerieLink_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("POST", pattern_Gojo_CreateAnimeSerieImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSerieImage", runtime.WithHTTPPathPattern("/v1/anime/serie/image/create"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_Gojo_CreateAnimeSerieImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_Gojo_CreateAnimeSerieImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -2347,7 +2367,7 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 
 	})
 
-	mux.Handle("GET", pattern_Gojo_GetAllAnimeSeries_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeSerieImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -2355,12 +2375,12 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/GetAllAnimeSeries", runtime.WithHTTPPathPattern("/v1/anime/serie"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSerieImage", runtime.WithHTTPPathPattern("/v1/anime/serie/image/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Gojo_GetAllAnimeSeries_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Gojo_CreateAnimeSerieImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -2368,11 +2388,11 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 			return
 		}
 
-		forward_Gojo_GetAllAnimeSeries_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeSerieImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_Gojo_GetAllAnimeSerieMetas_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeSeasonImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -2380,12 +2400,12 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/GetAllAnimeSerieMetas", runtime.WithHTTPPathPattern("/v1/anime/serie/meta"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSeasonImage", runtime.WithHTTPPathPattern("/v1/anime/serie/season/image/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Gojo_GetAllAnimeSerieMetas_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Gojo_CreateAnimeSeasonImage_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -2393,11 +2413,11 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 			return
 		}
 
-		forward_Gojo_GetAllAnimeSerieMetas_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeSeasonImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_AddAnimeSerieInfo_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeSeasonInfo_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -2405,12 +2425,12 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/AddAnimeSerieInfo", runtime.WithHTTPPathPattern("/v1/anime/serie/info"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSeasonInfo", runtime.WithHTTPPathPattern("/v1/anime/serie/season/info/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Gojo_AddAnimeSerieInfo_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Gojo_CreateAnimeSeasonInfo_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -2418,32 +2438,7 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 			return
 		}
 
-		forward_Gojo_AddAnimeSerieInfo_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("PATCH", pattern_Gojo_UpdateAnimeSerie_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		var stream runtime.ServerTransportStream
-		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/UpdateAnimeSerie", runtime.WithHTTPPathPattern("/v1/anime/serie/update"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := local_request_Gojo_UpdateAnimeSerie_0(annotatedContext, inboundMarshaler, server, req, pathParams)
-		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_Gojo_UpdateAnimeSerie_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeSeasonInfo_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -2472,7 +2467,7 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_CreateAnimeSerieSeason_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeSeason_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -2480,12 +2475,12 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSerieSeason", runtime.WithHTTPPathPattern("/v1/anime/serie/season/create"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSeason", runtime.WithHTTPPathPattern("/v1/anime/serie/season/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Gojo_CreateAnimeSerieSeason_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Gojo_CreateAnimeSeason_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -2493,11 +2488,11 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 			return
 		}
 
-		forward_Gojo_CreateAnimeSerieSeason_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeSeason_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_AddAnimeSerieSeasonMetas_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeSeasonMetas_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -2505,12 +2500,12 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/AddAnimeSerieSeasonMetas", runtime.WithHTTPPathPattern("/v1/anime/serie/season/meta/create"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSeasonMetas", runtime.WithHTTPPathPattern("/v1/anime/serie/season/meta/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Gojo_AddAnimeSerieSeasonMetas_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Gojo_CreateAnimeSeasonMetas_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -2518,7 +2513,7 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 			return
 		}
 
-		forward_Gojo_AddAnimeSerieSeasonMetas_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeSeasonMetas_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -2572,7 +2567,7 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_CreateAnimeSerieEpisode_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeEpisode_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -2580,12 +2575,12 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSerieEpisode", runtime.WithHTTPPathPattern("/v1/anime/serie/episode/create"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeEpisode", runtime.WithHTTPPathPattern("/v1/anime/serie/episode/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Gojo_CreateAnimeSerieEpisode_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Gojo_CreateAnimeEpisode_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -2593,11 +2588,11 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 			return
 		}
 
-		forward_Gojo_CreateAnimeSerieEpisode_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeEpisode_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_AddAnimeSerieEpisodeMetas_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeEpisodeMetas_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -2605,12 +2600,12 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/AddAnimeSerieEpisodeMetas", runtime.WithHTTPPathPattern("/v1/anime/serie/episode/meta/create"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeEpisodeMetas", runtime.WithHTTPPathPattern("/v1/anime/serie/episode/meta/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Gojo_AddAnimeSerieEpisodeMetas_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Gojo_CreateAnimeEpisodeMetas_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -2618,11 +2613,11 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 			return
 		}
 
-		forward_Gojo_AddAnimeSerieEpisodeMetas_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeEpisodeMetas_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_AddAnimeSerieData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeSerieData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -2630,12 +2625,12 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/AddAnimeSerieData", runtime.WithHTTPPathPattern("/v1/anime/serie/data/add"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSerieData", runtime.WithHTTPPathPattern("/v1/anime/serie/data/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Gojo_AddAnimeSerieData_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Gojo_CreateAnimeSerieData_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -2643,7 +2638,7 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 			return
 		}
 
-		forward_Gojo_AddAnimeSerieData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeSerieData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -2669,6 +2664,106 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		}
 
 		forward_Gojo_GetFullAnimeSerie_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_Gojo_GetAllAnimeSeries_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/GetAllAnimeSeries", runtime.WithHTTPPathPattern("/v1/anime/serie"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Gojo_GetAllAnimeSeries_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Gojo_GetAllAnimeSeries_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_Gojo_GetFullAnimeSeason_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/GetFullAnimeSeason", runtime.WithHTTPPathPattern("/v1/anime/serie/season/{seasonID}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Gojo_GetFullAnimeSeason_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Gojo_GetFullAnimeSeason_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_Gojo_GetAllAnimeSerieMetas_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/GetAllAnimeSerieMetas", runtime.WithHTTPPathPattern("/v1/anime/serie/meta"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Gojo_GetAllAnimeSerieMetas_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Gojo_GetAllAnimeSerieMetas_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PATCH", pattern_Gojo_UpdateAnimeSerie_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/UpdateAnimeSerie", runtime.WithHTTPPathPattern("/v1/anime/serie/update"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Gojo_UpdateAnimeSerie_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Gojo_UpdateAnimeSerie_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -3285,28 +3380,6 @@ func RegisterGojoHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_CreateAnimeSeasonImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSeasonImage", runtime.WithHTTPPathPattern("/v1/anime/serie/season/image/create"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_Gojo_CreateAnimeSeasonImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_Gojo_CreateAnimeSeasonImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
 	mux.Handle("POST", pattern_Gojo_CreateAnimeSerieLink_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -3326,28 +3399,6 @@ func RegisterGojoHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		}
 
 		forward_Gojo_CreateAnimeSerieLink_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("POST", pattern_Gojo_CreateAnimeSerieImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSerieImage", runtime.WithHTTPPathPattern("/v1/anime/serie/image/create"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_Gojo_CreateAnimeSerieImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_Gojo_CreateAnimeSerieImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -3373,91 +3424,69 @@ func RegisterGojoHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 
 	})
 
-	mux.Handle("GET", pattern_Gojo_GetAllAnimeSeries_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeSerieImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/GetAllAnimeSeries", runtime.WithHTTPPathPattern("/v1/anime/serie"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSerieImage", runtime.WithHTTPPathPattern("/v1/anime/serie/image/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Gojo_GetAllAnimeSeries_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Gojo_CreateAnimeSerieImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Gojo_GetAllAnimeSeries_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeSerieImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_Gojo_GetAllAnimeSerieMetas_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeSeasonImage_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/GetAllAnimeSerieMetas", runtime.WithHTTPPathPattern("/v1/anime/serie/meta"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSeasonImage", runtime.WithHTTPPathPattern("/v1/anime/serie/season/image/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Gojo_GetAllAnimeSerieMetas_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Gojo_CreateAnimeSeasonImage_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Gojo_GetAllAnimeSerieMetas_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeSeasonImage_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_AddAnimeSerieInfo_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeSeasonInfo_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/AddAnimeSerieInfo", runtime.WithHTTPPathPattern("/v1/anime/serie/info"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSeasonInfo", runtime.WithHTTPPathPattern("/v1/anime/serie/season/info/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Gojo_AddAnimeSerieInfo_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Gojo_CreateAnimeSeasonInfo_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Gojo_AddAnimeSerieInfo_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
-
-	})
-
-	mux.Handle("PATCH", pattern_Gojo_UpdateAnimeSerie_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
-		ctx, cancel := context.WithCancel(req.Context())
-		defer cancel()
-		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
-		var err error
-		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/UpdateAnimeSerie", runtime.WithHTTPPathPattern("/v1/anime/serie/update"))
-		if err != nil {
-			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
-			return
-		}
-		resp, md, err := request_Gojo_UpdateAnimeSerie_0(annotatedContext, inboundMarshaler, client, req, pathParams)
-		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
-		if err != nil {
-			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
-			return
-		}
-
-		forward_Gojo_UpdateAnimeSerie_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeSeasonInfo_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -3483,47 +3512,47 @@ func RegisterGojoHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_CreateAnimeSerieSeason_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeSeason_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSerieSeason", runtime.WithHTTPPathPattern("/v1/anime/serie/season/create"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSeason", runtime.WithHTTPPathPattern("/v1/anime/serie/season/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Gojo_CreateAnimeSerieSeason_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Gojo_CreateAnimeSeason_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Gojo_CreateAnimeSerieSeason_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeSeason_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_AddAnimeSerieSeasonMetas_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeSeasonMetas_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/AddAnimeSerieSeasonMetas", runtime.WithHTTPPathPattern("/v1/anime/serie/season/meta/create"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSeasonMetas", runtime.WithHTTPPathPattern("/v1/anime/serie/season/meta/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Gojo_AddAnimeSerieSeasonMetas_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Gojo_CreateAnimeSeasonMetas_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Gojo_AddAnimeSerieSeasonMetas_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeSeasonMetas_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -3571,69 +3600,69 @@ func RegisterGojoHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_CreateAnimeSerieEpisode_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeEpisode_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSerieEpisode", runtime.WithHTTPPathPattern("/v1/anime/serie/episode/create"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeEpisode", runtime.WithHTTPPathPattern("/v1/anime/serie/episode/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Gojo_CreateAnimeSerieEpisode_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Gojo_CreateAnimeEpisode_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Gojo_CreateAnimeSerieEpisode_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeEpisode_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_AddAnimeSerieEpisodeMetas_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeEpisodeMetas_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/AddAnimeSerieEpisodeMetas", runtime.WithHTTPPathPattern("/v1/anime/serie/episode/meta/create"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeEpisodeMetas", runtime.WithHTTPPathPattern("/v1/anime/serie/episode/meta/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Gojo_AddAnimeSerieEpisodeMetas_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Gojo_CreateAnimeEpisodeMetas_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Gojo_AddAnimeSerieEpisodeMetas_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeEpisodeMetas_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_AddAnimeSerieData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeSerieData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/AddAnimeSerieData", runtime.WithHTTPPathPattern("/v1/anime/serie/data/add"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeSerieData", runtime.WithHTTPPathPattern("/v1/anime/serie/data/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Gojo_AddAnimeSerieData_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Gojo_CreateAnimeSerieData_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Gojo_AddAnimeSerieData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeSerieData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -3656,6 +3685,94 @@ func RegisterGojoHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		}
 
 		forward_Gojo_GetFullAnimeSerie_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_Gojo_GetAllAnimeSeries_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/GetAllAnimeSeries", runtime.WithHTTPPathPattern("/v1/anime/serie"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Gojo_GetAllAnimeSeries_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Gojo_GetAllAnimeSeries_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_Gojo_GetFullAnimeSeason_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/GetFullAnimeSeason", runtime.WithHTTPPathPattern("/v1/anime/serie/season/{seasonID}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Gojo_GetFullAnimeSeason_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Gojo_GetFullAnimeSeason_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_Gojo_GetAllAnimeSerieMetas_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/GetAllAnimeSerieMetas", runtime.WithHTTPPathPattern("/v1/anime/serie/meta"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Gojo_GetAllAnimeSerieMetas_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Gojo_GetAllAnimeSerieMetas_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("PATCH", pattern_Gojo_UpdateAnimeSerie_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/UpdateAnimeSerie", runtime.WithHTTPPathPattern("/v1/anime/serie/update"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Gojo_UpdateAnimeSerie_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Gojo_UpdateAnimeSerie_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -3715,39 +3832,41 @@ var (
 
 	pattern_Gojo_CreateAnimeSerieMetas_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "serie", "meta", "create"}, ""))
 
-	pattern_Gojo_CreateAnimeSeasonImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "anime", "serie", "season", "image", "create"}, ""))
-
 	pattern_Gojo_CreateAnimeSerieLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "serie", "link", "create"}, ""))
-
-	pattern_Gojo_CreateAnimeSerieImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "serie", "image", "create"}, ""))
 
 	pattern_Gojo_CreateAnimeSerieTrailer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "serie", "trailer", "create"}, ""))
 
-	pattern_Gojo_GetAllAnimeSeries_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "anime", "serie"}, ""))
+	pattern_Gojo_CreateAnimeSerieImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "serie", "image", "create"}, ""))
 
-	pattern_Gojo_GetAllAnimeSerieMetas_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "serie", "meta"}, ""))
+	pattern_Gojo_CreateAnimeSeasonImage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "anime", "serie", "season", "image", "create"}, ""))
 
-	pattern_Gojo_AddAnimeSerieInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "serie", "info"}, ""))
-
-	pattern_Gojo_UpdateAnimeSerie_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "serie", "update"}, ""))
+	pattern_Gojo_CreateAnimeSeasonInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "anime", "serie", "season", "info", "create"}, ""))
 
 	pattern_Gojo_CreateAnimeSerieServer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "serie", "server", "create"}, ""))
 
-	pattern_Gojo_CreateAnimeSerieSeason_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "serie", "season", "create"}, ""))
+	pattern_Gojo_CreateAnimeSeason_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "serie", "season", "create"}, ""))
 
-	pattern_Gojo_AddAnimeSerieSeasonMetas_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "anime", "serie", "season", "meta", "create"}, ""))
+	pattern_Gojo_CreateAnimeSeasonMetas_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "anime", "serie", "season", "meta", "create"}, ""))
 
 	pattern_Gojo_CreateAnimeSeasonResource_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "anime", "serie", "season", "resource", "create"}, ""))
 
 	pattern_Gojo_CreateAnimeSeasonTrailer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "anime", "serie", "season", "trailer", "create"}, ""))
 
-	pattern_Gojo_CreateAnimeSerieEpisode_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "serie", "episode", "create"}, ""))
+	pattern_Gojo_CreateAnimeEpisode_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "serie", "episode", "create"}, ""))
 
-	pattern_Gojo_AddAnimeSerieEpisodeMetas_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "anime", "serie", "episode", "meta", "create"}, ""))
+	pattern_Gojo_CreateAnimeEpisodeMetas_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4, 2, 5}, []string{"v1", "anime", "serie", "episode", "meta", "create"}, ""))
 
-	pattern_Gojo_AddAnimeSerieData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "serie", "data", "add"}, ""))
+	pattern_Gojo_CreateAnimeSerieData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "serie", "data", "create"}, ""))
 
 	pattern_Gojo_GetFullAnimeSerie_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"v1", "anime", "serie", "animeID"}, ""))
+
+	pattern_Gojo_GetAllAnimeSeries_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"v1", "anime", "serie"}, ""))
+
+	pattern_Gojo_GetFullAnimeSeason_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"v1", "anime", "serie", "season", "seasonID"}, ""))
+
+	pattern_Gojo_GetAllAnimeSerieMetas_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "serie", "meta"}, ""))
+
+	pattern_Gojo_UpdateAnimeSerie_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "serie", "update"}, ""))
 )
 
 var (
@@ -3803,37 +3922,39 @@ var (
 
 	forward_Gojo_CreateAnimeSerieMetas_0 = runtime.ForwardResponseMessage
 
-	forward_Gojo_CreateAnimeSeasonImage_0 = runtime.ForwardResponseMessage
-
 	forward_Gojo_CreateAnimeSerieLink_0 = runtime.ForwardResponseMessage
-
-	forward_Gojo_CreateAnimeSerieImage_0 = runtime.ForwardResponseMessage
 
 	forward_Gojo_CreateAnimeSerieTrailer_0 = runtime.ForwardResponseMessage
 
-	forward_Gojo_GetAllAnimeSeries_0 = runtime.ForwardResponseMessage
+	forward_Gojo_CreateAnimeSerieImage_0 = runtime.ForwardResponseMessage
 
-	forward_Gojo_GetAllAnimeSerieMetas_0 = runtime.ForwardResponseMessage
+	forward_Gojo_CreateAnimeSeasonImage_0 = runtime.ForwardResponseMessage
 
-	forward_Gojo_AddAnimeSerieInfo_0 = runtime.ForwardResponseMessage
-
-	forward_Gojo_UpdateAnimeSerie_0 = runtime.ForwardResponseMessage
+	forward_Gojo_CreateAnimeSeasonInfo_0 = runtime.ForwardResponseMessage
 
 	forward_Gojo_CreateAnimeSerieServer_0 = runtime.ForwardResponseMessage
 
-	forward_Gojo_CreateAnimeSerieSeason_0 = runtime.ForwardResponseMessage
+	forward_Gojo_CreateAnimeSeason_0 = runtime.ForwardResponseMessage
 
-	forward_Gojo_AddAnimeSerieSeasonMetas_0 = runtime.ForwardResponseMessage
+	forward_Gojo_CreateAnimeSeasonMetas_0 = runtime.ForwardResponseMessage
 
 	forward_Gojo_CreateAnimeSeasonResource_0 = runtime.ForwardResponseMessage
 
 	forward_Gojo_CreateAnimeSeasonTrailer_0 = runtime.ForwardResponseMessage
 
-	forward_Gojo_CreateAnimeSerieEpisode_0 = runtime.ForwardResponseMessage
+	forward_Gojo_CreateAnimeEpisode_0 = runtime.ForwardResponseMessage
 
-	forward_Gojo_AddAnimeSerieEpisodeMetas_0 = runtime.ForwardResponseMessage
+	forward_Gojo_CreateAnimeEpisodeMetas_0 = runtime.ForwardResponseMessage
 
-	forward_Gojo_AddAnimeSerieData_0 = runtime.ForwardResponseMessage
+	forward_Gojo_CreateAnimeSerieData_0 = runtime.ForwardResponseMessage
 
 	forward_Gojo_GetFullAnimeSerie_0 = runtime.ForwardResponseMessage
+
+	forward_Gojo_GetAllAnimeSeries_0 = runtime.ForwardResponseMessage
+
+	forward_Gojo_GetFullAnimeSeason_0 = runtime.ForwardResponseMessage
+
+	forward_Gojo_GetAllAnimeSerieMetas_0 = runtime.ForwardResponseMessage
+
+	forward_Gojo_UpdateAnimeSerie_0 = runtime.ForwardResponseMessage
 )

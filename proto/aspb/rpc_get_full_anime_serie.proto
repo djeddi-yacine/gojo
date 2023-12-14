@@ -4,8 +4,6 @@ package aspb;
 
 import "aspb/anime_serie.proto";
 import "nfpb/meta.proto";
-import "nfpb/genre.proto";
-import "nfpb/studio.proto";
 import "shpb/anime_link.proto";
 import "shpb/anime_image.proto";
 import "shpb/anime_trailer.proto";
@@ -21,8 +19,6 @@ message GetFullAnimeSerieResponse {
     AnimeSerieResponse animeSerie = 1;
     nfpb.AnimeMetaResponse animeMeta = 2;
     shpb.AnimeLinkResponse animeLinks = 3;
-    nfpb.AnimeGenresResponse animeGenres = 4;
-    nfpb.AnimeStudiosResponse animeStudios = 5;
-    shpb.AnimeImageResponse animeImages = 6;
-    repeated shpb.AnimeTrailerResponse animeTrailers = 7;
+    shpb.AnimeImageResponse animeImages = 4;
+    repeated shpb.AnimeTrailerResponse animeTrailers = 5;
 }

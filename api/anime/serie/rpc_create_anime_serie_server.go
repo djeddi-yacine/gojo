@@ -26,9 +26,9 @@ func (server *AnimeSerieServer) CreateAnimeSerieServer(ctx context.Context, req 
 		return nil, shared.InvalidArgumentError([]*errdetails.BadRequest_FieldViolation{violations})
 	}
 
-	srv, err := server.gojo.CreateAnimeSerieServer(ctx, req.EpisodeID)
+	srv, err := server.gojo.CreateAnimeEpisodeServer(ctx, req.EpisodeID)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create episode resources", err)
+		return nil, shared.DatabaseError("failed to create episode server", err)
 	}
 
 	res := &aspb.CreateAnimeSerieServerResponse{

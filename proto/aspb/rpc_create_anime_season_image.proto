@@ -3,16 +3,16 @@ syntax = "proto3";
 package aspb;
 
 import "shpb/anime_image.proto";
-import "aspb/anime_serie_season.proto";
+import "aspb/anime_season.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
 message CreateAnimeSeasonImageRequest {
     int64 seasonID = 1;
-    repeated shpb.ImageRequest posters = 2;
+    repeated shpb.ImageRequest seasonPosters = 2;
 }
 
 message CreateAnimeSeasonImageResponse {
-    AnimeSerieSeasonResponse animeSeason = 1;
-    repeated shpb.ImageResponse posters = 2;
+    AnimeSeasonResponse animeSeason = 1;
+    repeated shpb.ImageResponse seasonPosters = 2;
 }

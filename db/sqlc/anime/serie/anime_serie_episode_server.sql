@@ -1,28 +1,25 @@
--- name: CreateAnimeSerieEpisodeServer :one
-INSERT INTO anime_serie_episode_servers (episode_id, server_id)
-VALUES ($1, $2)
+-- name: CreateAnimeEpisodeServer :one
+INSERT INTO anime_episode_servers (episode_id)
+VALUES ($1)
 RETURNING *;
 
--- name: GetAnimeSerieEpisodeServer :one
-SELECT * FROM anime_serie_episode_servers
+-- name: GetAnimeEpisodeServer :one
+SELECT * FROM anime_episode_servers
 WHERE id = $1
 LIMIT 1;
 
--- name: ListAnimeSerieEpisodeServersByEpisode :many
-SELECT * FROM anime_serie_episode_servers
-WHERE episode_id = $1
-ORDER BY id
-LIMIT $2
-OFFSET $3;
-
--- name: UpdateAnimeSerieEpisodeServer :one
-UPDATE anime_serie_episode_servers
-SET
-  episode_id = COALESCE(sqlc.narg(episode_id), episode_id),
-  server_id = COALESCE(sqlc.narg(server_id), server_id)
-WHERE
-  id = sqlc.arg(id)
+-- name: UpdateAnimeEpisodeServer :one
+UPDATE anime_episode_servers
+SET episode_id = $2
+WHERE id = $1
 RETURNING *;
--- name: DeleteAnimeSerieEpisodeServer :exec
-DELETE FROM anime_serie_episode_servers
+
+-- name: ListAnimeEpisodeServers :many
+SELECT * FROM anime_episode_servers
+ORDER BY id
+LIMIT $1
+OFFSET $2;
+
+-- name: DeleteAnimeEpisodeServer :exec
+DELETE FROM anime_episode_servers
 WHERE id = $1;
