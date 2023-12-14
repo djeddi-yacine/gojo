@@ -283,11 +283,11 @@ func ConvertAnimeSerieEpiosdes(ase []db.AnimeSerieEpisode) []*aspb.AnimeSerieEpi
 	}
 }
 
-func ConvertAnimeImages(ami []db.AnimeImage) []*shpb.ImageResponse {
-	if len(ami) > 0 {
-		images := make([]*shpb.ImageResponse, len(ami))
+func ConvertAnimeImages(ai []db.AnimeImage) []*shpb.ImageResponse {
+	if len(ai) > 0 {
+		images := make([]*shpb.ImageResponse, len(ai))
 
-		for i, g := range ami {
+		for i, g := range ai {
 			images[i] = &shpb.ImageResponse{
 				ID:         g.ID,
 				Host:       g.ImageHost,
@@ -301,6 +301,26 @@ func ConvertAnimeImages(ami []db.AnimeImage) []*shpb.ImageResponse {
 		}
 
 		return images
+	} else {
+		return nil
+	}
+}
+
+func ConvertAnimeTrailers(at []db.AnimeTrailer) []*shpb.AnimeTrailerResponse {
+	if len(at) > 0 {
+		trailers := make([]*shpb.AnimeTrailerResponse, len(at))
+
+		for i, t := range at {
+			trailers[i] = &shpb.AnimeTrailerResponse{
+				ID:         t.ID,
+				IsOfficial: t.IsOfficial,
+				HostName:   t.HostName,
+				HostKey:    t.HostKey,
+				CreatedAt:  timestamppb.New(t.CreatedAt),
+			}
+		}
+
+		return trailers
 	} else {
 		return nil
 	}

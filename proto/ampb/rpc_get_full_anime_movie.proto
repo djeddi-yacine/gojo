@@ -10,6 +10,7 @@ import "nfpb/studio.proto";
 import "shpb/anime_resource.proto";
 import "shpb/anime_link.proto";
 import "shpb/anime_image.proto";
+import "shpb/anime_trailer.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/ampb";
 
@@ -20,13 +21,14 @@ message GetFullAnimeMovieRequest {
 
 message GetFullAnimeMovieResponse { 
     AnimeMovieResponse animeMovie = 1;
-    optional nfpb.AnimeMetaResponse animeMeta = 2;
-    optional shpb.AnimeResourceResponse animeResources = 3;
-    optional nfpb.AnimeGenresResponse animeGenres = 4;
-    optional nfpb.AnimeStudiosResponse animeStudios = 5;
-    optional shpb.AnimeLinkResponse animeLinks = 6;
-    optional shpb.AnimeImageResponse animeImages = 7;
-    optional int64 serverID = 8;
-    optional AnimeMovieSubDataResponse sub = 9;
-    optional AnimeMovieDubDataResponse dub = 10;
+    nfpb.AnimeMetaResponse animeMeta = 2;
+    shpb.AnimeResourceResponse animeResources = 3;
+    nfpb.AnimeGenresResponse animeGenres = 4;
+    nfpb.AnimeStudiosResponse animeStudios = 5;
+    shpb.AnimeLinkResponse animeLinks = 6;
+    shpb.AnimeImageResponse animeImages = 7;
+    repeated shpb.AnimeTrailerResponse animeTrailers = 8;
+    int64 serverID = 9;
+    AnimeMovieSubDataResponse sub = 10;
+    AnimeMovieDubDataResponse dub = 11;
 }

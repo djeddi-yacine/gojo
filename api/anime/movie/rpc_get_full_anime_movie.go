@@ -117,7 +117,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 	}
 
 	if sv.AnimeID == req.GetAnimeID() {
-		res.ServerID = &sv.ID
+		res.ServerID = sv.ID
 		ss, err := server.gojo.ListAnimeMovieServerSubVideos(ctx, sv.ID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return nil, shared.DatabaseError("cannot list anime movie server sub videos", err)
@@ -181,6 +181,20 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		}
 	}
 
+	animeLinkID, err := server.gojo.GetAnimeMovieLink(ctx, req.AnimeID)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get anime movie links ID", err)
+	}
+
+	if animeLinkID.AnimeID == req.AnimeID {
+		animeLink, err := server.gojo.GetAnimeLink(ctx, animeLinkID.ID)
+		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+			return nil, shared.DatabaseError("cannot get anime movie links", err)
+		}
+
+		res.AnimeLinks = shared.ConvertAnimeLink(animeLink)
+	}
+
 	animePosterIDs, err := server.gojo.ListAnimeMoviePosterImages(ctx, req.AnimeID)
 	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 		return nil, shared.DatabaseError("cannot get anime movie posters images IDs", err)
@@ -208,8 +222,8 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 	if len(animeBackdropIDs) > 0 {
 		animeBackdrops = make([]db.AnimeImage, len(animeBackdropIDs))
 
-		for i, p := range animeBackdropIDs {
-			backdrop, err := server.gojo.GetAnimeImage(ctx, p)
+		for i, b := range animeBackdropIDs {
+			backdrop, err := server.gojo.GetAnimeImage(ctx, b)
 			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 				return nil, shared.DatabaseError("cannot get anime movie backdrop image", err)
 			}
@@ -226,8 +240,8 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 	if len(animeLogoIDs) > 0 {
 		animeLogos = make([]db.AnimeImage, len(animeLogoIDs))
 
-		for i, p := range animeLogoIDs {
-			logo, err := server.gojo.GetAnimeImage(ctx, p)
+		for i, l := range animeLogoIDs {
+			logo, err := server.gojo.GetAnimeImage(ctx, l)
 			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 				return nil, shared.DatabaseError("cannot get anime movie logo image", err)
 			}
@@ -241,19 +255,25 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		Logos:     shared.ConvertAnimeImages(animeLogos),
 	}
 
-	animeLinkID, err := server.gojo.GetAnimeMovieLink(ctx, req.AnimeID)
+	animeTrailerIDs, err := server.gojo.ListAnimeMovieTrailers(ctx, req.AnimeID)
 	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, shared.DatabaseError("cannot get anime movie links ID", err)
+		return nil, shared.DatabaseError("cannot get anime movie trailers IDs", err)
 	}
 
-	if animeLinkID.AnimeID == req.AnimeID {
-		animeLink, err := server.gojo.GetAnimeLink(ctx, animeLinkID.ID)
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return nil, shared.DatabaseError("cannot get anime movie links", err)
+	var animeTrailers []db.AnimeTrailer
+	if len(animeTrailerIDs) > 0 {
+		animeTrailers = make([]db.AnimeTrailer, len(animeTrailerIDs))
+
+		for i, t := range animeTrailerIDs {
+			trailer, err := server.gojo.GetAnimeTrailer(ctx, t.TrailerID)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot get anime movie trailer", err)
+			}
+			animeTrailers[i] = trailer
 		}
-
-		res.AnimeLinks = shared.ConvertAnimeLink(animeLink)
 	}
+
+	res.AnimeTrailers = shared.ConvertAnimeTrailers(animeTrailers)
 
 	return res, nil
 }

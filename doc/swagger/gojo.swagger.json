@@ -2144,6 +2144,13 @@
         "animeImages": {
           "$ref": "#/definitions/shpbAnimeImageResponse"
         },
+        "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbAnimeTrailerResponse"
+          }
+        },
         "serverID": {
           "type": "string",
           "format": "int64"
@@ -3058,6 +3065,13 @@
         },
         "animeImages": {
           "$ref": "#/definitions/shpbAnimeImageResponse"
+        },
+        "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbAnimeTrailerResponse"
+          }
         }
       }
     },
@@ -3615,7 +3629,7 @@
       "type": "object",
       "properties": {
         "isOfficial": {
-          "type": "string"
+          "type": "boolean"
         },
         "hostName": {
           "type": "string"
@@ -3633,7 +3647,7 @@
           "format": "int64"
         },
         "isOfficial": {
-          "type": "string"
+          "type": "boolean"
         },
         "hostName": {
           "type": "string"

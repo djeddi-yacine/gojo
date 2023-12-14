@@ -72,19 +72,6 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		}
 	}
 
-	animeLinkID, err := server.gojo.GetAnimeSerieLink(ctx, req.GetAnimeID())
-	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, shared.DatabaseError("failed to get anime serie links ID", err)
-	}
-
-	if animeLinkID.AnimeID == req.AnimeID {
-		animeLinks, err := server.gojo.GetAnimeLink(ctx, animeLinkID.LinkID)
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return nil, shared.DatabaseError("failed to get anime serie links", err)
-		}
-		res.AnimeLinks = shared.ConvertAnimeLink(animeLinks)
-	}
-
 	animeSerieGenres, err := server.gojo.ListAnimeSerieGenres(ctx, req.GetAnimeID())
 	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 		return nil, shared.DatabaseError("failed to get anime serie genres", err)
@@ -116,6 +103,19 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 			}
 		}
 		res.AnimeStudios = shared.ConvertStudios(studios)
+	}
+
+	animeLinkID, err := server.gojo.GetAnimeSerieLink(ctx, req.GetAnimeID())
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("failed to get anime serie links ID", err)
+	}
+
+	if animeLinkID.AnimeID == req.AnimeID {
+		animeLinks, err := server.gojo.GetAnimeLink(ctx, animeLinkID.LinkID)
+		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+			return nil, shared.DatabaseError("failed to get anime serie links", err)
+		}
+		res.AnimeLinks = shared.ConvertAnimeLink(animeLinks)
 	}
 
 	animePosterIDs, err := server.gojo.ListAnimeSeriePosterImages(ctx, req.AnimeID)
@@ -177,6 +177,26 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		Backdrops: shared.ConvertAnimeImages(animeBackdrops),
 		Logos:     shared.ConvertAnimeImages(animeLogos),
 	}
+
+	animeTrailerIDs, err := server.gojo.ListAnimeSerieTrailers(ctx, req.AnimeID)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get anime serie trailers IDs", err)
+	}
+
+	var animeTrailers []db.AnimeTrailer
+	if len(animeTrailerIDs) > 0 {
+		animeTrailers = make([]db.AnimeTrailer, len(animeTrailerIDs))
+
+		for i, t := range animeTrailerIDs {
+			trailer, err := server.gojo.GetAnimeTrailer(ctx, t.TrailerID)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot get anime serie trailer", err)
+			}
+			animeTrailers[i] = trailer
+		}
+	}
+
+	res.AnimeTrailers = shared.ConvertAnimeTrailers(animeTrailers)
 
 	return res, nil
 }
