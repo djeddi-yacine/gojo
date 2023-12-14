@@ -608,7 +608,7 @@ Table anime_season_poster_images {
 
 Table anime_trailers {
   id bigserial [primary key, unique, increment, not null]
-  isOfficial  bool [not null, default: false]
+  is_official  bool [not null, default: false]
   host_name  varchar [not null]
   host_key  varchar [not null]
   created_at timestamptz [not null, default: `now()`]

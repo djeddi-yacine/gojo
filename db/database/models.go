@@ -144,6 +144,13 @@ type AnimeMovieTorrent struct {
 	CreatedAt   time.Time
 }
 
+type AnimeMovieTrailer struct {
+	ID        int64
+	AnimeID   int64
+	TrailerID int64
+	CreatedAt time.Time
+}
+
 type AnimeMovieVideo struct {
 	ID         int64
 	LanguageID int32
@@ -181,6 +188,13 @@ type AnimeSeasonResource struct {
 	ID         int64
 	SeasonID   int64
 	ResourceID int64
+}
+
+type AnimeSeasonTrailer struct {
+	ID        int64
+	SeasonID  int64
+	TrailerID int64
+	CreatedAt time.Time
 }
 
 type AnimeSerie struct {
@@ -342,6 +356,13 @@ type AnimeSerieTorrent struct {
 	CreatedAt   time.Time
 }
 
+type AnimeSerieTrailer struct {
+	ID        int64
+	AnimeID   int64
+	TrailerID int64
+	CreatedAt time.Time
+}
+
 type AnimeSerieVideo struct {
 	ID         int64
 	LanguageID int32
@@ -349,6 +370,14 @@ type AnimeSerieVideo struct {
 	Referer    string
 	Link       string
 	Quality    string
+	CreatedAt  time.Time
+}
+
+type AnimeTrailer struct {
+	ID         int64
+	IsOfficial bool
+	HostName   string
+	HostKey    string
 	CreatedAt  time.Time
 }
 

@@ -101,3 +101,9 @@ sql:
           anime_links: "AnimeLink"
           anime_movie_links: "AnimeMovieLink"
           anime_serie_links: "AnimeSerieLink"
+
+          ## add anime_trailers
+          anime_trailers: "animeTrailer"
+          anime_movie_trailers: "animeMovieTrailer"
+          anime_serie_trailers: "animeSerieTrailer"
+          anime_season_trailers: "animeSeasonTrailer"

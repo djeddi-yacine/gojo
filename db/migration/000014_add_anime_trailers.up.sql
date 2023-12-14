@@ -1,8 +1,8 @@
 CREATE TABLE "anime_trailers" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "isOfficial" bool NOT NULL DEFAULT false,
-  "host" varchar NOT NULL,
-  "key" varchar NOT NULL,
+  "is_official" bool NOT NULL DEFAULT false,
+  "host_name" varchar NOT NULL,
+  "host_key" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
