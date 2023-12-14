@@ -606,6 +606,49 @@ Table anime_season_poster_images {
     }
 }
 
+Table anime_trailers {
+  id bigserial [primary key, unique, increment, not null]
+  isOfficial  bool [not null, default: false]
+  host  varchar [not null]
+  key  varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+    }
+}
+
+Table anime_movie_trailers {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  trailer_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, trailer_id) [unique]
+    }
+}
+
+Table anime_serie_trailers {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  trailer_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, trailer_id) [unique]
+    }
+}
+
+Table anime_season_trailers {
+  id bigserial [primary key, unique, increment, not null]
+  season_id bigserial [not null]
+  trailer_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (season_id, trailer_id) [unique]
+    }
+}
 
 
 
@@ -645,6 +688,9 @@ Ref {
 Ref {
   anime_movies.id - anime_movie_links.anime_id [delete: cascade]
 }
+Ref {
+  anime_movies.id - anime_movie_trailers.anime_id [delete: cascade]
+}
 
 
 Ref {
@@ -670,6 +716,9 @@ Ref {
 }
 Ref {
   anime_series.id - anime_serie_links.anime_id [delete: cascade]
+}
+Ref {
+  anime_series.id - anime_serie_trailers.anime_id [delete: cascade]
 }
 
 
@@ -780,6 +829,9 @@ Ref {
 Ref {
   anime_serie_seasons.id - anime_season_resources.season_id [delete: cascade]
 }
+Ref {
+  anime_serie_seasons.id - anime_season_trailers.season_id [delete: cascade]
+}
 
 
 
@@ -869,4 +921,16 @@ Ref {
 }
 Ref {
   anime_links.id - anime_serie_links.link_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_trailers.id - anime_movie_trailers.trailer_id [delete: cascade]
+}
+Ref {
+  anime_trailers.id - anime_serie_trailers.trailer_id [delete: cascade]
+}
+Ref {
+  anime_trailers.id - anime_season_trailers.trailer_id [delete: cascade]
 }
