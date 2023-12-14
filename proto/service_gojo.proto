@@ -17,6 +17,7 @@ import "ampb/rpc_create_anime_movie.proto";
 import "ampb/rpc_create_anime_movie_metas.proto";
 import "ampb/rpc_create_anime_movie_resource.proto";
 import "ampb/rpc_create_anime_movie_link.proto";
+import "ampb/rpc_create_anime_movie_trailer.proto";
 import "ampb/rpc_create_anime_movie_image.proto";
 import "ampb/rpc_create_anime_movie_server.proto";
 import "ampb/rpc_get_all_anime_movie_metas.proto";
@@ -29,12 +30,14 @@ import "ampb/rpc_update_anime_movie.proto";
 
 import "aspb/rpc_create_anime_serie.proto";
 import "aspb/rpc_create_anime_serie_metas.proto";
-import "aspb/rpc_create_anime_season_resource.proto";
 import "aspb/rpc_create_anime_season_image.proto";
 import "aspb/rpc_create_anime_serie_link.proto";
 import "aspb/rpc_create_anime_serie_image.proto";
+import "aspb/rpc_create_anime_serie_trailer.proto";
 import "aspb/rpc_create_anime_serie_server.proto";
 import "aspb/rpc_create_anime_serie_season.proto";
+import "aspb/rpc_create_anime_season_resource.proto";
+import "aspb/rpc_create_anime_season_trailer.proto";
 import "aspb/rpc_create_anime_serie_episode.proto";
 import "aspb/rpc_get_all_anime_serie_metas.proto";
 import "aspb/rpc_get_all_anime_series.proto";
@@ -221,6 +224,16 @@ service Gojo {
       summary:  "Create new anime movie resources";
     };
   }
+  rpc CreateAnimeMovieLink(ampb.CreateAnimeMovieLinkRequest) returns (ampb.CreateAnimeMovieLinkResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/movie/link/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime movie links";
+      summary:  "Create new anime movie links";
+    };
+  }
   rpc CreateAnimeMovieImage(ampb.CreateAnimeMovieImageRequest) returns (ampb.CreateAnimeMovieImageResponse) {
     option (google.api.http) = {
       post : "/v1/anime/movie/image/create"
@@ -231,14 +244,14 @@ service Gojo {
       summary:  "Create new anime movie images";
     };
   }
-  rpc CreateAnimeMovieLink(ampb.CreateAnimeMovieLinkRequest) returns (ampb.CreateAnimeMovieLinkResponse) {
+  rpc CreateAnimeMovieTrailer(ampb.CreateAnimeMovieTrailerRequest) returns (ampb.CreateAnimeMovieTrailerResponse) {
     option (google.api.http) = {
-      post : "/v1/anime/movie/link/create"
+      post : "/v1/anime/movie/trailer/create"
       body : "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to create a new anime movie links";
-      summary:  "Create new anime movie links";
+      description : "Use this API to create a new anime movie trailers";
+      summary:  "Create new anime movie trailers";
     };
   }
   rpc GetAllAnimeMovies(ampb.GetAllAnimeMoviesRequest) returns (ampb.GetAllAnimeMoviesResponse) {
@@ -335,16 +348,6 @@ service Gojo {
       summary:  "Create new anime serie meta";
     };
   }
-  rpc CreateAnimeSeasonResource(aspb.CreateAnimeSeasonResourceRequest) returns (aspb.CreateAnimeSeasonResourceResponse) {
-    option (google.api.http) = {
-      post : "/v1/anime/serie/season/resource/create"
-      body : "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to create a new anime serie season resources";
-      summary:  "Create new anime serie resources";
-    };
-  }
   rpc CreateAnimeSeasonImage(aspb.CreateAnimeSeasonImageRequest) returns (aspb.CreateAnimeSeasonImageResponse) {
     option (google.api.http) = {
       post : "/v1/anime/serie/season/image/create"
@@ -373,6 +376,16 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to create a new anime serie images";
       summary:  "Create new anime images";
+    };
+  }
+  rpc CreateAnimeSerieTrailer(aspb.CreateAnimeSerieTrailerRequest) returns (aspb.CreateAnimeSerieTrailerResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/serie/trailer/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime serie trailers";
+      summary:  "Create new anime serie trailers";
     };
   }
   rpc GetAllAnimeSeries(aspb.GetAllAnimeSeriesRequest) returns (aspb.GetAllAnimeSeriesResponse) {
@@ -440,6 +453,26 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to add a new metas to anime serie season";
       summary:  "create new metas to anime serie season";
+    };
+  }
+  rpc CreateAnimeSeasonResource(aspb.CreateAnimeSeasonResourceRequest) returns (aspb.CreateAnimeSeasonResourceResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/serie/season/resource/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime serie season resources";
+      summary:  "Create new anime serie resources";
+    };
+  }
+  rpc CreateAnimeSeasonTrailer(aspb.CreateAnimeSeasonTrailerRequest) returns (aspb.CreateAnimeSeasonTrailerResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/serie/season/trailer/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime serie season trailers";
+      summary:  "Create new anime serie trailers";
     };
   }
   rpc CreateAnimeSerieEpisode(aspb.CreateAnimeSerieEpisodeRequest) returns (aspb.CreateAnimeSerieEpisodeResponse) {

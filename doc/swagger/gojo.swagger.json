@@ -467,6 +467,40 @@
         ]
       }
     },
+    "/v1/anime/movie/trailer/create": {
+      "post": {
+        "summary": "Create new anime movie trailers",
+        "description": "Use this API to create a new anime movie trailers",
+        "operationId": "Gojo_CreateAnimeMovieTrailer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbCreateAnimeMovieTrailerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbCreateAnimeMovieTrailerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/movie/update": {
       "patch": {
         "summary": "Update anime movie",
@@ -1050,6 +1084,40 @@
         ]
       }
     },
+    "/v1/anime/serie/season/trailer/create": {
+      "post": {
+        "summary": "Create new anime serie trailers",
+        "description": "Use this API to create a new anime serie season trailers",
+        "operationId": "Gojo_CreateAnimeSeasonTrailer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSeasonTrailerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSeasonTrailerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/serie/server/create": {
       "post": {
         "summary": "create new anime serie server",
@@ -1076,6 +1144,40 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/aspbCreateAnimeSerieServerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/serie/trailer/create": {
+      "post": {
+        "summary": "Create new anime serie trailers",
+        "description": "Use this API to create a new anime serie trailers",
+        "operationId": "Gojo_CreateAnimeSerieTrailer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSerieTrailerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbCreateAnimeSerieTrailerRequest"
             }
           }
         ],
@@ -1963,6 +2065,37 @@
         }
       }
     },
+    "ampbCreateAnimeMovieTrailerRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbAnimeTrailerRequest"
+          }
+        }
+      }
+    },
+    "ampbCreateAnimeMovieTrailerResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbAnimeMovieResponse"
+        },
+        "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbAnimeTrailerResponse"
+          }
+        }
+      }
+    },
     "ampbGetAllAnimeMovieMetasResponse": {
       "type": "object",
       "properties": {
@@ -2630,6 +2763,37 @@
         }
       }
     },
+    "aspbCreateAnimeSeasonTrailerRequest": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbAnimeTrailerRequest"
+          }
+        }
+      }
+    },
+    "aspbCreateAnimeSeasonTrailerResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeason": {
+          "$ref": "#/definitions/aspbAnimeSerieSeasonResponse"
+        },
+        "seasonTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbAnimeTrailerResponse"
+          }
+        }
+      }
+    },
     "aspbCreateAnimeSerieEpisodeRequest": {
       "type": "object",
       "properties": {
@@ -2816,6 +2980,37 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "aspbCreateAnimeSerieTrailerRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbAnimeTrailerRequest"
+          }
+        }
+      }
+    },
+    "aspbCreateAnimeSerieTrailerResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/aspbAnimeSerieResponse"
+        },
+        "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/shpbAnimeTrailerResponse"
+          }
         }
       }
     },
@@ -3409,6 +3604,42 @@
         "anilistID": {
           "type": "integer",
           "format": "int32"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "shpbAnimeTrailerRequest": {
+      "type": "object",
+      "properties": {
+        "isOfficial": {
+          "type": "string"
+        },
+        "hostName": {
+          "type": "string"
+        },
+        "hostKey": {
+          "type": "string"
+        }
+      }
+    },
+    "shpbAnimeTrailerResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "isOfficial": {
+          "type": "string"
+        },
+        "hostName": {
+          "type": "string"
+        },
+        "hostKey": {
+          "type": "string"
         },
         "createdAt": {
           "type": "string",

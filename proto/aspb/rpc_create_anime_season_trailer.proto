@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package aspb;
+
+import "shpb/anime_trailer.proto";
+import "aspb/anime_serie_season.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
+
+message CreateAnimeSeasonTrailerRequest {
+    int64 seasonID = 1;
+    repeated shpb.AnimeTrailerRequest seasonTrailers = 2;
+}
+
+message CreateAnimeSeasonTrailerResponse {
+    AnimeSerieSeasonResponse animeSeason = 1;
+    repeated shpb.AnimeTrailerResponse seasonTrailers = 2;
+}

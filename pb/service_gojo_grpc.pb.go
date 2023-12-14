@@ -37,8 +37,9 @@ const (
 	Gojo_CreateAnimeMovie_FullMethodName          = "/pb.Gojo/CreateAnimeMovie"
 	Gojo_CreateAnimeMovieMetas_FullMethodName     = "/pb.Gojo/CreateAnimeMovieMetas"
 	Gojo_CreateAnimeMovieResource_FullMethodName  = "/pb.Gojo/CreateAnimeMovieResource"
-	Gojo_CreateAnimeMovieImage_FullMethodName     = "/pb.Gojo/CreateAnimeMovieImage"
 	Gojo_CreateAnimeMovieLink_FullMethodName      = "/pb.Gojo/CreateAnimeMovieLink"
+	Gojo_CreateAnimeMovieImage_FullMethodName     = "/pb.Gojo/CreateAnimeMovieImage"
+	Gojo_CreateAnimeMovieTrailer_FullMethodName   = "/pb.Gojo/CreateAnimeMovieTrailer"
 	Gojo_GetAllAnimeMovies_FullMethodName         = "/pb.Gojo/GetAllAnimeMovies"
 	Gojo_GetAllAnimeMovieMetas_FullMethodName     = "/pb.Gojo/GetAllAnimeMovieMetas"
 	Gojo_AddAnimeMovieInfo_FullMethodName         = "/pb.Gojo/AddAnimeMovieInfo"
@@ -48,10 +49,10 @@ const (
 	Gojo_GetFullAnimeMovie_FullMethodName         = "/pb.Gojo/GetFullAnimeMovie"
 	Gojo_CreateAnimeSerie_FullMethodName          = "/pb.Gojo/CreateAnimeSerie"
 	Gojo_CreateAnimeSerieMetas_FullMethodName     = "/pb.Gojo/CreateAnimeSerieMetas"
-	Gojo_CreateAnimeSeasonResource_FullMethodName = "/pb.Gojo/CreateAnimeSeasonResource"
 	Gojo_CreateAnimeSeasonImage_FullMethodName    = "/pb.Gojo/CreateAnimeSeasonImage"
 	Gojo_CreateAnimeSerieLink_FullMethodName      = "/pb.Gojo/CreateAnimeSerieLink"
 	Gojo_CreateAnimeSerieImage_FullMethodName     = "/pb.Gojo/CreateAnimeSerieImage"
+	Gojo_CreateAnimeSerieTrailer_FullMethodName   = "/pb.Gojo/CreateAnimeSerieTrailer"
 	Gojo_GetAllAnimeSeries_FullMethodName         = "/pb.Gojo/GetAllAnimeSeries"
 	Gojo_GetAllAnimeSerieMetas_FullMethodName     = "/pb.Gojo/GetAllAnimeSerieMetas"
 	Gojo_AddAnimeSerieInfo_FullMethodName         = "/pb.Gojo/AddAnimeSerieInfo"
@@ -59,6 +60,8 @@ const (
 	Gojo_CreateAnimeSerieServer_FullMethodName    = "/pb.Gojo/CreateAnimeSerieServer"
 	Gojo_CreateAnimeSerieSeason_FullMethodName    = "/pb.Gojo/CreateAnimeSerieSeason"
 	Gojo_AddAnimeSerieSeasonMetas_FullMethodName  = "/pb.Gojo/AddAnimeSerieSeasonMetas"
+	Gojo_CreateAnimeSeasonResource_FullMethodName = "/pb.Gojo/CreateAnimeSeasonResource"
+	Gojo_CreateAnimeSeasonTrailer_FullMethodName  = "/pb.Gojo/CreateAnimeSeasonTrailer"
 	Gojo_CreateAnimeSerieEpisode_FullMethodName   = "/pb.Gojo/CreateAnimeSerieEpisode"
 	Gojo_AddAnimeSerieEpisodeMetas_FullMethodName = "/pb.Gojo/AddAnimeSerieEpisodeMetas"
 	Gojo_AddAnimeSerieData_FullMethodName         = "/pb.Gojo/AddAnimeSerieData"
@@ -83,8 +86,9 @@ type GojoClient interface {
 	CreateAnimeMovie(ctx context.Context, in *ampb.CreateAnimeMovieRequest, opts ...grpc.CallOption) (*ampb.CreateAnimeMovieResponse, error)
 	CreateAnimeMovieMetas(ctx context.Context, in *ampb.CreateAnimeMovieMetasRequest, opts ...grpc.CallOption) (*ampb.CreateAnimeMovieMetasResponse, error)
 	CreateAnimeMovieResource(ctx context.Context, in *ampb.CreateAnimeMovieResourceRequest, opts ...grpc.CallOption) (*ampb.CreateAnimeMovieResourceResponse, error)
-	CreateAnimeMovieImage(ctx context.Context, in *ampb.CreateAnimeMovieImageRequest, opts ...grpc.CallOption) (*ampb.CreateAnimeMovieImageResponse, error)
 	CreateAnimeMovieLink(ctx context.Context, in *ampb.CreateAnimeMovieLinkRequest, opts ...grpc.CallOption) (*ampb.CreateAnimeMovieLinkResponse, error)
+	CreateAnimeMovieImage(ctx context.Context, in *ampb.CreateAnimeMovieImageRequest, opts ...grpc.CallOption) (*ampb.CreateAnimeMovieImageResponse, error)
+	CreateAnimeMovieTrailer(ctx context.Context, in *ampb.CreateAnimeMovieTrailerRequest, opts ...grpc.CallOption) (*ampb.CreateAnimeMovieTrailerResponse, error)
 	GetAllAnimeMovies(ctx context.Context, in *ampb.GetAllAnimeMoviesRequest, opts ...grpc.CallOption) (*ampb.GetAllAnimeMoviesResponse, error)
 	GetAllAnimeMovieMetas(ctx context.Context, in *ampb.GetAllAnimeMovieMetasRequest, opts ...grpc.CallOption) (*ampb.GetAllAnimeMovieMetasResponse, error)
 	AddAnimeMovieInfo(ctx context.Context, in *ampb.AddAnimeMovieInfoRequest, opts ...grpc.CallOption) (*ampb.AddAnimeMovieInfoResponse, error)
@@ -94,10 +98,10 @@ type GojoClient interface {
 	GetFullAnimeMovie(ctx context.Context, in *ampb.GetFullAnimeMovieRequest, opts ...grpc.CallOption) (*ampb.GetFullAnimeMovieResponse, error)
 	CreateAnimeSerie(ctx context.Context, in *aspb.CreateAnimeSerieRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieResponse, error)
 	CreateAnimeSerieMetas(ctx context.Context, in *aspb.CreateAnimeSerieMetasRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieMetasResponse, error)
-	CreateAnimeSeasonResource(ctx context.Context, in *aspb.CreateAnimeSeasonResourceRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSeasonResourceResponse, error)
 	CreateAnimeSeasonImage(ctx context.Context, in *aspb.CreateAnimeSeasonImageRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSeasonImageResponse, error)
 	CreateAnimeSerieLink(ctx context.Context, in *aspb.CreateAnimeSerieLinkRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieLinkResponse, error)
 	CreateAnimeSerieImage(ctx context.Context, in *aspb.CreateAnimeSerieImageRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieImageResponse, error)
+	CreateAnimeSerieTrailer(ctx context.Context, in *aspb.CreateAnimeSerieTrailerRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieTrailerResponse, error)
 	GetAllAnimeSeries(ctx context.Context, in *aspb.GetAllAnimeSeriesRequest, opts ...grpc.CallOption) (*aspb.GetAllAnimeSeriesResponse, error)
 	GetAllAnimeSerieMetas(ctx context.Context, in *aspb.GetAllAnimeSerieMetasRequest, opts ...grpc.CallOption) (*aspb.GetAllAnimeSerieMetasResponse, error)
 	AddAnimeSerieInfo(ctx context.Context, in *aspb.AddAnimeSerieInfoRequest, opts ...grpc.CallOption) (*aspb.AddAnimeSerieInfoResponse, error)
@@ -105,6 +109,8 @@ type GojoClient interface {
 	CreateAnimeSerieServer(ctx context.Context, in *aspb.CreateAnimeSerieServerRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieServerResponse, error)
 	CreateAnimeSerieSeason(ctx context.Context, in *aspb.CreateAnimeSerieSeasonRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieSeasonResponse, error)
 	AddAnimeSerieSeasonMetas(ctx context.Context, in *aspb.AddAnimeSerieSeasonMetasRequest, opts ...grpc.CallOption) (*aspb.AddAnimeSerieSeasonMetasResponse, error)
+	CreateAnimeSeasonResource(ctx context.Context, in *aspb.CreateAnimeSeasonResourceRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSeasonResourceResponse, error)
+	CreateAnimeSeasonTrailer(ctx context.Context, in *aspb.CreateAnimeSeasonTrailerRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSeasonTrailerResponse, error)
 	CreateAnimeSerieEpisode(ctx context.Context, in *aspb.CreateAnimeSerieEpisodeRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieEpisodeResponse, error)
 	AddAnimeSerieEpisodeMetas(ctx context.Context, in *aspb.AddAnimeSerieEpisodeMetasRequest, opts ...grpc.CallOption) (*aspb.AddAnimeSerieEpisodeMetasResponse, error)
 	AddAnimeSerieData(ctx context.Context, in *aspb.AddAnimeSerieDataRequest, opts ...grpc.CallOption) (*aspb.AddAnimeSerieDataResponse, error)
@@ -245,6 +251,15 @@ func (c *gojoClient) CreateAnimeMovieResource(ctx context.Context, in *ampb.Crea
 	return out, nil
 }
 
+func (c *gojoClient) CreateAnimeMovieLink(ctx context.Context, in *ampb.CreateAnimeMovieLinkRequest, opts ...grpc.CallOption) (*ampb.CreateAnimeMovieLinkResponse, error) {
+	out := new(ampb.CreateAnimeMovieLinkResponse)
+	err := c.cc.Invoke(ctx, Gojo_CreateAnimeMovieLink_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *gojoClient) CreateAnimeMovieImage(ctx context.Context, in *ampb.CreateAnimeMovieImageRequest, opts ...grpc.CallOption) (*ampb.CreateAnimeMovieImageResponse, error) {
 	out := new(ampb.CreateAnimeMovieImageResponse)
 	err := c.cc.Invoke(ctx, Gojo_CreateAnimeMovieImage_FullMethodName, in, out, opts...)
@@ -254,9 +269,9 @@ func (c *gojoClient) CreateAnimeMovieImage(ctx context.Context, in *ampb.CreateA
 	return out, nil
 }
 
-func (c *gojoClient) CreateAnimeMovieLink(ctx context.Context, in *ampb.CreateAnimeMovieLinkRequest, opts ...grpc.CallOption) (*ampb.CreateAnimeMovieLinkResponse, error) {
-	out := new(ampb.CreateAnimeMovieLinkResponse)
-	err := c.cc.Invoke(ctx, Gojo_CreateAnimeMovieLink_FullMethodName, in, out, opts...)
+func (c *gojoClient) CreateAnimeMovieTrailer(ctx context.Context, in *ampb.CreateAnimeMovieTrailerRequest, opts ...grpc.CallOption) (*ampb.CreateAnimeMovieTrailerResponse, error) {
+	out := new(ampb.CreateAnimeMovieTrailerResponse)
+	err := c.cc.Invoke(ctx, Gojo_CreateAnimeMovieTrailer_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -344,15 +359,6 @@ func (c *gojoClient) CreateAnimeSerieMetas(ctx context.Context, in *aspb.CreateA
 	return out, nil
 }
 
-func (c *gojoClient) CreateAnimeSeasonResource(ctx context.Context, in *aspb.CreateAnimeSeasonResourceRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSeasonResourceResponse, error) {
-	out := new(aspb.CreateAnimeSeasonResourceResponse)
-	err := c.cc.Invoke(ctx, Gojo_CreateAnimeSeasonResource_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *gojoClient) CreateAnimeSeasonImage(ctx context.Context, in *aspb.CreateAnimeSeasonImageRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSeasonImageResponse, error) {
 	out := new(aspb.CreateAnimeSeasonImageResponse)
 	err := c.cc.Invoke(ctx, Gojo_CreateAnimeSeasonImage_FullMethodName, in, out, opts...)
@@ -374,6 +380,15 @@ func (c *gojoClient) CreateAnimeSerieLink(ctx context.Context, in *aspb.CreateAn
 func (c *gojoClient) CreateAnimeSerieImage(ctx context.Context, in *aspb.CreateAnimeSerieImageRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieImageResponse, error) {
 	out := new(aspb.CreateAnimeSerieImageResponse)
 	err := c.cc.Invoke(ctx, Gojo_CreateAnimeSerieImage_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gojoClient) CreateAnimeSerieTrailer(ctx context.Context, in *aspb.CreateAnimeSerieTrailerRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieTrailerResponse, error) {
+	out := new(aspb.CreateAnimeSerieTrailerResponse)
+	err := c.cc.Invoke(ctx, Gojo_CreateAnimeSerieTrailer_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -443,6 +458,24 @@ func (c *gojoClient) AddAnimeSerieSeasonMetas(ctx context.Context, in *aspb.AddA
 	return out, nil
 }
 
+func (c *gojoClient) CreateAnimeSeasonResource(ctx context.Context, in *aspb.CreateAnimeSeasonResourceRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSeasonResourceResponse, error) {
+	out := new(aspb.CreateAnimeSeasonResourceResponse)
+	err := c.cc.Invoke(ctx, Gojo_CreateAnimeSeasonResource_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gojoClient) CreateAnimeSeasonTrailer(ctx context.Context, in *aspb.CreateAnimeSeasonTrailerRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSeasonTrailerResponse, error) {
+	out := new(aspb.CreateAnimeSeasonTrailerResponse)
+	err := c.cc.Invoke(ctx, Gojo_CreateAnimeSeasonTrailer_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *gojoClient) CreateAnimeSerieEpisode(ctx context.Context, in *aspb.CreateAnimeSerieEpisodeRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieEpisodeResponse, error) {
 	out := new(aspb.CreateAnimeSerieEpisodeResponse)
 	err := c.cc.Invoke(ctx, Gojo_CreateAnimeSerieEpisode_FullMethodName, in, out, opts...)
@@ -497,8 +530,9 @@ type GojoServer interface {
 	CreateAnimeMovie(context.Context, *ampb.CreateAnimeMovieRequest) (*ampb.CreateAnimeMovieResponse, error)
 	CreateAnimeMovieMetas(context.Context, *ampb.CreateAnimeMovieMetasRequest) (*ampb.CreateAnimeMovieMetasResponse, error)
 	CreateAnimeMovieResource(context.Context, *ampb.CreateAnimeMovieResourceRequest) (*ampb.CreateAnimeMovieResourceResponse, error)
-	CreateAnimeMovieImage(context.Context, *ampb.CreateAnimeMovieImageRequest) (*ampb.CreateAnimeMovieImageResponse, error)
 	CreateAnimeMovieLink(context.Context, *ampb.CreateAnimeMovieLinkRequest) (*ampb.CreateAnimeMovieLinkResponse, error)
+	CreateAnimeMovieImage(context.Context, *ampb.CreateAnimeMovieImageRequest) (*ampb.CreateAnimeMovieImageResponse, error)
+	CreateAnimeMovieTrailer(context.Context, *ampb.CreateAnimeMovieTrailerRequest) (*ampb.CreateAnimeMovieTrailerResponse, error)
 	GetAllAnimeMovies(context.Context, *ampb.GetAllAnimeMoviesRequest) (*ampb.GetAllAnimeMoviesResponse, error)
 	GetAllAnimeMovieMetas(context.Context, *ampb.GetAllAnimeMovieMetasRequest) (*ampb.GetAllAnimeMovieMetasResponse, error)
 	AddAnimeMovieInfo(context.Context, *ampb.AddAnimeMovieInfoRequest) (*ampb.AddAnimeMovieInfoResponse, error)
@@ -508,10 +542,10 @@ type GojoServer interface {
 	GetFullAnimeMovie(context.Context, *ampb.GetFullAnimeMovieRequest) (*ampb.GetFullAnimeMovieResponse, error)
 	CreateAnimeSerie(context.Context, *aspb.CreateAnimeSerieRequest) (*aspb.CreateAnimeSerieResponse, error)
 	CreateAnimeSerieMetas(context.Context, *aspb.CreateAnimeSerieMetasRequest) (*aspb.CreateAnimeSerieMetasResponse, error)
-	CreateAnimeSeasonResource(context.Context, *aspb.CreateAnimeSeasonResourceRequest) (*aspb.CreateAnimeSeasonResourceResponse, error)
 	CreateAnimeSeasonImage(context.Context, *aspb.CreateAnimeSeasonImageRequest) (*aspb.CreateAnimeSeasonImageResponse, error)
 	CreateAnimeSerieLink(context.Context, *aspb.CreateAnimeSerieLinkRequest) (*aspb.CreateAnimeSerieLinkResponse, error)
 	CreateAnimeSerieImage(context.Context, *aspb.CreateAnimeSerieImageRequest) (*aspb.CreateAnimeSerieImageResponse, error)
+	CreateAnimeSerieTrailer(context.Context, *aspb.CreateAnimeSerieTrailerRequest) (*aspb.CreateAnimeSerieTrailerResponse, error)
 	GetAllAnimeSeries(context.Context, *aspb.GetAllAnimeSeriesRequest) (*aspb.GetAllAnimeSeriesResponse, error)
 	GetAllAnimeSerieMetas(context.Context, *aspb.GetAllAnimeSerieMetasRequest) (*aspb.GetAllAnimeSerieMetasResponse, error)
 	AddAnimeSerieInfo(context.Context, *aspb.AddAnimeSerieInfoRequest) (*aspb.AddAnimeSerieInfoResponse, error)
@@ -519,6 +553,8 @@ type GojoServer interface {
 	CreateAnimeSerieServer(context.Context, *aspb.CreateAnimeSerieServerRequest) (*aspb.CreateAnimeSerieServerResponse, error)
 	CreateAnimeSerieSeason(context.Context, *aspb.CreateAnimeSerieSeasonRequest) (*aspb.CreateAnimeSerieSeasonResponse, error)
 	AddAnimeSerieSeasonMetas(context.Context, *aspb.AddAnimeSerieSeasonMetasRequest) (*aspb.AddAnimeSerieSeasonMetasResponse, error)
+	CreateAnimeSeasonResource(context.Context, *aspb.CreateAnimeSeasonResourceRequest) (*aspb.CreateAnimeSeasonResourceResponse, error)
+	CreateAnimeSeasonTrailer(context.Context, *aspb.CreateAnimeSeasonTrailerRequest) (*aspb.CreateAnimeSeasonTrailerResponse, error)
 	CreateAnimeSerieEpisode(context.Context, *aspb.CreateAnimeSerieEpisodeRequest) (*aspb.CreateAnimeSerieEpisodeResponse, error)
 	AddAnimeSerieEpisodeMetas(context.Context, *aspb.AddAnimeSerieEpisodeMetasRequest) (*aspb.AddAnimeSerieEpisodeMetasResponse, error)
 	AddAnimeSerieData(context.Context, *aspb.AddAnimeSerieDataRequest) (*aspb.AddAnimeSerieDataResponse, error)
@@ -572,11 +608,14 @@ func (UnimplementedGojoServer) CreateAnimeMovieMetas(context.Context, *ampb.Crea
 func (UnimplementedGojoServer) CreateAnimeMovieResource(context.Context, *ampb.CreateAnimeMovieResourceRequest) (*ampb.CreateAnimeMovieResourceResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeMovieResource not implemented")
 }
+func (UnimplementedGojoServer) CreateAnimeMovieLink(context.Context, *ampb.CreateAnimeMovieLinkRequest) (*ampb.CreateAnimeMovieLinkResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeMovieLink not implemented")
+}
 func (UnimplementedGojoServer) CreateAnimeMovieImage(context.Context, *ampb.CreateAnimeMovieImageRequest) (*ampb.CreateAnimeMovieImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeMovieImage not implemented")
 }
-func (UnimplementedGojoServer) CreateAnimeMovieLink(context.Context, *ampb.CreateAnimeMovieLinkRequest) (*ampb.CreateAnimeMovieLinkResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeMovieLink not implemented")
+func (UnimplementedGojoServer) CreateAnimeMovieTrailer(context.Context, *ampb.CreateAnimeMovieTrailerRequest) (*ampb.CreateAnimeMovieTrailerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeMovieTrailer not implemented")
 }
 func (UnimplementedGojoServer) GetAllAnimeMovies(context.Context, *ampb.GetAllAnimeMoviesRequest) (*ampb.GetAllAnimeMoviesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllAnimeMovies not implemented")
@@ -605,9 +644,6 @@ func (UnimplementedGojoServer) CreateAnimeSerie(context.Context, *aspb.CreateAni
 func (UnimplementedGojoServer) CreateAnimeSerieMetas(context.Context, *aspb.CreateAnimeSerieMetasRequest) (*aspb.CreateAnimeSerieMetasResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSerieMetas not implemented")
 }
-func (UnimplementedGojoServer) CreateAnimeSeasonResource(context.Context, *aspb.CreateAnimeSeasonResourceRequest) (*aspb.CreateAnimeSeasonResourceResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSeasonResource not implemented")
-}
 func (UnimplementedGojoServer) CreateAnimeSeasonImage(context.Context, *aspb.CreateAnimeSeasonImageRequest) (*aspb.CreateAnimeSeasonImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSeasonImage not implemented")
 }
@@ -616,6 +652,9 @@ func (UnimplementedGojoServer) CreateAnimeSerieLink(context.Context, *aspb.Creat
 }
 func (UnimplementedGojoServer) CreateAnimeSerieImage(context.Context, *aspb.CreateAnimeSerieImageRequest) (*aspb.CreateAnimeSerieImageResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSerieImage not implemented")
+}
+func (UnimplementedGojoServer) CreateAnimeSerieTrailer(context.Context, *aspb.CreateAnimeSerieTrailerRequest) (*aspb.CreateAnimeSerieTrailerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSerieTrailer not implemented")
 }
 func (UnimplementedGojoServer) GetAllAnimeSeries(context.Context, *aspb.GetAllAnimeSeriesRequest) (*aspb.GetAllAnimeSeriesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllAnimeSeries not implemented")
@@ -637,6 +676,12 @@ func (UnimplementedGojoServer) CreateAnimeSerieSeason(context.Context, *aspb.Cre
 }
 func (UnimplementedGojoServer) AddAnimeSerieSeasonMetas(context.Context, *aspb.AddAnimeSerieSeasonMetasRequest) (*aspb.AddAnimeSerieSeasonMetasResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddAnimeSerieSeasonMetas not implemented")
+}
+func (UnimplementedGojoServer) CreateAnimeSeasonResource(context.Context, *aspb.CreateAnimeSeasonResourceRequest) (*aspb.CreateAnimeSeasonResourceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSeasonResource not implemented")
+}
+func (UnimplementedGojoServer) CreateAnimeSeasonTrailer(context.Context, *aspb.CreateAnimeSeasonTrailerRequest) (*aspb.CreateAnimeSeasonTrailerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSeasonTrailer not implemented")
 }
 func (UnimplementedGojoServer) CreateAnimeSerieEpisode(context.Context, *aspb.CreateAnimeSerieEpisodeRequest) (*aspb.CreateAnimeSerieEpisodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSerieEpisode not implemented")
@@ -915,6 +960,24 @@ func _Gojo_CreateAnimeMovieResource_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Gojo_CreateAnimeMovieLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ampb.CreateAnimeMovieLinkRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).CreateAnimeMovieLink(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_CreateAnimeMovieLink_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).CreateAnimeMovieLink(ctx, req.(*ampb.CreateAnimeMovieLinkRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Gojo_CreateAnimeMovieImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ampb.CreateAnimeMovieImageRequest)
 	if err := dec(in); err != nil {
@@ -933,20 +996,20 @@ func _Gojo_CreateAnimeMovieImage_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Gojo_CreateAnimeMovieLink_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ampb.CreateAnimeMovieLinkRequest)
+func _Gojo_CreateAnimeMovieTrailer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ampb.CreateAnimeMovieTrailerRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GojoServer).CreateAnimeMovieLink(ctx, in)
+		return srv.(GojoServer).CreateAnimeMovieTrailer(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Gojo_CreateAnimeMovieLink_FullMethodName,
+		FullMethod: Gojo_CreateAnimeMovieTrailer_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GojoServer).CreateAnimeMovieLink(ctx, req.(*ampb.CreateAnimeMovieLinkRequest))
+		return srv.(GojoServer).CreateAnimeMovieTrailer(ctx, req.(*ampb.CreateAnimeMovieTrailerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1113,24 +1176,6 @@ func _Gojo_CreateAnimeSerieMetas_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Gojo_CreateAnimeSeasonResource_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(aspb.CreateAnimeSeasonResourceRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(GojoServer).CreateAnimeSeasonResource(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Gojo_CreateAnimeSeasonResource_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GojoServer).CreateAnimeSeasonResource(ctx, req.(*aspb.CreateAnimeSeasonResourceRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Gojo_CreateAnimeSeasonImage_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(aspb.CreateAnimeSeasonImageRequest)
 	if err := dec(in); err != nil {
@@ -1181,6 +1226,24 @@ func _Gojo_CreateAnimeSerieImage_Handler(srv interface{}, ctx context.Context, d
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GojoServer).CreateAnimeSerieImage(ctx, req.(*aspb.CreateAnimeSerieImageRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gojo_CreateAnimeSerieTrailer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(aspb.CreateAnimeSerieTrailerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).CreateAnimeSerieTrailer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_CreateAnimeSerieTrailer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).CreateAnimeSerieTrailer(ctx, req.(*aspb.CreateAnimeSerieTrailerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1307,6 +1370,42 @@ func _Gojo_AddAnimeSerieSeasonMetas_Handler(srv interface{}, ctx context.Context
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GojoServer).AddAnimeSerieSeasonMetas(ctx, req.(*aspb.AddAnimeSerieSeasonMetasRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gojo_CreateAnimeSeasonResource_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(aspb.CreateAnimeSeasonResourceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).CreateAnimeSeasonResource(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_CreateAnimeSeasonResource_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).CreateAnimeSeasonResource(ctx, req.(*aspb.CreateAnimeSeasonResourceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gojo_CreateAnimeSeasonTrailer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(aspb.CreateAnimeSeasonTrailerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).CreateAnimeSeasonTrailer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_CreateAnimeSeasonTrailer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).CreateAnimeSeasonTrailer(ctx, req.(*aspb.CreateAnimeSeasonTrailerRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1447,12 +1546,16 @@ var Gojo_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Gojo_CreateAnimeMovieResource_Handler,
 		},
 		{
+			MethodName: "CreateAnimeMovieLink",
+			Handler:    _Gojo_CreateAnimeMovieLink_Handler,
+		},
+		{
 			MethodName: "CreateAnimeMovieImage",
 			Handler:    _Gojo_CreateAnimeMovieImage_Handler,
 		},
 		{
-			MethodName: "CreateAnimeMovieLink",
-			Handler:    _Gojo_CreateAnimeMovieLink_Handler,
+			MethodName: "CreateAnimeMovieTrailer",
+			Handler:    _Gojo_CreateAnimeMovieTrailer_Handler,
 		},
 		{
 			MethodName: "GetAllAnimeMovies",
@@ -1491,10 +1594,6 @@ var Gojo_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Gojo_CreateAnimeSerieMetas_Handler,
 		},
 		{
-			MethodName: "CreateAnimeSeasonResource",
-			Handler:    _Gojo_CreateAnimeSeasonResource_Handler,
-		},
-		{
 			MethodName: "CreateAnimeSeasonImage",
 			Handler:    _Gojo_CreateAnimeSeasonImage_Handler,
 		},
@@ -1505,6 +1604,10 @@ var Gojo_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateAnimeSerieImage",
 			Handler:    _Gojo_CreateAnimeSerieImage_Handler,
+		},
+		{
+			MethodName: "CreateAnimeSerieTrailer",
+			Handler:    _Gojo_CreateAnimeSerieTrailer_Handler,
 		},
 		{
 			MethodName: "GetAllAnimeSeries",
@@ -1533,6 +1636,14 @@ var Gojo_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AddAnimeSerieSeasonMetas",
 			Handler:    _Gojo_AddAnimeSerieSeasonMetas_Handler,
+		},
+		{
+			MethodName: "CreateAnimeSeasonResource",
+			Handler:    _Gojo_CreateAnimeSeasonResource_Handler,
+		},
+		{
+			MethodName: "CreateAnimeSeasonTrailer",
+			Handler:    _Gojo_CreateAnimeSeasonTrailer_Handler,
 		},
 		{
 			MethodName: "CreateAnimeSerieEpisode",
