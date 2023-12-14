@@ -378,56 +378,23 @@ Table anime_resources {
     }
 }
 
-Table anime_links {
+Table anime_movie_resources {
   id bigserial [primary key, unique, increment, not null]
-  official_website varchar [not null]
-  wikipedia_url varchar [not null]
-  crunchyroll_url varchar [not null]
-  social_media varchar[] [not null]
-  created_at timestamptz [not null, default: `now()`]
-    indexes {
-      id
-      (wikipedia_url, official_website) [unique]
-    }
-}
-
-Table anime_serie_links {
-  id bigserial [primary key, unique, increment, not null]
-  anime_id bigserial [unique, not null]
-  link_id bigserial [unique, not null]
+  anime_id bigserial [not null]
+  resource_id bigserial [not null]
   indexes {
-    anime_id
-    link_id
-  }
-}
-
-Table anime_movie_links {
-  id bigserial [primary key, unique, increment, not null]
-  anime_id bigserial [unique, not null]
-  link_id bigserial [unique, not null]
-  indexes {
-    anime_id
-    link_id
+    (anime_id) [unique]
+    (resource_id) [unique]
   }
 }
 
 Table anime_season_resources {
   id bigserial [primary key, unique, increment, not null]
-  season_id bigserial [unique, not null]
-  resource_id bigserial [unique, not null]
+  season_id bigserial [not null]
+  resource_id bigserial [not null]
   indexes {
-    season_id [unique]
-    resource_id
-  }
-}
-
-Table anime_movie_resources {
-  id bigserial [primary key, unique, increment, not null]
-  anime_id bigserial [unique, not null]
-  resource_id bigserial [unique, not null]
-  indexes {
-    anime_id [unique]
-    resource_id
+    (season_id) [unique]
+    (resource_id) [unique]
   }
 }
 
@@ -513,6 +480,39 @@ Table anime_serie_server_dub_torrents {
       torrent_id
       (server_id, torrent_id) [unique]
     }
+}
+
+Table anime_links {
+  id bigserial [primary key, unique, increment, not null]
+  official_website varchar [not null]
+  wikipedia_url varchar [not null]
+  crunchyroll_url varchar [not null]
+  social_media varchar[] [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (wikipedia_url, official_website, crunchyroll_url) [unique]
+    }
+}
+
+Table anime_serie_links {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  link_id bigserial [not null]
+  indexes {
+    (anime_id) [unique]
+    (link_id) [unique]
+  }
+}
+
+Table anime_movie_links {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  link_id bigserial [not null]
+  indexes {
+    (anime_id) [unique]
+    (link_id) [unique]
+  }
 }
 
 Table anime_images {

@@ -16,14 +16,14 @@ CREATE TABLE "anime_resources" (
 
 CREATE TABLE "anime_movie_resources" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "anime_id" bigserial UNIQUE NOT NULL,
-  "resource_id" bigserial UNIQUE NOT NULL
+  "anime_id" bigserial NOT NULL,
+  "resource_id" bigserial NOT NULL
 );
 
 CREATE TABLE "anime_season_resources" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "season_id" bigserial UNIQUE NOT NULL,
-  "resource_id" bigserial UNIQUE NOT NULL
+  "season_id" bigserial NOT NULL,
+  "resource_id" bigserial NOT NULL
 );
 
 
@@ -33,11 +33,11 @@ CREATE UNIQUE INDEX ON "anime_resources" ("tmdb_id", "imdb_id", "tvdb_id");
 
 CREATE UNIQUE INDEX ON "anime_movie_resources" ("anime_id");
 
-CREATE INDEX ON "anime_movie_resources" ("resource_id");
+CREATE UNIQUE INDEX ON "anime_movie_resources" ("resource_id");
 
 CREATE UNIQUE INDEX ON "anime_season_resources" ("season_id");
 
-CREATE INDEX ON "anime_season_resources" ("resource_id");
+CREATE UNIQUE INDEX ON "anime_season_resources" ("resource_id");
 
 
 ALTER TABLE "anime_movie_resources" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;

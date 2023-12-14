@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-12-14T10:22:10.365Z
+-- Generated at: 2023-12-14T10:38:08.492Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -255,37 +255,16 @@ CREATE TABLE "anime_resources" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-CREATE TABLE "anime_links" (
+CREATE TABLE "anime_movie_resources" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "official_website" varchar NOT NULL,
-  "wikipedia_url" varchar NOT NULL,
-  "crunchyroll_url" varchar NOT NULL,
-  "social_media" varchar[] NOT NULL,
-  "created_at" timestamptz NOT NULL DEFAULT (now())
-);
-
-CREATE TABLE "anime_serie_links" (
-  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "anime_id" bigserial UNIQUE NOT NULL,
-  "link_id" bigserial UNIQUE NOT NULL
-);
-
-CREATE TABLE "anime_movie_links" (
-  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "anime_id" bigserial UNIQUE NOT NULL,
-  "link_id" bigserial UNIQUE NOT NULL
+  "anime_id" bigserial NOT NULL,
+  "resource_id" bigserial NOT NULL
 );
 
 CREATE TABLE "anime_season_resources" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "season_id" bigserial UNIQUE NOT NULL,
-  "resource_id" bigserial UNIQUE NOT NULL
-);
-
-CREATE TABLE "anime_movie_resources" (
-  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "anime_id" bigserial UNIQUE NOT NULL,
-  "resource_id" bigserial UNIQUE NOT NULL
+  "season_id" bigserial NOT NULL,
+  "resource_id" bigserial NOT NULL
 );
 
 CREATE TABLE "anime_movie_torrents" (
@@ -342,6 +321,27 @@ CREATE TABLE "anime_serie_server_dub_torrents" (
   "server_id" bigserial NOT NULL,
   "torrent_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_links" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "official_website" varchar NOT NULL,
+  "wikipedia_url" varchar NOT NULL,
+  "crunchyroll_url" varchar NOT NULL,
+  "social_media" varchar[] NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_serie_links" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "link_id" bigserial NOT NULL
+);
+
+CREATE TABLE "anime_movie_links" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "link_id" bigserial NOT NULL
 );
 
 CREATE TABLE "anime_images" (
@@ -559,25 +559,13 @@ CREATE INDEX ON "anime_resources" ("id");
 
 CREATE UNIQUE INDEX ON "anime_resources" ("tmdb_id", "imdb_id", "tvdb_id");
 
-CREATE INDEX ON "anime_links" ("id");
+CREATE UNIQUE INDEX ON "anime_movie_resources" ("anime_id");
 
-CREATE UNIQUE INDEX ON "anime_links" ("wikipedia_url", "official_website");
-
-CREATE INDEX ON "anime_serie_links" ("anime_id");
-
-CREATE INDEX ON "anime_serie_links" ("link_id");
-
-CREATE INDEX ON "anime_movie_links" ("anime_id");
-
-CREATE INDEX ON "anime_movie_links" ("link_id");
+CREATE UNIQUE INDEX ON "anime_movie_resources" ("resource_id");
 
 CREATE UNIQUE INDEX ON "anime_season_resources" ("season_id");
 
-CREATE INDEX ON "anime_season_resources" ("resource_id");
-
-CREATE UNIQUE INDEX ON "anime_movie_resources" ("anime_id");
-
-CREATE INDEX ON "anime_movie_resources" ("resource_id");
+CREATE UNIQUE INDEX ON "anime_season_resources" ("resource_id");
 
 CREATE INDEX ON "anime_movie_torrents" ("id");
 
@@ -610,6 +598,18 @@ CREATE INDEX ON "anime_serie_server_dub_torrents" ("server_id");
 CREATE INDEX ON "anime_serie_server_dub_torrents" ("torrent_id");
 
 CREATE UNIQUE INDEX ON "anime_serie_server_dub_torrents" ("server_id", "torrent_id");
+
+CREATE INDEX ON "anime_links" ("id");
+
+CREATE UNIQUE INDEX ON "anime_links" ("wikipedia_url", "official_website", "crunchyroll_url");
+
+CREATE UNIQUE INDEX ON "anime_serie_links" ("anime_id");
+
+CREATE UNIQUE INDEX ON "anime_serie_links" ("link_id");
+
+CREATE UNIQUE INDEX ON "anime_movie_links" ("anime_id");
+
+CREATE UNIQUE INDEX ON "anime_movie_links" ("link_id");
 
 CREATE INDEX ON "anime_images" ("id");
 
