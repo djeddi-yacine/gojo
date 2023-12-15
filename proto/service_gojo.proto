@@ -23,8 +23,8 @@ import "ampb/rpc_create_anime_movie_server.proto";
 import "ampb/rpc_get_all_anime_movie_metas.proto";
 import "ampb/rpc_get_all_anime_movies.proto";
 import "ampb/rpc_get_full_anime_movie.proto";
-import "ampb/rpc_add_anime_movie_info.proto";
-import "ampb/rpc_add_anime_movie_data.proto";
+import "ampb/rpc_create_anime_movie_info.proto";
+import "ampb/rpc_create_anime_movie_data.proto";
 import "ampb/rpc_update_anime_movie.proto";
 
 
@@ -261,27 +261,9 @@ service Gojo {
       summary:  "Create new anime movie trailers";
     };
   }
-  rpc GetAllAnimeMovies(ampb.GetAllAnimeMoviesRequest) returns (ampb.GetAllAnimeMoviesResponse) {
+  rpc CreateAnimeMovieInfo(ampb.CreateAnimeMovieInfoRequest) returns (ampb.CreateAnimeMovieInfoResponse) {
     option (google.api.http) = {
-      get : "/v1/anime/movie/all"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to get all anime movies or by year";
-      summary:  "list anime movies";
-    };
-  }
-  rpc GetAllAnimeMovieMetas(ampb.GetAllAnimeMovieMetasRequest) returns (ampb.GetAllAnimeMovieMetasResponse) {
-    option (google.api.http) = {
-      get : "/v1/anime/movie/meta"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to get all anime movie metas";
-      summary:  "Get all anime movie metas";
-    };
-  }
-  rpc AddAnimeMovieInfo(ampb.AddAnimeMovieInfoRequest) returns (ampb.AddAnimeMovieInfoResponse) {
-    option (google.api.http) = {
-      post : "/v1/anime/movie/info"
+      post : "/v1/anime/movie/info/create"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to add info to anime movie like studios and genres";
@@ -308,14 +290,32 @@ service Gojo {
       summary:  "create new anime movie server";
     };
   }
-  rpc AddAnimeMovieData(ampb.AddAnimeMovieDataRequest) returns (ampb.AddAnimeMovieDataResponse) {
+  rpc CreateAnimeMovieData(ampb.CreateAnimeMovieDataRequest) returns (ampb.CreateAnimeMovieDataResponse) {
     option (google.api.http) = {
-      post : "/v1/anime/movie/data/add"
+      post : "/v1/anime/movie/data/create"
       body : "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to add a new anime movie data";
       summary:  "add new anime movie data";
+    };
+  }
+  rpc GetAllAnimeMovies(ampb.GetAllAnimeMoviesRequest) returns (ampb.GetAllAnimeMoviesResponse) {
+    option (google.api.http) = {
+      get : "/v1/anime/movie/all"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to get all anime movies or by year";
+      summary:  "list anime movies";
+    };
+  }
+  rpc GetAllAnimeMovieMetas(ampb.GetAllAnimeMovieMetasRequest) returns (ampb.GetAllAnimeMovieMetasResponse) {
+    option (google.api.http) = {
+      get : "/v1/anime/movie/meta"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to get all anime movie metas";
+      summary:  "Get all anime movie metas";
     };
   }
   rpc GetFullAnimeMovie(ampb.GetFullAnimeMovieRequest) returns (ampb.GetFullAnimeMovieResponse) {

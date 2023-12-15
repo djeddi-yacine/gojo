@@ -36,36 +36,6 @@ func (m *MockGojo) EXPECT() *MockGojoMockRecorder {
 	return m.recorder
 }
 
-// AddAnimeMovieDataTx mocks base method.
-func (m *MockGojo) AddAnimeMovieDataTx(arg0 context.Context, arg1 db.AddAnimeMovieDataTxParams) (db.AddAnimeMovieDataTxResult, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddAnimeMovieDataTx", arg0, arg1)
-	ret0, _ := ret[0].(db.AddAnimeMovieDataTxResult)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// AddAnimeMovieDataTx indicates an expected call of AddAnimeMovieDataTx.
-func (mr *MockGojoMockRecorder) AddAnimeMovieDataTx(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddAnimeMovieDataTx", reflect.TypeOf((*MockGojo)(nil).AddAnimeMovieDataTx), arg0, arg1)
-}
-
-// AddAnimeMovieInfoTx mocks base method.
-func (m *MockGojo) AddAnimeMovieInfoTx(arg0 context.Context, arg1 db.AddAnimeMovieInfoTxParams) (db.AddAnimeMovieInfoTxResult, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "AddAnimeMovieInfoTx", arg0, arg1)
-	ret0, _ := ret[0].(db.AddAnimeMovieInfoTxResult)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// AddAnimeMovieInfoTx indicates an expected call of AddAnimeMovieInfoTx.
-func (mr *MockGojoMockRecorder) AddAnimeMovieInfoTx(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AddAnimeMovieInfoTx", reflect.TypeOf((*MockGojo)(nil).AddAnimeMovieInfoTx), arg0, arg1)
-}
-
 // CreateAnimeEpisode mocks base method.
 func (m *MockGojo) CreateAnimeEpisode(arg0 context.Context, arg1 db.CreateAnimeEpisodeParams) (db.AnimeSerieEpisode, error) {
 	m.ctrl.T.Helper()
@@ -201,6 +171,21 @@ func (mr *MockGojoMockRecorder) CreateAnimeMovieBackdropImage(arg0, arg1 interfa
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeMovieBackdropImage", reflect.TypeOf((*MockGojo)(nil).CreateAnimeMovieBackdropImage), arg0, arg1)
 }
 
+// CreateAnimeMovieDataTx mocks base method.
+func (m *MockGojo) CreateAnimeMovieDataTx(arg0 context.Context, arg1 db.CreateAnimeMovieDataTxParams) (db.CreateAnimeMovieDataTxResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeMovieDataTx", arg0, arg1)
+	ret0, _ := ret[0].(db.CreateAnimeMovieDataTxResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeMovieDataTx indicates an expected call of CreateAnimeMovieDataTx.
+func (mr *MockGojoMockRecorder) CreateAnimeMovieDataTx(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeMovieDataTx", reflect.TypeOf((*MockGojo)(nil).CreateAnimeMovieDataTx), arg0, arg1)
+}
+
 // CreateAnimeMovieGenre mocks base method.
 func (m *MockGojo) CreateAnimeMovieGenre(arg0 context.Context, arg1 db.CreateAnimeMovieGenreParams) (db.AnimeMovieGenre, error) {
 	m.ctrl.T.Helper()
@@ -229,6 +214,21 @@ func (m *MockGojo) CreateAnimeMovieImageTx(arg0 context.Context, arg1 db.CreateA
 func (mr *MockGojoMockRecorder) CreateAnimeMovieImageTx(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeMovieImageTx", reflect.TypeOf((*MockGojo)(nil).CreateAnimeMovieImageTx), arg0, arg1)
+}
+
+// CreateAnimeMovieInfoTx mocks base method.
+func (m *MockGojo) CreateAnimeMovieInfoTx(arg0 context.Context, arg1 db.CreateAnimeMovieInfoTxParams) (db.CreateAnimeMovieInfoTxResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeMovieInfoTx", arg0, arg1)
+	ret0, _ := ret[0].(db.CreateAnimeMovieInfoTxResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeMovieInfoTx indicates an expected call of CreateAnimeMovieInfoTx.
+func (mr *MockGojoMockRecorder) CreateAnimeMovieInfoTx(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeMovieInfoTx", reflect.TypeOf((*MockGojo)(nil).CreateAnimeMovieInfoTx), arg0, arg1)
 }
 
 // CreateAnimeMovieLink mocks base method.

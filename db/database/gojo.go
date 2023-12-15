@@ -10,7 +10,7 @@ type Gojo interface {
 	Querier
 	CreateUserTx(ctx context.Context, arg CreateUserTxParams) (CreateUserTxResult, error)
 	VerifyEmailTx(ctx context.Context, arg VerifyEmailTxParams) (VerifyEmailTxResult, error)
-	AddAnimeMovieInfoTx(ctx context.Context, arg AddAnimeMovieInfoTxParams) (AddAnimeMovieInfoTxResult, error)
+	CreateAnimeMovieInfoTx(ctx context.Context, arg CreateAnimeMovieInfoTxParams) (CreateAnimeMovieInfoTxResult, error)
 	CreateAnimeSeasonInfoTx(ctx context.Context, arg CreateAnimeSeasonInfoTxParams) (CreateAnimeSeasonInfoTxResult, error)
 	CreateAnimeMovieMetasTx(ctx context.Context, arg CreateAnimeMovieMetasTxParams) (CreateAnimeMovieMetasTxResult, error)
 	CreateAnimeSerieMetasTx(ctx context.Context, arg CreateAnimeSerieMetasTxParams) (CreateAnimeSerieMetasTxResult, error)
@@ -24,7 +24,7 @@ type Gojo interface {
 	CreateAnimeMovieLinkTx(ctx context.Context, arg CreateAnimeMovieLinkTxParams) (CreateAnimeMovieLinkTxResult, error)
 	CreateAnimeSerieLinkTx(ctx context.Context, arg CreateAnimeSerieLinkTxParams) (CreateAnimeSerieLinkTxResult, error)
 	CreateAnimeSeasonResourceTx(ctx context.Context, arg CreateAnimeSeasonResourceTxParams) (CreateAnimeSeasonResourceTxResult, error)
-	AddAnimeMovieDataTx(ctx context.Context, arg AddAnimeMovieDataTxParams) (AddAnimeMovieDataTxResult, error)
+	CreateAnimeMovieDataTx(ctx context.Context, arg CreateAnimeMovieDataTxParams) (CreateAnimeMovieDataTxResult, error)
 	CreateAnimeSeasonTx(ctx context.Context, arg CreateAnimeSeasonTxParams) (CreateAnimeSeasonTxResult, error)
 	CreateAnimeSeasonMetasTx(ctx context.Context, arg CreateAnimeSeasonMetasTxParams) (CreateAnimeSeasonMetasTxResult, error)
 	CreateAnimeEpisodeTx(ctx context.Context, arg CreateAnimeEpisodeTxParams) (CreateAnimeEpisodeTxResult, error)

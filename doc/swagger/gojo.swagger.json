@@ -175,16 +175,16 @@
         ]
       }
     },
-    "/v1/anime/movie/data/add": {
+    "/v1/anime/movie/data/create": {
       "post": {
         "summary": "add new anime movie data",
         "description": "Use this API to add a new anime movie data",
-        "operationId": "Gojo_AddAnimeMovieData",
+        "operationId": "Gojo_CreateAnimeMovieData",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ampbAddAnimeMovieDataResponse"
+              "$ref": "#/definitions/ampbCreateAnimeMovieDataResponse"
             }
           },
           "default": {
@@ -200,7 +200,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ampbAddAnimeMovieDataRequest"
+              "$ref": "#/definitions/ampbCreateAnimeMovieDataRequest"
             }
           }
         ],
@@ -243,16 +243,16 @@
         ]
       }
     },
-    "/v1/anime/movie/info": {
+    "/v1/anime/movie/info/create": {
       "post": {
         "summary": "add info to anime movie",
         "description": "Use this API to add info to anime movie like studios and genres",
-        "operationId": "Gojo_AddAnimeMovieInfo",
+        "operationId": "Gojo_CreateAnimeMovieInfo",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ampbAddAnimeMovieInfoResponse"
+              "$ref": "#/definitions/ampbCreateAnimeMovieInfoResponse"
             }
           },
           "default": {
@@ -1623,49 +1623,6 @@
     }
   },
   "definitions": {
-    "ampbAddAnimeMovieDataRequest": {
-      "type": "object",
-      "properties": {
-        "serverID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "sub": {
-          "$ref": "#/definitions/ampbAnimeMovieSubDataRequest"
-        },
-        "dub": {
-          "$ref": "#/definitions/ampbAnimeMovieDubDataRequest"
-        }
-      }
-    },
-    "ampbAddAnimeMovieDataResponse": {
-      "type": "object",
-      "properties": {
-        "animeMovie": {
-          "$ref": "#/definitions/ampbAnimeMovieResponse"
-        },
-        "sub": {
-          "$ref": "#/definitions/ampbAnimeMovieSubDataResponse"
-        },
-        "dub": {
-          "$ref": "#/definitions/ampbAnimeMovieDubDataResponse"
-        }
-      }
-    },
-    "ampbAddAnimeMovieInfoResponse": {
-      "type": "object",
-      "properties": {
-        "animeMovie": {
-          "$ref": "#/definitions/ampbAnimeMovieResponse"
-        },
-        "genres": {
-          "$ref": "#/definitions/nfpbAnimeGenresResponse"
-        },
-        "studios": {
-          "$ref": "#/definitions/nfpbAnimeStudiosResponse"
-        }
-      }
-    },
     "ampbAnimeMovieDubDataRequest": {
       "type": "object",
       "properties": {
@@ -1950,6 +1907,35 @@
         }
       }
     },
+    "ampbCreateAnimeMovieDataRequest": {
+      "type": "object",
+      "properties": {
+        "serverID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "sub": {
+          "$ref": "#/definitions/ampbAnimeMovieSubDataRequest"
+        },
+        "dub": {
+          "$ref": "#/definitions/ampbAnimeMovieDubDataRequest"
+        }
+      }
+    },
+    "ampbCreateAnimeMovieDataResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbAnimeMovieResponse"
+        },
+        "sub": {
+          "$ref": "#/definitions/ampbAnimeMovieSubDataResponse"
+        },
+        "dub": {
+          "$ref": "#/definitions/ampbAnimeMovieDubDataResponse"
+        }
+      }
+    },
     "ampbCreateAnimeMovieImageRequest": {
       "type": "object",
       "properties": {
@@ -1970,6 +1956,20 @@
         },
         "animeImages": {
           "$ref": "#/definitions/shpbAnimeImageResponse"
+        }
+      }
+    },
+    "ampbCreateAnimeMovieInfoResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbAnimeMovieResponse"
+        },
+        "genres": {
+          "$ref": "#/definitions/nfpbAnimeGenresResponse"
+        },
+        "studios": {
+          "$ref": "#/definitions/nfpbAnimeStudiosResponse"
         }
       }
     },
