@@ -9,6 +9,7 @@ sql:
       - "./db/sqlc/anime/"
       - "./db/sqlc/anime/movie"
       - "./db/sqlc/anime/movie/info"
+      - "./db/sqlc/anime/movie/titles"
       - "./db/sqlc/anime/serie"
       - "./db/sqlc/anime/serie/info"
     schema: "./db/migration"
@@ -110,3 +111,9 @@ sql:
           anime_movie_trailers: "animeMovieTrailer"
           anime_serie_trailers: "animeSerieTrailer"
           anime_season_trailers: "animeSeasonTrailer"
+
+          ## add anime_movie_titles
+          anime_movie_official_titles: "animeMovieOfficialTitle"
+          anime_movie_short_titles: "animeMoviShortTitle"
+          anime_movie_translation_titles: "animeMovieTranslationTitle"
+          anime_movie_other_titles: "animeMovieOtherTitle"

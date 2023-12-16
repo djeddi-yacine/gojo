@@ -91,6 +91,20 @@ type AnimeMovieMeta struct {
 	MetaID     int64
 }
 
+type AnimeMovieOfficialTitle struct {
+	ID        int64
+	AnimeID   int64
+	TitleText string
+	CreatedAt time.Time
+}
+
+type AnimeMovieOtherTitle struct {
+	ID        int64
+	AnimeID   int64
+	TitleText string
+	CreatedAt time.Time
+}
+
 type AnimeMoviePosterImage struct {
 	ID        int64
 	AnimeID   int64
@@ -138,6 +152,13 @@ type AnimeMovieServerSubVideo struct {
 	CreatedAt time.Time
 }
 
+type AnimeMovieShortTitle struct {
+	ID        int64
+	AnimeID   int64
+	TitleText string
+	CreatedAt time.Time
+}
+
 type AnimeMovieStudio struct {
 	ID       int64
 	AnimeID  int64
@@ -162,6 +183,13 @@ type AnimeMovieTrailer struct {
 	ID        int64
 	AnimeID   int64
 	TrailerID int64
+	CreatedAt time.Time
+}
+
+type AnimeMovieTranslationTitle struct {
+	ID        int64
+	AnimeID   int64
+	TitleText string
 	CreatedAt time.Time
 }
 

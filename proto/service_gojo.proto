@@ -20,12 +20,14 @@ import "ampb/rpc_create_anime_movie_link.proto";
 import "ampb/rpc_create_anime_movie_trailer.proto";
 import "ampb/rpc_create_anime_movie_image.proto";
 import "ampb/rpc_create_anime_movie_server.proto";
+import "ampb/rpc_create_anime_movie_info.proto";
+import "ampb/rpc_create_anime_movie_data.proto";
+import "ampb/rpc_create_anime_movie_title.proto";
 import "ampb/rpc_get_all_anime_movie_metas.proto";
 import "ampb/rpc_get_all_anime_movies.proto";
 import "ampb/rpc_get_full_anime_movie.proto";
-import "ampb/rpc_create_anime_movie_info.proto";
-import "ampb/rpc_create_anime_movie_data.proto";
 import "ampb/rpc_update_anime_movie.proto";
+import "ampb/rpc_query_anime_movie.proto";
 
 
 
@@ -68,7 +70,7 @@ option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info : {
     title : "Gojo API";
-    version : "2.3";
+    version : "2.6";
     contact : {
       name: "Dj Yacine";
       url:  "https://github.com/dj-yacine-flutter/gojo";
@@ -221,6 +223,16 @@ service Gojo {
       summary:  "Create new anime movie meta";
     };
   }
+  rpc CreateAnimeMovieInfo(ampb.CreateAnimeMovieInfoRequest) returns (ampb.CreateAnimeMovieInfoResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/movie/info/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to add info to anime movie like studios and genres";
+      summary:  "add info to anime movie";
+    };
+  }
   rpc CreateAnimeMovieResource(ampb.CreateAnimeMovieResourceRequest) returns (ampb.CreateAnimeMovieResourceResponse) {
     option (google.api.http) = {
       post : "/v1/anime/movie/resource/create"
@@ -261,13 +273,14 @@ service Gojo {
       summary:  "Create new anime movie trailers";
     };
   }
-  rpc CreateAnimeMovieInfo(ampb.CreateAnimeMovieInfoRequest) returns (ampb.CreateAnimeMovieInfoResponse) {
+  rpc CreateAnimeMovieTitle(ampb.CreateAnimeMovieTitleRequest) returns (ampb.CreateAnimeMovieTitleResponse) {
     option (google.api.http) = {
-      post : "/v1/anime/movie/info/create"
+      post : "/v1/anime/movie/title/create"
+      body : "*"
     };
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to add info to anime movie like studios and genres";
-      summary:  "add info to anime movie";
+      description : "Use this API to create a new anime movie titles";
+      summary:  "Create new anime movie titles";
     };
   }
   rpc UpdateAnimeMovie(ampb.UpdateAnimeMovieRequest) returns (ampb.UpdateAnimeMovieResponse) {
@@ -327,6 +340,16 @@ service Gojo {
         summary:  "get full movie";
     };
   }
+  rpc QueryAnimeMovie(ampb.QueryAnimeMovieRequest) returns (ampb.QueryAnimeMovieResponse) {
+    option (google.api.http) = {
+      get : "/v1/anime/movie/query/{query}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to query anime movies";
+      summary:  "query anime movies";
+    };
+  }
+
 
 
 

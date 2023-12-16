@@ -93,7 +93,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieImage(ctx context.Context, req *
 
 func validateCreateAnimeMovieImageRequest(req *ampb.CreateAnimeMovieImageRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.GetAnimeID()); err != nil {
-		violations = append(violations, shared.FieldViolation("ID", err))
+		violations = append(violations, shared.FieldViolation("animeID", err))
 	}
 
 	if req.AnimeImages != nil {

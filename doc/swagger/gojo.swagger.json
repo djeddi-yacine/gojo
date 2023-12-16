@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Gojo API",
-    "version": "2.3",
+    "version": "2.6",
     "contact": {
       "name": "Dj Yacine",
       "url": "https://github.com/dj-yacine-flutter/gojo"
@@ -264,33 +264,12 @@
         },
         "parameters": [
           {
-            "name": "animeID",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "format": "int64"
-          },
-          {
-            "name": "genres.genreID",
-            "in": "query",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "collectionFormat": "multi"
-          },
-          {
-            "name": "studios.studioID",
-            "in": "query",
-            "required": false,
-            "type": "array",
-            "items": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "collectionFormat": "multi"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbCreateAnimeMovieInfoRequest"
+            }
           }
         ],
         "tags": [
@@ -399,6 +378,38 @@
         ]
       }
     },
+    "/v1/anime/movie/query/{query}": {
+      "get": {
+        "summary": "query anime movies",
+        "description": "Use this API to query anime movies",
+        "operationId": "Gojo_QueryAnimeMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbQueryAnimeMovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/movie/resource/create": {
       "post": {
         "summary": "Create new anime movie resources",
@@ -459,6 +470,40 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/ampbCreateAnimeMovieServerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
+    "/v1/anime/movie/title/create": {
+      "post": {
+        "summary": "Create new anime movie titles",
+        "description": "Use this API to create a new anime movie titles",
+        "operationId": "Gojo_CreateAnimeMovieTitle",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbCreateAnimeMovieTitleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbCreateAnimeMovieTitleRequest"
             }
           }
         ],
@@ -1775,6 +1820,71 @@
         }
       }
     },
+    "ampbAnimeMovieTitle": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "titleText": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ampbAnimeMovieTitleRequest": {
+      "type": "object",
+      "properties": {
+        "official": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "short": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "other": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ampbAnimeMovieTitleResponse": {
+      "type": "object",
+      "properties": {
+        "official": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbAnimeMovieTitle"
+          }
+        },
+        "short": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbAnimeMovieTitle"
+          }
+        },
+        "other": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbAnimeMovieTitle"
+          }
+        }
+      }
+    },
     "ampbAnimeMovieTorrentRequest": {
       "type": "object",
       "properties": {
@@ -1959,6 +2069,21 @@
         }
       }
     },
+    "ampbCreateAnimeMovieInfoRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "genres": {
+          "$ref": "#/definitions/nfpbAnimeGenresRequest"
+        },
+        "studios": {
+          "$ref": "#/definitions/nfpbAnimeStudiosRequest"
+        }
+      }
+    },
     "ampbCreateAnimeMovieInfoResponse": {
       "type": "object",
       "properties": {
@@ -2105,6 +2230,29 @@
         }
       }
     },
+    "ampbCreateAnimeMovieTitleRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeTitles": {
+          "$ref": "#/definitions/ampbAnimeMovieTitleRequest"
+        }
+      }
+    },
+    "ampbCreateAnimeMovieTitleResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbAnimeMovieResponse"
+        },
+        "animeTitles": {
+          "$ref": "#/definitions/ampbAnimeMovieTitleResponse"
+        }
+      }
+    },
     "ampbCreateAnimeMovieTrailerRequest": {
       "type": "object",
       "properties": {
@@ -2200,6 +2348,18 @@
         },
         "dub": {
           "$ref": "#/definitions/ampbAnimeMovieDubDataResponse"
+        }
+      }
+    },
+    "ampbQueryAnimeMovieResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbAnimeMovieResponse"
+          }
         }
       }
     },

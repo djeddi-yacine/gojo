@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package ampb;
+
+import "ampb/anime_movie.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/ampb";
+
+message QueryAnimeMovieRequest {
+    string query = 1;
+}
+
+message QueryAnimeMovieResponse {
+    repeated AnimeMovieResponse animeMovies = 1;
+}

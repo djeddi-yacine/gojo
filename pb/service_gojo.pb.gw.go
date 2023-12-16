@@ -487,6 +487,40 @@ func local_request_Gojo_CreateAnimeMovieMetas_0(ctx context.Context, marshaler r
 
 }
 
+func request_Gojo_CreateAnimeMovieInfo_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ampb.CreateAnimeMovieInfoRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := client.CreateAnimeMovieInfo(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_Gojo_CreateAnimeMovieInfo_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ampb.CreateAnimeMovieInfoRequest
+	var metadata runtime.ServerMetadata
+
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
+	}
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	msg, err := server.CreateAnimeMovieInfo(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
 func request_Gojo_CreateAnimeMovieResource_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ampb.CreateAnimeMovieResourceRequest
 	var metadata runtime.ServerMetadata
@@ -623,38 +657,36 @@ func local_request_Gojo_CreateAnimeMovieTrailer_0(ctx context.Context, marshaler
 
 }
 
-var (
-	filter_Gojo_CreateAnimeMovieInfo_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
-)
-
-func request_Gojo_CreateAnimeMovieInfo_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ampb.CreateAnimeMovieInfoRequest
+func request_Gojo_CreateAnimeMovieTitle_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ampb.CreateAnimeMovieTitleRequest
 	var metadata runtime.ServerMetadata
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_CreateAnimeMovieInfo_0); err != nil {
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.CreateAnimeMovieInfo(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.CreateAnimeMovieTitle(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_Gojo_CreateAnimeMovieInfo_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq ampb.CreateAnimeMovieInfoRequest
+func local_request_Gojo_CreateAnimeMovieTitle_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ampb.CreateAnimeMovieTitleRequest
 	var metadata runtime.ServerMetadata
 
-	if err := req.ParseForm(); err != nil {
-		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	newReader, berr := utilities.IOReaderFactory(req.Body)
+	if berr != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", berr)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_CreateAnimeMovieInfo_0); err != nil {
+	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.CreateAnimeMovieInfo(ctx, &protoReq)
+	msg, err := server.CreateAnimeMovieTitle(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -899,6 +931,58 @@ func local_request_Gojo_GetFullAnimeMovie_0(ctx context.Context, marshaler runti
 	}
 
 	msg, err := server.GetFullAnimeMovie(ctx, &protoReq)
+	return msg, metadata, err
+
+}
+
+func request_Gojo_QueryAnimeMovie_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ampb.QueryAnimeMovieRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["query"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "query")
+	}
+
+	protoReq.Query, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "query", err)
+	}
+
+	msg, err := client.QueryAnimeMovie(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	return msg, metadata, err
+
+}
+
+func local_request_Gojo_QueryAnimeMovie_0(ctx context.Context, marshaler runtime.Marshaler, server GojoServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq ampb.QueryAnimeMovieRequest
+	var metadata runtime.ServerMetadata
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["query"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "query")
+	}
+
+	protoReq.Query, err = runtime.String(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "query", err)
+	}
+
+	msg, err := server.QueryAnimeMovie(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -1992,6 +2076,31 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 
 	})
 
+	mux.Handle("POST", pattern_Gojo_CreateAnimeMovieInfo_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeMovieInfo", runtime.WithHTTPPathPattern("/v1/anime/movie/info/create"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Gojo_CreateAnimeMovieInfo_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Gojo_CreateAnimeMovieInfo_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("POST", pattern_Gojo_CreateAnimeMovieResource_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -2092,7 +2201,7 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_CreateAnimeMovieInfo_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeMovieTitle_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -2100,12 +2209,12 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeMovieInfo", runtime.WithHTTPPathPattern("/v1/anime/movie/info/create"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/CreateAnimeMovieTitle", runtime.WithHTTPPathPattern("/v1/anime/movie/title/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Gojo_CreateAnimeMovieInfo_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Gojo_CreateAnimeMovieTitle_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -2113,7 +2222,7 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 			return
 		}
 
-		forward_Gojo_CreateAnimeMovieInfo_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeMovieTitle_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -2264,6 +2373,31 @@ func RegisterGojoHandlerServer(ctx context.Context, mux *runtime.ServeMux, serve
 		}
 
 		forward_Gojo_GetFullAnimeMovie_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_Gojo_QueryAnimeMovie_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		var stream runtime.ServerTransportStream
+		ctx = grpc.NewContextWithServerTransportStream(ctx, &stream)
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/pb.Gojo/QueryAnimeMovie", runtime.WithHTTPPathPattern("/v1/anime/movie/query/{query}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := local_request_Gojo_QueryAnimeMovie_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Gojo_QueryAnimeMovie_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -3094,6 +3228,28 @@ func RegisterGojoHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 
 	})
 
+	mux.Handle("POST", pattern_Gojo_CreateAnimeMovieInfo_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeMovieInfo", runtime.WithHTTPPathPattern("/v1/anime/movie/info/create"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Gojo_CreateAnimeMovieInfo_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Gojo_CreateAnimeMovieInfo_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
 	mux.Handle("POST", pattern_Gojo_CreateAnimeMovieResource_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
@@ -3182,25 +3338,25 @@ func RegisterGojoHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 
 	})
 
-	mux.Handle("POST", pattern_Gojo_CreateAnimeMovieInfo_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Gojo_CreateAnimeMovieTitle_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeMovieInfo", runtime.WithHTTPPathPattern("/v1/anime/movie/info/create"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/CreateAnimeMovieTitle", runtime.WithHTTPPathPattern("/v1/anime/movie/title/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Gojo_CreateAnimeMovieInfo_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Gojo_CreateAnimeMovieTitle_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Gojo_CreateAnimeMovieInfo_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Gojo_CreateAnimeMovieTitle_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -3333,6 +3489,28 @@ func RegisterGojoHandlerClient(ctx context.Context, mux *runtime.ServeMux, clien
 		}
 
 		forward_Gojo_GetFullAnimeMovie_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+
+	})
+
+	mux.Handle("GET", pattern_Gojo_QueryAnimeMovie_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+		ctx, cancel := context.WithCancel(req.Context())
+		defer cancel()
+		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
+		var err error
+		var annotatedContext context.Context
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/pb.Gojo/QueryAnimeMovie", runtime.WithHTTPPathPattern("/v1/anime/movie/query/{query}"))
+		if err != nil {
+			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
+			return
+		}
+		resp, md, err := request_Gojo_QueryAnimeMovie_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
+		if err != nil {
+			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
+			return
+		}
+
+		forward_Gojo_QueryAnimeMovie_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -3806,6 +3984,8 @@ var (
 
 	pattern_Gojo_CreateAnimeMovieMetas_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "movie", "meta", "create"}, ""))
 
+	pattern_Gojo_CreateAnimeMovieInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "movie", "info", "create"}, ""))
+
 	pattern_Gojo_CreateAnimeMovieResource_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "movie", "resource", "create"}, ""))
 
 	pattern_Gojo_CreateAnimeMovieLink_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "movie", "link", "create"}, ""))
@@ -3814,7 +3994,7 @@ var (
 
 	pattern_Gojo_CreateAnimeMovieTrailer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "movie", "trailer", "create"}, ""))
 
-	pattern_Gojo_CreateAnimeMovieInfo_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "movie", "info", "create"}, ""))
+	pattern_Gojo_CreateAnimeMovieTitle_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"v1", "anime", "movie", "title", "create"}, ""))
 
 	pattern_Gojo_UpdateAnimeMovie_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "movie", "update"}, ""))
 
@@ -3827,6 +4007,8 @@ var (
 	pattern_Gojo_GetAllAnimeMovieMetas_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "movie", "meta"}, ""))
 
 	pattern_Gojo_GetFullAnimeMovie_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"v1", "anime", "movie", "animeID"}, ""))
+
+	pattern_Gojo_QueryAnimeMovie_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 3}, []string{"v1", "anime", "movie", "query"}, ""))
 
 	pattern_Gojo_CreateAnimeSerie_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"v1", "anime", "serie", "create"}, ""))
 
@@ -3896,6 +4078,8 @@ var (
 
 	forward_Gojo_CreateAnimeMovieMetas_0 = runtime.ForwardResponseMessage
 
+	forward_Gojo_CreateAnimeMovieInfo_0 = runtime.ForwardResponseMessage
+
 	forward_Gojo_CreateAnimeMovieResource_0 = runtime.ForwardResponseMessage
 
 	forward_Gojo_CreateAnimeMovieLink_0 = runtime.ForwardResponseMessage
@@ -3904,7 +4088,7 @@ var (
 
 	forward_Gojo_CreateAnimeMovieTrailer_0 = runtime.ForwardResponseMessage
 
-	forward_Gojo_CreateAnimeMovieInfo_0 = runtime.ForwardResponseMessage
+	forward_Gojo_CreateAnimeMovieTitle_0 = runtime.ForwardResponseMessage
 
 	forward_Gojo_UpdateAnimeMovie_0 = runtime.ForwardResponseMessage
 
@@ -3917,6 +4101,8 @@ var (
 	forward_Gojo_GetAllAnimeMovieMetas_0 = runtime.ForwardResponseMessage
 
 	forward_Gojo_GetFullAnimeMovie_0 = runtime.ForwardResponseMessage
+
+	forward_Gojo_QueryAnimeMovie_0 = runtime.ForwardResponseMessage
 
 	forward_Gojo_CreateAnimeSerie_0 = runtime.ForwardResponseMessage
 

@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-12-14T16:07:27.323Z
+-- Generated at: 2023-12-16T16:48:15.743Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -426,6 +426,34 @@ CREATE TABLE "anime_season_trailers" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
+CREATE TABLE "anime_movie_official_titles" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "title_text" varchar(150) NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_movie_short_titles" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "title_text" varchar(150) NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_movie_translation_titles" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "title_text" varchar NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_movie_other_titles" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "title_text" varchar(150) NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
 CREATE INDEX ON "users" ("username");
 
 CREATE INDEX ON "users" ("full_name");
@@ -642,6 +670,14 @@ CREATE INDEX ON "anime_season_trailers" ("id");
 
 CREATE UNIQUE INDEX ON "anime_season_trailers" ("season_id", "trailer_id");
 
+CREATE INDEX ON "anime_movie_official_titles" ("id", "title_text", "anime_id");
+
+CREATE INDEX ON "anime_movie_short_titles" ("id", "title_text", "anime_id");
+
+CREATE INDEX ON "anime_movie_translation_titles" ("id", "title_text", "anime_id");
+
+CREATE INDEX ON "anime_movie_other_titles" ("id", "title_text", "anime_id");
+
 ALTER TABLE "sessions" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
 
 ALTER TABLE "verify_emails" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
@@ -665,6 +701,14 @@ ALTER TABLE "anime_movie_logo_images" ADD FOREIGN KEY ("anime_id") REFERENCES "a
 ALTER TABLE "anime_movie_links" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_trailers" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_movie_official_titles" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_movie_short_titles" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_movie_translation_titles" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_movie_other_titles" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_metas" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 
@@ -793,3 +837,5 @@ ALTER TABLE "anime_movie_trailers" ADD FOREIGN KEY ("trailer_id") REFERENCES "an
 ALTER TABLE "anime_serie_trailers" ADD FOREIGN KEY ("trailer_id") REFERENCES "anime_trailers" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_season_trailers" ADD FOREIGN KEY ("trailer_id") REFERENCES "anime_trailers" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_resources" ADD FOREIGN KEY ("anisearch_id") REFERENCES "anime_movie_translation_titles" ("anime_id");

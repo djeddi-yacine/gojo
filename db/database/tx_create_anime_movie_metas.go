@@ -45,6 +45,15 @@ func (gojo *SQLGojo) CreateAnimeMovieMetasTx(ctx context.Context, arg CreateAnim
 			}
 
 			result.AnimeMovieMetasTxResults[i].LanguageID = animeMeta.LanguageID
+
+			_, err = q.CreateAnimeMovieTranslationTitle(ctx, CreateAnimeMovieTranslationTitleParams{
+				AnimeID:   arg.AnimeID,
+				TitleText: meta.Title,
+			})
+			if err != nil {
+				ErrorSQL(err)
+				return err
+			}
 		}
 
 		return err

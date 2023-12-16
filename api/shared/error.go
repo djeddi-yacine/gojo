@@ -39,9 +39,9 @@ func DatabaseError(msg string, err error) error {
 	}
 	if dberr != nil {
 		errdet.Metadata = map[string]string{
-			"Statue":        db.ErrorDBType(err),
-			"Database Code": dberr.Code,
-			//			"Database Message": dberr.Message,
+			"Statue":           db.ErrorDBType(err),
+			"Database Code":    dberr.Code,
+			"Database Message": dberr.Message,
 			"Database Details": dberr.Detail,
 		}
 	}

@@ -57,7 +57,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieTrailer(ctx context.Context, req
 
 func validateCreateAnimeMovieTrailerRequest(req *ampb.CreateAnimeMovieTrailerRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.GetAnimeID()); err != nil {
-		violations = append(violations, shared.FieldViolation("ID", err))
+		violations = append(violations, shared.FieldViolation("animeID", err))
 	}
 
 	if req.AnimeTrailers != nil {
