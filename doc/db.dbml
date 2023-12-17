@@ -193,8 +193,9 @@ Table anime_serie_metas {
 Table anime_serie_seasons {
   id bigserial [primary key, unique, increment, not null]
   anime_id bigserial [not null]
-  aired timestamptz  [not null]
+  season_original_title varchar [not null]
   release_year integer [not null]
+  aired timestamptz  [not null]
   portriat_poster varchar [not null]
   portriat_blur_hash varchar [not null]
   rating  varchar [not null, default: `'PG-13 - Teens 13 or older'`]

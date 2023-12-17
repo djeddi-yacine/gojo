@@ -43,12 +43,13 @@ func (server *AnimeSerieServer) CreateAnimeSeason(ctx context.Context, req *aspb
 
 	arg := db.CreateAnimeSeasonTxParams{
 		Season: db.CreateAnimeSeasonParams{
-			AnimeID:          req.GetSeason().GetAnimeID(),
-			ReleaseYear:      req.GetSeason().GetReleaseYear(),
-			Aired:            req.GetSeason().GetAired().AsTime(),
-			Rating:           req.GetSeason().GetRating(),
-			PortriatPoster:   req.GetSeason().GetPortriatPoster(),
-			PortriatBlurHash: req.GetSeason().GetPortriatBlurHash(),
+			AnimeID:             req.GetSeason().GetAnimeID(),
+			SeasonOriginalTitle: req.GetSeason().GetSeasonOriginalTitle(),
+			ReleaseYear:         req.GetSeason().GetReleaseYear(),
+			Aired:               req.GetSeason().GetAired().AsTime(),
+			Rating:              req.GetSeason().GetRating(),
+			PortriatPoster:      req.GetSeason().GetPortriatPoster(),
+			PortriatBlurHash:    req.GetSeason().GetPortriatBlurHash(),
 		},
 		SeasonMetas: DBSM,
 	}
@@ -81,6 +82,10 @@ func validateCreateAnimeSeasonRequest(req *aspb.CreateAnimeSeasonRequest) (viola
 	if req.Season != nil {
 		if err := utils.ValidateInt(req.GetSeason().GetAnimeID()); err != nil {
 			violations = append(violations, shared.FieldViolation("animeID", err))
+		}
+
+		if err := utils.ValidateString(req.GetSeason().GetSeasonOriginalTitle(), 1, 300); err != nil {
+			violations = append(violations, shared.FieldViolation("seasonOriginalTitle", err))
 		}
 
 		if err := utils.ValidateInt(int64(req.GetSeason().GetReleaseYear())); err != nil {

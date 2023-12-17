@@ -147,14 +147,15 @@ func ConvertStudios(ss []db.Studio) *nfpb.AnimeStudiosResponse {
 
 func ConvertAnimeSeason(s db.AnimeSerieSeason) *aspb.AnimeSeasonResponse {
 	return &aspb.AnimeSeasonResponse{
-		ID:               s.ID,
-		AnimeID:          s.AnimeID,
-		Aired:            timestamppb.New(s.Aired),
-		ReleaseYear:      s.ReleaseYear,
-		Rating:           s.Rating,
-		PortriatPoster:   s.PortriatPoster,
-		PortriatBlurHash: s.PortriatBlurHash,
-		CreatedAt:        timestamppb.New(s.CreatedAt),
+		ID:                  s.ID,
+		AnimeID:             s.AnimeID,
+		SeasonOriginalTitle: s.SeasonOriginalTitle,
+		ReleaseYear:         s.ReleaseYear,
+		Aired:               timestamppb.New(s.Aired),
+		Rating:              s.Rating,
+		PortriatPoster:      s.PortriatPoster,
+		PortriatBlurHash:    s.PortriatBlurHash,
+		CreatedAt:           timestamppb.New(s.CreatedAt),
 	}
 }
 

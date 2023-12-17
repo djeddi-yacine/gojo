@@ -353,14 +353,15 @@ type AnimeSeriePosterImage struct {
 }
 
 type AnimeSerieSeason struct {
-	ID               int64
-	AnimeID          int64
-	Aired            time.Time
-	ReleaseYear      int32
-	PortriatPoster   string
-	PortriatBlurHash string
-	Rating           string
-	CreatedAt        time.Time
+	ID                  int64
+	AnimeID             int64
+	SeasonOriginalTitle string
+	ReleaseYear         int32
+	Aired               time.Time
+	PortriatPoster      string
+	PortriatBlurHash    string
+	Rating              string
+	CreatedAt           time.Time
 }
 
 type AnimeSerieServerDubTorrent struct {

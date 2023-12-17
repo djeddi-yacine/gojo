@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-12-16T18:56:43.708Z
+-- Generated at: 2023-12-17T09:29:01.467Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -132,8 +132,9 @@ CREATE TABLE "anime_serie_metas" (
 CREATE TABLE "anime_serie_seasons" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
-  "aired" timestamptz NOT NULL,
+  "season_original_title" varchar NOT NULL,
   "release_year" integer NOT NULL,
+  "aired" timestamptz NOT NULL,
   "portriat_poster" varchar NOT NULL,
   "portriat_blur_hash" varchar NOT NULL,
   "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),

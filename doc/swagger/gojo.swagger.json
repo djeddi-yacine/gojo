@@ -2528,6 +2528,9 @@
           "type": "string",
           "format": "int64"
         },
+        "seasonOriginalTitle": {
+          "type": "string"
+        },
         "releaseYear": {
           "type": "integer",
           "format": "int32"
@@ -2557,6 +2560,9 @@
         "animeID": {
           "type": "string",
           "format": "int64"
+        },
+        "seasonOriginalTitle": {
+          "type": "string"
         },
         "releaseYear": {
           "type": "integer",

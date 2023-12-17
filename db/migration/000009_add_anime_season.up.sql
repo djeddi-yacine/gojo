@@ -1,8 +1,9 @@
 CREATE TABLE "anime_serie_seasons" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
-  "aired" timestamptz NOT NULL,
+  "season_original_title" varchar NOT NULL,
   "release_year" integer NOT NULL,
+  "aired" timestamptz NOT NULL,
   "portriat_poster" varchar NOT NULL,
   "portriat_blur_hash" varchar NOT NULL,
   "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),

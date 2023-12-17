@@ -1,13 +1,14 @@
 -- name: CreateAnimeSeason :one
 INSERT INTO anime_serie_seasons (
     anime_id,
-    aired,
+    season_original_title,
     release_year,
+    aired,
     rating,
     portriat_poster,
     portriat_blur_hash
 )
-VALUES ($1, $2, $3, $4, $5, $6)
+VALUES ($1, $2, $3, $4, $5, $6, $7)
 RETURNING *;
 
 -- name: GetAnimeSeason :one
@@ -25,8 +26,9 @@ OFFSET $3;
 -- name: UpdateAnimeSeason :one
 UPDATE anime_serie_seasons
 SET
-  aired = COALESCE(sqlc.narg(aired), aired),
+  season_original_title = COALESCE(sqlc.narg(season_original_title), season_original_title),
   release_year = COALESCE(sqlc.narg(release_year), release_year),
+  aired = COALESCE(sqlc.narg(aired), aired),
   rating = COALESCE(sqlc.narg(rating), rating),
   portriat_poster = COALESCE(sqlc.narg(portriat_poster), portriat_poster),
   portriat_blur_hash = COALESCE(sqlc.narg(portriat_blur_hash), portriat_blur_hash)
