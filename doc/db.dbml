@@ -679,6 +679,45 @@ Table anime_movie_other_titles {
     }
 }
 
+Table anime_season_official_titles {
+  id bigserial [primary key, unique, increment, not null]
+  season_id  bigserial [not null]
+  title_text  varchar(150) [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (id,title_text,season_id)
+    }
+}
+
+Table anime_season_short_titles {
+  id bigserial [primary key, unique, increment, not null]
+  season_id  bigserial [not null]
+  title_text  varchar(150) [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (id,title_text,season_id)
+    }
+}
+
+Table anime_season_translation_titles {
+  id bigserial [primary key, unique, increment, not null]
+  season_id  bigserial [not null]
+  title_text  varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (id,title_text,season_id)
+    }
+}
+
+Table anime_season_other_titles {
+  id bigserial [primary key, unique, increment, not null]
+  season_id  bigserial [not null]
+  title_text  varchar(150) [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (id,title_text,season_id)
+    }
+}
 
 
 Ref {
@@ -875,6 +914,18 @@ Ref {
 }
 Ref {
   anime_serie_seasons.id - anime_season_genres.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_official_titles.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_short_titles.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_translation_titles.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_other_titles.season_id [delete: cascade]
 }
 
 

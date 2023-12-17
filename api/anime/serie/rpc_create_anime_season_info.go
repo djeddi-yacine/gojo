@@ -49,7 +49,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonInfo(ctx context.Context, req *
 
 func validateCreateAnimeSeasonInfoRequest(req *aspb.CreateAnimeSeasonInfoRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.GetSeasonID()); err != nil {
-		violations = append(violations, shared.FieldViolation("animeID", err))
+		violations = append(violations, shared.FieldViolation("seasonID", err))
 	}
 
 	if req.Genres == nil && req.Studios == nil {

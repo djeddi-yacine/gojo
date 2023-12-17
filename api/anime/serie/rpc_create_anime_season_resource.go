@@ -58,7 +58,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonResource(ctx context.Context, r
 
 func validateCreateAnimeSerieResourceRequest(req *aspb.CreateAnimeSeasonResourceRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.GetSeasonID()); err != nil {
-		violations = append(violations, shared.FieldViolation("ID", err))
+		violations = append(violations, shared.FieldViolation("seasonID", err))
 	}
 
 	if req.SeasonResources != nil {

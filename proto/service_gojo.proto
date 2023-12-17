@@ -45,6 +45,7 @@ import "aspb/rpc_create_anime_season_resource.proto";
 import "aspb/rpc_create_anime_season_trailer.proto";
 import "aspb/rpc_create_anime_season_info.proto";
 import "aspb/rpc_create_anime_season_metas.proto";
+import "aspb/rpc_create_anime_season_title.proto";
 import "aspb/rpc_create_anime_episode_metas.proto";
 import "aspb/rpc_create_anime_episode.proto";
 
@@ -55,6 +56,7 @@ import "aspb/rpc_get_full_anime_season.proto";
 
 import "aspb/rpc_update_anime_serie.proto";
 
+import "aspb/rpc_query_anime_season.proto";
 
 
 
@@ -507,6 +509,16 @@ service Gojo {
       summary:  "add new anime serie data";
     };
   }
+  rpc CreateAnimeSeasonTitle(aspb.CreateAnimeSeasonTitleRequest) returns (aspb.CreateAnimeSeasonTitleResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/serie/season/title/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime season titles";
+      summary:  "Create new anime season titles";
+    };
+  }
   rpc GetFullAnimeSerie(aspb.GetFullAnimeSerieRequest) returns (aspb.GetFullAnimeSerieResponse) {
     option (google.api.http) = {
         get : "/v1/anime/serie/{animeID}"
@@ -553,5 +565,14 @@ service Gojo {
       summary: "Update anime serie";
     };
   }
-  
+  rpc QueryAnimeSeason(aspb.QueryAnimeSeasonRequest) returns (aspb.QueryAnimeSeasonResponse) {
+    option (google.api.http) = {
+      get : "/v1/anime/serie/season/query/{query}"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to query anime seasons";
+      summary:  "query anime seasons";
+    };
+  }
+
 }

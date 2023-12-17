@@ -57,7 +57,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTrailer(ctx context.Context, re
 
 func validateCreateAnimeSeasonTrailerRequest(req *aspb.CreateAnimeSeasonTrailerRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.GetSeasonID()); err != nil {
-		violations = append(violations, shared.FieldViolation("ID", err))
+		violations = append(violations, shared.FieldViolation("seasonID", err))
 	}
 
 	if req.SeasonTrailers != nil {

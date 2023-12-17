@@ -38,6 +38,8 @@ type Gojo interface {
 	CreateAnimeSeasonTrailerTx(ctx context.Context, arg CreateAnimeSeasonTrailerTxParams) (CreateAnimeSeasonTrailerTxResult, error)
 	CreateAnimeMovieTitleTx(ctx context.Context, arg CreateAnimeMovieTitleTxParams) (CreateAnimeMovieTitleTxResult, error)
 	QueryAnimeMovieTx(ctx context.Context, arg QueryAnimeMovieTxParams) (QueryAnimeMovieTxResult, error)
+	CreateAnimeSeasonTitleTx(ctx context.Context, arg CreateAnimeSeasonTitleTxParams) (CreateAnimeSeasonTitleTxResult, error)
+	QueryAnimeSeasonTx(ctx context.Context, arg QueryAnimeSeasonTxParams) (QueryAnimeSeasonTxResult, error)
 }
 
 type SQLGojo struct {

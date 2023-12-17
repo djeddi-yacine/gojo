@@ -64,11 +64,13 @@ const (
 	Gojo_CreateAnimeEpisode_FullMethodName        = "/pb.Gojo/CreateAnimeEpisode"
 	Gojo_CreateAnimeEpisodeMetas_FullMethodName   = "/pb.Gojo/CreateAnimeEpisodeMetas"
 	Gojo_CreateAnimeSerieData_FullMethodName      = "/pb.Gojo/CreateAnimeSerieData"
+	Gojo_CreateAnimeSeasonTitle_FullMethodName    = "/pb.Gojo/CreateAnimeSeasonTitle"
 	Gojo_GetFullAnimeSerie_FullMethodName         = "/pb.Gojo/GetFullAnimeSerie"
 	Gojo_GetAllAnimeSeries_FullMethodName         = "/pb.Gojo/GetAllAnimeSeries"
 	Gojo_GetFullAnimeSeason_FullMethodName        = "/pb.Gojo/GetFullAnimeSeason"
 	Gojo_GetAllAnimeSerieMetas_FullMethodName     = "/pb.Gojo/GetAllAnimeSerieMetas"
 	Gojo_UpdateAnimeSerie_FullMethodName          = "/pb.Gojo/UpdateAnimeSerie"
+	Gojo_QueryAnimeSeason_FullMethodName          = "/pb.Gojo/QueryAnimeSeason"
 )
 
 // GojoClient is the client API for Gojo service.
@@ -116,11 +118,13 @@ type GojoClient interface {
 	CreateAnimeEpisode(ctx context.Context, in *aspb.CreateAnimeEpisodeRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeEpisodeResponse, error)
 	CreateAnimeEpisodeMetas(ctx context.Context, in *aspb.CreateAnimeEpisodeMetasRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeEpisodeMetasResponse, error)
 	CreateAnimeSerieData(ctx context.Context, in *aspb.CreateAnimeSerieDataRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieDataResponse, error)
+	CreateAnimeSeasonTitle(ctx context.Context, in *aspb.CreateAnimeSeasonTitleRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSeasonTitleResponse, error)
 	GetFullAnimeSerie(ctx context.Context, in *aspb.GetFullAnimeSerieRequest, opts ...grpc.CallOption) (*aspb.GetFullAnimeSerieResponse, error)
 	GetAllAnimeSeries(ctx context.Context, in *aspb.GetAllAnimeSeriesRequest, opts ...grpc.CallOption) (*aspb.GetAllAnimeSeriesResponse, error)
 	GetFullAnimeSeason(ctx context.Context, in *aspb.GetFullAnimeSeasonRequest, opts ...grpc.CallOption) (*aspb.GetFullAnimeSeasonResponse, error)
 	GetAllAnimeSerieMetas(ctx context.Context, in *aspb.GetAllAnimeSerieMetasRequest, opts ...grpc.CallOption) (*aspb.GetAllAnimeSerieMetasResponse, error)
 	UpdateAnimeSerie(ctx context.Context, in *aspb.UpdateAnimeSerieRequest, opts ...grpc.CallOption) (*aspb.UpdateAnimeSerieResponse, error)
+	QueryAnimeSeason(ctx context.Context, in *aspb.QueryAnimeSeasonRequest, opts ...grpc.CallOption) (*aspb.QueryAnimeSeasonResponse, error)
 }
 
 type gojoClient struct {
@@ -500,6 +504,15 @@ func (c *gojoClient) CreateAnimeSerieData(ctx context.Context, in *aspb.CreateAn
 	return out, nil
 }
 
+func (c *gojoClient) CreateAnimeSeasonTitle(ctx context.Context, in *aspb.CreateAnimeSeasonTitleRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSeasonTitleResponse, error) {
+	out := new(aspb.CreateAnimeSeasonTitleResponse)
+	err := c.cc.Invoke(ctx, Gojo_CreateAnimeSeasonTitle_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *gojoClient) GetFullAnimeSerie(ctx context.Context, in *aspb.GetFullAnimeSerieRequest, opts ...grpc.CallOption) (*aspb.GetFullAnimeSerieResponse, error) {
 	out := new(aspb.GetFullAnimeSerieResponse)
 	err := c.cc.Invoke(ctx, Gojo_GetFullAnimeSerie_FullMethodName, in, out, opts...)
@@ -539,6 +552,15 @@ func (c *gojoClient) GetAllAnimeSerieMetas(ctx context.Context, in *aspb.GetAllA
 func (c *gojoClient) UpdateAnimeSerie(ctx context.Context, in *aspb.UpdateAnimeSerieRequest, opts ...grpc.CallOption) (*aspb.UpdateAnimeSerieResponse, error) {
 	out := new(aspb.UpdateAnimeSerieResponse)
 	err := c.cc.Invoke(ctx, Gojo_UpdateAnimeSerie_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gojoClient) QueryAnimeSeason(ctx context.Context, in *aspb.QueryAnimeSeasonRequest, opts ...grpc.CallOption) (*aspb.QueryAnimeSeasonResponse, error) {
+	out := new(aspb.QueryAnimeSeasonResponse)
+	err := c.cc.Invoke(ctx, Gojo_QueryAnimeSeason_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -590,11 +612,13 @@ type GojoServer interface {
 	CreateAnimeEpisode(context.Context, *aspb.CreateAnimeEpisodeRequest) (*aspb.CreateAnimeEpisodeResponse, error)
 	CreateAnimeEpisodeMetas(context.Context, *aspb.CreateAnimeEpisodeMetasRequest) (*aspb.CreateAnimeEpisodeMetasResponse, error)
 	CreateAnimeSerieData(context.Context, *aspb.CreateAnimeSerieDataRequest) (*aspb.CreateAnimeSerieDataResponse, error)
+	CreateAnimeSeasonTitle(context.Context, *aspb.CreateAnimeSeasonTitleRequest) (*aspb.CreateAnimeSeasonTitleResponse, error)
 	GetFullAnimeSerie(context.Context, *aspb.GetFullAnimeSerieRequest) (*aspb.GetFullAnimeSerieResponse, error)
 	GetAllAnimeSeries(context.Context, *aspb.GetAllAnimeSeriesRequest) (*aspb.GetAllAnimeSeriesResponse, error)
 	GetFullAnimeSeason(context.Context, *aspb.GetFullAnimeSeasonRequest) (*aspb.GetFullAnimeSeasonResponse, error)
 	GetAllAnimeSerieMetas(context.Context, *aspb.GetAllAnimeSerieMetasRequest) (*aspb.GetAllAnimeSerieMetasResponse, error)
 	UpdateAnimeSerie(context.Context, *aspb.UpdateAnimeSerieRequest) (*aspb.UpdateAnimeSerieResponse, error)
+	QueryAnimeSeason(context.Context, *aspb.QueryAnimeSeasonRequest) (*aspb.QueryAnimeSeasonResponse, error)
 	mustEmbedUnimplementedGojoServer()
 }
 
@@ -725,6 +749,9 @@ func (UnimplementedGojoServer) CreateAnimeEpisodeMetas(context.Context, *aspb.Cr
 func (UnimplementedGojoServer) CreateAnimeSerieData(context.Context, *aspb.CreateAnimeSerieDataRequest) (*aspb.CreateAnimeSerieDataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSerieData not implemented")
 }
+func (UnimplementedGojoServer) CreateAnimeSeasonTitle(context.Context, *aspb.CreateAnimeSeasonTitleRequest) (*aspb.CreateAnimeSeasonTitleResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSeasonTitle not implemented")
+}
 func (UnimplementedGojoServer) GetFullAnimeSerie(context.Context, *aspb.GetFullAnimeSerieRequest) (*aspb.GetFullAnimeSerieResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFullAnimeSerie not implemented")
 }
@@ -739,6 +766,9 @@ func (UnimplementedGojoServer) GetAllAnimeSerieMetas(context.Context, *aspb.GetA
 }
 func (UnimplementedGojoServer) UpdateAnimeSerie(context.Context, *aspb.UpdateAnimeSerieRequest) (*aspb.UpdateAnimeSerieResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAnimeSerie not implemented")
+}
+func (UnimplementedGojoServer) QueryAnimeSeason(context.Context, *aspb.QueryAnimeSeasonRequest) (*aspb.QueryAnimeSeasonResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method QueryAnimeSeason not implemented")
 }
 func (UnimplementedGojoServer) mustEmbedUnimplementedGojoServer() {}
 
@@ -1491,6 +1521,24 @@ func _Gojo_CreateAnimeSerieData_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Gojo_CreateAnimeSeasonTitle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(aspb.CreateAnimeSeasonTitleRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).CreateAnimeSeasonTitle(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_CreateAnimeSeasonTitle_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).CreateAnimeSeasonTitle(ctx, req.(*aspb.CreateAnimeSeasonTitleRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Gojo_GetFullAnimeSerie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(aspb.GetFullAnimeSerieRequest)
 	if err := dec(in); err != nil {
@@ -1577,6 +1625,24 @@ func _Gojo_UpdateAnimeSerie_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(GojoServer).UpdateAnimeSerie(ctx, req.(*aspb.UpdateAnimeSerieRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Gojo_QueryAnimeSeason_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(aspb.QueryAnimeSeasonRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).QueryAnimeSeason(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_QueryAnimeSeason_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).QueryAnimeSeason(ctx, req.(*aspb.QueryAnimeSeasonRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1753,6 +1819,10 @@ var Gojo_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Gojo_CreateAnimeSerieData_Handler,
 		},
 		{
+			MethodName: "CreateAnimeSeasonTitle",
+			Handler:    _Gojo_CreateAnimeSeasonTitle_Handler,
+		},
+		{
 			MethodName: "GetFullAnimeSerie",
 			Handler:    _Gojo_GetFullAnimeSerie_Handler,
 		},
@@ -1771,6 +1841,10 @@ var Gojo_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateAnimeSerie",
 			Handler:    _Gojo_UpdateAnimeSerie_Handler,
+		},
+		{
+			MethodName: "QueryAnimeSeason",
+			Handler:    _Gojo_QueryAnimeSeason_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

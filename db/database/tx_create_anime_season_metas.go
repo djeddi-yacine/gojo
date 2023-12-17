@@ -63,6 +63,14 @@ func (gojo *SQLGojo) CreateAnimeSeasonMetasTx(ctx context.Context, arg CreateAni
 					LanguageID: m.LanguageID,
 				}
 
+				_, err = q.CreateAnimeSeasonTranslationTitle(ctx, CreateAnimeSeasonTranslationTitleParams{
+					SeasonID:  arg.SeasonID,
+					TitleText: meta.Title,
+				})
+				if err != nil {
+					ErrorSQL(err)
+					return err
+				}
 			}
 
 		} else {

@@ -12,6 +12,7 @@ sql:
       - "./db/sqlc/anime/movie/titles"
       - "./db/sqlc/anime/serie"
       - "./db/sqlc/anime/serie/info"
+      - "./db/sqlc/anime/serie/titles"
     schema: "./db/migration"
     strict_function_checks: true
     gen:
@@ -114,6 +115,12 @@ sql:
 
           ## add anime_movie_titles
           anime_movie_official_titles: "animeMovieOfficialTitle"
-          anime_movie_short_titles: "animeMoviShortTitle"
+          anime_movie_short_titles: "animeMovieShortTitle"
           anime_movie_translation_titles: "animeMovieTranslationTitle"
           anime_movie_other_titles: "animeMovieOtherTitle"
+
+          ## add anime_season_titles
+          anime_season_official_titles: "animeSeasonOfficialTitle"
+          anime_season_short_titles: "animeSeasonShortTitle"
+          anime_season_translation_titles: "animeSeasonTranslationTitle"
+          anime_season_other_titles: "animeSeasonOtherTitle"

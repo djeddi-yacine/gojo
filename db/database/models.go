@@ -240,6 +240,20 @@ type AnimeSeasonMeta struct {
 	CreatedAt  time.Time
 }
 
+type AnimeSeasonOfficialTitle struct {
+	ID        int64
+	SeasonID  int64
+	TitleText string
+	CreatedAt time.Time
+}
+
+type AnimeSeasonOtherTitle struct {
+	ID        int64
+	SeasonID  int64
+	TitleText string
+	CreatedAt time.Time
+}
+
 type AnimeSeasonPosterImage struct {
 	ID        int64
 	SeasonID  int64
@@ -253,6 +267,13 @@ type AnimeSeasonResource struct {
 	ResourceID int64
 }
 
+type AnimeSeasonShortTitle struct {
+	ID        int64
+	SeasonID  int64
+	TitleText string
+	CreatedAt time.Time
+}
+
 type AnimeSeasonStudio struct {
 	ID       int64
 	SeasonID int64
@@ -263,6 +284,13 @@ type AnimeSeasonTrailer struct {
 	ID        int64
 	SeasonID  int64
 	TrailerID int64
+	CreatedAt time.Time
+}
+
+type AnimeSeasonTranslationTitle struct {
+	ID        int64
+	SeasonID  int64
+	TitleText string
 	CreatedAt time.Time
 }
 
