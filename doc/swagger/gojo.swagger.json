@@ -2040,7 +2040,7 @@
           "type": "integer",
           "format": "int32"
         },
-        "autority": {
+        "authority": {
           "type": "string"
         },
         "referer": {
@@ -2065,7 +2065,7 @@
           "type": "integer",
           "format": "int32"
         },
-        "autority": {
+        "authority": {
           "type": "string"
         },
         "referer": {
@@ -2905,7 +2905,7 @@
           "type": "integer",
           "format": "int32"
         },
-        "autority": {
+        "authority": {
           "type": "string"
         },
         "referer": {
@@ -2930,7 +2930,7 @@
           "type": "integer",
           "format": "int32"
         },
-        "autority": {
+        "authority": {
           "type": "string"
         },
         "referer": {

@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-12-17T09:29:01.467Z
+-- Generated at: 2023-12-17T16:12:23.343Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -182,7 +182,7 @@ CREATE TABLE "anime_episode_servers" (
 CREATE TABLE "anime_serie_videos" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "language_id" integer NOT NULL,
-  "autority" varchar NOT NULL,
+  "authority" varchar NOT NULL,
   "referer" varchar NOT NULL,
   "link" varchar NOT NULL,
   "quality" varchar NOT NULL,
@@ -226,7 +226,7 @@ CREATE TABLE "anime_movie_server_dub_videos" (
 CREATE TABLE "anime_movie_videos" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "language_id" integer NOT NULL,
-  "autority" varchar NOT NULL,
+  "authority" varchar NOT NULL,
   "referer" varchar NOT NULL,
   "link" varchar NOT NULL,
   "quality" varchar NOT NULL,

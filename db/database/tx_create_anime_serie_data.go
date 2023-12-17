@@ -46,7 +46,7 @@ func (gojo *SQLGojo) CreateAnimeSerieDataTx(ctx context.Context, arg CreateAnime
 			for i, s := range arg.SubVideos {
 				videoArg = CreateAnimeSerieVideoParams{
 					LanguageID: s.LanguageID,
-					Autority:   s.Autority,
+					Authority:  s.Authority,
 					Referer:    s.Referer,
 					Link:       s.Link,
 					Quality:    s.Quality,
@@ -80,7 +80,7 @@ func (gojo *SQLGojo) CreateAnimeSerieDataTx(ctx context.Context, arg CreateAnime
 			for i, d := range arg.DubVideos {
 				videoArg = CreateAnimeSerieVideoParams{
 					LanguageID: d.LanguageID,
-					Autority:   d.Autority,
+					Authority:  d.Authority,
 					Referer:    d.Referer,
 					Link:       d.Link,
 					Quality:    d.Quality,

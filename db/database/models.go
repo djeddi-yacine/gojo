@@ -196,7 +196,7 @@ type AnimeMovieTranslationTitle struct {
 type AnimeMovieVideo struct {
 	ID         int64
 	LanguageID int32
-	Autority   string
+	Authority  string
 	Referer    string
 	Link       string
 	Quality    string
@@ -416,7 +416,7 @@ type AnimeSerieTrailer struct {
 type AnimeSerieVideo struct {
 	ID         int64
 	LanguageID int32
-	Autority   string
+	Authority  string
 	Referer    string
 	Link       string
 	Quality    string

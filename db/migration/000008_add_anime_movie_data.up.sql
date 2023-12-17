@@ -21,7 +21,7 @@ CREATE TABLE "anime_movie_server_dub_videos" (
 CREATE TABLE "anime_movie_videos" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "language_id" integer NOT NULL,
-  "autority" varchar NOT NULL,
+  "authority" varchar NOT NULL,
   "referer" varchar NOT NULL,
   "link" varchar NOT NULL,
   "quality" varchar NOT NULL,

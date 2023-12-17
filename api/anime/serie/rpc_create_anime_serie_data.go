@@ -32,7 +32,7 @@ func (server *AnimeSerieServer) CreateAnimeSerieData(ctx context.Context, req *a
 		DBSV = make([]db.CreateAnimeSerieVideoParams, len(req.GetSub().Videos))
 		for i, s := range req.GetSub().Videos {
 			DBSV[i].LanguageID = s.LanguageID
-			DBSV[i].Autority = s.Autority
+			DBSV[i].Authority = s.Authority
 			DBSV[i].Referer = s.Referer
 			DBSV[i].Link = s.Link
 			DBSV[i].Quality = s.Quality
@@ -44,7 +44,7 @@ func (server *AnimeSerieServer) CreateAnimeSerieData(ctx context.Context, req *a
 		DBDV = make([]db.CreateAnimeSerieVideoParams, len(req.GetDub().Videos))
 		for i, d := range req.GetDub().Videos {
 			DBDV[i].LanguageID = d.LanguageID
-			DBDV[i].Autority = d.Autority
+			DBDV[i].Authority = d.Authority
 			DBDV[i].Referer = d.Referer
 			DBDV[i].Link = d.Link
 			DBDV[i].Quality = d.Quality
@@ -126,8 +126,8 @@ func validateCreateAnimeSerieDataRequest(req *aspb.CreateAnimeSerieDataRequest) 
 						violations = append(violations, shared.FieldViolation("languageID", err))
 					}
 
-					if err := utils.ValidateURL(s.GetAutority(), ""); err != nil {
-						violations = append(violations, shared.FieldViolation("autority", err))
+					if err := utils.ValidateURL(s.GetAuthority(), ""); err != nil {
+						violations = append(violations, shared.FieldViolation("authority", err))
 					}
 
 					if err := utils.ValidateURL(s.GetReferer(), ""); err != nil {
@@ -193,8 +193,8 @@ func validateCreateAnimeSerieDataRequest(req *aspb.CreateAnimeSerieDataRequest) 
 						violations = append(violations, shared.FieldViolation("languageID", err))
 					}
 
-					if err := utils.ValidateURL(d.GetAutority(), ""); err != nil {
-						violations = append(violations, shared.FieldViolation("autority", err))
+					if err := utils.ValidateURL(d.GetAuthority(), ""); err != nil {
+						violations = append(violations, shared.FieldViolation("authority", err))
 					}
 
 					if err := utils.ValidateURL(d.GetReferer(), ""); err != nil {

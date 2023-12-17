@@ -1,5 +1,5 @@
 -- name: CreateAnimeMovieVideo :one
-INSERT INTO anime_movie_videos (language_id, autority, referer, link, quality)
+INSERT INTO anime_movie_videos (language_id, authority, referer, link, quality)
 VALUES ($1, $2, $3, $4, $5)
 RETURNING *;
 
@@ -12,7 +12,7 @@ LIMIT 1;
 UPDATE anime_movie_videos
 SET
     language_id = COALESCE(sqlc.narg(language_id), language_id),
-    autority = COALESCE(sqlc.narg(autority), autority),
+    authority = COALESCE(sqlc.narg(authority), authority),
     referer = COALESCE(sqlc.narg(referer), referer),
     link = COALESCE(sqlc.narg(link), link),
     quality = COALESCE(sqlc.narg(quality), quality)

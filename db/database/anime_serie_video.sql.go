@@ -12,14 +12,14 @@ import (
 )
 
 const createAnimeSerieVideo = `-- name: CreateAnimeSerieVideo :one
-INSERT INTO anime_serie_videos (language_id, autority, referer, link, quality)
+INSERT INTO anime_serie_videos (language_id, authority, referer, link, quality)
 VALUES ($1, $2, $3, $4, $5)
-RETURNING id, language_id, autority, referer, link, quality, created_at
+RETURNING id, language_id, authority, referer, link, quality, created_at
 `
 
 type CreateAnimeSerieVideoParams struct {
 	LanguageID int32
-	Autority   string
+	Authority  string
 	Referer    string
 	Link       string
 	Quality    string
@@ -28,7 +28,7 @@ type CreateAnimeSerieVideoParams struct {
 func (q *Queries) CreateAnimeSerieVideo(ctx context.Context, arg CreateAnimeSerieVideoParams) (AnimeSerieVideo, error) {
 	row := q.db.QueryRow(ctx, createAnimeSerieVideo,
 		arg.LanguageID,
-		arg.Autority,
+		arg.Authority,
 		arg.Referer,
 		arg.Link,
 		arg.Quality,
@@ -37,7 +37,7 @@ func (q *Queries) CreateAnimeSerieVideo(ctx context.Context, arg CreateAnimeSeri
 	err := row.Scan(
 		&i.ID,
 		&i.LanguageID,
-		&i.Autority,
+		&i.Authority,
 		&i.Referer,
 		&i.Link,
 		&i.Quality,
@@ -57,7 +57,7 @@ func (q *Queries) DeleteAnimeSerieVideo(ctx context.Context, id int64) error {
 }
 
 const getAnimeSerieVideo = `-- name: GetAnimeSerieVideo :one
-SELECT id, language_id, autority, referer, link, quality, created_at FROM anime_serie_videos
+SELECT id, language_id, authority, referer, link, quality, created_at FROM anime_serie_videos
 WHERE id = $1
 LIMIT 1
 `
@@ -68,7 +68,7 @@ func (q *Queries) GetAnimeSerieVideo(ctx context.Context, id int64) (AnimeSerieV
 	err := row.Scan(
 		&i.ID,
 		&i.LanguageID,
-		&i.Autority,
+		&i.Authority,
 		&i.Referer,
 		&i.Link,
 		&i.Quality,
@@ -78,7 +78,7 @@ func (q *Queries) GetAnimeSerieVideo(ctx context.Context, id int64) (AnimeSerieV
 }
 
 const listAnimeSerieVideos = `-- name: ListAnimeSerieVideos :many
-SELECT id, language_id, autority, referer, link, quality, created_at FROM anime_serie_videos
+SELECT id, language_id, authority, referer, link, quality, created_at FROM anime_serie_videos
 ORDER BY id
 LIMIT $1
 OFFSET $2
@@ -101,7 +101,7 @@ func (q *Queries) ListAnimeSerieVideos(ctx context.Context, arg ListAnimeSerieVi
 		if err := rows.Scan(
 			&i.ID,
 			&i.LanguageID,
-			&i.Autority,
+			&i.Authority,
 			&i.Referer,
 			&i.Link,
 			&i.Quality,
@@ -121,18 +121,18 @@ const updateAnimeSerieVideo = `-- name: UpdateAnimeSerieVideo :one
 UPDATE anime_serie_videos
 SET
     language_id = COALESCE($2, language_id),
-    autority = COALESCE($3, autority),
+    authority = COALESCE($3, authority),
     referer = COALESCE($4, referer),
     link = COALESCE($5, link),
     quality = COALESCE($6, quality)
 WHERE id = $1
-RETURNING id, language_id, autority, referer, link, quality, created_at
+RETURNING id, language_id, authority, referer, link, quality, created_at
 `
 
 type UpdateAnimeSerieVideoParams struct {
 	ID         int64
 	LanguageID pgtype.Int4
-	Autority   pgtype.Text
+	Authority  pgtype.Text
 	Referer    pgtype.Text
 	Link       pgtype.Text
 	Quality    pgtype.Text
@@ -142,7 +142,7 @@ func (q *Queries) UpdateAnimeSerieVideo(ctx context.Context, arg UpdateAnimeSeri
 	row := q.db.QueryRow(ctx, updateAnimeSerieVideo,
 		arg.ID,
 		arg.LanguageID,
-		arg.Autority,
+		arg.Authority,
 		arg.Referer,
 		arg.Link,
 		arg.Quality,
@@ -151,7 +151,7 @@ func (q *Queries) UpdateAnimeSerieVideo(ctx context.Context, arg UpdateAnimeSeri
 	err := row.Scan(
 		&i.ID,
 		&i.LanguageID,
-		&i.Autority,
+		&i.Authority,
 		&i.Referer,
 		&i.Link,
 		&i.Quality,

@@ -7,7 +7,7 @@ CREATE TABLE "anime_episode_servers" (
 CREATE TABLE "anime_serie_videos" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "language_id" integer NOT NULL,
-  "autority" varchar NOT NULL,
+  "authority" varchar NOT NULL,
   "referer" varchar NOT NULL,
   "link" varchar NOT NULL,
   "quality" varchar NOT NULL,

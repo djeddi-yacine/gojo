@@ -178,7 +178,7 @@ func ConvertAnimeMovieVideos(amv []db.AnimeMovieVideo) []*ampb.AnimeMovieVideoRe
 			Videos[i] = &ampb.AnimeMovieVideoResponse{
 				ID:         v.ID,
 				LanguageID: v.LanguageID,
-				Autority:   v.Autority,
+				Authority:  v.Authority,
 				Referer:    v.Referer,
 				Link:       v.Link,
 				Quality:    v.Quality,
@@ -225,7 +225,7 @@ func ConvertAnimeSerieVideos(asv []db.AnimeSerieVideo) []*aspb.AnimeSerieVideoRe
 			Videos[i] = &aspb.AnimeSerieVideoResponse{
 				ID:         v.ID,
 				LanguageID: v.LanguageID,
-				Autority:   v.Autority,
+				Authority:  v.Authority,
 				Referer:    v.Referer,
 				Link:       v.Link,
 				Quality:    v.Quality,
