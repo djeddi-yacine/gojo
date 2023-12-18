@@ -23,6 +23,7 @@ import "ampb/rpc_create_anime_movie_server.proto";
 import "ampb/rpc_create_anime_movie_info.proto";
 import "ampb/rpc_create_anime_movie_data.proto";
 import "ampb/rpc_create_anime_movie_title.proto";
+import "ampb/rpc_create_anime_movie_tag.proto";
 import "ampb/rpc_get_all_anime_movie_metas.proto";
 import "ampb/rpc_get_all_anime_movies.proto";
 import "ampb/rpc_get_full_anime_movie.proto";
@@ -46,6 +47,7 @@ import "aspb/rpc_create_anime_season_trailer.proto";
 import "aspb/rpc_create_anime_season_info.proto";
 import "aspb/rpc_create_anime_season_metas.proto";
 import "aspb/rpc_create_anime_season_title.proto";
+import "aspb/rpc_create_anime_season_tag.proto";
 import "aspb/rpc_create_anime_episode_metas.proto";
 import "aspb/rpc_create_anime_episode.proto";
 
@@ -72,7 +74,7 @@ option go_package = "github.com/dj-yacine-flutter/gojo/pb";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info : {
     title : "Gojo API";
-    version : "2.6";
+    version : "2.7";
     contact : {
       name: "Dj Yacine";
       url:  "https://github.com/dj-yacine-flutter/gojo";
@@ -285,16 +287,6 @@ service Gojo {
       summary:  "Create new anime movie titles";
     };
   }
-  rpc UpdateAnimeMovie(ampb.UpdateAnimeMovieRequest) returns (ampb.UpdateAnimeMovieResponse) {
-    option (google.api.http) = {
-      patch : "/v1/anime/movie/update"
-      body : "*"
-    };
-    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-      description : "Use this API to update all anime movie fields using the ID";
-      summary: "Update anime movie";
-    };
-  }
   rpc CreateAnimeMovieServer(ampb.CreateAnimeMovieServerRequest) returns (ampb.CreateAnimeMovieServerResponse) {
     option (google.api.http) = {
       post : "/v1/anime/movie/server/create"
@@ -313,6 +305,26 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to add a new anime movie data";
       summary:  "add new anime movie data";
+    };
+  }
+  rpc CreateAnimeMovieTag(ampb.CreateAnimeMovieTagRequest) returns (ampb.CreateAnimeMovieTagResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/movie/tag/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to add a new anime movie tags";
+      summary:  "add new anime movie tags";
+    };
+  }
+  rpc UpdateAnimeMovie(ampb.UpdateAnimeMovieRequest) returns (ampb.UpdateAnimeMovieResponse) {
+    option (google.api.http) = {
+      patch : "/v1/anime/movie/update"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to update all anime movie fields using the ID";
+      summary: "Update anime movie";
     };
   }
   rpc GetAllAnimeMovies(ampb.GetAllAnimeMoviesRequest) returns (ampb.GetAllAnimeMoviesResponse) {
@@ -517,6 +529,16 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
       description : "Use this API to create a new anime season titles";
       summary:  "Create new anime season titles";
+    };
+  }
+  rpc CreateAnimeSeasonTag(aspb.CreateAnimeSeasonTagRequest) returns (aspb.CreateAnimeSeasonTagResponse) {
+    option (google.api.http) = {
+      post : "/v1/anime/serie/season/tag/create"
+      body : "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description : "Use this API to create a new anime season tags";
+      summary:  "Create new anime season tags";
     };
   }
   rpc GetFullAnimeSerie(aspb.GetFullAnimeSerieRequest) returns (aspb.GetFullAnimeSerieResponse) {

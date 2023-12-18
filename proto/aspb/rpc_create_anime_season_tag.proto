@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package aspb;
+
+import "aspb/anime_season.proto";
+import "aspb/tag.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
+
+message CreateAnimeSeasonTagRequest {
+    int64 seasonID = 1;
+    repeated string seasonTags = 2;
+}
+
+message CreateAnimeSeasonTagResponse {
+    AnimeSeasonResponse animeSeason = 1;
+    repeated AnimeSeasonTag seasonTags = 2;
+}
