@@ -195,6 +195,36 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		res.AnimeLinks = shared.ConvertAnimeLink(animeLink)
 	}
 
+	animeTagIDs, err := server.gojo.ListAnimeMovieTags(ctx, req.AnimeID)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get anime movie tags IDs", err)
+	}
+
+	var animeTags []db.AnimeTag
+	if len(animeTagIDs) > 0 {
+		animeTags = make([]db.AnimeTag, len(animeTagIDs))
+
+		for i, t := range animeTagIDs {
+			tag, err := server.gojo.GetAnimeTag(ctx, t.TagID)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot get anime movie tag", err)
+			}
+			animeTags[i] = tag
+		}
+	}
+
+	if len(animeTags) > 0 {
+		res.AnimeTags = make([]*ampb.AnimeMovieTag, len(animeTags))
+
+		for i, t := range animeTags {
+			res.AnimeTags[i] = &ampb.AnimeMovieTag{
+				ID:        t.ID,
+				Tag:       t.Tag,
+				CreatedAt: timestamppb.New(t.CreatedAt),
+			}
+		}
+	}
+
 	animePosterIDs, err := server.gojo.ListAnimeMoviePosterImages(ctx, req.AnimeID)
 	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 		return nil, shared.DatabaseError("cannot get anime movie posters images IDs", err)

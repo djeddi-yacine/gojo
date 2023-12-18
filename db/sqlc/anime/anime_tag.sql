@@ -7,6 +7,10 @@ RETURNING  *;
 SELECT * FROM anime_tags
 WHERE id = $1 LIMIT 1;
 
+-- name: GetAnimeTagByTag :one
+SELECT * FROM anime_tags
+WHERE tag = $1 LIMIT 1;
+
 -- name: UpdateAnimeTag :one
 UPDATE anime_tags
 SET

@@ -181,6 +181,7 @@ type Querier interface {
 	GetAnimeSerieTorrent(ctx context.Context, id int64) (AnimeSerieTorrent, error)
 	GetAnimeSerieVideo(ctx context.Context, id int64) (AnimeSerieVideo, error)
 	GetAnimeTag(ctx context.Context, id int64) (AnimeTag, error)
+	GetAnimeTagByTag(ctx context.Context, tag string) (AnimeTag, error)
 	GetAnimeTrailer(ctx context.Context, id int64) (AnimeTrailer, error)
 	GetGenre(ctx context.Context, id int32) (Genre, error)
 	GetLanguage(ctx context.Context, id int32) (Language, error)

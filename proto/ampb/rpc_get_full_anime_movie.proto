@@ -4,6 +4,7 @@ package ampb;
 
 import "ampb/anime_movie.proto";
 import "ampb/server.proto";
+import "ampb/tag.proto";
 import "nfpb/meta.proto";
 import "nfpb/genre.proto";
 import "nfpb/studio.proto";
@@ -26,9 +27,10 @@ message GetFullAnimeMovieResponse {
     nfpb.AnimeGenresResponse animeGenres = 4;
     nfpb.AnimeStudiosResponse animeStudios = 5;
     shpb.AnimeLinkResponse animeLinks = 6;
-    shpb.AnimeImageResponse animeImages = 7;
-    repeated shpb.AnimeTrailerResponse animeTrailers = 8;
-    int64 serverID = 9;
-    AnimeMovieSubDataResponse sub = 10;
-    AnimeMovieDubDataResponse dub = 11;
+    repeated AnimeMovieTag animeTags = 7;
+    shpb.AnimeImageResponse animeImages = 8;
+    repeated shpb.AnimeTrailerResponse animeTrailers = 9;
+    int64 serverID = 10;
+    AnimeMovieSubDataResponse sub = 11;
+    AnimeMovieDubDataResponse dub = 12;
 }

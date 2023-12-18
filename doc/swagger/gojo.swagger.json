@@ -2509,6 +2509,13 @@
         "animeLinks": {
           "$ref": "#/definitions/shpbAnimeLinkResponse"
         },
+        "animeTags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbAnimeMovieTag"
+          }
+        },
         "animeImages": {
           "$ref": "#/definitions/shpbAnimeImageResponse"
         },

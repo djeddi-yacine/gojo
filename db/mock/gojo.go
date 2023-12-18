@@ -501,6 +501,21 @@ func (mr *MockGojoMockRecorder) CreateAnimeMovieTag(arg0, arg1 interface{}) *gom
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeMovieTag", reflect.TypeOf((*MockGojo)(nil).CreateAnimeMovieTag), arg0, arg1)
 }
 
+// CreateAnimeMovieTagTx mocks base method.
+func (m *MockGojo) CreateAnimeMovieTagTx(arg0 context.Context, arg1 db.CreateAnimeMovieTagTxParams) (db.CreateAnimeMovieTagTxResult, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateAnimeMovieTagTx", arg0, arg1)
+	ret0, _ := ret[0].(db.CreateAnimeMovieTagTxResult)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateAnimeMovieTagTx indicates an expected call of CreateAnimeMovieTagTx.
+func (mr *MockGojoMockRecorder) CreateAnimeMovieTagTx(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeMovieTagTx", reflect.TypeOf((*MockGojo)(nil).CreateAnimeMovieTagTx), arg0, arg1)
+}
+
 // CreateAnimeMovieTitleTx mocks base method.
 func (m *MockGojo) CreateAnimeMovieTitleTx(arg0 context.Context, arg1 db.CreateAnimeMovieTitleTxParams) (db.CreateAnimeMovieTitleTxResult, error) {
 	m.ctrl.T.Helper()
@@ -2942,6 +2957,21 @@ func (m *MockGojo) GetAnimeTag(arg0 context.Context, arg1 int64) (db.AnimeTag, e
 func (mr *MockGojoMockRecorder) GetAnimeTag(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeTag", reflect.TypeOf((*MockGojo)(nil).GetAnimeTag), arg0, arg1)
+}
+
+// GetAnimeTagByTag mocks base method.
+func (m *MockGojo) GetAnimeTagByTag(arg0 context.Context, arg1 string) (db.AnimeTag, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeTagByTag", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeTag)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeTagByTag indicates an expected call of GetAnimeTagByTag.
+func (mr *MockGojoMockRecorder) GetAnimeTagByTag(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeTagByTag", reflect.TypeOf((*MockGojo)(nil).GetAnimeTagByTag), arg0, arg1)
 }
 
 // GetAnimeTrailer mocks base method.

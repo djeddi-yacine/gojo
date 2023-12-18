@@ -46,6 +46,18 @@ func (q *Queries) GetAnimeTag(ctx context.Context, id int64) (AnimeTag, error) {
 	return i, err
 }
 
+const getAnimeTagByTag = `-- name: GetAnimeTagByTag :one
+SELECT id, tag, created_at FROM anime_tags
+WHERE tag = $1 LIMIT 1
+`
+
+func (q *Queries) GetAnimeTagByTag(ctx context.Context, tag string) (AnimeTag, error) {
+	row := q.db.QueryRow(ctx, getAnimeTagByTag, tag)
+	var i AnimeTag
+	err := row.Scan(&i.ID, &i.Tag, &i.CreatedAt)
+	return i, err
+}
+
 const updateAnimeTag = `-- name: UpdateAnimeTag :one
 UPDATE anime_tags
 SET
