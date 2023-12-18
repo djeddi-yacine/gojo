@@ -165,6 +165,13 @@ type AnimeMovieStudio struct {
 	StudioID int32
 }
 
+type AnimeMovieTag struct {
+	ID        int64
+	AnimeID   int64
+	TagID     int64
+	CreatedAt time.Time
+}
+
 type AnimeMovieTorrent struct {
 	ID          int64
 	FileName    string
@@ -278,6 +285,13 @@ type AnimeSeasonStudio struct {
 	ID       int64
 	SeasonID int64
 	StudioID int32
+}
+
+type AnimeSeasonTag struct {
+	ID        int64
+	SeasonID  int64
+	TagID     int64
+	CreatedAt time.Time
 }
 
 type AnimeSeasonTrailer struct {
@@ -421,6 +435,12 @@ type AnimeSerieVideo struct {
 	Link       string
 	Quality    string
 	CreatedAt  time.Time
+}
+
+type AnimeTag struct {
+	ID        int64
+	Tag       string
+	CreatedAt time.Time
 }
 
 type AnimeTrailer struct {

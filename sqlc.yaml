@@ -8,11 +8,16 @@ sql:
       - "./db/sqlc/info"
       - "./db/sqlc/anime/"
       - "./db/sqlc/anime/movie"
+      - "./db/sqlc/anime/movie/data"
       - "./db/sqlc/anime/movie/info"
       - "./db/sqlc/anime/movie/titles"
       - "./db/sqlc/anime/serie"
       - "./db/sqlc/anime/serie/info"
-      - "./db/sqlc/anime/serie/titles"
+      - "./db/sqlc/anime/serie/season"
+      - "./db/sqlc/anime/serie/episode"
+      - "./db/sqlc/anime/serie/season/titles"
+      - "./db/sqlc/anime/serie/season/data"
+
     schema: "./db/migration"
     strict_function_checks: true
     gen:
@@ -124,3 +129,8 @@ sql:
           anime_season_short_titles: "animeSeasonShortTitle"
           anime_season_translation_titles: "animeSeasonTranslationTitle"
           anime_season_other_titles: "animeSeasonOtherTitle"
+
+          ## add anime_tags
+          anime_tags: "animeTag"
+          anime_movie_tags: "animeMovieTag"
+          anime_season_tags: "animeSeasonTag"

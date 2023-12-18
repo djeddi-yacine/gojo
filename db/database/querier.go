@@ -33,6 +33,7 @@ type Querier interface {
 	CreateAnimeMovieServerSubVideo(ctx context.Context, arg CreateAnimeMovieServerSubVideoParams) (AnimeMovieServerSubVideo, error)
 	CreateAnimeMovieShortTitle(ctx context.Context, arg CreateAnimeMovieShortTitleParams) (AnimeMovieShortTitle, error)
 	CreateAnimeMovieStudio(ctx context.Context, arg CreateAnimeMovieStudioParams) (AnimeMovieStudio, error)
+	CreateAnimeMovieTag(ctx context.Context, arg CreateAnimeMovieTagParams) (AnimeMovieTag, error)
 	CreateAnimeMovieTorrent(ctx context.Context, arg CreateAnimeMovieTorrentParams) (AnimeMovieTorrent, error)
 	CreateAnimeMovieTrailer(ctx context.Context, arg CreateAnimeMovieTrailerParams) (AnimeMovieTrailer, error)
 	CreateAnimeMovieTranslationTitle(ctx context.Context, arg CreateAnimeMovieTranslationTitleParams) (AnimeMovieTranslationTitle, error)
@@ -48,6 +49,7 @@ type Querier interface {
 	CreateAnimeSeasonResource(ctx context.Context, arg CreateAnimeSeasonResourceParams) (AnimeSeasonResource, error)
 	CreateAnimeSeasonShortTitle(ctx context.Context, arg CreateAnimeSeasonShortTitleParams) (AnimeSeasonShortTitle, error)
 	CreateAnimeSeasonStudio(ctx context.Context, arg CreateAnimeSeasonStudioParams) (AnimeSeasonStudio, error)
+	CreateAnimeSeasonTag(ctx context.Context, arg CreateAnimeSeasonTagParams) (AnimeSeasonTag, error)
 	CreateAnimeSeasonTrailer(ctx context.Context, arg CreateAnimeSeasonTrailerParams) (AnimeSeasonTrailer, error)
 	CreateAnimeSeasonTranslationTitle(ctx context.Context, arg CreateAnimeSeasonTranslationTitleParams) (AnimeSeasonTranslationTitle, error)
 	CreateAnimeSerie(ctx context.Context, arg CreateAnimeSerieParams) (AnimeSerie, error)
@@ -63,6 +65,7 @@ type Querier interface {
 	CreateAnimeSerieTorrent(ctx context.Context, arg CreateAnimeSerieTorrentParams) (AnimeSerieTorrent, error)
 	CreateAnimeSerieTrailer(ctx context.Context, arg CreateAnimeSerieTrailerParams) (AnimeSerieTrailer, error)
 	CreateAnimeSerieVideo(ctx context.Context, arg CreateAnimeSerieVideoParams) (AnimeSerieVideo, error)
+	CreateAnimeTag(ctx context.Context, tag string) (AnimeTag, error)
 	CreateAnimeTrailer(ctx context.Context, arg CreateAnimeTrailerParams) (AnimeTrailer, error)
 	CreateGenre(ctx context.Context, genreName string) (Genre, error)
 	CreateLanguage(ctx context.Context, arg CreateLanguageParams) (Language, error)
@@ -93,6 +96,7 @@ type Querier interface {
 	DeleteAnimeMovieServerSubVideo(ctx context.Context, id int64) error
 	DeleteAnimeMovieShortTitle(ctx context.Context, id int64) error
 	DeleteAnimeMovieStudio(ctx context.Context, arg DeleteAnimeMovieStudioParams) error
+	DeleteAnimeMovieTag(ctx context.Context, arg DeleteAnimeMovieTagParams) error
 	DeleteAnimeMovieTorrent(ctx context.Context, id int64) error
 	DeleteAnimeMovieTrailer(ctx context.Context, arg DeleteAnimeMovieTrailerParams) error
 	DeleteAnimeMovieTranslationTitle(ctx context.Context, id int64) error
@@ -108,6 +112,7 @@ type Querier interface {
 	DeleteAnimeSeasonResource(ctx context.Context, arg DeleteAnimeSeasonResourceParams) error
 	DeleteAnimeSeasonShortTitle(ctx context.Context, id int64) error
 	DeleteAnimeSeasonStudio(ctx context.Context, arg DeleteAnimeSeasonStudioParams) error
+	DeleteAnimeSeasonTag(ctx context.Context, arg DeleteAnimeSeasonTagParams) error
 	DeleteAnimeSeasonTrailer(ctx context.Context, arg DeleteAnimeSeasonTrailerParams) error
 	DeleteAnimeSeasonTranslationTitle(ctx context.Context, id int64) error
 	DeleteAnimeSerie(ctx context.Context, id int64) error
@@ -123,6 +128,7 @@ type Querier interface {
 	DeleteAnimeSerieTorrent(ctx context.Context, id int64) error
 	DeleteAnimeSerieTrailer(ctx context.Context, arg DeleteAnimeSerieTrailerParams) error
 	DeleteAnimeSerieVideo(ctx context.Context, id int64) error
+	DeleteAnimeTag(ctx context.Context, id int64) error
 	DeleteAnimeTrailer(ctx context.Context, id int64) error
 	DeleteGenre(ctx context.Context, id int32) error
 	DeleteLanguage(ctx context.Context, id int32) error
@@ -174,6 +180,7 @@ type Querier interface {
 	GetAnimeSerieServerSubVideo(ctx context.Context, id int64) (AnimeSerieServerSubVideo, error)
 	GetAnimeSerieTorrent(ctx context.Context, id int64) (AnimeSerieTorrent, error)
 	GetAnimeSerieVideo(ctx context.Context, id int64) (AnimeSerieVideo, error)
+	GetAnimeTag(ctx context.Context, id int64) (AnimeTag, error)
 	GetAnimeTrailer(ctx context.Context, id int64) (AnimeTrailer, error)
 	GetGenre(ctx context.Context, id int32) (Genre, error)
 	GetLanguage(ctx context.Context, id int32) (Language, error)
@@ -197,6 +204,7 @@ type Querier interface {
 	ListAnimeMovieServerSubVideos(ctx context.Context, serverID int64) ([]AnimeMovieServerSubVideo, error)
 	ListAnimeMovieServers(ctx context.Context, arg ListAnimeMovieServersParams) ([]AnimeMovieServer, error)
 	ListAnimeMovieStudios(ctx context.Context, animeID int64) ([]int32, error)
+	ListAnimeMovieTags(ctx context.Context, animeID int64) ([]AnimeMovieTag, error)
 	ListAnimeMovieTorrents(ctx context.Context, arg ListAnimeMovieTorrentsParams) ([]AnimeMovieTorrent, error)
 	ListAnimeMovieTrailers(ctx context.Context, animeID int64) ([]AnimeMovieTrailer, error)
 	ListAnimeMovieVideos(ctx context.Context, arg ListAnimeMovieVideosParams) ([]AnimeMovieVideo, error)
@@ -206,6 +214,7 @@ type Querier interface {
 	ListAnimeSeasonMetasBySeason(ctx context.Context, arg ListAnimeSeasonMetasBySeasonParams) ([]AnimeSeasonMeta, error)
 	ListAnimeSeasonPosterImages(ctx context.Context, seasonID int64) ([]int64, error)
 	ListAnimeSeasonStudios(ctx context.Context, seasonID int64) ([]int32, error)
+	ListAnimeSeasonTags(ctx context.Context, seasonID int64) ([]AnimeSeasonTag, error)
 	ListAnimeSeasonTrailers(ctx context.Context, seasonID int64) ([]AnimeSeasonTrailer, error)
 	ListAnimeSeasonsByAnimeID(ctx context.Context, arg ListAnimeSeasonsByAnimeIDParams) ([]AnimeSerieSeason, error)
 	ListAnimeSerieBackdropImages(ctx context.Context, animeID int64) ([]int64, error)
@@ -259,6 +268,7 @@ type Querier interface {
 	UpdateAnimeSerieServerSubVideo(ctx context.Context, arg UpdateAnimeSerieServerSubVideoParams) (AnimeSerieServerSubVideo, error)
 	UpdateAnimeSerieTorrent(ctx context.Context, arg UpdateAnimeSerieTorrentParams) (AnimeSerieTorrent, error)
 	UpdateAnimeSerieVideo(ctx context.Context, arg UpdateAnimeSerieVideoParams) (AnimeSerieVideo, error)
+	UpdateAnimeTag(ctx context.Context, arg UpdateAnimeTagParams) (AnimeTag, error)
 	UpdateAnimeTrailer(ctx context.Context, arg UpdateAnimeTrailerParams) (AnimeTrailer, error)
 	UpdateGenre(ctx context.Context, arg UpdateGenreParams) (Genre, error)
 	UpdateLanguage(ctx context.Context, arg UpdateLanguageParams) (Language, error)
