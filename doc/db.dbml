@@ -720,6 +720,39 @@ Table anime_season_other_titles {
     }
 }
 
+Table anime_tags {
+  id bigserial [primary key, unique, increment, not null]
+  tag  varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (tag) [unique]
+    }
+}
+
+Table anime_movie_tags {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  tag_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, tag_id) [unique]
+    }
+}
+
+Table anime_season_tags {
+  id bigserial [primary key, unique, increment, not null]
+  season_id bigserial [not null]
+  tag_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (season_id, tag_id) [unique]
+    }
+}
+
+
 
 Ref {
   users.username - sessions.username [delete: cascade]
@@ -771,6 +804,9 @@ Ref {
 }
 Ref {
   anime_movies.id - anime_movie_other_titles.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_tags.anime_id [delete: cascade]
 }
 
 
@@ -928,6 +964,9 @@ Ref {
 Ref {
   anime_serie_seasons.id - anime_season_other_titles.season_id [delete: cascade]
 }
+Ref {
+  anime_serie_seasons.id - anime_season_tags.season_id [delete: cascade]
+}
 
 
 
@@ -1025,4 +1064,11 @@ Ref {
   anime_trailers.id - anime_season_trailers.trailer_id [delete: cascade]
 }
 
-Ref: "anime_movie_translation_titles"."anime_id" < "anime_resources"."anisearch_id"
+
+
+Ref {
+  anime_tags.id - anime_movie_tags.tag_id [delete: cascade]
+}
+Ref {
+  anime_tags.id - anime_season_tags.tag_id [delete: cascade]
+}
