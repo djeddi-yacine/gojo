@@ -28,7 +28,9 @@ func (server *AnimeMovieServer) QueryAnimeMovie(ctx context.Context, req *ampb.Q
 	}
 
 	arg := db.QueryAnimeMovieTxParams{
-		Query: req.GetQuery(),
+		Query:  req.GetQuery(),
+		Limit:  req.GetPageSize(),
+		Offset: (req.GetPageNumber() - 1) * req.GetPageSize(),
 	}
 
 	data, err := server.gojo.QueryAnimeMovieTx(ctx, arg)
@@ -50,6 +52,14 @@ func (server *AnimeMovieServer) QueryAnimeMovie(ctx context.Context, req *ampb.Q
 func validateQueryAnimeMovieRequest(req *ampb.QueryAnimeMovieRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateString(req.GetQuery(), 1, 150); err != nil {
 		violations = append(violations, shared.FieldViolation("query", err))
+	}
+
+	if err := utils.ValidateInt(int64(req.GetPageNumber())); err != nil {
+		violations = append(violations, shared.FieldViolation("pageNumber", err))
+	}
+
+	if err := utils.ValidateInt(int64(req.GetPageSize())); err != nil {
+		violations = append(violations, shared.FieldViolation("pageSize", err))
 	}
 
 	return violations

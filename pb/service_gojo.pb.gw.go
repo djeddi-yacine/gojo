@@ -969,6 +969,10 @@ func local_request_Gojo_GetFullAnimeMovie_0(ctx context.Context, marshaler runti
 
 }
 
+var (
+	filter_Gojo_QueryAnimeMovie_0 = &utilities.DoubleArray{Encoding: map[string]int{"query": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
 func request_Gojo_QueryAnimeMovie_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq ampb.QueryAnimeMovieRequest
 	var metadata runtime.ServerMetadata
@@ -988,6 +992,13 @@ func request_Gojo_QueryAnimeMovie_0(ctx context.Context, marshaler runtime.Marsh
 	protoReq.Query, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "query", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_QueryAnimeMovie_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.QueryAnimeMovie(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1014,6 +1025,13 @@ func local_request_Gojo_QueryAnimeMovie_0(ctx context.Context, marshaler runtime
 	protoReq.Query, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "query", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_QueryAnimeMovie_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.QueryAnimeMovie(ctx, &protoReq)
@@ -1847,6 +1865,10 @@ func local_request_Gojo_UpdateAnimeSerie_0(ctx context.Context, marshaler runtim
 
 }
 
+var (
+	filter_Gojo_QueryAnimeSeason_0 = &utilities.DoubleArray{Encoding: map[string]int{"query": 0}, Base: []int{1, 2, 0, 0}, Check: []int{0, 1, 2, 2}}
+)
+
 func request_Gojo_QueryAnimeSeason_0(ctx context.Context, marshaler runtime.Marshaler, client GojoClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
 	var protoReq aspb.QueryAnimeSeasonRequest
 	var metadata runtime.ServerMetadata
@@ -1866,6 +1888,13 @@ func request_Gojo_QueryAnimeSeason_0(ctx context.Context, marshaler runtime.Mars
 	protoReq.Query, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "query", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_QueryAnimeSeason_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := client.QueryAnimeSeason(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
@@ -1892,6 +1921,13 @@ func local_request_Gojo_QueryAnimeSeason_0(ctx context.Context, marshaler runtim
 	protoReq.Query, err = runtime.String(val)
 	if err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "query", err)
+	}
+
+	if err := req.ParseForm(); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Gojo_QueryAnimeSeason_0); err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
 	msg, err := server.QueryAnimeSeason(ctx, &protoReq)

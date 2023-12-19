@@ -3770,7 +3770,7 @@ func (mr *MockGojoMockRecorder) ListUsers(arg0, arg1 interface{}) *gomock.Call {
 }
 
 // QueryAnimeMovieOfficialTitles mocks base method.
-func (m *MockGojo) QueryAnimeMovieOfficialTitles(arg0 context.Context, arg1 string) ([]int64, error) {
+func (m *MockGojo) QueryAnimeMovieOfficialTitles(arg0 context.Context, arg1 db.QueryAnimeMovieOfficialTitlesParams) ([]int64, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "QueryAnimeMovieOfficialTitles", arg0, arg1)
 	ret0, _ := ret[0].([]int64)
@@ -3785,7 +3785,7 @@ func (mr *MockGojoMockRecorder) QueryAnimeMovieOfficialTitles(arg0, arg1 interfa
 }
 
 // QueryAnimeMovieOtherTitles mocks base method.
-func (m *MockGojo) QueryAnimeMovieOtherTitles(arg0 context.Context, arg1 string) ([]int64, error) {
+func (m *MockGojo) QueryAnimeMovieOtherTitles(arg0 context.Context, arg1 db.QueryAnimeMovieOtherTitlesParams) ([]int64, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "QueryAnimeMovieOtherTitles", arg0, arg1)
 	ret0, _ := ret[0].([]int64)
@@ -3800,7 +3800,7 @@ func (mr *MockGojoMockRecorder) QueryAnimeMovieOtherTitles(arg0, arg1 interface{
 }
 
 // QueryAnimeMovieShortTitles mocks base method.
-func (m *MockGojo) QueryAnimeMovieShortTitles(arg0 context.Context, arg1 string) ([]int64, error) {
+func (m *MockGojo) QueryAnimeMovieShortTitles(arg0 context.Context, arg1 db.QueryAnimeMovieShortTitlesParams) ([]int64, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "QueryAnimeMovieShortTitles", arg0, arg1)
 	ret0, _ := ret[0].([]int64)
@@ -3815,7 +3815,7 @@ func (mr *MockGojoMockRecorder) QueryAnimeMovieShortTitles(arg0, arg1 interface{
 }
 
 // QueryAnimeMovieTranslationTitles mocks base method.
-func (m *MockGojo) QueryAnimeMovieTranslationTitles(arg0 context.Context, arg1 string) ([]int64, error) {
+func (m *MockGojo) QueryAnimeMovieTranslationTitles(arg0 context.Context, arg1 db.QueryAnimeMovieTranslationTitlesParams) ([]int64, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "QueryAnimeMovieTranslationTitles", arg0, arg1)
 	ret0, _ := ret[0].([]int64)

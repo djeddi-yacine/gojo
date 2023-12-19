@@ -8,7 +8,9 @@ import (
 )
 
 type QueryAnimeMovieTxParams struct {
-	Query string
+	Query  string
+	Limit  int32
+	Offset int32
 }
 
 type QueryAnimeMovieTxResult struct {
@@ -20,10 +22,13 @@ func (gojo *SQLGojo) QueryAnimeMovieTx(ctx context.Context, arg QueryAnimeMovieT
 
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
-
 		var animeMovieIDs []int64
 
-		animeOfficialResults, err := q.QueryAnimeMovieOfficialTitles(ctx, arg.Query)
+		animeOfficialResults, err := q.QueryAnimeMovieOfficialTitles(ctx, QueryAnimeMovieOfficialTitlesParams{
+			Column1: arg.Query,
+			Limit:   arg.Limit,
+			Offset:  arg.Offset,
+		})
 		if err != nil {
 			ErrorSQL(err)
 			return err
@@ -33,7 +38,11 @@ func (gojo *SQLGojo) QueryAnimeMovieTx(ctx context.Context, arg QueryAnimeMovieT
 			animeMovieIDs = append(animeMovieIDs, animeOfficialResults...)
 		}
 
-		animeShortResults, err := q.QueryAnimeMovieShortTitles(ctx, arg.Query)
+		animeShortResults, err := q.QueryAnimeMovieShortTitles(ctx, QueryAnimeMovieShortTitlesParams{
+			Column1: arg.Query,
+			Limit:   arg.Limit,
+			Offset:  arg.Offset,
+		})
 		if err != nil {
 			ErrorSQL(err)
 			return err
@@ -43,7 +52,11 @@ func (gojo *SQLGojo) QueryAnimeMovieTx(ctx context.Context, arg QueryAnimeMovieT
 			animeMovieIDs = append(animeMovieIDs, animeShortResults...)
 		}
 
-		animeOtherResults, err := q.QueryAnimeMovieOtherTitles(ctx, arg.Query)
+		animeOtherResults, err := q.QueryAnimeMovieOtherTitles(ctx, QueryAnimeMovieOtherTitlesParams{
+			Column1: arg.Query,
+			Limit:   arg.Limit,
+			Offset:  arg.Offset,
+		})
 		if err != nil {
 			ErrorSQL(err)
 			return err
@@ -53,7 +66,11 @@ func (gojo *SQLGojo) QueryAnimeMovieTx(ctx context.Context, arg QueryAnimeMovieT
 			animeMovieIDs = append(animeMovieIDs, animeOtherResults...)
 		}
 
-		animeTranslationResults, err := q.QueryAnimeMovieTranslationTitles(ctx, arg.Query)
+		animeTranslationResults, err := q.QueryAnimeMovieTranslationTitles(ctx, QueryAnimeMovieTranslationTitlesParams{
+			Column1: arg.Query,
+			Limit:   arg.Limit,
+			Offset:  arg.Offset,
+		})
 		if err != nil {
 			ErrorSQL(err)
 			return err
