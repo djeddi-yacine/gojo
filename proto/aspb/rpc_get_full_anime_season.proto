@@ -3,6 +3,7 @@ syntax = "proto3";
 package aspb;
 
 import "aspb/anime_season.proto";
+import "aspb/tag.proto";
 import "nfpb/meta.proto";
 import "nfpb/genre.proto";
 import "nfpb/studio.proto";
@@ -23,6 +24,7 @@ message GetFullAnimeSeasonResponse {
     shpb.AnimeResourceResponse seasonResoures = 3;
     nfpb.AnimeGenresResponse seasonGenres = 4;
     nfpb.AnimeStudiosResponse seasonStudios = 5;
-    repeated shpb.ImageResponse seasonPosters = 6;
-    repeated shpb.AnimeTrailerResponse seasonTrailers = 7;
+    repeated AnimeSeasonTag seasonTags = 6;
+    repeated shpb.ImageResponse seasonPosters = 7;
+    repeated shpb.AnimeTrailerResponse seasonTrailers = 8;
 }

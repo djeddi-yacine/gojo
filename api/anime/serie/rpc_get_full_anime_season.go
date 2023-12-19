@@ -115,6 +115,36 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 	}
 	res.SeasonResoures = shared.ConvertAnimeResource(seasonResources)
 
+	animeTagIDs, err := server.gojo.ListAnimeSeasonTags(ctx, req.SeasonID)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shared.DatabaseError("cannot get anime season tags IDs", err)
+	}
+
+	var animeTags []db.AnimeTag
+	if len(animeTagIDs) > 0 {
+		animeTags = make([]db.AnimeTag, len(animeTagIDs))
+
+		for i, t := range animeTagIDs {
+			tag, err := server.gojo.GetAnimeTag(ctx, t.TagID)
+			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return nil, shared.DatabaseError("cannot get anime season tag", err)
+			}
+			animeTags[i] = tag
+		}
+	}
+
+	if len(animeTags) > 0 {
+		res.SeasonTags = make([]*aspb.AnimeSeasonTag, len(animeTags))
+
+		for i, t := range animeTags {
+			res.SeasonTags[i] = &aspb.AnimeSeasonTag{
+				ID:        t.ID,
+				Tag:       t.Tag,
+				CreatedAt: timestamppb.New(t.CreatedAt),
+			}
+		}
+	}
+
 	animePosterIDs, err := server.gojo.ListAnimeSeriePosterImages(ctx, req.SeasonID)
 	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 		return nil, shared.DatabaseError("cannot get anime serie posters images IDs", err)

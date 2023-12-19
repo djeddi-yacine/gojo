@@ -3590,6 +3590,13 @@
         "seasonStudios": {
           "$ref": "#/definitions/nfpbAnimeStudiosResponse"
         },
+        "seasonTags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbAnimeSeasonTag"
+          }
+        },
         "seasonPosters": {
           "type": "array",
           "items": {
