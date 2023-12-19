@@ -1,0 +1,11 @@
+# Treat all files with .proto extension as protocol buffer files
+*.proto linguist-vendored=false
+
+# Treat all files with .sql extension as SQL files
+*.sql linguist-vendored=false
+
+# Explicitly specify the language for protocol buffer files
+*.proto binary linguist-language=protobuf
+
+# Explicitly specify the language for SQL files
+*.sql binary linguist-language=sql
