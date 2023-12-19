@@ -2,7 +2,7 @@
 # Build #
 #########
 
-FROM golang:1.21-alpine3.18 AS builder
+FROM golang:1.21.5-alpine3.19 AS builder
 
 # Install git + SSL ca certificates.
 # Git is required for fetching the dependencies.
@@ -43,7 +43,7 @@ RUN chmod +x main
 #  Run  #
 #########
 
-FROM alpine:3.18
+FROM alpine:3.19
 WORKDIR /gojo
 
 

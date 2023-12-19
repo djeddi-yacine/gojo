@@ -2,10 +2,10 @@ DB_URL=postgresql://root:secret@localhost:5432/gojo?sslmode=disable
 
 
 postgres:
-	docker run --name postgresGOJO -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:16.0-alpine3.18
+	docker run --name postgresGOJO -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:16.1-alpine3.19
 
 redis:
-	docker run --name redisGOJO -p 6379:6379 -d redis:7.2-alpine3.18
+	docker run --name redisGOJO -p 6379:6379 -d redis:7.2.3-alpine3.19
 
 createdb:
 	docker exec -it postgresGOJO createdb --username=root --owner=root  gojo

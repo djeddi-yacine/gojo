@@ -13,7 +13,7 @@ volumes:
 services:
   postgres:
     container_name: Gojo-DB
-    image: postgres:16.0-alpine3.18
+    image: postgres:16.1-alpine3.19
     restart: always
     environment:
       - POSTGRES_USER=root
@@ -31,7 +31,7 @@ services:
   
   redis:
     container_name: Gojo-Redis
-    image: redis:7.2-alpine3.18
+    image: redis:7.2.3-alpine3.19
     restart: always
     ports:
       - "6379:6379"
