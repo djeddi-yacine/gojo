@@ -12,9 +12,9 @@ import (
 )
 
 const createAnimeTag = `-- name: CreateAnimeTag :one
-INSERT INTO anime_tags (tag) 
-VALUES ($1)
-RETURNING  id, tag, created_at
+INSERT INTO anime_tags (tag) VALUES ($1)
+ON CONFLICT (tag) DO UPDATE SET tag = $1
+RETURNING id, tag, created_at
 `
 
 func (q *Queries) CreateAnimeTag(ctx context.Context, tag string) (AnimeTag, error) {

@@ -2,8 +2,6 @@ package db
 
 import (
 	"context"
-
-	"github.com/jackc/pgerrcode"
 )
 
 type CreateAnimeMovieTagTxParams struct {
@@ -39,16 +37,8 @@ func (gojo *SQLGojo) CreateAnimeMovieTagTx(ctx context.Context, arg CreateAnimeM
 				for i, t := range arg.AnimeTags {
 					tag, err = q.CreateAnimeTag(ctx, t)
 					if err != nil {
-						if ErrorDB(err).Code == pgerrcode.UniqueViolation {
-							tag, err = q.GetAnimeTagByTag(ctx, t)
-							if err != nil {
-								ErrorSQL(err)
-								return err
-							}
-						} else {
-							ErrorSQL(err)
-							return err
-						}
+						ErrorSQL(err)
+						return err
 					}
 
 					result.AnimeTags[i] = tag
@@ -59,10 +49,8 @@ func (gojo *SQLGojo) CreateAnimeMovieTagTx(ctx context.Context, arg CreateAnimeM
 				for _, amt := range tagsArg {
 					_, err = q.CreateAnimeMovieTag(ctx, amt)
 					if err != nil {
-						if ErrorDB(err).Code != pgerrcode.UniqueViolation {
-							ErrorSQL(err)
-							return err
-						}
+						ErrorSQL(err)
+						return err
 					}
 				}
 			}

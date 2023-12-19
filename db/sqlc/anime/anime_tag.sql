@@ -1,7 +1,7 @@
 -- name: CreateAnimeTag :one
-INSERT INTO anime_tags (tag) 
-VALUES ($1)
-RETURNING  *;
+INSERT INTO anime_tags (tag) VALUES ($1)
+ON CONFLICT (tag) DO UPDATE SET tag = $1
+RETURNING *;
 
 -- name: GetAnimeTag :one
 SELECT * FROM anime_tags
