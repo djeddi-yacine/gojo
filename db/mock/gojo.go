@@ -3845,7 +3845,7 @@ func (mr *MockGojoMockRecorder) QueryAnimeMovieTx(arg0, arg1 interface{}) *gomoc
 }
 
 // QueryAnimeSeasonOfficialTitles mocks base method.
-func (m *MockGojo) QueryAnimeSeasonOfficialTitles(arg0 context.Context, arg1 string) ([]int64, error) {
+func (m *MockGojo) QueryAnimeSeasonOfficialTitles(arg0 context.Context, arg1 db.QueryAnimeSeasonOfficialTitlesParams) ([]int64, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "QueryAnimeSeasonOfficialTitles", arg0, arg1)
 	ret0, _ := ret[0].([]int64)
@@ -3860,7 +3860,7 @@ func (mr *MockGojoMockRecorder) QueryAnimeSeasonOfficialTitles(arg0, arg1 interf
 }
 
 // QueryAnimeSeasonOtherTitles mocks base method.
-func (m *MockGojo) QueryAnimeSeasonOtherTitles(arg0 context.Context, arg1 string) ([]int64, error) {
+func (m *MockGojo) QueryAnimeSeasonOtherTitles(arg0 context.Context, arg1 db.QueryAnimeSeasonOtherTitlesParams) ([]int64, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "QueryAnimeSeasonOtherTitles", arg0, arg1)
 	ret0, _ := ret[0].([]int64)
@@ -3875,7 +3875,7 @@ func (mr *MockGojoMockRecorder) QueryAnimeSeasonOtherTitles(arg0, arg1 interface
 }
 
 // QueryAnimeSeasonShortTitles mocks base method.
-func (m *MockGojo) QueryAnimeSeasonShortTitles(arg0 context.Context, arg1 string) ([]int64, error) {
+func (m *MockGojo) QueryAnimeSeasonShortTitles(arg0 context.Context, arg1 db.QueryAnimeSeasonShortTitlesParams) ([]int64, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "QueryAnimeSeasonShortTitles", arg0, arg1)
 	ret0, _ := ret[0].([]int64)
@@ -3890,7 +3890,7 @@ func (mr *MockGojoMockRecorder) QueryAnimeSeasonShortTitles(arg0, arg1 interface
 }
 
 // QueryAnimeSeasonTranslationTitles mocks base method.
-func (m *MockGojo) QueryAnimeSeasonTranslationTitles(arg0 context.Context, arg1 string) ([]int64, error) {
+func (m *MockGojo) QueryAnimeSeasonTranslationTitles(arg0 context.Context, arg1 db.QueryAnimeSeasonTranslationTitlesParams) ([]int64, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "QueryAnimeSeasonTranslationTitles", arg0, arg1)
 	ret0, _ := ret[0].([]int64)

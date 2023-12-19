@@ -83,23 +83,31 @@ WITH search_documents AS (
 SELECT season_id
 FROM search_documents
 WHERE (
-  $1::text IS NOT NULL AND $1::text <> '' AND
+  $1::varchar IS NOT NULL AND $1::varchar <> '' AND
   (
     SELECT bool_and(
       to_tsvector('pg_catalog.simple', lower(translate(title_text, '[:punct:]', ''))) 
       @@ plainto_tsquery(word)
     )
-    FROM unnest(regexp_split_to_array($1::text, '\\W+')) AS word
+    FROM unnest(regexp_split_to_array($1::varchar, '\\W+')) AS word
   )
-  OR title_text ILIKE '%' || $1::text || '%'
+  OR title_text ILIKE '%' || $1::varchar || '%'
 )
 ORDER BY
-  ts_rank(title_text_tsv, phraseto_tsquery($1::text)) DESC,
-  similarity(title_text, $1::text) DESC
+  ts_rank(title_text_tsv, phraseto_tsquery($1::varchar)) DESC,
+  similarity(title_text, $1::varchar) DESC
+  LIMIT $2
+  OFFSET $3
 `
 
-func (q *Queries) QueryAnimeSeasonTranslationTitles(ctx context.Context, dollar_1 string) ([]int64, error) {
-	rows, err := q.db.Query(ctx, queryAnimeSeasonTranslationTitles, dollar_1)
+type QueryAnimeSeasonTranslationTitlesParams struct {
+	Column1 string
+	Limit   int32
+	Offset  int32
+}
+
+func (q *Queries) QueryAnimeSeasonTranslationTitles(ctx context.Context, arg QueryAnimeSeasonTranslationTitlesParams) ([]int64, error) {
+	rows, err := q.db.Query(ctx, queryAnimeSeasonTranslationTitles, arg.Column1, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}

@@ -8,7 +8,9 @@ import (
 )
 
 type QueryAnimeSeasonTxParams struct {
-	Query string
+	Query  string
+	Limit  int32
+	Offset int32
 }
 
 type QueryAnimeSeasonTxResult struct {
@@ -23,7 +25,11 @@ func (gojo *SQLGojo) QueryAnimeSeasonTx(ctx context.Context, arg QueryAnimeSeaso
 
 		var animeSeasonIDs []int64
 
-		animeOfficialResults, err := q.QueryAnimeSeasonOfficialTitles(ctx, arg.Query)
+		animeOfficialResults, err := q.QueryAnimeSeasonOfficialTitles(ctx, QueryAnimeSeasonOfficialTitlesParams{
+			Column1: arg.Query,
+			Limit:   arg.Limit,
+			Offset:  arg.Offset,
+		})
 		if err != nil {
 			ErrorSQL(err)
 			return err
@@ -33,7 +39,11 @@ func (gojo *SQLGojo) QueryAnimeSeasonTx(ctx context.Context, arg QueryAnimeSeaso
 			animeSeasonIDs = append(animeSeasonIDs, animeOfficialResults...)
 		}
 
-		animeShortResults, err := q.QueryAnimeSeasonShortTitles(ctx, arg.Query)
+		animeShortResults, err := q.QueryAnimeSeasonShortTitles(ctx, QueryAnimeSeasonShortTitlesParams{
+			Column1: arg.Query,
+			Limit:   arg.Limit,
+			Offset:  arg.Offset,
+		})
 		if err != nil {
 			ErrorSQL(err)
 			return err
@@ -43,7 +53,11 @@ func (gojo *SQLGojo) QueryAnimeSeasonTx(ctx context.Context, arg QueryAnimeSeaso
 			animeSeasonIDs = append(animeSeasonIDs, animeShortResults...)
 		}
 
-		animeOtherResults, err := q.QueryAnimeSeasonOtherTitles(ctx, arg.Query)
+		animeOtherResults, err := q.QueryAnimeSeasonOtherTitles(ctx, QueryAnimeSeasonOtherTitlesParams{
+			Column1: arg.Query,
+			Limit:   arg.Limit,
+			Offset:  arg.Offset,
+		})
 		if err != nil {
 			ErrorSQL(err)
 			return err
@@ -53,7 +67,11 @@ func (gojo *SQLGojo) QueryAnimeSeasonTx(ctx context.Context, arg QueryAnimeSeaso
 			animeSeasonIDs = append(animeSeasonIDs, animeOtherResults...)
 		}
 
-		animeTranslationResults, err := q.QueryAnimeSeasonTranslationTitles(ctx, arg.Query)
+		animeTranslationResults, err := q.QueryAnimeSeasonTranslationTitles(ctx, QueryAnimeSeasonTranslationTitlesParams{
+			Column1: arg.Query,
+			Limit:   arg.Limit,
+			Offset:  arg.Offset,
+		})
 		if err != nil {
 			ErrorSQL(err)
 			return err
