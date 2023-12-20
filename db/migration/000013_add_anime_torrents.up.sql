@@ -59,15 +59,7 @@ CREATE INDEX ON "anime_movie_torrents" ("id");
 
 CREATE UNIQUE INDEX ON "anime_movie_torrents" ("file_name", "language_id", "torrent_hash", "torrent_file", "size_bytes");
 
-CREATE INDEX ON "anime_movie_server_sub_torrents" ("server_id");
-
-CREATE INDEX ON "anime_movie_server_sub_torrents" ("torrent_id");
-
 CREATE UNIQUE INDEX ON "anime_movie_server_sub_torrents" ("server_id", "torrent_id");
-
-CREATE INDEX ON "anime_movie_server_dub_torrents" ("server_id");
-
-CREATE INDEX ON "anime_movie_server_dub_torrents" ("torrent_id");
 
 CREATE UNIQUE INDEX ON "anime_movie_server_dub_torrents" ("server_id", "torrent_id");
 
@@ -75,15 +67,7 @@ CREATE INDEX ON "anime_serie_torrents" ("id");
 
 CREATE UNIQUE INDEX ON "anime_serie_torrents" ("file_name", "language_id", "torrent_hash", "torrent_file", "size_bytes");
 
-CREATE INDEX ON "anime_serie_server_sub_torrents" ("server_id");
-
-CREATE INDEX ON "anime_serie_server_sub_torrents" ("torrent_id");
-
 CREATE UNIQUE INDEX ON "anime_serie_server_sub_torrents" ("server_id", "torrent_id");
-
-CREATE INDEX ON "anime_serie_server_dub_torrents" ("server_id");
-
-CREATE INDEX ON "anime_serie_server_dub_torrents" ("torrent_id");
 
 CREATE UNIQUE INDEX ON "anime_serie_server_dub_torrents" ("server_id", "torrent_id");
 

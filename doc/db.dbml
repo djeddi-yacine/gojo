@@ -88,32 +88,32 @@ Table anime_series {
 
 Table languages {
   id integer [primary key, unique, increment, not null]
-  language_code varchar [unique, not null]
+  language_code varchar [not null]
   language_name varchar [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      language_code
+      (language_code) [unique]
     }
 }
 
 Table studios {
-  id integer [primary key,unique, increment, not null]
-  studio_name varchar [unique, not null]
+  id integer [primary key, unique, increment, not null]
+  studio_name varchar [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      studio_name
+      (studio_name) [unique]
     }
 }
 
 Table genres {
   id integer [primary key, unique, increment, not null]
-  genre_name varchar [unique, not null]
+  genre_name varchar [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      genre_name
+      (genre_name) [unique]
     }
 }
 
@@ -220,8 +220,12 @@ Table anime_season_metas {
 
 Table anime_serie_episodes {
   id bigserial [primary key, unique, increment, not null]
-  episode_number integer [unique, not null]
   season_id bigserial [not null]
+  episode_number integer [not null]
+  episode_original_title varchar [not null]
+  aired timestamptz  [not null]
+  rating  varchar [not null, default: `'PG-13 - Teens 13 or older'`]
+  duration interval  [not null, default: `'00h 00m 00s'`]
   thumbnails varchar [not null]
   thumbnails_blur_hash varchar [not null]
   created_at timestamptz [not null, default: `now()`]
@@ -249,8 +253,6 @@ Table anime_season_episodes {
   episode_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
-      season_id
-      episode_id
       (season_id, episode_id) [unique]
     }
 }
@@ -284,8 +286,6 @@ Table anime_serie_server_sub_videos {
   video_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
-      server_id
-      video_id
       (server_id, video_id) [unique]
     }
 }
@@ -296,8 +296,6 @@ Table anime_serie_server_dub_videos {
   video_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
-      server_id
-      video_id
       (server_id, video_id) [unique]
     }
 }
@@ -317,8 +315,6 @@ Table anime_movie_server_sub_videos {
   video_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
-      server_id
-      video_id
       (server_id, video_id) [unique]
     }
 }
@@ -329,8 +325,6 @@ Table anime_movie_server_dub_videos {
   video_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
-      server_id
-      video_id
       (server_id, video_id) [unique]
     }
 }
@@ -412,8 +406,6 @@ Table anime_movie_server_sub_torrents {
   torrent_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
-      server_id
-      torrent_id
       (server_id, torrent_id) [unique]
     }
 }
@@ -424,8 +416,6 @@ Table anime_movie_server_dub_torrents {
   torrent_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
-      server_id
-      torrent_id
       (server_id, torrent_id) [unique]
     }
 }
@@ -454,8 +444,6 @@ Table anime_serie_server_sub_torrents {
   torrent_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
-      server_id
-      torrent_id
       (server_id, torrent_id) [unique]
     }
 }
@@ -466,8 +454,6 @@ Table anime_serie_server_dub_torrents {
   torrent_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
-      server_id
-      torrent_id
       (server_id, torrent_id) [unique]
     }
 }

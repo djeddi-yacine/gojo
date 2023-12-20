@@ -33,15 +33,7 @@ CREATE UNIQUE INDEX ON "anime_episode_servers" ("episode_id");
 
 CREATE INDEX ON "anime_serie_videos" ("id");
 
-CREATE INDEX ON "anime_serie_server_sub_videos" ("server_id");
-
-CREATE INDEX ON "anime_serie_server_sub_videos" ("video_id");
-
 CREATE UNIQUE INDEX ON "anime_serie_server_sub_videos" ("server_id", "video_id");
-
-CREATE INDEX ON "anime_serie_server_dub_videos" ("server_id");
-
-CREATE INDEX ON "anime_serie_server_dub_videos" ("video_id");
 
 CREATE UNIQUE INDEX ON "anime_serie_server_dub_videos" ("server_id", "video_id");
 

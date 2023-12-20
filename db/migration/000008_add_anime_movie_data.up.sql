@@ -32,15 +32,7 @@ CREATE TABLE "anime_movie_videos" (
 
 CREATE INDEX ON "anime_movie_servers" ("id");
 
-CREATE INDEX ON "anime_movie_server_sub_videos" ("server_id");
-
-CREATE INDEX ON "anime_movie_server_sub_videos" ("video_id");
-
 CREATE UNIQUE INDEX ON "anime_movie_server_sub_videos" ("server_id", "video_id");
-
-CREATE INDEX ON "anime_movie_server_dub_videos" ("server_id");
-
-CREATE INDEX ON "anime_movie_server_dub_videos" ("video_id");
 
 CREATE UNIQUE INDEX ON "anime_movie_server_dub_videos" ("server_id", "video_id");
 
