@@ -331,12 +331,16 @@ type AnimeSerieBackdropImage struct {
 }
 
 type AnimeSerieEpisode struct {
-	ID                 int64
-	EpisodeNumber      int32
-	SeasonID           int64
-	Thumbnails         string
-	ThumbnailsBlurHash string
-	CreatedAt          time.Time
+	ID                   int64
+	SeasonID             int64
+	EpisodeNumber        int32
+	EpisodeOriginalTitle string
+	Aired                time.Time
+	Rating               string
+	Duration             time.Duration
+	Thumbnails           string
+	ThumbnailsBlurHash   string
+	CreatedAt            time.Time
 }
 
 type AnimeSerieLink struct {

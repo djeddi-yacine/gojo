@@ -2633,7 +2633,20 @@
         },
         "episodeNumber": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
+        },
+        "episodeOriginalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rating": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
         },
         "thumbnails": {
           "type": "string"
@@ -2656,7 +2669,20 @@
         },
         "episodeNumber": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
+        },
+        "episodeOriginalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rating": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
         },
         "thumbnails": {
           "type": "string"

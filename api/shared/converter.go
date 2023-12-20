@@ -161,12 +161,16 @@ func ConvertAnimeSeason(s db.AnimeSerieSeason) *aspb.AnimeSeasonResponse {
 
 func ConvertAnimeEpisode(e db.AnimeSerieEpisode) *aspb.AnimeEpisodeResponse {
 	return &aspb.AnimeEpisodeResponse{
-		ID:                 e.ID,
-		SeasonID:           e.SeasonID,
-		EpisodeNumber:      e.EpisodeNumber,
-		Thumbnails:         e.Thumbnails,
-		ThumbnailsBlurHash: e.ThumbnailsBlurHash,
-		CreatedAt:          timestamppb.New(e.CreatedAt),
+		ID:                   e.ID,
+		SeasonID:             e.SeasonID,
+		EpisodeNumber:        uint32(e.EpisodeNumber),
+		EpisodeOriginalTitle: e.EpisodeOriginalTitle,
+		Aired:                timestamppb.New(e.Aired),
+		Rating:               e.Rating,
+		Duration:             durationpb.New(e.Duration),
+		Thumbnails:           e.Thumbnails,
+		ThumbnailsBlurHash:   e.ThumbnailsBlurHash,
+		CreatedAt:            timestamppb.New(e.CreatedAt),
 	}
 }
 
@@ -270,12 +274,16 @@ func ConvertAnimeEpiosdes(ase []db.AnimeSerieEpisode) []*aspb.AnimeEpisodeRespon
 
 		for i, e := range ase {
 			episodes[i] = &aspb.AnimeEpisodeResponse{
-				ID:                 e.ID,
-				SeasonID:           e.SeasonID,
-				EpisodeNumber:      e.EpisodeNumber,
-				Thumbnails:         e.Thumbnails,
-				ThumbnailsBlurHash: e.ThumbnailsBlurHash,
-				CreatedAt:          timestamppb.New(e.CreatedAt),
+				ID:                   e.ID,
+				SeasonID:             e.SeasonID,
+				EpisodeNumber:        uint32(e.EpisodeNumber),
+				EpisodeOriginalTitle: e.EpisodeOriginalTitle,
+				Aired:                timestamppb.New(e.Aired),
+				Rating:               e.Rating,
+				Duration:             durationpb.New(e.Duration),
+				Thumbnails:           e.Thumbnails,
+				ThumbnailsBlurHash:   e.ThumbnailsBlurHash,
+				CreatedAt:            timestamppb.New(e.CreatedAt),
 			}
 		}
 		return episodes

@@ -3,6 +3,7 @@ package animeSerie
 import (
 	"context"
 	"errors"
+	"time"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
@@ -42,10 +43,14 @@ func (server *AnimeSerieServer) CreateAnimeEpisode(ctx context.Context, req *asp
 
 	arg := db.CreateAnimeEpisodeTxParams{
 		Episode: db.CreateAnimeEpisodeParams{
-			SeasonID:           req.GetEpisode().GetSeasonID(),
-			EpisodeNumber:      req.GetEpisode().GetEpisodeNumber(),
-			Thumbnails:         req.GetEpisode().GetThumbnails(),
-			ThumbnailsBlurHash: req.GetEpisode().GetThumbnailsBlurHash(),
+			SeasonID:             req.GetEpisode().GetSeasonID(),
+			EpisodeNumber:        int32(req.GetEpisode().GetEpisodeNumber()),
+			EpisodeOriginalTitle: req.GetEpisode().GetEpisodeOriginalTitle(),
+			Aired:                req.GetEpisode().GetAired().AsTime(),
+			Rating:               req.GetEpisode().GetRating(),
+			Duration:             req.GetEpisode().GetDuration().AsDuration(),
+			Thumbnails:           req.GetEpisode().GetThumbnails(),
+			ThumbnailsBlurHash:   req.GetEpisode().GetThumbnailsBlurHash(),
 		},
 		EpisodeMetas: DBEM,
 	}
@@ -82,6 +87,22 @@ func validateCreateAnimeEpisodeRequest(req *aspb.CreateAnimeEpisodeRequest) (vio
 
 		if err := utils.ValidateInt(int64(req.GetEpisode().GetEpisodeNumber())); err != nil {
 			violations = append(violations, shared.FieldViolation("episodeNumber", err))
+		}
+
+		if err := utils.ValidateString(req.GetEpisode().GetEpisodeOriginalTitle(), 2, 500); err != nil {
+			violations = append(violations, shared.FieldViolation("episodeOriginalTitle", err))
+		}
+
+		if err := utils.ValidateDate(req.GetEpisode().GetAired().AsTime().Format(time.DateOnly)); err != nil {
+			violations = append(violations, shared.FieldViolation("aired", err))
+		}
+
+		if err := utils.ValidateString(req.GetEpisode().GetRating(), 2, 30); err != nil {
+			violations = append(violations, shared.FieldViolation("rating", err))
+		}
+
+		if err := utils.ValidateDuration(req.GetEpisode().GetDuration().AsDuration().String()); err != nil {
+			violations = append(violations, shared.FieldViolation("duration", err))
 		}
 
 		if err := utils.ValidateImage(req.GetEpisode().GetThumbnails()); err != nil {

@@ -1,11 +1,15 @@
 -- name: CreateAnimeEpisode :one
 INSERT INTO anime_serie_episodes (
-  episode_number,
   season_id,
+  episode_number,
+  episode_original_title,
+  aired,
+  rating,
+  duration,
   thumbnails,
   thumbnails_blur_hash
 )
-VALUES ($1, $2, $3, $4)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
 RETURNING *;
 
 -- name: GetAnimeEpisodeByEpisodeID :one
@@ -24,8 +28,11 @@ OFFSET $3;
 UPDATE anime_serie_episodes
 SET
   episode_number = COALESCE(sqlc.narg(episode_number), episode_number),
+  episode_original_title = COALESCE(sqlc.narg(episode_original_title), episode_original_title),
+  aired = COALESCE(sqlc.narg(aired), aired),
+  rating = COALESCE(sqlc.narg(rating), rating),
+  duration = COALESCE(sqlc.narg(duration), duration),
   thumbnails = COALESCE(sqlc.narg(thumbnails), thumbnails),
-  episode_number = COALESCE(sqlc.narg(episode_number), episode_number),
   thumbnails_blur_hash = COALESCE(sqlc.narg(thumbnails_blur_hash), thumbnails_blur_hash)
 WHERE
   id = sqlc.arg(id)

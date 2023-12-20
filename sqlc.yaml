@@ -113,24 +113,24 @@ sql:
           anime_serie_links: "AnimeSerieLink"
 
           ## add anime_trailers
-          anime_trailers: "animeTrailer"
-          anime_movie_trailers: "animeMovieTrailer"
-          anime_serie_trailers: "animeSerieTrailer"
-          anime_season_trailers: "animeSeasonTrailer"
+          anime_trailers: "AnimeTrailer"
+          anime_movie_trailers: "AnimeMovieTrailer"
+          anime_serie_trailers: "AnimeSerieTrailer"
+          anime_season_trailers: "AnimeSeasonTrailer"
 
           ## add anime_movie_titles
-          anime_movie_official_titles: "animeMovieOfficialTitle"
-          anime_movie_short_titles: "animeMovieShortTitle"
-          anime_movie_translation_titles: "animeMovieTranslationTitle"
-          anime_movie_other_titles: "animeMovieOtherTitle"
+          anime_movie_official_titles: "AnimeMovieOfficialTitle"
+          anime_movie_short_titles: "AnimeMovieShortTitle"
+          anime_movie_translation_titles: "AnimeMovieTranslationTitle"
+          anime_movie_other_titles: "AnimeMovieOtherTitle"
 
           ## add anime_season_titles
-          anime_season_official_titles: "animeSeasonOfficialTitle"
-          anime_season_short_titles: "animeSeasonShortTitle"
-          anime_season_translation_titles: "animeSeasonTranslationTitle"
-          anime_season_other_titles: "animeSeasonOtherTitle"
+          anime_season_official_titles: "AnimeSeasonOfficialTitle"
+          anime_season_short_titles: "AnimeSeasonShortTitle"
+          anime_season_translation_titles: "AnimeSeasonTranslationTitle"
+          anime_season_other_titles: "AnimeSeasonOtherTitle"
 
           ## add anime_tags
-          anime_tags: "animeTag"
-          anime_movie_tags: "animeMovieTag"
-          anime_season_tags: "animeSeasonTag"
+          anime_tags: "AnimeTag"
+          anime_movie_tags: "AnimeMovieTag"
+          anime_season_tags: "AnimeSeasonTag"

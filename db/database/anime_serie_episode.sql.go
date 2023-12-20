@@ -7,40 +7,57 @@ package db
 
 import (
 	"context"
+	"time"
 
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createAnimeEpisode = `-- name: CreateAnimeEpisode :one
 INSERT INTO anime_serie_episodes (
-  episode_number,
   season_id,
+  episode_number,
+  episode_original_title,
+  aired,
+  rating,
+  duration,
   thumbnails,
   thumbnails_blur_hash
 )
-VALUES ($1, $2, $3, $4)
-RETURNING id, episode_number, season_id, thumbnails, thumbnails_blur_hash, created_at
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+RETURNING id, season_id, episode_number, episode_original_title, aired, rating, duration, thumbnails, thumbnails_blur_hash, created_at
 `
 
 type CreateAnimeEpisodeParams struct {
-	EpisodeNumber      int32
-	SeasonID           int64
-	Thumbnails         string
-	ThumbnailsBlurHash string
+	SeasonID             int64
+	EpisodeNumber        int32
+	EpisodeOriginalTitle string
+	Aired                time.Time
+	Rating               string
+	Duration             time.Duration
+	Thumbnails           string
+	ThumbnailsBlurHash   string
 }
 
 func (q *Queries) CreateAnimeEpisode(ctx context.Context, arg CreateAnimeEpisodeParams) (AnimeSerieEpisode, error) {
 	row := q.db.QueryRow(ctx, createAnimeEpisode,
-		arg.EpisodeNumber,
 		arg.SeasonID,
+		arg.EpisodeNumber,
+		arg.EpisodeOriginalTitle,
+		arg.Aired,
+		arg.Rating,
+		arg.Duration,
 		arg.Thumbnails,
 		arg.ThumbnailsBlurHash,
 	)
 	var i AnimeSerieEpisode
 	err := row.Scan(
 		&i.ID,
-		&i.EpisodeNumber,
 		&i.SeasonID,
+		&i.EpisodeNumber,
+		&i.EpisodeOriginalTitle,
+		&i.Aired,
+		&i.Rating,
+		&i.Duration,
 		&i.Thumbnails,
 		&i.ThumbnailsBlurHash,
 		&i.CreatedAt,
@@ -59,7 +76,7 @@ func (q *Queries) DeleteAnimeEpisode(ctx context.Context, id int64) error {
 }
 
 const getAnimeEpisodeByEpisodeID = `-- name: GetAnimeEpisodeByEpisodeID :one
-SELECT id, episode_number, season_id, thumbnails, thumbnails_blur_hash, created_at FROM anime_serie_episodes
+SELECT id, season_id, episode_number, episode_original_title, aired, rating, duration, thumbnails, thumbnails_blur_hash, created_at FROM anime_serie_episodes
 WHERE id = $1
 LIMIT 1
 `
@@ -69,8 +86,12 @@ func (q *Queries) GetAnimeEpisodeByEpisodeID(ctx context.Context, id int64) (Ani
 	var i AnimeSerieEpisode
 	err := row.Scan(
 		&i.ID,
-		&i.EpisodeNumber,
 		&i.SeasonID,
+		&i.EpisodeNumber,
+		&i.EpisodeOriginalTitle,
+		&i.Aired,
+		&i.Rating,
+		&i.Duration,
 		&i.Thumbnails,
 		&i.ThumbnailsBlurHash,
 		&i.CreatedAt,
@@ -79,7 +100,7 @@ func (q *Queries) GetAnimeEpisodeByEpisodeID(ctx context.Context, id int64) (Ani
 }
 
 const listAnimeEpisodesBySeasonID = `-- name: ListAnimeEpisodesBySeasonID :many
-SELECT id, episode_number, season_id, thumbnails, thumbnails_blur_hash, created_at FROM anime_serie_episodes
+SELECT id, season_id, episode_number, episode_original_title, aired, rating, duration, thumbnails, thumbnails_blur_hash, created_at FROM anime_serie_episodes
 WHERE season_id = $1
 ORDER BY episode_number
 LIMIT $2
@@ -103,8 +124,12 @@ func (q *Queries) ListAnimeEpisodesBySeasonID(ctx context.Context, arg ListAnime
 		var i AnimeSerieEpisode
 		if err := rows.Scan(
 			&i.ID,
-			&i.EpisodeNumber,
 			&i.SeasonID,
+			&i.EpisodeNumber,
+			&i.EpisodeOriginalTitle,
+			&i.Aired,
+			&i.Rating,
+			&i.Duration,
 			&i.Thumbnails,
 			&i.ThumbnailsBlurHash,
 			&i.CreatedAt,
@@ -123,24 +148,35 @@ const updateAnimeEpisode = `-- name: UpdateAnimeEpisode :one
 UPDATE anime_serie_episodes
 SET
   episode_number = COALESCE($1, episode_number),
-  thumbnails = COALESCE($2, thumbnails),
-  episode_number = COALESCE($1, episode_number),
-  thumbnails_blur_hash = COALESCE($3, thumbnails_blur_hash)
+  episode_original_title = COALESCE($2, episode_original_title),
+  aired = COALESCE($3, aired),
+  rating = COALESCE($4, rating),
+  duration = COALESCE($5, duration),
+  thumbnails = COALESCE($6, thumbnails),
+  thumbnails_blur_hash = COALESCE($7, thumbnails_blur_hash)
 WHERE
-  id = $4
-RETURNING id, episode_number, season_id, thumbnails, thumbnails_blur_hash, created_at
+  id = $8
+RETURNING id, season_id, episode_number, episode_original_title, aired, rating, duration, thumbnails, thumbnails_blur_hash, created_at
 `
 
 type UpdateAnimeEpisodeParams struct {
-	EpisodeNumber      pgtype.Int4
-	Thumbnails         pgtype.Text
-	ThumbnailsBlurHash pgtype.Text
-	ID                 int64
+	EpisodeNumber        pgtype.Int4
+	EpisodeOriginalTitle pgtype.Text
+	Aired                pgtype.Timestamptz
+	Rating               pgtype.Text
+	Duration             pgtype.Interval
+	Thumbnails           pgtype.Text
+	ThumbnailsBlurHash   pgtype.Text
+	ID                   int64
 }
 
 func (q *Queries) UpdateAnimeEpisode(ctx context.Context, arg UpdateAnimeEpisodeParams) (AnimeSerieEpisode, error) {
 	row := q.db.QueryRow(ctx, updateAnimeEpisode,
 		arg.EpisodeNumber,
+		arg.EpisodeOriginalTitle,
+		arg.Aired,
+		arg.Rating,
+		arg.Duration,
 		arg.Thumbnails,
 		arg.ThumbnailsBlurHash,
 		arg.ID,
@@ -148,8 +184,12 @@ func (q *Queries) UpdateAnimeEpisode(ctx context.Context, arg UpdateAnimeEpisode
 	var i AnimeSerieEpisode
 	err := row.Scan(
 		&i.ID,
-		&i.EpisodeNumber,
 		&i.SeasonID,
+		&i.EpisodeNumber,
+		&i.EpisodeOriginalTitle,
+		&i.Aired,
+		&i.Rating,
+		&i.Duration,
 		&i.Thumbnails,
 		&i.ThumbnailsBlurHash,
 		&i.CreatedAt,
