@@ -77,16 +77,16 @@ build: fmt
 	go clean -cache -x
 	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
 	go build -v -ldflags "-w -s -extldflags '-static'" \
-	-gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie -a -installsuffix nocgo \
-	-o gojo .
+	-gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie \
+	-a -installsuffix nocgo -o gojo .
 
 cgo: fmt
 	go clean -x
 	go clean -cache -x
 	CGO_ENABLED=1 GOOS=linux GOARCH=amd64 \
 	go build -v -ldflags "-w -s -extldflags '-static'" \
-	-gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie -a -installsuffix cgo \
-	-o gojo .
+	-gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie \
+	-a -installsuffix cgo -o gojo .
 
 restart:
 	docker stop redisGOJO postgresGOJO
