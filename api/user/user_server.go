@@ -2,6 +2,7 @@ package user
 
 import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
+	"github.com/dj-yacine-flutter/gojo/pb"
 	"github.com/dj-yacine-flutter/gojo/token"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
@@ -9,6 +10,7 @@ import (
 
 // UserServer serves gRPC requests for User endpoints.
 type UserServer struct {
+	pb.UnimplementedGojoServer
 	config          utils.Config
 	gojo            db.Gojo
 	tokenMaker      token.Maker

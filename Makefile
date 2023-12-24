@@ -4,8 +4,11 @@ DB_URL=postgresql://root:secret@localhost:5432/gojo?sslmode=disable
 postgres:
 	docker run --name postgresGOJO -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:16.1-alpine3.19
 
-redis:
-	docker run --name redisGOJO -p 6379:6379 -d redis:7.2.3-alpine3.19
+queue:
+	docker run --name queueGOJO -p 6370:6379 -d redis:7.2.3-alpine3.19
+
+cache:
+	docker run --name cacheGOJO -p 6380:6379 -d redis:7.2.3-alpine3.19
 
 createdb:
 	docker exec -it postgresGOJO createdb --username=root --owner=root  gojo
@@ -89,11 +92,11 @@ cgo: fmt
 	-a -installsuffix cgo -o gojo .
 
 restart:
-	docker stop redisGOJO postgresGOJO
-	docker start redisGOJO postgresGOJO
+	docker stop queueGOJO cacheGOJO postgresGOJO
+	docker start queueGOJO cacheGOJO postgresGOJO
 
 dcs:
-	docker stop redisGOJO postgresGOJO
+	docker stop queueGOJO cacheGOJO postgresGOJO
 	docker compose build --no-cache
 	docker compose up
 
@@ -103,4 +106,4 @@ dcd:
 fmt:
 	find . -name "*.go" -print0 | xargs -0 gofmt -w
 
-.PHONY: postgres redis createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans db build cgo restart dcs dcd fmt
+.PHONY: postgres queue cache createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans db build cgo restart dcs dcd fmt
