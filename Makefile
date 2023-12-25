@@ -67,6 +67,7 @@ proto:
 	--grpc-gateway_out=pb --grpc-gateway_opt=paths=source_relative \
 	--openapiv2_out=doc/swagger --openapiv2_opt=allow_merge=true,merge_file_name=gojo \
 	proto/*.proto proto/uspb/*.proto proto/nfpb/*.proto  proto/ampb/*.proto proto/aspb/*.proto proto/shpb/*.proto
+	find . -name '*.proto' | xargs clang-format -i --verbose
 	statik -src=./doc/swagger -dest=./doc
 
 evans:
@@ -104,6 +105,7 @@ dcd:
 	docker compose down -v
 
 fmt:
+	find . -name '*.proto' | xargs clang-format -i --verbose
 	find . -name "*.go" -print0 | xargs -0 gofmt -w
 
 .PHONY: postgres queue cache createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans db build cgo restart dcs dcd fmt
