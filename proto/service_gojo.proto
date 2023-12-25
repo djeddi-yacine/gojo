@@ -27,6 +27,7 @@ import "ampb/rpc_create_anime_movie_tag.proto";
 import "ampb/rpc_get_all_anime_movie_metas.proto";
 import "ampb/rpc_get_all_anime_movies.proto";
 import "ampb/rpc_get_full_anime_movie.proto";
+import "ampb/rpc_get_anime_movie_images.proto";
 import "ampb/rpc_update_anime_movie.proto";
 import "ampb/rpc_query_anime_movie.proto";
 
@@ -352,6 +353,15 @@ service Gojo {
     option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
         description : "Use this API to get full anime movie by ID";
         summary:  "get full movie";
+    };
+  }
+  rpc GetAnimeMovieImages(ampb.GetAnimeMovieImagesRequest) returns (ampb.GetAnimeMovieImagesResponse) {
+    option (google.api.http) = {
+        get : "/v1/anime/movie/{animeID}/images"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+        description : "Use this API to get anime movie images by ID";
+        summary:  "get anime movie images";
     };
   }
   rpc QueryAnimeMovie(ampb.QueryAnimeMovieRequest) returns (ampb.QueryAnimeMovieResponse) {
