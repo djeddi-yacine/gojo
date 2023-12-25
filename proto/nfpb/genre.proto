@@ -7,15 +7,15 @@ import "google/protobuf/timestamp.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/nfpb";
 
 message Genre {
-    int32 genreID = 1;
-    string genreName = 2;
-    google.protobuf.Timestamp createdAt = 3;
+  int32                     genreID   = 1;
+  string                    genreName = 2;
+  google.protobuf.Timestamp createdAt = 3;
 }
 
-message AnimeGenresRequest { 
-    repeated int32 genreID = 1;
+message AnimeGenresRequest {
+  repeated int32 genreID = 1;
 }
 
-message AnimeGenresResponse { 
-    repeated Genre genres = 1;
+message AnimeGenresResponse {
+  repeated Genre genres = 1;
 }

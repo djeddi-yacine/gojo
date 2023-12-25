@@ -7,11 +7,11 @@ import "ampb/anime_movie.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/ampb";
 
 message QueryAnimeMovieRequest {
-    string query = 1;
-    int32 pageNumber = 2;
-    int32 pageSize = 3;
+  string query      = 1;
+  int32  pageNumber = 2;
+  int32  pageSize   = 3;
 }
 
 message QueryAnimeMovieResponse {
-    repeated AnimeMovieResponse animeMovies = 1;
+  repeated AnimeMovieResponse animeMovies = 1;
 }

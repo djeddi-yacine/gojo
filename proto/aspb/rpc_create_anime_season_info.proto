@@ -9,13 +9,13 @@ import "nfpb/studio.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
 message CreateAnimeSeasonInfoRequest {
-    int64 seasonID = 1;
-    nfpb.AnimeGenresRequest genres = 2;
-    nfpb.AnimeStudiosRequest studios = 3;
+  int64                    seasonID = 1;
+  nfpb.AnimeGenresRequest  genres   = 2;
+  nfpb.AnimeStudiosRequest studios  = 3;
 }
 
 message CreateAnimeSeasonInfoResponse {
-    AnimeSeasonResponse animeSeason = 1;
-    nfpb.AnimeGenresResponse genres = 2;
-    nfpb.AnimeStudiosResponse studios = 3;
+  AnimeSeasonResponse       animeSeason = 1;
+  nfpb.AnimeGenresResponse  genres      = 2;
+  nfpb.AnimeStudiosResponse studios     = 3;
 }

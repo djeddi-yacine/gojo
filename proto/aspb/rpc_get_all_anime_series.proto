@@ -7,11 +7,11 @@ import "aspb/anime_serie.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
 message GetAllAnimeSeriesRequest {
-    int32 pageNumber = 1;
-    int32 pageSize = 2;
-    optional int32 year = 3;
+  int32          pageNumber = 1;
+  int32          pageSize   = 2;
+  optional int32 year       = 3;
 }
 
-message GetAllAnimeSeriesResponse { 
-    repeated AnimeSerieResponse animeSeries = 1;
+message GetAllAnimeSeriesResponse {
+  repeated AnimeSerieResponse animeSeries = 1;
 }

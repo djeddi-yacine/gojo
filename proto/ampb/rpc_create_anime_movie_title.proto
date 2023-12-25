@@ -8,11 +8,11 @@ import "ampb/title.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/ampb";
 
 message CreateAnimeMovieTitleRequest {
-    int64 animeID = 1;
-    AnimeMovieTitleRequest animeTitles = 2;
+  int64                  animeID     = 1;
+  AnimeMovieTitleRequest animeTitles = 2;
 }
 
 message CreateAnimeMovieTitleResponse {
-    AnimeMovieResponse animeMovie = 1;
-    AnimeMovieTitleResponse animeTitles = 2;
+  AnimeMovieResponse      animeMovie  = 1;
+  AnimeMovieTitleResponse animeTitles = 2;
 }

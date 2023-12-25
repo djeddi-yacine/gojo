@@ -7,15 +7,14 @@ import "aspb/anime_episode.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
-
 message CreateAnimeSerieDataRequest {
-    int64 serverID = 1;
-    AnimeSerieSubDataRequest sub = 2;
-    AnimeSerieDubDataRequest dub = 3;
+  int64                    serverID = 1;
+  AnimeSerieSubDataRequest sub      = 2;
+  AnimeSerieDubDataRequest dub      = 3;
 }
 
 message CreateAnimeSerieDataResponse {
-    AnimeEpisodeResponse episode = 1;
-    AnimeSerieSubDataResponse sub = 2;
-    AnimeSerieDubDataResponse dub = 3;
+  AnimeEpisodeResponse      episode = 1;
+  AnimeSerieSubDataResponse sub     = 2;
+  AnimeSerieDubDataResponse dub     = 3;
 }

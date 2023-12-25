@@ -7,12 +7,12 @@ import "uspb/user.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/uspb";
 
 message CreateUserRequest {
-    string username = 1;
-    string fullName = 2;
-    string email = 3;
-    string password = 4;
+  string username = 1;
+  string fullName = 2;
+  string email    = 3;
+  string password = 4;
 }
 
-message CreateUserResponse { 
-    User user = 1;
+message CreateUserResponse {
+  User user = 1;
 }

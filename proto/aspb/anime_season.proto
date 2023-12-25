@@ -7,23 +7,23 @@ import "google/protobuf/timestamp.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
 message AnimeSeasonRequest {
-    int64 animeID = 1;
-    string seasonOriginalTitle = 2;
-    int32 releaseYear = 3;
-    google.protobuf.Timestamp aired = 4;
-    string rating = 5;
-    string portraitPoster = 6;
-    string portraitBlurHash = 7;
+  int64                     animeID             = 1;
+  string                    seasonOriginalTitle = 2;
+  int32                     releaseYear         = 3;
+  google.protobuf.Timestamp aired               = 4;
+  string                    rating              = 5;
+  string                    portraitPoster      = 6;
+  string                    portraitBlurHash    = 7;
 }
 
 message AnimeSeasonResponse {
-    int64 ID = 1;
-    int64 animeID = 2;
-    string seasonOriginalTitle = 3;
-    int32 releaseYear = 4;
-    google.protobuf.Timestamp aired = 5;
-    string rating = 6;
-    string portraitPoster = 7;
-    string portraitBlurHash = 8;
-    google.protobuf.Timestamp createdAt = 9;
+  int64                     ID                  = 1;
+  int64                     animeID             = 2;
+  string                    seasonOriginalTitle = 3;
+  int32                     releaseYear         = 4;
+  google.protobuf.Timestamp aired               = 5;
+  string                    rating              = 6;
+  string                    portraitPoster      = 7;
+  string                    portraitBlurHash    = 8;
+  google.protobuf.Timestamp createdAt           = 9;
 }

@@ -9,19 +9,19 @@ import "google/protobuf/duration.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/ampb";
 
-message UpdateAnimeMovieRequest { 
-    int64 animeID = 1;
-    optional string originalTitle = 2;
-    optional google.protobuf.Timestamp aired = 3;
-    optional int32 releaseYear = 4;
-    optional string rating = 5;
-    optional google.protobuf.Duration duration = 6;
-    optional string portraitPoster = 7;
-    optional string portraitBlurHash = 8;
-    optional string landscapePoster = 9;
-    optional string landscapeBlurHash = 10;
+message UpdateAnimeMovieRequest {
+  int64           animeID                             = 1;
+  optional string originalTitle                       = 2;
+  optional google.protobuf.Timestamp aired            = 3;
+  optional int32                     releaseYear      = 4;
+  optional string                    rating           = 5;
+  optional google.protobuf.Duration duration          = 6;
+  optional string                   portraitPoster    = 7;
+  optional string                   portraitBlurHash  = 8;
+  optional string                   landscapePoster   = 9;
+  optional string                   landscapeBlurHash = 10;
 }
 
-message UpdateAnimeMovieResponse { 
-    AnimeMovieResponse animeMovie = 1;
+message UpdateAnimeMovieResponse {
+  AnimeMovieResponse animeMovie = 1;
 }

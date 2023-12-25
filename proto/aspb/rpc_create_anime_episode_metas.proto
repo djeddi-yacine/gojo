@@ -8,11 +8,11 @@ import "nfpb/meta.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
 message CreateAnimeEpisodeMetasRequest {
-    int32 episodeID = 1;
-    repeated nfpb.AnimeMetaRequest episodeMetas = 2;
+  int32    episodeID                          = 1;
+  repeated nfpb.AnimeMetaRequest episodeMetas = 2;
 }
 
 message CreateAnimeEpisodeMetasResponse {
-    AnimeEpisodeResponse episode = 1;
-    repeated nfpb.AnimeMetaResponse episodeMetas = 2;
+  AnimeEpisodeResponse episode                 = 1;
+  repeated nfpb.AnimeMetaResponse episodeMetas = 2;
 }

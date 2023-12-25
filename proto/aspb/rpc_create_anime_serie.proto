@@ -7,12 +7,12 @@ import "shpb/anime_link.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
-message CreateAnimeSerieRequest { 
-    AnimeSerieRequest animeSerie = 1;
-    shpb.AnimeLinkRequest animeLinks = 2;
+message CreateAnimeSerieRequest {
+  AnimeSerieRequest     animeSerie = 1;
+  shpb.AnimeLinkRequest animeLinks = 2;
 }
 
-message CreateAnimeSerieResponse { 
-    AnimeSerieResponse animeSerie = 1;
-    shpb.AnimeLinkResponse animeLinks = 2;
+message CreateAnimeSerieResponse {
+  AnimeSerieResponse     animeSerie = 1;
+  shpb.AnimeLinkResponse animeLinks = 2;
 }

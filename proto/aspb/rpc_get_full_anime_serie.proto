@@ -11,14 +11,14 @@ import "shpb/anime_trailer.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
 message GetFullAnimeSerieRequest {
-    int64 animeID = 1;
-    int32 languageID = 2;
+  int64 animeID    = 1;
+  int32 languageID = 2;
 }
 
-message GetFullAnimeSerieResponse { 
-    AnimeSerieResponse animeSerie = 1;
-    nfpb.AnimeMetaResponse animeMeta = 2;
-    shpb.AnimeLinkResponse animeLinks = 3;
-    shpb.AnimeImageResponse animeImages = 4;
-    repeated shpb.AnimeTrailerResponse animeTrailers = 5;
+message GetFullAnimeSerieResponse {
+  AnimeSerieResponse      animeSerie               = 1;
+  nfpb.AnimeMetaResponse  animeMeta                = 2;
+  shpb.AnimeLinkResponse  animeLinks               = 3;
+  shpb.AnimeImageResponse animeImages              = 4;
+  repeated shpb.AnimeTrailerResponse animeTrailers = 5;
 }

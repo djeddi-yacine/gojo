@@ -7,11 +7,11 @@ import "aspb/anime_season.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
 message QueryAnimeSeasonRequest {
-    string query = 1;
-    int32 pageNumber = 2;
-    int32 pageSize = 3;
+  string query      = 1;
+  int32  pageNumber = 2;
+  int32  pageSize   = 3;
 }
 
 message QueryAnimeSeasonResponse {
-    repeated AnimeSeasonResponse animeSeasons = 1;
+  repeated AnimeSeasonResponse animeSeasons = 1;
 }

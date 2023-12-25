@@ -7,10 +7,10 @@ import "nfpb/language.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/nfpb";
 
 message GetAllLanguagesRequest {
-    int32 pageNumber = 1;
-    int32 pageSize = 2;
+  int32 pageNumber = 1;
+  int32 pageSize   = 2;
 }
 
-message GetAllLanguagesResponse { 
-    repeated LanguageResponse languages = 1;
+message GetAllLanguagesResponse {
+  repeated LanguageResponse languages = 1;
 }

@@ -7,7 +7,7 @@ import "google/protobuf/timestamp.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
 message AnimeSeasonTag {
-    int64 ID = 1;
-    string tag = 2;
-    google.protobuf.Timestamp createdAt = 3;
+  int64                     ID        = 1;
+  string                    tag       = 2;
+  google.protobuf.Timestamp createdAt = 3;
 }

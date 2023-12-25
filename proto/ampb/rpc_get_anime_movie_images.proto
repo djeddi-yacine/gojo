@@ -7,9 +7,9 @@ import "shpb/anime_image.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/ampb";
 
 message GetAnimeMovieImagesRequest {
-    int64 animeID = 1;
+  int64 animeID = 1;
 }
 
-message GetAnimeMovieImagesResponse { 
-    shpb.AnimeImageResponse animeImages = 1;
+message GetAnimeMovieImagesResponse {
+  shpb.AnimeImageResponse animeImages = 1;
 }

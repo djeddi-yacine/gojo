@@ -10,10 +10,10 @@ option go_package = "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openap
 // and Operation objects.
 enum Scheme {
   UNKNOWN = 0;
-  HTTP = 1;
-  HTTPS = 2;
-  WS = 3;
-  WSS = 4;
+  HTTP    = 1;
+  HTTPS   = 2;
+  WS      = 3;
+  WSS     = 4;
 }
 
 // `Swagger` is a representation of OpenAPI v2 specification's Swagger object.
@@ -199,8 +199,8 @@ message HeaderParameter {
   // See https://swagger.io/specification/v2/#parameterType.
   enum Type {
     UNKNOWN = 0;
-    STRING = 1;
-    NUMBER = 2;
+    STRING  = 1;
+    NUMBER  = 2;
     INTEGER = 3;
     BOOLEAN = 4;
   }
@@ -489,37 +489,37 @@ message JSONSchema {
   string title = 5;
   // A short description of the schema.
   string description = 6;
-  string default = 7;
-  bool read_only = 8;
+  string default     = 7;
+  bool read_only     = 8;
   // A free-form property to include a JSON example of this field. This is copied
   // verbatim to the output swagger.json. Quotes must be escaped.
   // This property is the same for 2.0 and 3.0.0 https://github.com/OAI/OpenAPI-Specification/blob/3.0.0/versions/3.0.0.md#schemaObject  https://github.com/OAI/OpenAPI-Specification/blob/3.0.0/versions/2.0.md#schemaObject
-  string example = 9;
+  string example     = 9;
   double multiple_of = 10;
   // Maximum represents an inclusive upper limit for a numeric instance. The
   // value of MUST be a number,
-  double maximum = 11;
-  bool exclusive_maximum = 12;
+  double maximum           = 11;
+  bool   exclusive_maximum = 12;
   // minimum represents an inclusive lower limit for a numeric instance. The
   // value of MUST be a number,
-  double minimum = 13;
-  bool exclusive_minimum = 14;
-  uint64 max_length = 15;
-  uint64 min_length = 16;
-  string pattern = 17;
+  double minimum           = 13;
+  bool   exclusive_minimum = 14;
+  uint64 max_length        = 15;
+  uint64 min_length        = 16;
+  string pattern           = 17;
   // field 18 is reserved for 'additionalItems', omitted from OpenAPI v2.
   reserved 18;
   // field 19 is reserved for 'items', but in OpenAPI-specific way.
   // TODO(ivucica): add 'items'?
   reserved 19;
-  uint64 max_items = 20;
-  uint64 min_items = 21;
-  bool unique_items = 22;
+  uint64 max_items    = 20;
+  uint64 min_items    = 21;
+  bool   unique_items = 22;
   // field 23 is reserved for 'contains', omitted from OpenAPI v2.
   reserved 23;
-  uint64 max_properties = 24;
-  uint64 min_properties = 25;
-  repeated string required = 26;
+  uint64          max_properties = 24;
+  uint64          min_properties = 25;
+  repeated string required       = 26;
   // field 27 is reserved for 'additionalProperties', but in OpenAPI-specific
   // way. TODO(ivucica): add 'additionalProperties'?
   reserved 27;
@@ -537,13 +537,13 @@ message JSONSchema {
 
   enum JSONSchemaSimpleTypes {
     UNKNOWN = 0;
-    ARRAY = 1;
+    ARRAY   = 1;
     BOOLEAN = 2;
     INTEGER = 3;
-    NULL = 4;
-    NUMBER = 5;
-    OBJECT = 6;
-    STRING = 7;
+    NULL    = 4;
+    NUMBER  = 5;
+    OBJECT  = 6;
+    STRING  = 7;
   }
 
   repeated JSONSchemaSimpleTypes type = 35;
@@ -628,24 +628,24 @@ message SecurityScheme {
   // "apiKey" or "oauth2".
   enum Type {
     TYPE_INVALID = 0;
-    TYPE_BASIC = 1;
+    TYPE_BASIC   = 1;
     TYPE_API_KEY = 2;
-    TYPE_OAUTH2 = 3;
+    TYPE_OAUTH2  = 3;
   }
 
   // The location of the API key. Valid values are "query" or "header".
   enum In {
     IN_INVALID = 0;
-    IN_QUERY = 1;
-    IN_HEADER = 2;
+    IN_QUERY   = 1;
+    IN_HEADER  = 2;
   }
 
   // The flow used by the OAuth2 security scheme. Valid values are
   // "implicit", "password", "application" or "accessCode".
   enum Flow {
-    FLOW_INVALID = 0;
-    FLOW_IMPLICIT = 1;
-    FLOW_PASSWORD = 2;
+    FLOW_INVALID     = 0;
+    FLOW_IMPLICIT    = 1;
+    FLOW_PASSWORD    = 2;
     FLOW_APPLICATION = 3;
     FLOW_ACCESS_CODE = 4;
   }

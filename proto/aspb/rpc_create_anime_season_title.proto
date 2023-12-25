@@ -8,11 +8,11 @@ import "aspb/title.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb";
 
 message CreateAnimeSeasonTitleRequest {
-    int64 seasonID = 1;
-    AnimeSeasonTitleRequest seasonTitles = 2;
+  int64                   seasonID     = 1;
+  AnimeSeasonTitleRequest seasonTitles = 2;
 }
 
 message CreateAnimeSeasonTitleResponse {
-    AnimeSeasonResponse animeSeason = 1;
-    AnimeSeasonTitleResponse seasonTitles = 2;
+  AnimeSeasonResponse      animeSeason  = 1;
+  AnimeSeasonTitleResponse seasonTitles = 2;
 }

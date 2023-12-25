@@ -8,11 +8,11 @@ import "ampb/anime_movie.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/ampb";
 
 message CreateAnimeMovieTrailerRequest {
-    int64 animeID = 1;
-    repeated shpb.AnimeTrailerRequest animeTrailers = 2;
+  int64    animeID                                = 1;
+  repeated shpb.AnimeTrailerRequest animeTrailers = 2;
 }
 
 message CreateAnimeMovieTrailerResponse {
-    AnimeMovieResponse animeMovie = 1;
-    repeated shpb.AnimeTrailerResponse animeTrailers = 2;
+  AnimeMovieResponse animeMovie                    = 1;
+  repeated shpb.AnimeTrailerResponse animeTrailers = 2;
 }
