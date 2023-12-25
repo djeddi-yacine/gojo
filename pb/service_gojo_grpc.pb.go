@@ -49,6 +49,7 @@ const (
 	Gojo_GetAllAnimeMovies_FullMethodName         = "/pb.Gojo/GetAllAnimeMovies"
 	Gojo_GetAllAnimeMovieMetas_FullMethodName     = "/pb.Gojo/GetAllAnimeMovieMetas"
 	Gojo_GetFullAnimeMovie_FullMethodName         = "/pb.Gojo/GetFullAnimeMovie"
+	Gojo_GetAnimeMovieImages_FullMethodName       = "/pb.Gojo/GetAnimeMovieImages"
 	Gojo_QueryAnimeMovie_FullMethodName           = "/pb.Gojo/QueryAnimeMovie"
 	Gojo_CreateAnimeSerie_FullMethodName          = "/pb.Gojo/CreateAnimeSerie"
 	Gojo_CreateAnimeSerieMetas_FullMethodName     = "/pb.Gojo/CreateAnimeSerieMetas"
@@ -105,6 +106,7 @@ type GojoClient interface {
 	GetAllAnimeMovies(ctx context.Context, in *ampb.GetAllAnimeMoviesRequest, opts ...grpc.CallOption) (*ampb.GetAllAnimeMoviesResponse, error)
 	GetAllAnimeMovieMetas(ctx context.Context, in *ampb.GetAllAnimeMovieMetasRequest, opts ...grpc.CallOption) (*ampb.GetAllAnimeMovieMetasResponse, error)
 	GetFullAnimeMovie(ctx context.Context, in *ampb.GetFullAnimeMovieRequest, opts ...grpc.CallOption) (*ampb.GetFullAnimeMovieResponse, error)
+	GetAnimeMovieImages(ctx context.Context, in *ampb.GetAnimeMovieImagesRequest, opts ...grpc.CallOption) (*ampb.GetAnimeMovieImagesResponse, error)
 	QueryAnimeMovie(ctx context.Context, in *ampb.QueryAnimeMovieRequest, opts ...grpc.CallOption) (*ampb.QueryAnimeMovieResponse, error)
 	CreateAnimeSerie(ctx context.Context, in *aspb.CreateAnimeSerieRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieResponse, error)
 	CreateAnimeSerieMetas(ctx context.Context, in *aspb.CreateAnimeSerieMetasRequest, opts ...grpc.CallOption) (*aspb.CreateAnimeSerieMetasResponse, error)
@@ -373,6 +375,15 @@ func (c *gojoClient) GetFullAnimeMovie(ctx context.Context, in *ampb.GetFullAnim
 	return out, nil
 }
 
+func (c *gojoClient) GetAnimeMovieImages(ctx context.Context, in *ampb.GetAnimeMovieImagesRequest, opts ...grpc.CallOption) (*ampb.GetAnimeMovieImagesResponse, error) {
+	out := new(ampb.GetAnimeMovieImagesResponse)
+	err := c.cc.Invoke(ctx, Gojo_GetAnimeMovieImages_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *gojoClient) QueryAnimeMovie(ctx context.Context, in *ampb.QueryAnimeMovieRequest, opts ...grpc.CallOption) (*ampb.QueryAnimeMovieResponse, error) {
 	out := new(ampb.QueryAnimeMovieResponse)
 	err := c.cc.Invoke(ctx, Gojo_QueryAnimeMovie_FullMethodName, in, out, opts...)
@@ -619,6 +630,7 @@ type GojoServer interface {
 	GetAllAnimeMovies(context.Context, *ampb.GetAllAnimeMoviesRequest) (*ampb.GetAllAnimeMoviesResponse, error)
 	GetAllAnimeMovieMetas(context.Context, *ampb.GetAllAnimeMovieMetasRequest) (*ampb.GetAllAnimeMovieMetasResponse, error)
 	GetFullAnimeMovie(context.Context, *ampb.GetFullAnimeMovieRequest) (*ampb.GetFullAnimeMovieResponse, error)
+	GetAnimeMovieImages(context.Context, *ampb.GetAnimeMovieImagesRequest) (*ampb.GetAnimeMovieImagesResponse, error)
 	QueryAnimeMovie(context.Context, *ampb.QueryAnimeMovieRequest) (*ampb.QueryAnimeMovieResponse, error)
 	CreateAnimeSerie(context.Context, *aspb.CreateAnimeSerieRequest) (*aspb.CreateAnimeSerieResponse, error)
 	CreateAnimeSerieMetas(context.Context, *aspb.CreateAnimeSerieMetasRequest) (*aspb.CreateAnimeSerieMetasResponse, error)
@@ -727,6 +739,9 @@ func (UnimplementedGojoServer) GetAllAnimeMovieMetas(context.Context, *ampb.GetA
 }
 func (UnimplementedGojoServer) GetFullAnimeMovie(context.Context, *ampb.GetFullAnimeMovieRequest) (*ampb.GetFullAnimeMovieResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFullAnimeMovie not implemented")
+}
+func (UnimplementedGojoServer) GetAnimeMovieImages(context.Context, *ampb.GetAnimeMovieImagesRequest) (*ampb.GetAnimeMovieImagesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAnimeMovieImages not implemented")
 }
 func (UnimplementedGojoServer) QueryAnimeMovie(context.Context, *ampb.QueryAnimeMovieRequest) (*ampb.QueryAnimeMovieResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method QueryAnimeMovie not implemented")
@@ -1281,6 +1296,24 @@ func _Gojo_GetFullAnimeMovie_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Gojo_GetAnimeMovieImages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ampb.GetAnimeMovieImagesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GojoServer).GetAnimeMovieImages(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Gojo_GetAnimeMovieImages_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GojoServer).GetAnimeMovieImages(ctx, req.(*ampb.GetAnimeMovieImagesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Gojo_QueryAnimeMovie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ampb.QueryAnimeMovieRequest)
 	if err := dec(in); err != nil {
@@ -1823,6 +1856,10 @@ var Gojo_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetFullAnimeMovie",
 			Handler:    _Gojo_GetFullAnimeMovie_Handler,
+		},
+		{
+			MethodName: "GetAnimeMovieImages",
+			Handler:    _Gojo_GetAnimeMovieImages_Handler,
 		},
 		{
 			MethodName: "QueryAnimeMovie",

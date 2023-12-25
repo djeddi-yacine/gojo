@@ -668,6 +668,39 @@
         ]
       }
     },
+    "/v1/anime/movie/{animeID}/images": {
+      "get": {
+        "summary": "get anime movie images",
+        "description": "Use this API to get anime movie images by ID",
+        "operationId": "Gojo_GetAnimeMovieImages",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbGetAnimeMovieImagesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "Gojo"
+        ]
+      }
+    },
     "/v1/anime/serie": {
       "get": {
         "summary": "list anime series",
@@ -2513,6 +2546,14 @@
             "type": "object",
             "$ref": "#/definitions/ampbAnimeMovieResponse"
           }
+        }
+      }
+    },
+    "ampbGetAnimeMovieImagesResponse": {
+      "type": "object",
+      "properties": {
+        "animeImages": {
+          "$ref": "#/definitions/shpbAnimeImageResponse"
         }
       }
     },

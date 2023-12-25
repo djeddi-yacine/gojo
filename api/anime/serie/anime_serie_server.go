@@ -2,6 +2,7 @@ package animeSerie
 
 import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
+	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/token"
 	"github.com/dj-yacine-flutter/gojo/utils"
 )
@@ -11,12 +12,14 @@ type AnimeSerieServer struct {
 	config     utils.Config
 	gojo       db.Gojo
 	tokenMaker token.Maker
+	ping       *ping.PingSystem
 }
 
-func NewAnimeSerieServer(config utils.Config, gojo db.Gojo, tokenMaker token.Maker) *AnimeSerieServer {
+func NewAnimeSerieServer(config utils.Config, gojo db.Gojo, tokenMaker token.Maker, ping *ping.PingSystem) *AnimeSerieServer {
 	return &AnimeSerieServer{
 		config:     config,
 		gojo:       gojo,
 		tokenMaker: tokenMaker,
+		ping:       ping,
 	}
 }

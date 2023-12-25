@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	rt "runtime"
+	"time"
 
 	"github.com/dj-yacine-flutter/gojo/api"
 	"github.com/dj-yacine-flutter/gojo/api/shared"
@@ -16,10 +17,12 @@ import (
 	"github.com/dj-yacine-flutter/gojo/pb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
+	"github.com/go-redis/cache/v9"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/hibiken/asynq"
 	"github.com/jackc/pgx/v5/pgxpool"
 	sk "github.com/rakyll/statik/fs"
+	"github.com/redis/go-redis/v9"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
@@ -49,39 +52,43 @@ func main() {
 	gojo := db.NewGojo(conn)
 
 	redisOpt := asynq.RedisClientOpt{
-		Addr: config.RedisAddress,
+		Addr: config.RedisQueueAddress,
 	}
 
 	taskDistributot := worker.NewRedisTaskDistributor(redisOpt)
 
-	go runTaskProcessor(config, redisOpt, gojo)
-	go runGatewayServer(config, gojo, taskDistributot)
+	fmt.Printf("\u001b[38;5;125m\u001b[48;5;0m%s\u001b[0m\n", fmt.Sprintln(`
+                                            
+     ██████╗  ██████╗      ██╗ ██████╗      
+    ██╔════╝ ██╔═══██╗     ██║██╔═══██╗     
+    ██║  ███╗██║   ██║     ██║██║   ██║     
+    ██║   ██║██║   ██║██   ██║██║   ██║     
+    ╚██████╔╝╚██████╔╝╚█████╔╝╚██████╔╝     
+     ╚═════╝  ╚═════╝  ╚════╝  ╚═════╝      
+                                            `))
 
-	fmt.Printf(`
-	 ██████╗  ██████╗      ██╗ ██████╗ 
-	██╔════╝ ██╔═══██╗     ██║██╔═══██╗
-	██║  ███╗██║   ██║     ██║██║   ██║
-	██║   ██║██║   ██║██   ██║██║   ██║
-	╚██████╔╝╚██████╔╝╚█████╔╝╚██████╔╝
-	 ╚═════╝  ╚═════╝  ╚════╝  ╚═════╝ 
-									   
-`)
-	runGRPCServer(config, gojo, taskDistributot)
+	cache := runRedisCache(config.RedisCacheAddress)
+
+	go runRedisQueue(config, redisOpt, gojo)
+	go runGatewayServer(config, gojo, taskDistributot, cache)
+
+	runGRPCServer(config, gojo, taskDistributot, cache)
 }
 
-func runTaskProcessor(config utils.Config, redisOpt asynq.RedisClientOpt, gojo db.Gojo) {
+func runRedisQueue(config utils.Config, redisOpt asynq.RedisClientOpt, gojo db.Gojo) {
 	mailer := mail.NewGmailSender(config.EmailSenderName, config.EmailSenderAddress, config.EmailSenderPassword)
 	taskProcessor := worker.NewRedisTaskProcessor(redisOpt, gojo, mailer)
 
-	log.Info().Msg("start task processor")
+	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0m- START REDIS TASK PROCESSOR -AT- %s\u001b[0m\n", config.RedisQueueAddress)
+
 	err := taskProcessor.Start()
 	if err != nil {
 		log.Fatal().Err(err).Msg("failed to start task processor")
 	}
 }
 
-func runGRPCServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor) {
-	server, err := api.NewServer(config, gojo, taskDistrinbutor)
+func runGRPCServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor, cache *cache.Cache) {
+	server, err := api.NewServer(config, gojo, taskDistrinbutor, cache)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot create GRPC server")
 	}
@@ -96,23 +103,24 @@ func runGRPCServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.Ta
 		log.Fatal().Err(err).Msg("cannot create gRPC listener")
 	}
 
-	log.Info().Msgf("start gRPC server at %s", listener.Addr().String())
+	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0m- START gRPC SERVER -AT- %s\u001b[0m\n", listener.Addr().String())
+
 	err = grpcServer.Serve(listener)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot start the gRPC server")
 	}
 }
 
-func runGatewayServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor) {
-	server, err := api.NewServer(config, gojo, taskDistrinbutor)
+func runGatewayServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor, cache *cache.Cache) {
+	server, err := api.NewServer(config, gojo, taskDistrinbutor, cache)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot create Gateway server")
 	}
 
-	grpcMux := runtime.NewServeMux()
-
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
+
+	grpcMux := runtime.NewServeMux()
 
 	err = pb.RegisterGojoHandlerServer(ctx, grpcMux, server)
 	if err != nil {
@@ -134,11 +142,26 @@ func runGatewayServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker
 		log.Fatal().Err(err).Msg("cannot create Gateway listener")
 	}
 
-	log.Info().Msgf("start HTTP gateway server at %s", listener.Addr().String())
+	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0m- START HTTP SERVER -AT- %s\u001b[0m\n", listener.Addr().String())
 
 	handler := shared.HttpLogger(mux)
 	err = http.Serve(listener, handler)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot start the Gateway server")
 	}
+}
+
+func runRedisCache(addr string) *cache.Cache {
+	ring := redis.NewRing(&redis.RingOptions{
+		Addrs: map[string]string{
+			"server01": addr,
+		},
+	})
+
+	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0m- START REDIS CACHE SERVER -AT- %s\u001b[0m\n", addr)
+
+	return cache.New(&cache.Options{
+		Redis:      ring,
+		LocalCache: cache.NewTinyLFU(1000, time.Minute),
+	})
 }
