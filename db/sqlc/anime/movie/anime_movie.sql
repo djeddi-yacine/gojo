@@ -5,8 +5,8 @@ INSERT INTO anime_movies (
     release_year,
     rating,
     duration,
-    portriat_poster,
-    portriat_blur_hash,
+    portrait_poster,
+    portrait_blur_hash,
     landscape_poster,
     landscape_blur_hash
 )
@@ -25,8 +25,8 @@ SET
   release_year = COALESCE(sqlc.narg(release_year), release_year),
   rating = COALESCE(sqlc.narg(rating), rating),
   duration = COALESCE(sqlc.narg(duration), duration),
-  portriat_poster = COALESCE(sqlc.narg(portriat_poster), portriat_poster),
-  portriat_blur_hash = COALESCE(sqlc.narg(portriat_blur_hash), portriat_blur_hash),
+  portrait_poster = COALESCE(sqlc.narg(portrait_poster), portrait_poster),
+  portrait_blur_hash = COALESCE(sqlc.narg(portrait_blur_hash), portrait_blur_hash),
   landscape_poster = COALESCE(sqlc.narg(landscape_poster), landscape_poster),
   landscape_blur_hash = COALESCE(sqlc.narg(landscape_blur_hash), landscape_blur_hash)
 WHERE

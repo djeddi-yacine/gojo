@@ -1921,10 +1921,10 @@
         "duration": {
           "type": "string"
         },
-        "portriatPoster": {
+        "portraitPoster": {
           "type": "string"
         },
-        "portriatBlurHash": {
+        "portraitBlurHash": {
           "type": "string"
         },
         "landscapePoster": {
@@ -1959,10 +1959,10 @@
         "duration": {
           "type": "string"
         },
-        "portriatPoster": {
+        "portraitPoster": {
           "type": "string"
         },
-        "portriatBlurHash": {
+        "portraitBlurHash": {
           "type": "string"
         },
         "landscapePoster": {
@@ -2643,10 +2643,10 @@
         "duration": {
           "type": "string"
         },
-        "portriatPoster": {
+        "portraitPoster": {
           "type": "string"
         },
-        "portriatBlurHash": {
+        "portraitBlurHash": {
           "type": "string"
         },
         "landscapePoster": {
@@ -2758,10 +2758,10 @@
         "rating": {
           "type": "string"
         },
-        "portriatPoster": {
+        "portraitPoster": {
           "type": "string"
         },
-        "portriatBlurHash": {
+        "portraitBlurHash": {
           "type": "string"
         }
       }
@@ -2791,10 +2791,10 @@
         "rating": {
           "type": "string"
         },
-        "portriatPoster": {
+        "portraitPoster": {
           "type": "string"
         },
-        "portriatBlurHash": {
+        "portraitBlurHash": {
           "type": "string"
         },
         "createdAt": {
@@ -2948,10 +2948,10 @@
           "type": "integer",
           "format": "int32"
         },
-        "portriatPoster": {
+        "portraitPoster": {
           "type": "string"
         },
-        "portriatBlurHash": {
+        "portraitBlurHash": {
           "type": "string"
         },
         "landscapePoster": {
@@ -2992,10 +2992,10 @@
           "type": "integer",
           "format": "int32"
         },
-        "portriatPoster": {
+        "portraitPoster": {
           "type": "string"
         },
-        "portriatBlurHash": {
+        "portraitBlurHash": {
           "type": "string"
         },
         "landscapePoster": {
@@ -3774,10 +3774,10 @@
           "type": "integer",
           "format": "int32"
         },
-        "portriatPoster": {
+        "portraitPoster": {
           "type": "string"
         },
-        "portriatBlurHash": {
+        "portraitBlurHash": {
           "type": "string"
         },
         "landscapePoster": {

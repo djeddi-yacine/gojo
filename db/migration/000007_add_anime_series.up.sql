@@ -6,8 +6,8 @@ CREATE TABLE "anime_series" (
   "mal_id" integer NOT NULL,
   "tvdb_id" integer NOT NULL,
   "tmdb_id" integer NOT NULL,
-  "portriat_poster" varchar NOT NULL,
-  "portriat_blur_hash" varchar NOT NULL,
+  "portrait_poster" varchar NOT NULL,
+  "portrait_blur_hash" varchar NOT NULL,
   "landscape_poster" varchar NOT NULL,
   "landscape_blur_hash" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())

@@ -48,8 +48,8 @@ func (server *AnimeSerieServer) CreateAnimeSeason(ctx context.Context, req *aspb
 			ReleaseYear:         req.GetSeason().GetReleaseYear(),
 			Aired:               req.GetSeason().GetAired().AsTime(),
 			Rating:              req.GetSeason().GetRating(),
-			PortriatPoster:      req.GetSeason().GetPortriatPoster(),
-			PortriatBlurHash:    req.GetSeason().GetPortriatBlurHash(),
+			PortraitPoster:      req.GetSeason().GetPortraitPoster(),
+			PortraitBlurHash:    req.GetSeason().GetPortraitBlurHash(),
 		},
 		SeasonMetas: DBSM,
 	}
@@ -92,12 +92,12 @@ func validateCreateAnimeSeasonRequest(req *aspb.CreateAnimeSeasonRequest) (viola
 			violations = append(violations, shared.FieldViolation("releaseYear", err))
 		}
 
-		if err := utils.ValidateImage(req.GetSeason().GetPortriatPoster()); err != nil {
-			violations = append(violations, shared.FieldViolation("portriatPoster", err))
+		if err := utils.ValidateImage(req.GetSeason().GetPortraitPoster()); err != nil {
+			violations = append(violations, shared.FieldViolation("portraitPoster", err))
 		}
 
-		if err := utils.ValidateString(req.GetSeason().GetPortriatBlurHash(), 0, 100); err != nil {
-			violations = append(violations, shared.FieldViolation("portriatBlurHash", err))
+		if err := utils.ValidateString(req.GetSeason().GetPortraitBlurHash(), 0, 100); err != nil {
+			violations = append(violations, shared.FieldViolation("portraitBlurHash", err))
 		}
 
 		if err := utils.ValidateDate(req.GetSeason().GetAired().AsTime().Format(time.DateOnly)); err != nil {

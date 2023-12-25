@@ -14,8 +14,8 @@ message UpdateAnimeSerieRequest {
     optional int32 malID = 5;
     optional int32 tvdbID = 6;
     optional int32 tmdbID = 7;
-    optional string portriatPoster = 8;
-    optional string portriatBlurHash = 9;
+    optional string portraitPoster = 8;
+    optional string portraitBlurHash = 9;
     optional string landscapePoster = 10;
     optional string landscapeBlurHash = 11;
 }

@@ -4,8 +4,8 @@ CREATE TABLE "anime_serie_seasons" (
   "season_original_title" varchar NOT NULL,
   "release_year" integer NOT NULL,
   "aired" timestamptz NOT NULL,
-  "portriat_poster" varchar NOT NULL,
-  "portriat_blur_hash" varchar NOT NULL,
+  "portrait_poster" varchar NOT NULL,
+  "portrait_blur_hash" varchar NOT NULL,
   "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );

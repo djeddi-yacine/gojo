@@ -51,8 +51,8 @@ func ConvertAnimeMovie(a db.AnimeMovie) *ampb.AnimeMovieResponse {
 		ReleaseYear:       a.ReleaseYear,
 		Rating:            a.Rating,
 		Duration:          durationpb.New(a.Duration),
-		PortriatPoster:    a.PortriatPoster,
-		PortriatBlurHash:  a.PortriatBlurHash,
+		PortraitPoster:    a.PortraitPoster,
+		PortraitBlurHash:  a.PortraitBlurHash,
 		LandscapePoster:   a.LandscapePoster,
 		LandscapeBlurHash: a.LandscapeBlurHash,
 		CreatedAt:         timestamppb.New(a.CreatedAt),
@@ -63,8 +63,8 @@ func ConvertAnimeSerie(a db.AnimeSerie) *aspb.AnimeSerieResponse {
 	return &aspb.AnimeSerieResponse{
 		ID:                a.ID,
 		OriginalTitle:     a.OriginalTitle,
-		PortriatPoster:    a.PortriatPoster,
-		PortriatBlurHash:  a.PortriatBlurHash,
+		PortraitPoster:    a.PortraitPoster,
+		PortraitBlurHash:  a.PortraitBlurHash,
 		LandscapePoster:   a.LandscapePoster,
 		LandscapeBlurHash: a.LandscapeBlurHash,
 		FirstYear:         a.FirstYear,
@@ -153,8 +153,8 @@ func ConvertAnimeSeason(s db.AnimeSerieSeason) *aspb.AnimeSeasonResponse {
 		ReleaseYear:         s.ReleaseYear,
 		Aired:               timestamppb.New(s.Aired),
 		Rating:              s.Rating,
-		PortriatPoster:      s.PortriatPoster,
-		PortriatBlurHash:    s.PortriatBlurHash,
+		PortraitPoster:      s.PortraitPoster,
+		PortraitBlurHash:    s.PortraitBlurHash,
 		CreatedAt:           timestamppb.New(s.CreatedAt),
 	}
 }

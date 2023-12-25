@@ -5,8 +5,8 @@ CREATE TABLE "anime_movies" (
   "release_year" integer NOT NULL,
   "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),
   "duration" interval NOT NULL DEFAULT ('00h 00m 00s'),
-  "portriat_poster" varchar NOT NULL,
-  "portriat_blur_hash" varchar NOT NULL,
+  "portrait_poster" varchar NOT NULL,
+  "portrait_blur_hash" varchar NOT NULL,
   "landscape_poster" varchar NOT NULL,
   "landscape_blur_hash" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())

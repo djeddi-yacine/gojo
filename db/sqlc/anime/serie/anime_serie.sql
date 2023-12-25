@@ -6,8 +6,8 @@ INSERT INTO anime_series (
     mal_id,
     tvdb_id,
     tmdb_id,
-    portriat_poster,
-    portriat_blur_hash,
+    portrait_poster,
+    portrait_blur_hash,
     landscape_poster,
     landscape_blur_hash
 )
@@ -27,8 +27,8 @@ SET
   mal_id = COALESCE(sqlc.narg(mal_id), mal_id),
   tvdb_id = COALESCE(sqlc.narg(tvdb_id), tvdb_id),
   tmdb_id = COALESCE(sqlc.narg(tmdb_id), tmdb_id),
-  portriat_poster = COALESCE(sqlc.narg(portriat_poster), portriat_poster),
-  portriat_blur_hash = COALESCE(sqlc.narg(portriat_blur_hash), portriat_blur_hash),
+  portrait_poster = COALESCE(sqlc.narg(portrait_poster), portrait_poster),
+  portrait_blur_hash = COALESCE(sqlc.narg(portrait_blur_hash), portrait_blur_hash),
   landscape_poster = COALESCE(sqlc.narg(landscape_poster), landscape_poster),
   landscape_blur_hash = COALESCE(sqlc.narg(landscape_blur_hash), landscape_blur_hash)
 WHERE

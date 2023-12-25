@@ -19,11 +19,11 @@ INSERT INTO anime_serie_seasons (
     release_year,
     aired,
     rating,
-    portriat_poster,
-    portriat_blur_hash
+    portrait_poster,
+    portrait_blur_hash
 )
 VALUES ($1, $2, $3, $4, $5, $6, $7)
-RETURNING id, anime_id, season_original_title, release_year, aired, portriat_poster, portriat_blur_hash, rating, created_at
+RETURNING id, anime_id, season_original_title, release_year, aired, portrait_poster, portrait_blur_hash, rating, created_at
 `
 
 type CreateAnimeSeasonParams struct {
@@ -32,8 +32,8 @@ type CreateAnimeSeasonParams struct {
 	ReleaseYear         int32
 	Aired               time.Time
 	Rating              string
-	PortriatPoster      string
-	PortriatBlurHash    string
+	PortraitPoster      string
+	PortraitBlurHash    string
 }
 
 func (q *Queries) CreateAnimeSeason(ctx context.Context, arg CreateAnimeSeasonParams) (AnimeSerieSeason, error) {
@@ -43,8 +43,8 @@ func (q *Queries) CreateAnimeSeason(ctx context.Context, arg CreateAnimeSeasonPa
 		arg.ReleaseYear,
 		arg.Aired,
 		arg.Rating,
-		arg.PortriatPoster,
-		arg.PortriatBlurHash,
+		arg.PortraitPoster,
+		arg.PortraitBlurHash,
 	)
 	var i AnimeSerieSeason
 	err := row.Scan(
@@ -53,8 +53,8 @@ func (q *Queries) CreateAnimeSeason(ctx context.Context, arg CreateAnimeSeasonPa
 		&i.SeasonOriginalTitle,
 		&i.ReleaseYear,
 		&i.Aired,
-		&i.PortriatPoster,
-		&i.PortriatBlurHash,
+		&i.PortraitPoster,
+		&i.PortraitBlurHash,
 		&i.Rating,
 		&i.CreatedAt,
 	)
@@ -72,7 +72,7 @@ func (q *Queries) DeleteAnimeSeason(ctx context.Context, id int64) error {
 }
 
 const getAnimeSeason = `-- name: GetAnimeSeason :one
-SELECT id, anime_id, season_original_title, release_year, aired, portriat_poster, portriat_blur_hash, rating, created_at FROM anime_serie_seasons
+SELECT id, anime_id, season_original_title, release_year, aired, portrait_poster, portrait_blur_hash, rating, created_at FROM anime_serie_seasons
 WHERE id = $1
 LIMIT 1
 `
@@ -86,8 +86,8 @@ func (q *Queries) GetAnimeSeason(ctx context.Context, id int64) (AnimeSerieSeaso
 		&i.SeasonOriginalTitle,
 		&i.ReleaseYear,
 		&i.Aired,
-		&i.PortriatPoster,
-		&i.PortriatBlurHash,
+		&i.PortraitPoster,
+		&i.PortraitBlurHash,
 		&i.Rating,
 		&i.CreatedAt,
 	)
@@ -95,7 +95,7 @@ func (q *Queries) GetAnimeSeason(ctx context.Context, id int64) (AnimeSerieSeaso
 }
 
 const listAnimeSeasonsByAnimeID = `-- name: ListAnimeSeasonsByAnimeID :many
-SELECT id, anime_id, season_original_title, release_year, aired, portriat_poster, portriat_blur_hash, rating, created_at FROM anime_serie_seasons
+SELECT id, anime_id, season_original_title, release_year, aired, portrait_poster, portrait_blur_hash, rating, created_at FROM anime_serie_seasons
 WHERE anime_id = $1
 ORDER BY release_year
 LIMIT $2
@@ -123,8 +123,8 @@ func (q *Queries) ListAnimeSeasonsByAnimeID(ctx context.Context, arg ListAnimeSe
 			&i.SeasonOriginalTitle,
 			&i.ReleaseYear,
 			&i.Aired,
-			&i.PortriatPoster,
-			&i.PortriatBlurHash,
+			&i.PortraitPoster,
+			&i.PortraitBlurHash,
 			&i.Rating,
 			&i.CreatedAt,
 		); err != nil {
@@ -145,11 +145,11 @@ SET
   release_year = COALESCE($2, release_year),
   aired = COALESCE($3, aired),
   rating = COALESCE($4, rating),
-  portriat_poster = COALESCE($5, portriat_poster),
-  portriat_blur_hash = COALESCE($6, portriat_blur_hash)
+  portrait_poster = COALESCE($5, portrait_poster),
+  portrait_blur_hash = COALESCE($6, portrait_blur_hash)
 WHERE
   id = $7
-RETURNING id, anime_id, season_original_title, release_year, aired, portriat_poster, portriat_blur_hash, rating, created_at
+RETURNING id, anime_id, season_original_title, release_year, aired, portrait_poster, portrait_blur_hash, rating, created_at
 `
 
 type UpdateAnimeSeasonParams struct {
@@ -157,8 +157,8 @@ type UpdateAnimeSeasonParams struct {
 	ReleaseYear         pgtype.Int4
 	Aired               pgtype.Timestamptz
 	Rating              pgtype.Text
-	PortriatPoster      pgtype.Text
-	PortriatBlurHash    pgtype.Text
+	PortraitPoster      pgtype.Text
+	PortraitBlurHash    pgtype.Text
 	ID                  int64
 }
 
@@ -168,8 +168,8 @@ func (q *Queries) UpdateAnimeSeason(ctx context.Context, arg UpdateAnimeSeasonPa
 		arg.ReleaseYear,
 		arg.Aired,
 		arg.Rating,
-		arg.PortriatPoster,
-		arg.PortriatBlurHash,
+		arg.PortraitPoster,
+		arg.PortraitBlurHash,
 		arg.ID,
 	)
 	var i AnimeSerieSeason
@@ -179,8 +179,8 @@ func (q *Queries) UpdateAnimeSeason(ctx context.Context, arg UpdateAnimeSeasonPa
 		&i.SeasonOriginalTitle,
 		&i.ReleaseYear,
 		&i.Aired,
-		&i.PortriatPoster,
-		&i.PortriatBlurHash,
+		&i.PortraitPoster,
+		&i.PortraitBlurHash,
 		&i.Rating,
 		&i.CreatedAt,
 	)

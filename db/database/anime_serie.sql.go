@@ -19,13 +19,13 @@ INSERT INTO anime_series (
     mal_id,
     tvdb_id,
     tmdb_id,
-    portriat_poster,
-    portriat_blur_hash,
+    portrait_poster,
+    portrait_blur_hash,
     landscape_poster,
     landscape_blur_hash
 )
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-RETURNING id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at
+RETURNING id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at
 `
 
 type CreateAnimeSerieParams struct {
@@ -35,8 +35,8 @@ type CreateAnimeSerieParams struct {
 	MalID             int32
 	TvdbID            int32
 	TmdbID            int32
-	PortriatPoster    string
-	PortriatBlurHash  string
+	PortraitPoster    string
+	PortraitBlurHash  string
 	LandscapePoster   string
 	LandscapeBlurHash string
 }
@@ -49,8 +49,8 @@ func (q *Queries) CreateAnimeSerie(ctx context.Context, arg CreateAnimeSeriePara
 		arg.MalID,
 		arg.TvdbID,
 		arg.TmdbID,
-		arg.PortriatPoster,
-		arg.PortriatBlurHash,
+		arg.PortraitPoster,
+		arg.PortraitBlurHash,
 		arg.LandscapePoster,
 		arg.LandscapeBlurHash,
 	)
@@ -63,8 +63,8 @@ func (q *Queries) CreateAnimeSerie(ctx context.Context, arg CreateAnimeSeriePara
 		&i.MalID,
 		&i.TvdbID,
 		&i.TmdbID,
-		&i.PortriatPoster,
-		&i.PortriatBlurHash,
+		&i.PortraitPoster,
+		&i.PortraitBlurHash,
 		&i.LandscapePoster,
 		&i.LandscapeBlurHash,
 		&i.CreatedAt,
@@ -83,7 +83,7 @@ func (q *Queries) DeleteAnimeSerie(ctx context.Context, id int64) error {
 }
 
 const getAnimeSerie = `-- name: GetAnimeSerie :one
-SELECT id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series 
+SELECT id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series 
 WHERE id = $1 LIMIT 1
 `
 
@@ -98,8 +98,8 @@ func (q *Queries) GetAnimeSerie(ctx context.Context, id int64) (AnimeSerie, erro
 		&i.MalID,
 		&i.TvdbID,
 		&i.TmdbID,
-		&i.PortriatPoster,
-		&i.PortriatBlurHash,
+		&i.PortraitPoster,
+		&i.PortraitBlurHash,
 		&i.LandscapePoster,
 		&i.LandscapeBlurHash,
 		&i.CreatedAt,
@@ -108,7 +108,7 @@ func (q *Queries) GetAnimeSerie(ctx context.Context, id int64) (AnimeSerie, erro
 }
 
 const listAnimeSeries = `-- name: ListAnimeSeries :many
-SELECT id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series
+SELECT id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series
 WHERE $1 IN (first_year, last_year) OR $1 = 0
 LIMIT $2
 OFFSET $3
@@ -137,8 +137,8 @@ func (q *Queries) ListAnimeSeries(ctx context.Context, arg ListAnimeSeriesParams
 			&i.MalID,
 			&i.TvdbID,
 			&i.TmdbID,
-			&i.PortriatPoster,
-			&i.PortriatBlurHash,
+			&i.PortraitPoster,
+			&i.PortraitBlurHash,
 			&i.LandscapePoster,
 			&i.LandscapeBlurHash,
 			&i.CreatedAt,
@@ -162,13 +162,13 @@ SET
   mal_id = COALESCE($4, mal_id),
   tvdb_id = COALESCE($5, tvdb_id),
   tmdb_id = COALESCE($6, tmdb_id),
-  portriat_poster = COALESCE($7, portriat_poster),
-  portriat_blur_hash = COALESCE($8, portriat_blur_hash),
+  portrait_poster = COALESCE($7, portrait_poster),
+  portrait_blur_hash = COALESCE($8, portrait_blur_hash),
   landscape_poster = COALESCE($9, landscape_poster),
   landscape_blur_hash = COALESCE($10, landscape_blur_hash)
 WHERE
   id = $11
-RETURNING id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at
+RETURNING id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at
 `
 
 type UpdateAnimeSerieParams struct {
@@ -178,8 +178,8 @@ type UpdateAnimeSerieParams struct {
 	MalID             pgtype.Int4
 	TvdbID            pgtype.Int4
 	TmdbID            pgtype.Int4
-	PortriatPoster    pgtype.Text
-	PortriatBlurHash  pgtype.Text
+	PortraitPoster    pgtype.Text
+	PortraitBlurHash  pgtype.Text
 	LandscapePoster   pgtype.Text
 	LandscapeBlurHash pgtype.Text
 	ID                int64
@@ -193,8 +193,8 @@ func (q *Queries) UpdateAnimeSerie(ctx context.Context, arg UpdateAnimeSeriePara
 		arg.MalID,
 		arg.TvdbID,
 		arg.TmdbID,
-		arg.PortriatPoster,
-		arg.PortriatBlurHash,
+		arg.PortraitPoster,
+		arg.PortraitBlurHash,
 		arg.LandscapePoster,
 		arg.LandscapeBlurHash,
 		arg.ID,
@@ -208,8 +208,8 @@ func (q *Queries) UpdateAnimeSerie(ctx context.Context, arg UpdateAnimeSeriePara
 		&i.MalID,
 		&i.TvdbID,
 		&i.TmdbID,
-		&i.PortriatPoster,
-		&i.PortriatBlurHash,
+		&i.PortraitPoster,
+		&i.PortraitBlurHash,
 		&i.LandscapePoster,
 		&i.LandscapeBlurHash,
 		&i.CreatedAt,

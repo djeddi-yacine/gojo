@@ -13,8 +13,8 @@ message AnimeMovieRequest {
     int32 releaseYear = 3;
     string rating = 4;
     google.protobuf.Duration duration = 5;
-    string portriatPoster = 6;
-    string portriatBlurHash = 7;
+    string portraitPoster = 6;
+    string portraitBlurHash = 7;
     string landscapePoster = 8;
     string landscapeBlurHash = 9;
 }
@@ -26,8 +26,8 @@ message AnimeMovieResponse {
     int32 releaseYear = 4;
     string rating = 5;
     google.protobuf.Duration duration = 6;
-    string portriatPoster = 7;
-    string portriatBlurHash = 8;
+    string portraitPoster = 7;
+    string portraitBlurHash = 8;
     string landscapePoster = 9;
     string landscapeBlurHash = 10;
     google.protobuf.Timestamp createdAt = 11;

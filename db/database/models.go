@@ -51,8 +51,8 @@ type AnimeMovie struct {
 	ReleaseYear       int32
 	Rating            string
 	Duration          time.Duration
-	PortriatPoster    string
-	PortriatBlurHash  string
+	PortraitPoster    string
+	PortraitBlurHash  string
 	LandscapePoster   string
 	LandscapeBlurHash string
 	CreatedAt         time.Time
@@ -316,8 +316,8 @@ type AnimeSerie struct {
 	MalID             int32
 	TvdbID            int32
 	TmdbID            int32
-	PortriatPoster    string
-	PortriatBlurHash  string
+	PortraitPoster    string
+	PortraitBlurHash  string
 	LandscapePoster   string
 	LandscapeBlurHash string
 	CreatedAt         time.Time
@@ -376,8 +376,8 @@ type AnimeSerieSeason struct {
 	SeasonOriginalTitle string
 	ReleaseYear         int32
 	Aired               time.Time
-	PortriatPoster      string
-	PortriatBlurHash    string
+	PortraitPoster      string
+	PortraitBlurHash    string
 	Rating              string
 	CreatedAt           time.Time
 }

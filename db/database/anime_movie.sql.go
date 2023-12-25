@@ -19,13 +19,13 @@ INSERT INTO anime_movies (
     release_year,
     rating,
     duration,
-    portriat_poster,
-    portriat_blur_hash,
+    portrait_poster,
+    portrait_blur_hash,
     landscape_poster,
     landscape_blur_hash
 )
 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-RETURNING id, original_title, aired, release_year, rating, duration, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at
+RETURNING id, original_title, aired, release_year, rating, duration, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at
 `
 
 type CreateAnimeMovieParams struct {
@@ -34,8 +34,8 @@ type CreateAnimeMovieParams struct {
 	ReleaseYear       int32
 	Rating            string
 	Duration          time.Duration
-	PortriatPoster    string
-	PortriatBlurHash  string
+	PortraitPoster    string
+	PortraitBlurHash  string
 	LandscapePoster   string
 	LandscapeBlurHash string
 }
@@ -47,8 +47,8 @@ func (q *Queries) CreateAnimeMovie(ctx context.Context, arg CreateAnimeMoviePara
 		arg.ReleaseYear,
 		arg.Rating,
 		arg.Duration,
-		arg.PortriatPoster,
-		arg.PortriatBlurHash,
+		arg.PortraitPoster,
+		arg.PortraitBlurHash,
 		arg.LandscapePoster,
 		arg.LandscapeBlurHash,
 	)
@@ -60,8 +60,8 @@ func (q *Queries) CreateAnimeMovie(ctx context.Context, arg CreateAnimeMoviePara
 		&i.ReleaseYear,
 		&i.Rating,
 		&i.Duration,
-		&i.PortriatPoster,
-		&i.PortriatBlurHash,
+		&i.PortraitPoster,
+		&i.PortraitBlurHash,
 		&i.LandscapePoster,
 		&i.LandscapeBlurHash,
 		&i.CreatedAt,
@@ -80,7 +80,7 @@ func (q *Queries) DeleteAnimeMovie(ctx context.Context, id int64) error {
 }
 
 const getAnimeMovie = `-- name: GetAnimeMovie :one
-SELECT id, original_title, aired, release_year, rating, duration, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_movies 
+SELECT id, original_title, aired, release_year, rating, duration, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_movies 
 WHERE id = $1 LIMIT 1
 `
 
@@ -94,8 +94,8 @@ func (q *Queries) GetAnimeMovie(ctx context.Context, id int64) (AnimeMovie, erro
 		&i.ReleaseYear,
 		&i.Rating,
 		&i.Duration,
-		&i.PortriatPoster,
-		&i.PortriatBlurHash,
+		&i.PortraitPoster,
+		&i.PortraitBlurHash,
 		&i.LandscapePoster,
 		&i.LandscapeBlurHash,
 		&i.CreatedAt,
@@ -104,7 +104,7 @@ func (q *Queries) GetAnimeMovie(ctx context.Context, id int64) (AnimeMovie, erro
 }
 
 const listAnimeMovies = `-- name: ListAnimeMovies :many
-SELECT id, original_title, aired, release_year, rating, duration, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_movies
+SELECT id, original_title, aired, release_year, rating, duration, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_movies
 WHERE release_year = $1 OR $1 = 0
 LIMIT $2
 OFFSET $3
@@ -132,8 +132,8 @@ func (q *Queries) ListAnimeMovies(ctx context.Context, arg ListAnimeMoviesParams
 			&i.ReleaseYear,
 			&i.Rating,
 			&i.Duration,
-			&i.PortriatPoster,
-			&i.PortriatBlurHash,
+			&i.PortraitPoster,
+			&i.PortraitBlurHash,
 			&i.LandscapePoster,
 			&i.LandscapeBlurHash,
 			&i.CreatedAt,
@@ -156,13 +156,13 @@ SET
   release_year = COALESCE($3, release_year),
   rating = COALESCE($4, rating),
   duration = COALESCE($5, duration),
-  portriat_poster = COALESCE($6, portriat_poster),
-  portriat_blur_hash = COALESCE($7, portriat_blur_hash),
+  portrait_poster = COALESCE($6, portrait_poster),
+  portrait_blur_hash = COALESCE($7, portrait_blur_hash),
   landscape_poster = COALESCE($8, landscape_poster),
   landscape_blur_hash = COALESCE($9, landscape_blur_hash)
 WHERE
   id = $10
-RETURNING id, original_title, aired, release_year, rating, duration, portriat_poster, portriat_blur_hash, landscape_poster, landscape_blur_hash, created_at
+RETURNING id, original_title, aired, release_year, rating, duration, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at
 `
 
 type UpdateAnimeMovieParams struct {
@@ -171,8 +171,8 @@ type UpdateAnimeMovieParams struct {
 	ReleaseYear       pgtype.Int4
 	Rating            pgtype.Text
 	Duration          pgtype.Interval
-	PortriatPoster    pgtype.Text
-	PortriatBlurHash  pgtype.Text
+	PortraitPoster    pgtype.Text
+	PortraitBlurHash  pgtype.Text
 	LandscapePoster   pgtype.Text
 	LandscapeBlurHash pgtype.Text
 	ID                int64
@@ -185,8 +185,8 @@ func (q *Queries) UpdateAnimeMovie(ctx context.Context, arg UpdateAnimeMoviePara
 		arg.ReleaseYear,
 		arg.Rating,
 		arg.Duration,
-		arg.PortriatPoster,
-		arg.PortriatBlurHash,
+		arg.PortraitPoster,
+		arg.PortraitBlurHash,
 		arg.LandscapePoster,
 		arg.LandscapeBlurHash,
 		arg.ID,
@@ -199,8 +199,8 @@ func (q *Queries) UpdateAnimeMovie(ctx context.Context, arg UpdateAnimeMoviePara
 		&i.ReleaseYear,
 		&i.Rating,
 		&i.Duration,
-		&i.PortriatPoster,
-		&i.PortriatBlurHash,
+		&i.PortraitPoster,
+		&i.PortraitBlurHash,
 		&i.LandscapePoster,
 		&i.LandscapeBlurHash,
 		&i.CreatedAt,

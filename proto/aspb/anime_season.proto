@@ -12,8 +12,8 @@ message AnimeSeasonRequest {
     int32 releaseYear = 3;
     google.protobuf.Timestamp aired = 4;
     string rating = 5;
-    string portriatPoster = 6;
-    string portriatBlurHash = 7;
+    string portraitPoster = 6;
+    string portraitBlurHash = 7;
 }
 
 message AnimeSeasonResponse {
@@ -23,7 +23,7 @@ message AnimeSeasonResponse {
     int32 releaseYear = 4;
     google.protobuf.Timestamp aired = 5;
     string rating = 6;
-    string portriatPoster = 7;
-    string portriatBlurHash = 8;
+    string portraitPoster = 7;
+    string portraitBlurHash = 8;
     google.protobuf.Timestamp createdAt = 9;
 }

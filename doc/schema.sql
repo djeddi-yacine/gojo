@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-12-20T13:57:18.294Z
+-- Generated at: 2023-12-25T18:41:46.089Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -43,8 +43,8 @@ CREATE TABLE "anime_movies" (
   "release_year" integer NOT NULL,
   "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),
   "duration" interval NOT NULL DEFAULT ('00h 00m 00s'),
-  "portriat_poster" varchar NOT NULL,
-  "portriat_blur_hash" varchar NOT NULL,
+  "portrait_poster" varchar NOT NULL,
+  "portrait_blur_hash" varchar NOT NULL,
   "landscape_poster" varchar NOT NULL,
   "landscape_blur_hash" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
@@ -58,8 +58,8 @@ CREATE TABLE "anime_series" (
   "mal_id" integer NOT NULL,
   "tvdb_id" integer NOT NULL,
   "tmdb_id" integer NOT NULL,
-  "portriat_poster" varchar NOT NULL,
-  "portriat_blur_hash" varchar NOT NULL,
+  "portrait_poster" varchar NOT NULL,
+  "portrait_blur_hash" varchar NOT NULL,
   "landscape_poster" varchar NOT NULL,
   "landscape_blur_hash" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
@@ -135,8 +135,8 @@ CREATE TABLE "anime_serie_seasons" (
   "season_original_title" varchar NOT NULL,
   "release_year" integer NOT NULL,
   "aired" timestamptz NOT NULL,
-  "portriat_poster" varchar NOT NULL,
-  "portriat_blur_hash" varchar NOT NULL,
+  "portrait_poster" varchar NOT NULL,
+  "portrait_blur_hash" varchar NOT NULL,
   "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );

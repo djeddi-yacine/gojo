@@ -35,8 +35,8 @@ func (server *AnimeMovieServer) CreateAnimeMovie(ctx context.Context, req *ampb.
 			ReleaseYear:       req.GetAnimeMovie().GetReleaseYear(),
 			Rating:            req.GetAnimeMovie().GetRating(),
 			Duration:          req.GetAnimeMovie().GetDuration().AsDuration(),
-			PortriatPoster:    req.GetAnimeMovie().GetPortriatPoster(),
-			PortriatBlurHash:  req.GetAnimeMovie().GetPortriatBlurHash(),
+			PortraitPoster:    req.GetAnimeMovie().GetPortraitPoster(),
+			PortraitBlurHash:  req.GetAnimeMovie().GetPortraitBlurHash(),
 			LandscapePoster:   req.GetAnimeMovie().GetLandscapePoster(),
 			LandscapeBlurHash: req.GetAnimeMovie().GetLandscapeBlurHash(),
 		},
@@ -97,12 +97,12 @@ func validateCreateAnimeMovieRequest(req *ampb.CreateAnimeMovieRequest) (violati
 			violations = append(violations, shared.FieldViolation("duration", err))
 		}
 
-		if err := utils.ValidateImage(req.GetAnimeMovie().GetPortriatPoster()); err != nil {
-			violations = append(violations, shared.FieldViolation("portriatPoster", err))
+		if err := utils.ValidateImage(req.GetAnimeMovie().GetPortraitPoster()); err != nil {
+			violations = append(violations, shared.FieldViolation("portraitPoster", err))
 		}
 
-		if err := utils.ValidateString(req.GetAnimeMovie().GetPortriatBlurHash(), 0, 100); err != nil {
-			violations = append(violations, shared.FieldViolation("portriatBlurHash", err))
+		if err := utils.ValidateString(req.GetAnimeMovie().GetPortraitBlurHash(), 0, 100); err != nil {
+			violations = append(violations, shared.FieldViolation("portraitBlurHash", err))
 		}
 
 		if err := utils.ValidateImage(req.GetAnimeMovie().GetLandscapePoster()); err != nil {

@@ -53,13 +53,13 @@ func (server *AnimeSerieServer) UpdateAnimeSerie(ctx context.Context, req *aspb.
 			Int32: req.GetTmdbID(),
 			Valid: req.LastYear != nil,
 		},
-		PortriatPoster: pgtype.Text{
-			String: req.GetPortriatPoster(),
-			Valid:  req.PortriatPoster != nil,
+		PortraitPoster: pgtype.Text{
+			String: req.GetPortraitPoster(),
+			Valid:  req.PortraitPoster != nil,
 		},
-		PortriatBlurHash: pgtype.Text{
-			String: req.GetPortriatBlurHash(),
-			Valid:  req.PortriatBlurHash != nil,
+		PortraitBlurHash: pgtype.Text{
+			String: req.GetPortraitBlurHash(),
+			Valid:  req.PortraitBlurHash != nil,
 		},
 		LandscapePoster: pgtype.Text{
 			String: req.GetLandscapePoster(),
@@ -123,15 +123,15 @@ func validateUpdateAnimeSerieRequest(req *aspb.UpdateAnimeSerieRequest) (violati
 		}
 	}
 
-	if req.PortriatPoster != nil {
-		if err := utils.ValidateImage(req.GetPortriatPoster()); err != nil {
-			violations = append(violations, shared.FieldViolation("portriatPoster", err))
+	if req.PortraitPoster != nil {
+		if err := utils.ValidateImage(req.GetPortraitPoster()); err != nil {
+			violations = append(violations, shared.FieldViolation("portraitPoster", err))
 		}
 	}
 
-	if req.PortriatBlurHash != nil {
-		if err := utils.ValidateString(req.GetPortriatBlurHash(), 0, 100); err != nil {
-			violations = append(violations, shared.FieldViolation("portriatBlurHash", err))
+	if req.PortraitBlurHash != nil {
+		if err := utils.ValidateString(req.GetPortraitBlurHash(), 0, 100); err != nil {
+			violations = append(violations, shared.FieldViolation("portraitBlurHash", err))
 		}
 	}
 
