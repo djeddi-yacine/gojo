@@ -8,6 +8,7 @@ import (
 	"github.com/dj-yacine-flutter/gojo/pb/ampb"
 	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
 	"github.com/dj-yacine-flutter/gojo/pb/shpb"
+	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/jackc/pgerrcode"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -31,13 +32,14 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		return nil, shared.InvalidArgumentError(violations)
 	}
 
-	res := &ampb.GetFullAnimeMovieResponse{}
-
-	cache := &AnimeKey{
-		id: req.AnimeID,
+	cache := &ping.CacheKey{
+		ID:     req.AnimeID,
+		Target: ping.ANIME_MOVIE,
 	}
 
-	if err = server.do(ctx, cache.Anime(), &res.AnimeMovie, func() error {
+	res := &ampb.GetFullAnimeMovieResponse{}
+
+	if err = server.ping.Handle(ctx, cache.Main(), &res.AnimeMovie, func() error {
 		animeMovie, err := server.gojo.GetAnimeMovie(ctx, req.GetAnimeID())
 		if err != nil {
 			return shared.DatabaseError("cannot get anime movie", err)
@@ -49,7 +51,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		return nil, err
 	}
 
-	if err = server.do(ctx, cache.Meta(uint32(req.LanguageID)), &res.AnimeMeta, func() error {
+	if err = server.ping.Handle(ctx, cache.Meta(uint32(req.LanguageID)), &res.AnimeMeta, func() error {
 		_, err = server.gojo.GetLanguage(ctx, req.GetLanguageID())
 		if err != nil {
 			return shared.DatabaseError("no language found with this language ID", err)
@@ -80,7 +82,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		return nil, err
 	}
 
-	if err = server.do(ctx, cache.Resources(), &res.AnimeResources, func() error {
+	if err = server.ping.Handle(ctx, cache.Resources(), &res.AnimeResources, func() error {
 		animeResourceID, err := server.gojo.GetAnimeMovieResource(ctx, req.GetAnimeID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("cannot get anime movie resources", err)
@@ -97,7 +99,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		return nil, err
 	}
 
-	if err = server.do(ctx, cache.Genre(), &res.AnimeGenres, func() error {
+	if err = server.ping.Handle(ctx, cache.Genre(), &res.AnimeGenres, func() error {
 		animeMovieGenres, err := server.gojo.ListAnimeMovieGenres(ctx, req.GetAnimeID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("cannot get anime movie genres", err)
@@ -119,7 +121,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		return nil, err
 	}
 
-	if err = server.do(ctx, cache.Studio(), &res.AnimeStudios, func() error {
+	if err = server.ping.Handle(ctx, cache.Studio(), &res.AnimeStudios, func() error {
 		animeMovieStudios, err := server.gojo.ListAnimeMovieStudios(ctx, req.GetAnimeID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("cannot get anime movie studios", err)
@@ -140,7 +142,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		return nil, err
 	}
 
-	if err = server.do(ctx, cache.Server(), &res.ServerID, func() error {
+	if err = server.ping.Handle(ctx, cache.Server(), &res.ServerID, func() error {
 		sv, err := server.gojo.GetAnimeMovieServer(ctx, req.GetAnimeID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("cannot get anime movie server ID", err)
@@ -153,7 +155,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 	}
 
 	if res.ServerID != 0 {
-		if err = server.do(ctx, cache.Sub(), &res.Sub, func() error {
+		if err = server.ping.Handle(ctx, cache.Sub(), &res.Sub, func() error {
 			ss, err := server.gojo.ListAnimeMovieServerSubVideos(ctx, res.ServerID)
 			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 				return shared.DatabaseError("cannot list anime movie server sub videos", err)
@@ -190,7 +192,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 			return nil, err
 		}
 
-		if err = server.do(ctx, cache.Dub(), &res.Dub, func() error {
+		if err = server.ping.Handle(ctx, cache.Dub(), &res.Dub, func() error {
 			sd, err := server.gojo.ListAnimeMovieServerDubVideos(ctx, res.ServerID)
 			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 				return shared.DatabaseError("cannot list anime movie server dub videos", err)
@@ -227,7 +229,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		}
 	}
 
-	if err = server.do(ctx, cache.Links(), &res.AnimeLinks, func() error {
+	if err = server.ping.Handle(ctx, cache.Links(), &res.AnimeLinks, func() error {
 		animeLinkID, err := server.gojo.GetAnimeMovieLink(ctx, req.AnimeID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("cannot get anime movie links ID", err)
@@ -246,7 +248,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		return nil, err
 	}
 
-	if err = server.do(ctx, cache.Tags(), &res.AnimeTags, func() error {
+	if err = server.ping.Handle(ctx, cache.Tags(), &res.AnimeTags, func() error {
 		animeTagIDs, err := server.gojo.ListAnimeMovieTags(ctx, req.AnimeID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("cannot get anime movie tags IDs", err)
@@ -281,7 +283,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		return nil, err
 	}
 
-	if err = server.do(ctx, cache.Images(), &res.AnimeImages, func() error {
+	if err = server.ping.Handle(ctx, cache.Images(), &res.AnimeImages, func() error {
 		animePosterIDs, err := server.gojo.ListAnimeMoviePosterImages(ctx, req.AnimeID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("cannot get anime movie posters images IDs", err)
@@ -346,7 +348,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 		return nil, err
 	}
 
-	if err = server.do(ctx, cache.Trailers(), &res.AnimeTrailers, func() error {
+	if err = server.ping.Handle(ctx, cache.Trailers(), &res.AnimeTrailers, func() error {
 		animeTrailerIDs, err := server.gojo.ListAnimeMovieTrailers(ctx, req.AnimeID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("cannot get anime movie trailers IDs", err)

@@ -8,6 +8,7 @@ import (
 	"github.com/dj-yacine-flutter/gojo/api/info"
 	"github.com/dj-yacine-flutter/gojo/api/user"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
+	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/token"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
@@ -29,11 +30,12 @@ func NewServer(config utils.Config, gojo db.Gojo, taskDistributor worker.TaskDis
 		return nil, fmt.Errorf("cannot create token maker: %w", err)
 	}
 
+	ping := ping.NewPingSystem(config, cache)
 	server := &Server{
 		UserServer:       user.NewUserServer(config, gojo, tokenMaker, taskDistributor),
 		InfoServer:       info.NewInfoServer(gojo, tokenMaker),
-		AnimeSerieServer: animeSerie.NewAnimeSerieServer(config, gojo, tokenMaker, cache),
-		AnimeMovieServer: animeMovie.NewAnimeMovieServer(config, gojo, tokenMaker, cache),
+		AnimeSerieServer: animeSerie.NewAnimeSerieServer(config, gojo, tokenMaker, ping),
+		AnimeMovieServer: animeMovie.NewAnimeMovieServer(config, gojo, tokenMaker, ping),
 	}
 
 	return server, nil

@@ -8,6 +8,7 @@ import (
 	"github.com/dj-yacine-flutter/gojo/pb/aspb"
 	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
 	"github.com/dj-yacine-flutter/gojo/pb/shpb"
+	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/jackc/pgerrcode"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -31,14 +32,14 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		return nil, shared.InvalidArgumentError(violations)
 	}
 
-	cache := &CacheKey{
-		id:     req.AnimeID,
-		target: SERIE_KEY,
+	cache := &ping.CacheKey{
+		ID:     req.AnimeID,
+		Target: ping.ANIME_SERIE,
 	}
 
 	res := &aspb.GetFullAnimeSerieResponse{}
 
-	server.do(ctx, cache.Anime(), &res.AnimeSerie, func() error {
+	server.ping.Handle(ctx, cache.Main(), &res.AnimeSerie, func() error {
 		animeSerie, err := server.gojo.GetAnimeSerie(ctx, req.GetAnimeID())
 		if err != nil {
 			return shared.DatabaseError("failed to get the anime serie", err)
@@ -53,7 +54,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		return nil
 	})
 
-	server.do(ctx, cache.Meta(uint32(req.LanguageID)), &res.AnimeMeta, func() error {
+	server.ping.Handle(ctx, cache.Meta(uint32(req.LanguageID)), &res.AnimeMeta, func() error {
 		_, err = server.gojo.GetLanguage(ctx, req.GetLanguageID())
 		if err != nil {
 			return shared.DatabaseError("failed to get the language", err)
@@ -83,7 +84,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		return nil
 	})
 
-	server.do(ctx, cache.Links(), &res.AnimeLinks, func() error {
+	server.ping.Handle(ctx, cache.Links(), &res.AnimeLinks, func() error {
 		animeLinkID, err := server.gojo.GetAnimeSerieLink(ctx, req.GetAnimeID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("failed to get anime serie links ID", err)
@@ -100,7 +101,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		return nil
 	})
 
-	server.do(ctx, cache.Images(), &res.AnimeImages, func() error {
+	server.ping.Handle(ctx, cache.Images(), &res.AnimeImages, func() error {
 		animePosterIDs, err := server.gojo.ListAnimeSeriePosterImages(ctx, req.AnimeID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("cannot get anime serie posters images IDs", err)
@@ -164,7 +165,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		return nil
 	})
 
-	server.do(ctx, cache.Trailers(), &res.AnimeTrailers, func() error {
+	server.ping.Handle(ctx, cache.Trailers(), &res.AnimeTrailers, func() error {
 		animeTrailerIDs, err := server.gojo.ListAnimeSerieTrailers(ctx, req.AnimeID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("cannot get anime serie trailers IDs", err)

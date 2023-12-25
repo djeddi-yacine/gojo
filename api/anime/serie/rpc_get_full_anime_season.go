@@ -7,6 +7,7 @@ import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/pb/aspb"
 	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
+	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/jackc/pgerrcode"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -30,14 +31,14 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 		return nil, shared.InvalidArgumentError(violations)
 	}
 
-	cache := &CacheKey{
-		id:     req.SeasonID,
-		target: SEASON_KEY,
+	cache := &ping.CacheKey{
+		ID:     req.SeasonID,
+		Target: ping.ANIME_SEASON,
 	}
 
 	res := &aspb.GetFullAnimeSeasonResponse{}
 
-	server.do(ctx, cache.Anime(), &res.AnimeSeason, func() error {
+	server.ping.Handle(ctx, cache.Main(), &res.AnimeSeason, func() error {
 		animeSeason, err := server.gojo.GetAnimeSeason(ctx, req.GetSeasonID())
 		if err != nil {
 			return shared.DatabaseError("failed to get the anime season", err)
@@ -47,7 +48,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 		return nil
 	})
 
-	server.do(ctx, cache.Meta(uint32(req.LanguageID)), &res.SeasonMeta, func() error {
+	server.ping.Handle(ctx, cache.Meta(uint32(req.LanguageID)), &res.SeasonMeta, func() error {
 		_, err = server.gojo.GetLanguage(ctx, req.GetLanguageID())
 		if err != nil {
 			return shared.DatabaseError("failed to get the language", err)
@@ -77,7 +78,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 		return nil
 	})
 
-	server.do(ctx, cache.Genre(), &res.SeasonGenres, func() error {
+	server.ping.Handle(ctx, cache.Genre(), &res.SeasonGenres, func() error {
 		seasonGenres, err := server.gojo.ListAnimeSeasonGenres(ctx, req.GetSeasonID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("failed to get anime serie genres", err)
@@ -97,7 +98,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 		return nil
 	})
 
-	server.do(ctx, cache.Studio(), &res.SeasonStudios, func() error {
+	server.ping.Handle(ctx, cache.Studio(), &res.SeasonStudios, func() error {
 		seasonStudios, err := server.gojo.ListAnimeSeasonStudios(ctx, req.GetSeasonID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("failed to get anime serie studios", err)
@@ -116,7 +117,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 		return nil
 	})
 
-	server.do(ctx, cache.Resources(), &res.SeasonResoures, func() error {
+	server.ping.Handle(ctx, cache.Resources(), &res.SeasonResoures, func() error {
 		seasonResourceID, err := server.gojo.GetAnimeSeasonResource(ctx, req.GetSeasonID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("cannot get anime season resources", err)
@@ -130,7 +131,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 		return nil
 	})
 
-	server.do(ctx, cache.Tags(), &res.SeasonTags, func() error {
+	server.ping.Handle(ctx, cache.Tags(), &res.SeasonTags, func() error {
 		animeTagIDs, err := server.gojo.ListAnimeSeasonTags(ctx, req.SeasonID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("cannot get anime season tags IDs", err)
@@ -164,7 +165,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 		return nil
 	})
 
-	server.do(ctx, cache.Images(), &res.SeasonPosters, func() error {
+	server.ping.Handle(ctx, cache.Images(), &res.SeasonPosters, func() error {
 		animePosterIDs, err := server.gojo.ListAnimeSeriePosterImages(ctx, req.SeasonID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("cannot get anime serie posters images IDs", err)
@@ -188,7 +189,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 		return nil
 	})
 
-	server.do(ctx, cache.Trailers(), &res.SeasonTrailers, func() error {
+	server.ping.Handle(ctx, cache.Trailers(), &res.SeasonTrailers, func() error {
 		animeTrailerIDs, err := server.gojo.ListAnimeSerieTrailers(ctx, req.SeasonID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shared.DatabaseError("cannot get anime season trailers IDs", err)
