@@ -11,6 +11,8 @@ volumes:
     driver: local
 
 services:
+
+
   postgres:
     container_name: Gojo-DB
     image: postgres:16.1-alpine3.19
@@ -21,20 +23,54 @@ services:
       - POSTGRES_DB=gojo
     ports:
       - "5432:5432"
+    expose:
+      - "5432"
     volumes:
       - data-volume:/var/lib/postgresql/data
+    networks:
+      - default
     healthcheck:
       test: ["CMD-SHELL", "sh -c 'pg_isready -h postgres'"]
       interval: 10s
       timeout: 3s
       retries: 3
   
-  redis:
-    container_name: Gojo-Redis
+
+  queue:
+    container_name: Gojo-Redis-Queue
     image: redis:7.2.3-alpine3.19
     restart: always
+    networks:
+      - default
     ports:
-      - "6379:6379"
+      - "6370:6370"
+    expose:
+      - "6370"
+    command: redis-server --port 6370
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+
+
+  cache:
+    container_name: Gojo-Redis-Cache
+    image: redis:7.2.3-alpine3.19
+    restart: always
+    networks:
+      - default
+    ports:
+      - "6380:6380"
+    expose:
+      - "6380"
+    command: redis-server --port 6380
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+
 
   migration:
     container_name: Gojo-Migration
@@ -43,10 +79,13 @@ services:
       dockerfile: Dockerfile.migrate
     environment:
       - DB_SOURCE=postgresql://root:gojo_secret@postgres:5432/gojo?sslmode=disable
+    networks:
+      - default
     depends_on:
       postgres:
         condition: service_healthy
         restart: true
+
 
   api:
     container_name: Gojo-Api
@@ -58,11 +97,16 @@ services:
       - "9090:9090"
     environment:
       - DB_SOURCE=postgresql://root:gojo_secret@postgres:5432/gojo?sslmode=disable
-      - REDIS_ADDRESS=redis:6379     
+      - REDIS_QUEUE_ADDRESS=queue:6370
+      - REDIS_CACHE_ADDRESS=cache:6380
+    networks:
+      - default
     depends_on:
       migration:
         condition: service_completed_successfully
       postgres:
+        condition: service_healthy
+      queue:
         condition: service_started
-      redis:
+      cache:
         condition: service_started
