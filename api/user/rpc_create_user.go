@@ -50,7 +50,7 @@ func (server *UserServer) CreateUser(ctx context.Context, req *uspb.CreateUserRe
 
 	txResult, err := server.gojo.CreateUserTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create the user", err)
+		return nil, shared.ApiError("failed to create the user", err)
 	}
 
 	res := &uspb.CreateUserResponse{

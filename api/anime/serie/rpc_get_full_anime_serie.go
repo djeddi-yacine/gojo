@@ -42,12 +42,12 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	server.ping.Handle(ctx, cache.Main(), &res.AnimeSerie, func() error {
 		animeSerie, err := server.gojo.GetAnimeSerie(ctx, req.GetAnimeID())
 		if err != nil {
-			return shared.DatabaseError("failed to get the anime serie", err)
+			return shared.ApiError("failed to get the anime serie", err)
 		}
 
 		_, err = server.gojo.GetLanguage(ctx, req.GetLanguageID())
 		if err != nil {
-			return shared.DatabaseError("failed to get the language", err)
+			return shared.ApiError("failed to get the language", err)
 		}
 
 		res.AnimeSerie = shared.ConvertAnimeSerie(animeSerie)
@@ -57,7 +57,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	server.ping.Handle(ctx, cache.Meta(uint32(req.LanguageID)), &res.AnimeMeta, func() error {
 		_, err = server.gojo.GetLanguage(ctx, req.GetLanguageID())
 		if err != nil {
-			return shared.DatabaseError("failed to get the language", err)
+			return shared.ApiError("failed to get the language", err)
 		}
 
 		animeMeta, err := server.gojo.GetAnimeSerieMeta(ctx, db.GetAnimeSerieMetaParams{
@@ -65,13 +65,13 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 			LanguageID: req.GetLanguageID(),
 		})
 		if err != nil {
-			return shared.DatabaseError("no anime serie found with this language ID", err)
+			return shared.ApiError("no anime serie found with this language ID", err)
 		}
 
 		if animeMeta > 0 {
 			meta, err := server.gojo.GetMeta(ctx, animeMeta)
 			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shared.DatabaseError("failed to get anime serie metadata", err)
+				return shared.ApiError("failed to get anime serie metadata", err)
 			}
 
 			res.AnimeMeta = &nfpb.AnimeMetaResponse{
@@ -87,13 +87,13 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	server.ping.Handle(ctx, cache.Links(), &res.AnimeLinks, func() error {
 		animeLinkID, err := server.gojo.GetAnimeSerieLink(ctx, req.GetAnimeID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("failed to get anime serie links ID", err)
+			return shared.ApiError("failed to get anime serie links ID", err)
 		}
 
 		if animeLinkID.AnimeID == req.AnimeID {
 			animeLinks, err := server.gojo.GetAnimeLink(ctx, animeLinkID.LinkID)
 			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shared.DatabaseError("failed to get anime serie links", err)
+				return shared.ApiError("failed to get anime serie links", err)
 			}
 			res.AnimeLinks = shared.ConvertAnimeLink(animeLinks)
 		}
@@ -104,7 +104,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	server.ping.Handle(ctx, cache.Images(), &res.AnimeImages, func() error {
 		animePosterIDs, err := server.gojo.ListAnimeSeriePosterImages(ctx, req.AnimeID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("cannot get anime serie posters images IDs", err)
+			return shared.ApiError("cannot get anime serie posters images IDs", err)
 		}
 
 		var animePosters []db.AnimeImage
@@ -114,7 +114,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 			for i, p := range animePosterIDs {
 				poster, err := server.gojo.GetAnimeImage(ctx, p)
 				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shared.DatabaseError("cannot get anime serie poster image", err)
+					return shared.ApiError("cannot get anime serie poster image", err)
 				}
 				animePosters[i] = poster
 			}
@@ -122,7 +122,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 
 		animeBackdropIDs, err := server.gojo.ListAnimeSerieBackdropImages(ctx, req.AnimeID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("cannot get anime serie backdrops images IDs", err)
+			return shared.ApiError("cannot get anime serie backdrops images IDs", err)
 		}
 
 		var animeBackdrops []db.AnimeImage
@@ -132,7 +132,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 			for i, p := range animeBackdropIDs {
 				backdrop, err := server.gojo.GetAnimeImage(ctx, p)
 				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shared.DatabaseError("cannot get anime serie backdrop image", err)
+					return shared.ApiError("cannot get anime serie backdrop image", err)
 				}
 				animeBackdrops[i] = backdrop
 			}
@@ -140,7 +140,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 
 		animeLogoIDs, err := server.gojo.ListAnimeSerieLogoImages(ctx, req.AnimeID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("cannot get anime serie logos images IDs", err)
+			return shared.ApiError("cannot get anime serie logos images IDs", err)
 		}
 
 		var animeLogos []db.AnimeImage
@@ -150,7 +150,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 			for i, p := range animeLogoIDs {
 				logo, err := server.gojo.GetAnimeImage(ctx, p)
 				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shared.DatabaseError("cannot get anime serie logo image", err)
+					return shared.ApiError("cannot get anime serie logo image", err)
 				}
 				animeLogos[i] = logo
 			}
@@ -168,7 +168,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	server.ping.Handle(ctx, cache.Trailers(), &res.AnimeTrailers, func() error {
 		animeTrailerIDs, err := server.gojo.ListAnimeSerieTrailers(ctx, req.AnimeID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("cannot get anime serie trailers IDs", err)
+			return shared.ApiError("cannot get anime serie trailers IDs", err)
 		}
 
 		var animeTrailers []db.AnimeTrailer
@@ -178,7 +178,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 			for i, t := range animeTrailerIDs {
 				trailer, err := server.gojo.GetAnimeTrailer(ctx, t.TrailerID)
 				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shared.DatabaseError("cannot get anime serie trailer", err)
+					return shared.ApiError("cannot get anime serie trailer", err)
 				}
 				animeTrailers[i] = trailer
 			}

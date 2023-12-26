@@ -38,7 +38,7 @@ func (server *InfoServer) CreateLanguages(ctx context.Context, req *nfpb.CreateL
 		CreateLanguageParams: LanguageParams,
 	})
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create new language", err)
+		return nil, shared.ApiError("failed to create new language", err)
 	}
 
 	var Languages []*nfpb.LanguageResponse

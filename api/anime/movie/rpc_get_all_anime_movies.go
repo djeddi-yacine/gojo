@@ -38,7 +38,7 @@ func (server *AnimeMovieServer) GetAllAnimeMovies(ctx context.Context, req *ampb
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
 		}
-		return nil, shared.DatabaseError("failed to list all anime movies", err)
+		return nil, shared.ApiError("failed to list all anime movies", err)
 	}
 
 	var PBAnimeMovies []*ampb.AnimeMovieResponse

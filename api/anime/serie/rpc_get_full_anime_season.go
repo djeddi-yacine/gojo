@@ -41,7 +41,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 	server.ping.Handle(ctx, cache.Main(), &res.AnimeSeason, func() error {
 		animeSeason, err := server.gojo.GetAnimeSeason(ctx, req.GetSeasonID())
 		if err != nil {
-			return shared.DatabaseError("failed to get the anime season", err)
+			return shared.ApiError("failed to get the anime season", err)
 		}
 
 		res.AnimeSeason = shared.ConvertAnimeSeason(animeSeason)
@@ -51,7 +51,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 	server.ping.Handle(ctx, cache.Meta(uint32(req.LanguageID)), &res.SeasonMeta, func() error {
 		_, err = server.gojo.GetLanguage(ctx, req.GetLanguageID())
 		if err != nil {
-			return shared.DatabaseError("failed to get the language", err)
+			return shared.ApiError("failed to get the language", err)
 		}
 
 		animeMeta, err := server.gojo.GetAnimeSeasonMeta(ctx, db.GetAnimeSeasonMetaParams{
@@ -59,13 +59,13 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 			LanguageID: req.GetLanguageID(),
 		})
 		if err != nil {
-			return shared.DatabaseError("no anime season found with this language ID", err)
+			return shared.ApiError("no anime season found with this language ID", err)
 		}
 
 		if animeMeta > 0 {
 			meta, err := server.gojo.GetMeta(ctx, animeMeta)
 			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shared.DatabaseError("failed to get anime season metadata", err)
+				return shared.ApiError("failed to get anime season metadata", err)
 			}
 
 			res.SeasonMeta = &nfpb.AnimeMetaResponse{
@@ -81,7 +81,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 	server.ping.Handle(ctx, cache.Genre(), &res.SeasonGenres, func() error {
 		seasonGenres, err := server.gojo.ListAnimeSeasonGenres(ctx, req.GetSeasonID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("failed to get anime serie genres", err)
+			return shared.ApiError("failed to get anime serie genres", err)
 		}
 
 		if len(seasonGenres) > 0 {
@@ -90,7 +90,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 			for i, amg := range seasonGenres {
 				genres[i], err = server.gojo.GetGenre(ctx, amg)
 				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shared.DatabaseError("failed when list anime serie genres", err)
+					return shared.ApiError("failed when list anime serie genres", err)
 				}
 			}
 			res.SeasonGenres = shared.ConvertGenres(genres)
@@ -101,7 +101,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 	server.ping.Handle(ctx, cache.Studio(), &res.SeasonStudios, func() error {
 		seasonStudios, err := server.gojo.ListAnimeSeasonStudios(ctx, req.GetSeasonID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("failed to get anime serie studios", err)
+			return shared.ApiError("failed to get anime serie studios", err)
 		}
 
 		if len(seasonStudios) > 0 {
@@ -109,7 +109,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 			for i, ams := range seasonStudios {
 				studios[i], err = server.gojo.GetStudio(ctx, ams)
 				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shared.DatabaseError("failed when list anime serie studios", err)
+					return shared.ApiError("failed when list anime serie studios", err)
 				}
 			}
 			res.SeasonStudios = shared.ConvertStudios(studios)
@@ -120,12 +120,12 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 	server.ping.Handle(ctx, cache.Resources(), &res.SeasonResoures, func() error {
 		seasonResourceID, err := server.gojo.GetAnimeSeasonResource(ctx, req.GetSeasonID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("cannot get anime season resources", err)
+			return shared.ApiError("cannot get anime season resources", err)
 		}
 
 		seasonResources, err := server.gojo.GetAnimeResource(ctx, seasonResourceID.ResourceID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("cannot get resources data", err)
+			return shared.ApiError("cannot get resources data", err)
 		}
 		res.SeasonResoures = shared.ConvertAnimeResource(seasonResources)
 		return nil
@@ -134,7 +134,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 	server.ping.Handle(ctx, cache.Tags(), &res.SeasonTags, func() error {
 		animeTagIDs, err := server.gojo.ListAnimeSeasonTags(ctx, req.SeasonID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("cannot get anime season tags IDs", err)
+			return shared.ApiError("cannot get anime season tags IDs", err)
 		}
 
 		var animeTags []db.AnimeTag
@@ -144,7 +144,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 			for i, t := range animeTagIDs {
 				tag, err := server.gojo.GetAnimeTag(ctx, t.TagID)
 				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shared.DatabaseError("cannot get anime season tag", err)
+					return shared.ApiError("cannot get anime season tag", err)
 				}
 				animeTags[i] = tag
 			}
@@ -168,7 +168,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 	server.ping.Handle(ctx, cache.Images(), &res.SeasonPosters, func() error {
 		animePosterIDs, err := server.gojo.ListAnimeSeriePosterImages(ctx, req.SeasonID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("cannot get anime serie posters images IDs", err)
+			return shared.ApiError("cannot get anime serie posters images IDs", err)
 		}
 
 		var animePosters []db.AnimeImage
@@ -178,7 +178,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 			for i, p := range animePosterIDs {
 				poster, err := server.gojo.GetAnimeImage(ctx, p)
 				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shared.DatabaseError("cannot get anime serie poster image", err)
+					return shared.ApiError("cannot get anime serie poster image", err)
 				}
 				animePosters[i] = poster
 			}
@@ -192,7 +192,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 	server.ping.Handle(ctx, cache.Trailers(), &res.SeasonTrailers, func() error {
 		animeTrailerIDs, err := server.gojo.ListAnimeSerieTrailers(ctx, req.SeasonID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("cannot get anime season trailers IDs", err)
+			return shared.ApiError("cannot get anime season trailers IDs", err)
 		}
 
 		var animeTrailers []db.AnimeTrailer
@@ -202,7 +202,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 			for i, t := range animeTrailerIDs {
 				trailer, err := server.gojo.GetAnimeTrailer(ctx, t.TrailerID)
 				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shared.DatabaseError("cannot get anime season trailer", err)
+					return shared.ApiError("cannot get anime season trailer", err)
 				}
 				animeTrailers[i] = trailer
 			}

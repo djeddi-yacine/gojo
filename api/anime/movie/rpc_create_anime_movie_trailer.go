@@ -45,7 +45,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieTrailer(ctx context.Context, req
 
 	data, err := server.gojo.CreateAnimeMovieTrailerTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create anime movie trailer", err)
+		return nil, shared.ApiError("failed to create anime movie trailer", err)
 	}
 
 	res := &ampb.CreateAnimeMovieTrailerResponse{

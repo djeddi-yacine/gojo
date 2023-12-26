@@ -30,7 +30,7 @@ func (server *InfoServer) CreateStudios(ctx context.Context, req *nfpb.CreateStu
 		Names: req.GetNames(),
 	})
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create studio", err)
+		return nil, shared.ApiError("failed to create studio", err)
 	}
 
 	var PBStudios []*nfpb.Studio

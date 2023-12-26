@@ -71,7 +71,7 @@ func (server *AnimeMovieServer) UpdateAnimeMovie(ctx context.Context, req *ampb.
 
 	anime, err := server.gojo.UpdateAnimeMovie(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to update anime movie", err)
+		return nil, shared.ApiError("failed to update anime movie", err)
 	}
 
 	res := &ampb.UpdateAnimeMovieResponse{

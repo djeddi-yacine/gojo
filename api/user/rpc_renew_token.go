@@ -8,8 +8,6 @@ import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/pb/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
-	"github.com/dj-yacine-flutter/gojo/worker"
-	"github.com/hibiken/asynq"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -28,7 +26,7 @@ func (server *UserServer) RenewTokens(ctx context.Context, req *uspb.RenewTokens
 
 	session, err := server.gojo.GetSession(ctx, refreshPayload.ID)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to get session", err)
+		return nil, shared.ApiError("failed to get session", err)
 	}
 
 	if session.IsBlocked {
@@ -66,33 +64,19 @@ func (server *UserServer) RenewTokens(ctx context.Context, req *uspb.RenewTokens
 		return nil, status.Errorf(codes.Internal, "failed to create refresh token : %s", err)
 	}
 
-	arg := db.RenewSessionTxParams{
-		CreateSessionParams: db.CreateSessionParams{
-			ID:           refreshPayload.ID,
-			Username:     refreshPayload.Username,
-			RefreshToken: refreshToken,
-			UserAgent:    session.UserAgent,
-			ClientIp:     session.ClientIp,
-			IsBlocked:    false,
-			ExpiresAt:    refreshPayload.ExpiredAt,
-		},
-		AfterRenew: func(username string) error {
-			taskPayload := &worker.PayloadDeleteSession{
-				Username: username,
-			}
-			opts := []asynq.Option{
-				asynq.MaxRetry(10),
-				asynq.ProcessIn(10 * time.Second),
-				asynq.Queue(worker.QueueCritical),
-			}
-
-			return server.taskDistributor.DistributeTaskDeleteSession(ctx, taskPayload, opts...)
-		},
+	arg := db.CreateSessionParams{
+		ID:           refreshPayload.ID,
+		Username:     refreshPayload.Username,
+		RefreshToken: refreshToken,
+		UserAgent:    session.UserAgent,
+		ClientIp:     session.ClientIp,
+		IsBlocked:    false,
+		ExpiresAt:    refreshPayload.ExpiredAt,
 	}
 
-	s, err := server.gojo.RenewSessionTx(ctx, arg)
+	s, err := server.gojo.CreateSession(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to renew session", err)
+		return nil, shared.ApiError("failed to renew session", err)
 	}
 
 	res := &uspb.RenewTokensResponse{

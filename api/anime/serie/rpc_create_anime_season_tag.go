@@ -44,7 +44,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTag(ctx context.Context, req *a
 
 	data, err := server.gojo.CreateAnimeSeasonTagTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create anime season tags", err)
+		return nil, shared.ApiError("failed to create anime season tags", err)
 	}
 
 	var seasonTags []*aspb.AnimeSeasonTag

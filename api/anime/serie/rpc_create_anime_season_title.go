@@ -65,7 +65,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTitle(ctx context.Context, req 
 
 	data, err := server.gojo.CreateAnimeSeasonTitleTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create anime season title", err)
+		return nil, shared.ApiError("failed to create anime season title", err)
 	}
 
 	var officials []*aspb.AnimeSeasonTitle

@@ -3933,21 +3933,6 @@ func (mr *MockGojoMockRecorder) RefreshSessions(arg0, arg1 interface{}) *gomock.
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RefreshSessions", reflect.TypeOf((*MockGojo)(nil).RefreshSessions), arg0, arg1)
 }
 
-// RenewSessionTx mocks base method.
-func (m *MockGojo) RenewSessionTx(arg0 context.Context, arg1 db.RenewSessionTxParams) (db.RenewSessionTxResult, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "RenewSessionTx", arg0, arg1)
-	ret0, _ := ret[0].(db.RenewSessionTxResult)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// RenewSessionTx indicates an expected call of RenewSessionTx.
-func (mr *MockGojoMockRecorder) RenewSessionTx(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "RenewSessionTx", reflect.TypeOf((*MockGojo)(nil).RenewSessionTx), arg0, arg1)
-}
-
 // UpdateAnimeEpisode mocks base method.
 func (m *MockGojo) UpdateAnimeEpisode(arg0 context.Context, arg1 db.UpdateAnimeEpisodeParams) (db.AnimeSerieEpisode, error) {
 	m.ctrl.T.Helper()

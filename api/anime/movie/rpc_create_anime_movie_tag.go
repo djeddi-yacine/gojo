@@ -44,7 +44,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieTag(ctx context.Context, req *am
 
 	data, err := server.gojo.CreateAnimeMovieTagTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create anime movie tags", err)
+		return nil, shared.ApiError("failed to create anime movie tags", err)
 	}
 
 	var animeTags []*ampb.AnimeMovieTag

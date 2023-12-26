@@ -93,7 +93,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieData(ctx context.Context, req *a
 
 	data, err := server.gojo.CreateAnimeMovieDataTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to add anime movie videos & torrents to the server", err)
+		return nil, shared.ApiError("failed to add anime movie videos & torrents to the server", err)
 	}
 
 	res := &ampb.CreateAnimeMovieDataResponse{

@@ -21,7 +21,7 @@ func (server *UserServer) VerifyEmail(ctx context.Context, req *uspb.VerifyEmail
 		SecretCode: req.GetSecretCode(),
 	})
 	if err != nil {
-		return nil, shared.DatabaseError("failed to verify email", err)
+		return nil, shared.ApiError("failed to verify email", err)
 	}
 
 	rsp := &uspb.VerifyEmailResponse{

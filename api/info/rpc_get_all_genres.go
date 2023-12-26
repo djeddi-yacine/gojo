@@ -37,7 +37,7 @@ func (server *InfoServer) GetAllGenres(ctx context.Context, req *nfpb.GetAllGenr
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
 		}
-		return nil, shared.DatabaseError("failed to list all genres", err)
+		return nil, shared.ApiError("failed to list all genres", err)
 	}
 
 	var PBgenres []*nfpb.Genre

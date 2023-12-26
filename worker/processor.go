@@ -17,7 +17,6 @@ const (
 type TaskProcessor interface {
 	Start() error
 	ProcessTaskSendVerifyEmail(ctx context.Context, task *asynq.Task) error
-	ProcessTaskDeleteSession(ctx context.Context, task *asynq.Task) error
 }
 
 type RedisTaskProcessor struct {
@@ -51,7 +50,6 @@ func (processor *RedisTaskProcessor) Start() error {
 	mux := asynq.NewServeMux()
 
 	mux.HandleFunc(TaskSendVerifyEmail, processor.ProcessTaskSendVerifyEmail)
-	mux.HandleFunc(TaskDeleteSession, processor.ProcessTaskDeleteSession)
 
 	return processor.server.Start(mux)
 }

@@ -21,7 +21,7 @@ func ErrorDB(err error) *pgconn.PgError {
 	if err == pgx.ErrNoRows {
 		return &pgconn.PgError{
 			Code:    pgerrcode.CaseNotFound,
-			Message: "Not Found",
+			Message: "not found",
 			Detail:  err.Error(),
 		}
 	}
@@ -34,29 +34,29 @@ func ErrorDB(err error) *pgconn.PgError {
 	return pgErr
 }
 
-func ErrorDBType(err error) string {
+func ErrorType(err error) string {
 	if err != nil {
 		if err == pgx.ErrNoRows {
-			return "Not found"
+			return "not found"
 		}
 		if pgErr, ok := err.(*pgconn.PgError); ok {
 			switch pgErr.Code {
 			case pgerrcode.UniqueViolation:
-				return "Already exist."
+				return "already exist."
 			case pgerrcode.ForeignKeyViolation:
-				return "Others data have relation with this model."
+				return "others data have relation with this model."
 			}
 			if pgerrcode.IsCaseNotFound(pgErr.Code) {
-				return "Not found."
+				return "not found."
 			}
 			if pgerrcode.IsConnectionException(pgErr.Code) {
-				return "Database connection timeout."
+				return "database connection timeout."
 			}
 			if pgerrcode.IsDataException(pgErr.Code) {
-				return "Data exception."
+				return "data exception."
 			}
 			if pgerrcode.IsInvalidTransactionState(pgErr.Code) {
-				return "Failed to add it to database."
+				return "failed to add it to database."
 			}
 		}
 	}

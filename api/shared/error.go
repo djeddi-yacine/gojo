@@ -1,6 +1,10 @@
 package shared
 
 import (
+	"context"
+	"errors"
+	"net"
+
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/jackc/pgerrcode"
 
@@ -32,14 +36,23 @@ func UnAuthenticatedError(err error) error {
 	return status.Errorf(codes.Unauthenticated, "unauthorized: %s", err)
 }
 
-func DatabaseError(msg string, err error) error {
+func ApiError(msg string, err error) error {
+	if errors.Is(err, context.Canceled) {
+		return status.Error(codes.Canceled, "request was canceled")
+	}
+
+	if err, ok := err.(net.Error); ok && err.Timeout() {
+		return status.Error(codes.DeadlineExceeded, "operation timed out")
+	}
+
 	dberr := db.ErrorDB(err)
-	errdet := &errdetails.ErrorInfo{
+	errorDetails := &errdetails.ErrorInfo{
 		Reason: msg,
 	}
+
 	if dberr != nil {
-		errdet.Metadata = map[string]string{
-			"Statue":           db.ErrorDBType(err),
+		errorDetails.Metadata = map[string]string{
+			"Statue":           db.ErrorType(err),
 			"Database Code":    dberr.Code,
 			"Database Message": dberr.Message,
 			"Database Details": dberr.Detail,
@@ -47,15 +60,18 @@ func DatabaseError(msg string, err error) error {
 	}
 
 	var statusError *status.Status
-	if dberr.Code == pgerrcode.CaseNotFound {
-		statusError = status.New(codes.NotFound, "Internal server")
-	} else if dberr.Code == pgerrcode.UniqueViolation {
-		statusError = status.New(codes.AlreadyExists, "Internal server")
-	} else {
-		statusError = status.New(codes.Internal, "Internal server")
+	switch dberr.Code {
+	case pgerrcode.CaseNotFound:
+		statusError = status.New(codes.NotFound, "internal server")
+	case pgerrcode.UniqueViolation:
+		statusError = status.New(codes.AlreadyExists, "internal server")
+	case pgerrcode.ForeignKeyViolation:
+		statusError = status.New(codes.FailedPrecondition, "internal server")
+	default:
+		statusError = status.New(codes.Internal, "internal server")
 	}
 
-	statusDetails, err := statusError.WithDetails(errdet)
+	statusDetails, err := statusError.WithDetails(errorDetails)
 	if err != nil {
 		return statusError.Err()
 	}

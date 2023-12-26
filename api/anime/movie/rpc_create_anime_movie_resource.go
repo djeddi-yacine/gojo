@@ -46,7 +46,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieResource(ctx context.Context, re
 
 	data, err := server.gojo.CreateAnimeMovieResourceTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create anime movie resource", err)
+		return nil, shared.ApiError("failed to create anime movie resource", err)
 	}
 
 	res := &ampb.CreateAnimeMovieResourceResponse{

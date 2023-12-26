@@ -47,7 +47,7 @@ func (server *AnimeSerieServer) CreateAnimeSerieMetas(ctx context.Context, req *
 
 	metas, err := server.gojo.CreateAnimeSerieMetasTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create anime serie metadata", err)
+		return nil, shared.ApiError("failed to create anime serie metadata", err)
 	}
 
 	var PBAM = make([]*nfpb.AnimeMetaResponse, len(metas.AnimeSerieMetasTxResults))

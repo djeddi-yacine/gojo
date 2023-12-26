@@ -57,7 +57,7 @@ func (server *AnimeSerieServer) CreateAnimeSeason(ctx context.Context, req *aspb
 	data, err := server.gojo.CreateAnimeSeasonTx(ctx, arg)
 	if err != nil {
 		db.ErrorSQL(err)
-		return nil, shared.DatabaseError("failed to create anime serie season", err)
+		return nil, shared.ApiError("failed to create anime serie season", err)
 	}
 
 	var PBSM = make([]*nfpb.AnimeMetaResponse, len(data.AnimeSeasonMetas))

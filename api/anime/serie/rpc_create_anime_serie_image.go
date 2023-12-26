@@ -77,7 +77,7 @@ func (server *AnimeSerieServer) CreateAnimeSerieImage(ctx context.Context, req *
 
 	data, err := server.gojo.CreateAnimeSerieImageTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create anime serie images", err)
+		return nil, shared.ApiError("failed to create anime serie images", err)
 	}
 
 	res := &aspb.CreateAnimeSerieImageResponse{

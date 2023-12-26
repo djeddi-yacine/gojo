@@ -39,7 +39,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieLink(ctx context.Context, req *a
 
 	data, err := server.gojo.CreateAnimeMovieLinkTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create anime movie link", err)
+		return nil, shared.ApiError("failed to create anime movie link", err)
 	}
 
 	res := &ampb.CreateAnimeMovieLinkResponse{

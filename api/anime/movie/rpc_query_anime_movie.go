@@ -35,7 +35,7 @@ func (server *AnimeMovieServer) QueryAnimeMovie(ctx context.Context, req *ampb.Q
 
 	data, err := server.gojo.QueryAnimeMovieTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to query anime movies", err)
+		return nil, shared.ApiError("failed to query anime movies", err)
 	}
 
 	var animeMovies []*ampb.AnimeMovieResponse

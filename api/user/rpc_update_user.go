@@ -58,7 +58,7 @@ func (server *UserServer) UpdateUser(ctx context.Context, req *uspb.UpdateUserRe
 
 	user, err := server.gojo.UpdateUser(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to update user", err)
+		return nil, shared.ApiError("failed to update user", err)
 	}
 
 	res := &uspb.UpdateUserResponse{

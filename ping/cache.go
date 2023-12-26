@@ -72,15 +72,15 @@ func (system *PingSystem) Handle(ctx context.Context, gen KeyGenrator, value int
 		}
 
 		log.Debug().
-			Str("Key", gen.Key()).
-			Bool("Found", false).
-			Uint8("Count", target).
-			Msg("Cache System")
+			Str("key", gen.Key()).
+			Bool("found", false).
+			Uint8("count", target).
+			Msg("cache system")
 	} else {
 		log.Debug().
-			Str("Key", gen.Key()).
-			Bool("Found", true).
-			Msg("Cache System")
+			Str("key", gen.Key()).
+			Bool("found", true).
+			Msg("cache system")
 	}
 
 	return err

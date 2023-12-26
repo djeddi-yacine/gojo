@@ -48,7 +48,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonImage(ctx context.Context, req 
 
 	data, err := server.gojo.CreateAnimeSeasonImageTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create anime season images", err)
+		return nil, shared.ApiError("failed to create anime season images", err)
 	}
 
 	res := &aspb.CreateAnimeSeasonImageResponse{

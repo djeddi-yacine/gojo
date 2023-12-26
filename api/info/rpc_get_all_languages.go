@@ -37,7 +37,7 @@ func (server *InfoServer) GetAllLanguages(ctx context.Context, req *nfpb.GetAllL
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
 		}
-		return nil, shared.DatabaseError("failed to list all languages", err)
+		return nil, shared.ApiError("failed to list all languages", err)
 	}
 
 	var PBLanguages []*nfpb.LanguageResponse

@@ -35,7 +35,7 @@ func (server *AnimeSerieServer) QueryAnimeSeason(ctx context.Context, req *aspb.
 
 	data, err := server.gojo.QueryAnimeSeasonTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to query anime seasons", err)
+		return nil, shared.ApiError("failed to query anime seasons", err)
 	}
 
 	var animeSeasons []*aspb.AnimeSeasonResponse

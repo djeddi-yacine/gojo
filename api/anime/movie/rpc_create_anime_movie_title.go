@@ -65,7 +65,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieTitle(ctx context.Context, req *
 
 	data, err := server.gojo.CreateAnimeMovieTitleTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create anime movie title", err)
+		return nil, shared.ApiError("failed to create anime movie title", err)
 	}
 
 	var officials []*ampb.AnimeMovieTitle

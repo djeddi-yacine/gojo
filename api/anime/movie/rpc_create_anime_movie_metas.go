@@ -47,7 +47,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieMetas(ctx context.Context, req *
 
 	metas, err := server.gojo.CreateAnimeMovieMetasTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create anime movie metadata", err)
+		return nil, shared.ApiError("failed to create anime movie metadata", err)
 	}
 
 	var anime_metas = make([]*nfpb.AnimeMetaResponse, len(metas.AnimeMovieMetasTxResults))

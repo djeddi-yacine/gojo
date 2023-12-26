@@ -40,7 +40,7 @@ func (server *AnimeMovieServer) GetAnimeMovieImages(ctx context.Context, req *am
 	if err = server.ping.Handle(ctx, cache.Images(), &res.AnimeImages, func() error {
 		animePosterIDs, err := server.gojo.ListAnimeMoviePosterImages(ctx, req.AnimeID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("cannot get anime movie posters images IDs", err)
+			return shared.ApiError("cannot get anime movie posters images IDs", err)
 		}
 
 		var animePosters []db.AnimeImage
@@ -50,7 +50,7 @@ func (server *AnimeMovieServer) GetAnimeMovieImages(ctx context.Context, req *am
 			for i, p := range animePosterIDs {
 				poster, err := server.gojo.GetAnimeImage(ctx, p)
 				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shared.DatabaseError("cannot get anime movie poster image", err)
+					return shared.ApiError("cannot get anime movie poster image", err)
 				}
 				animePosters[i] = poster
 			}
@@ -58,7 +58,7 @@ func (server *AnimeMovieServer) GetAnimeMovieImages(ctx context.Context, req *am
 
 		animeBackdropIDs, err := server.gojo.ListAnimeMovieBackdropImages(ctx, req.AnimeID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("cannot get anime movie backdrops images IDs", err)
+			return shared.ApiError("cannot get anime movie backdrops images IDs", err)
 		}
 
 		var animeBackdrops []db.AnimeImage
@@ -68,7 +68,7 @@ func (server *AnimeMovieServer) GetAnimeMovieImages(ctx context.Context, req *am
 			for i, b := range animeBackdropIDs {
 				backdrop, err := server.gojo.GetAnimeImage(ctx, b)
 				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shared.DatabaseError("cannot get anime movie backdrop image", err)
+					return shared.ApiError("cannot get anime movie backdrop image", err)
 				}
 				animeBackdrops[i] = backdrop
 			}
@@ -76,7 +76,7 @@ func (server *AnimeMovieServer) GetAnimeMovieImages(ctx context.Context, req *am
 
 		animeLogoIDs, err := server.gojo.ListAnimeMovieLogoImages(ctx, req.AnimeID)
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.DatabaseError("cannot get anime movie logos images IDs", err)
+			return shared.ApiError("cannot get anime movie logos images IDs", err)
 		}
 
 		var animeLogos []db.AnimeImage
@@ -86,7 +86,7 @@ func (server *AnimeMovieServer) GetAnimeMovieImages(ctx context.Context, req *am
 			for i, l := range animeLogoIDs {
 				logo, err := server.gojo.GetAnimeImage(ctx, l)
 				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shared.DatabaseError("cannot get anime movie logo image", err)
+					return shared.ApiError("cannot get anime movie logo image", err)
 				}
 				animeLogos[i] = logo
 			}

@@ -35,7 +35,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonInfo(ctx context.Context, req *
 
 	data, err := server.gojo.CreateAnimeSeasonInfoTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to add anime serie info", err)
+		return nil, shared.ApiError("failed to add anime serie info", err)
 	}
 
 	res := &aspb.CreateAnimeSeasonInfoResponse{

@@ -38,7 +38,7 @@ func (server *AnimeSerieServer) GetAllAnimeSeries(ctx context.Context, req *aspb
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
 		}
-		return nil, shared.DatabaseError("failed to list all anime series", err)
+		return nil, shared.ApiError("failed to list all anime series", err)
 	}
 
 	var PBAnimeSeries []*aspb.AnimeSerieResponse

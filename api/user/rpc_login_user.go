@@ -2,14 +2,11 @@ package user
 
 import (
 	"context"
-	"time"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/pb/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
-	"github.com/dj-yacine-flutter/gojo/worker"
-	"github.com/hibiken/asynq"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -23,7 +20,7 @@ func (server *UserServer) LoginUser(ctx context.Context, req *uspb.LoginUserRequ
 
 	user, err := server.gojo.GetUserByUsername(ctx, req.Username)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to find user", err)
+		return nil, shared.ApiError("failed to find user", err)
 	}
 
 	err = utils.CheckPassword(req.Password, user.HashedPassword)
@@ -50,33 +47,19 @@ func (server *UserServer) LoginUser(ctx context.Context, req *uspb.LoginUserRequ
 	}
 
 	md := shared.ExtractMetadata(ctx)
-	arg := db.RenewSessionTxParams{
-		CreateSessionParams: db.CreateSessionParams{
-			ID:           refreshPayload.ID,
-			Username:     user.Username,
-			RefreshToken: refreshToken,
-			UserAgent:    md.UserAgent,
-			ClientIp:     md.ClientIP,
-			IsBlocked:    false,
-			ExpiresAt:    refreshPayload.ExpiredAt,
-		},
-		AfterRenew: func(username string) error {
-			taskPayload := &worker.PayloadDeleteSession{
-				Username: username,
-			}
-			opts := []asynq.Option{
-				asynq.MaxRetry(10),
-				asynq.ProcessIn(10 * time.Second),
-				asynq.Queue(worker.QueueCritical),
-			}
-
-			return server.taskDistributor.DistributeTaskDeleteSession(ctx, taskPayload, opts...)
-		},
+	arg := db.CreateSessionParams{
+		ID:           refreshPayload.ID,
+		Username:     user.Username,
+		RefreshToken: refreshToken,
+		UserAgent:    md.UserAgent,
+		ClientIp:     md.ClientIP,
+		IsBlocked:    false,
+		ExpiresAt:    refreshPayload.ExpiredAt,
 	}
 
-	session, err := server.gojo.RenewSessionTx(ctx, arg)
+	session, err := server.gojo.CreateSession(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to renew session", err)
+		return nil, shared.ApiError("failed to renew session", err)
 	}
 
 	res := &uspb.LoginUserResponse{

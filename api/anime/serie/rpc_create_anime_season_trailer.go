@@ -45,7 +45,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTrailer(ctx context.Context, re
 
 	data, err := server.gojo.CreateAnimeSeasonTrailerTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create anime season trailer", err)
+		return nil, shared.ApiError("failed to create anime season trailer", err)
 	}
 
 	res := &aspb.CreateAnimeSeasonTrailerResponse{

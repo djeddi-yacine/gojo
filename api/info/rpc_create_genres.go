@@ -30,7 +30,7 @@ func (server *InfoServer) CreateGenres(ctx context.Context, req *nfpb.CreateGenr
 		Names: req.GetNames(),
 	})
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create new genre", err)
+		return nil, shared.ApiError("failed to create new genre", err)
 	}
 
 	var PBgenres []*nfpb.Genre

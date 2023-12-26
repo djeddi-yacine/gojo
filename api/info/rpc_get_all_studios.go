@@ -37,7 +37,7 @@ func (server *InfoServer) GetAllStudios(ctx context.Context, req *nfpb.GetAllStu
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
 		}
-		return nil, shared.DatabaseError("failed to list all studios", err)
+		return nil, shared.ApiError("failed to list all studios", err)
 	}
 
 	var PBStudios []*nfpb.Studio

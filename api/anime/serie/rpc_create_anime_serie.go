@@ -50,7 +50,7 @@ func (server *AnimeSerieServer) CreateAnimeSerie(ctx context.Context, req *aspb.
 
 	data, err := server.gojo.CreateAnimeSerieTx(ctx, arg)
 	if err != nil {
-		return nil, shared.DatabaseError("failed to create anime serie", err)
+		return nil, shared.ApiError("failed to create anime serie", err)
 	}
 
 	res := &aspb.CreateAnimeSerieResponse{
