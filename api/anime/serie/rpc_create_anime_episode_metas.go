@@ -41,7 +41,7 @@ func (server *AnimeSerieServer) CreateAnimeEpisodeMetas(ctx context.Context, req
 	}
 
 	arg := db.CreateAnimeEpisodeMetasTxParams{
-		EpisodeID:    int64(req.GetEpisodeID()),
+		EpisodeID:    req.GetEpisodeID(),
 		EpisodeMetas: DBEM,
 	}
 
@@ -61,9 +61,10 @@ func (server *AnimeSerieServer) CreateAnimeEpisodeMetas(ctx context.Context, req
 	}
 
 	res := &aspb.CreateAnimeEpisodeMetasResponse{
-		Episode:      shared.ConvertAnimeEpisode(data.AnimeEpisode),
+		EpisodeID:    req.GetEpisodeID(),
 		EpisodeMetas: PBSM,
 	}
+
 	return res, nil
 }
 

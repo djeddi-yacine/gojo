@@ -41,8 +41,8 @@ func (server *AnimeMovieServer) CreateAnimeMovieMetas(ctx context.Context, req *
 	}
 
 	arg := db.CreateAnimeMovieMetasTxParams{
-		AnimeID:                       req.GetAnimeID(),
-		CreateAnimeMovieMetasTxParams: DBAM,
+		AnimeID:         req.GetAnimeID(),
+		AnimeMovieMetas: DBAM,
 	}
 
 	metas, err := server.gojo.CreateAnimeMovieMetasTx(ctx, arg)
@@ -50,9 +50,9 @@ func (server *AnimeMovieServer) CreateAnimeMovieMetas(ctx context.Context, req *
 		return nil, shared.ApiError("failed to create anime movie metadata", err)
 	}
 
-	var anime_metas = make([]*nfpb.AnimeMetaResponse, len(metas.AnimeMovieMetasTxResults))
+	var anime_metas = make([]*nfpb.AnimeMetaResponse, len(metas.AnimeMovieMetas))
 
-	for i, am := range metas.AnimeMovieMetasTxResults {
+	for i, am := range metas.AnimeMovieMetas {
 		anime_metas[i] = &nfpb.AnimeMetaResponse{
 			Meta:       shared.ConvertMeta(am.Meta),
 			LanguageID: am.LanguageID,

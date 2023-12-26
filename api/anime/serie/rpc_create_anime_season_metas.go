@@ -41,7 +41,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonMetas(ctx context.Context, req 
 	}
 
 	arg := db.CreateAnimeSeasonMetasTxParams{
-		SeasonID:    int64(req.GetSeasonID()),
+		SeasonID:    req.GetSeasonID(),
 		SeasonMetas: DBSM,
 	}
 
@@ -61,9 +61,10 @@ func (server *AnimeSerieServer) CreateAnimeSeasonMetas(ctx context.Context, req 
 	}
 
 	res := &aspb.CreateAnimeSeasonMetasResponse{
-		Season:      shared.ConvertAnimeSeason(data.AnimeSeason),
+		SeasonID:    req.GetSeasonID(),
 		SeasonMetas: PBSM,
 	}
+
 	return res, nil
 }
 

@@ -11,44 +11,39 @@ type CreateAnimeSeasonMetasTxParams struct {
 }
 
 type CreateAnimeSeasonMetasTxResult struct {
-	AnimeSeason      AnimeSerieSeason
 	AnimeSeasonMetas []AnimeMetaTxResult
 }
 
 func (gojo *SQLGojo) CreateAnimeSeasonMetasTx(ctx context.Context, arg CreateAnimeSeasonMetasTxParams) (CreateAnimeSeasonMetasTxResult, error) {
 	var result CreateAnimeSeasonMetasTxResult
+	var err error
 
-	err := gojo.execTx(ctx, func(q *Queries) error {
-		var err error
-
-		season, err := q.GetAnimeSeason(ctx, arg.SeasonID)
+	err = gojo.execTx(ctx, func(q *Queries) error {
+		_, err = q.GetAnimeSeason(ctx, arg.SeasonID)
 		if err != nil {
 			ErrorSQL(err)
 			return err
 		}
 
-		result.AnimeSeason = season
-
 		if arg.SeasonMetas != nil {
-			var metaArg CreateMetaParams
-			var seasonMetaArg CreateAnimeSeasonMetaParams
 			result.AnimeSeasonMetas = make([]AnimeMetaTxResult, len(arg.SeasonMetas))
 
 			for i, m := range arg.SeasonMetas {
-				metaArg = CreateMetaParams{
-					Title:    m.Title,
-					Overview: m.Overview,
-				}
-
-				meta, err := q.CreateMeta(ctx, metaArg)
+				lang, err := q.GetLanguage(ctx, m.LanguageID)
 				if err != nil {
 					ErrorSQL(err)
 					return err
 				}
 
-				seasonMetaArg = CreateAnimeSeasonMetaParams{
-					SeasonID:   season.ID,
-					LanguageID: m.LanguageID,
+				meta, err := q.CreateMeta(ctx, m.CreateMetaParams)
+				if err != nil {
+					ErrorSQL(err)
+					return err
+				}
+
+				seasonMetaArg := CreateAnimeSeasonMetaParams{
+					SeasonID:   arg.SeasonID,
+					LanguageID: lang.ID,
 					MetaID:     meta.ID,
 				}
 

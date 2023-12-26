@@ -11,44 +11,39 @@ type CreateAnimeEpisodeMetasTxParams struct {
 }
 
 type CreateAnimeEpisodeMetasTxResult struct {
-	AnimeEpisode      AnimeSerieEpisode
 	AnimeEpisodeMetas []AnimeMetaTxResult
 }
 
 func (gojo *SQLGojo) CreateAnimeEpisodeMetasTx(ctx context.Context, arg CreateAnimeEpisodeMetasTxParams) (CreateAnimeEpisodeMetasTxResult, error) {
 	var result CreateAnimeEpisodeMetasTxResult
+	var err error
 
-	err := gojo.execTx(ctx, func(q *Queries) error {
-		var err error
-
-		Episode, err := q.GetAnimeEpisodeByEpisodeID(ctx, arg.EpisodeID)
+	err = gojo.execTx(ctx, func(q *Queries) error {
+		_, err = q.GetAnimeEpisodeByEpisodeID(ctx, arg.EpisodeID)
 		if err != nil {
 			ErrorSQL(err)
 			return err
 		}
 
-		result.AnimeEpisode = Episode
-
 		if arg.EpisodeMetas != nil {
-			var metaArg CreateMetaParams
-			var EpisodeMetaArg CreateAnimeEpisodeMetaParams
 			result.AnimeEpisodeMetas = make([]AnimeMetaTxResult, len(arg.EpisodeMetas))
 
 			for i, m := range arg.EpisodeMetas {
-				metaArg = CreateMetaParams{
-					Title:    m.Title,
-					Overview: m.Overview,
-				}
-
-				meta, err := q.CreateMeta(ctx, metaArg)
+				lang, err := q.GetLanguage(ctx, m.LanguageID)
 				if err != nil {
 					ErrorSQL(err)
 					return err
 				}
 
-				EpisodeMetaArg = CreateAnimeEpisodeMetaParams{
-					EpisodeID:  Episode.ID,
-					LanguageID: m.LanguageID,
+				meta, err := q.CreateMeta(ctx, m.CreateMetaParams)
+				if err != nil {
+					ErrorSQL(err)
+					return err
+				}
+
+				EpisodeMetaArg := CreateAnimeEpisodeMetaParams{
+					EpisodeID:  arg.EpisodeID,
+					LanguageID: lang.ID,
 					MetaID:     meta.ID,
 				}
 
@@ -64,7 +59,6 @@ func (gojo *SQLGojo) CreateAnimeEpisodeMetasTx(ctx context.Context, arg CreateAn
 				}
 
 			}
-
 		} else {
 			return errors.New("create one meta at least")
 		}

@@ -3184,8 +3184,8 @@
       "type": "object",
       "properties": {
         "episodeID": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string",
+          "format": "int64"
         },
         "episodeMetas": {
           "type": "array",
@@ -3199,8 +3199,9 @@
     "aspbCreateAnimeEpisodeMetasResponse": {
       "type": "object",
       "properties": {
-        "episode": {
-          "$ref": "#/definitions/aspbAnimeEpisodeResponse"
+        "episodeID": {
+          "type": "string",
+          "format": "int64"
         },
         "episodeMetas": {
           "type": "array",
@@ -3293,8 +3294,8 @@
       "type": "object",
       "properties": {
         "seasonID": {
-          "type": "integer",
-          "format": "int32"
+          "type": "string",
+          "format": "int64"
         },
         "seasonMetas": {
           "type": "array",
@@ -3308,8 +3309,9 @@
     "aspbCreateAnimeSeasonMetasResponse": {
       "type": "object",
       "properties": {
-        "season": {
-          "$ref": "#/definitions/aspbAnimeSeasonResponse"
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
         },
         "seasonMetas": {
           "type": "array",

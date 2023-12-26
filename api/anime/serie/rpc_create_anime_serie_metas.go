@@ -41,8 +41,8 @@ func (server *AnimeSerieServer) CreateAnimeSerieMetas(ctx context.Context, req *
 	}
 
 	arg := db.CreateAnimeSerieMetasTxParams{
-		AnimeID:                       req.GetAnimeID(),
-		CreateAnimeSerieMetasTxParams: DBAM,
+		AnimeID:         req.GetAnimeID(),
+		AnimeSerieMetas: DBAM,
 	}
 
 	metas, err := server.gojo.CreateAnimeSerieMetasTx(ctx, arg)
@@ -50,9 +50,9 @@ func (server *AnimeSerieServer) CreateAnimeSerieMetas(ctx context.Context, req *
 		return nil, shared.ApiError("failed to create anime serie metadata", err)
 	}
 
-	var PBAM = make([]*nfpb.AnimeMetaResponse, len(metas.AnimeSerieMetasTxResults))
+	var PBAM = make([]*nfpb.AnimeMetaResponse, len(metas.AnimeSerieMetas))
 
-	for i, am := range metas.AnimeSerieMetasTxResults {
+	for i, am := range metas.AnimeSerieMetas {
 		PBAM[i] = &nfpb.AnimeMetaResponse{
 			Meta:       shared.ConvertMeta(am.Meta),
 			LanguageID: am.LanguageID,
@@ -64,6 +64,7 @@ func (server *AnimeSerieServer) CreateAnimeSerieMetas(ctx context.Context, req *
 		AnimeID:    req.GetAnimeID(),
 		AnimeMetas: PBAM,
 	}
+
 	return res, nil
 }
 
