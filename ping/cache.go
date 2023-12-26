@@ -3,6 +3,7 @@ package ping
 import (
 	"context"
 	"fmt"
+	"reflect"
 
 	"github.com/go-redis/cache/v9"
 	"github.com/rs/zerolog/log"
@@ -39,6 +40,17 @@ func (system *PingSystem) Handle(ctx context.Context, gen KeyGenrator, value int
 	if err = system.cache.GetSkippingLocalCache(ctx, gen.Key(), value); err != nil {
 		if err = fn(); err != nil {
 			return err
+		}
+
+		v := reflect.ValueOf(value)
+		for v.Kind() == reflect.Ptr {
+			if v.IsNil() || v.Elem().IsZero() {
+				log.Warn().
+					Str("key", gen.Key()).
+					Msg("value is nil, not storing in cache")
+				return nil
+			}
+			v = v.Elem()
 		}
 
 		var target uint8
