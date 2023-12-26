@@ -88,7 +88,7 @@ func (system *PingSystem) Handle(ctx context.Context, gen KeyGenrator, value int
 
 func (x *CacheKey) Main() KeyGenrator {
 	return &CacheKey{
-		key: fmt.Sprintf("%s:%d", x.Target, x.ID),
+		key: fmt.Sprintf("%s:ID:%d", x.Target, x.ID),
 	}
 }
 
