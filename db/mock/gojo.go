@@ -36,6 +36,21 @@ func (m *MockGojo) EXPECT() *MockGojoMockRecorder {
 	return m.recorder
 }
 
+// CheckLanguage mocks base method.
+func (m *MockGojo) CheckLanguage(arg0 context.Context, arg1 int32) (bool, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CheckLanguage", arg0, arg1)
+	ret0, _ := ret[0].(bool)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CheckLanguage indicates an expected call of CheckLanguage.
+func (mr *MockGojoMockRecorder) CheckLanguage(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CheckLanguage", reflect.TypeOf((*MockGojo)(nil).CheckLanguage), arg0, arg1)
+}
+
 // CreateAnimeEpisode mocks base method.
 func (m *MockGojo) CreateAnimeEpisode(arg0 context.Context, arg1 db.CreateAnimeEpisodeParams) (db.AnimeSerieEpisode, error) {
 	m.ctrl.T.Helper()
