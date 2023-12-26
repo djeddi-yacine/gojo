@@ -45,11 +45,6 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 			return shared.ApiError("failed to get the anime serie", err)
 		}
 
-		_, err = server.gojo.GetLanguage(ctx, req.GetLanguageID())
-		if err != nil {
-			return shared.ApiError("failed to get the language", err)
-		}
-
 		res.AnimeSerie = shared.ConvertAnimeSerie(animeSerie)
 		return nil
 	}); err != nil {
@@ -57,8 +52,8 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	}
 
 	if err = server.ping.Handle(ctx, cache.Meta(uint32(req.LanguageID)), &res.AnimeMeta, func() error {
-		_, err = server.gojo.GetLanguage(ctx, req.GetLanguageID())
-		if err != nil {
+		exists, err := server.gojo.CheckLanguage(ctx, req.GetLanguageID())
+		if !exists || err != nil {
 			return shared.ApiError("failed to get the language", err)
 		}
 
