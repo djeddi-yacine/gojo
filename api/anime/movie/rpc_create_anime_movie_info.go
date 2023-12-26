@@ -3,6 +3,7 @@ package animeMovie
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
@@ -29,8 +30,8 @@ func (server *AnimeMovieServer) CreateAnimeMovieInfo(ctx context.Context, req *a
 
 	arg := db.CreateAnimeMovieInfoTxParams{
 		AnimeID:   req.GetAnimeID(),
-		GenreIDs:  req.GetGenres().GenreID,
-		StudioIDs: req.GetStudios().StudioID,
+		GenreIDs:  req.GetGenreIDs(),
+		StudioIDs: req.GetStudioIDs(),
 	}
 
 	data, err := server.gojo.CreateAnimeMovieInfoTx(ctx, arg)
@@ -52,22 +53,21 @@ func validateCreateAnimeMovieInfoRequest(req *ampb.CreateAnimeMovieInfoRequest) 
 		violations = append(violations, shared.FieldViolation("animeID", err))
 	}
 
-	if req.Genres == nil && req.Studios == nil {
-		violations = append(violations, shared.FieldViolation("studios,genres", errors.New("add at least one studio or genre")))
+	if req.GenreIDs == nil && req.StudioIDs == nil {
+		violations = append(violations, shared.FieldViolation("studioIDs,genreIDs", errors.New("add at least one ID for studio or genre")))
 	} else {
-		if req.Genres != nil {
-			for _, g := range req.GetGenres().GenreID {
+		if req.GenreIDs != nil {
+			for i, g := range req.GetGenreIDs() {
 				if err := utils.ValidateInt(int64(g)); err != nil {
-					violations = append(violations, shared.FieldViolation("genreID", err))
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("genreIDs at index [%d]", i), err))
 				}
 			}
-
 		}
 
-		if req.Studios != nil {
-			for _, s := range req.GetStudios().StudioID {
+		if req.StudioIDs != nil {
+			for i, s := range req.GetStudioIDs() {
 				if err := utils.ValidateInt(int64(s)); err != nil {
-					violations = append(violations, shared.FieldViolation("studioID", err))
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("studioIDs at index [%d]", i), err))
 				}
 			}
 

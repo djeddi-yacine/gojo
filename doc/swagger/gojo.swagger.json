@@ -1115,7 +1115,7 @@
             "format": "int64"
           },
           {
-            "name": "genres.genreID",
+            "name": "genreIDs",
             "in": "query",
             "required": false,
             "type": "array",
@@ -1126,7 +1126,7 @@
             "collectionFormat": "multi"
           },
           {
-            "name": "studios.studioID",
+            "name": "studioIDs",
             "in": "query",
             "required": false,
             "type": "array",
@@ -2287,11 +2287,19 @@
           "type": "string",
           "format": "int64"
         },
-        "genres": {
-          "$ref": "#/definitions/nfpbAnimeGenresRequest"
+        "genreIDs": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
         },
-        "studios": {
-          "$ref": "#/definitions/nfpbAnimeStudiosRequest"
+        "studioIDs": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
         }
       }
     },
@@ -2302,10 +2310,18 @@
           "$ref": "#/definitions/ampbAnimeMovieResponse"
         },
         "genres": {
-          "$ref": "#/definitions/nfpbAnimeGenresResponse"
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbGenre"
+          }
         },
         "studios": {
-          "$ref": "#/definitions/nfpbAnimeStudiosResponse"
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbStudio"
+          }
         }
       }
     },
@@ -2570,10 +2586,18 @@
           "$ref": "#/definitions/shpbAnimeResourceResponse"
         },
         "animeGenres": {
-          "$ref": "#/definitions/nfpbAnimeGenresResponse"
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbGenre"
+          }
         },
         "animeStudios": {
-          "$ref": "#/definitions/nfpbAnimeStudiosResponse"
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbStudio"
+          }
         },
         "animeLinks": {
           "$ref": "#/definitions/shpbAnimeLinkResponse"
@@ -3283,10 +3307,18 @@
           "$ref": "#/definitions/aspbAnimeSeasonResponse"
         },
         "genres": {
-          "$ref": "#/definitions/nfpbAnimeGenresResponse"
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbGenre"
+          }
         },
         "studios": {
-          "$ref": "#/definitions/nfpbAnimeStudiosResponse"
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbStudio"
+          }
         }
       }
     },
@@ -3682,10 +3714,18 @@
           "$ref": "#/definitions/shpbAnimeResourceResponse"
         },
         "seasonGenres": {
-          "$ref": "#/definitions/nfpbAnimeGenresResponse"
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbGenre"
+          }
         },
         "seasonStudios": {
-          "$ref": "#/definitions/nfpbAnimeStudiosResponse"
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbStudio"
+          }
         },
         "seasonTags": {
           "type": "array",
@@ -3798,30 +3838,6 @@
         }
       }
     },
-    "nfpbAnimeGenresRequest": {
-      "type": "object",
-      "properties": {
-        "genreID": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      }
-    },
-    "nfpbAnimeGenresResponse": {
-      "type": "object",
-      "properties": {
-        "genres": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/nfpbGenre"
-          }
-        }
-      }
-    },
     "nfpbAnimeMetaRequest": {
       "type": "object",
       "properties": {
@@ -3847,30 +3863,6 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
-        }
-      }
-    },
-    "nfpbAnimeStudiosRequest": {
-      "type": "object",
-      "properties": {
-        "studioID": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      }
-    },
-    "nfpbAnimeStudiosResponse": {
-      "type": "object",
-      "properties": {
-        "studios": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/nfpbStudio"
-          }
         }
       }
     },

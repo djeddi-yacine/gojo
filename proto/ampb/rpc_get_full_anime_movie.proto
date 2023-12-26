@@ -24,11 +24,11 @@ message GetFullAnimeMovieResponse {
   AnimeMovieResponse         animeMovie            = 1;
   nfpb.AnimeMetaResponse     animeMeta             = 2;
   shpb.AnimeResourceResponse animeResources        = 3;
-  nfpb.AnimeGenresResponse   animeGenres           = 4;
-  nfpb.AnimeStudiosResponse  animeStudios          = 5;
-  shpb.AnimeLinkResponse     animeLinks            = 6;
-  repeated AnimeMovieTag     animeTags             = 7;
-  shpb.AnimeImageResponse    animeImages           = 8;
+  repeated nfpb.Genre animeGenres                  = 4;
+  repeated nfpb.Studio    animeStudios             = 5;
+  shpb.AnimeLinkResponse  animeLinks               = 6;
+  repeated AnimeMovieTag  animeTags                = 7;
+  shpb.AnimeImageResponse animeImages              = 8;
   repeated shpb.AnimeTrailerResponse animeTrailers = 9;
   int64                              serverID      = 10;
   AnimeMovieSubDataResponse          sub           = 11;

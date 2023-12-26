@@ -50,10 +50,10 @@ func (server *AnimeMovieServer) CreateAnimeMovieMetas(ctx context.Context, req *
 		return nil, shared.ApiError("failed to create anime movie metadata", err)
 	}
 
-	var anime_metas = make([]*nfpb.AnimeMetaResponse, len(metas.AnimeMovieMetas))
+	PBAM := make([]*nfpb.AnimeMetaResponse, len(metas.AnimeMovieMetas))
 
 	for i, am := range metas.AnimeMovieMetas {
-		anime_metas[i] = &nfpb.AnimeMetaResponse{
+		PBAM[i] = &nfpb.AnimeMetaResponse{
 			Meta:       shared.ConvertMeta(am.Meta),
 			LanguageID: am.LanguageID,
 			CreatedAt:  timestamppb.New(am.Meta.CreatedAt),
@@ -62,7 +62,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieMetas(ctx context.Context, req *
 
 	res := &ampb.CreateAnimeMovieMetasResponse{
 		AnimeID:    req.GetAnimeID(),
-		AnimeMetas: anime_metas,
+		AnimeMetas: PBAM,
 	}
 	return res, nil
 }

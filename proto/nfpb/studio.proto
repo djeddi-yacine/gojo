@@ -11,11 +11,3 @@ message Studio {
   string                    studioName = 2;
   google.protobuf.Timestamp createdAt  = 3;
 }
-
-message AnimeStudiosRequest {
-  repeated int32 studioID = 1;
-}
-
-message AnimeStudiosResponse {
-  repeated Studio studios = 1;
-}

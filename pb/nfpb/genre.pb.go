@@ -84,100 +84,6 @@ func (x *Genre) GetCreatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
-type AnimeGenresRequest struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	GenreID []int32 `protobuf:"varint,1,rep,packed,name=genreID,proto3" json:"genreID,omitempty"`
-}
-
-func (x *AnimeGenresRequest) Reset() {
-	*x = AnimeGenresRequest{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_nfpb_genre_proto_msgTypes[1]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *AnimeGenresRequest) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AnimeGenresRequest) ProtoMessage() {}
-
-func (x *AnimeGenresRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_nfpb_genre_proto_msgTypes[1]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AnimeGenresRequest.ProtoReflect.Descriptor instead.
-func (*AnimeGenresRequest) Descriptor() ([]byte, []int) {
-	return file_nfpb_genre_proto_rawDescGZIP(), []int{1}
-}
-
-func (x *AnimeGenresRequest) GetGenreID() []int32 {
-	if x != nil {
-		return x.GenreID
-	}
-	return nil
-}
-
-type AnimeGenresResponse struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	Genres []*Genre `protobuf:"bytes,1,rep,name=genres,proto3" json:"genres,omitempty"`
-}
-
-func (x *AnimeGenresResponse) Reset() {
-	*x = AnimeGenresResponse{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_nfpb_genre_proto_msgTypes[2]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *AnimeGenresResponse) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*AnimeGenresResponse) ProtoMessage() {}
-
-func (x *AnimeGenresResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_nfpb_genre_proto_msgTypes[2]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use AnimeGenresResponse.ProtoReflect.Descriptor instead.
-func (*AnimeGenresResponse) Descriptor() ([]byte, []int) {
-	return file_nfpb_genre_proto_rawDescGZIP(), []int{2}
-}
-
-func (x *AnimeGenresResponse) GetGenres() []*Genre {
-	if x != nil {
-		return x.Genres
-	}
-	return nil
-}
-
 var File_nfpb_genre_proto protoreflect.FileDescriptor
 
 var file_nfpb_genre_proto_rawDesc = []byte{
@@ -192,17 +98,10 @@ var file_nfpb_genre_proto_rawDesc = []byte{
 	0x65, 0x61, 0x74, 0x65, 0x64, 0x41, 0x74, 0x18, 0x03, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e,
 	0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e,
 	0x54, 0x69, 0x6d, 0x65, 0x73, 0x74, 0x61, 0x6d, 0x70, 0x52, 0x09, 0x63, 0x72, 0x65, 0x61, 0x74,
-	0x65, 0x64, 0x41, 0x74, 0x22, 0x2e, 0x0a, 0x12, 0x41, 0x6e, 0x69, 0x6d, 0x65, 0x47, 0x65, 0x6e,
-	0x72, 0x65, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x18, 0x0a, 0x07, 0x67, 0x65,
-	0x6e, 0x72, 0x65, 0x49, 0x44, 0x18, 0x01, 0x20, 0x03, 0x28, 0x05, 0x52, 0x07, 0x67, 0x65, 0x6e,
-	0x72, 0x65, 0x49, 0x44, 0x22, 0x3a, 0x0a, 0x13, 0x41, 0x6e, 0x69, 0x6d, 0x65, 0x47, 0x65, 0x6e,
-	0x72, 0x65, 0x73, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x23, 0x0a, 0x06, 0x67,
-	0x65, 0x6e, 0x72, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x0b, 0x2e, 0x6e, 0x66,
-	0x70, 0x62, 0x2e, 0x47, 0x65, 0x6e, 0x72, 0x65, 0x52, 0x06, 0x67, 0x65, 0x6e, 0x72, 0x65, 0x73,
-	0x42, 0x2b, 0x5a, 0x29, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x64,
-	0x6a, 0x2d, 0x79, 0x61, 0x63, 0x69, 0x6e, 0x65, 0x2d, 0x66, 0x6c, 0x75, 0x74, 0x74, 0x65, 0x72,
-	0x2f, 0x67, 0x6f, 0x6a, 0x6f, 0x2f, 0x70, 0x62, 0x2f, 0x6e, 0x66, 0x70, 0x62, 0x62, 0x06, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x64, 0x41, 0x74, 0x42, 0x2b, 0x5a, 0x29, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63,
+	0x6f, 0x6d, 0x2f, 0x64, 0x6a, 0x2d, 0x79, 0x61, 0x63, 0x69, 0x6e, 0x65, 0x2d, 0x66, 0x6c, 0x75,
+	0x74, 0x74, 0x65, 0x72, 0x2f, 0x67, 0x6f, 0x6a, 0x6f, 0x2f, 0x70, 0x62, 0x2f, 0x6e, 0x66, 0x70,
+	0x62, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -217,21 +116,18 @@ func file_nfpb_genre_proto_rawDescGZIP() []byte {
 	return file_nfpb_genre_proto_rawDescData
 }
 
-var file_nfpb_genre_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_nfpb_genre_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_nfpb_genre_proto_goTypes = []interface{}{
 	(*Genre)(nil),                 // 0: nfpb.Genre
-	(*AnimeGenresRequest)(nil),    // 1: nfpb.AnimeGenresRequest
-	(*AnimeGenresResponse)(nil),   // 2: nfpb.AnimeGenresResponse
-	(*timestamppb.Timestamp)(nil), // 3: google.protobuf.Timestamp
+	(*timestamppb.Timestamp)(nil), // 1: google.protobuf.Timestamp
 }
 var file_nfpb_genre_proto_depIdxs = []int32{
-	3, // 0: nfpb.Genre.createdAt:type_name -> google.protobuf.Timestamp
-	0, // 1: nfpb.AnimeGenresResponse.genres:type_name -> nfpb.Genre
-	2, // [2:2] is the sub-list for method output_type
-	2, // [2:2] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	1, // 0: nfpb.Genre.createdAt:type_name -> google.protobuf.Timestamp
+	1, // [1:1] is the sub-list for method output_type
+	1, // [1:1] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_nfpb_genre_proto_init() }
@@ -252,30 +148,6 @@ func file_nfpb_genre_proto_init() {
 				return nil
 			}
 		}
-		file_nfpb_genre_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AnimeGenresRequest); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
-		file_nfpb_genre_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*AnimeGenresResponse); i {
-			case 0:
-				return &v.state
-			case 1:
-				return &v.sizeCache
-			case 2:
-				return &v.unknownFields
-			default:
-				return nil
-			}
-		}
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -283,7 +155,7 @@ func file_nfpb_genre_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_nfpb_genre_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

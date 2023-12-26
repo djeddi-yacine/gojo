@@ -105,7 +105,7 @@ func ConvertAnimeLink(l db.AnimeLink) *shpb.AnimeLinkResponse {
 	}
 }
 
-func ConvertGenres(gg []db.Genre) *nfpb.AnimeGenresResponse {
+func ConvertGenres(gg []db.Genre) []*nfpb.Genre {
 	if len(gg) > 0 {
 		Genres := make([]*nfpb.Genre, len(gg))
 
@@ -117,15 +117,13 @@ func ConvertGenres(gg []db.Genre) *nfpb.AnimeGenresResponse {
 			}
 		}
 
-		return &nfpb.AnimeGenresResponse{
-			Genres: Genres,
-		}
+		return Genres
 	} else {
 		return nil
 	}
 }
 
-func ConvertStudios(ss []db.Studio) *nfpb.AnimeStudiosResponse {
+func ConvertStudios(ss []db.Studio) []*nfpb.Studio {
 	if len(ss) > 0 {
 		Studios := make([]*nfpb.Studio, len(ss))
 
@@ -137,9 +135,7 @@ func ConvertStudios(ss []db.Studio) *nfpb.AnimeStudiosResponse {
 			}
 		}
 
-		return &nfpb.AnimeStudiosResponse{
-			Studios: Studios,
-		}
+		return Studios
 	} else {
 		return nil
 	}

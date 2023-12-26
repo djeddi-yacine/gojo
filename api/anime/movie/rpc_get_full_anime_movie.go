@@ -67,7 +67,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 
 		if animeMeta > 0 {
 			meta, err := server.gojo.GetMeta(ctx, animeMeta)
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+			if err != nil {
 				return shared.ApiError("cannot get anime movie metadata", err)
 			}
 
@@ -84,13 +84,21 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 
 	if err = server.ping.Handle(ctx, cache.Resources(), &res.AnimeResources, func() error {
 		animeResourceID, err := server.gojo.GetAnimeMovieResource(ctx, req.GetAnimeID())
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.ApiError("cannot get anime movie resources", err)
+		if err != nil {
+			if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return shared.ApiError("cannot get anime movie resources", err)
+			} else {
+				return nil
+			}
 		}
 
 		animeResources, err := server.gojo.GetAnimeResource(ctx, animeResourceID.ResourceID)
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.ApiError("cannot get resources data", err)
+		if err != nil {
+			if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return shared.ApiError("cannot get resources data", err)
+			} else {
+				return nil
+			}
 		}
 
 		res.AnimeResources = shared.ConvertAnimeResource(animeResources)
@@ -105,8 +113,9 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 			return shared.ApiError("cannot get anime movie genres", err)
 		}
 
+		var genres []db.Genre
 		if len(animeMovieGenres) > 0 {
-			genres := make([]db.Genre, len(animeMovieGenres))
+			genres = make([]db.Genre, len(animeMovieGenres))
 
 			for i, amg := range animeMovieGenres {
 				genres[i], err = server.gojo.GetGenre(ctx, amg)
@@ -114,8 +123,9 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 					return shared.ApiError("cannot list anime movie genres", err)
 				}
 			}
-			res.AnimeGenres = shared.ConvertGenres(genres)
 		}
+
+		res.AnimeGenres = shared.ConvertGenres(genres)
 		return nil
 	}); err != nil {
 		return nil, err
@@ -127,16 +137,18 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 			return shared.ApiError("cannot get anime movie studios", err)
 		}
 
+		var studios []db.Studio
 		if len(animeMovieStudios) > 0 {
-			studios := make([]db.Studio, len(animeMovieStudios))
+			studios = make([]db.Studio, len(animeMovieStudios))
 			for i, ams := range animeMovieStudios {
 				studios[i], err = server.gojo.GetStudio(ctx, ams)
 				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 					return shared.ApiError("cannot list anime movie studios", err)
 				}
 			}
-			res.AnimeStudios = shared.ConvertStudios(studios)
 		}
+
+		res.AnimeStudios = shared.ConvertStudios(studios)
 		return nil
 	}); err != nil {
 		return nil, err
@@ -144,8 +156,12 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 
 	if err = server.ping.Handle(ctx, cache.Server(), &res.ServerID, func() error {
 		sv, err := server.gojo.GetAnimeMovieServer(ctx, req.GetAnimeID())
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.ApiError("cannot get anime movie server ID", err)
+		if err != nil {
+			if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return shared.ApiError("cannot get anime movie server ID", err)
+			} else {
+				return nil
+			}
 		}
 
 		res.ServerID = sv.ID
@@ -231,14 +247,22 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 
 	if err = server.ping.Handle(ctx, cache.Links(), &res.AnimeLinks, func() error {
 		animeLinkID, err := server.gojo.GetAnimeMovieLink(ctx, req.AnimeID)
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.ApiError("cannot get anime movie links ID", err)
+		if err != nil {
+			if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return shared.ApiError("cannot get anime movie links ID", err)
+			} else {
+				return nil
+			}
 		}
 
 		if animeLinkID.AnimeID == req.AnimeID {
 			animeLink, err := server.gojo.GetAnimeLink(ctx, animeLinkID.ID)
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shared.ApiError("cannot get anime movie links", err)
+			if err != nil {
+				if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+					return shared.ApiError("cannot get anime movie links", err)
+				} else {
+					return nil
+				}
 			}
 
 			res.AnimeLinks = shared.ConvertAnimeLink(animeLink)

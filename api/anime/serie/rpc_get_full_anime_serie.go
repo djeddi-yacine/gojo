@@ -67,7 +67,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 
 		if animeMeta > 0 {
 			meta, err := server.gojo.GetMeta(ctx, animeMeta)
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+			if err != nil {
 				return shared.ApiError("failed to get anime serie metadata", err)
 			}
 
@@ -85,14 +85,22 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 
 	if err = server.ping.Handle(ctx, cache.Links(), &res.AnimeLinks, func() error {
 		animeLinkID, err := server.gojo.GetAnimeSerieLink(ctx, req.GetAnimeID())
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.ApiError("failed to get anime serie links ID", err)
+		if err != nil {
+			if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return shared.ApiError("failed to get anime serie links ID", err)
+			} else {
+				return nil
+			}
 		}
 
 		if animeLinkID.AnimeID == req.AnimeID {
 			animeLinks, err := server.gojo.GetAnimeLink(ctx, animeLinkID.LinkID)
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shared.ApiError("failed to get anime serie links", err)
+			if err != nil {
+				if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+					return shared.ApiError("failed to get anime serie links", err)
+				} else {
+					return nil
+				}
 			}
 			res.AnimeLinks = shared.ConvertAnimeLink(animeLinks)
 		}

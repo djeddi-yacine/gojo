@@ -66,7 +66,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 
 		if animeMeta > 0 {
 			meta, err := server.gojo.GetMeta(ctx, animeMeta)
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+			if err != nil {
 				return shared.ApiError("failed to get anime season metadata", err)
 			}
 
@@ -88,8 +88,9 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 			return shared.ApiError("failed to get anime serie genres", err)
 		}
 
+		var genres []db.Genre
 		if len(seasonGenres) > 0 {
-			genres := make([]db.Genre, len(seasonGenres))
+			genres = make([]db.Genre, len(seasonGenres))
 
 			for i, amg := range seasonGenres {
 				genres[i], err = server.gojo.GetGenre(ctx, amg)
@@ -97,8 +98,9 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 					return shared.ApiError("failed when list anime serie genres", err)
 				}
 			}
-			res.SeasonGenres = shared.ConvertGenres(genres)
 		}
+
+		res.SeasonGenres = shared.ConvertGenres(genres)
 		return nil
 	}); err != nil {
 		return nil, err
@@ -110,16 +112,18 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 			return shared.ApiError("failed to get anime serie studios", err)
 		}
 
+		var studios []db.Studio
 		if len(seasonStudios) > 0 {
-			studios := make([]db.Studio, len(seasonStudios))
+			studios = make([]db.Studio, len(seasonStudios))
 			for i, ams := range seasonStudios {
 				studios[i], err = server.gojo.GetStudio(ctx, ams)
 				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 					return shared.ApiError("failed when list anime serie studios", err)
 				}
 			}
-			res.SeasonStudios = shared.ConvertStudios(studios)
 		}
+
+		res.SeasonStudios = shared.ConvertStudios(studios)
 		return nil
 	}); err != nil {
 		return nil, err
@@ -127,14 +131,23 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 
 	if err = server.ping.Handle(ctx, cache.Resources(), &res.SeasonResoures, func() error {
 		seasonResourceID, err := server.gojo.GetAnimeSeasonResource(ctx, req.GetSeasonID())
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.ApiError("cannot get anime season resources", err)
+		if err != nil {
+			if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return shared.ApiError("cannot get anime season resources", err)
+			} else {
+				return nil
+			}
 		}
 
 		seasonResources, err := server.gojo.GetAnimeResource(ctx, seasonResourceID.ResourceID)
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shared.ApiError("cannot get resources data", err)
+		if err != nil {
+			if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+				return shared.ApiError("cannot get resources data", err)
+			} else {
+				return nil
+			}
 		}
+
 		res.SeasonResoures = shared.ConvertAnimeResource(seasonResources)
 		return nil
 	}); err != nil {

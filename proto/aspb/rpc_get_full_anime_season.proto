@@ -22,9 +22,9 @@ message GetFullAnimeSeasonResponse {
   AnimeSeasonResponse        animeSeason            = 1;
   nfpb.AnimeMetaResponse     seasonMeta             = 2;
   shpb.AnimeResourceResponse seasonResoures         = 3;
-  nfpb.AnimeGenresResponse   seasonGenres           = 4;
-  nfpb.AnimeStudiosResponse  seasonStudios          = 5;
-  repeated AnimeSeasonTag    seasonTags             = 6;
+  repeated nfpb.Genre seasonGenres                  = 4;
+  repeated nfpb.Studio    seasonStudios             = 5;
+  repeated AnimeSeasonTag seasonTags                = 6;
   repeated shpb.ImageResponse seasonPosters         = 7;
   repeated shpb.AnimeTrailerResponse seasonTrailers = 8;
 }

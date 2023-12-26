@@ -97,78 +97,69 @@ func validateCreateAnimeMovieImageRequest(req *ampb.CreateAnimeMovieImageRequest
 	}
 
 	if req.AnimeImages != nil {
-		if req.AnimeImages.Posters != nil {
-			if len(req.AnimeImages.GetPosters()) > 0 {
-				for i, l := range req.AnimeImages.GetPosters() {
-					if err := utils.ValidateURL(l.Host, ""); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > posters > host at index [%d]", i), err))
-					}
-					if err := utils.ValidateString(l.Url, 1, 200); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > posters > url at index [%d]", i), err))
-					}
-					if err := utils.ValidateString(l.Thumbnails, 1, 200); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > posters > thumbnails at index [%d]", i), err))
-					}
-					if err := utils.ValidateInt(int64(l.Height + 1)); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > posters > Height at index [%d]", i), err))
-					}
-					if err := utils.ValidateInt(int64(l.Width + 1)); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > posters > Width at index [%d]", i), err))
-					}
-				}
-			}
-		} else {
-			violations = append(violations, shared.FieldViolation("animeImages > posters", errors.New("you need to send the posters in AnimeImages model")))
+		if req.AnimeImages.Posters == nil && req.AnimeImages.Backdrops == nil && req.AnimeImages.Logos == nil {
+			violations = append(violations, shared.FieldViolation("animeImages > posters,backdrops,logos", errors.New("you need to send one of [posters;backdrops;logos] in AnimeImages model")))
 		}
 
-		if req.AnimeImages.Backdrops != nil {
-			if len(req.AnimeImages.GetBackdrops()) > 0 {
-				for i, l := range req.AnimeImages.GetBackdrops() {
-					if err := utils.ValidateURL(l.Host, ""); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > backdrops > host at index [%d]", i), err))
-					}
-					if err := utils.ValidateString(l.Url, 1, 200); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > backdrops > url at index [%d]", i), err))
-					}
-					if err := utils.ValidateString(l.Thumbnails, 1, 200); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > backdrops > thumbnails at index [%d]", i), err))
-					}
-					if err := utils.ValidateInt(int64(l.Height + 1)); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > backdrops > Height at index [%d]", i), err))
-					}
-					if err := utils.ValidateInt(int64(l.Width + 1)); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > backdrops > Width at index [%d]", i), err))
-					}
+		if len(req.AnimeImages.GetPosters()) > 0 {
+			for i, l := range req.AnimeImages.GetPosters() {
+				if err := utils.ValidateURL(l.Host, ""); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > posters > host at index [%d]", i), err))
+				}
+				if err := utils.ValidateString(l.Url, 1, 200); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > posters > url at index [%d]", i), err))
+				}
+				if err := utils.ValidateString(l.Thumbnails, 1, 200); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > posters > thumbnails at index [%d]", i), err))
+				}
+				if err := utils.ValidateInt(int64(l.Height + 1)); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > posters > Height at index [%d]", i), err))
+				}
+				if err := utils.ValidateInt(int64(l.Width + 1)); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > posters > Width at index [%d]", i), err))
 				}
 			}
-		} else {
-			violations = append(violations, shared.FieldViolation("animeImages > backdrops", errors.New("you need to send the posters in AnimeImages model")))
 		}
 
-		if req.AnimeImages.Logos != nil {
-			if len(req.AnimeImages.GetLogos()) > 0 {
-				for i, l := range req.AnimeImages.GetLogos() {
-					if err := utils.ValidateURL(l.Host, ""); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > logos > host at index [%d]", i), err))
-					}
-					if err := utils.ValidateString(l.Url, 1, 200); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > logos > url at index [%d]", i), err))
-					}
-					if err := utils.ValidateString(l.Thumbnails, 1, 200); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > logos > thumbnails at index [%d]", i), err))
-					}
-					if err := utils.ValidateInt(int64(l.Height + 1)); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > logos > Height at index [%d]", i), err))
-					}
-					if err := utils.ValidateInt(int64(l.Width + 1)); err != nil {
-						violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > logos > Width at index [%d]", i), err))
-					}
+		if len(req.AnimeImages.GetBackdrops()) > 0 {
+			for i, l := range req.AnimeImages.GetBackdrops() {
+				if err := utils.ValidateURL(l.Host, ""); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > backdrops > host at index [%d]", i), err))
+				}
+				if err := utils.ValidateString(l.Url, 1, 200); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > backdrops > url at index [%d]", i), err))
+				}
+				if err := utils.ValidateString(l.Thumbnails, 1, 200); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > backdrops > thumbnails at index [%d]", i), err))
+				}
+				if err := utils.ValidateInt(int64(l.Height + 1)); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > backdrops > Height at index [%d]", i), err))
+				}
+				if err := utils.ValidateInt(int64(l.Width + 1)); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > backdrops > Width at index [%d]", i), err))
 				}
 			}
-		} else {
-			violations = append(violations, shared.FieldViolation("animeImages > logos", errors.New("you need to send the posters in AnimeImages model")))
 		}
 
+		if len(req.AnimeImages.GetLogos()) > 0 {
+			for i, l := range req.AnimeImages.GetLogos() {
+				if err := utils.ValidateURL(l.Host, ""); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > logos > host at index [%d]", i), err))
+				}
+				if err := utils.ValidateString(l.Url, 1, 200); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > logos > url at index [%d]", i), err))
+				}
+				if err := utils.ValidateString(l.Thumbnails, 1, 200); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > logos > thumbnails at index [%d]", i), err))
+				}
+				if err := utils.ValidateInt(int64(l.Height + 1)); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > logos > Height at index [%d]", i), err))
+				}
+				if err := utils.ValidateInt(int64(l.Width + 1)); err != nil {
+					violations = append(violations, shared.FieldViolation(fmt.Sprintf("animeImages > logos > Width at index [%d]", i), err))
+				}
+			}
+		}
 	} else {
 		violations = append(violations, shared.FieldViolation("animeImages", errors.New("you need to send the AnimeImages model")))
 	}
