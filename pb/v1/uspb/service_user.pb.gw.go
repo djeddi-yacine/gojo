@@ -219,7 +219,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.uspb.UserService/CreateUser", runtime.WithHTTPPathPattern("/user/create"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.uspbv1.UserService/CreateUser", runtime.WithHTTPPathPattern("/user/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -244,7 +244,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.uspb.UserService/LoginUser", runtime.WithHTTPPathPattern("/user/login"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.uspbv1.UserService/LoginUser", runtime.WithHTTPPathPattern("/user/login"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -269,7 +269,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.uspb.UserService/UpdateUser", runtime.WithHTTPPathPattern("/user/update"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.uspbv1.UserService/UpdateUser", runtime.WithHTTPPathPattern("/user/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -294,7 +294,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.uspb.UserService/VerifyEmail", runtime.WithHTTPPathPattern("/user/email"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.uspbv1.UserService/VerifyEmail", runtime.WithHTTPPathPattern("/user/email"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -319,7 +319,7 @@ func RegisterUserServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.uspb.UserService/RenewTokens", runtime.WithHTTPPathPattern("/user/renew_tokens"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.uspbv1.UserService/RenewTokens", runtime.WithHTTPPathPattern("/user/renew_tokens"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -383,7 +383,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.uspb.UserService/CreateUser", runtime.WithHTTPPathPattern("/user/create"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.uspbv1.UserService/CreateUser", runtime.WithHTTPPathPattern("/user/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -405,7 +405,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.uspb.UserService/LoginUser", runtime.WithHTTPPathPattern("/user/login"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.uspbv1.UserService/LoginUser", runtime.WithHTTPPathPattern("/user/login"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -427,7 +427,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.uspb.UserService/UpdateUser", runtime.WithHTTPPathPattern("/user/update"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.uspbv1.UserService/UpdateUser", runtime.WithHTTPPathPattern("/user/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -449,7 +449,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.uspb.UserService/VerifyEmail", runtime.WithHTTPPathPattern("/user/email"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.uspbv1.UserService/VerifyEmail", runtime.WithHTTPPathPattern("/user/email"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -471,7 +471,7 @@ func RegisterUserServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.uspb.UserService/RenewTokens", runtime.WithHTTPPathPattern("/user/renew_tokens"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.uspbv1.UserService/RenewTokens", runtime.WithHTTPPathPattern("/user/renew_tokens"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package v1.uspb;
+package v1.uspbv1;
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/uspb;uspbv1";
 

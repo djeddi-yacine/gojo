@@ -19,11 +19,11 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	UserService_CreateUser_FullMethodName  = "/v1.uspb.UserService/CreateUser"
-	UserService_LoginUser_FullMethodName   = "/v1.uspb.UserService/LoginUser"
-	UserService_UpdateUser_FullMethodName  = "/v1.uspb.UserService/UpdateUser"
-	UserService_VerifyEmail_FullMethodName = "/v1.uspb.UserService/VerifyEmail"
-	UserService_RenewTokens_FullMethodName = "/v1.uspb.UserService/RenewTokens"
+	UserService_CreateUser_FullMethodName  = "/v1.uspbv1.UserService/CreateUser"
+	UserService_LoginUser_FullMethodName   = "/v1.uspbv1.UserService/LoginUser"
+	UserService_UpdateUser_FullMethodName  = "/v1.uspbv1.UserService/UpdateUser"
+	UserService_VerifyEmail_FullMethodName = "/v1.uspbv1.UserService/VerifyEmail"
+	UserService_RenewTokens_FullMethodName = "/v1.uspbv1.UserService/RenewTokens"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -228,7 +228,7 @@ func _UserService_RenewTokens_Handler(srv interface{}, ctx context.Context, dec 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var UserService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "v1.uspb.UserService",
+	ServiceName: "v1.uspbv1.UserService",
 	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

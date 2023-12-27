@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package v1.uspb;
+package v1.uspbv1;
 
 import "google/api/annotations.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
