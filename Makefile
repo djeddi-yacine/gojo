@@ -70,6 +70,13 @@ proto:
 	find . -name '*.proto' | xargs clang-format -i --verbose
 	statik -src=./doc/swagger -dest=./doc
 
+v1:
+	protoc --proto_path=proto --proto_path=proto/v1 --proto_path=. \
+	--go_out=pb --go_opt=paths=source_relative \
+	--go-grpc_out=pb --go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pb --grpc-gateway_opt=paths=source_relative \
+	proto/v1/*/*.proto
+
 evans:
 	evans --host localhost --port 9090 -r repl
 
@@ -108,4 +115,4 @@ fmt:
 	find . -name '*.proto' | xargs clang-format -i --verbose
 	find . -name "*.go" -print0 | xargs -0 gofmt -w
 
-.PHONY: postgres queue cache createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto evans db build cgo restart dcs dcd fmt
+.PHONY: postgres queue cache createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock proto v1 evans db build cgo restart dcs dcd fmt
