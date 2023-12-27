@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package v1.ampb;
+
+import "v1/ampb/anime_movie.proto";
+import "v1/nfpb/msg_genre.proto";
+import "v1/nfpb/msg_studio.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
+
+message CreateAnimeMovieInfoRequest {
+  int64          animeID   = 1;
+  repeated int32 genreIDs  = 2;
+  repeated int32 studioIDs = 3;
+}
+
+message CreateAnimeMovieInfoResponse {
+  AnimeMovieResponse animeMovie = 1;
+  repeated nfpb.Genre genres    = 2;
+  repeated nfpb.Studio studios  = 3;
+}

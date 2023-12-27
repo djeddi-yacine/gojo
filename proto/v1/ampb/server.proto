@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package v1.ampb;
+
+import "v1/ampb/video.proto";
+import "v1/ampb/torrent.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
+
+message AnimeMovieSubDataRequest {
+  repeated AnimeMovieVideoRequest   videos   = 1;
+  repeated AnimeMovieTorrentRequest torrents = 2;
+}
+
+message AnimeMovieDubDataRequest {
+  repeated AnimeMovieVideoRequest   videos   = 1;
+  repeated AnimeMovieTorrentRequest torrents = 2;
+}
+
+message AnimeMovieSubDataResponse {
+  repeated AnimeMovieVideoResponse   videos   = 1;
+  repeated AnimeMovieTorrentResponse torrents = 2;
+}
+
+message AnimeMovieDubDataResponse {
+  repeated AnimeMovieVideoResponse   videos   = 1;
+  repeated AnimeMovieTorrentResponse torrents = 2;
+}
