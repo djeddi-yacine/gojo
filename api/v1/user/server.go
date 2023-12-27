@@ -1,8 +1,8 @@
-package user
+package usapiv1
 
 import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb"
+	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/token"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
@@ -10,7 +10,7 @@ import (
 
 // UserServer serves gRPC requests for User endpoints.
 type UserServer struct {
-	pb.UnimplementedGojoServer
+	uspbv1.UnimplementedUserServiceServer
 	config          utils.Config
 	gojo            db.Gojo
 	tokenMaker      token.Maker

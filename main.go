@@ -11,6 +11,7 @@ import (
 
 	"github.com/dj-yacine-flutter/gojo/api"
 	"github.com/dj-yacine-flutter/gojo/api/shared"
+	v1 "github.com/dj-yacine-flutter/gojo/api/v1"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	_ "github.com/dj-yacine-flutter/gojo/doc/statik"
 	"github.com/dj-yacine-flutter/gojo/mail"
@@ -35,6 +36,8 @@ func init() {
 }
 
 func main() {
+	var err error
+
 	config, err := utils.LoadConfig(".", "gojo")
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot load config file")
@@ -55,24 +58,69 @@ func main() {
 		Addr: config.RedisQueueAddress,
 	}
 
-	taskDistributot := worker.NewRedisTaskDistributor(redisOpt)
+	taskDistributor := worker.NewRedisTaskDistributor(redisOpt)
 
-	fmt.Printf("\u001b[38;5;125m\u001b[48;5;0m%s\u001b[0m\n", fmt.Sprintln(`
-                                            
-     ██████╗  ██████╗      ██╗ ██████╗      
-    ██╔════╝ ██╔═══██╗     ██║██╔═══██╗     
-    ██║  ███╗██║   ██║     ██║██║   ██║     
-    ██║   ██║██║   ██║██   ██║██║   ██║     
-    ╚██████╔╝╚██████╔╝╚█████╔╝╚██████╔╝     
-     ╚═════╝  ╚═════╝  ╚════╝  ╚═════╝      
-                                            `))
+	go gateway(config, gojo, taskDistributor)
 
-	cache := runRedisCache(config.RedisCacheAddress)
+	server := grpc.NewServer()
 
-	go runRedisQueue(config, redisOpt, gojo)
-	go runGatewayServer(config, gojo, taskDistributot, cache)
+	err = v1.StartGRPCApi(server, config, gojo, taskDistributor)
+	if err != nil {
+		log.Fatal().Err(err).Msg(err.Error())
+	}
 
-	runGRPCServer(config, gojo, taskDistributot, cache)
+	reflection.Register(server)
+
+	listener, err := net.Listen("tcp", ":9090")
+	if err != nil {
+		log.Fatal().Err(err).Msg("cannot create gRPC listener for UserServer")
+	}
+
+	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0m- START gRPC server -AT- %s\u001b[0m\n", listener.Addr().String())
+
+	err = server.Serve(listener)
+	if err != nil {
+		log.Fatal().Err(err).Msg("cannot start gRPC server for UserServer")
+	}
+
+	//		fmt.Printf("\u001b[38;5;125m\u001b[48;5;0m%s\u001b[0m\n", fmt.Sprintln(`
+	//
+	//	    ██████╗  ██████╗      ██╗ ██████╗
+	//	   ██╔════╝ ██╔═══██╗     ██║██╔═══██╗
+	//	   ██║  ███╗██║   ██║     ██║██║   ██║
+	//	   ██║   ██║██║   ██║██   ██║██║   ██║
+	//	   ╚██████╔╝╚██████╔╝╚█████╔╝╚██████╔╝
+	//	    ╚═════╝  ╚═════╝  ╚════╝  ╚═════╝
+	//	                                           `))
+	//
+	//		cache := runRedisCache(config.RedisCacheAddress)
+	//
+	//		go runRedisQueue(config, redisOpt, gojo)
+	//		go runGatewayServer(config, gojo, taskDistributot, cache)
+	//
+	//		runGRPCServer(config, gojo, taskDistributot, cache)
+}
+
+func gateway(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor) {
+	var err error
+
+	httpMux := http.NewServeMux()
+	err = v1.StartGatewayApi(httpMux, config, gojo, taskDistrinbutor)
+	if err != nil {
+		log.Fatal().Err(err).Msg(err.Error())
+	}
+
+	listener, err := net.Listen("tcp", ":8080")
+	if err != nil {
+		log.Fatal().Err(err).Msg("cannot create Gateway listener")
+	}
+
+	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0m- START HTTP server -AT- %s\u001b[0m\n", listener.Addr().String())
+
+	err = http.Serve(listener, httpMux)
+	if err != nil {
+		log.Fatal().Err(err).Msg("cannot start the Gateway server")
+	}
 }
 
 func runRedisQueue(config utils.Config, redisOpt asynq.RedisClientOpt, gojo db.Gojo) {

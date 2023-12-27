@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package uspb;
+package v1.uspb;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/dj-yacine-flutter/gojo/pb/uspb";
+option go_package = "github.com/dj-yacine-flutter/gojo;uspbv1";
 
 message RenewTokensRequest {
   string refreshToken = 1;

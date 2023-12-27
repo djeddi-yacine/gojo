@@ -1,4 +1,4 @@
-package user
+package usapiv1
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb/uspb"
+	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
 	"github.com/hibiken/asynq"
@@ -16,7 +16,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *UserServer) CreateUser(ctx context.Context, req *uspb.CreateUserRequest) (*uspb.CreateUserResponse, error) {
+func (server *UserServer) CreateUser(ctx context.Context, req *uspbv1.CreateUserRequest) (*uspbv1.CreateUserResponse, error) {
 	if violations := validateCreateUserRequest(req); violations != nil {
 		return nil, shared.InvalidArgumentError(violations)
 	}
@@ -53,8 +53,8 @@ func (server *UserServer) CreateUser(ctx context.Context, req *uspb.CreateUserRe
 		return nil, shared.ApiError("failed to create the user", err)
 	}
 
-	res := &uspb.CreateUserResponse{
-		User: &uspb.User{
+	res := &uspbv1.CreateUserResponse{
+		User: &uspbv1.User{
 			Username:          txResult.User.Username,
 			FullName:          txResult.User.FullName,
 			Email:             txResult.User.Email,
@@ -65,7 +65,7 @@ func (server *UserServer) CreateUser(ctx context.Context, req *uspb.CreateUserRe
 	return res, nil
 }
 
-func validateCreateUserRequest(req *uspb.CreateUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateCreateUserRequest(req *uspbv1.CreateUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateUsername(req.GetUsername()); err != nil {
 		violations = append(violations, shared.FieldViolation("username", err))
 	}

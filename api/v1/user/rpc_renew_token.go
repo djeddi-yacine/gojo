@@ -1,4 +1,4 @@
-package user
+package usapiv1
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb/uspb"
+	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
@@ -14,7 +14,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *UserServer) RenewTokens(ctx context.Context, req *uspb.RenewTokensRequest) (*uspb.RenewTokensResponse, error) {
+func (server *UserServer) RenewTokens(ctx context.Context, req *uspbv1.RenewTokensRequest) (*uspbv1.RenewTokensResponse, error) {
 	if violations := validateRenewTokensRequest(req); violations != nil {
 		return nil, shared.InvalidArgumentError(violations)
 	}
@@ -79,7 +79,7 @@ func (server *UserServer) RenewTokens(ctx context.Context, req *uspb.RenewTokens
 		return nil, shared.ApiError("failed to renew session", err)
 	}
 
-	res := &uspb.RenewTokensResponse{
+	res := &uspbv1.RenewTokensResponse{
 		SessionID:             s.ID.String(),
 		AccessToken:           accessToken,
 		AccessTokenExpiresAt:  timestamppb.New(accessPayload.ExpiredAt),
@@ -90,7 +90,7 @@ func (server *UserServer) RenewTokens(ctx context.Context, req *uspb.RenewTokens
 	return res, nil
 }
 
-func validateRenewTokensRequest(req *uspb.RenewTokensRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateRenewTokensRequest(req *uspbv1.RenewTokensRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateToken(req.GetRefreshToken()); err != nil {
 		violations = append(violations, shared.FieldViolation("refreshToken", err))
 	}

@@ -1,4 +1,4 @@
-package user
+package usapiv1
 
 import (
 	"context"

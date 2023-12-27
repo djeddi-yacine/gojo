@@ -1,4 +1,4 @@
-package user
+package usapiv1
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb/uspb"
+	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/jackc/pgx/v5/pgtype"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -15,7 +15,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *UserServer) UpdateUser(ctx context.Context, req *uspb.UpdateUserRequest) (*uspb.UpdateUserResponse, error) {
+func (server *UserServer) UpdateUser(ctx context.Context, req *uspbv1.UpdateUserRequest) (*uspbv1.UpdateUserResponse, error) {
 	authPayload, err := shared.AuthorizeUser(ctx, server.tokenMaker, utils.AllRolls)
 	if err != nil {
 		return nil, shared.UnAuthenticatedError(err)
@@ -61,8 +61,8 @@ func (server *UserServer) UpdateUser(ctx context.Context, req *uspb.UpdateUserRe
 		return nil, shared.ApiError("failed to update user", err)
 	}
 
-	res := &uspb.UpdateUserResponse{
-		User: &uspb.User{
+	res := &uspbv1.UpdateUserResponse{
+		User: &uspbv1.User{
 			Username:          user.Username,
 			FullName:          user.FullName,
 			Email:             user.Email,
@@ -73,7 +73,7 @@ func (server *UserServer) UpdateUser(ctx context.Context, req *uspb.UpdateUserRe
 	return res, nil
 }
 
-func validateUpdateUserRequest(req *uspb.UpdateUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateUpdateUserRequest(req *uspbv1.UpdateUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateUsername(req.GetUsername()); err != nil {
 		violations = append(violations, shared.FieldViolation("username", err))
 	}

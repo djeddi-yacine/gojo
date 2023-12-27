@@ -6,7 +6,6 @@ import (
 	animeMovie "github.com/dj-yacine-flutter/gojo/api/anime/movie"
 	animeSerie "github.com/dj-yacine-flutter/gojo/api/anime/serie"
 	"github.com/dj-yacine-flutter/gojo/api/info"
-	"github.com/dj-yacine-flutter/gojo/api/user"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/token"
@@ -17,7 +16,6 @@ import (
 
 // Server serves gRPC requests for our Gojo service.
 type Server struct {
-	*user.UserServer
 	*info.InfoServer
 	*animeSerie.AnimeSerieServer
 	*animeMovie.AnimeMovieServer
@@ -32,7 +30,6 @@ func NewServer(config utils.Config, gojo db.Gojo, taskDistributor worker.TaskDis
 
 	ping := ping.NewPingSystem(config, cache)
 	server := &Server{
-		UserServer:       user.NewUserServer(config, gojo, tokenMaker, taskDistributor),
 		InfoServer:       info.NewInfoServer(gojo, tokenMaker),
 		AnimeSerieServer: animeSerie.NewAnimeSerieServer(config, gojo, tokenMaker, ping),
 		AnimeMovieServer: animeMovie.NewAnimeMovieServer(config, gojo, tokenMaker, ping),

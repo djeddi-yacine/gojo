@@ -1,11 +1,11 @@
-package user
+package usapiv1
 
 import (
 	"context"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb/uspb"
+	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
@@ -13,7 +13,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *UserServer) LoginUser(ctx context.Context, req *uspb.LoginUserRequest) (*uspb.LoginUserResponse, error) {
+func (server *UserServer) LoginUser(ctx context.Context, req *uspbv1.LoginUserRequest) (*uspbv1.LoginUserResponse, error) {
 	if violations := validateLoginUserRequest(req); violations != nil {
 		return nil, shared.InvalidArgumentError(violations)
 	}
@@ -62,8 +62,8 @@ func (server *UserServer) LoginUser(ctx context.Context, req *uspb.LoginUserRequ
 		return nil, shared.ApiError("failed to renew session", err)
 	}
 
-	res := &uspb.LoginUserResponse{
-		User: &uspb.User{
+	res := &uspbv1.LoginUserResponse{
+		User: &uspbv1.User{
 			Username:          user.Username,
 			FullName:          user.FullName,
 			Email:             user.Email,
@@ -80,7 +80,7 @@ func (server *UserServer) LoginUser(ctx context.Context, req *uspb.LoginUserRequ
 	return res, nil
 }
 
-func validateLoginUserRequest(req *uspb.LoginUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateLoginUserRequest(req *uspbv1.LoginUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateUsername(req.GetUsername()); err != nil {
 		violations = append(violations, shared.FieldViolation("username", err))
 	}

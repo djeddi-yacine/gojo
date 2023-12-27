@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package uspb;
+package v1.uspb;
 
-import "uspb/user.proto";
+import "v1/uspb/user.proto";
 
-option go_package = "github.com/dj-yacine-flutter/gojo/pb/uspb";
+option go_package = "github.com/dj-yacine-flutter/gojo;uspbv1";
 
 message UpdateUserRequest {
   string          username = 1;

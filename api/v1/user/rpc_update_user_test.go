@@ -1,4 +1,4 @@
-package user
+package usapiv1
 
 import (
 	"context"
@@ -7,7 +7,7 @@ import (
 
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	mockdb "github.com/dj-yacine-flutter/gojo/db/mock"
-	"github.com/dj-yacine-flutter/gojo/pb/uspb"
+	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/token"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/golang/mock/gomock"
@@ -30,14 +30,14 @@ func TestUpdateUserAPI(t *testing.T) {
 
 	testCases := []struct {
 		name          string
-		req           *uspb.UpdateUserRequest
+		req           *uspbv1.UpdateUserRequest
 		buildStubs    func(gojo *mockdb.MockGojo)
 		buildContext  func(t *testing.T, tokenMaker token.Maker) context.Context
-		checkResponse func(t *testing.T, res *uspb.UpdateUserResponse, err error)
+		checkResponse func(t *testing.T, res *uspbv1.UpdateUserResponse, err error)
 	}{
 		{
 			name: "OK",
-			req: &uspb.UpdateUserRequest{
+			req: &uspbv1.UpdateUserRequest{
 				Username: user.Username,
 				FullName: &newName,
 				Email:    &newEmail,
@@ -71,7 +71,7 @@ func TestUpdateUserAPI(t *testing.T) {
 			buildContext: func(t *testing.T, tokenMaker token.Maker) context.Context {
 				return newContextWithBearerToken(t, tokenMaker, user.Username, user.Role, time.Minute)
 			},
-			checkResponse: func(t *testing.T, res *uspb.UpdateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspbv1.UpdateUserResponse, err error) {
 				require.NoError(t, err)
 				require.NotNil(t, res)
 				updatedUser := res.GetUser()
@@ -82,7 +82,7 @@ func TestUpdateUserAPI(t *testing.T) {
 		},
 		{
 			name: "UserNotFound",
-			req: &uspb.UpdateUserRequest{
+			req: &uspbv1.UpdateUserRequest{
 				Username: user.Username,
 				FullName: &newName,
 				Email:    &newEmail,
@@ -96,7 +96,7 @@ func TestUpdateUserAPI(t *testing.T) {
 			buildContext: func(t *testing.T, tokenMaker token.Maker) context.Context {
 				return newContextWithBearerToken(t, tokenMaker, user.Username, user.Role, time.Minute)
 			},
-			checkResponse: func(t *testing.T, res *uspb.UpdateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspbv1.UpdateUserResponse, err error) {
 				require.Error(t, err)
 				st, ok := status.FromError(err)
 				require.True(t, ok)
@@ -105,7 +105,7 @@ func TestUpdateUserAPI(t *testing.T) {
 		},
 		{
 			name: "InvalidUsername",
-			req: &uspb.UpdateUserRequest{
+			req: &uspbv1.UpdateUserRequest{
 				Username: invalidUsername,
 			},
 			buildStubs: func(gojo *mockdb.MockGojo) {
@@ -116,7 +116,7 @@ func TestUpdateUserAPI(t *testing.T) {
 			buildContext: func(t *testing.T, tokenMaker token.Maker) context.Context {
 				return newContextWithBearerToken(t, tokenMaker, user.Username, user.Role, time.Minute)
 			},
-			checkResponse: func(t *testing.T, res *uspb.UpdateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspbv1.UpdateUserResponse, err error) {
 				require.Error(t, err)
 				st, ok := status.FromError(err)
 				require.True(t, ok)
@@ -125,7 +125,7 @@ func TestUpdateUserAPI(t *testing.T) {
 		},
 		{
 			name: "InvalidEmail",
-			req: &uspb.UpdateUserRequest{
+			req: &uspbv1.UpdateUserRequest{
 				Username: user.Username,
 				FullName: &newName,
 				Email:    &invalidEmail,
@@ -138,7 +138,7 @@ func TestUpdateUserAPI(t *testing.T) {
 			buildContext: func(t *testing.T, tokenMaker token.Maker) context.Context {
 				return newContextWithBearerToken(t, tokenMaker, user.Username, user.Role, time.Minute)
 			},
-			checkResponse: func(t *testing.T, res *uspb.UpdateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspbv1.UpdateUserResponse, err error) {
 				require.Error(t, err)
 				st, ok := status.FromError(err)
 				require.True(t, ok)
@@ -147,7 +147,7 @@ func TestUpdateUserAPI(t *testing.T) {
 		},
 		{
 			name: "InvalidPassword",
-			req: &uspb.UpdateUserRequest{
+			req: &uspbv1.UpdateUserRequest{
 				Username: user.Username,
 				FullName: &invalidName,
 				Email:    &newEmail,
@@ -160,7 +160,7 @@ func TestUpdateUserAPI(t *testing.T) {
 			buildContext: func(t *testing.T, tokenMaker token.Maker) context.Context {
 				return newContextWithBearerToken(t, tokenMaker, user.Username, user.Role, time.Minute)
 			},
-			checkResponse: func(t *testing.T, res *uspb.UpdateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspbv1.UpdateUserResponse, err error) {
 				require.Error(t, err)
 				st, ok := status.FromError(err)
 				require.True(t, ok)
@@ -169,7 +169,7 @@ func TestUpdateUserAPI(t *testing.T) {
 		},
 		{
 			name: "InvalidFullName",
-			req: &uspb.UpdateUserRequest{
+			req: &uspbv1.UpdateUserRequest{
 				Username: user.Username,
 				Password: &invalidPassword,
 			},
@@ -181,7 +181,7 @@ func TestUpdateUserAPI(t *testing.T) {
 			buildContext: func(t *testing.T, tokenMaker token.Maker) context.Context {
 				return newContextWithBearerToken(t, tokenMaker, user.Username, user.Role, time.Minute)
 			},
-			checkResponse: func(t *testing.T, res *uspb.UpdateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspbv1.UpdateUserResponse, err error) {
 				require.Error(t, err)
 				st, ok := status.FromError(err)
 				require.True(t, ok)
@@ -190,7 +190,7 @@ func TestUpdateUserAPI(t *testing.T) {
 		},
 		{
 			name: "ExpiredToken",
-			req: &uspb.UpdateUserRequest{
+			req: &uspbv1.UpdateUserRequest{
 				Username: user.Username,
 				FullName: &newName,
 				Email:    &newEmail,
@@ -203,7 +203,7 @@ func TestUpdateUserAPI(t *testing.T) {
 			buildContext: func(t *testing.T, tokenMaker token.Maker) context.Context {
 				return newContextWithBearerToken(t, tokenMaker, user.Username, user.Role, -time.Minute)
 			},
-			checkResponse: func(t *testing.T, res *uspb.UpdateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspbv1.UpdateUserResponse, err error) {
 				require.Error(t, err)
 				st, ok := status.FromError(err)
 				require.True(t, ok)
@@ -212,7 +212,7 @@ func TestUpdateUserAPI(t *testing.T) {
 		},
 		{
 			name: "NoAuthorization",
-			req: &uspb.UpdateUserRequest{
+			req: &uspbv1.UpdateUserRequest{
 				Username: user.Username,
 				FullName: &newName,
 				Email:    &newEmail,
@@ -225,7 +225,7 @@ func TestUpdateUserAPI(t *testing.T) {
 			buildContext: func(t *testing.T, tokenMaker token.Maker) context.Context {
 				return context.Background()
 			},
-			checkResponse: func(t *testing.T, res *uspb.UpdateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspbv1.UpdateUserResponse, err error) {
 				require.Error(t, err)
 				st, ok := status.FromError(err)
 				require.True(t, ok)
@@ -234,7 +234,7 @@ func TestUpdateUserAPI(t *testing.T) {
 		},
 		{
 			name: "PermissionDenied",
-			req: &uspb.UpdateUserRequest{
+			req: &uspbv1.UpdateUserRequest{
 				Username: utils.RandomString(10),
 				FullName: &newName,
 				Email:    &newEmail,
@@ -247,7 +247,7 @@ func TestUpdateUserAPI(t *testing.T) {
 			buildContext: func(t *testing.T, tokenMaker token.Maker) context.Context {
 				return newContextWithBearerToken(t, tokenMaker, user.Username, user.Role, time.Minute)
 			},
-			checkResponse: func(t *testing.T, res *uspb.UpdateUserResponse, err error) {
+			checkResponse: func(t *testing.T, res *uspbv1.UpdateUserResponse, err error) {
 				require.Error(t, err)
 				st, ok := status.FromError(err)
 				require.True(t, ok)

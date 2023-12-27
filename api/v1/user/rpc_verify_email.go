@@ -1,16 +1,16 @@
-package user
+package usapiv1
 
 import (
 	"context"
 
 	"github.com/dj-yacine-flutter/gojo/api/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/pb/uspb"
+	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 )
 
-func (server *UserServer) VerifyEmail(ctx context.Context, req *uspb.VerifyEmailRequest) (*uspb.VerifyEmailResponse, error) {
+func (server *UserServer) VerifyEmail(ctx context.Context, req *uspbv1.VerifyEmailRequest) (*uspbv1.VerifyEmailResponse, error) {
 	violations := validateVerifyEmailRequest(req)
 	if violations != nil {
 		return nil, shared.InvalidArgumentError(violations)
@@ -24,13 +24,13 @@ func (server *UserServer) VerifyEmail(ctx context.Context, req *uspb.VerifyEmail
 		return nil, shared.ApiError("failed to verify email", err)
 	}
 
-	rsp := &uspb.VerifyEmailResponse{
+	rsp := &uspbv1.VerifyEmailResponse{
 		IsVerified: txResult.User.IsEmailVerified,
 	}
 	return rsp, nil
 }
 
-func validateVerifyEmailRequest(req *uspb.VerifyEmailRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateVerifyEmailRequest(req *uspbv1.VerifyEmailRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.GetEmailID()); err != nil {
 		violations = append(violations, shared.FieldViolation("emailID", err))
 	}

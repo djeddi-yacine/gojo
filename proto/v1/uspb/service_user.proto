@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package v1.uspb;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+import "v1/uspb/rpc_create_user.proto";
+import "v1/uspb/rpc_login_user.proto";
+import "v1/uspb/rpc_update_user.proto";
+import "v1/uspb/rpc_verify_email.proto";
+import "v1/uspb/rpc_renew_tokens.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo;uspbv1";
+
+service UserService {
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
+    option (google.api.http) = {
+      post: "/user/create"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Use this API to create a new user";
+  };
+}
+rpc LoginUser(LoginUserRequest) returns (LoginUserResponse) {
+  option (google.api.http) = {
+    post: "/user/login"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to login user and get access token & refresh token";
+};
+}
+rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {
+  option (google.api.http) = {
+    patch: "/user/update"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to update user email or fullName or password using the username";
+};
+}
+rpc VerifyEmail(VerifyEmailRequest) returns (VerifyEmailResponse) {
+  option (google.api.http) = {
+    get: "/user/email"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to verify user's email address";
+};
+}
+rpc RenewTokens(RenewTokensRequest) returns (RenewTokensResponse) {
+  option (google.api.http) = {
+    post: "/user/renew_tokens"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to renew user's access token & refresh token";
+};
+}
+}
