@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package v1.nfpb;
+package v1.nfpbv1;
 
 import "v1/nfpb/msg_genre.proto";
 

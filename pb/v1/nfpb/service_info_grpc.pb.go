@@ -19,12 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	InfoService_CreateGenres_FullMethodName    = "/v1.nfpb.InfoService/CreateGenres"
-	InfoService_CreateStudios_FullMethodName   = "/v1.nfpb.InfoService/CreateStudios"
-	InfoService_CreateLanguages_FullMethodName = "/v1.nfpb.InfoService/CreateLanguages"
-	InfoService_GetAllGenres_FullMethodName    = "/v1.nfpb.InfoService/GetAllGenres"
-	InfoService_GetAllStudios_FullMethodName   = "/v1.nfpb.InfoService/GetAllStudios"
-	InfoService_GetAllLanguages_FullMethodName = "/v1.nfpb.InfoService/GetAllLanguages"
+	InfoService_CreateGenres_FullMethodName    = "/v1.nfpbv1.InfoService/CreateGenres"
+	InfoService_CreateStudios_FullMethodName   = "/v1.nfpbv1.InfoService/CreateStudios"
+	InfoService_CreateLanguages_FullMethodName = "/v1.nfpbv1.InfoService/CreateLanguages"
+	InfoService_GetAllGenres_FullMethodName    = "/v1.nfpbv1.InfoService/GetAllGenres"
+	InfoService_GetAllStudios_FullMethodName   = "/v1.nfpbv1.InfoService/GetAllStudios"
+	InfoService_GetAllLanguages_FullMethodName = "/v1.nfpbv1.InfoService/GetAllLanguages"
 )
 
 // InfoServiceClient is the client API for InfoService service.
@@ -261,7 +261,7 @@ func _InfoService_GetAllLanguages_Handler(srv interface{}, ctx context.Context, 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var InfoService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "v1.nfpb.InfoService",
+	ServiceName: "v1.nfpbv1.InfoService",
 	HandlerType: (*InfoServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

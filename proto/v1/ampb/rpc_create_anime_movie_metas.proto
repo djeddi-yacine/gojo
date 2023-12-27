@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package v1.ampb;
+package v1.ampbv1;
 
 import "v1/nfpb/msg_meta.proto";
 
@@ -8,10 +8,10 @@ option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
 
 message CreateAnimeMovieMetasRequest {
   int64    animeID                          = 1;
-  repeated nfpb.AnimeMetaRequest animeMetas = 2;
+  repeated nfpbv1.AnimeMetaRequest animeMetas = 2;
 }
 
 message CreateAnimeMovieMetasResponse {
   int64    animeID                           = 1;
-  repeated nfpb.AnimeMetaResponse animeMetas = 2;
+  repeated nfpbv1.AnimeMetaResponse animeMetas = 2;
 }

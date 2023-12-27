@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package v1.ampb;
+package v1.ampbv1;
 
 import "v1/nfpb/msg_meta.proto";
 
@@ -11,5 +11,5 @@ message GetAllAnimeMovieMetasRequest {
 }
 
 message GetAllAnimeMovieMetasResponse {
-  repeated nfpb.AnimeMetaResponse metas = 1;
+  repeated nfpbv1.AnimeMetaResponse metas = 1;
 }

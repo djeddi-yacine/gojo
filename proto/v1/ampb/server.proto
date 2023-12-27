@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package v1.ampb;
+package v1.ampbv1;
 
 import "v1/ampb/video.proto";
 import "v1/ampb/torrent.proto";

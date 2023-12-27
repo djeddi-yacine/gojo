@@ -255,7 +255,7 @@ func RegisterInfoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpb.InfoService/CreateGenres", runtime.WithHTTPPathPattern("/anime/genre/create"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpbv1.InfoService/CreateGenres", runtime.WithHTTPPathPattern("/anime/genre/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -280,7 +280,7 @@ func RegisterInfoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpb.InfoService/CreateStudios", runtime.WithHTTPPathPattern("/anime/studio/create"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpbv1.InfoService/CreateStudios", runtime.WithHTTPPathPattern("/anime/studio/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -305,7 +305,7 @@ func RegisterInfoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpb.InfoService/CreateLanguages", runtime.WithHTTPPathPattern("/language/create"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpbv1.InfoService/CreateLanguages", runtime.WithHTTPPathPattern("/language/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -330,7 +330,7 @@ func RegisterInfoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpb.InfoService/GetAllGenres", runtime.WithHTTPPathPattern("/anime/genre"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpbv1.InfoService/GetAllGenres", runtime.WithHTTPPathPattern("/anime/genre"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -355,7 +355,7 @@ func RegisterInfoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpb.InfoService/GetAllStudios", runtime.WithHTTPPathPattern("/anime/studio"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpbv1.InfoService/GetAllStudios", runtime.WithHTTPPathPattern("/anime/studio"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -380,7 +380,7 @@ func RegisterInfoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpb.InfoService/GetAllLanguages", runtime.WithHTTPPathPattern("/language"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpbv1.InfoService/GetAllLanguages", runtime.WithHTTPPathPattern("/language"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -444,7 +444,7 @@ func RegisterInfoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpb.InfoService/CreateGenres", runtime.WithHTTPPathPattern("/anime/genre/create"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpbv1.InfoService/CreateGenres", runtime.WithHTTPPathPattern("/anime/genre/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -466,7 +466,7 @@ func RegisterInfoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpb.InfoService/CreateStudios", runtime.WithHTTPPathPattern("/anime/studio/create"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpbv1.InfoService/CreateStudios", runtime.WithHTTPPathPattern("/anime/studio/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -488,7 +488,7 @@ func RegisterInfoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpb.InfoService/CreateLanguages", runtime.WithHTTPPathPattern("/language/create"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpbv1.InfoService/CreateLanguages", runtime.WithHTTPPathPattern("/language/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -510,7 +510,7 @@ func RegisterInfoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpb.InfoService/GetAllGenres", runtime.WithHTTPPathPattern("/anime/genre"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpbv1.InfoService/GetAllGenres", runtime.WithHTTPPathPattern("/anime/genre"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -532,7 +532,7 @@ func RegisterInfoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpb.InfoService/GetAllStudios", runtime.WithHTTPPathPattern("/anime/studio"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpbv1.InfoService/GetAllStudios", runtime.WithHTTPPathPattern("/anime/studio"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -554,7 +554,7 @@ func RegisterInfoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpb.InfoService/GetAllLanguages", runtime.WithHTTPPathPattern("/language"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpbv1.InfoService/GetAllLanguages", runtime.WithHTTPPathPattern("/language"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return

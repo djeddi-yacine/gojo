@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package v1.ampb;
+package v1.ampbv1;
 
 import "v1/ampb/anime_movie.proto";
 import "v1/ampb/server.proto";
@@ -22,10 +22,10 @@ message GetFullAnimeMovieRequest {
 
 message GetFullAnimeMovieResponse {
   AnimeMovieResponse         animeMovie            = 1;
-  nfpb.AnimeMetaResponse     animeMeta             = 2;
+  nfpbv1.AnimeMetaResponse     animeMeta             = 2;
   shpb.AnimeResourceResponse animeResources        = 3;
-  repeated nfpb.Genre animeGenres                  = 4;
-  repeated nfpb.Studio    animeStudios             = 5;
+  repeated nfpbv1.Genre animeGenres                  = 4;
+  repeated nfpbv1.Studio    animeStudios             = 5;
   shpb.AnimeLinkResponse  animeLinks               = 6;
   repeated AnimeMovieTag  animeTags                = 7;
   shpb.AnimeImageResponse animeImages              = 8;
