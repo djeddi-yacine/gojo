@@ -15,7 +15,7 @@ message CreateAnimeMovieInfoRequest {
 }
 
 message CreateAnimeMovieInfoResponse {
-  AnimeMovieResponse animeMovie = 1;
-  repeated nfpbv1.Genre genres    = 2;
-  repeated nfpbv1.Studio studios  = 3;
+  AnimeMovieResponse animeMovie  = 1;
+  repeated nfpbv1.Genre genres   = 2;
+  repeated nfpbv1.Studio studios = 3;
 }

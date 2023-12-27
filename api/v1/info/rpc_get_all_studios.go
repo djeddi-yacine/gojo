@@ -1,0 +1,64 @@
+package nfapiv1
+
+import (
+	"context"
+
+	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
+	db "github.com/dj-yacine-flutter/gojo/db/database"
+	nfpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb"
+	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/jackc/pgerrcode"
+	"google.golang.org/genproto/googleapis/rpc/errdetails"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+)
+
+func (server *InfoServer) GetAllStudios(ctx context.Context, req *nfpbv1.GetAllStudiosRequest) (*nfpbv1.GetAllStudiosResponse, error) {
+	authPayload, err := shv1.AuthorizeUser(ctx, server.tokenMaker, []string{utils.AdminRole, utils.RootRoll})
+	if err != nil {
+		return nil, shv1.UnAuthenticatedError(err)
+	}
+
+	if authPayload.Role != utils.RootRoll {
+		return nil, status.Errorf(codes.PermissionDenied, "cannot get all Studios")
+	}
+
+	violations := validateGetAllStudiosRequest(req)
+	if violations != nil {
+		return nil, shv1.InvalidArgumentError(violations)
+	}
+
+	arg := db.ListStudiosParams{
+		Limit:  req.PageSize,
+		Offset: (req.PageNumber - 1) * req.PageSize,
+	}
+	DBStudios, err := server.gojo.ListStudios(ctx, arg)
+	if err != nil {
+		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
+			return nil, nil
+		}
+		return nil, shv1.ApiError("failed to list all studios", err)
+	}
+
+	var PBStudios []*nfpbv1.Studio
+	for _, g := range DBStudios {
+		PBStudios = append(PBStudios, shv1.ConvertStudio(g))
+	}
+
+	res := &nfpbv1.GetAllStudiosResponse{
+		Studios: PBStudios,
+	}
+	return res, nil
+}
+
+func validateGetAllStudiosRequest(req *nfpbv1.GetAllStudiosRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+	if err := utils.ValidateInt(int64(req.GetPageNumber())); err != nil {
+		violations = append(violations, shv1.FieldViolation("pageNumber", err))
+	}
+
+	if err := utils.ValidateInt(int64(req.GetPageSize())); err != nil {
+		violations = append(violations, shv1.FieldViolation("pageSize", err))
+	}
+
+	return violations
+}
