@@ -5,8 +5,10 @@ import (
 	"fmt"
 	"net/http"
 
+	nfapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/info"
 	usapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/user"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
+	nfpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb"
 	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/token"
 	"github.com/dj-yacine-flutter/gojo/utils"
@@ -22,8 +24,10 @@ func StartGRPCApi(server *grpc.Server, config utils.Config, gojo db.Gojo, taskDi
 	}
 
 	user := usapiv1.NewUserServer(config, gojo, tokenMaker, taskDistributor)
-
 	uspbv1.RegisterUserServiceServer(server, user)
+
+	info := nfapiv1.NewInfoServer(gojo, tokenMaker)
+	nfpbv1.RegisterInfoServiceServer(server, info)
 
 	return nil
 }
@@ -46,6 +50,12 @@ func StartGatewayApi(httpMux *http.ServeMux, config utils.Config, gojo db.Gojo, 
 	err = uspbv1.RegisterUserServiceHandlerServer(ctx, grpcMux, user)
 	if err != nil {
 		return fmt.Errorf("cannot register Gateway server for User Service v1: %w", err)
+	}
+
+	info := nfapiv1.NewInfoServer(gojo, tokenMaker)
+	err = nfpbv1.RegisterInfoServiceHandlerServer(ctx, grpcMux, info)
+	if err != nil {
+		return fmt.Errorf("cannot register Gateway server for Info Service v1: %w", err)
 	}
 
 	vMux := http.NewServeMux()
