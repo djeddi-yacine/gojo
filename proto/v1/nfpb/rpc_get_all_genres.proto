@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package v1.nfpb;
+
+import "v1/nfpb/msg_genre.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb;nfpbv1";
+
+message GetAllGenresRequest {
+  int32 pageNumber = 1;
+  int32 pageSize   = 2;
+}
+
+message GetAllGenresResponse {
+  repeated Genre genres = 1;
+}

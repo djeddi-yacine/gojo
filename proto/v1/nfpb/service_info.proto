@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+package v1.nfpb;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+import "v1/nfpb/rpc_create_genres.proto";
+import "v1/nfpb/rpc_create_studios.proto";
+import "v1/nfpb/rpc_create_languages.proto";
+import "v1/nfpb/rpc_get_all_genres.proto";
+import "v1/nfpb/rpc_get_all_studios.proto";
+import "v1/nfpb/rpc_get_all_languages.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb;nfpbv1";
+
+service InfoService {
+  rpc CreateGenres(CreateGenresRequest) returns (CreateGenresResponse) {
+    option (google.api.http) = {
+      post: "/anime/genre/create"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Use this API to create a new genres";
+  };
+}
+rpc CreateStudios(CreateStudiosRequest) returns (CreateStudiosResponse) {
+  option (google.api.http) = {
+    post: "/anime/studio/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new studios";
+};
+}
+rpc CreateLanguages(CreateLanguagesRequest) returns (CreateLanguagesResponse) {
+  option (google.api.http) = {
+    post: "/language/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new languages";
+};
+}
+rpc GetAllGenres(GetAllGenresRequest) returns (GetAllGenresResponse) {
+  option (google.api.http) = {
+    get: "/anime/genre"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get all anime genres";
+};
+}
+rpc GetAllStudios(GetAllStudiosRequest) returns (GetAllStudiosResponse) {
+  option (google.api.http) = {
+    get: "/anime/studio"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get all anime studios";
+};
+}
+rpc GetAllLanguages(GetAllLanguagesRequest) returns (GetAllLanguagesResponse) {
+  option (google.api.http) = {
+    get: "/language"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get all app languages";
+};
+}
+}
