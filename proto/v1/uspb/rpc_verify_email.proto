@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package v1.uspb;
 
-option go_package = "github.com/dj-yacine-flutter/gojo;uspbv1";
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/uspb;uspbv1";
 
 message VerifyEmailRequest {
   int64  emailID    = 1;

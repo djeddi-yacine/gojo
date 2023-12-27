@@ -11,7 +11,7 @@ import "v1/uspb/rpc_update_user.proto";
 import "v1/uspb/rpc_verify_email.proto";
 import "v1/uspb/rpc_renew_tokens.proto";
 
-option go_package = "github.com/dj-yacine-flutter/gojo;uspbv1";
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/uspb;uspbv1";
 
 service UserService {
   rpc CreateUser(CreateUserRequest) returns (CreateUserResponse) {
