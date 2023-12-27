@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package v1.ashpbv1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb;ashpbv1";
+
+message AnimeResourceRequest {
+  optional int32  tvdbID        = 1;
+  optional int32  tmdbID        = 2;
+  optional string imdbID        = 3;
+  optional int32  livechartID   = 4;
+  optional string animePlanetID = 5;
+  optional int32  anisearchID   = 6;
+  optional int32  anidbID       = 7;
+  optional int32  kitsuID       = 8;
+  optional int32  malID         = 9;
+  optional string notifyMoeID   = 10;
+  optional int32  anilistID     = 11;
+}
+
+message AnimeResourceResponse {
+  int64                     ID            = 1;
+  int32                     tvdbID        = 2;
+  int32                     tmdbID        = 3;
+  string                    imdbID        = 4;
+  int32                     livechartID   = 5;
+  string                    animePlanetID = 6;
+  int32                     anisearchID   = 7;
+  int32                     anidbID       = 8;
+  int32                     kitsuID       = 9;
+  int32                     malID         = 10;
+  string                    notifyMoeID   = 11;
+  int32                     anilistID     = 12;
+  google.protobuf.Timestamp createdAt     = 13;
+}
