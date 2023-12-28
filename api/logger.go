@@ -30,12 +30,11 @@ func GrpcLogger(
 		logger = log.Error().Err(err)
 	}
 
-	logger.Str("protocol", "grpc").
-		Str("method", info.FullMethod).
+	logger.Str("method", info.FullMethod).
 		Int("status_code", int(statusCode)).
 		Str("status_text", statusCode.String()).
 		Dur("duration", duration).
-		Msg("received a gRPC request")
+		Msg("GRPC")
 
 	return result, err
 }
