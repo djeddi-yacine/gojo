@@ -14,6 +14,7 @@ import (
 	_ "github.com/dj-yacine-flutter/gojo/doc/statik"
 	"github.com/dj-yacine-flutter/gojo/mail"
 	"github.com/dj-yacine-flutter/gojo/ping"
+	"github.com/dj-yacine-flutter/gojo/token"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
 	"github.com/hibiken/asynq"
@@ -47,6 +48,11 @@ func main() {
 		log.Fatal().Err(err).Msg("cannot connect to the DB")
 	}
 
+	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
+	if err != nil {
+		log.Fatal().Err(err).Msg("cannot create token maker")
+	}
+
 	gojo := db.NewGojo(conn)
 
 	redisOpt := asynq.RedisClientOpt{
@@ -67,15 +73,15 @@ func main() {
 	ping := ping.NewPingSystem(config)
 
 	go queue(config, redisOpt, gojo)
-	go v1Http(config, gojo, taskDistributor, ping)
-	v1Grpc(config, gojo, taskDistributor, ping)
+	go v1Http(config, gojo, tokenMaker, taskDistributor, ping)
+	v1Grpc(config, gojo, tokenMaker, taskDistributor, ping)
 }
 
-func v1Http(config utils.Config, gojo db.Gojo, taskDistributor worker.TaskDistributor, ping *ping.PingSystem) {
+func v1Http(config utils.Config, gojo db.Gojo, tokenMaker token.Maker, taskDistributor worker.TaskDistributor, ping *ping.PingSystem) {
 	var err error
 
 	httpMux := http.NewServeMux()
-	err = v1.StartGatewayApi(httpMux, config, gojo, taskDistributor, ping)
+	err = v1.StartGatewayApi(httpMux, config, gojo, tokenMaker, taskDistributor, ping)
 	if err != nil {
 		log.Fatal().Err(err).Msg(err.Error())
 	}
@@ -100,13 +106,13 @@ func v1Http(config utils.Config, gojo db.Gojo, taskDistributor worker.TaskDistri
 	}
 }
 
-func v1Grpc(config utils.Config, gojo db.Gojo, taskDistributor worker.TaskDistributor, ping *ping.PingSystem) {
+func v1Grpc(config utils.Config, gojo db.Gojo, tokenMaker token.Maker, taskDistributor worker.TaskDistributor, ping *ping.PingSystem) {
 	var err error
 
 	gprcLogger := grpc.UnaryInterceptor(api.GrpcLogger)
 	server := grpc.NewServer(gprcLogger)
 
-	err = v1.StartGRPCApi(server, config, gojo, taskDistributor, ping)
+	err = v1.StartGRPCApi(server, config, gojo, tokenMaker, taskDistributor, ping)
 	if err != nil {
 		log.Fatal().Err(err).Msg(err.Error())
 	}

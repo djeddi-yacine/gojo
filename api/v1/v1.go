@@ -22,12 +22,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-func StartGRPCApi(server *grpc.Server, config utils.Config, gojo db.Gojo, taskDistributor worker.TaskDistributor, ping *ping.PingSystem) error {
-	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
-	if err != nil {
-		return fmt.Errorf("cannot create token maker: %w", err)
-	}
-
+func StartGRPCApi(server *grpc.Server, config utils.Config, gojo db.Gojo, tokenMaker token.Maker, taskDistributor worker.TaskDistributor, ping *ping.PingSystem) error {
 	ussvc := usapiv1.NewUserServer(config, gojo, tokenMaker, taskDistributor)
 	uspbv1.RegisterUserServiceServer(server, ussvc)
 
@@ -43,13 +38,8 @@ func StartGRPCApi(server *grpc.Server, config utils.Config, gojo db.Gojo, taskDi
 	return nil
 }
 
-func StartGatewayApi(httpMux *http.ServeMux, config utils.Config, gojo db.Gojo, taskDistributor worker.TaskDistributor, ping *ping.PingSystem) error {
+func StartGatewayApi(httpMux *http.ServeMux, config utils.Config, gojo db.Gojo, tokenMaker token.Maker, taskDistributor worker.TaskDistributor, ping *ping.PingSystem) error {
 	var err error
-
-	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
-	if err != nil {
-		return fmt.Errorf("cannot create token maker: %w", err)
-	}
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
