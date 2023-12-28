@@ -32,8 +32,9 @@ func (server *AnimeMovieServer) GetAnimeMovieImages(ctx context.Context, req *am
 	}
 
 	cache := &ping.CacheKey{
-		ID:     req.AnimeID,
-		Target: ping.ANIME_MOVIE,
+		ID:      req.AnimeID,
+		Target:  ping.AnimeMovie,
+		Version: ping.V1,
 	}
 
 	res := &ampbv1.GetAnimeMovieImagesResponse{}

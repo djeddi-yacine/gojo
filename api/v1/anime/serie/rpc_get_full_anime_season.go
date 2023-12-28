@@ -33,8 +33,9 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 	}
 
 	cache := &ping.CacheKey{
-		ID:     req.SeasonID,
-		Target: ping.ANIME_SEASON,
+		ID:      req.SeasonID,
+		Target:  ping.AnimeSeason,
+		Version: ping.V1,
 	}
 
 	res := &aspbv1.GetFullAnimeSeasonResponse{}

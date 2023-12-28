@@ -34,8 +34,9 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	}
 
 	cache := &ping.CacheKey{
-		ID:     req.AnimeID,
-		Target: ping.ANIME_SERIE,
+		ID:      req.AnimeID,
+		Target:  ping.AnimeSerie,
+		Version: ping.V1,
 	}
 
 	res := &aspbv1.GetFullAnimeSerieResponse{}

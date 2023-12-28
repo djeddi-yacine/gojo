@@ -9,11 +9,18 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+type CacheKey struct {
+	ID      int64
+	Target  string
+	Version rune
+}
+
 const (
-	ANIME_MOVIE   = "AM"
-	ANIME_SERIE   = "AS"
-	ANIME_SEASON  = "AX"
-	ANIME_EPISODE = "AE"
+	AnimeMovie        = "AM"
+	AnimeSerie        = "AS"
+	AnimeSeason       = "AX"
+	AnimeEpisode      = "AE"
+	V1           rune = '1'
 )
 
 type KeyGenrator interface {
@@ -21,17 +28,15 @@ type KeyGenrator interface {
 	Count() string
 }
 
-type CacheKey struct {
-	ID     int64
-	Target string
-	key    string
+type PingKey struct {
+	key string
 }
 
-func (x *CacheKey) Key() string {
+func (x *PingKey) Key() string {
 	return x.key
 }
 
-func (x *CacheKey) Count() string {
+func (x *PingKey) Count() string {
 	return x.key + ":COUNT"
 }
 
@@ -80,7 +85,9 @@ func (system *PingSystem) Handle(ctx context.Context, gen KeyGenrator, value int
 				log.Err(err)
 				return nil
 			}
-			_ = system.cache.Delete(ctx, gen.Count())
+			if system.cache.Exists(ctx, gen.Count()) {
+				_ = system.cache.Delete(ctx, gen.Count())
+			}
 		}
 
 		log.Debug().
@@ -99,73 +106,73 @@ func (system *PingSystem) Handle(ctx context.Context, gen KeyGenrator, value int
 }
 
 func (x *CacheKey) Main() KeyGenrator {
-	return &CacheKey{
-		key: fmt.Sprintf("%s:ID:%d", x.Target, x.ID),
+	return &PingKey{
+		key: fmt.Sprintf("V%c:%s:ID:%d", x.Version, x.Target, x.ID),
 	}
 }
 
 func (x *CacheKey) Meta(language uint32) KeyGenrator {
-	return &CacheKey{
-		key: fmt.Sprintf("%s:MTD:%d:LNG:%d", x.Target, language, x.ID),
+	return &PingKey{
+		key: fmt.Sprintf("V%c:%s:MTD:%d:LNG:%d", x.Version, x.Target, language, x.ID),
 	}
 }
 
 func (x *CacheKey) Studio() KeyGenrator {
-	return &CacheKey{
-		key: fmt.Sprintf("%s:STD:%d", x.Target, x.ID),
+	return &PingKey{
+		key: fmt.Sprintf("V%c:%s:STD:%d", x.Version, x.Target, x.ID),
 	}
 }
 
 func (x *CacheKey) Genre() KeyGenrator {
-	return &CacheKey{
-		key: fmt.Sprintf("%s:GNR:%d", x.Target, x.ID),
+	return &PingKey{
+		key: fmt.Sprintf("V%c:%s:GNR:%d", x.Version, x.Target, x.ID),
 	}
 }
 
 func (x *CacheKey) Resources() KeyGenrator {
-	return &CacheKey{
-		key: fmt.Sprintf("%s:RSC:%d", x.Target, x.ID),
+	return &PingKey{
+		key: fmt.Sprintf("V%c:%s:RSC:%d", x.Version, x.Target, x.ID),
 	}
 }
 
 func (x *CacheKey) Links() KeyGenrator {
-	return &CacheKey{
-		key: fmt.Sprintf("%s:LNK:%d", x.Target, x.ID),
+	return &PingKey{
+		key: fmt.Sprintf("V%c:%s:LNK:%d", x.Version, x.Target, x.ID),
 	}
 }
 
 func (x *CacheKey) Server() KeyGenrator {
-	return &CacheKey{
-		key: fmt.Sprintf("%s:SRV:%d", x.Target, x.ID),
+	return &PingKey{
+		key: fmt.Sprintf("V%c:%s:SRV:%d", x.Version, x.Target, x.ID),
 	}
 }
 
 func (x *CacheKey) Sub() KeyGenrator {
-	return &CacheKey{
-		key: fmt.Sprintf("%s:SUB:%d", x.Target, x.ID),
+	return &PingKey{
+		key: fmt.Sprintf("V%c:%s:SUB:%d", x.Version, x.Target, x.ID),
 	}
 }
 
 func (x *CacheKey) Dub() KeyGenrator {
-	return &CacheKey{
-		key: fmt.Sprintf("%s:DUB:%d", x.Target, x.ID),
+	return &PingKey{
+		key: fmt.Sprintf("V%c:%s:DUB:%d", x.Version, x.Target, x.ID),
 	}
 }
 
 func (x *CacheKey) Tags() KeyGenrator {
-	return &CacheKey{
-		key: fmt.Sprintf("%s:TAG:%d", x.Target, x.ID),
+	return &PingKey{
+		key: fmt.Sprintf("V%c:%s:TAG:%d", x.Version, x.Target, x.ID),
 	}
 }
 
 func (x *CacheKey) Images() KeyGenrator {
-	return &CacheKey{
-		key: fmt.Sprintf("%s:IMG:%d", x.Target, x.ID),
+	return &PingKey{
+		key: fmt.Sprintf("V%c:%s:IMG:%d", x.Version, x.Target, x.ID),
 	}
 }
 
 func (x *CacheKey) Trailers() KeyGenrator {
-	return &CacheKey{
-		key: fmt.Sprintf("%s:TRL:%d", x.Target, x.ID),
+	return &PingKey{
+		key: fmt.Sprintf("V%c:%s:TRL:%d", x.Version, x.Target, x.ID),
 	}
 }
