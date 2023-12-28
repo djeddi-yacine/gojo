@@ -13,7 +13,6 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/utilities"
 	"google.golang.org/grpc"
@@ -33,7 +32,7 @@ var _ = utilities.NewDoubleArray
 var _ = metadata.Join
 
 func request_AnimeSerieService_CreateAnimeSerie_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSerieRequest
+	var protoReq CreateAnimeSerieRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -50,7 +49,7 @@ func request_AnimeSerieService_CreateAnimeSerie_0(ctx context.Context, marshaler
 }
 
 func local_request_AnimeSerieService_CreateAnimeSerie_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSerieRequest
+	var protoReq CreateAnimeSerieRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -67,7 +66,7 @@ func local_request_AnimeSerieService_CreateAnimeSerie_0(ctx context.Context, mar
 }
 
 func request_AnimeSerieService_CreateAnimeSerieMetas_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSerieMetasRequest
+	var protoReq CreateAnimeSerieMetasRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -84,7 +83,7 @@ func request_AnimeSerieService_CreateAnimeSerieMetas_0(ctx context.Context, mars
 }
 
 func local_request_AnimeSerieService_CreateAnimeSerieMetas_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSerieMetasRequest
+	var protoReq CreateAnimeSerieMetasRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -101,7 +100,7 @@ func local_request_AnimeSerieService_CreateAnimeSerieMetas_0(ctx context.Context
 }
 
 func request_AnimeSerieService_CreateAnimeSerieLink_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSerieLinkRequest
+	var protoReq CreateAnimeSerieLinkRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -118,7 +117,7 @@ func request_AnimeSerieService_CreateAnimeSerieLink_0(ctx context.Context, marsh
 }
 
 func local_request_AnimeSerieService_CreateAnimeSerieLink_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSerieLinkRequest
+	var protoReq CreateAnimeSerieLinkRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -135,7 +134,7 @@ func local_request_AnimeSerieService_CreateAnimeSerieLink_0(ctx context.Context,
 }
 
 func request_AnimeSerieService_CreateAnimeSerieTrailer_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSerieTrailerRequest
+	var protoReq CreateAnimeSerieTrailerRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -152,7 +151,7 @@ func request_AnimeSerieService_CreateAnimeSerieTrailer_0(ctx context.Context, ma
 }
 
 func local_request_AnimeSerieService_CreateAnimeSerieTrailer_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSerieTrailerRequest
+	var protoReq CreateAnimeSerieTrailerRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -169,7 +168,7 @@ func local_request_AnimeSerieService_CreateAnimeSerieTrailer_0(ctx context.Conte
 }
 
 func request_AnimeSerieService_CreateAnimeSerieImage_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSerieImageRequest
+	var protoReq CreateAnimeSerieImageRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -186,7 +185,7 @@ func request_AnimeSerieService_CreateAnimeSerieImage_0(ctx context.Context, mars
 }
 
 func local_request_AnimeSerieService_CreateAnimeSerieImage_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSerieImageRequest
+	var protoReq CreateAnimeSerieImageRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -203,7 +202,7 @@ func local_request_AnimeSerieService_CreateAnimeSerieImage_0(ctx context.Context
 }
 
 func request_AnimeSerieService_CreateAnimeSeasonImage_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonImageRequest
+	var protoReq CreateAnimeSeasonImageRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -220,7 +219,7 @@ func request_AnimeSerieService_CreateAnimeSeasonImage_0(ctx context.Context, mar
 }
 
 func local_request_AnimeSerieService_CreateAnimeSeasonImage_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonImageRequest
+	var protoReq CreateAnimeSeasonImageRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -241,7 +240,7 @@ var (
 )
 
 func request_AnimeSerieService_CreateAnimeSeasonInfo_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonInfoRequest
+	var protoReq CreateAnimeSeasonInfoRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
@@ -257,7 +256,7 @@ func request_AnimeSerieService_CreateAnimeSeasonInfo_0(ctx context.Context, mars
 }
 
 func local_request_AnimeSerieService_CreateAnimeSeasonInfo_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonInfoRequest
+	var protoReq CreateAnimeSeasonInfoRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
@@ -273,7 +272,7 @@ func local_request_AnimeSerieService_CreateAnimeSeasonInfo_0(ctx context.Context
 }
 
 func request_AnimeSerieService_CreateAnimeSerieServer_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSerieServerRequest
+	var protoReq CreateAnimeSerieServerRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -290,7 +289,7 @@ func request_AnimeSerieService_CreateAnimeSerieServer_0(ctx context.Context, mar
 }
 
 func local_request_AnimeSerieService_CreateAnimeSerieServer_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSerieServerRequest
+	var protoReq CreateAnimeSerieServerRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -307,7 +306,7 @@ func local_request_AnimeSerieService_CreateAnimeSerieServer_0(ctx context.Contex
 }
 
 func request_AnimeSerieService_CreateAnimeSeason_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonRequest
+	var protoReq CreateAnimeSeasonRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -324,7 +323,7 @@ func request_AnimeSerieService_CreateAnimeSeason_0(ctx context.Context, marshale
 }
 
 func local_request_AnimeSerieService_CreateAnimeSeason_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonRequest
+	var protoReq CreateAnimeSeasonRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -341,7 +340,7 @@ func local_request_AnimeSerieService_CreateAnimeSeason_0(ctx context.Context, ma
 }
 
 func request_AnimeSerieService_CreateAnimeSeasonMetas_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonMetasRequest
+	var protoReq CreateAnimeSeasonMetasRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -358,7 +357,7 @@ func request_AnimeSerieService_CreateAnimeSeasonMetas_0(ctx context.Context, mar
 }
 
 func local_request_AnimeSerieService_CreateAnimeSeasonMetas_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonMetasRequest
+	var protoReq CreateAnimeSeasonMetasRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -375,7 +374,7 @@ func local_request_AnimeSerieService_CreateAnimeSeasonMetas_0(ctx context.Contex
 }
 
 func request_AnimeSerieService_CreateAnimeSeasonResource_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonResourceRequest
+	var protoReq CreateAnimeSeasonResourceRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -392,7 +391,7 @@ func request_AnimeSerieService_CreateAnimeSeasonResource_0(ctx context.Context, 
 }
 
 func local_request_AnimeSerieService_CreateAnimeSeasonResource_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonResourceRequest
+	var protoReq CreateAnimeSeasonResourceRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -409,7 +408,7 @@ func local_request_AnimeSerieService_CreateAnimeSeasonResource_0(ctx context.Con
 }
 
 func request_AnimeSerieService_CreateAnimeSeasonTrailer_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonTrailerRequest
+	var protoReq CreateAnimeSeasonTrailerRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -426,7 +425,7 @@ func request_AnimeSerieService_CreateAnimeSeasonTrailer_0(ctx context.Context, m
 }
 
 func local_request_AnimeSerieService_CreateAnimeSeasonTrailer_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonTrailerRequest
+	var protoReq CreateAnimeSeasonTrailerRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -443,7 +442,7 @@ func local_request_AnimeSerieService_CreateAnimeSeasonTrailer_0(ctx context.Cont
 }
 
 func request_AnimeSerieService_CreateAnimeEpisode_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeEpisodeRequest
+	var protoReq CreateAnimeEpisodeRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -460,7 +459,7 @@ func request_AnimeSerieService_CreateAnimeEpisode_0(ctx context.Context, marshal
 }
 
 func local_request_AnimeSerieService_CreateAnimeEpisode_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeEpisodeRequest
+	var protoReq CreateAnimeEpisodeRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -477,7 +476,7 @@ func local_request_AnimeSerieService_CreateAnimeEpisode_0(ctx context.Context, m
 }
 
 func request_AnimeSerieService_CreateAnimeEpisodeMetas_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeEpisodeMetasRequest
+	var protoReq CreateAnimeEpisodeMetasRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -494,7 +493,7 @@ func request_AnimeSerieService_CreateAnimeEpisodeMetas_0(ctx context.Context, ma
 }
 
 func local_request_AnimeSerieService_CreateAnimeEpisodeMetas_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeEpisodeMetasRequest
+	var protoReq CreateAnimeEpisodeMetasRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -511,7 +510,7 @@ func local_request_AnimeSerieService_CreateAnimeEpisodeMetas_0(ctx context.Conte
 }
 
 func request_AnimeSerieService_CreateAnimeSerieData_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSerieDataRequest
+	var protoReq CreateAnimeSerieDataRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -528,7 +527,7 @@ func request_AnimeSerieService_CreateAnimeSerieData_0(ctx context.Context, marsh
 }
 
 func local_request_AnimeSerieService_CreateAnimeSerieData_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSerieDataRequest
+	var protoReq CreateAnimeSerieDataRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -545,7 +544,7 @@ func local_request_AnimeSerieService_CreateAnimeSerieData_0(ctx context.Context,
 }
 
 func request_AnimeSerieService_CreateAnimeSeasonTitle_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonTitleRequest
+	var protoReq CreateAnimeSeasonTitleRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -562,7 +561,7 @@ func request_AnimeSerieService_CreateAnimeSeasonTitle_0(ctx context.Context, mar
 }
 
 func local_request_AnimeSerieService_CreateAnimeSeasonTitle_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonTitleRequest
+	var protoReq CreateAnimeSeasonTitleRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -579,7 +578,7 @@ func local_request_AnimeSerieService_CreateAnimeSeasonTitle_0(ctx context.Contex
 }
 
 func request_AnimeSerieService_CreateAnimeSeasonTag_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonTagRequest
+	var protoReq CreateAnimeSeasonTagRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -596,7 +595,7 @@ func request_AnimeSerieService_CreateAnimeSeasonTag_0(ctx context.Context, marsh
 }
 
 func local_request_AnimeSerieService_CreateAnimeSeasonTag_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.CreateAnimeSeasonTagRequest
+	var protoReq CreateAnimeSeasonTagRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -617,7 +616,7 @@ var (
 )
 
 func request_AnimeSerieService_GetFullAnimeSerie_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.GetFullAnimeSerieRequest
+	var protoReq GetFullAnimeSerieRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -650,7 +649,7 @@ func request_AnimeSerieService_GetFullAnimeSerie_0(ctx context.Context, marshale
 }
 
 func local_request_AnimeSerieService_GetFullAnimeSerie_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.GetFullAnimeSerieRequest
+	var protoReq GetFullAnimeSerieRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -687,7 +686,7 @@ var (
 )
 
 func request_AnimeSerieService_GetAllAnimeSeries_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.GetAllAnimeSeriesRequest
+	var protoReq GetAllAnimeSeriesRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
@@ -703,7 +702,7 @@ func request_AnimeSerieService_GetAllAnimeSeries_0(ctx context.Context, marshale
 }
 
 func local_request_AnimeSerieService_GetAllAnimeSeries_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.GetAllAnimeSeriesRequest
+	var protoReq GetAllAnimeSeriesRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
@@ -723,7 +722,7 @@ var (
 )
 
 func request_AnimeSerieService_GetFullAnimeSeason_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.GetFullAnimeSeasonRequest
+	var protoReq GetFullAnimeSeasonRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -756,7 +755,7 @@ func request_AnimeSerieService_GetFullAnimeSeason_0(ctx context.Context, marshal
 }
 
 func local_request_AnimeSerieService_GetFullAnimeSeason_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.GetFullAnimeSeasonRequest
+	var protoReq GetFullAnimeSeasonRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -793,7 +792,7 @@ var (
 )
 
 func request_AnimeSerieService_GetAllAnimeSerieMetas_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.GetAllAnimeSerieMetasRequest
+	var protoReq GetAllAnimeSerieMetasRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
@@ -809,7 +808,7 @@ func request_AnimeSerieService_GetAllAnimeSerieMetas_0(ctx context.Context, mars
 }
 
 func local_request_AnimeSerieService_GetAllAnimeSerieMetas_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.GetAllAnimeSerieMetasRequest
+	var protoReq GetAllAnimeSerieMetasRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
@@ -825,7 +824,7 @@ func local_request_AnimeSerieService_GetAllAnimeSerieMetas_0(ctx context.Context
 }
 
 func request_AnimeSerieService_UpdateAnimeSerie_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.UpdateAnimeSerieRequest
+	var protoReq UpdateAnimeSerieRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -842,7 +841,7 @@ func request_AnimeSerieService_UpdateAnimeSerie_0(ctx context.Context, marshaler
 }
 
 func local_request_AnimeSerieService_UpdateAnimeSerie_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.UpdateAnimeSerieRequest
+	var protoReq UpdateAnimeSerieRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -863,7 +862,7 @@ var (
 )
 
 func request_AnimeSerieService_QueryAnimeSeason_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.QueryAnimeSeasonRequest
+	var protoReq QueryAnimeSeasonRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -896,7 +895,7 @@ func request_AnimeSerieService_QueryAnimeSeason_0(ctx context.Context, marshaler
 }
 
 func local_request_AnimeSerieService_QueryAnimeSeason_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq aspbv1.QueryAnimeSeasonRequest
+	var protoReq QueryAnimeSeasonRequest
 	var metadata runtime.ServerMetadata
 
 	var (

@@ -7,7 +7,6 @@
 package aspbv1
 
 import (
-	aspb "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -381,60 +380,60 @@ var file_v1_aspb_service_anime_serie_proto_rawDesc = []byte{
 	0x65, 0x72, 0x79, 0x20, 0x61, 0x6e, 0x69, 0x6d, 0x65, 0x20, 0x73, 0x65, 0x61, 0x73, 0x6f, 0x6e,
 	0x73, 0x82, 0xd3, 0xe4, 0x93, 0x02, 0x23, 0x12, 0x21, 0x2f, 0x61, 0x6e, 0x69, 0x6d, 0x65, 0x2f,
 	0x73, 0x65, 0x72, 0x69, 0x65, 0x2f, 0x73, 0x65, 0x61, 0x73, 0x6f, 0x6e, 0x2f, 0x71, 0x75, 0x65,
-	0x72, 0x79, 0x2f, 0x7b, 0x71, 0x75, 0x65, 0x72, 0x79, 0x7d, 0x42, 0x32, 0x5a, 0x30, 0x67, 0x69,
+	0x72, 0x79, 0x2f, 0x7b, 0x71, 0x75, 0x65, 0x72, 0x79, 0x7d, 0x42, 0x35, 0x5a, 0x33, 0x67, 0x69,
 	0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x64, 0x6a, 0x2d, 0x79, 0x61, 0x63, 0x69,
 	0x6e, 0x65, 0x2d, 0x66, 0x6c, 0x75, 0x74, 0x74, 0x65, 0x72, 0x2f, 0x67, 0x6f, 0x6a, 0x6f, 0x2f,
-	0x70, 0x62, 0x2f, 0x61, 0x73, 0x70, 0x62, 0x3b, 0x61, 0x73, 0x70, 0x62, 0x76, 0x31, 0x62, 0x06,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x70, 0x62, 0x2f, 0x76, 0x31, 0x2f, 0x61, 0x73, 0x70, 0x62, 0x3b, 0x61, 0x73, 0x70, 0x62, 0x76,
+	0x31, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var file_v1_aspb_service_anime_serie_proto_goTypes = []interface{}{
-	(*aspb.CreateAnimeSerieRequest)(nil),           // 0: v1.aspbv1.CreateAnimeSerieRequest
-	(*aspb.CreateAnimeSerieMetasRequest)(nil),      // 1: v1.aspbv1.CreateAnimeSerieMetasRequest
-	(*aspb.CreateAnimeSerieLinkRequest)(nil),       // 2: v1.aspbv1.CreateAnimeSerieLinkRequest
-	(*aspb.CreateAnimeSerieTrailerRequest)(nil),    // 3: v1.aspbv1.CreateAnimeSerieTrailerRequest
-	(*aspb.CreateAnimeSerieImageRequest)(nil),      // 4: v1.aspbv1.CreateAnimeSerieImageRequest
-	(*aspb.CreateAnimeSeasonImageRequest)(nil),     // 5: v1.aspbv1.CreateAnimeSeasonImageRequest
-	(*aspb.CreateAnimeSeasonInfoRequest)(nil),      // 6: v1.aspbv1.CreateAnimeSeasonInfoRequest
-	(*aspb.CreateAnimeSerieServerRequest)(nil),     // 7: v1.aspbv1.CreateAnimeSerieServerRequest
-	(*aspb.CreateAnimeSeasonRequest)(nil),          // 8: v1.aspbv1.CreateAnimeSeasonRequest
-	(*aspb.CreateAnimeSeasonMetasRequest)(nil),     // 9: v1.aspbv1.CreateAnimeSeasonMetasRequest
-	(*aspb.CreateAnimeSeasonResourceRequest)(nil),  // 10: v1.aspbv1.CreateAnimeSeasonResourceRequest
-	(*aspb.CreateAnimeSeasonTrailerRequest)(nil),   // 11: v1.aspbv1.CreateAnimeSeasonTrailerRequest
-	(*aspb.CreateAnimeEpisodeRequest)(nil),         // 12: v1.aspbv1.CreateAnimeEpisodeRequest
-	(*aspb.CreateAnimeEpisodeMetasRequest)(nil),    // 13: v1.aspbv1.CreateAnimeEpisodeMetasRequest
-	(*aspb.CreateAnimeSerieDataRequest)(nil),       // 14: v1.aspbv1.CreateAnimeSerieDataRequest
-	(*aspb.CreateAnimeSeasonTitleRequest)(nil),     // 15: v1.aspbv1.CreateAnimeSeasonTitleRequest
-	(*aspb.CreateAnimeSeasonTagRequest)(nil),       // 16: v1.aspbv1.CreateAnimeSeasonTagRequest
-	(*aspb.GetFullAnimeSerieRequest)(nil),          // 17: v1.aspbv1.GetFullAnimeSerieRequest
-	(*aspb.GetAllAnimeSeriesRequest)(nil),          // 18: v1.aspbv1.GetAllAnimeSeriesRequest
-	(*aspb.GetFullAnimeSeasonRequest)(nil),         // 19: v1.aspbv1.GetFullAnimeSeasonRequest
-	(*aspb.GetAllAnimeSerieMetasRequest)(nil),      // 20: v1.aspbv1.GetAllAnimeSerieMetasRequest
-	(*aspb.UpdateAnimeSerieRequest)(nil),           // 21: v1.aspbv1.UpdateAnimeSerieRequest
-	(*aspb.QueryAnimeSeasonRequest)(nil),           // 22: v1.aspbv1.QueryAnimeSeasonRequest
-	(*aspb.CreateAnimeSerieResponse)(nil),          // 23: v1.aspbv1.CreateAnimeSerieResponse
-	(*aspb.CreateAnimeSerieMetasResponse)(nil),     // 24: v1.aspbv1.CreateAnimeSerieMetasResponse
-	(*aspb.CreateAnimeSerieLinkResponse)(nil),      // 25: v1.aspbv1.CreateAnimeSerieLinkResponse
-	(*aspb.CreateAnimeSerieTrailerResponse)(nil),   // 26: v1.aspbv1.CreateAnimeSerieTrailerResponse
-	(*aspb.CreateAnimeSerieImageResponse)(nil),     // 27: v1.aspbv1.CreateAnimeSerieImageResponse
-	(*aspb.CreateAnimeSeasonImageResponse)(nil),    // 28: v1.aspbv1.CreateAnimeSeasonImageResponse
-	(*aspb.CreateAnimeSeasonInfoResponse)(nil),     // 29: v1.aspbv1.CreateAnimeSeasonInfoResponse
-	(*aspb.CreateAnimeSerieServerResponse)(nil),    // 30: v1.aspbv1.CreateAnimeSerieServerResponse
-	(*aspb.CreateAnimeSeasonResponse)(nil),         // 31: v1.aspbv1.CreateAnimeSeasonResponse
-	(*aspb.CreateAnimeSeasonMetasResponse)(nil),    // 32: v1.aspbv1.CreateAnimeSeasonMetasResponse
-	(*aspb.CreateAnimeSeasonResourceResponse)(nil), // 33: v1.aspbv1.CreateAnimeSeasonResourceResponse
-	(*aspb.CreateAnimeSeasonTrailerResponse)(nil),  // 34: v1.aspbv1.CreateAnimeSeasonTrailerResponse
-	(*aspb.CreateAnimeEpisodeResponse)(nil),        // 35: v1.aspbv1.CreateAnimeEpisodeResponse
-	(*aspb.CreateAnimeEpisodeMetasResponse)(nil),   // 36: v1.aspbv1.CreateAnimeEpisodeMetasResponse
-	(*aspb.CreateAnimeSerieDataResponse)(nil),      // 37: v1.aspbv1.CreateAnimeSerieDataResponse
-	(*aspb.CreateAnimeSeasonTitleResponse)(nil),    // 38: v1.aspbv1.CreateAnimeSeasonTitleResponse
-	(*aspb.CreateAnimeSeasonTagResponse)(nil),      // 39: v1.aspbv1.CreateAnimeSeasonTagResponse
-	(*aspb.GetFullAnimeSerieResponse)(nil),         // 40: v1.aspbv1.GetFullAnimeSerieResponse
-	(*aspb.GetAllAnimeSeriesResponse)(nil),         // 41: v1.aspbv1.GetAllAnimeSeriesResponse
-	(*aspb.GetFullAnimeSeasonResponse)(nil),        // 42: v1.aspbv1.GetFullAnimeSeasonResponse
-	(*aspb.GetAllAnimeSerieMetasResponse)(nil),     // 43: v1.aspbv1.GetAllAnimeSerieMetasResponse
-	(*aspb.UpdateAnimeSerieResponse)(nil),          // 44: v1.aspbv1.UpdateAnimeSerieResponse
-	(*aspb.QueryAnimeSeasonResponse)(nil),          // 45: v1.aspbv1.QueryAnimeSeasonResponse
+	(*CreateAnimeSerieRequest)(nil),           // 0: v1.aspbv1.CreateAnimeSerieRequest
+	(*CreateAnimeSerieMetasRequest)(nil),      // 1: v1.aspbv1.CreateAnimeSerieMetasRequest
+	(*CreateAnimeSerieLinkRequest)(nil),       // 2: v1.aspbv1.CreateAnimeSerieLinkRequest
+	(*CreateAnimeSerieTrailerRequest)(nil),    // 3: v1.aspbv1.CreateAnimeSerieTrailerRequest
+	(*CreateAnimeSerieImageRequest)(nil),      // 4: v1.aspbv1.CreateAnimeSerieImageRequest
+	(*CreateAnimeSeasonImageRequest)(nil),     // 5: v1.aspbv1.CreateAnimeSeasonImageRequest
+	(*CreateAnimeSeasonInfoRequest)(nil),      // 6: v1.aspbv1.CreateAnimeSeasonInfoRequest
+	(*CreateAnimeSerieServerRequest)(nil),     // 7: v1.aspbv1.CreateAnimeSerieServerRequest
+	(*CreateAnimeSeasonRequest)(nil),          // 8: v1.aspbv1.CreateAnimeSeasonRequest
+	(*CreateAnimeSeasonMetasRequest)(nil),     // 9: v1.aspbv1.CreateAnimeSeasonMetasRequest
+	(*CreateAnimeSeasonResourceRequest)(nil),  // 10: v1.aspbv1.CreateAnimeSeasonResourceRequest
+	(*CreateAnimeSeasonTrailerRequest)(nil),   // 11: v1.aspbv1.CreateAnimeSeasonTrailerRequest
+	(*CreateAnimeEpisodeRequest)(nil),         // 12: v1.aspbv1.CreateAnimeEpisodeRequest
+	(*CreateAnimeEpisodeMetasRequest)(nil),    // 13: v1.aspbv1.CreateAnimeEpisodeMetasRequest
+	(*CreateAnimeSerieDataRequest)(nil),       // 14: v1.aspbv1.CreateAnimeSerieDataRequest
+	(*CreateAnimeSeasonTitleRequest)(nil),     // 15: v1.aspbv1.CreateAnimeSeasonTitleRequest
+	(*CreateAnimeSeasonTagRequest)(nil),       // 16: v1.aspbv1.CreateAnimeSeasonTagRequest
+	(*GetFullAnimeSerieRequest)(nil),          // 17: v1.aspbv1.GetFullAnimeSerieRequest
+	(*GetAllAnimeSeriesRequest)(nil),          // 18: v1.aspbv1.GetAllAnimeSeriesRequest
+	(*GetFullAnimeSeasonRequest)(nil),         // 19: v1.aspbv1.GetFullAnimeSeasonRequest
+	(*GetAllAnimeSerieMetasRequest)(nil),      // 20: v1.aspbv1.GetAllAnimeSerieMetasRequest
+	(*UpdateAnimeSerieRequest)(nil),           // 21: v1.aspbv1.UpdateAnimeSerieRequest
+	(*QueryAnimeSeasonRequest)(nil),           // 22: v1.aspbv1.QueryAnimeSeasonRequest
+	(*CreateAnimeSerieResponse)(nil),          // 23: v1.aspbv1.CreateAnimeSerieResponse
+	(*CreateAnimeSerieMetasResponse)(nil),     // 24: v1.aspbv1.CreateAnimeSerieMetasResponse
+	(*CreateAnimeSerieLinkResponse)(nil),      // 25: v1.aspbv1.CreateAnimeSerieLinkResponse
+	(*CreateAnimeSerieTrailerResponse)(nil),   // 26: v1.aspbv1.CreateAnimeSerieTrailerResponse
+	(*CreateAnimeSerieImageResponse)(nil),     // 27: v1.aspbv1.CreateAnimeSerieImageResponse
+	(*CreateAnimeSeasonImageResponse)(nil),    // 28: v1.aspbv1.CreateAnimeSeasonImageResponse
+	(*CreateAnimeSeasonInfoResponse)(nil),     // 29: v1.aspbv1.CreateAnimeSeasonInfoResponse
+	(*CreateAnimeSerieServerResponse)(nil),    // 30: v1.aspbv1.CreateAnimeSerieServerResponse
+	(*CreateAnimeSeasonResponse)(nil),         // 31: v1.aspbv1.CreateAnimeSeasonResponse
+	(*CreateAnimeSeasonMetasResponse)(nil),    // 32: v1.aspbv1.CreateAnimeSeasonMetasResponse
+	(*CreateAnimeSeasonResourceResponse)(nil), // 33: v1.aspbv1.CreateAnimeSeasonResourceResponse
+	(*CreateAnimeSeasonTrailerResponse)(nil),  // 34: v1.aspbv1.CreateAnimeSeasonTrailerResponse
+	(*CreateAnimeEpisodeResponse)(nil),        // 35: v1.aspbv1.CreateAnimeEpisodeResponse
+	(*CreateAnimeEpisodeMetasResponse)(nil),   // 36: v1.aspbv1.CreateAnimeEpisodeMetasResponse
+	(*CreateAnimeSerieDataResponse)(nil),      // 37: v1.aspbv1.CreateAnimeSerieDataResponse
+	(*CreateAnimeSeasonTitleResponse)(nil),    // 38: v1.aspbv1.CreateAnimeSeasonTitleResponse
+	(*CreateAnimeSeasonTagResponse)(nil),      // 39: v1.aspbv1.CreateAnimeSeasonTagResponse
+	(*GetFullAnimeSerieResponse)(nil),         // 40: v1.aspbv1.GetFullAnimeSerieResponse
+	(*GetAllAnimeSeriesResponse)(nil),         // 41: v1.aspbv1.GetAllAnimeSeriesResponse
+	(*GetFullAnimeSeasonResponse)(nil),        // 42: v1.aspbv1.GetFullAnimeSeasonResponse
+	(*GetAllAnimeSerieMetasResponse)(nil),     // 43: v1.aspbv1.GetAllAnimeSerieMetasResponse
+	(*UpdateAnimeSerieResponse)(nil),          // 44: v1.aspbv1.UpdateAnimeSerieResponse
+	(*QueryAnimeSeasonResponse)(nil),          // 45: v1.aspbv1.QueryAnimeSeasonResponse
 }
 var file_v1_aspb_service_anime_serie_proto_depIdxs = []int32{
 	0,  // 0: v1.aspbv1.AnimeSerieService.CreateAnimeSerie:input_type -> v1.aspbv1.CreateAnimeSerieRequest
@@ -495,6 +494,29 @@ func file_v1_aspb_service_anime_serie_proto_init() {
 	if File_v1_aspb_service_anime_serie_proto != nil {
 		return
 	}
+	file_v1_aspb_rpc_create_anime_serie_proto_init()
+	file_v1_aspb_rpc_create_anime_serie_metas_proto_init()
+	file_v1_aspb_rpc_create_anime_serie_link_proto_init()
+	file_v1_aspb_rpc_create_anime_serie_image_proto_init()
+	file_v1_aspb_rpc_create_anime_serie_trailer_proto_init()
+	file_v1_aspb_rpc_create_anime_serie_server_proto_init()
+	file_v1_aspb_rpc_create_anime_serie_data_proto_init()
+	file_v1_aspb_rpc_create_anime_season_proto_init()
+	file_v1_aspb_rpc_create_anime_season_image_proto_init()
+	file_v1_aspb_rpc_create_anime_season_resource_proto_init()
+	file_v1_aspb_rpc_create_anime_season_trailer_proto_init()
+	file_v1_aspb_rpc_create_anime_season_info_proto_init()
+	file_v1_aspb_rpc_create_anime_season_metas_proto_init()
+	file_v1_aspb_rpc_create_anime_season_title_proto_init()
+	file_v1_aspb_rpc_create_anime_season_tag_proto_init()
+	file_v1_aspb_rpc_create_anime_episode_metas_proto_init()
+	file_v1_aspb_rpc_create_anime_episode_proto_init()
+	file_v1_aspb_rpc_get_all_anime_serie_metas_proto_init()
+	file_v1_aspb_rpc_get_all_anime_series_proto_init()
+	file_v1_aspb_rpc_get_full_anime_serie_proto_init()
+	file_v1_aspb_rpc_get_full_anime_season_proto_init()
+	file_v1_aspb_rpc_update_anime_serie_proto_init()
+	file_v1_aspb_rpc_query_anime_season_proto_init()
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

@@ -71,6 +71,7 @@ proto:
 	statik -src=./doc/swagger -dest=./doc
 
 v1:
+	rm -rf pb/v1/*.go
 	protoc --proto_path=proto --proto_path=proto/v1 --proto_path=. \
 	--go_out=pb --go_opt=paths=source_relative \
 	--go-grpc_out=pb --go-grpc_opt=paths=source_relative \

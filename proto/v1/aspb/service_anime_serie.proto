@@ -29,7 +29,7 @@ import "v1/aspb/rpc_get_full_anime_season.proto";
 import "v1/aspb/rpc_update_anime_serie.proto";
 import "v1/aspb/rpc_query_anime_season.proto";
 
-option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb;aspbv1";
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
 
 service AnimeSerieService {
   rpc CreateAnimeSerie(CreateAnimeSerieRequest) returns (CreateAnimeSerieResponse) {
