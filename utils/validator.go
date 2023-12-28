@@ -7,8 +7,6 @@ import (
 	"regexp"
 	"strings"
 	"time"
-
-	"github.com/dj-yacine-flutter/gojo/pb/nfpb"
 )
 
 var (
@@ -108,18 +106,6 @@ func ValidateIMDbID(value string) error {
 func ValidateGenreAndStudio(values []string) error {
 	for _, value := range values {
 		if err := ValidateString(value, 2, 50); err != nil {
-			return err
-		}
-	}
-	return nil
-}
-
-func ValidateLanguage(values []*nfpb.LanguageRequest) error {
-	for _, value := range values {
-		if err := ValidateString(value.LanguageCode, 2, 3); err != nil {
-			return err
-		}
-		if err := ValidateString(value.LanguageName, 2, 30); err != nil {
 			return err
 		}
 	}
