@@ -4,7 +4,7 @@ package v1.uspbv1;
 
 import "google/protobuf/timestamp.proto";
 
-import "v1/uspb/user.proto";
+import "v1/uspb/msg_user.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/uspb;uspbv1";
 
