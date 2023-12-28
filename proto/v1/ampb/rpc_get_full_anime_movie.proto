@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package v1.ampbv1;
 
-import "v1/ampb/anime_movie.proto";
+import "v1/ampb/msg_anime_movie.proto";
 import "v1/ampb/msg_server.proto";
 import "v1/ampb/msg_tag.proto";
 import "v1/nfpb/msg_meta.proto";
