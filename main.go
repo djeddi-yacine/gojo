@@ -60,7 +60,8 @@ func main() {
 
 	go gateway(config, gojo, taskDistributor, ping)
 
-	server := grpc.NewServer()
+	gprcLogger := grpc.UnaryInterceptor(api.GrpcLogger)
+	server := grpc.NewServer(gprcLogger)
 
 	err = v1.StartGRPCApi(server, config, gojo, taskDistributor, ping)
 	if err != nil {
