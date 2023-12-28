@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+package v1.ampbv1;
+
+import "v1/ampb/msg_anime_movie.proto";
+import "v1/ampb/msg_server.proto";
+import "v1/ampb/msg_tag.proto";
+import "v1/nfpb/msg_meta.proto";
+import "v1/nfpb/msg_genre.proto";
+import "v1/nfpb/msg_studio.proto";
+import "v1/ashpb/anime_resource.proto";
+import "v1/ashpb/anime_link.proto";
+import "v1/ashpb/anime_image.proto";
+import "v1/ashpb/anime_trailer.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
+
+message GetFullAnimeMovieRequest {
+  int64 animeID    = 1;
+  int32 languageID = 2;
+}
+
+message GetFullAnimeMovieResponse {
+  AnimeMovieResponse            animeMovie            = 1;
+  nfpbv1.AnimeMetaResponse      animeMeta             = 2;
+  ashpbv1.AnimeResourceResponse animeResources        = 3;
+  repeated nfpbv1.Genre animeGenres                   = 4;
+  repeated nfpbv1.Studio     animeStudios             = 5;
+  ashpbv1.AnimeLinkResponse  animeLinks               = 6;
+  repeated AnimeMovieTag     animeTags                = 7;
+  ashpbv1.AnimeImageResponse animeImages              = 8;
+  repeated ashpbv1.AnimeTrailerResponse animeTrailers = 9;
+  int64                                 serverID      = 10;
+  AnimeMovieSubDataResponse             sub           = 11;
+  AnimeMovieDubDataResponse             dub           = 12;
+}

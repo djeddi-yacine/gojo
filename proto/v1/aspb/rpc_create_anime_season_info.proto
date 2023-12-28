@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package v1.aspbv1;
+
+import "v1/aspb/msg_anime_season.proto";
+import "v1/nfpb/msg_genre.proto";
+import "v1/nfpb/msg_studio.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
+
+message CreateAnimeSeasonInfoRequest {
+  int64          seasonID  = 1;
+  repeated int32 genreIDs  = 2;
+  repeated int32 studioIDs = 3;
+}
+
+message CreateAnimeSeasonInfoResponse {
+  AnimeSeasonResponse animeSeason = 1;
+  repeated nfpbv1.Genre genres    = 2;
+  repeated nfpbv1.Studio studios  = 3;
+}

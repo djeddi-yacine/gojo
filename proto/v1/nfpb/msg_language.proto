@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package v1.nfpbv1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb;nfpbv1";
+
+message LanguageRequest {
+  string LanguageCode = 1;
+  string LanguageName = 2;
+}
+
+message LanguageResponse {
+  int32                     LanguageID   = 1;
+  string                    LanguageCode = 2;
+  string                    LanguageName = 3;
+  google.protobuf.Timestamp createdAt    = 4;
+}

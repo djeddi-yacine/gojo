@@ -1,0 +1,177 @@
+syntax = "proto3";
+
+package v1.ampbv1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+import "v1/ampb/rpc_create_anime_movie.proto";
+import "v1/ampb/rpc_create_anime_movie_metas.proto";
+import "v1/ampb/rpc_create_anime_movie_resource.proto";
+import "v1/ampb/rpc_create_anime_movie_link.proto";
+import "v1/ampb/rpc_create_anime_movie_trailer.proto";
+import "v1/ampb/rpc_create_anime_movie_image.proto";
+import "v1/ampb/rpc_create_anime_movie_server.proto";
+import "v1/ampb/rpc_create_anime_movie_info.proto";
+import "v1/ampb/rpc_create_anime_movie_data.proto";
+import "v1/ampb/rpc_create_anime_movie_title.proto";
+import "v1/ampb/rpc_create_anime_movie_tag.proto";
+import "v1/ampb/rpc_get_all_anime_movie_metas.proto";
+import "v1/ampb/rpc_get_all_anime_movies.proto";
+import "v1/ampb/rpc_get_full_anime_movie.proto";
+import "v1/ampb/rpc_get_anime_movie_images.proto";
+import "v1/ampb/rpc_update_anime_movie.proto";
+import "v1/ampb/rpc_query_anime_movie.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
+
+service AnimeMovieService {
+  rpc CreateAnimeMovie(CreateAnimeMovieRequest) returns (CreateAnimeMovieResponse) {
+    option (google.api.http) = {
+      post: "/anime/movie/create"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Use this API to create a new anime movie";
+  };
+}
+rpc CreateAnimeMovieMetas(CreateAnimeMovieMetasRequest) returns (CreateAnimeMovieMetasResponse) {
+  option (google.api.http) = {
+    post: "/anime/movie/meta/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime movie meta";
+};
+}
+rpc CreateAnimeMovieInfo(CreateAnimeMovieInfoRequest) returns (CreateAnimeMovieInfoResponse) {
+  option (google.api.http) = {
+    post: "/anime/movie/info/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to add info to anime movie like studios and genres";
+};
+}
+rpc CreateAnimeMovieResource(CreateAnimeMovieResourceRequest) returns (CreateAnimeMovieResourceResponse) {
+  option (google.api.http) = {
+    post: "/anime/movie/resource/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime movie resources";
+};
+}
+rpc CreateAnimeMovieLink(CreateAnimeMovieLinkRequest) returns (CreateAnimeMovieLinkResponse) {
+  option (google.api.http) = {
+    post: "/anime/movie/link/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime movie links";
+};
+}
+rpc CreateAnimeMovieImage(CreateAnimeMovieImageRequest) returns (CreateAnimeMovieImageResponse) {
+  option (google.api.http) = {
+    post: "/anime/movie/image/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime movie images";
+};
+}
+rpc CreateAnimeMovieTrailer(CreateAnimeMovieTrailerRequest) returns (CreateAnimeMovieTrailerResponse) {
+  option (google.api.http) = {
+    post: "/anime/movie/trailer/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime movie trailers";
+};
+}
+rpc CreateAnimeMovieTitle(CreateAnimeMovieTitleRequest) returns (CreateAnimeMovieTitleResponse) {
+  option (google.api.http) = {
+    post: "/anime/movie/title/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime movie titles";
+};
+}
+rpc CreateAnimeMovieServer(CreateAnimeMovieServerRequest) returns (CreateAnimeMovieServerResponse) {
+  option (google.api.http) = {
+    post: "/anime/movie/server/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime movie server";
+};
+}
+rpc CreateAnimeMovieData(CreateAnimeMovieDataRequest) returns (CreateAnimeMovieDataResponse) {
+  option (google.api.http) = {
+    post: "/anime/movie/data/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to add a new anime movie data";
+};
+}
+rpc CreateAnimeMovieTag(CreateAnimeMovieTagRequest) returns (CreateAnimeMovieTagResponse) {
+  option (google.api.http) = {
+    post: "/anime/movie/tag/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to add a new anime movie tags";
+};
+}
+rpc UpdateAnimeMovie(UpdateAnimeMovieRequest) returns (UpdateAnimeMovieResponse) {
+  option (google.api.http) = {
+    patch: "/anime/movie/update"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to update all anime movie fields using the ID";
+};
+}
+rpc GetAllAnimeMovies(GetAllAnimeMoviesRequest) returns (GetAllAnimeMoviesResponse) {
+  option (google.api.http) = {
+    get: "/anime/movie/all"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get all anime movies or by year";
+};
+}
+rpc GetAllAnimeMovieMetas(GetAllAnimeMovieMetasRequest) returns (GetAllAnimeMovieMetasResponse) {
+  option (google.api.http) = {
+    get: "/anime/movie/meta"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get all anime movie metas";
+};
+}
+rpc GetFullAnimeMovie(GetFullAnimeMovieRequest) returns (GetFullAnimeMovieResponse) {
+  option (google.api.http) = {
+    get: "/anime/movie/{animeID}"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get full anime movie by ID";
+};
+}
+rpc GetAnimeMovieImages(GetAnimeMovieImagesRequest) returns (GetAnimeMovieImagesResponse) {
+  option (google.api.http) = {
+    get: "/anime/movie/{animeID}/images"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get anime movie images by ID";
+};
+}
+rpc QueryAnimeMovie(QueryAnimeMovieRequest) returns (QueryAnimeMovieResponse) {
+  option (google.api.http) = {
+    get: "/anime/movie/query/{query}"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to query anime movies";
+};
+}
+}

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package v1.ampbv1;
+
+import "v1/ampb/msg_anime_movie.proto";
+import "v1/ashpb/anime_resource.proto";
+import "v1/ashpb/anime_link.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
+
+message CreateAnimeMovieRequest {
+  AnimeMovieRequest            animeMovie     = 1;
+  ashpbv1.AnimeResourceRequest animeResources = 2;
+  ashpbv1.AnimeLinkRequest     animeLinks     = 3;
+}
+
+message CreateAnimeMovieResponse {
+  AnimeMovieResponse            animeMovie     = 1;
+  ashpbv1.AnimeResourceResponse animeResources = 2;
+  ashpbv1.AnimeLinkResponse     animeLinks     = 3;
+}

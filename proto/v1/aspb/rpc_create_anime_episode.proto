@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package v1.aspbv1;
+
+import "v1/aspb/msg_anime_episode.proto";
+import "v1/aspb/msg_anime_season.proto";
+import "v1/nfpb/msg_meta.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
+
+message CreateAnimeEpisodeRequest {
+  AnimeEpisodeRequest episode                   = 1;
+  repeated nfpbv1.AnimeMetaRequest episodeMetas = 2;
+}
+
+message CreateAnimeEpisodeResponse {
+  AnimeSeasonResponse  season                    = 1;
+  AnimeEpisodeResponse episode                   = 2;
+  repeated nfpbv1.AnimeMetaResponse episodeMetas = 3;
+}

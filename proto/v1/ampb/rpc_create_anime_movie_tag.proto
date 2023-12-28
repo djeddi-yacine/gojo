@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package v1.ampbv1;
+
+import "v1/ampb/msg_anime_movie.proto";
+import "v1/ampb/msg_tag.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
+
+message CreateAnimeMovieTagRequest {
+  int64           animeID   = 1;
+  repeated string animeTags = 2;
+}
+
+message CreateAnimeMovieTagResponse {
+  AnimeMovieResponse     animeMovie = 1;
+  repeated AnimeMovieTag animeTags  = 2;
+}

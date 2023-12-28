@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package v1.uspbv1;
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/uspb;uspbv1";
+
+message VerifyEmailRequest {
+  int64  emailID    = 1;
+  string secretCode = 2;
+}
+
+message VerifyEmailResponse {
+  bool isVerified = 1;
+}

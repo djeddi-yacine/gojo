@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package v1.aspbv1;
+
+import "v1/aspb/msg_anime_serie.proto";
+import "v1/nfpb/msg_meta.proto";
+import "v1/ashpb/anime_link.proto";
+import "v1/ashpb/anime_image.proto";
+import "v1/ashpb/anime_trailer.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
+
+message GetFullAnimeSerieRequest {
+  int64 animeID    = 1;
+  int32 languageID = 2;
+}
+
+message GetFullAnimeSerieResponse {
+  AnimeSerieResponse         animeSerie               = 1;
+  nfpbv1.AnimeMetaResponse   animeMeta                = 2;
+  ashpbv1.AnimeLinkResponse  animeLinks               = 3;
+  ashpbv1.AnimeImageResponse animeImages              = 4;
+  repeated ashpbv1.AnimeTrailerResponse animeTrailers = 5;
+}

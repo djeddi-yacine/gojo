@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package v1.ampbv1;
+
+import "v1/ashpb/anime_image.proto";
+import "v1/ampb/msg_anime_movie.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
+
+message CreateAnimeMovieImageRequest {
+  int64                     animeID     = 1;
+  ashpbv1.AnimeImageRequest animeImages = 2;
+}
+
+message CreateAnimeMovieImageResponse {
+  AnimeMovieResponse         animeMovie  = 1;
+  ashpbv1.AnimeImageResponse animeImages = 2;
+}

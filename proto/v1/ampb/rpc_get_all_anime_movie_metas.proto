@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package v1.ampbv1;
+
+import "v1/nfpb/msg_meta.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
+
+message GetAllAnimeMovieMetasRequest {
+  int64 animeID = 1;
+}
+
+message GetAllAnimeMovieMetasResponse {
+  repeated nfpbv1.AnimeMetaResponse metas = 1;
+}

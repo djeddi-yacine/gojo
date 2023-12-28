@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package v1.nfpbv1;
+
+import "v1/nfpb/msg_genre.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb;nfpbv1";
+
+message CreateGenresRequest {
+  repeated string names = 1;
+}
+
+message CreateGenresResponse {
+  repeated Genre genres = 1;
+}

@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package v1.ashpbv1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb;ashpbv1";
+
+message AnimeTrailerRequest {
+  bool   isOfficial = 1;
+  string hostName   = 2;
+  string hostKey    = 3;
+}
+
+message AnimeTrailerResponse {
+  int64                     ID         = 1;
+  bool                      isOfficial = 2;
+  string                    hostName   = 3;
+  string                    hostKey    = 4;
+  google.protobuf.Timestamp createdAt  = 5;
+}

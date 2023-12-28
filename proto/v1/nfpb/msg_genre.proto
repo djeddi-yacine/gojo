@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package v1.nfpbv1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb;nfpbv1";
+
+message Genre {
+  int32                     genreID   = 1;
+  string                    genreName = 2;
+  google.protobuf.Timestamp createdAt = 3;
+}
