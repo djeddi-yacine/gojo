@@ -6,10 +6,12 @@ import (
 	"net/http"
 
 	amapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime/movie"
+	asapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime/serie"
 	nfapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/info"
 	usapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/user"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
+	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
 	nfpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb"
 	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/ping"
@@ -34,6 +36,9 @@ func StartGRPCApi(server *grpc.Server, config utils.Config, gojo db.Gojo, taskDi
 
 	amsvc := amapiv1.NewAnimeMovieServer(config, gojo, tokenMaker, ping)
 	ampbv1.RegisterAnimeMovieServiceServer(server, amsvc)
+
+	assvc := asapiv1.NewAnimeSerieServer(config, gojo, tokenMaker, ping)
+	aspbv1.RegisterAnimeSerieServiceServer(server, assvc)
 
 	return nil
 }
@@ -68,6 +73,12 @@ func StartGatewayApi(httpMux *http.ServeMux, config utils.Config, gojo db.Gojo, 
 	err = ampbv1.RegisterAnimeMovieServiceHandlerServer(ctx, grpcMux, amsvc)
 	if err != nil {
 		return fmt.Errorf("cannot register Gateway server for Anime Movie Service v1: %w", err)
+	}
+
+	assvc := asapiv1.NewAnimeSerieServer(config, gojo, tokenMaker, ping)
+	err = aspbv1.RegisterAnimeSerieServiceHandlerServer(ctx, grpcMux, assvc)
+	if err != nil {
+		return fmt.Errorf("cannot register Gateway server for Anime Serie Service v1: %w", err)
 	}
 
 	vMux := http.NewServeMux()
