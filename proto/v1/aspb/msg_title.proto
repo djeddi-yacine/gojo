@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package v1.aspbv1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
+
+message AnimeSeasonTitle {
+  int64                     ID        = 1;
+  string                    titleText = 2;
+  google.protobuf.Timestamp createdAt = 3;
+}
+
+message AnimeSeasonTitleRequest {
+  repeated string official     = 1;
+  repeated        string short = 2;
+  repeated string other        = 3;
+}
+
+message AnimeSeasonTitleResponse {
+  repeated AnimeSeasonTitle official               = 1;
+  repeated                  AnimeSeasonTitle short = 2;
+  repeated AnimeSeasonTitle other                  = 3;
+}

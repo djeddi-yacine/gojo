@@ -1,0 +1,236 @@
+syntax = "proto3";
+
+package v1.aspbv1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+import "v1/aspb/rpc_create_anime_serie.proto";
+import "v1/aspb/rpc_create_anime_serie_metas.proto";
+import "v1/aspb/rpc_create_anime_serie_link.proto";
+import "v1/aspb/rpc_create_anime_serie_image.proto";
+import "v1/aspb/rpc_create_anime_serie_trailer.proto";
+import "v1/aspb/rpc_create_anime_serie_server.proto";
+import "v1/aspb/rpc_create_anime_serie_data.proto";
+import "v1/aspb/rpc_create_anime_season.proto";
+import "v1/aspb/rpc_create_anime_season_image.proto";
+import "v1/aspb/rpc_create_anime_season_resource.proto";
+import "v1/aspb/rpc_create_anime_season_trailer.proto";
+import "v1/aspb/rpc_create_anime_season_info.proto";
+import "v1/aspb/rpc_create_anime_season_metas.proto";
+import "v1/aspb/rpc_create_anime_season_title.proto";
+import "v1/aspb/rpc_create_anime_season_tag.proto";
+import "v1/aspb/rpc_create_anime_episode_metas.proto";
+import "v1/aspb/rpc_create_anime_episode.proto";
+import "v1/aspb/rpc_get_all_anime_serie_metas.proto";
+import "v1/aspb/rpc_get_all_anime_series.proto";
+import "v1/aspb/rpc_get_full_anime_serie.proto";
+import "v1/aspb/rpc_get_full_anime_season.proto";
+import "v1/aspb/rpc_update_anime_serie.proto";
+import "v1/aspb/rpc_query_anime_season.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/aspb;aspbv1";
+
+service AnimeSerieService {
+  rpc CreateAnimeSerie(CreateAnimeSerieRequest) returns (CreateAnimeSerieResponse) {
+    option (google.api.http) = {
+      post: "/anime/serie/create"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Use this API to create a new anime serie";
+  };
+}
+rpc CreateAnimeSerieMetas(CreateAnimeSerieMetasRequest) returns (CreateAnimeSerieMetasResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/meta/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime serie meta";
+};
+}
+rpc CreateAnimeSerieLink(CreateAnimeSerieLinkRequest) returns (CreateAnimeSerieLinkResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/link/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime serie links";
+};
+}
+rpc CreateAnimeSerieTrailer(CreateAnimeSerieTrailerRequest) returns (CreateAnimeSerieTrailerResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/trailer/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime serie trailers";
+};
+}
+rpc CreateAnimeSerieImage(CreateAnimeSerieImageRequest) returns (CreateAnimeSerieImageResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/image/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime serie images";
+};
+}
+rpc CreateAnimeSeasonImage(CreateAnimeSeasonImageRequest) returns (CreateAnimeSeasonImageResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/season/image/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime serie season images";
+};
+}
+rpc CreateAnimeSeasonInfo(CreateAnimeSeasonInfoRequest) returns (CreateAnimeSeasonInfoResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/season/info/create"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to add info to anime serie season like studios and genres";
+};
+}
+rpc CreateAnimeSerieServer(CreateAnimeSerieServerRequest) returns (CreateAnimeSerieServerResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/server/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime serie server";
+};
+}
+rpc CreateAnimeSeason(CreateAnimeSeasonRequest) returns (CreateAnimeSeasonResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/season/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime serie season";
+};
+}
+rpc CreateAnimeSeasonMetas(CreateAnimeSeasonMetasRequest) returns (CreateAnimeSeasonMetasResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/season/meta/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to add a new metas to anime serie season";
+};
+}
+rpc CreateAnimeSeasonResource(CreateAnimeSeasonResourceRequest) returns (CreateAnimeSeasonResourceResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/season/resource/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime serie season resources";
+};
+}
+rpc CreateAnimeSeasonTrailer(CreateAnimeSeasonTrailerRequest) returns (CreateAnimeSeasonTrailerResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/season/trailer/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime serie season trailers";
+};
+}
+rpc CreateAnimeEpisode(CreateAnimeEpisodeRequest) returns (CreateAnimeEpisodeResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/episode/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime serie episode";
+};
+}
+rpc CreateAnimeEpisodeMetas(CreateAnimeEpisodeMetasRequest) returns (CreateAnimeEpisodeMetasResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/episode/meta/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to add a new metas to anime serie episode";
+};
+}
+rpc CreateAnimeSerieData(CreateAnimeSerieDataRequest) returns (CreateAnimeSerieDataResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/data/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to add a new anime serie data";
+};
+}
+rpc CreateAnimeSeasonTitle(CreateAnimeSeasonTitleRequest) returns (CreateAnimeSeasonTitleResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/season/title/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime season titles";
+};
+}
+rpc CreateAnimeSeasonTag(CreateAnimeSeasonTagRequest) returns (CreateAnimeSeasonTagResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/season/tag/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime season tags";
+};
+}
+rpc GetFullAnimeSerie(GetFullAnimeSerieRequest) returns (GetFullAnimeSerieResponse) {
+  option (google.api.http) = {
+    get: "/anime/serie/{animeID}"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get full anime serie by ID";
+};
+}
+rpc GetAllAnimeSeries(GetAllAnimeSeriesRequest) returns (GetAllAnimeSeriesResponse) {
+  option (google.api.http) = {
+    get: "/anime/serie"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get all anime series or by year";
+};
+}
+rpc GetFullAnimeSeason(GetFullAnimeSeasonRequest) returns (GetFullAnimeSeasonResponse) {
+  option (google.api.http) = {
+    get: "/anime/serie/season/{seasonID}"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get full anime serie season by ID";
+};
+}
+rpc GetAllAnimeSerieMetas(GetAllAnimeSerieMetasRequest) returns (GetAllAnimeSerieMetasResponse) {
+  option (google.api.http) = {
+    get: "/anime/serie/meta"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get all anime serie metas";
+};
+}
+rpc UpdateAnimeSerie(UpdateAnimeSerieRequest) returns (UpdateAnimeSerieResponse) {
+  option (google.api.http) = {
+    patch: "/anime/serie/update"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to update all anime serie fields using the ID";
+};
+}
+rpc QueryAnimeSeason(QueryAnimeSeasonRequest) returns (QueryAnimeSeasonResponse) {
+  option (google.api.http) = {
+    get: "/anime/serie/season/query/{query}"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to query anime seasons";
+};
+}
+}

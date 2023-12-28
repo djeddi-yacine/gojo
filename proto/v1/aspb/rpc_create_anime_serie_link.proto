@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package v1.aspbv1;
+
+import "v1/ashpb/anime_link.proto";
+import "v1/aspb/msg_anime_serie.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
+
+message CreateAnimeSerieLinkRequest {
+  int64                    animeID    = 1;
+  ashpbv1.AnimeLinkRequest animeLinks = 2;
+}
+
+message CreateAnimeSerieLinkResponse {
+  AnimeSerieResponse        animeSerie = 1;
+  ashpbv1.AnimeLinkResponse animeLinks = 2;
+}
