@@ -35,13 +35,7 @@ sqlc:
 	sqlc generate
 
 graph:
-	@read -p "Path: " Path; \
-	if [ "$$Path" != "" ]; then \
-		read -p "Name: " Name; \
-		if [ "$$Name" != "" ]; then \
-			godepgraph $$Path | dot -Tpng -o "graph/$$Name.png"; \
-		fi; \
-	fi
+	goda graph github.com/dj-yacine-flutter/gojo... | dot -Tsvg -o gojo.svg
 
 test:
 	go test -v -cover -count=1 -short ./... -race
