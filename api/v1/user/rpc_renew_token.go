@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/dj-yacine-flutter/gojo/api/shared"
+	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
@@ -16,7 +16,7 @@ import (
 
 func (server *UserServer) RenewTokens(ctx context.Context, req *uspbv1.RenewTokensRequest) (*uspbv1.RenewTokensResponse, error) {
 	if violations := validateRenewTokensRequest(req); violations != nil {
-		return nil, shared.InvalidArgumentError(violations)
+		return nil, shv1.InvalidArgumentError(violations)
 	}
 
 	refreshPayload, err := server.tokenMaker.VerifyToken(req.RefreshToken)
@@ -26,7 +26,7 @@ func (server *UserServer) RenewTokens(ctx context.Context, req *uspbv1.RenewToke
 
 	session, err := server.gojo.GetSession(ctx, refreshPayload.ID)
 	if err != nil {
-		return nil, shared.ApiError("failed to get session", err)
+		return nil, shv1.ApiError("failed to get session", err)
 	}
 
 	if session.IsBlocked {
@@ -76,7 +76,7 @@ func (server *UserServer) RenewTokens(ctx context.Context, req *uspbv1.RenewToke
 
 	s, err := server.gojo.CreateSession(ctx, arg)
 	if err != nil {
-		return nil, shared.ApiError("failed to renew session", err)
+		return nil, shv1.ApiError("failed to renew session", err)
 	}
 
 	res := &uspbv1.RenewTokensResponse{
@@ -92,7 +92,7 @@ func (server *UserServer) RenewTokens(ctx context.Context, req *uspbv1.RenewToke
 
 func validateRenewTokensRequest(req *uspbv1.RenewTokensRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateToken(req.GetRefreshToken()); err != nil {
-		violations = append(violations, shared.FieldViolation("refreshToken", err))
+		violations = append(violations, shv1.FieldViolation("refreshToken", err))
 	}
 	return violations
 }

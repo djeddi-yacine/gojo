@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/dj-yacine-flutter/gojo/api/shared"
+	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
@@ -18,7 +18,7 @@ import (
 
 func (server *UserServer) CreateUser(ctx context.Context, req *uspbv1.CreateUserRequest) (*uspbv1.CreateUserResponse, error) {
 	if violations := validateCreateUserRequest(req); violations != nil {
-		return nil, shared.InvalidArgumentError(violations)
+		return nil, shv1.InvalidArgumentError(violations)
 	}
 
 	hashedPassword, err := utils.HashPassword(req.GetPassword())
@@ -50,7 +50,7 @@ func (server *UserServer) CreateUser(ctx context.Context, req *uspbv1.CreateUser
 
 	txResult, err := server.gojo.CreateUserTx(ctx, arg)
 	if err != nil {
-		return nil, shared.ApiError("failed to create the user", err)
+		return nil, shv1.ApiError("failed to create the user", err)
 	}
 
 	res := &uspbv1.CreateUserResponse{
@@ -67,19 +67,19 @@ func (server *UserServer) CreateUser(ctx context.Context, req *uspbv1.CreateUser
 
 func validateCreateUserRequest(req *uspbv1.CreateUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateUsername(req.GetUsername()); err != nil {
-		violations = append(violations, shared.FieldViolation("username", err))
+		violations = append(violations, shv1.FieldViolation("username", err))
 	}
 
 	if err := utils.ValidatePassword(req.GetPassword()); err != nil {
-		violations = append(violations, shared.FieldViolation("password", err))
+		violations = append(violations, shv1.FieldViolation("password", err))
 	}
 
 	if err := utils.ValidateFullName(req.GetFullName()); err != nil {
-		violations = append(violations, shared.FieldViolation("fullName", err))
+		violations = append(violations, shv1.FieldViolation("fullName", err))
 	}
 
 	if err := utils.ValidateEmail(req.GetEmail()); err != nil {
-		violations = append(violations, shared.FieldViolation("email", err))
+		violations = append(violations, shv1.FieldViolation("email", err))
 	}
 
 	return violations

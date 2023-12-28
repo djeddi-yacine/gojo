@@ -3,7 +3,7 @@ package usapiv1
 import (
 	"context"
 
-	"github.com/dj-yacine-flutter/gojo/api/shared"
+	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
@@ -15,12 +15,12 @@ import (
 
 func (server *UserServer) LoginUser(ctx context.Context, req *uspbv1.LoginUserRequest) (*uspbv1.LoginUserResponse, error) {
 	if violations := validateLoginUserRequest(req); violations != nil {
-		return nil, shared.InvalidArgumentError(violations)
+		return nil, shv1.InvalidArgumentError(violations)
 	}
 
 	user, err := server.gojo.GetUserByUsername(ctx, req.Username)
 	if err != nil {
-		return nil, shared.ApiError("failed to find user", err)
+		return nil, shv1.ApiError("failed to find user", err)
 	}
 
 	err = utils.CheckPassword(req.Password, user.HashedPassword)
@@ -46,7 +46,7 @@ func (server *UserServer) LoginUser(ctx context.Context, req *uspbv1.LoginUserRe
 		return nil, status.Errorf(codes.Internal, "failed to create refresh token : %s", err)
 	}
 
-	md := shared.ExtractMetadata(ctx)
+	md := shv1.ExtractMetadata(ctx)
 	arg := db.CreateSessionParams{
 		ID:           refreshPayload.ID,
 		Username:     user.Username,
@@ -59,7 +59,7 @@ func (server *UserServer) LoginUser(ctx context.Context, req *uspbv1.LoginUserRe
 
 	session, err := server.gojo.CreateSession(ctx, arg)
 	if err != nil {
-		return nil, shared.ApiError("failed to renew session", err)
+		return nil, shv1.ApiError("failed to renew session", err)
 	}
 
 	res := &uspbv1.LoginUserResponse{
@@ -82,11 +82,11 @@ func (server *UserServer) LoginUser(ctx context.Context, req *uspbv1.LoginUserRe
 
 func validateLoginUserRequest(req *uspbv1.LoginUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateUsername(req.GetUsername()); err != nil {
-		violations = append(violations, shared.FieldViolation("username", err))
+		violations = append(violations, shv1.FieldViolation("username", err))
 	}
 
 	if err := utils.ValidatePassword(req.GetPassword()); err != nil {
-		violations = append(violations, shared.FieldViolation("password", err))
+		violations = append(violations, shv1.FieldViolation("password", err))
 	}
 
 	return violations

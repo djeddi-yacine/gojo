@@ -3,7 +3,7 @@ package usapiv1
 import (
 	"context"
 
-	"github.com/dj-yacine-flutter/gojo/api/shared"
+	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
@@ -13,7 +13,7 @@ import (
 func (server *UserServer) VerifyEmail(ctx context.Context, req *uspbv1.VerifyEmailRequest) (*uspbv1.VerifyEmailResponse, error) {
 	violations := validateVerifyEmailRequest(req)
 	if violations != nil {
-		return nil, shared.InvalidArgumentError(violations)
+		return nil, shv1.InvalidArgumentError(violations)
 	}
 
 	txResult, err := server.gojo.VerifyEmailTx(ctx, db.VerifyEmailTxParams{
@@ -21,7 +21,7 @@ func (server *UserServer) VerifyEmail(ctx context.Context, req *uspbv1.VerifyEma
 		SecretCode: req.GetSecretCode(),
 	})
 	if err != nil {
-		return nil, shared.ApiError("failed to verify email", err)
+		return nil, shv1.ApiError("failed to verify email", err)
 	}
 
 	rsp := &uspbv1.VerifyEmailResponse{
@@ -32,11 +32,11 @@ func (server *UserServer) VerifyEmail(ctx context.Context, req *uspbv1.VerifyEma
 
 func validateVerifyEmailRequest(req *uspbv1.VerifyEmailRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.GetEmailID()); err != nil {
-		violations = append(violations, shared.FieldViolation("emailID", err))
+		violations = append(violations, shv1.FieldViolation("emailID", err))
 	}
 
 	if err := utils.ValidateSecretCode(req.GetSecretCode()); err != nil {
-		violations = append(violations, shared.FieldViolation("secretCode", err))
+		violations = append(violations, shv1.FieldViolation("secretCode", err))
 	}
 
 	return violations

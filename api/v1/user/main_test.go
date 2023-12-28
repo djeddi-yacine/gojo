@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dj-yacine-flutter/gojo/api/shared"
+	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/token"
 	"github.com/dj-yacine-flutter/gojo/utils"
@@ -34,9 +34,9 @@ func newContextWithBearerToken(t *testing.T, tokenMaker token.Maker, username st
 	accessToken, _, err := tokenMaker.CreateToken(username, role, duration)
 	require.NoError(t, err)
 
-	bearerToken := fmt.Sprintf("%s %s", shared.AuthorizationBearer, accessToken)
+	bearerToken := fmt.Sprintf("%s %s", shv1.AuthorizationBearer, accessToken)
 	md := metadata.MD{
-		shared.AuthorizationHeader: []string{
+		shv1.AuthorizationHeader: []string{
 			bearerToken,
 		},
 	}

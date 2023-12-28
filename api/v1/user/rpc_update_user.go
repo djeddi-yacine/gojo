@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/dj-yacine-flutter/gojo/api/shared"
+	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
@@ -16,13 +16,13 @@ import (
 )
 
 func (server *UserServer) UpdateUser(ctx context.Context, req *uspbv1.UpdateUserRequest) (*uspbv1.UpdateUserResponse, error) {
-	authPayload, err := shared.AuthorizeUser(ctx, server.tokenMaker, utils.AllRolls)
+	authPayload, err := shv1.AuthorizeUser(ctx, server.tokenMaker, utils.AllRolls)
 	if err != nil {
-		return nil, shared.UnAuthenticatedError(err)
+		return nil, shv1.UnAuthenticatedError(err)
 	}
 
 	if violations := validateUpdateUserRequest(req); violations != nil {
-		return nil, shared.InvalidArgumentError(violations)
+		return nil, shv1.InvalidArgumentError(violations)
 	}
 
 	if authPayload.Username != req.GetUsername() && authPayload.Role != utils.RootRoll {
@@ -58,7 +58,7 @@ func (server *UserServer) UpdateUser(ctx context.Context, req *uspbv1.UpdateUser
 
 	user, err := server.gojo.UpdateUser(ctx, arg)
 	if err != nil {
-		return nil, shared.ApiError("failed to update user", err)
+		return nil, shv1.ApiError("failed to update user", err)
 	}
 
 	res := &uspbv1.UpdateUserResponse{
@@ -75,24 +75,24 @@ func (server *UserServer) UpdateUser(ctx context.Context, req *uspbv1.UpdateUser
 
 func validateUpdateUserRequest(req *uspbv1.UpdateUserRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateUsername(req.GetUsername()); err != nil {
-		violations = append(violations, shared.FieldViolation("username", err))
+		violations = append(violations, shv1.FieldViolation("username", err))
 	}
 
 	if req.Password != nil {
 		if err := utils.ValidatePassword(req.GetPassword()); err != nil {
-			violations = append(violations, shared.FieldViolation("password", err))
+			violations = append(violations, shv1.FieldViolation("password", err))
 		}
 	}
 
 	if req.FullName != nil {
 		if err := utils.ValidateFullName(req.GetFullName()); err != nil {
-			violations = append(violations, shared.FieldViolation("fullName", err))
+			violations = append(violations, shv1.FieldViolation("fullName", err))
 		}
 	}
 
 	if req.Email != nil {
 		if err := utils.ValidateEmail(req.GetEmail()); err != nil {
-			violations = append(violations, shared.FieldViolation("email", err))
+			violations = append(violations, shv1.FieldViolation("email", err))
 		}
 	}
 	return violations
