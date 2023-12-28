@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"os"
 	rt "runtime"
-	"time"
 
 	"github.com/dj-yacine-flutter/gojo/api"
 	"github.com/dj-yacine-flutter/gojo/api/shared"
@@ -16,14 +15,13 @@ import (
 	_ "github.com/dj-yacine-flutter/gojo/doc/statik"
 	"github.com/dj-yacine-flutter/gojo/mail"
 	"github.com/dj-yacine-flutter/gojo/pb"
+	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
-	"github.com/go-redis/cache/v9"
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/hibiken/asynq"
 	"github.com/jackc/pgx/v5/pgxpool"
 	sk "github.com/rakyll/statik/fs"
-	"github.com/redis/go-redis/v9"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
@@ -54,17 +52,17 @@ func main() {
 
 	gojo := db.NewGojo(conn)
 
-	redisOpt := asynq.RedisClientOpt{
+	taskDistributor := worker.NewRedisTaskDistributor(asynq.RedisClientOpt{
 		Addr: config.RedisQueueAddress,
-	}
+	})
 
-	taskDistributor := worker.NewRedisTaskDistributor(redisOpt)
+	ping := ping.NewPingSystem(config)
 
-	go gateway(config, gojo, taskDistributor)
+	go gateway(config, gojo, taskDistributor, ping)
 
 	server := grpc.NewServer()
 
-	err = v1.StartGRPCApi(server, config, gojo, taskDistributor)
+	err = v1.StartGRPCApi(server, config, gojo, taskDistributor, ping)
 	if err != nil {
 		log.Fatal().Err(err).Msg(err.Error())
 	}
@@ -73,14 +71,14 @@ func main() {
 
 	listener, err := net.Listen("tcp", ":9090")
 	if err != nil {
-		log.Fatal().Err(err).Msg("cannot create gRPC listener for UserServer")
+		log.Fatal().Err(err).Msg("cannot create gRPC listener")
 	}
 
 	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0m- START gRPC server -AT- %s\u001b[0m\n", listener.Addr().String())
 
 	err = server.Serve(listener)
 	if err != nil {
-		log.Fatal().Err(err).Msg("cannot start gRPC server for UserServer")
+		log.Fatal().Err(err).Msg("cannot start gRPC server")
 	}
 
 	//		fmt.Printf("\u001b[38;5;125m\u001b[48;5;0m%s\u001b[0m\n", fmt.Sprintln(`
@@ -101,11 +99,11 @@ func main() {
 	//		runGRPCServer(config, gojo, taskDistributot, cache)
 }
 
-func gateway(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor) {
+func gateway(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor, ping *ping.PingSystem) {
 	var err error
 
 	httpMux := http.NewServeMux()
-	err = v1.StartGatewayApi(httpMux, config, gojo, taskDistrinbutor)
+	err = v1.StartGatewayApi(httpMux, config, gojo, taskDistrinbutor, ping)
 	if err != nil {
 		log.Fatal().Err(err).Msg(err.Error())
 	}
@@ -135,8 +133,8 @@ func runRedisQueue(config utils.Config, redisOpt asynq.RedisClientOpt, gojo db.G
 	}
 }
 
-func runGRPCServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor, cache *cache.Cache) {
-	server, err := api.NewServer(config, gojo, taskDistrinbutor, cache)
+func runGRPCServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor) {
+	server, err := api.NewServer(config, gojo, taskDistrinbutor)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot create GRPC server")
 	}
@@ -159,8 +157,8 @@ func runGRPCServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.Ta
 	}
 }
 
-func runGatewayServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor, cache *cache.Cache) {
-	server, err := api.NewServer(config, gojo, taskDistrinbutor, cache)
+func runGatewayServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker.TaskDistributor) {
+	server, err := api.NewServer(config, gojo, taskDistrinbutor)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot create Gateway server")
 	}
@@ -197,19 +195,4 @@ func runGatewayServer(config utils.Config, gojo db.Gojo, taskDistrinbutor worker
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot start the Gateway server")
 	}
-}
-
-func runRedisCache(addr string) *cache.Cache {
-	ring := redis.NewRing(&redis.RingOptions{
-		Addrs: map[string]string{
-			"server01": addr,
-		},
-	})
-
-	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0m- START REDIS CACHE SERVER -AT- %s\u001b[0m\n", addr)
-
-	return cache.New(&cache.Options{
-		Redis:      ring,
-		LocalCache: cache.NewTinyLFU(1000, time.Minute),
-	})
 }

@@ -2,17 +2,17 @@ syntax = "proto3";
 
 package v1.ampbv1;
 
-import "shpb/anime_link.proto";
+import "v1/ashpb/anime_link.proto";
 import "v1/ampb/anime_movie.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
 
 message CreateAnimeMovieLinkRequest {
-  int64                 animeID    = 1;
-  shpb.AnimeLinkRequest animeLinks = 2;
+  int64                    animeID    = 1;
+  ashpbv1.AnimeLinkRequest animeLinks = 2;
 }
 
 message CreateAnimeMovieLinkResponse {
-  AnimeMovieResponse     animeMovie = 1;
-  shpb.AnimeLinkResponse animeLinks = 2;
+  AnimeMovieResponse        animeMovie = 1;
+  ashpbv1.AnimeLinkResponse animeLinks = 2;
 }

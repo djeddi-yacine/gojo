@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package v1.ampbv1;
 
-import "shpb/anime_image.proto";
+import "v1/ashpb/anime_image.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
 
@@ -11,5 +11,5 @@ message GetAnimeMovieImagesRequest {
 }
 
 message GetAnimeMovieImagesResponse {
-  shpb.AnimeImageResponse animeImages = 1;
+  ashpbv1.AnimeImageResponse animeImages = 1;
 }

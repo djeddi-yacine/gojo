@@ -11,7 +11,6 @@ import (
 	"github.com/dj-yacine-flutter/gojo/token"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
-	"github.com/go-redis/cache/v9"
 )
 
 // Server serves gRPC requests for our Gojo service.
@@ -22,13 +21,13 @@ type Server struct {
 }
 
 // NewServer creates a new gRPC server.
-func NewServer(config utils.Config, gojo db.Gojo, taskDistributor worker.TaskDistributor, cache *cache.Cache) (*Server, error) {
+func NewServer(config utils.Config, gojo db.Gojo, taskDistributor worker.TaskDistributor) (*Server, error) {
 	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
 	if err != nil {
 		return nil, fmt.Errorf("cannot create token maker: %w", err)
 	}
 
-	ping := ping.NewPingSystem(config, cache)
+	ping := ping.NewPingSystem(config)
 	server := &Server{
 		InfoServer:       info.NewInfoServer(gojo, tokenMaker),
 		AnimeSerieServer: animeSerie.NewAnimeSerieServer(config, gojo, tokenMaker, ping),

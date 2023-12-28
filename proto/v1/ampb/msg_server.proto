@@ -2,8 +2,8 @@ syntax = "proto3";
 
 package v1.ampbv1;
 
-import "v1/ampb/video.proto";
-import "v1/ampb/torrent.proto";
+import "v1/ampb/msg_video.proto";
+import "v1/ampb/msg_torrent.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
 

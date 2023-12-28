@@ -3,7 +3,7 @@ syntax = "proto3";
 package v1.ampbv1;
 
 import "v1/ampb/anime_movie.proto";
-import "v1/ampb/server.proto";
+import "v1/ampb/msg_server.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
 

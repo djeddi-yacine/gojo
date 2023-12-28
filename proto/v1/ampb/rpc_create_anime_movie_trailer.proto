@@ -2,17 +2,17 @@ syntax = "proto3";
 
 package v1.ampbv1;
 
-import "shpb/anime_trailer.proto";
+import "v1/ashpb/anime_trailer.proto";
 import "v1/ampb/anime_movie.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
 
 message CreateAnimeMovieTrailerRequest {
-  int64    animeID                                = 1;
-  repeated shpb.AnimeTrailerRequest animeTrailers = 2;
+  int64    animeID                                   = 1;
+  repeated ashpbv1.AnimeTrailerRequest animeTrailers = 2;
 }
 
 message CreateAnimeMovieTrailerResponse {
-  AnimeMovieResponse animeMovie                    = 1;
-  repeated shpb.AnimeTrailerResponse animeTrailers = 2;
+  AnimeMovieResponse animeMovie                       = 1;
+  repeated ashpbv1.AnimeTrailerResponse animeTrailers = 2;
 }

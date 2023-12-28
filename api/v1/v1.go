@@ -5,11 +5,14 @@ import (
 	"fmt"
 	"net/http"
 
+	amapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime/movie"
 	nfapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/info"
 	usapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/user"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
+	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
 	nfpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb"
 	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
+	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/token"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
@@ -17,22 +20,25 @@ import (
 	"google.golang.org/grpc"
 )
 
-func StartGRPCApi(server *grpc.Server, config utils.Config, gojo db.Gojo, taskDistributor worker.TaskDistributor) error {
+func StartGRPCApi(server *grpc.Server, config utils.Config, gojo db.Gojo, taskDistributor worker.TaskDistributor, ping *ping.PingSystem) error {
 	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
 	if err != nil {
 		return fmt.Errorf("cannot create token maker: %w", err)
 	}
 
-	user := usapiv1.NewUserServer(config, gojo, tokenMaker, taskDistributor)
-	uspbv1.RegisterUserServiceServer(server, user)
+	ussvc := usapiv1.NewUserServer(config, gojo, tokenMaker, taskDistributor)
+	uspbv1.RegisterUserServiceServer(server, ussvc)
 
-	info := nfapiv1.NewInfoServer(gojo, tokenMaker)
-	nfpbv1.RegisterInfoServiceServer(server, info)
+	nfsvc := nfapiv1.NewInfoServer(gojo, tokenMaker)
+	nfpbv1.RegisterInfoServiceServer(server, nfsvc)
+
+	amsvc := amapiv1.NewAnimeMovieServer(config, gojo, tokenMaker, ping)
+	ampbv1.RegisterAnimeMovieServiceServer(server, amsvc)
 
 	return nil
 }
 
-func StartGatewayApi(httpMux *http.ServeMux, config utils.Config, gojo db.Gojo, taskDistributor worker.TaskDistributor) error {
+func StartGatewayApi(httpMux *http.ServeMux, config utils.Config, gojo db.Gojo, taskDistributor worker.TaskDistributor, ping *ping.PingSystem) error {
 	var err error
 
 	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
@@ -45,17 +51,23 @@ func StartGatewayApi(httpMux *http.ServeMux, config utils.Config, gojo db.Gojo, 
 
 	grpcMux := runtime.NewServeMux()
 
-	user := usapiv1.NewUserServer(config, gojo, tokenMaker, taskDistributor)
+	ussvc := usapiv1.NewUserServer(config, gojo, tokenMaker, taskDistributor)
 
-	err = uspbv1.RegisterUserServiceHandlerServer(ctx, grpcMux, user)
+	err = uspbv1.RegisterUserServiceHandlerServer(ctx, grpcMux, ussvc)
 	if err != nil {
 		return fmt.Errorf("cannot register Gateway server for User Service v1: %w", err)
 	}
 
-	info := nfapiv1.NewInfoServer(gojo, tokenMaker)
-	err = nfpbv1.RegisterInfoServiceHandlerServer(ctx, grpcMux, info)
+	nfsvc := nfapiv1.NewInfoServer(gojo, tokenMaker)
+	err = nfpbv1.RegisterInfoServiceHandlerServer(ctx, grpcMux, nfsvc)
 	if err != nil {
 		return fmt.Errorf("cannot register Gateway server for Info Service v1: %w", err)
+	}
+
+	amsvc := amapiv1.NewAnimeMovieServer(config, gojo, tokenMaker, ping)
+	err = ampbv1.RegisterAnimeMovieServiceHandlerServer(ctx, grpcMux, amsvc)
+	if err != nil {
+		return fmt.Errorf("cannot register Gateway server for Anime Movie Service v1: %w", err)
 	}
 
 	vMux := http.NewServeMux()
