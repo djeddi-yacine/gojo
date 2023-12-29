@@ -50,6 +50,7 @@ func ApiError(msg string, err error) error {
 		Reason: msg,
 	}
 
+	var statusError *status.Status
 	if dberr != nil {
 		errorDetails.Metadata = map[string]string{
 			"Statue":           db.ErrorType(err),
@@ -57,17 +58,17 @@ func ApiError(msg string, err error) error {
 			"Database Message": dberr.Message,
 			"Database Details": dberr.Detail,
 		}
-	}
-
-	var statusError *status.Status
-	switch dberr.Code {
-	case pgerrcode.CaseNotFound:
-		statusError = status.New(codes.NotFound, "internal server")
-	case pgerrcode.UniqueViolation:
-		statusError = status.New(codes.AlreadyExists, "internal server")
-	case pgerrcode.ForeignKeyViolation:
-		statusError = status.New(codes.FailedPrecondition, "internal server")
-	default:
+		switch dberr.Code {
+		case pgerrcode.CaseNotFound:
+			statusError = status.New(codes.NotFound, "internal server")
+		case pgerrcode.UniqueViolation:
+			statusError = status.New(codes.AlreadyExists, "internal server")
+		case pgerrcode.ForeignKeyViolation:
+			statusError = status.New(codes.FailedPrecondition, "internal server")
+		default:
+			statusError = status.New(codes.Internal, "internal server")
+		}
+	} else {
 		statusError = status.New(codes.Internal, "internal server")
 	}
 
