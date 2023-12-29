@@ -84,7 +84,7 @@ func (server *AnimeSerieServer) UpdateAnimeSerie(ctx context.Context, req *aspbv
 
 func validateUpdateAnimeSerieRequest(req *aspbv1.UpdateAnimeSerieRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.GetAnimeID()); err != nil {
-		violations = append(violations, shv1.FieldViolation("ID", err))
+		violations = append(violations, shv1.FieldViolation("animeID", err))
 	}
 
 	if req.OriginalTitle != nil {
