@@ -7,22 +7,22 @@ import "v1/aspb/msg_torrent.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
 
-message AnimeSerieSubDataRequest {
-  repeated AnimeSerieVideoRequest   videos   = 1;
-  repeated AnimeSerieTorrentRequest torrents = 2;
+message AnimeEpisodeSubDataRequest {
+  repeated AnimeEpisodeVideoRequest   videos   = 1;
+  repeated AnimeEpisodeTorrentRequest torrents = 2;
 }
 
-message AnimeSerieDubDataRequest {
-  repeated AnimeSerieVideoRequest   videos   = 1;
-  repeated AnimeSerieTorrentRequest torrents = 2;
+message AnimeEpisodeDubDataRequest {
+  repeated AnimeEpisodeVideoRequest   videos   = 1;
+  repeated AnimeEpisodeTorrentRequest torrents = 2;
 }
 
-message AnimeSerieSubDataResponse {
-  repeated AnimeSerieVideoResponse   videos   = 1;
-  repeated AnimeSerieTorrentResponse torrents = 2;
+message AnimeEpisodeSubDataResponse {
+  repeated AnimeEpisodeVideoResponse   videos   = 1;
+  repeated AnimeEpisodeTorrentResponse torrents = 2;
 }
 
-message AnimeSerieDubDataResponse {
-  repeated AnimeSerieVideoResponse   videos   = 1;
-  repeated AnimeSerieTorrentResponse torrents = 2;
+message AnimeEpisodeDubDataResponse {
+  repeated AnimeEpisodeVideoResponse   videos   = 1;
+  repeated AnimeEpisodeTorrentResponse torrents = 2;
 }

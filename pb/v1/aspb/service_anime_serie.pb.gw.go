@@ -509,8 +509,8 @@ func local_request_AnimeSerieService_CreateAnimeEpisodeServer_0(ctx context.Cont
 
 }
 
-func request_AnimeSerieService_CreateAnimeSerieData_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateAnimeSerieDataRequest
+func request_AnimeSerieService_CreateAnimeEpisodeData_0(ctx context.Context, marshaler runtime.Marshaler, client AnimeSerieServiceClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateAnimeEpisodeDataRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -521,13 +521,13 @@ func request_AnimeSerieService_CreateAnimeSerieData_0(ctx context.Context, marsh
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.CreateAnimeSerieData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.CreateAnimeEpisodeData(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_AnimeSerieService_CreateAnimeSerieData_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq CreateAnimeSerieDataRequest
+func local_request_AnimeSerieService_CreateAnimeEpisodeData_0(ctx context.Context, marshaler runtime.Marshaler, server AnimeSerieServiceServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq CreateAnimeEpisodeDataRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -538,7 +538,7 @@ func local_request_AnimeSerieService_CreateAnimeSerieData_0(ctx context.Context,
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.CreateAnimeSerieData(ctx, &protoReq)
+	msg, err := server.CreateAnimeEpisodeData(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -1283,7 +1283,7 @@ func RegisterAnimeSerieServiceHandlerServer(ctx context.Context, mux *runtime.Se
 
 	})
 
-	mux.Handle("POST", pattern_AnimeSerieService_CreateAnimeSerieData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_AnimeSerieService_CreateAnimeEpisodeData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -1291,12 +1291,12 @@ func RegisterAnimeSerieServiceHandlerServer(ctx context.Context, mux *runtime.Se
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.aspbv1.AnimeSerieService/CreateAnimeSerieData", runtime.WithHTTPPathPattern("/anime/serie/data/create"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.aspbv1.AnimeSerieService/CreateAnimeEpisodeData", runtime.WithHTTPPathPattern("/anime/serie/episode/data/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_AnimeSerieService_CreateAnimeSerieData_0(annotatedContext, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_AnimeSerieService_CreateAnimeEpisodeData_0(annotatedContext, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
@@ -1304,7 +1304,7 @@ func RegisterAnimeSerieServiceHandlerServer(ctx context.Context, mux *runtime.Se
 			return
 		}
 
-		forward_AnimeSerieService_CreateAnimeSerieData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_AnimeSerieService_CreateAnimeEpisodeData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -1857,25 +1857,25 @@ func RegisterAnimeSerieServiceHandlerClient(ctx context.Context, mux *runtime.Se
 
 	})
 
-	mux.Handle("POST", pattern_AnimeSerieService_CreateAnimeSerieData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_AnimeSerieService_CreateAnimeEpisodeData_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.aspbv1.AnimeSerieService/CreateAnimeSerieData", runtime.WithHTTPPathPattern("/anime/serie/data/create"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.aspbv1.AnimeSerieService/CreateAnimeEpisodeData", runtime.WithHTTPPathPattern("/anime/serie/episode/data/create"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_AnimeSerieService_CreateAnimeSerieData_0(annotatedContext, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_AnimeSerieService_CreateAnimeEpisodeData_0(annotatedContext, inboundMarshaler, client, req, pathParams)
 		annotatedContext = runtime.NewServerMetadataContext(annotatedContext, md)
 		if err != nil {
 			runtime.HTTPError(annotatedContext, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_AnimeSerieService_CreateAnimeSerieData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_AnimeSerieService_CreateAnimeEpisodeData_0(annotatedContext, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -2087,7 +2087,7 @@ var (
 
 	pattern_AnimeSerieService_CreateAnimeEpisodeServer_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"anime", "serie", "episode", "server", "create"}, ""))
 
-	pattern_AnimeSerieService_CreateAnimeSerieData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"anime", "serie", "data", "create"}, ""))
+	pattern_AnimeSerieService_CreateAnimeEpisodeData_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"anime", "serie", "episode", "data", "create"}, ""))
 
 	pattern_AnimeSerieService_CreateAnimeSeasonTitle_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 2, 4}, []string{"anime", "serie", "season", "title", "create"}, ""))
 
@@ -2135,7 +2135,7 @@ var (
 
 	forward_AnimeSerieService_CreateAnimeEpisodeServer_0 = runtime.ForwardResponseMessage
 
-	forward_AnimeSerieService_CreateAnimeSerieData_0 = runtime.ForwardResponseMessage
+	forward_AnimeSerieService_CreateAnimeEpisodeData_0 = runtime.ForwardResponseMessage
 
 	forward_AnimeSerieService_CreateAnimeSeasonTitle_0 = runtime.ForwardResponseMessage
 

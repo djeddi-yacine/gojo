@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
 
-message AnimeSerieVideoRequest {
+message AnimeEpisodeVideoRequest {
   int32  languageID = 1;
   string authority  = 2;
   string referer    = 3;
@@ -14,7 +14,7 @@ message AnimeSerieVideoRequest {
   string quality    = 5;
 }
 
-message AnimeSerieVideoResponse {
+message AnimeEpisodeVideoResponse {
   int64                     ID         = 1;
   int32                     languageID = 2;
   string                    authority  = 3;

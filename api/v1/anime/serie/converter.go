@@ -53,12 +53,12 @@ func convertAnimeEpisode(e db.AnimeSerieEpisode) *aspbv1.AnimeEpisodeResponse {
 	}
 }
 
-func convertAnimeSerieVideos(asv []db.AnimeSerieVideo) []*aspbv1.AnimeSerieVideoResponse {
+func convertAnimeEpisodeVideos(asv []db.AnimeEpisodeVideo) []*aspbv1.AnimeEpisodeVideoResponse {
 	if len(asv) > 0 {
-		Videos := make([]*aspbv1.AnimeSerieVideoResponse, len(asv))
+		Videos := make([]*aspbv1.AnimeEpisodeVideoResponse, len(asv))
 
 		for i, v := range asv {
-			Videos[i] = &aspbv1.AnimeSerieVideoResponse{
+			Videos[i] = &aspbv1.AnimeEpisodeVideoResponse{
 				ID:         v.ID,
 				LanguageID: v.LanguageID,
 				Authority:  v.Authority,
@@ -74,12 +74,12 @@ func convertAnimeSerieVideos(asv []db.AnimeSerieVideo) []*aspbv1.AnimeSerieVideo
 	}
 }
 
-func convertAnimeSerieTorrents(ast []db.AnimeSerieTorrent) []*aspbv1.AnimeSerieTorrentResponse {
+func convertAnimeEpisodeTorrents(ast []db.AnimeEpisodeTorrent) []*aspbv1.AnimeEpisodeTorrentResponse {
 	if len(ast) > 0 {
-		Torrents := make([]*aspbv1.AnimeSerieTorrentResponse, len(ast))
+		Torrents := make([]*aspbv1.AnimeEpisodeTorrentResponse, len(ast))
 
 		for i, t := range ast {
-			Torrents[i] = &aspbv1.AnimeSerieTorrentResponse{
+			Torrents[i] = &aspbv1.AnimeEpisodeTorrentResponse{
 				ID:          t.ID,
 				LanguageID:  t.LanguageID,
 				FileName:    t.FileName,

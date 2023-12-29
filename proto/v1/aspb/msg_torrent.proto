@@ -6,7 +6,7 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
 
-message AnimeSerieTorrentRequest {
+message AnimeEpisodeTorrentRequest {
   int32  languageID  = 1;
   string fileName    = 2;
   string torrentHash = 3;
@@ -18,7 +18,7 @@ message AnimeSerieTorrentRequest {
   string quality     = 9;
 }
 
-message AnimeSerieTorrentResponse {
+message AnimeEpisodeTorrentResponse {
   int64                     ID          = 1;
   int32                     languageID  = 2;
   string                    fileName    = 3;

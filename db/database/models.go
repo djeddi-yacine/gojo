@@ -24,6 +24,58 @@ type AnimeEpisodeServer struct {
 	CreatedAt time.Time
 }
 
+type AnimeEpisodeServerDubTorrent struct {
+	ID        int64
+	ServerID  int64
+	TorrentID int64
+	CreatedAt time.Time
+}
+
+type AnimeEpisodeServerDubVideo struct {
+	ID        int64
+	ServerID  int64
+	VideoID   int64
+	CreatedAt time.Time
+}
+
+type AnimeEpisodeServerSubTorrent struct {
+	ID        int64
+	ServerID  int64
+	TorrentID int64
+	CreatedAt time.Time
+}
+
+type AnimeEpisodeServerSubVideo struct {
+	ID        int64
+	ServerID  int64
+	VideoID   int64
+	CreatedAt time.Time
+}
+
+type AnimeEpisodeTorrent struct {
+	ID          int64
+	FileName    string
+	LanguageID  int32
+	TorrentHash string
+	TorrentFile string
+	Seeds       int32
+	Peers       int32
+	Leechers    int32
+	SizeBytes   int64
+	Quality     string
+	CreatedAt   time.Time
+}
+
+type AnimeEpisodeVideo struct {
+	ID         int64
+	LanguageID int32
+	Authority  string
+	Referer    string
+	Link       string
+	Quality    string
+	CreatedAt  time.Time
+}
+
 type AnimeImage struct {
 	ID              int64
 	ImageHost       string
@@ -382,63 +434,11 @@ type AnimeSerieSeason struct {
 	CreatedAt           time.Time
 }
 
-type AnimeSerieServerDubTorrent struct {
-	ID        int64
-	ServerID  int64
-	TorrentID int64
-	CreatedAt time.Time
-}
-
-type AnimeSerieServerDubVideo struct {
-	ID        int64
-	ServerID  int64
-	VideoID   int64
-	CreatedAt time.Time
-}
-
-type AnimeSerieServerSubTorrent struct {
-	ID        int64
-	ServerID  int64
-	TorrentID int64
-	CreatedAt time.Time
-}
-
-type AnimeSerieServerSubVideo struct {
-	ID        int64
-	ServerID  int64
-	VideoID   int64
-	CreatedAt time.Time
-}
-
-type AnimeSerieTorrent struct {
-	ID          int64
-	FileName    string
-	LanguageID  int32
-	TorrentHash string
-	TorrentFile string
-	Seeds       int32
-	Peers       int32
-	Leechers    int32
-	SizeBytes   int64
-	Quality     string
-	CreatedAt   time.Time
-}
-
 type AnimeSerieTrailer struct {
 	ID        int64
 	AnimeID   int64
 	TrailerID int64
 	CreatedAt time.Time
-}
-
-type AnimeSerieVideo struct {
-	ID         int64
-	LanguageID int32
-	Authority  string
-	Referer    string
-	Link       string
-	Quality    string
-	CreatedAt  time.Time
 }
 
 type AnimeTag struct {
