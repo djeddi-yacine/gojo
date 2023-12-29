@@ -11,7 +11,6 @@ import (
 )
 
 type Querier interface {
-	CheckLanguage(ctx context.Context, id int32) (bool, error)
 	CreateAnimeEpisode(ctx context.Context, arg CreateAnimeEpisodeParams) (AnimeSerieEpisode, error)
 	CreateAnimeEpisodeMeta(ctx context.Context, arg CreateAnimeEpisodeMetaParams) (AnimeEpisodeMeta, error)
 	CreateAnimeEpisodeServer(ctx context.Context, episodeID int64) (AnimeEpisodeServer, error)

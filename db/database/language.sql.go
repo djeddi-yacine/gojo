@@ -9,20 +9,6 @@ import (
 	"context"
 )
 
-const checkLanguage = `-- name: CheckLanguage :one
-SELECT EXISTS (
-    SELECT 1 FROM languages
-    WHERE id = $1
-)
-`
-
-func (q *Queries) CheckLanguage(ctx context.Context, id int32) (bool, error) {
-	row := q.db.QueryRow(ctx, checkLanguage, id)
-	var exists bool
-	err := row.Scan(&exists)
-	return exists, err
-}
-
 const createLanguage = `-- name: CreateLanguage :one
 INSERT INTO languages (language_name, language_code)
 VALUES ($1, $2)

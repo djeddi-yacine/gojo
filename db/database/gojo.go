@@ -41,6 +41,7 @@ type Gojo interface {
 	QueryAnimeSeasonTx(ctx context.Context, arg QueryAnimeSeasonTxParams) (QueryAnimeSeasonTxResult, error)
 	CreateAnimeMovieTagTx(ctx context.Context, arg CreateAnimeMovieTagTxParams) (CreateAnimeMovieTagTxResult, error)
 	CreateAnimeSeasonTagTx(ctx context.Context, arg CreateAnimeSeasonTagTxParams) (CreateAnimeSeasonTagTxResult, error)
+	CreateAnimeEpisodeServerTx(ctx context.Context, episodeID int64) (AnimeEpisodeServer, error)
 }
 
 type SQLGojo struct {

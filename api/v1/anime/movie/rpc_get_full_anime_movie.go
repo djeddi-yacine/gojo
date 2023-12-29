@@ -54,8 +54,8 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 	}
 
 	if err = server.ping.Handle(ctx, cache.Meta(uint32(req.LanguageID)), &res.AnimeMeta, func() error {
-		exists, err := server.gojo.CheckLanguage(ctx, req.GetLanguageID())
-		if !exists || err != nil {
+		_, err := server.gojo.GetLanguage(ctx, req.GetLanguageID())
+		if err != nil {
 			return shv1.ApiError("no language found with this language ID", err)
 		}
 

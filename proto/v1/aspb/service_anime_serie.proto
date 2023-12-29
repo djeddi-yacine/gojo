@@ -10,7 +10,6 @@ import "v1/aspb/rpc_create_anime_serie_metas.proto";
 import "v1/aspb/rpc_create_anime_serie_link.proto";
 import "v1/aspb/rpc_create_anime_serie_image.proto";
 import "v1/aspb/rpc_create_anime_serie_trailer.proto";
-import "v1/aspb/rpc_create_anime_serie_server.proto";
 import "v1/aspb/rpc_create_anime_serie_data.proto";
 import "v1/aspb/rpc_create_anime_season.proto";
 import "v1/aspb/rpc_create_anime_season_image.proto";
@@ -20,8 +19,9 @@ import "v1/aspb/rpc_create_anime_season_info.proto";
 import "v1/aspb/rpc_create_anime_season_metas.proto";
 import "v1/aspb/rpc_create_anime_season_title.proto";
 import "v1/aspb/rpc_create_anime_season_tag.proto";
-import "v1/aspb/rpc_create_anime_episode_metas.proto";
 import "v1/aspb/rpc_create_anime_episode.proto";
+import "v1/aspb/rpc_create_anime_episode_metas.proto";
+import "v1/aspb/rpc_create_anime_episode_server.proto";
 import "v1/aspb/rpc_get_all_anime_serie_metas.proto";
 import "v1/aspb/rpc_get_all_anime_series.proto";
 import "v1/aspb/rpc_get_full_anime_serie.proto";
@@ -94,15 +94,6 @@ rpc CreateAnimeSeasonInfo(CreateAnimeSeasonInfoRequest) returns (CreateAnimeSeas
     description: "Use this API to add info to anime serie season like studios and genres";
 };
 }
-rpc CreateAnimeSerieServer(CreateAnimeSerieServerRequest) returns (CreateAnimeSerieServerResponse) {
-  option (google.api.http) = {
-    post: "/anime/serie/server/create"
-    body: "*"
-  };
-  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-    description: "Use this API to create a new anime serie server";
-};
-}
 rpc CreateAnimeSeason(CreateAnimeSeasonRequest) returns (CreateAnimeSeasonResponse) {
   option (google.api.http) = {
     post: "/anime/serie/season/create"
@@ -155,6 +146,15 @@ rpc CreateAnimeEpisodeMetas(CreateAnimeEpisodeMetasRequest) returns (CreateAnime
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
     description: "Use this API to add a new metas to anime serie episode";
+};
+}
+rpc CreateAnimeEpisodeServer(CreateAnimeEpisodeServerRequest) returns (CreateAnimeEpisodeServerResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/episode/server/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new anime episode server";
 };
 }
 rpc CreateAnimeSerieData(CreateAnimeSerieDataRequest) returns (CreateAnimeSerieDataResponse) {

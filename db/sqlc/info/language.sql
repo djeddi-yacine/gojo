@@ -7,12 +7,6 @@ RETURNING  *;
 SELECT * FROM languages
 WHERE id = $1 LIMIT 1;
 
--- name: CheckLanguage :one
-SELECT EXISTS (
-    SELECT 1 FROM languages
-    WHERE id = $1
-);
-
 -- name: UpdateLanguage :one
 UPDATE languages
 SET language_code = $2,

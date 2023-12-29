@@ -54,8 +54,8 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	}
 
 	if err = server.ping.Handle(ctx, cache.Meta(uint32(req.LanguageID)), &res.AnimeMeta, func() error {
-		exists, err := server.gojo.CheckLanguage(ctx, req.GetLanguageID())
-		if !exists || err != nil {
+		_, err := server.gojo.GetLanguage(ctx, req.GetLanguageID())
+		if err != nil {
 			return shv1.ApiError("failed to get the language", err)
 		}
 

@@ -869,6 +869,39 @@
         ]
       }
     },
+    "/anime/serie/episode/server/create": {
+      "post": {
+        "description": "Use this API to create a new anime episode server",
+        "operationId": "AnimeSerieService_CreateAnimeEpisodeServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeEpisodeServerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeEpisodeServerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
     "/anime/serie/image/create": {
       "post": {
         "description": "Use this API to create a new anime serie images",
@@ -1362,39 +1395,6 @@
             "required": false,
             "type": "integer",
             "format": "int32"
-          }
-        ],
-        "tags": [
-          "AnimeSerieService"
-        ]
-      }
-    },
-    "/anime/serie/server/create": {
-      "post": {
-        "description": "Use this API to create a new anime serie server",
-        "operationId": "AnimeSerieService_CreateAnimeSerieServer",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/aspbv1CreateAnimeSerieServerResponse"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response.",
-            "schema": {
-              "$ref": "#/definitions/rpcStatus"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/aspbv1CreateAnimeSerieServerRequest"
-            }
           }
         ],
         "tags": [
@@ -3521,6 +3521,32 @@
         }
       }
     },
+    "aspbv1CreateAnimeEpisodeServerRequest": {
+      "type": "object",
+      "properties": {
+        "episodeID": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "aspbv1CreateAnimeEpisodeServerResponse": {
+      "type": "object",
+      "properties": {
+        "episodeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "serverID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "aspbv1CreateAnimeSeasonImageRequest": {
       "type": "object",
       "properties": {
@@ -3869,32 +3895,6 @@
         },
         "animeLinks": {
           "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
-        }
-      }
-    },
-    "aspbv1CreateAnimeSerieServerRequest": {
-      "type": "object",
-      "properties": {
-        "episodeID": {
-          "type": "string",
-          "format": "int64"
-        }
-      }
-    },
-    "aspbv1CreateAnimeSerieServerResponse": {
-      "type": "object",
-      "properties": {
-        "episodeID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "serverID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
         }
       }
     },

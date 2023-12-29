@@ -114,7 +114,7 @@ func validateCreateAnimeEpisodeRequest(req *aspbv1.CreateAnimeEpisodeRequest) (v
 		}
 
 	} else {
-		violations = append(violations, shv1.FieldViolation("episode", errors.New("episode :you need to send the episode model")))
+		violations = append(violations, shv1.FieldViolation("episode", errors.New("you need to send the episode model")))
 	}
 
 	if req.EpisodeMetas != nil {
@@ -132,7 +132,7 @@ func validateCreateAnimeEpisodeRequest(req *aspbv1.CreateAnimeEpisodeRequest) (v
 			}
 		}
 	} else {
-		violations = append(violations, shv1.FieldViolation("episodeMetas", errors.New("episodeMetas > meta : you need to send at least one of meta model")))
+		violations = append(violations, shv1.FieldViolation("episodeMetas > meta", errors.New("you need to send at least one of meta model")))
 	}
 
 	return violations
