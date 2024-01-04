@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2023-12-29T08:24:12.420Z
+-- Generated at: 2024-01-04T20:06:21.821Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -19,11 +19,25 @@ CREATE TABLE "sessions" (
   "id" uuid UNIQUE PRIMARY KEY NOT NULL,
   "username" varchar NOT NULL,
   "refresh_token" varchar NOT NULL,
-  "user_agent" varchar NOT NULL,
-  "client_ip" varchar NOT NULL,
   "is_blocked" boolean NOT NULL DEFAULT false,
   "expires_at" timestamptz NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "devices" (
+  "id" uuid UNIQUE PRIMARY KEY NOT NULL,
+  "operating_system" varchar NOT NULL,
+  "mac_address" varchar NOT NULL,
+  "client_ip" varchar NOT NULL,
+  "user_agent" varchar NOT NULL,
+  "is_banned" boolean NOT NULL DEFAULT false,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "user_devices" (
+  "id" bigserial UNIQUE PRIMARY KEY NOT NULL,
+  "user_id" bigserial NOT NULL,
+  "device_id" uuid NOT NULL
 );
 
 CREATE TABLE "verify_emails" (
@@ -513,6 +527,10 @@ CREATE INDEX ON "users" ("full_name");
 
 CREATE INDEX ON "sessions" ("id");
 
+CREATE INDEX ON "devices" ("id");
+
+CREATE INDEX ON "user_devices" ("id", "user_id");
+
 CREATE INDEX ON "anime_movies" ("id");
 
 CREATE INDEX ON "anime_movies" ("original_title");
@@ -718,6 +736,10 @@ CREATE UNIQUE INDEX ON "anime_season_tags" ("season_id", "tag_id");
 ALTER TABLE "sessions" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
 
 ALTER TABLE "verify_emails" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
+
+ALTER TABLE "user_devices" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "user_devices" ADD FOREIGN KEY ("device_id") REFERENCES "devices" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_metas" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
 

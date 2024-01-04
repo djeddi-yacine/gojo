@@ -25,13 +25,33 @@ Table sessions {
   id uuid [primary key, unique, not null]
   username varchar [not null]
   refresh_token varchar [not null]
-  user_agent varchar [not null]
-  client_ip varchar [not null]
   is_blocked boolean [not null, default: false]
   expires_at timestamptz [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
+    }
+}
+
+Table devices {
+  id uuid [primary key, unique, not null]
+  operating_system varchar [not null]
+  mac_address varchar [not null]
+  client_ip varchar [not null]
+  user_agent varchar [not null]
+  is_banned boolean [not null, default: false]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+    }
+}
+
+Table user_devices {
+  id bigserial [primary key, unique, not null]
+  user_id bigserial [not null]
+  device_id uuid [not null]
+    indexes {
+      (id, user_id)
     }
 }
 
@@ -745,6 +765,15 @@ Ref {
 }
 Ref {
   users.username - verify_emails.username [delete: cascade]
+}
+Ref {
+  users.id - user_devices.user_id [delete: cascade]
+}
+
+
+
+Ref {
+  devices.id - user_devices.device_id [delete: cascade]
 }
 
 
