@@ -68,8 +68,6 @@ func (server *UserServer) RenewTokens(ctx context.Context, req *uspbv1.RenewToke
 		ID:           refreshPayload.ID,
 		Username:     refreshPayload.Username,
 		RefreshToken: refreshToken,
-		UserAgent:    session.UserAgent,
-		ClientIp:     session.ClientIp,
 		IsBlocked:    false,
 		ExpiresAt:    refreshPayload.ExpiredAt,
 	}
