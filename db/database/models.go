@@ -455,6 +455,16 @@ type AnimeTrailer struct {
 	CreatedAt  time.Time
 }
 
+type Device struct {
+	ID              uuid.UUID
+	OperatingSystem string
+	MacAddress      string
+	ClientIp        string
+	UserAgent       string
+	IsBanned        bool
+	CreatedAt       time.Time
+}
+
 type Genre struct {
 	ID        int32
 	GenreName string
@@ -500,6 +510,12 @@ type User struct {
 	CreatedAt         time.Time
 	IsEmailVerified   bool
 	Role              string
+}
+
+type UserDevice struct {
+	ID       int64
+	UserID   int64
+	DeviceID uuid.UUID
 }
 
 type VerifyEmail struct {

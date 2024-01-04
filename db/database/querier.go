@@ -67,12 +67,14 @@ type Querier interface {
 	CreateAnimeSerieTrailer(ctx context.Context, arg CreateAnimeSerieTrailerParams) (AnimeSerieTrailer, error)
 	CreateAnimeTag(ctx context.Context, tag string) (AnimeTag, error)
 	CreateAnimeTrailer(ctx context.Context, arg CreateAnimeTrailerParams) (AnimeTrailer, error)
+	CreateDevice(ctx context.Context, arg CreateDeviceParams) (Device, error)
 	CreateGenre(ctx context.Context, genreName string) (Genre, error)
 	CreateLanguage(ctx context.Context, arg CreateLanguageParams) (Language, error)
 	CreateMeta(ctx context.Context, arg CreateMetaParams) (Meta, error)
 	CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error)
 	CreateStudio(ctx context.Context, studioName string) (Studio, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
+	CreateUserDevice(ctx context.Context, arg CreateUserDeviceParams) (UserDevice, error)
 	CreateVerifyEmail(ctx context.Context, arg CreateVerifyEmailParams) (VerifyEmail, error)
 	DeleteAnimeEpisode(ctx context.Context, id int64) error
 	DeleteAnimeEpisodeMeta(ctx context.Context, arg DeleteAnimeEpisodeMetaParams) error
@@ -130,6 +132,7 @@ type Querier interface {
 	DeleteAnimeSerieTrailer(ctx context.Context, arg DeleteAnimeSerieTrailerParams) error
 	DeleteAnimeTag(ctx context.Context, id int64) error
 	DeleteAnimeTrailer(ctx context.Context, id int64) error
+	DeleteDevice(ctx context.Context, id uuid.UUID) error
 	DeleteGenre(ctx context.Context, id int32) error
 	DeleteLanguage(ctx context.Context, id int32) error
 	DeleteMeta(ctx context.Context, id int64) error
@@ -183,6 +186,7 @@ type Querier interface {
 	GetAnimeTag(ctx context.Context, id int64) (AnimeTag, error)
 	GetAnimeTagByTag(ctx context.Context, tag string) (AnimeTag, error)
 	GetAnimeTrailer(ctx context.Context, id int64) (AnimeTrailer, error)
+	GetDevice(ctx context.Context, id uuid.UUID) (Device, error)
 	GetGenre(ctx context.Context, id int32) (Genre, error)
 	GetLanguage(ctx context.Context, id int32) (Language, error)
 	GetMeta(ctx context.Context, id int64) (Meta, error)
@@ -233,6 +237,7 @@ type Querier interface {
 	ListGenres(ctx context.Context, arg ListGenresParams) ([]Genre, error)
 	ListLanguages(ctx context.Context, arg ListLanguagesParams) ([]Language, error)
 	ListStudios(ctx context.Context, arg ListStudiosParams) ([]Studio, error)
+	ListUserDevices(ctx context.Context, arg ListUserDevicesParams) ([]uuid.UUID, error)
 	ListUsers(ctx context.Context, arg ListUsersParams) ([]User, error)
 	QueryAnimeMovieOfficialTitles(ctx context.Context, arg QueryAnimeMovieOfficialTitlesParams) ([]int64, error)
 	QueryAnimeMovieOtherTitles(ctx context.Context, arg QueryAnimeMovieOtherTitlesParams) ([]int64, error)
@@ -271,6 +276,7 @@ type Querier interface {
 	UpdateAnimeSerieMeta(ctx context.Context, arg UpdateAnimeSerieMetaParams) (AnimeSerieMeta, error)
 	UpdateAnimeTag(ctx context.Context, arg UpdateAnimeTagParams) (AnimeTag, error)
 	UpdateAnimeTrailer(ctx context.Context, arg UpdateAnimeTrailerParams) (AnimeTrailer, error)
+	UpdateDevice(ctx context.Context, arg UpdateDeviceParams) error
 	UpdateGenre(ctx context.Context, arg UpdateGenreParams) (Genre, error)
 	UpdateLanguage(ctx context.Context, arg UpdateLanguageParams) (Language, error)
 	UpdateMeta(ctx context.Context, arg UpdateMetaParams) (Meta, error)

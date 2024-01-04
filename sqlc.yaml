@@ -134,3 +134,7 @@ sql:
           anime_tags: "AnimeTag"
           anime_movie_tags: "AnimeMovieTag"
           anime_season_tags: "AnimeSeasonTag"
+
+          ## add user_devices
+          devices: "Device"
+          user_devices: "UserDevice"

@@ -1281,6 +1281,21 @@ func (mr *MockGojoMockRecorder) CreateAnimeTrailer(arg0, arg1 interface{}) *gomo
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAnimeTrailer", reflect.TypeOf((*MockGojo)(nil).CreateAnimeTrailer), arg0, arg1)
 }
 
+// CreateDevice mocks base method.
+func (m *MockGojo) CreateDevice(arg0 context.Context, arg1 db.CreateDeviceParams) (db.Device, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateDevice", arg0, arg1)
+	ret0, _ := ret[0].(db.Device)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateDevice indicates an expected call of CreateDevice.
+func (mr *MockGojoMockRecorder) CreateDevice(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateDevice", reflect.TypeOf((*MockGojo)(nil).CreateDevice), arg0, arg1)
+}
+
 // CreateGenre mocks base method.
 func (m *MockGojo) CreateGenre(arg0 context.Context, arg1 string) (db.Genre, error) {
 	m.ctrl.T.Helper()
@@ -1414,6 +1429,21 @@ func (m *MockGojo) CreateUser(arg0 context.Context, arg1 db.CreateUserParams) (d
 func (mr *MockGojoMockRecorder) CreateUser(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUser", reflect.TypeOf((*MockGojo)(nil).CreateUser), arg0, arg1)
+}
+
+// CreateUserDevice mocks base method.
+func (m *MockGojo) CreateUserDevice(arg0 context.Context, arg1 db.CreateUserDeviceParams) (db.UserDevice, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "CreateUserDevice", arg0, arg1)
+	ret0, _ := ret[0].(db.UserDevice)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// CreateUserDevice indicates an expected call of CreateUserDevice.
+func (mr *MockGojoMockRecorder) CreateUserDevice(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateUserDevice", reflect.TypeOf((*MockGojo)(nil).CreateUserDevice), arg0, arg1)
 }
 
 // CreateUserTx mocks base method.
@@ -2230,6 +2260,20 @@ func (mr *MockGojoMockRecorder) DeleteAnimeTrailer(arg0, arg1 interface{}) *gomo
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAnimeTrailer", reflect.TypeOf((*MockGojo)(nil).DeleteAnimeTrailer), arg0, arg1)
 }
 
+// DeleteDevice mocks base method.
+func (m *MockGojo) DeleteDevice(arg0 context.Context, arg1 uuid.UUID) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteDevice", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// DeleteDevice indicates an expected call of DeleteDevice.
+func (mr *MockGojoMockRecorder) DeleteDevice(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteDevice", reflect.TypeOf((*MockGojo)(nil).DeleteDevice), arg0, arg1)
+}
+
 // DeleteGenre mocks base method.
 func (m *MockGojo) DeleteGenre(arg0 context.Context, arg1 int32) error {
 	m.ctrl.T.Helper()
@@ -3019,6 +3063,21 @@ func (mr *MockGojoMockRecorder) GetAnimeTrailer(arg0, arg1 interface{}) *gomock.
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeTrailer", reflect.TypeOf((*MockGojo)(nil).GetAnimeTrailer), arg0, arg1)
 }
 
+// GetDevice mocks base method.
+func (m *MockGojo) GetDevice(arg0 context.Context, arg1 uuid.UUID) (db.Device, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetDevice", arg0, arg1)
+	ret0, _ := ret[0].(db.Device)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetDevice indicates an expected call of GetDevice.
+func (mr *MockGojoMockRecorder) GetDevice(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetDevice", reflect.TypeOf((*MockGojo)(nil).GetDevice), arg0, arg1)
+}
+
 // GetGenre mocks base method.
 func (m *MockGojo) GetGenre(arg0 context.Context, arg1 int32) (db.Genre, error) {
 	m.ctrl.T.Helper()
@@ -3769,6 +3828,21 @@ func (mr *MockGojoMockRecorder) ListStudios(arg0, arg1 interface{}) *gomock.Call
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListStudios", reflect.TypeOf((*MockGojo)(nil).ListStudios), arg0, arg1)
 }
 
+// ListUserDevices mocks base method.
+func (m *MockGojo) ListUserDevices(arg0 context.Context, arg1 db.ListUserDevicesParams) ([]uuid.UUID, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "ListUserDevices", arg0, arg1)
+	ret0, _ := ret[0].([]uuid.UUID)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// ListUserDevices indicates an expected call of ListUserDevices.
+func (mr *MockGojoMockRecorder) ListUserDevices(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUserDevices", reflect.TypeOf((*MockGojo)(nil).ListUserDevices), arg0, arg1)
+}
+
 // ListUsers mocks base method.
 func (m *MockGojo) ListUsers(arg0 context.Context, arg1 db.ListUsersParams) ([]db.User, error) {
 	m.ctrl.T.Helper()
@@ -4366,6 +4440,20 @@ func (m *MockGojo) UpdateAnimeTrailer(arg0 context.Context, arg1 db.UpdateAnimeT
 func (mr *MockGojoMockRecorder) UpdateAnimeTrailer(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAnimeTrailer", reflect.TypeOf((*MockGojo)(nil).UpdateAnimeTrailer), arg0, arg1)
+}
+
+// UpdateDevice mocks base method.
+func (m *MockGojo) UpdateDevice(arg0 context.Context, arg1 db.UpdateDeviceParams) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "UpdateDevice", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// UpdateDevice indicates an expected call of UpdateDevice.
+func (mr *MockGojoMockRecorder) UpdateDevice(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateDevice", reflect.TypeOf((*MockGojo)(nil).UpdateDevice), arg0, arg1)
 }
 
 // UpdateGenre mocks base method.
