@@ -62,7 +62,7 @@ func (q *Queries) GetAnimeSeasonEpisode(ctx context.Context, id int64) (AnimeSea
 	return i, err
 }
 
-const listAnimeSeasonEpisodesBySeason = `-- name: ListAnimeSeasonEpisodesBySeason :many
+const listAnimeSeasonEpisodes = `-- name: ListAnimeSeasonEpisodes :many
 SELECT id, season_id, episode_id, created_at FROM anime_season_episodes
 WHERE season_id = $1
 ORDER BY id
@@ -70,14 +70,14 @@ LIMIT $2
 OFFSET $3
 `
 
-type ListAnimeSeasonEpisodesBySeasonParams struct {
+type ListAnimeSeasonEpisodesParams struct {
 	SeasonID int64
 	Limit    int32
 	Offset   int32
 }
 
-func (q *Queries) ListAnimeSeasonEpisodesBySeason(ctx context.Context, arg ListAnimeSeasonEpisodesBySeasonParams) ([]AnimeSeasonEpisode, error) {
-	rows, err := q.db.Query(ctx, listAnimeSeasonEpisodesBySeason, arg.SeasonID, arg.Limit, arg.Offset)
+func (q *Queries) ListAnimeSeasonEpisodes(ctx context.Context, arg ListAnimeSeasonEpisodesParams) ([]AnimeSeasonEpisode, error) {
+	rows, err := q.db.Query(ctx, listAnimeSeasonEpisodes, arg.SeasonID, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}

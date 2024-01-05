@@ -17,13 +17,6 @@ SELECT * FROM anime_serie_episodes
 WHERE id = $1
 LIMIT 1;
 
--- name: ListAnimeEpisodesBySeasonID :many
-SELECT * FROM anime_serie_episodes
-WHERE season_id = $1
-ORDER BY episode_number
-LIMIT $2
-OFFSET $3;
-
 -- name: UpdateAnimeEpisode :one
 UPDATE anime_serie_episodes
 SET

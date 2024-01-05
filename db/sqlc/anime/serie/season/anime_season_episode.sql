@@ -8,7 +8,7 @@ SELECT * FROM anime_season_episodes
 WHERE id = $1
 LIMIT 1;
 
--- name: ListAnimeSeasonEpisodesBySeason :many
+-- name: ListAnimeSeasonEpisodes :many
 SELECT * FROM anime_season_episodes
 WHERE season_id = $1
 ORDER BY id

@@ -3302,21 +3302,6 @@ func (mr *MockGojoMockRecorder) ListAnimeEpisodeVideos(arg0, arg1 interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeEpisodeVideos", reflect.TypeOf((*MockGojo)(nil).ListAnimeEpisodeVideos), arg0, arg1)
 }
 
-// ListAnimeEpisodesBySeasonID mocks base method.
-func (m *MockGojo) ListAnimeEpisodesBySeasonID(arg0 context.Context, arg1 db.ListAnimeEpisodesBySeasonIDParams) ([]db.AnimeSerieEpisode, error) {
-	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListAnimeEpisodesBySeasonID", arg0, arg1)
-	ret0, _ := ret[0].([]db.AnimeSerieEpisode)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// ListAnimeEpisodesBySeasonID indicates an expected call of ListAnimeEpisodesBySeasonID.
-func (mr *MockGojoMockRecorder) ListAnimeEpisodesBySeasonID(arg0, arg1 interface{}) *gomock.Call {
-	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeEpisodesBySeasonID", reflect.TypeOf((*MockGojo)(nil).ListAnimeEpisodesBySeasonID), arg0, arg1)
-}
-
 // ListAnimeImages mocks base method.
 func (m *MockGojo) ListAnimeImages(arg0 context.Context, arg1 int64) ([]db.AnimeImage, error) {
 	m.ctrl.T.Helper()
@@ -3572,19 +3557,19 @@ func (mr *MockGojoMockRecorder) ListAnimeMovies(arg0, arg1 interface{}) *gomock.
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeMovies", reflect.TypeOf((*MockGojo)(nil).ListAnimeMovies), arg0, arg1)
 }
 
-// ListAnimeSeasonEpisodesBySeason mocks base method.
-func (m *MockGojo) ListAnimeSeasonEpisodesBySeason(arg0 context.Context, arg1 db.ListAnimeSeasonEpisodesBySeasonParams) ([]db.AnimeSeasonEpisode, error) {
+// ListAnimeSeasonEpisodes mocks base method.
+func (m *MockGojo) ListAnimeSeasonEpisodes(arg0 context.Context, arg1 db.ListAnimeSeasonEpisodesParams) ([]db.AnimeSeasonEpisode, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListAnimeSeasonEpisodesBySeason", arg0, arg1)
+	ret := m.ctrl.Call(m, "ListAnimeSeasonEpisodes", arg0, arg1)
 	ret0, _ := ret[0].([]db.AnimeSeasonEpisode)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// ListAnimeSeasonEpisodesBySeason indicates an expected call of ListAnimeSeasonEpisodesBySeason.
-func (mr *MockGojoMockRecorder) ListAnimeSeasonEpisodesBySeason(arg0, arg1 interface{}) *gomock.Call {
+// ListAnimeSeasonEpisodes indicates an expected call of ListAnimeSeasonEpisodes.
+func (mr *MockGojoMockRecorder) ListAnimeSeasonEpisodes(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeSeasonEpisodesBySeason", reflect.TypeOf((*MockGojo)(nil).ListAnimeSeasonEpisodesBySeason), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAnimeSeasonEpisodes", reflect.TypeOf((*MockGojo)(nil).ListAnimeSeasonEpisodes), arg0, arg1)
 }
 
 // ListAnimeSeasonGenres mocks base method.

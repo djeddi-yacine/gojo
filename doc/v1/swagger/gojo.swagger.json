@@ -1402,6 +1402,52 @@
         ]
       }
     },
+    "/anime/serie/season/{seasonID}/episode": {
+      "get": {
+        "description": "Use this API to get all anime season episodes",
+        "operationId": "AnimeSerieService_GetAnimeSeasonEpisodes",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1GetAnimeSeasonEpisodesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "seasonID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
     "/anime/serie/trailer/create": {
       "post": {
         "description": "Use this API to create a new anime serie trailers",
@@ -1509,7 +1555,7 @@
     },
     "/anime/serie/{animeID}/season": {
       "get": {
-        "description": "Use this API to get all anime serie season",
+        "description": "Use this API to get all anime serie seasons",
         "operationId": "AnimeSerieService_GetAnimeSerieSeasons",
         "responses": {
           "200": {
@@ -4041,6 +4087,18 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/aspbv1AnimeSerieResponse"
+          }
+        }
+      }
+    },
+    "aspbv1GetAnimeSeasonEpisodesResponse": {
+      "type": "object",
+      "properties": {
+        "seasonEpisode": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeEpisodeResponse"
           }
         }
       }
