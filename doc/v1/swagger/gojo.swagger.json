@@ -4459,6 +4459,12 @@
         "password": {
           "type": "string"
         },
+        "deviceName": {
+          "type": "string"
+        },
+        "deviceHash": {
+          "type": "string"
+        },
         "operatingSystem": {
           "type": "string"
         },

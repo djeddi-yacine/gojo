@@ -15,20 +15,24 @@ import (
 const createDevice = `-- name: CreateDevice :one
 INSERT INTO devices (
     id,
+    device_name,
+    device_hash,
     operating_system,
     mac_address,
     client_ip,
     user_agent
 ) VALUES (
-    $1, $2, $3, $4, $5
+    $1, $2, $3, $4, $5, $6, $7
 )
-ON CONFLICT (operating_system, mac_address, client_ip)
+ON CONFLICT (device_hash)
 DO UPDATE SET user_agent = excluded.user_agent
-RETURNING id, operating_system, mac_address, client_ip, user_agent, is_banned, created_at
+RETURNING id, device_name, device_hash, operating_system, mac_address, client_ip, user_agent, is_banned, created_at
 `
 
 type CreateDeviceParams struct {
 	ID              uuid.UUID
+	DeviceName      string
+	DeviceHash      string
 	OperatingSystem string
 	MacAddress      string
 	ClientIp        string
@@ -38,6 +42,8 @@ type CreateDeviceParams struct {
 func (q *Queries) CreateDevice(ctx context.Context, arg CreateDeviceParams) (Device, error) {
 	row := q.db.QueryRow(ctx, createDevice,
 		arg.ID,
+		arg.DeviceName,
+		arg.DeviceHash,
 		arg.OperatingSystem,
 		arg.MacAddress,
 		arg.ClientIp,
@@ -46,6 +52,8 @@ func (q *Queries) CreateDevice(ctx context.Context, arg CreateDeviceParams) (Dev
 	var i Device
 	err := row.Scan(
 		&i.ID,
+		&i.DeviceName,
+		&i.DeviceHash,
 		&i.OperatingSystem,
 		&i.MacAddress,
 		&i.ClientIp,
@@ -67,7 +75,7 @@ func (q *Queries) DeleteDevice(ctx context.Context, id uuid.UUID) error {
 }
 
 const getDevice = `-- name: GetDevice :one
-SELECT id, operating_system, mac_address, client_ip, user_agent, is_banned, created_at FROM devices
+SELECT id, device_name, device_hash, operating_system, mac_address, client_ip, user_agent, is_banned, created_at FROM devices
 WHERE id = $1 LIMIT 1
 `
 
@@ -76,6 +84,8 @@ func (q *Queries) GetDevice(ctx context.Context, id uuid.UUID) (Device, error) {
 	var i Device
 	err := row.Scan(
 		&i.ID,
+		&i.DeviceName,
+		&i.DeviceHash,
 		&i.OperatingSystem,
 		&i.MacAddress,
 		&i.ClientIp,

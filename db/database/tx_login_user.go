@@ -10,6 +10,8 @@ import (
 type LoginUserTxParams struct {
 	Username        string
 	Password        string
+	DeviceName      string
+	DeviceHash      string
 	OperatingSystem string
 	MacAddress      string
 	ClientIp        string
@@ -34,6 +36,8 @@ func (gojo *SQLGojo) LoginUserTx(ctx context.Context, arg LoginUserTxParams) (Us
 
 		device, err := q.CreateDevice(ctx, CreateDeviceParams{
 			ID:              uuid.New(),
+			DeviceName:      arg.DeviceName,
+			DeviceHash:      arg.DeviceHash,
 			OperatingSystem: arg.OperatingSystem,
 			MacAddress:      arg.MacAddress,
 			ClientIp:        arg.ClientIp,

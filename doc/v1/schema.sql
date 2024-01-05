@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2024-01-05T00:24:12.068Z
+-- Generated at: 2024-01-05T13:50:23.699Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -26,6 +26,8 @@ CREATE TABLE "sessions" (
 
 CREATE TABLE "devices" (
   "id" uuid UNIQUE PRIMARY KEY NOT NULL,
+  "device_name" varchar NOT NULL,
+  "device_hash" varchar NOT NULL,
   "operating_system" varchar NOT NULL,
   "mac_address" varchar NOT NULL,
   "client_ip" varchar NOT NULL,
@@ -529,7 +531,7 @@ CREATE INDEX ON "sessions" ("id");
 
 CREATE INDEX ON "devices" ("id");
 
-CREATE UNIQUE INDEX ON "devices" ("operating_system", "mac_address", "client_ip");
+CREATE UNIQUE INDEX ON "devices" ("device_hash");
 
 CREATE UNIQUE INDEX ON "user_devices" ("user_id", "device_id");
 

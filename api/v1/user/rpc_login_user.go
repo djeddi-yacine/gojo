@@ -23,6 +23,8 @@ func (server *UserServer) LoginUser(ctx context.Context, req *uspbv1.LoginUserRe
 	user, err := server.gojo.LoginUserTx(ctx, db.LoginUserTxParams{
 		Username:        req.Username,
 		Password:        req.Password,
+		DeviceName:      req.DeviceName,
+		DeviceHash:      req.DeviceHash,
 		OperatingSystem: req.OperatingSystem,
 		MacAddress:      req.MacAddress,
 		UserAgent:       md.UserAgent,
@@ -95,6 +97,14 @@ func validateLoginUserRequest(req *uspbv1.LoginUserRequest) (violations []*errde
 
 	if err := utils.ValidatePassword(req.GetPassword()); err != nil {
 		violations = append(violations, shv1.FieldViolation("password", err))
+	}
+
+	if err := utils.ValidateString(req.GetDeviceName(), 2, 100); err != nil {
+		violations = append(violations, shv1.FieldViolation("deviceName", err))
+	}
+
+	if err := utils.ValidateString(req.GetDeviceHash(), 20, 35); err != nil {
+		violations = append(violations, shv1.FieldViolation("deviceHash", err))
 	}
 
 	if err := utils.ValidateString(req.GetOperatingSystem(), 3, 100); err != nil {

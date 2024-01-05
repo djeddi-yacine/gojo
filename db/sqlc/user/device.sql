@@ -1,14 +1,16 @@
 -- name: CreateDevice :one
 INSERT INTO devices (
     id,
+    device_name,
+    device_hash,
     operating_system,
     mac_address,
     client_ip,
     user_agent
 ) VALUES (
-    $1, $2, $3, $4, $5
+    $1, $2, $3, $4, $5, $6, $7
 )
-ON CONFLICT (operating_system, mac_address, client_ip)
+ON CONFLICT (device_hash)
 DO UPDATE SET user_agent = excluded.user_agent
 RETURNING *;
 

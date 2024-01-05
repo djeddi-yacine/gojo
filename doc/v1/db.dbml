@@ -35,6 +35,8 @@ Table sessions {
 
 Table devices {
   id uuid [primary key, unique, not null]
+  device_name varchar [not null]
+  device_hash varchar [not null]
   operating_system varchar [not null]
   mac_address varchar [not null]
   client_ip varchar [not null]
@@ -43,7 +45,7 @@ Table devices {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      (operating_system, mac_address, client_ip) [unique]
+      (device_hash) [unique]
     }
 }
 

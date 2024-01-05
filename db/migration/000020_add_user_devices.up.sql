@@ -1,5 +1,7 @@
 CREATE TABLE "devices" (
   "id" uuid UNIQUE PRIMARY KEY NOT NULL,
+  "device_name" varchar NOT NULL,
+  "device_hash" varchar NOT NULL,
   "operating_system" varchar NOT NULL,
   "mac_address" varchar NOT NULL,
   "client_ip" varchar NOT NULL,
@@ -17,7 +19,7 @@ CREATE TABLE "user_devices" (
 
 CREATE INDEX ON "devices" ("id");
 
-CREATE UNIQUE INDEX ON "devices" ("operating_system", "mac_address", "client_ip");
+CREATE UNIQUE INDEX ON "devices" ("device_hash");
 
 CREATE UNIQUE INDEX ON "user_devices" ("user_id", "device_id");
 

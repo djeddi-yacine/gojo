@@ -457,6 +457,8 @@ type AnimeTrailer struct {
 
 type Device struct {
 	ID              uuid.UUID
+	DeviceName      string
+	DeviceHash      string
 	OperatingSystem string
 	MacAddress      string
 	ClientIp        string

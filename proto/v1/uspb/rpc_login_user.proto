@@ -11,8 +11,10 @@ option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/uspb;uspbv1";
 message LoginUserRequest {
   string username        = 1;
   string password        = 2;
-  string operatingSystem = 3;
-  string macAddress      = 4;
+  string deviceName      = 3;
+  string deviceHash      = 4;
+  string operatingSystem = 5;
+  string macAddress      = 6;
 }
 
 message LoginUserResponse {
