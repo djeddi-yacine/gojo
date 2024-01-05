@@ -43,6 +43,7 @@ Table devices {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
+      (operating_system, mac_address, client_ip) [unique]
     }
 }
 
@@ -51,7 +52,7 @@ Table user_devices {
   user_id bigserial [not null]
   device_id uuid [not null]
     indexes {
-      (id, user_id)
+      (user_id, device_id) [unique]
     }
 }
 

@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2024-01-04T20:06:21.821Z
+-- Generated at: 2024-01-04T22:37:04.177Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -529,7 +529,9 @@ CREATE INDEX ON "sessions" ("id");
 
 CREATE INDEX ON "devices" ("id");
 
-CREATE INDEX ON "user_devices" ("id", "user_id");
+CREATE UNIQUE INDEX ON "devices" ("operating_system", "mac_address", "client_ip");
+
+CREATE UNIQUE INDEX ON "user_devices" ("user_id", "device_id");
 
 CREATE INDEX ON "anime_movies" ("id");
 

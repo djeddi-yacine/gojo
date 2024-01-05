@@ -17,7 +17,9 @@ CREATE TABLE "user_devices" (
 
 CREATE INDEX ON "devices" ("id");
 
-CREATE INDEX ON "user_devices" ("id", "user_id");
+CREATE UNIQUE INDEX ON "devices" ("operating_system", "mac_address", "client_ip");
+
+CREATE UNIQUE INDEX ON "user_devices" ("user_id", "device_id");
 
 
 ALTER TABLE "user_devices" ADD FOREIGN KEY ("user_id") REFERENCES "users" ("id") ON DELETE CASCADE;
