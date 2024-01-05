@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package v1.aspbv1;
+
+import "v1/aspb/msg_anime_season.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
+
+message GetAnimeSerieSeasonsRequest {
+  int64 animeID    = 1;
+  int32 pageNumber = 2;
+  int32 pageSize   = 3;
+}
+
+message GetAnimeSerieSeasonsResponse {
+  repeated AnimeSeasonResponse animeSeasons = 1;
+}

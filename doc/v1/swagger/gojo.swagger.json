@@ -1507,6 +1507,52 @@
         ]
       }
     },
+    "/anime/serie/{animeID}/season": {
+      "get": {
+        "description": "Use this API to get all anime serie season",
+        "operationId": "AnimeSerieService_GetAnimeSerieSeasons",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1GetAnimeSerieSeasonsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
     "/anime/studio": {
       "get": {
         "description": "Use this API to get all anime studios",
@@ -3995,6 +4041,18 @@
           "items": {
             "type": "object",
             "$ref": "#/definitions/aspbv1AnimeSerieResponse"
+          }
+        }
+      }
+    },
+    "aspbv1GetAnimeSerieSeasonsResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeasons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
           }
         }
       }
