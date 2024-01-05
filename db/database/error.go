@@ -1,10 +1,17 @@
 package db
 
 import (
+	"errors"
+
 	"github.com/jackc/pgerrcode"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/rs/zerolog/log"
+)
+
+var (
+	ErrInccorectPassword  = errors.New("inccorect password")
+	ErrFailedPrecondition = errors.New("this device is banned for this account")
 )
 
 func ErrorSQL(err error) {

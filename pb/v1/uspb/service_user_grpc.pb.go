@@ -19,11 +19,12 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	UserService_CreateUser_FullMethodName  = "/v1.uspbv1.UserService/CreateUser"
-	UserService_LoginUser_FullMethodName   = "/v1.uspbv1.UserService/LoginUser"
-	UserService_UpdateUser_FullMethodName  = "/v1.uspbv1.UserService/UpdateUser"
-	UserService_VerifyEmail_FullMethodName = "/v1.uspbv1.UserService/VerifyEmail"
-	UserService_RenewTokens_FullMethodName = "/v1.uspbv1.UserService/RenewTokens"
+	UserService_CreateUser_FullMethodName     = "/v1.uspbv1.UserService/CreateUser"
+	UserService_LoginUser_FullMethodName      = "/v1.uspbv1.UserService/LoginUser"
+	UserService_UpdateUser_FullMethodName     = "/v1.uspbv1.UserService/UpdateUser"
+	UserService_VerifyEmail_FullMethodName    = "/v1.uspbv1.UserService/VerifyEmail"
+	UserService_RenewTokens_FullMethodName    = "/v1.uspbv1.UserService/RenewTokens"
+	UserService_GetUserDevices_FullMethodName = "/v1.uspbv1.UserService/GetUserDevices"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -35,6 +36,7 @@ type UserServiceClient interface {
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 	VerifyEmail(ctx context.Context, in *VerifyEmailRequest, opts ...grpc.CallOption) (*VerifyEmailResponse, error)
 	RenewTokens(ctx context.Context, in *RenewTokensRequest, opts ...grpc.CallOption) (*RenewTokensResponse, error)
+	GetUserDevices(ctx context.Context, in *GetUserDevicesRequest, opts ...grpc.CallOption) (*GetUserDevicesResponse, error)
 }
 
 type userServiceClient struct {
@@ -90,6 +92,15 @@ func (c *userServiceClient) RenewTokens(ctx context.Context, in *RenewTokensRequ
 	return out, nil
 }
 
+func (c *userServiceClient) GetUserDevices(ctx context.Context, in *GetUserDevicesRequest, opts ...grpc.CallOption) (*GetUserDevicesResponse, error) {
+	out := new(GetUserDevicesResponse)
+	err := c.cc.Invoke(ctx, UserService_GetUserDevices_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility
@@ -99,6 +110,7 @@ type UserServiceServer interface {
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	VerifyEmail(context.Context, *VerifyEmailRequest) (*VerifyEmailResponse, error)
 	RenewTokens(context.Context, *RenewTokensRequest) (*RenewTokensResponse, error)
+	GetUserDevices(context.Context, *GetUserDevicesRequest) (*GetUserDevicesResponse, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -120,6 +132,9 @@ func (UnimplementedUserServiceServer) VerifyEmail(context.Context, *VerifyEmailR
 }
 func (UnimplementedUserServiceServer) RenewTokens(context.Context, *RenewTokensRequest) (*RenewTokensResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RenewTokens not implemented")
+}
+func (UnimplementedUserServiceServer) GetUserDevices(context.Context, *GetUserDevicesRequest) (*GetUserDevicesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetUserDevices not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 
@@ -224,6 +239,24 @@ func _UserService_RenewTokens_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetUserDevices_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetUserDevicesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetUserDevices(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetUserDevices_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetUserDevices(ctx, req.(*GetUserDevicesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -250,6 +283,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RenewTokens",
 			Handler:    _UserService_RenewTokens_Handler,
+		},
+		{
+			MethodName: "GetUserDevices",
+			Handler:    _UserService_GetUserDevices_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

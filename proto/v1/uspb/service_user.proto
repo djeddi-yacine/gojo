@@ -10,6 +10,7 @@ import "v1/uspb/rpc_login_user.proto";
 import "v1/uspb/rpc_update_user.proto";
 import "v1/uspb/rpc_verify_email.proto";
 import "v1/uspb/rpc_renew_tokens.proto";
+import "v1/uspb/rpc_get_user_devices.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/uspb;uspbv1";
 
@@ -70,6 +71,14 @@ rpc RenewTokens(RenewTokensRequest) returns (RenewTokensResponse) {
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
     description: "Use this API to renew user's access token & refresh token";
+};
+}
+rpc GetUserDevices(GetUserDevicesRequest) returns (GetUserDevicesResponse) {
+  option (google.api.http) = {
+    get: "/user/devices/{userID}"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get user devices";
 };
 }
 }

@@ -74,7 +74,7 @@ type Querier interface {
 	CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error)
 	CreateStudio(ctx context.Context, studioName string) (Studio, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
-	CreateUserDevice(ctx context.Context, arg CreateUserDeviceParams) (UserDevice, error)
+	CreateUserDevice(ctx context.Context, arg CreateUserDeviceParams) error
 	CreateVerifyEmail(ctx context.Context, arg CreateVerifyEmailParams) (VerifyEmail, error)
 	DeleteAnimeEpisode(ctx context.Context, id int64) error
 	DeleteAnimeEpisodeMeta(ctx context.Context, arg DeleteAnimeEpisodeMetaParams) error

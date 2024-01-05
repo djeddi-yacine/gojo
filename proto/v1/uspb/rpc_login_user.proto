@@ -9,8 +9,10 @@ import "v1/uspb/msg_user.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/uspb;uspbv1";
 
 message LoginUserRequest {
-  string username = 1;
-  string password = 2;
+  string username        = 1;
+  string password        = 2;
+  string operatingSystem = 3;
+  string macAddress      = 4;
 }
 
 message LoginUserResponse {

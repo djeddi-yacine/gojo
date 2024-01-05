@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package v1.uspbv1;
+
+import "v1/uspb/msg_user.proto";
+import "v1/uspb/msg_device.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/uspb;uspbv1";
+
+message GetUserDevicesRequest {
+  int32 pageNumber = 1;
+  int32 pageSize   = 2;
+  int64 userID     = 3;
+}
+
+message GetUserDevicesResponse {
+  repeated Device devices = 1;
+}

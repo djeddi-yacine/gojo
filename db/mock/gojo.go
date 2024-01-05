@@ -1432,12 +1432,11 @@ func (mr *MockGojoMockRecorder) CreateUser(arg0, arg1 interface{}) *gomock.Call 
 }
 
 // CreateUserDevice mocks base method.
-func (m *MockGojo) CreateUserDevice(arg0 context.Context, arg1 db.CreateUserDeviceParams) (db.UserDevice, error) {
+func (m *MockGojo) CreateUserDevice(arg0 context.Context, arg1 db.CreateUserDeviceParams) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateUserDevice", arg0, arg1)
-	ret0, _ := ret[0].(db.UserDevice)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
+	ret0, _ := ret[0].(error)
+	return ret0
 }
 
 // CreateUserDevice indicates an expected call of CreateUserDevice.
@@ -3856,6 +3855,21 @@ func (m *MockGojo) ListUsers(arg0 context.Context, arg1 db.ListUsersParams) ([]d
 func (mr *MockGojoMockRecorder) ListUsers(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListUsers", reflect.TypeOf((*MockGojo)(nil).ListUsers), arg0, arg1)
+}
+
+// LoginUserTx mocks base method.
+func (m *MockGojo) LoginUserTx(arg0 context.Context, arg1 db.LoginUserTxParams) (db.User, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "LoginUserTx", arg0, arg1)
+	ret0, _ := ret[0].(db.User)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// LoginUserTx indicates an expected call of LoginUserTx.
+func (mr *MockGojoMockRecorder) LoginUserTx(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LoginUserTx", reflect.TypeOf((*MockGojo)(nil).LoginUserTx), arg0, arg1)
 }
 
 // QueryAnimeMovieOfficialTitles mocks base method.

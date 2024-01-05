@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"net"
 	"net/mail"
 	"net/url"
 	"regexp"
@@ -15,6 +16,7 @@ var (
 	isValidToken    = regexp.MustCompile(`^v2\.[^.]*\.[^.]*\.[^.]*$`).MatchString
 	isValidQuality  = regexp.MustCompile(`^(auto|1080p|720p|480p|480p|360p|240p|144p|SD|HD|FHD|4K)$`).MatchString
 	isValidImage    = regexp.MustCompile(`(?i)\.(jpg|jpeg|png|gif|bmp|tiff|webp|svg|ico)$`).MatchString
+	isValidMAC      = regexp.MustCompile(`^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$`).MatchString
 )
 
 func ValidateString(value string, minLength int, maxLength int) error {
@@ -144,4 +146,14 @@ func ValidateImage(value string) error {
 
 	}
 	return nil
+}
+
+func ValidateMAC(value string) error {
+	if !isValidMAC(value) {
+		return fmt.Errorf("must be a valid MAC Address")
+
+	}
+
+	_, err := net.ParseMAC(value)
+	return err
 }

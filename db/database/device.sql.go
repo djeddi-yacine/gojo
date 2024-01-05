@@ -14,32 +14,34 @@ import (
 
 const createDevice = `-- name: CreateDevice :one
 INSERT INTO devices (
+    id,
     operating_system,
     mac_address,
     client_ip,
-    user_agent,
-    is_banned
+    user_agent
 ) VALUES (
-  $1, $2, $3, $4, $5
+    $1, $2, $3, $4, $5
 )
+ON CONFLICT (operating_system, mac_address, client_ip)
+DO UPDATE SET user_agent = excluded.user_agent
 RETURNING id, operating_system, mac_address, client_ip, user_agent, is_banned, created_at
 `
 
 type CreateDeviceParams struct {
+	ID              uuid.UUID
 	OperatingSystem string
 	MacAddress      string
 	ClientIp        string
 	UserAgent       string
-	IsBanned        bool
 }
 
 func (q *Queries) CreateDevice(ctx context.Context, arg CreateDeviceParams) (Device, error) {
 	row := q.db.QueryRow(ctx, createDevice,
+		arg.ID,
 		arg.OperatingSystem,
 		arg.MacAddress,
 		arg.ClientIp,
 		arg.UserAgent,
-		arg.IsBanned,
 	)
 	var i Device
 	err := row.Scan(

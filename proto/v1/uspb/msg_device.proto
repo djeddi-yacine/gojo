@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package v1.uspbv1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/uspb;uspbv1";
+
+message Device {
+  string                    ID              = 1;
+  string                    operatingSystem = 2;
+  string                    macAddress      = 3;
+  string                    clientIP        = 4;
+  string                    userAgent       = 5;
+  bool                      isBanned        = 6;
+  google.protobuf.Timestamp createdAt       = 7;
+}

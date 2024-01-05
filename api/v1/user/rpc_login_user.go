@@ -2,6 +2,7 @@ package usapiv1
 
 import (
 	"context"
+	"errors"
 
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
@@ -18,14 +19,23 @@ func (server *UserServer) LoginUser(ctx context.Context, req *uspbv1.LoginUserRe
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	user, err := server.gojo.GetUserByUsername(ctx, req.Username)
+	md := shv1.ExtractMetadata(ctx)
+	user, err := server.gojo.LoginUserTx(ctx, db.LoginUserTxParams{
+		Username:        req.Username,
+		Password:        req.Password,
+		OperatingSystem: req.OperatingSystem,
+		MacAddress:      req.MacAddress,
+		UserAgent:       md.UserAgent,
+		ClientIp:        md.ClientIP,
+	})
 	if err != nil {
-		return nil, shv1.ApiError("failed to find user", err)
-	}
-
-	err = utils.CheckPassword(req.Password, user.HashedPassword)
-	if err != nil {
-		return nil, status.Errorf(codes.Unauthenticated, "inccorect password : %s", err)
+		if errors.Is(err, db.ErrInccorectPassword) {
+			return nil, status.Errorf(codes.Unauthenticated, err.Error())
+		}
+		if errors.Is(err, db.ErrFailedPrecondition) {
+			return nil, status.Errorf(codes.FailedPrecondition, err.Error())
+		}
+		return nil, shv1.ApiError("failed to login user", err)
 	}
 
 	accessToken, accessPayload, err := server.tokenMaker.CreateToken(
@@ -61,6 +71,7 @@ func (server *UserServer) LoginUser(ctx context.Context, req *uspbv1.LoginUserRe
 
 	res := &uspbv1.LoginUserResponse{
 		User: &uspbv1.User{
+			ID:                user.ID,
 			Username:          user.Username,
 			FullName:          user.FullName,
 			Email:             user.Email,
@@ -84,6 +95,14 @@ func validateLoginUserRequest(req *uspbv1.LoginUserRequest) (violations []*errde
 
 	if err := utils.ValidatePassword(req.GetPassword()); err != nil {
 		violations = append(violations, shv1.FieldViolation("password", err))
+	}
+
+	if err := utils.ValidateString(req.GetOperatingSystem(), 3, 100); err != nil {
+		violations = append(violations, shv1.FieldViolation("operatingSystem", err))
+	}
+
+	if err := utils.ValidateMAC(req.GetMacAddress()); err != nil {
+		violations = append(violations, shv1.FieldViolation("macAddress", err))
 	}
 
 	return violations

@@ -1684,6 +1684,52 @@
         ]
       }
     },
+    "/user/devices/{userID}": {
+      "get": {
+        "description": "Use this API to get user devices",
+        "operationId": "UserService_GetUserDevices",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/uspbv1GetUserDevicesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
     "/user/email": {
       "get": {
         "description": "Use this API to verify user's email address",
@@ -4365,6 +4411,45 @@
         }
       }
     },
+    "uspbv1Device": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string"
+        },
+        "operatingSystem": {
+          "type": "string"
+        },
+        "macAddress": {
+          "type": "string"
+        },
+        "clientIP": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "isBanned": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "uspbv1GetUserDevicesResponse": {
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/uspbv1Device"
+          }
+        }
+      }
+    },
     "uspbv1LoginUserRequest": {
       "type": "object",
       "properties": {
@@ -4372,6 +4457,12 @@
           "type": "string"
         },
         "password": {
+          "type": "string"
+        },
+        "operatingSystem": {
+          "type": "string"
+        },
+        "macAddress": {
           "type": "string"
         }
       }
@@ -4451,6 +4542,10 @@
     "uspbv1User": {
       "type": "object",
       "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
         "username": {
           "type": "string"
         },

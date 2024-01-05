@@ -11,14 +11,15 @@ import (
 	"github.com/google/uuid"
 )
 
-const createUserDevice = `-- name: CreateUserDevice :one
+const createUserDevice = `-- name: CreateUserDevice :exec
 INSERT INTO user_devices (
     user_id,
     device_id
 ) VALUES (
   $1, $2
 )
-RETURNING id, user_id, device_id
+ON CONFLICT (user_id,device_id) 
+DO NOTHING
 `
 
 type CreateUserDeviceParams struct {
@@ -26,11 +27,9 @@ type CreateUserDeviceParams struct {
 	DeviceID uuid.UUID
 }
 
-func (q *Queries) CreateUserDevice(ctx context.Context, arg CreateUserDeviceParams) (UserDevice, error) {
-	row := q.db.QueryRow(ctx, createUserDevice, arg.UserID, arg.DeviceID)
-	var i UserDevice
-	err := row.Scan(&i.ID, &i.UserID, &i.DeviceID)
-	return i, err
+func (q *Queries) CreateUserDevice(ctx context.Context, arg CreateUserDeviceParams) error {
+	_, err := q.db.Exec(ctx, createUserDevice, arg.UserID, arg.DeviceID)
+	return err
 }
 
 const listUserDevices = `-- name: ListUserDevices :many
