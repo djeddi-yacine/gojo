@@ -12,18 +12,14 @@ import (
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/jackc/pgerrcode"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 func (server *AnimeMovieServer) GetAnimeMovieImages(ctx context.Context, req *ampbv1.GetAnimeMovieImagesRequest) (*ampbv1.GetAnimeMovieImagesResponse, error) {
-	authPayload, err := shv1.AuthorizeUser(ctx, server.tokenMaker, []string{utils.AdminRole, utils.RootRoll})
+	var err error
+
+	_, err = shv1.AuthorizeUser(ctx, server.tokenMaker, utils.AllRolls)
 	if err != nil {
 		return nil, shv1.UnAuthenticatedError(err)
-	}
-
-	if authPayload.Role != utils.RootRoll {
-		return nil, status.Errorf(codes.PermissionDenied, "cannot get full anime movie")
 	}
 
 	violations := validateGetAnimeMovieImagesRequest(req)

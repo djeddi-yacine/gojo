@@ -9,18 +9,14 @@ import (
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/jackc/pgerrcode"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 func (server *AnimeSerieServer) GetAllAnimeSeries(ctx context.Context, req *aspbv1.GetAllAnimeSeriesRequest) (*aspbv1.GetAllAnimeSeriesResponse, error) {
-	authPayload, err := shv1.AuthorizeUser(ctx, server.tokenMaker, []string{utils.AdminRole, utils.RootRoll})
+	var err error
+
+	_, err = shv1.AuthorizeUser(ctx, server.tokenMaker, utils.AllRolls)
 	if err != nil {
 		return nil, shv1.UnAuthenticatedError(err)
-	}
-
-	if authPayload.Role != utils.RootRoll {
-		return nil, status.Errorf(codes.PermissionDenied, "cannot get all anime Series")
 	}
 
 	violations := validateGetAllAnimeSeriesRequest(req)
