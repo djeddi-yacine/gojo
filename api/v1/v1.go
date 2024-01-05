@@ -71,11 +71,8 @@ func StartGatewayApi(httpMux *http.ServeMux, config utils.Config, gojo db.Gojo, 
 		return fmt.Errorf("cannot register Gateway server for Anime Serie Service v1: %w", err)
 	}
 
-	vMux := http.NewServeMux()
-	vMux.Handle("/v1/", http.StripPrefix("/v1", grpcMux))
-
 	// Use the custom ServeMux
-	httpMux.Handle("/", vMux)
+	httpMux.Handle("/v1/", http.StripPrefix("/v1", grpcMux))
 
 	return nil
 }
