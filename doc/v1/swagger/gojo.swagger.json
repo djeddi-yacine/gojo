@@ -1,0 +1,4577 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Gojo API",
+    "version": "3.0",
+    "contact": {
+      "name": "Dj Yacine",
+      "url": "https://github.com/dj-yacine-flutter/gojo"
+    }
+  },
+  "tags": [
+    {
+      "name": "UserService"
+    },
+    {
+      "name": "AnimeMovieService"
+    },
+    {
+      "name": "AnimeSerieService"
+    },
+    {
+      "name": "InfoService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/anime/genre": {
+      "get": {
+        "description": "Use this API to get all anime genres",
+        "operationId": "InfoService_GetAllGenres",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nfpbv1GetAllGenresResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "InfoService"
+        ]
+      }
+    },
+    "/anime/genre/create": {
+      "post": {
+        "description": "Use this API to create a new genres",
+        "operationId": "InfoService_CreateGenres",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nfpbv1CreateGenresResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/nfpbv1CreateGenresRequest"
+            }
+          }
+        ],
+        "tags": [
+          "InfoService"
+        ]
+      }
+    },
+    "/anime/movie/all": {
+      "get": {
+        "description": "Use this API to get all anime movies or by year",
+        "operationId": "AnimeMovieService_GetAllAnimeMovies",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1GetAllAnimeMoviesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/create": {
+      "post": {
+        "description": "Use this API to create a new anime movie",
+        "operationId": "AnimeMovieService_CreateAnimeMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/data/create": {
+      "post": {
+        "description": "Use this API to add a new anime movie data",
+        "operationId": "AnimeMovieService_CreateAnimeMovieData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieDataRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/image/create": {
+      "post": {
+        "description": "Use this API to create a new anime movie images",
+        "operationId": "AnimeMovieService_CreateAnimeMovieImage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieImageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieImageRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/info/create": {
+      "post": {
+        "description": "Use this API to add info to anime movie like studios and genres",
+        "operationId": "AnimeMovieService_CreateAnimeMovieInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieInfoRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/link/create": {
+      "post": {
+        "description": "Use this API to create a new anime movie links",
+        "operationId": "AnimeMovieService_CreateAnimeMovieLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieLinkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieLinkRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/meta": {
+      "get": {
+        "description": "Use this API to get all anime movie metas",
+        "operationId": "AnimeMovieService_GetAllAnimeMovieMetas",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1GetAllAnimeMovieMetasResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/meta/create": {
+      "post": {
+        "description": "Use this API to create a new anime movie meta",
+        "operationId": "AnimeMovieService_CreateAnimeMovieMetas",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieMetasResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieMetasRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/query/{query}": {
+      "get": {
+        "description": "Use this API to query anime movies",
+        "operationId": "AnimeMovieService_QueryAnimeMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1QueryAnimeMovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/resource/create": {
+      "post": {
+        "description": "Use this API to create a new anime movie resources",
+        "operationId": "AnimeMovieService_CreateAnimeMovieResource",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieResourceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieResourceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/server/create": {
+      "post": {
+        "description": "Use this API to create a new anime movie server",
+        "operationId": "AnimeMovieService_CreateAnimeMovieServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieServerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieServerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/tag/create": {
+      "post": {
+        "description": "Use this API to add a new anime movie tags",
+        "operationId": "AnimeMovieService_CreateAnimeMovieTag",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieTagResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieTagRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/title/create": {
+      "post": {
+        "description": "Use this API to create a new anime movie titles",
+        "operationId": "AnimeMovieService_CreateAnimeMovieTitle",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieTitleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieTitleRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/trailer/create": {
+      "post": {
+        "description": "Use this API to create a new anime movie trailers",
+        "operationId": "AnimeMovieService_CreateAnimeMovieTrailer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieTrailerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieTrailerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/update": {
+      "patch": {
+        "description": "Use this API to update all anime movie fields using the ID",
+        "operationId": "AnimeMovieService_UpdateAnimeMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1UpdateAnimeMovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbv1UpdateAnimeMovieRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/{animeID}": {
+      "get": {
+        "description": "Use this API to get full anime movie by ID",
+        "operationId": "AnimeMovieService_GetFullAnimeMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1GetFullAnimeMovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "languageID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/{animeID}/images": {
+      "get": {
+        "description": "Use this API to get anime movie images by ID",
+        "operationId": "AnimeMovieService_GetAnimeMovieImages",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1GetAnimeMovieImagesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/serie": {
+      "get": {
+        "description": "Use this API to get all anime series or by year",
+        "operationId": "AnimeSerieService_GetAllAnimeSeries",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1GetAllAnimeSeriesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "year",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/create": {
+      "post": {
+        "description": "Use this API to create a new anime serie",
+        "operationId": "AnimeSerieService_CreateAnimeSerie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSerieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSerieRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/episode/create": {
+      "post": {
+        "description": "Use this API to create a new anime serie episode",
+        "operationId": "AnimeSerieService_CreateAnimeEpisode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeEpisodeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeEpisodeRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/episode/data/create": {
+      "post": {
+        "description": "Use this API to add a new anime serie data",
+        "operationId": "AnimeSerieService_CreateAnimeEpisodeData",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeEpisodeDataResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeEpisodeDataRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/episode/meta/create": {
+      "post": {
+        "description": "Use this API to add a new metas to anime serie episode",
+        "operationId": "AnimeSerieService_CreateAnimeEpisodeMetas",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeEpisodeMetasResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeEpisodeMetasRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/episode/server/create": {
+      "post": {
+        "description": "Use this API to create a new anime episode server",
+        "operationId": "AnimeSerieService_CreateAnimeEpisodeServer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeEpisodeServerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeEpisodeServerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/image/create": {
+      "post": {
+        "description": "Use this API to create a new anime serie images",
+        "operationId": "AnimeSerieService_CreateAnimeSerieImage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSerieImageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSerieImageRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/link/create": {
+      "post": {
+        "description": "Use this API to create a new anime serie links",
+        "operationId": "AnimeSerieService_CreateAnimeSerieLink",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSerieLinkResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSerieLinkRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/meta": {
+      "get": {
+        "description": "Use this API to get all anime serie metas",
+        "operationId": "AnimeSerieService_GetAllAnimeSerieMetas",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1GetAllAnimeSerieMetasResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/meta/create": {
+      "post": {
+        "description": "Use this API to create a new anime serie meta",
+        "operationId": "AnimeSerieService_CreateAnimeSerieMetas",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSerieMetasResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSerieMetasRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/season/create": {
+      "post": {
+        "description": "Use this API to create a new anime serie season",
+        "operationId": "AnimeSerieService_CreateAnimeSeason",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/season/image/create": {
+      "post": {
+        "description": "Use this API to create a new anime serie season images",
+        "operationId": "AnimeSerieService_CreateAnimeSeasonImage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonImageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonImageRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/season/info/create": {
+      "post": {
+        "description": "Use this API to add info to anime serie season like studios and genres",
+        "operationId": "AnimeSerieService_CreateAnimeSeasonInfo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonInfoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "seasonID",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "genreIDs",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "studioIDs",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/season/meta/create": {
+      "post": {
+        "description": "Use this API to add a new metas to anime serie season",
+        "operationId": "AnimeSerieService_CreateAnimeSeasonMetas",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonMetasResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonMetasRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/season/query/{query}": {
+      "get": {
+        "description": "Use this API to query anime seasons",
+        "operationId": "AnimeSerieService_QueryAnimeSeason",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1QueryAnimeSeasonResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "query",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/season/resource/create": {
+      "post": {
+        "description": "Use this API to create a new anime serie season resources",
+        "operationId": "AnimeSerieService_CreateAnimeSeasonResource",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonResourceResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonResourceRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/season/tag/create": {
+      "post": {
+        "description": "Use this API to create a new anime season tags",
+        "operationId": "AnimeSerieService_CreateAnimeSeasonTag",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonTagResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonTagRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/season/title/create": {
+      "post": {
+        "description": "Use this API to create a new anime season titles",
+        "operationId": "AnimeSerieService_CreateAnimeSeasonTitle",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonTitleResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonTitleRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/season/trailer/create": {
+      "post": {
+        "description": "Use this API to create a new anime serie season trailers",
+        "operationId": "AnimeSerieService_CreateAnimeSeasonTrailer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonTrailerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonTrailerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/season/{seasonID}": {
+      "get": {
+        "description": "Use this API to get full anime serie season by ID",
+        "operationId": "AnimeSerieService_GetFullAnimeSeason",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1GetFullAnimeSeasonResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "seasonID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "languageID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/trailer/create": {
+      "post": {
+        "description": "Use this API to create a new anime serie trailers",
+        "operationId": "AnimeSerieService_CreateAnimeSerieTrailer",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSerieTrailerResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSerieTrailerRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/update": {
+      "patch": {
+        "description": "Use this API to update all anime serie fields using the ID",
+        "operationId": "AnimeSerieService_UpdateAnimeSerie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1UpdateAnimeSerieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1UpdateAnimeSerieRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/{animeID}": {
+      "get": {
+        "description": "Use this API to get full anime serie by ID",
+        "operationId": "AnimeSerieService_GetFullAnimeSerie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1GetFullAnimeSerieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "languageID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/studio": {
+      "get": {
+        "description": "Use this API to get all anime studios",
+        "operationId": "InfoService_GetAllStudios",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nfpbv1GetAllStudiosResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "InfoService"
+        ]
+      }
+    },
+    "/anime/studio/create": {
+      "post": {
+        "description": "Use this API to create a new studios",
+        "operationId": "InfoService_CreateStudios",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nfpbv1CreateStudiosResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/nfpbv1CreateStudiosRequest"
+            }
+          }
+        ],
+        "tags": [
+          "InfoService"
+        ]
+      }
+    },
+    "/language": {
+      "get": {
+        "description": "Use this API to get all app languages",
+        "operationId": "InfoService_GetAllLanguages",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nfpbv1GetAllLanguagesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "InfoService"
+        ]
+      }
+    },
+    "/language/create": {
+      "post": {
+        "description": "Use this API to create a new languages",
+        "operationId": "InfoService_CreateLanguages",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nfpbv1CreateLanguagesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/nfpbv1CreateLanguagesRequest"
+            }
+          }
+        ],
+        "tags": [
+          "InfoService"
+        ]
+      }
+    },
+    "/user/create": {
+      "post": {
+        "description": "Use this API to create a new user",
+        "operationId": "UserService_CreateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/uspbv1CreateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/uspbv1CreateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/devices/{userID}": {
+      "get": {
+        "description": "Use this API to get user devices",
+        "operationId": "UserService_GetUserDevices",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/uspbv1GetUserDevicesResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "userID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/email": {
+      "get": {
+        "description": "Use this API to verify user's email address",
+        "operationId": "UserService_VerifyEmail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/uspbv1VerifyEmailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "emailID",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "secretCode",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/login": {
+      "post": {
+        "description": "Use this API to login user and get access token \u0026 refresh token",
+        "operationId": "UserService_LoginUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/uspbv1LoginUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/uspbv1LoginUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/renew_tokens": {
+      "post": {
+        "description": "Use this API to renew user's access token \u0026 refresh token",
+        "operationId": "UserService_RenewTokens",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/uspbv1RenewTokensResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "refreshToken",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    },
+    "/user/update": {
+      "patch": {
+        "description": "Use this API to update user email or fullName or password using the username",
+        "operationId": "UserService_UpdateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/uspbv1UpdateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/uspbv1UpdateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "UserService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ampbv1AnimeMovieDubDataRequest": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieVideoRequest"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieTorrentRequest"
+          }
+        }
+      }
+    },
+    "ampbv1AnimeMovieDubDataResponse": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieVideoResponse"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieTorrentResponse"
+          }
+        }
+      }
+    },
+    "ampbv1AnimeMovieRequest": {
+      "type": "object",
+      "properties": {
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rating": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "portraitPoster": {
+          "type": "string"
+        },
+        "portraitBlurHash": {
+          "type": "string"
+        },
+        "landscapePoster": {
+          "type": "string"
+        },
+        "landscapeBlurHash": {
+          "type": "string"
+        }
+      }
+    },
+    "ampbv1AnimeMovieResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rating": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "portraitPoster": {
+          "type": "string"
+        },
+        "portraitBlurHash": {
+          "type": "string"
+        },
+        "landscapePoster": {
+          "type": "string"
+        },
+        "landscapeBlurHash": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ampbv1AnimeMovieSubDataRequest": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieVideoRequest"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieTorrentRequest"
+          }
+        }
+      }
+    },
+    "ampbv1AnimeMovieSubDataResponse": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieVideoResponse"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieTorrentResponse"
+          }
+        }
+      }
+    },
+    "ampbv1AnimeMovieTag": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ampbv1AnimeMovieTitle": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "titleText": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ampbv1AnimeMovieTitleRequest": {
+      "type": "object",
+      "properties": {
+        "official": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "short": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "other": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ampbv1AnimeMovieTitleResponse": {
+      "type": "object",
+      "properties": {
+        "official": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieTitle"
+          }
+        },
+        "short": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieTitle"
+          }
+        },
+        "other": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieTitle"
+          }
+        }
+      }
+    },
+    "ampbv1AnimeMovieTorrentRequest": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "torrentHash": {
+          "type": "string"
+        },
+        "torrentFile": {
+          "type": "string"
+        },
+        "seeds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "peers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "leechers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sizeBytes": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quality": {
+          "type": "string"
+        }
+      }
+    },
+    "ampbv1AnimeMovieTorrentResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "torrentHash": {
+          "type": "string"
+        },
+        "torrentFile": {
+          "type": "string"
+        },
+        "seeds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "peers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "leechers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sizeBytes": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quality": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ampbv1AnimeMovieVideoRequest": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "authority": {
+          "type": "string"
+        },
+        "referer": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "quality": {
+          "type": "string"
+        }
+      }
+    },
+    "ampbv1AnimeMovieVideoResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "authority": {
+          "type": "string"
+        },
+        "referer": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "quality": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieDataRequest": {
+      "type": "object",
+      "properties": {
+        "serverID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "sub": {
+          "$ref": "#/definitions/ampbv1AnimeMovieSubDataRequest"
+        },
+        "dub": {
+          "$ref": "#/definitions/ampbv1AnimeMovieDubDataRequest"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieDataResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        },
+        "sub": {
+          "$ref": "#/definitions/ampbv1AnimeMovieSubDataResponse"
+        },
+        "dub": {
+          "$ref": "#/definitions/ampbv1AnimeMovieDubDataResponse"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieImageRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeImages": {
+          "$ref": "#/definitions/ashpbv1AnimeImageRequest"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieImageResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        },
+        "animeImages": {
+          "$ref": "#/definitions/ashpbv1AnimeImageResponse"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieInfoRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "genreIDs": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "studioIDs": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieInfoResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        },
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Genre"
+          }
+        },
+        "studios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Studio"
+          }
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieLinkRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeLinks": {
+          "$ref": "#/definitions/ashpbv1AnimeLinkRequest"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieLinkResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        },
+        "animeLinks": {
+          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieMetasRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaRequest"
+          }
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieMetasResponse": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieRequest": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbv1AnimeMovieRequest"
+        },
+        "animeResources": {
+          "$ref": "#/definitions/ashpbv1AnimeResourceRequest"
+        },
+        "animeLinks": {
+          "$ref": "#/definitions/ashpbv1AnimeLinkRequest"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieResourceRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeResources": {
+          "$ref": "#/definitions/ashpbv1AnimeResourceRequest"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieResourceResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        },
+        "animeResources": {
+          "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        },
+        "animeResources": {
+          "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
+        },
+        "animeLinks": {
+          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieServerRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieServerResponse": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "serverID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieTagRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeTags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieTagResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        },
+        "animeTags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieTag"
+          }
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieTitleRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeTitles": {
+          "$ref": "#/definitions/ampbv1AnimeMovieTitleRequest"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieTitleResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        },
+        "animeTitles": {
+          "$ref": "#/definitions/ampbv1AnimeMovieTitleResponse"
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieTrailerRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTrailerRequest"
+          }
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieTrailerResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        },
+        "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+          }
+        }
+      }
+    },
+    "ampbv1GetAllAnimeMovieMetasResponse": {
+      "type": "object",
+      "properties": {
+        "metas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "ampbv1GetAllAnimeMoviesResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+          }
+        }
+      }
+    },
+    "ampbv1GetAnimeMovieImagesResponse": {
+      "type": "object",
+      "properties": {
+        "animeImages": {
+          "$ref": "#/definitions/ashpbv1AnimeImageResponse"
+        }
+      }
+    },
+    "ampbv1GetFullAnimeMovieResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        },
+        "animeMeta": {
+          "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+        },
+        "animeResources": {
+          "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
+        },
+        "animeGenres": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Genre"
+          }
+        },
+        "animeStudios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Studio"
+          }
+        },
+        "animeLinks": {
+          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+        },
+        "animeTags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieTag"
+          }
+        },
+        "animeImages": {
+          "$ref": "#/definitions/ashpbv1AnimeImageResponse"
+        },
+        "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+          }
+        },
+        "serverID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "sub": {
+          "$ref": "#/definitions/ampbv1AnimeMovieSubDataResponse"
+        },
+        "dub": {
+          "$ref": "#/definitions/ampbv1AnimeMovieDubDataResponse"
+        }
+      }
+    },
+    "ampbv1QueryAnimeMovieResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+          }
+        }
+      }
+    },
+    "ampbv1UpdateAnimeMovieRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "originalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "rating": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "portraitPoster": {
+          "type": "string"
+        },
+        "portraitBlurHash": {
+          "type": "string"
+        },
+        "landscapePoster": {
+          "type": "string"
+        },
+        "landscapeBlurHash": {
+          "type": "string"
+        }
+      }
+    },
+    "ampbv1UpdateAnimeMovieResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        }
+      }
+    },
+    "ashpbv1AnimeImageRequest": {
+      "type": "object",
+      "properties": {
+        "posters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1ImageRequest"
+          }
+        },
+        "backdrops": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1ImageRequest"
+          }
+        },
+        "logos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1ImageRequest"
+          }
+        }
+      }
+    },
+    "ashpbv1AnimeImageResponse": {
+      "type": "object",
+      "properties": {
+        "posters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1ImageResponse"
+          }
+        },
+        "backdrops": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1ImageResponse"
+          }
+        },
+        "logos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1ImageResponse"
+          }
+        }
+      }
+    },
+    "ashpbv1AnimeLinkRequest": {
+      "type": "object",
+      "properties": {
+        "officialWebsite": {
+          "type": "string"
+        },
+        "wikipediaUrl": {
+          "type": "string"
+        },
+        "crunchyrollUrl": {
+          "type": "string"
+        },
+        "socialMedia": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ashpbv1AnimeLinkResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "officialWebsite": {
+          "type": "string"
+        },
+        "wikipediaUrl": {
+          "type": "string"
+        },
+        "crunchyrollUrl": {
+          "type": "string"
+        },
+        "socialMedia": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ashpbv1AnimeResourceRequest": {
+      "type": "object",
+      "properties": {
+        "tvdbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tmdbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "imdbID": {
+          "type": "string"
+        },
+        "livechartID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "animePlanetID": {
+          "type": "string"
+        },
+        "anisearchID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "anidbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "kitsuID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "malID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "notifyMoeID": {
+          "type": "string"
+        },
+        "anilistID": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "ashpbv1AnimeResourceResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "tvdbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tmdbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "imdbID": {
+          "type": "string"
+        },
+        "livechartID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "animePlanetID": {
+          "type": "string"
+        },
+        "anisearchID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "anidbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "kitsuID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "malID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "notifyMoeID": {
+          "type": "string"
+        },
+        "anilistID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ashpbv1AnimeTrailerRequest": {
+      "type": "object",
+      "properties": {
+        "isOfficial": {
+          "type": "boolean"
+        },
+        "hostName": {
+          "type": "string"
+        },
+        "hostKey": {
+          "type": "string"
+        }
+      }
+    },
+    "ashpbv1AnimeTrailerResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "isOfficial": {
+          "type": "boolean"
+        },
+        "hostName": {
+          "type": "string"
+        },
+        "hostKey": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ashpbv1ImageRequest": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "thumbnails": {
+          "type": "string"
+        },
+        "blurhash": {
+          "type": "string"
+        },
+        "height": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "width": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "ashpbv1ImageResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "host": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "thumbnails": {
+          "type": "string"
+        },
+        "blurhash": {
+          "type": "string"
+        },
+        "height": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "width": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "aspbv1AnimeEpisodeDubDataRequest": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeEpisodeVideoRequest"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeEpisodeTorrentRequest"
+          }
+        }
+      }
+    },
+    "aspbv1AnimeEpisodeDubDataResponse": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeEpisodeVideoResponse"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeEpisodeTorrentResponse"
+          }
+        }
+      }
+    },
+    "aspbv1AnimeEpisodeRequest": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "episodeNumber": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "episodeOriginalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rating": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "thumbnails": {
+          "type": "string"
+        },
+        "thumbnailsBlurHash": {
+          "type": "string"
+        }
+      }
+    },
+    "aspbv1AnimeEpisodeResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "episodeNumber": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "episodeOriginalTitle": {
+          "type": "string"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rating": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "thumbnails": {
+          "type": "string"
+        },
+        "thumbnailsBlurHash": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "aspbv1AnimeEpisodeSubDataRequest": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeEpisodeVideoRequest"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeEpisodeTorrentRequest"
+          }
+        }
+      }
+    },
+    "aspbv1AnimeEpisodeSubDataResponse": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeEpisodeVideoResponse"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeEpisodeTorrentResponse"
+          }
+        }
+      }
+    },
+    "aspbv1AnimeEpisodeTorrentRequest": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "torrentHash": {
+          "type": "string"
+        },
+        "torrentFile": {
+          "type": "string"
+        },
+        "seeds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "peers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "leechers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sizeBytes": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quality": {
+          "type": "string"
+        }
+      }
+    },
+    "aspbv1AnimeEpisodeTorrentResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "torrentHash": {
+          "type": "string"
+        },
+        "torrentFile": {
+          "type": "string"
+        },
+        "seeds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "peers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "leechers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sizeBytes": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quality": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "aspbv1AnimeEpisodeVideoRequest": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "authority": {
+          "type": "string"
+        },
+        "referer": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "quality": {
+          "type": "string"
+        }
+      }
+    },
+    "aspbv1AnimeEpisodeVideoResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "authority": {
+          "type": "string"
+        },
+        "referer": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "quality": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "aspbv1AnimeSeasonRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonOriginalTitle": {
+          "type": "string"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rating": {
+          "type": "string"
+        },
+        "portraitPoster": {
+          "type": "string"
+        },
+        "portraitBlurHash": {
+          "type": "string"
+        }
+      }
+    },
+    "aspbv1AnimeSeasonResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonOriginalTitle": {
+          "type": "string"
+        },
+        "releaseYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "aired": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "rating": {
+          "type": "string"
+        },
+        "portraitPoster": {
+          "type": "string"
+        },
+        "portraitBlurHash": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "aspbv1AnimeSeasonTag": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "tag": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "aspbv1AnimeSeasonTitle": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "titleText": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "aspbv1AnimeSeasonTitleRequest": {
+      "type": "object",
+      "properties": {
+        "official": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "short": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "other": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "aspbv1AnimeSeasonTitleResponse": {
+      "type": "object",
+      "properties": {
+        "official": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeSeasonTitle"
+          }
+        },
+        "short": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeSeasonTitle"
+          }
+        },
+        "other": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeSeasonTitle"
+          }
+        }
+      }
+    },
+    "aspbv1AnimeSerieRequest": {
+      "type": "object",
+      "properties": {
+        "originalTitle": {
+          "type": "string"
+        },
+        "firstYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lastYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "malID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tvdbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tmdbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "portraitPoster": {
+          "type": "string"
+        },
+        "portraitBlurHash": {
+          "type": "string"
+        },
+        "landscapePoster": {
+          "type": "string"
+        },
+        "landscapeBlurHash": {
+          "type": "string"
+        }
+      }
+    },
+    "aspbv1AnimeSerieResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "originalTitle": {
+          "type": "string"
+        },
+        "firstYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lastYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "malID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tvdbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tmdbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "portraitPoster": {
+          "type": "string"
+        },
+        "portraitBlurHash": {
+          "type": "string"
+        },
+        "landscapePoster": {
+          "type": "string"
+        },
+        "landscapeBlurHash": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "aspbv1CreateAnimeEpisodeDataRequest": {
+      "type": "object",
+      "properties": {
+        "serverID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "sub": {
+          "$ref": "#/definitions/aspbv1AnimeEpisodeSubDataRequest"
+        },
+        "dub": {
+          "$ref": "#/definitions/aspbv1AnimeEpisodeDubDataRequest"
+        }
+      }
+    },
+    "aspbv1CreateAnimeEpisodeDataResponse": {
+      "type": "object",
+      "properties": {
+        "episode": {
+          "$ref": "#/definitions/aspbv1AnimeEpisodeResponse"
+        },
+        "sub": {
+          "$ref": "#/definitions/aspbv1AnimeEpisodeSubDataResponse"
+        },
+        "dub": {
+          "$ref": "#/definitions/aspbv1AnimeEpisodeDubDataResponse"
+        }
+      }
+    },
+    "aspbv1CreateAnimeEpisodeMetasRequest": {
+      "type": "object",
+      "properties": {
+        "episodeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "episodeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaRequest"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeEpisodeMetasResponse": {
+      "type": "object",
+      "properties": {
+        "episodeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "episodeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeEpisodeRequest": {
+      "type": "object",
+      "properties": {
+        "episode": {
+          "$ref": "#/definitions/aspbv1AnimeEpisodeRequest"
+        },
+        "episodeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaRequest"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeEpisodeResponse": {
+      "type": "object",
+      "properties": {
+        "season": {
+          "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
+        },
+        "episode": {
+          "$ref": "#/definitions/aspbv1AnimeEpisodeResponse"
+        },
+        "episodeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeEpisodeServerRequest": {
+      "type": "object",
+      "properties": {
+        "episodeID": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "aspbv1CreateAnimeEpisodeServerResponse": {
+      "type": "object",
+      "properties": {
+        "episodeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "serverID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonImageRequest": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonPosters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1ImageRequest"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonImageResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeason": {
+          "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
+        },
+        "seasonPosters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1ImageResponse"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonInfoResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeason": {
+          "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
+        },
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Genre"
+          }
+        },
+        "studios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Studio"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonMetasRequest": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaRequest"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonMetasResponse": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonRequest": {
+      "type": "object",
+      "properties": {
+        "season": {
+          "$ref": "#/definitions/aspbv1AnimeSeasonRequest"
+        },
+        "seasonMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaRequest"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonResourceRequest": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonResources": {
+          "$ref": "#/definitions/ashpbv1AnimeResourceRequest"
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonResourceResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeason": {
+          "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
+        },
+        "seasonResources": {
+          "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonResponse": {
+      "type": "object",
+      "properties": {
+        "season": {
+          "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
+        },
+        "seasonMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonTagRequest": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonTags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonTagResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeason": {
+          "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
+        },
+        "seasonTags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeSeasonTag"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonTitleRequest": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonTitles": {
+          "$ref": "#/definitions/aspbv1AnimeSeasonTitleRequest"
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonTitleResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeason": {
+          "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
+        },
+        "seasonTitles": {
+          "$ref": "#/definitions/aspbv1AnimeSeasonTitleResponse"
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonTrailerRequest": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTrailerRequest"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonTrailerResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeason": {
+          "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
+        },
+        "seasonTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSerieImageRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeImages": {
+          "$ref": "#/definitions/ashpbv1AnimeImageRequest"
+        }
+      }
+    },
+    "aspbv1CreateAnimeSerieImageResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/aspbv1AnimeSerieResponse"
+        },
+        "animeImages": {
+          "$ref": "#/definitions/ashpbv1AnimeImageResponse"
+        }
+      }
+    },
+    "aspbv1CreateAnimeSerieLinkRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeLinks": {
+          "$ref": "#/definitions/ashpbv1AnimeLinkRequest"
+        }
+      }
+    },
+    "aspbv1CreateAnimeSerieLinkResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/aspbv1AnimeSerieResponse"
+        },
+        "animeLinks": {
+          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+        }
+      }
+    },
+    "aspbv1CreateAnimeSerieMetasRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaRequest"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSerieMetasResponse": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSerieRequest": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/aspbv1AnimeSerieRequest"
+        },
+        "animeLinks": {
+          "$ref": "#/definitions/ashpbv1AnimeLinkRequest"
+        }
+      }
+    },
+    "aspbv1CreateAnimeSerieResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/aspbv1AnimeSerieResponse"
+        },
+        "animeLinks": {
+          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+        }
+      }
+    },
+    "aspbv1CreateAnimeSerieTrailerRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTrailerRequest"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSerieTrailerResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/aspbv1AnimeSerieResponse"
+        },
+        "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+          }
+        }
+      }
+    },
+    "aspbv1GetAllAnimeSerieMetasResponse": {
+      "type": "object",
+      "properties": {
+        "metas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+          }
+        }
+      }
+    },
+    "aspbv1GetAllAnimeSeriesResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeries": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeSerieResponse"
+          }
+        }
+      }
+    },
+    "aspbv1GetFullAnimeSeasonResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeason": {
+          "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
+        },
+        "seasonMeta": {
+          "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+        },
+        "seasonResoures": {
+          "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
+        },
+        "seasonGenres": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Genre"
+          }
+        },
+        "seasonStudios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Studio"
+          }
+        },
+        "seasonTags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeSeasonTag"
+          }
+        },
+        "seasonPosters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1ImageResponse"
+          }
+        },
+        "seasonTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+          }
+        }
+      }
+    },
+    "aspbv1GetFullAnimeSerieResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/aspbv1AnimeSerieResponse"
+        },
+        "animeMeta": {
+          "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+        },
+        "animeLinks": {
+          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+        },
+        "animeImages": {
+          "$ref": "#/definitions/ashpbv1AnimeImageResponse"
+        },
+        "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+          }
+        }
+      }
+    },
+    "aspbv1QueryAnimeSeasonResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeasons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
+          }
+        }
+      }
+    },
+    "aspbv1UpdateAnimeSerieRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "originalTitle": {
+          "type": "string"
+        },
+        "firstYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lastYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "malID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tvdbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tmdbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "portraitPoster": {
+          "type": "string"
+        },
+        "portraitBlurHash": {
+          "type": "string"
+        },
+        "landscapePoster": {
+          "type": "string"
+        },
+        "landscapeBlurHash": {
+          "type": "string"
+        }
+      }
+    },
+    "aspbv1UpdateAnimeSerieResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/aspbv1AnimeSerieResponse"
+        }
+      }
+    },
+    "nfpbv1AnimeMetaRequest": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "meta": {
+          "$ref": "#/definitions/nfpbv1MetaRequest"
+        }
+      }
+    },
+    "nfpbv1AnimeMetaResponse": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "meta": {
+          "$ref": "#/definitions/nfpbv1MetaResponse"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "nfpbv1CreateGenresRequest": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "nfpbv1CreateGenresResponse": {
+      "type": "object",
+      "properties": {
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Genre"
+          }
+        }
+      }
+    },
+    "nfpbv1CreateLanguagesRequest": {
+      "type": "object",
+      "properties": {
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1LanguageRequest"
+          }
+        }
+      }
+    },
+    "nfpbv1CreateLanguagesResponse": {
+      "type": "object",
+      "properties": {
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1LanguageResponse"
+          }
+        }
+      }
+    },
+    "nfpbv1CreateStudiosRequest": {
+      "type": "object",
+      "properties": {
+        "names": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "nfpbv1CreateStudiosResponse": {
+      "type": "object",
+      "properties": {
+        "studios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Studio"
+          }
+        }
+      }
+    },
+    "nfpbv1Genre": {
+      "type": "object",
+      "properties": {
+        "genreID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "genreName": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "nfpbv1GetAllGenresResponse": {
+      "type": "object",
+      "properties": {
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Genre"
+          }
+        }
+      }
+    },
+    "nfpbv1GetAllLanguagesResponse": {
+      "type": "object",
+      "properties": {
+        "languages": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1LanguageResponse"
+          }
+        }
+      }
+    },
+    "nfpbv1GetAllStudiosResponse": {
+      "type": "object",
+      "properties": {
+        "studios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Studio"
+          }
+        }
+      }
+    },
+    "nfpbv1LanguageRequest": {
+      "type": "object",
+      "properties": {
+        "LanguageCode": {
+          "type": "string"
+        },
+        "LanguageName": {
+          "type": "string"
+        }
+      }
+    },
+    "nfpbv1LanguageResponse": {
+      "type": "object",
+      "properties": {
+        "LanguageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "LanguageCode": {
+          "type": "string"
+        },
+        "LanguageName": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "nfpbv1MetaRequest": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "overview": {
+          "type": "string"
+        }
+      }
+    },
+    "nfpbv1MetaResponse": {
+      "type": "object",
+      "properties": {
+        "metaID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "title": {
+          "type": "string"
+        },
+        "overview": {
+          "type": "string"
+        }
+      }
+    },
+    "nfpbv1Studio": {
+      "type": "object",
+      "properties": {
+        "studioID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "studioName": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    },
+    "uspbv1CreateUserRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "uspbv1CreateUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/uspbv1User"
+        }
+      }
+    },
+    "uspbv1Device": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string"
+        },
+        "operatingSystem": {
+          "type": "string"
+        },
+        "macAddress": {
+          "type": "string"
+        },
+        "clientIP": {
+          "type": "string"
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "isBanned": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "uspbv1GetUserDevicesResponse": {
+      "type": "object",
+      "properties": {
+        "devices": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/uspbv1Device"
+          }
+        }
+      }
+    },
+    "uspbv1LoginUserRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "operatingSystem": {
+          "type": "string"
+        },
+        "macAddress": {
+          "type": "string"
+        }
+      }
+    },
+    "uspbv1LoginUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/uspbv1User"
+        },
+        "sessionID": {
+          "type": "string"
+        },
+        "accessToken": {
+          "type": "string"
+        },
+        "accessTokenExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "refreshToken": {
+          "type": "string"
+        },
+        "refreshTokenExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "uspbv1RenewTokensResponse": {
+      "type": "object",
+      "properties": {
+        "sessionID": {
+          "type": "string"
+        },
+        "accessToken": {
+          "type": "string"
+        },
+        "accessTokenExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "refreshToken": {
+          "type": "string"
+        },
+        "refreshTokenExpiresAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "uspbv1UpdateUserRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "uspbv1UpdateUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/uspbv1User"
+        }
+      }
+    },
+    "uspbv1User": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "passwordChangedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "uspbv1VerifyEmailResponse": {
+      "type": "object",
+      "properties": {
+        "isVerified": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

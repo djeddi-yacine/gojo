@@ -11,7 +11,6 @@ import (
 	"github.com/dj-yacine-flutter/gojo/api"
 	v1 "github.com/dj-yacine-flutter/gojo/api/v1"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	_ "github.com/dj-yacine-flutter/gojo/doc/statik"
 	"github.com/dj-yacine-flutter/gojo/mail"
 	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/token"
@@ -19,7 +18,6 @@ import (
 	"github.com/dj-yacine-flutter/gojo/worker"
 	"github.com/hibiken/asynq"
 	"github.com/jackc/pgx/v5/pgxpool"
-	sk "github.com/rakyll/statik/fs"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 	"google.golang.org/grpc"
@@ -85,13 +83,6 @@ func v1Http(config utils.Config, gojo db.Gojo, tokenMaker token.Maker, taskDistr
 	if err != nil {
 		log.Fatal().Err(err).Msg(err.Error())
 	}
-
-	statikFS, err := sk.New()
-	if err != nil {
-		log.Fatal().Err(err).Msg("cannot create Statik files for swagger")
-	}
-	swaggerHandler := http.StripPrefix("/swagger/", http.FileServer(statikFS))
-	httpMux.Handle("/swagger/", swaggerHandler)
 
 	listener, err := net.Listen("tcp", config.HTTPServerAddress)
 	if err != nil {

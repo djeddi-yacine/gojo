@@ -1,0 +1,1090 @@
+Project gojo {
+  database_type: 'PostgreSQL'
+  Note: '''
+    # Gojo App Database
+  '''
+}
+
+Table users {
+  id bigserial [primary key, unique, increment, not null]
+  role varchar [not null, default: 'member']
+  username varchar [primary key, unique, not null]
+  email varchar [not null]
+  hashed_password varchar [not null]
+  is_email_verified bool [not null, default: false]
+  full_name varchar [not null]
+  password_changed_at timestamptz  [not null, default: `now()`]
+  created_at timestamptz  [not null, default: `now()`]
+    indexes {
+      username
+      full_name
+    }
+}
+
+Table sessions {
+  id uuid [primary key, unique, not null]
+  username varchar [not null]
+  refresh_token varchar [not null]
+  is_blocked boolean [not null, default: false]
+  expires_at timestamptz [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+    }
+}
+
+Table devices {
+  id uuid [primary key, unique, not null]
+  operating_system varchar [not null]
+  mac_address varchar [not null]
+  client_ip varchar [not null]
+  user_agent varchar [not null]
+  is_banned boolean [not null, default: false]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (operating_system, mac_address, client_ip) [unique]
+    }
+}
+
+Table user_devices {
+  id bigserial [primary key, unique, not null]
+  user_id bigserial [not null]
+  device_id uuid [not null]
+    indexes {
+      (user_id, device_id) [unique]
+    }
+}
+
+Table verify_emails {
+  id bigserial [primary key, unique, increment, not null]
+  username varchar [not null]
+  email varchar [not null]
+  secret_code varchar [not null]
+  is_used bool [not null, default: false]
+  created_at timestamptz [not null, default: `now()`]
+  expired_at timestamptz [not null, default: `now() + interval '15 minutes'`]
+}
+
+Table anime_movies {
+  id bigserial [primary key, unique, increment, not null]
+  original_title varchar [not null]
+  aired timestamptz  [not null]
+  release_year integer [not null]
+  rating  varchar [not null, default: `'PG-13 - Teens 13 or older'`]
+  duration interval  [not null, default: `'00h 00m 00s'`]
+  portrait_poster varchar [not null]
+  portrait_blur_hash varchar [not null]
+  landscape_poster varchar [not null]
+  landscape_blur_hash varchar [not null]
+  created_at timestamptz  [not null, default: `now()`]
+    indexes {
+      id
+      original_title
+      release_year
+      (original_title, duration, aired) [unique]
+    }
+}
+
+Table anime_series {
+  id bigserial [primary key, unique, increment, not null]
+  original_title varchar [not null]
+  first_year integer [not null]
+  last_year integer [not null]
+  mal_id integer [not null]
+  tvdb_id integer [not null]
+  tmdb_id integer [not null]
+  portrait_poster varchar [not null]
+  portrait_blur_hash varchar [not null]
+  landscape_poster varchar [not null]
+  landscape_blur_hash varchar [not null]
+  created_at timestamptz  [not null, default: `now()`]
+    indexes {
+      id
+      original_title
+      first_year
+      mal_id [unique]
+    }
+}
+
+Table languages {
+  id integer [primary key, unique, increment, not null]
+  language_code varchar [not null]
+  language_name varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (language_code) [unique]
+    }
+}
+
+Table studios {
+  id integer [primary key, unique, increment, not null]
+  studio_name varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (studio_name) [unique]
+    }
+}
+
+Table genres {
+  id integer [primary key, unique, increment, not null]
+  genre_name varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (genre_name) [unique]
+    }
+}
+
+Table metas {
+  id bigserial [primary key, unique, increment, not null]
+  title varchar [not null]
+  overview varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      title
+    }
+}
+
+Table anime_movie_studios {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  studio_id integer [not null]
+  indexes {
+    id
+    (anime_id, studio_id) [unique]
+  }
+}
+
+Table anime_season_studios {
+  id bigserial [primary key, unique, increment, not null]
+  season_id bigserial [not null]
+  studio_id integer [not null]
+  indexes {
+    id
+    (season_id, studio_id) [unique]
+  }
+}
+
+Table anime_movie_genres {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  genre_id integer [not null]
+  indexes {
+    id
+    (anime_id, genre_id) [unique]
+  }
+}
+
+Table anime_season_genres {
+  id bigserial [primary key, unique, increment, not null]
+  season_id bigserial [not null]
+  genre_id integer [not null]
+  indexes {
+    id
+    (season_id, genre_id) [unique]
+  }
+}
+
+Table anime_movie_metas {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  language_id integer [not null]
+  meta_id bigserial [not null]
+    indexes {
+      id
+      (anime_id, language_id) [unique]
+    }
+}
+
+Table anime_serie_metas {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  language_id integer [not null]
+  meta_id bigserial [not null]
+    indexes {
+      id
+      (anime_id, language_id) [unique]
+    }
+}
+
+Table anime_serie_seasons {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  season_original_title varchar [not null]
+  release_year integer [not null]
+  aired timestamptz  [not null]
+  portrait_poster varchar [not null]
+  portrait_blur_hash varchar [not null]
+  rating  varchar [not null, default: `'PG-13 - Teens 13 or older'`]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      release_year
+    }
+}
+
+Table anime_season_metas {
+  id bigserial [primary key, unique, increment, not null]
+  season_id bigserial [not null]
+  language_id integer [not null]
+  meta_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (season_id, language_id) [unique]
+    }
+}
+
+Table anime_serie_episodes {
+  id bigserial [primary key, unique, increment, not null]
+  season_id bigserial [not null]
+  episode_number integer [not null]
+  episode_original_title varchar [not null]
+  aired timestamptz  [not null]
+  rating  varchar [not null, default: `'PG-13 - Teens 13 or older'`]
+  duration interval  [not null, default: `'00h 00m 00s'`]
+  thumbnails varchar [not null]
+  thumbnails_blur_hash varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (episode_number, season_id) [unique]
+    }
+}
+
+Table anime_episode_metas {
+  id bigserial [primary key, unique, increment, not null]
+  episode_id bigserial [not null]
+  language_id integer [not null]
+  meta_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (episode_id, language_id) [unique]
+    }
+}
+
+Table anime_season_episodes {
+  id bigserial [primary key, unique, increment, not null]
+  season_id bigserial [not null]
+  episode_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (season_id, episode_id) [unique]
+    }
+}
+
+
+Table anime_episode_servers {
+  id bigserial [primary key, unique, increment, not null]
+  episode_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (episode_id) [unique]
+    }
+}
+
+Table anime_episode_videos {
+  id bigserial [primary key, unique, increment, not null]
+  language_id integer [not null]
+  authority varchar [not null]
+  referer varchar [not null]
+  link varchar [not null]
+  quality varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+    }
+}
+
+Table anime_episode_server_sub_videos {
+  id bigserial [primary key, unique, increment, not null]
+  server_id bigserial [not null]
+  video_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (server_id, video_id) [unique]
+    }
+}
+
+Table anime_episode_server_dub_videos {
+  id bigserial [primary key, unique, increment, not null]
+  server_id bigserial [not null]
+  video_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (server_id, video_id) [unique]
+    }
+}
+
+Table anime_movie_servers {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+    }
+}
+
+Table anime_movie_server_sub_videos {
+  id bigserial [primary key, unique, increment, not null]
+  server_id bigserial [not null]
+  video_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (server_id, video_id) [unique]
+    }
+}
+
+Table anime_movie_server_dub_videos {
+  id bigserial [primary key, unique, increment, not null]
+  server_id bigserial [not null]
+  video_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (server_id, video_id) [unique]
+    }
+}
+
+Table anime_movie_videos {
+  id bigserial [primary key, unique, increment, not null]
+  language_id integer [not null]
+  authority varchar [not null]
+  referer varchar [not null]
+  link varchar [not null]
+  quality varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+    }
+}
+
+Table anime_resources {
+  id bigserial [primary key, unique, increment, not null]
+  tvdb_id integer [not null]
+  tmdb_id integer [not null] 
+  imdb_id varchar [not null]
+  livechart_id integer [not null]
+  anime_planet_id varchar [not null]
+  anisearch_id integer [not null]
+  anidb_id integer [not null]
+  kitsu_id integer [not null]
+  mal_id integer [not null]
+  notify_moe_id varchar [not null]
+  anilist_id integer [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (tmdb_id, imdb_id, tvdb_id) [unique]
+    }
+}
+
+Table anime_movie_resources {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  resource_id bigserial [not null]
+  indexes {
+    (anime_id) [unique]
+    (resource_id) [unique]
+  }
+}
+
+Table anime_season_resources {
+  id bigserial [primary key, unique, increment, not null]
+  season_id bigserial [not null]
+  resource_id bigserial [not null]
+  indexes {
+    (season_id) [unique]
+    (resource_id) [unique]
+  }
+}
+
+Table anime_movie_torrents {
+  id bigserial [primary key, unique, increment, not null]
+  file_name varchar [not null]
+  language_id integer [not null]
+  torrent_hash varchar [not null]
+  torrent_file varchar [not null]
+  seeds integer [not null]
+  peers integer [not null]
+  leechers integer [not null]
+  size_bytes bigserial [not null]
+  quality varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (file_name, language_id, torrent_hash, torrent_file, size_bytes) [unique]
+    }
+}
+
+Table anime_movie_server_sub_torrents {
+  id bigserial [primary key, unique, increment, not null]
+  server_id bigserial [not null]
+  torrent_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (server_id, torrent_id) [unique]
+    }
+}
+
+Table anime_movie_server_dub_torrents {
+  id bigserial [primary key, unique, increment, not null]
+  server_id bigserial [not null]
+  torrent_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (server_id, torrent_id) [unique]
+    }
+}
+
+Table anime_episode_torrents {
+  id bigserial [primary key, unique, increment, not null]
+  file_name varchar [not null]
+  language_id integer [not null]
+  torrent_hash varchar [not null]
+  torrent_file varchar [not null]
+  seeds integer [not null]
+  peers integer [not null]
+  leechers integer [not null]
+  size_bytes bigserial [not null]
+  quality varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (file_name, language_id, torrent_hash, torrent_file, size_bytes) [unique]
+    }
+}
+
+Table anime_episode_server_sub_torrents {
+  id bigserial [primary key, unique, increment, not null]
+  server_id bigserial [not null]
+  torrent_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (server_id, torrent_id) [unique]
+    }
+}
+
+Table anime_episode_server_dub_torrents {
+  id bigserial [primary key, unique, increment, not null]
+  server_id bigserial [not null]
+  torrent_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (server_id, torrent_id) [unique]
+    }
+}
+
+Table anime_links {
+  id bigserial [primary key, unique, increment, not null]
+  official_website varchar [not null]
+  wikipedia_url varchar [not null]
+  crunchyroll_url varchar [not null]
+  social_media varchar[] [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (wikipedia_url, official_website, crunchyroll_url) [unique]
+    }
+}
+
+Table anime_serie_links {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  link_id bigserial [not null]
+  indexes {
+    (anime_id) [unique]
+    (link_id) [unique]
+  }
+}
+
+Table anime_movie_links {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  link_id bigserial [not null]
+  indexes {
+    (anime_id) [unique]
+    (link_id) [unique]
+  }
+}
+
+Table anime_images {
+  id bigserial [primary key, unique, increment, not null]
+  image_host  varchar [not null]
+  image_url  varchar [not null]
+  image_thumbnails  varchar [not null]
+  image_blurhash  varchar [not null]
+  image_height  integer [not null]
+  image_width  integer [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+    }
+}
+
+Table anime_movie_poster_images {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  image_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, image_id) [unique]
+    }
+}
+
+Table anime_movie_backdrop_images {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  image_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, image_id) [unique]
+    }
+}
+
+Table anime_movie_logo_images {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  image_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, image_id) [unique]
+    }
+}
+
+Table anime_serie_poster_images {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  image_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, image_id) [unique]
+    }
+}
+
+Table anime_serie_backdrop_images {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  image_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, image_id) [unique]
+    }
+}
+
+Table anime_serie_logo_images {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  image_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, image_id) [unique]
+    }
+}
+
+Table anime_season_poster_images {
+  id bigserial [primary key, unique, increment, not null]
+  season_id bigserial [not null]
+  image_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (season_id, image_id) [unique]
+    }
+}
+
+Table anime_trailers {
+  id bigserial [primary key, unique, increment, not null]
+  is_official  bool [not null, default: false]
+  host_name  varchar [not null]
+  host_key  varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+    }
+}
+
+Table anime_movie_trailers {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  trailer_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, trailer_id) [unique]
+    }
+}
+
+Table anime_serie_trailers {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  trailer_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, trailer_id) [unique]
+    }
+}
+
+Table anime_season_trailers {
+  id bigserial [primary key, unique, increment, not null]
+  season_id bigserial [not null]
+  trailer_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (season_id, trailer_id) [unique]
+    }
+}
+
+Table anime_movie_official_titles {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id  bigserial [not null]
+  title_text  varchar(150) [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (id,title_text,anime_id)
+    }
+}
+
+Table anime_movie_short_titles {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id  bigserial [not null]
+  title_text  varchar(150) [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (id,title_text,anime_id)
+    }
+}
+
+Table anime_movie_translation_titles {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id  bigserial [not null]
+  title_text  varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (id,title_text,anime_id)
+    }
+}
+
+Table anime_movie_other_titles {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id  bigserial [not null]
+  title_text  varchar(150) [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (id,title_text,anime_id)
+    }
+}
+
+Table anime_season_official_titles {
+  id bigserial [primary key, unique, increment, not null]
+  season_id  bigserial [not null]
+  title_text  varchar(150) [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (id,title_text,season_id)
+    }
+}
+
+Table anime_season_short_titles {
+  id bigserial [primary key, unique, increment, not null]
+  season_id  bigserial [not null]
+  title_text  varchar(150) [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (id,title_text,season_id)
+    }
+}
+
+Table anime_season_translation_titles {
+  id bigserial [primary key, unique, increment, not null]
+  season_id  bigserial [not null]
+  title_text  varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (id,title_text,season_id)
+    }
+}
+
+Table anime_season_other_titles {
+  id bigserial [primary key, unique, increment, not null]
+  season_id  bigserial [not null]
+  title_text  varchar(150) [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      (id,title_text,season_id)
+    }
+}
+
+Table anime_tags {
+  id bigserial [primary key, unique, increment, not null]
+  tag  varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (tag) [unique]
+    }
+}
+
+Table anime_movie_tags {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  tag_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, tag_id) [unique]
+    }
+}
+
+Table anime_season_tags {
+  id bigserial [primary key, unique, increment, not null]
+  season_id bigserial [not null]
+  tag_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (season_id, tag_id) [unique]
+    }
+}
+
+
+
+Ref {
+  users.username - sessions.username [delete: cascade]
+}
+Ref {
+  users.username - verify_emails.username [delete: cascade]
+}
+Ref {
+  users.id - user_devices.user_id [delete: cascade]
+}
+
+
+
+Ref {
+  devices.id - user_devices.device_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_movies.id - anime_movie_metas.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_studios.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_genres.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_servers.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_resources.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_poster_images.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_backdrop_images.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_logo_images.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_links.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_trailers.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_official_titles.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_short_titles.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_translation_titles.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_other_titles.anime_id [delete: cascade]
+}
+Ref {
+  anime_movies.id - anime_movie_tags.anime_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_series.id - anime_serie_metas.anime_id [delete: cascade]
+}
+Ref {
+  anime_series.id - anime_serie_seasons.anime_id [delete: cascade]
+}
+Ref {
+  anime_series.id - anime_serie_poster_images.anime_id [delete: cascade]
+}
+Ref {
+  anime_series.id - anime_serie_backdrop_images.anime_id [delete: cascade]
+}
+Ref {
+  anime_series.id - anime_serie_logo_images.anime_id [delete: cascade]
+}
+Ref {
+  anime_series.id - anime_serie_links.anime_id [delete: cascade]
+}
+Ref {
+  anime_series.id - anime_serie_trailers.anime_id [delete: cascade]
+}
+
+
+
+Ref {
+  languages.id - anime_movie_metas.language_id [delete: cascade]
+}
+Ref {
+  languages.id - anime_serie_metas.language_id [delete: cascade]
+}
+Ref {
+  languages.id - anime_movie_videos.language_id [delete: cascade]
+}
+Ref {
+  languages.id - anime_episode_videos.language_id [delete: cascade]
+}
+Ref {
+  languages.id - anime_movie_torrents.language_id [delete: cascade]
+}
+Ref {
+  languages.id - anime_episode_torrents.language_id [delete: cascade]
+}
+Ref {
+  languages.id - anime_season_metas.language_id [delete: cascade]
+}
+Ref {
+  languages.id - anime_episode_metas.language_id [delete: cascade]
+}
+
+
+
+Ref {
+  metas.id - anime_movie_metas.meta_id [delete: cascade]
+}
+Ref {
+  metas.id - anime_serie_metas.meta_id [delete: cascade]
+}
+Ref {
+  metas.id - anime_season_metas.meta_id [delete: cascade]
+}
+Ref {
+  metas.id - anime_episode_metas.meta_id [delete: cascade]
+}
+
+
+
+Ref {
+  genres.id - anime_movie_genres.genre_id [delete: cascade]
+}
+Ref {
+  genres.id - anime_season_genres.genre_id [delete: cascade]
+}
+
+
+
+Ref {
+  studios.id - anime_movie_studios.studio_id [delete: cascade]
+}
+Ref {
+  studios.id - anime_season_studios.studio_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_resources.id - anime_movie_resources.resource_id [delete: cascade]
+}
+Ref {
+  anime_resources.id - anime_season_resources.resource_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_movie_servers.id - anime_movie_server_sub_videos.server_id [delete: cascade]
+}
+Ref {
+  anime_movie_servers.id - anime_movie_server_dub_videos.server_id [delete: cascade]
+}
+Ref {
+  anime_movie_servers.id - anime_movie_server_sub_torrents.server_id [delete: cascade]
+}
+Ref {
+  anime_movie_servers.id - anime_movie_server_dub_torrents.server_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_movie_videos.id - anime_movie_server_sub_videos.video_id [delete: cascade]
+}
+Ref {
+  anime_movie_videos.id - anime_movie_server_dub_videos.video_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_serie_seasons.id - anime_serie_episodes.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_episodes.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_metas.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_poster_images.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_resources.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_trailers.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_studios.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_genres.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_official_titles.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_short_titles.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_translation_titles.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_other_titles.season_id [delete: cascade]
+}
+Ref {
+  anime_serie_seasons.id - anime_season_tags.season_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_serie_episodes.id - anime_episode_servers.episode_id [delete: cascade]
+}
+Ref {
+  anime_serie_episodes.id - anime_season_episodes.episode_id [delete: cascade]
+}
+Ref {
+  anime_serie_episodes.id - anime_episode_metas.episode_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_episode_servers.id - anime_episode_server_sub_videos.server_id [delete: cascade]
+}
+Ref {
+  anime_episode_servers.id - anime_episode_server_dub_videos.server_id [delete: cascade]
+}
+Ref {
+  anime_episode_servers.id - anime_episode_server_sub_torrents.server_id [delete: cascade]
+}
+Ref {
+  anime_episode_servers.id - anime_episode_server_dub_torrents.server_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_episode_videos.id - anime_episode_server_sub_videos.video_id [delete: cascade]
+}
+Ref {
+  anime_episode_videos.id - anime_episode_server_dub_videos.video_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_movie_torrents.id - anime_movie_server_sub_torrents.torrent_id [delete: cascade]
+}
+Ref {
+  anime_movie_torrents.id - anime_movie_server_dub_torrents.torrent_id [delete: cascade]
+}
+Ref {
+  anime_episode_torrents.id - anime_episode_server_sub_torrents.torrent_id [delete: cascade]
+}
+Ref {
+  anime_episode_torrents.id - anime_episode_server_dub_torrents.torrent_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_images.id - anime_movie_poster_images.image_id [delete: cascade]
+}
+Ref {
+  anime_images.id - anime_movie_backdrop_images.image_id [delete: cascade]
+}
+Ref {
+  anime_images.id - anime_movie_logo_images.image_id [delete: cascade]
+}
+Ref {
+  anime_images.id - anime_serie_poster_images.image_id [delete: cascade]
+}
+Ref {
+  anime_images.id - anime_serie_backdrop_images.image_id [delete: cascade]
+}
+Ref {
+  anime_images.id - anime_serie_logo_images.image_id [delete: cascade]
+}
+Ref {
+  anime_images.id - anime_season_poster_images.image_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_links.id - anime_movie_links.link_id [delete: cascade]
+}
+Ref {
+  anime_links.id - anime_serie_links.link_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_trailers.id - anime_movie_trailers.trailer_id [delete: cascade]
+}
+Ref {
+  anime_trailers.id - anime_serie_trailers.trailer_id [delete: cascade]
+}
+Ref {
+  anime_trailers.id - anime_season_trailers.trailer_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_tags.id - anime_movie_tags.tag_id [delete: cascade]
+}
+Ref {
+  anime_tags.id - anime_season_tags.tag_id [delete: cascade]
+}

@@ -10,6 +10,7 @@ import (
 	nfapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/info"
 	usapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/user"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
+	_ "github.com/dj-yacine-flutter/gojo/doc/v1/statik"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
 	nfpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb"
@@ -19,6 +20,7 @@ import (
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/dj-yacine-flutter/gojo/worker"
 	runtime "github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
+	sk "github.com/rakyll/statik/fs"
 	"google.golang.org/grpc"
 )
 
@@ -71,8 +73,14 @@ func StartGatewayApi(httpMux *http.ServeMux, config utils.Config, gojo db.Gojo, 
 		return fmt.Errorf("cannot register Gateway server for Anime Serie Service v1: %w", err)
 	}
 
-	// Use the custom ServeMux
 	httpMux.Handle("/v1/", http.StripPrefix("/v1", grpcMux))
+
+	statikFS, err := sk.New()
+	if err != nil {
+		return fmt.Errorf("cannot create statik files for swagger v1: %w", err)
+	}
+
+	httpMux.Handle("/v1/swagger/", http.StripPrefix("/v1/swagger/", http.FileServer(statikFS)))
 
 	return nil
 }

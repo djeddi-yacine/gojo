@@ -53,21 +53,21 @@ mock:
 v1: fmt
 	rm -rf pb/v1/*.go
 	rm -rf pb/v1/*/*.go
-	rm -f doc/swagger/*.swagger.json
-	rm -f doc/statik/*.go
+	rm -f doc/v1/swagger/*.swagger.json
+	rm -f doc/v1/statik/*.go
 	protoc --proto_path=proto --proto_path=proto/v1 --proto_path=. \
 	--go_out=pb --go_opt=paths=source_relative \
 	--go-grpc_out=pb --go-grpc_opt=paths=source_relative \
 	--grpc-gateway_out=pb --grpc-gateway_opt=paths=source_relative \
-	--openapiv2_out=doc/swagger --openapiv2_opt=allow_merge=true,merge_file_name=gojo \
+	--openapiv2_out=doc/v1/swagger --openapiv2_opt=allow_merge=true,merge_file_name=gojo \
 	proto/v1/*/*.proto
-	statik -src=./doc/swagger -dest=./doc
+	statik -src=./doc/v1/swagger -dest=./doc/v1
 
 evans:
 	evans --host localhost --port 9090 -r repl
 
 db:
-	dbml2sql --postgres -o doc/schema.sql doc/db.dbml
+	dbml2sql --postgres -o doc/v1/schema.sql doc/v1/db.dbml
 
 build: fmt
 	go clean -x
