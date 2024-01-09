@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2024-01-05T13:50:23.699Z
+-- Generated at: 2024-01-09T19:44:21.685Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -54,6 +54,7 @@ CREATE TABLE "verify_emails" (
 
 CREATE TABLE "anime_movies" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "unique_id" uuid NOT NULL,
   "original_title" varchar NOT NULL,
   "aired" timestamptz NOT NULL,
   "release_year" integer NOT NULL,
@@ -69,6 +70,7 @@ CREATE TABLE "anime_movies" (
 CREATE TABLE "anime_series" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "original_title" varchar NOT NULL,
+  "unique_id" uuid NOT NULL,
   "first_year" integer NOT NULL,
   "last_year" integer NOT NULL,
   "mal_id" integer NOT NULL,
@@ -541,6 +543,8 @@ CREATE INDEX ON "anime_movies" ("original_title");
 
 CREATE INDEX ON "anime_movies" ("release_year");
 
+CREATE UNIQUE INDEX ON "anime_movies" ("unique_id");
+
 CREATE UNIQUE INDEX ON "anime_movies" ("original_title", "duration", "aired");
 
 CREATE INDEX ON "anime_series" ("id");
@@ -548,6 +552,8 @@ CREATE INDEX ON "anime_series" ("id");
 CREATE INDEX ON "anime_series" ("original_title");
 
 CREATE INDEX ON "anime_series" ("first_year");
+
+CREATE UNIQUE INDEX ON "anime_series" ("unique_id");
 
 CREATE UNIQUE INDEX ON "anime_series" ("mal_id");
 

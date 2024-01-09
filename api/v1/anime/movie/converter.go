@@ -11,6 +11,7 @@ func convertAnimeMovie(a db.AnimeMovie) *ampbv1.AnimeMovieResponse {
 	return &ampbv1.AnimeMovieResponse{
 		ID:                a.ID,
 		OriginalTitle:     a.OriginalTitle,
+		UniqueID:          a.UniqueID.String(),
 		Aired:             timestamppb.New(a.Aired),
 		ReleaseYear:       a.ReleaseYear,
 		Rating:            a.Rating,

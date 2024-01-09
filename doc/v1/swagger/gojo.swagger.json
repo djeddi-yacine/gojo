@@ -2041,6 +2041,9 @@
         "originalTitle": {
           "type": "string"
         },
+        "uniqueID": {
+          "type": "string"
+        },
         "aired": {
           "type": "string",
           "format": "date-time"
@@ -3554,6 +3557,9 @@
           "format": "int64"
         },
         "originalTitle": {
+          "type": "string"
+        },
+        "uniqueID": {
           "type": "string"
         },
         "firstYear": {

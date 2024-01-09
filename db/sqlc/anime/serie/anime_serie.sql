@@ -1,6 +1,7 @@
 -- name: CreateAnimeSerie :one
 INSERT INTO anime_series (
     original_title,
+    unique_id,
     first_year,
     last_year,
     mal_id,
@@ -11,7 +12,7 @@ INSERT INTO anime_series (
     landscape_poster,
     landscape_blur_hash
 )
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
 RETURNING *;
 
 -- name: GetAnimeSerie :one

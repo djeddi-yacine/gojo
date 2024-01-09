@@ -70,6 +70,7 @@ Table verify_emails {
 
 Table anime_movies {
   id bigserial [primary key, unique, increment, not null]
+  unique_id uuid [not null]
   original_title varchar [not null]
   aired timestamptz  [not null]
   release_year integer [not null]
@@ -84,6 +85,7 @@ Table anime_movies {
       id
       original_title
       release_year
+      (unique_id) [unique]
       (original_title, duration, aired) [unique]
     }
 }
@@ -91,6 +93,7 @@ Table anime_movies {
 Table anime_series {
   id bigserial [primary key, unique, increment, not null]
   original_title varchar [not null]
+  unique_id uuid [not null]
   first_year integer [not null]
   last_year integer [not null]
   mal_id integer [not null]
@@ -105,7 +108,8 @@ Table anime_series {
       id
       original_title
       first_year
-      mal_id [unique]
+      (unique_id) [unique]
+      (mal_id)[unique]
     }
 }
 

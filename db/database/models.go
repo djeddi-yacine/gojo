@@ -98,6 +98,7 @@ type AnimeLink struct {
 
 type AnimeMovie struct {
 	ID                int64
+	UniqueID          uuid.UUID
 	OriginalTitle     string
 	Aired             time.Time
 	ReleaseYear       int32
@@ -363,6 +364,7 @@ type AnimeSeasonTranslationTitle struct {
 type AnimeSerie struct {
 	ID                int64
 	OriginalTitle     string
+	UniqueID          uuid.UUID
 	FirstYear         int32
 	LastYear          int32
 	MalID             int32

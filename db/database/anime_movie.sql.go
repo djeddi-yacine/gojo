@@ -9,12 +9,14 @@ import (
 	"context"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createAnimeMovie = `-- name: CreateAnimeMovie :one
 INSERT INTO anime_movies (
     original_title,
+    unique_id,
     aired,
     release_year,
     rating,
@@ -24,12 +26,13 @@ INSERT INTO anime_movies (
     landscape_poster,
     landscape_blur_hash
 )
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-RETURNING id, original_title, aired, release_year, rating, duration, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+RETURNING id, unique_id, original_title, aired, release_year, rating, duration, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at
 `
 
 type CreateAnimeMovieParams struct {
 	OriginalTitle     string
+	UniqueID          uuid.UUID
 	Aired             time.Time
 	ReleaseYear       int32
 	Rating            string
@@ -43,6 +46,7 @@ type CreateAnimeMovieParams struct {
 func (q *Queries) CreateAnimeMovie(ctx context.Context, arg CreateAnimeMovieParams) (AnimeMovie, error) {
 	row := q.db.QueryRow(ctx, createAnimeMovie,
 		arg.OriginalTitle,
+		arg.UniqueID,
 		arg.Aired,
 		arg.ReleaseYear,
 		arg.Rating,
@@ -55,6 +59,7 @@ func (q *Queries) CreateAnimeMovie(ctx context.Context, arg CreateAnimeMoviePara
 	var i AnimeMovie
 	err := row.Scan(
 		&i.ID,
+		&i.UniqueID,
 		&i.OriginalTitle,
 		&i.Aired,
 		&i.ReleaseYear,
@@ -80,7 +85,7 @@ func (q *Queries) DeleteAnimeMovie(ctx context.Context, id int64) error {
 }
 
 const getAnimeMovie = `-- name: GetAnimeMovie :one
-SELECT id, original_title, aired, release_year, rating, duration, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_movies 
+SELECT id, unique_id, original_title, aired, release_year, rating, duration, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_movies 
 WHERE id = $1 LIMIT 1
 `
 
@@ -89,6 +94,7 @@ func (q *Queries) GetAnimeMovie(ctx context.Context, id int64) (AnimeMovie, erro
 	var i AnimeMovie
 	err := row.Scan(
 		&i.ID,
+		&i.UniqueID,
 		&i.OriginalTitle,
 		&i.Aired,
 		&i.ReleaseYear,
@@ -104,7 +110,7 @@ func (q *Queries) GetAnimeMovie(ctx context.Context, id int64) (AnimeMovie, erro
 }
 
 const listAnimeMovies = `-- name: ListAnimeMovies :many
-SELECT id, original_title, aired, release_year, rating, duration, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_movies
+SELECT id, unique_id, original_title, aired, release_year, rating, duration, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_movies
 WHERE release_year = $1 OR $1 = 0
 LIMIT $2
 OFFSET $3
@@ -127,6 +133,7 @@ func (q *Queries) ListAnimeMovies(ctx context.Context, arg ListAnimeMoviesParams
 		var i AnimeMovie
 		if err := rows.Scan(
 			&i.ID,
+			&i.UniqueID,
 			&i.OriginalTitle,
 			&i.Aired,
 			&i.ReleaseYear,
@@ -162,7 +169,7 @@ SET
   landscape_blur_hash = COALESCE($9, landscape_blur_hash)
 WHERE
   id = $10
-RETURNING id, original_title, aired, release_year, rating, duration, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at
+RETURNING id, unique_id, original_title, aired, release_year, rating, duration, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at
 `
 
 type UpdateAnimeMovieParams struct {
@@ -194,6 +201,7 @@ func (q *Queries) UpdateAnimeMovie(ctx context.Context, arg UpdateAnimeMoviePara
 	var i AnimeMovie
 	err := row.Scan(
 		&i.ID,
+		&i.UniqueID,
 		&i.OriginalTitle,
 		&i.Aired,
 		&i.ReleaseYear,

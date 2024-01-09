@@ -8,12 +8,14 @@ package db
 import (
 	"context"
 
+	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createAnimeSerie = `-- name: CreateAnimeSerie :one
 INSERT INTO anime_series (
     original_title,
+    unique_id,
     first_year,
     last_year,
     mal_id,
@@ -24,12 +26,13 @@ INSERT INTO anime_series (
     landscape_poster,
     landscape_blur_hash
 )
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-RETURNING id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+RETURNING id, original_title, unique_id, first_year, last_year, mal_id, tvdb_id, tmdb_id, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at
 `
 
 type CreateAnimeSerieParams struct {
 	OriginalTitle     string
+	UniqueID          uuid.UUID
 	FirstYear         int32
 	LastYear          int32
 	MalID             int32
@@ -44,6 +47,7 @@ type CreateAnimeSerieParams struct {
 func (q *Queries) CreateAnimeSerie(ctx context.Context, arg CreateAnimeSerieParams) (AnimeSerie, error) {
 	row := q.db.QueryRow(ctx, createAnimeSerie,
 		arg.OriginalTitle,
+		arg.UniqueID,
 		arg.FirstYear,
 		arg.LastYear,
 		arg.MalID,
@@ -58,6 +62,7 @@ func (q *Queries) CreateAnimeSerie(ctx context.Context, arg CreateAnimeSeriePara
 	err := row.Scan(
 		&i.ID,
 		&i.OriginalTitle,
+		&i.UniqueID,
 		&i.FirstYear,
 		&i.LastYear,
 		&i.MalID,
@@ -83,7 +88,7 @@ func (q *Queries) DeleteAnimeSerie(ctx context.Context, id int64) error {
 }
 
 const getAnimeSerie = `-- name: GetAnimeSerie :one
-SELECT id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series 
+SELECT id, original_title, unique_id, first_year, last_year, mal_id, tvdb_id, tmdb_id, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series 
 WHERE id = $1 LIMIT 1
 `
 
@@ -93,6 +98,7 @@ func (q *Queries) GetAnimeSerie(ctx context.Context, id int64) (AnimeSerie, erro
 	err := row.Scan(
 		&i.ID,
 		&i.OriginalTitle,
+		&i.UniqueID,
 		&i.FirstYear,
 		&i.LastYear,
 		&i.MalID,
@@ -108,7 +114,7 @@ func (q *Queries) GetAnimeSerie(ctx context.Context, id int64) (AnimeSerie, erro
 }
 
 const listAnimeSeries = `-- name: ListAnimeSeries :many
-SELECT id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series
+SELECT id, original_title, unique_id, first_year, last_year, mal_id, tvdb_id, tmdb_id, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at FROM anime_series
 WHERE $1 IN (first_year, last_year) OR $1 = 0
 LIMIT $2
 OFFSET $3
@@ -132,6 +138,7 @@ func (q *Queries) ListAnimeSeries(ctx context.Context, arg ListAnimeSeriesParams
 		if err := rows.Scan(
 			&i.ID,
 			&i.OriginalTitle,
+			&i.UniqueID,
 			&i.FirstYear,
 			&i.LastYear,
 			&i.MalID,
@@ -168,7 +175,7 @@ SET
   landscape_blur_hash = COALESCE($10, landscape_blur_hash)
 WHERE
   id = $11
-RETURNING id, original_title, first_year, last_year, mal_id, tvdb_id, tmdb_id, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at
+RETURNING id, original_title, unique_id, first_year, last_year, mal_id, tvdb_id, tmdb_id, portrait_poster, portrait_blur_hash, landscape_poster, landscape_blur_hash, created_at
 `
 
 type UpdateAnimeSerieParams struct {
@@ -203,6 +210,7 @@ func (q *Queries) UpdateAnimeSerie(ctx context.Context, arg UpdateAnimeSeriePara
 	err := row.Scan(
 		&i.ID,
 		&i.OriginalTitle,
+		&i.UniqueID,
 		&i.FirstYear,
 		&i.LastYear,
 		&i.MalID,

@@ -11,6 +11,7 @@ func convertAnimeSerie(a db.AnimeSerie) *aspbv1.AnimeSerieResponse {
 	return &aspbv1.AnimeSerieResponse{
 		ID:                a.ID,
 		OriginalTitle:     a.OriginalTitle,
+		UniqueID:          a.UniqueID.String(),
 		PortraitPoster:    a.PortraitPoster,
 		PortraitBlurHash:  a.PortraitBlurHash,
 		LandscapePoster:   a.LandscapePoster,

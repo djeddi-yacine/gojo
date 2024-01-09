@@ -2,6 +2,8 @@ package db
 
 import (
 	"context"
+
+	"github.com/google/uuid"
 )
 
 type CreateAnimeMovieTxParams struct {
@@ -21,6 +23,8 @@ func (gojo *SQLGojo) CreateAnimeMovieTx(ctx context.Context, arg CreateAnimeMovi
 
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
+
+		arg.CreateAnimeMovieParams.UniqueID = uuid.New()
 
 		anime, err := q.CreateAnimeMovie(ctx, arg.CreateAnimeMovieParams)
 		if err != nil {

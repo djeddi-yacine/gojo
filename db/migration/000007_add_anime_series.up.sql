@@ -1,6 +1,7 @@
 CREATE TABLE "anime_series" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "original_title" varchar NOT NULL,
+  "unique_id" uuid NOT NULL,
   "first_year" integer NOT NULL,
   "last_year" integer NOT NULL,
   "mal_id" integer NOT NULL,
@@ -26,6 +27,8 @@ CREATE INDEX ON "anime_series" ("id");
 CREATE INDEX ON "anime_series" ("original_title");
 
 CREATE INDEX ON "anime_series" ("first_year");
+
+CREATE UNIQUE INDEX ON "anime_series" ("unique_id");
 
 CREATE UNIQUE INDEX ON "anime_series" ("mal_id");
 
