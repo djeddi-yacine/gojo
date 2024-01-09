@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
 )
@@ -13,6 +14,7 @@ import (
 func createRandomAnimeMovie(t *testing.T) AnimeMovie {
 	arg := CreateAnimeMovieParams{
 		OriginalTitle: utils.RandomString(10),
+		UniqueID:      uuid.New(),
 		Aired:         time.Now(),
 		ReleaseYear:   utils.RandomInt(1900, 2020),
 		Duration:      time.Duration(100000),
