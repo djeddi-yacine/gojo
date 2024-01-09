@@ -73,9 +73,14 @@ db:
 build: fmt
 	go clean -x
 	go clean -cache -x
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
-	go build -v -ldflags "-w -s -extldflags '-static'" \
-	-gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie \
+	CGO_ENABLED=0 \
+	GOOS=linux \
+	GOARCH=amd64 \
+	go build -v \
+	-tags netgo \
+	-ldflags "-w -s -extldflags '-static'" \
+	-gcflags="-S -m" \
+	-trimpath -mod=readonly -buildmode=pie \
 	-a -installsuffix nocgo -o gojo .
 
 cgo: fmt

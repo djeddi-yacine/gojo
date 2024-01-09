@@ -9,12 +9,6 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-type CacheKey struct {
-	ID      int64
-	Target  string
-	Version rune
-}
-
 const (
 	AnimeMovie        = "AM"
 	AnimeSerie        = "AS"
@@ -23,13 +17,19 @@ const (
 	V1           rune = '1'
 )
 
-type KeyGenrator interface {
-	Key() string
-	Count() string
+type CacheKey struct {
+	ID      int64
+	Target  string
+	Version rune
 }
 
 type PingKey struct {
 	key string
+}
+
+type KeyGenrator interface {
+	Key() string
+	Count() string
 }
 
 func (x *PingKey) Key() string {
@@ -37,7 +37,7 @@ func (x *PingKey) Key() string {
 }
 
 func (x *PingKey) Count() string {
-	return x.key + ":COUNT"
+	return x.key + "-COUNT"
 }
 
 func (system *PingSystem) Handle(ctx context.Context, gen KeyGenrator, value interface{}, fn func() error) error {
