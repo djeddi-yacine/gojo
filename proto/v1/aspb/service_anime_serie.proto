@@ -28,6 +28,7 @@ import "v1/aspb/rpc_get_anime_serie_seasons.proto";
 import "v1/aspb/rpc_get_anime_season_episodes.proto";
 import "v1/aspb/rpc_get_full_anime_serie.proto";
 import "v1/aspb/rpc_get_full_anime_season.proto";
+import "v1/aspb/rpc_get_full_anime_episode.proto";
 import "v1/aspb/rpc_update_anime_serie.proto";
 import "v1/aspb/rpc_query_anime_season.proto";
 
@@ -216,6 +217,14 @@ rpc GetAllAnimeSerieMetas(GetAllAnimeSerieMetasRequest) returns (GetAllAnimeSeri
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
     description: "Use this API to get all anime serie metas";
+};
+}
+rpc GetFullAnimeEpisode(GetFullAnimeEpisodeRequest) returns (GetFullAnimeEpisodeResponse) {
+  option (google.api.http) = {
+    get: "/anime/serie/episode/{episodeID}"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get full anime season episode by ID";
 };
 }
 rpc GetAnimeSerieSeasons(GetAnimeSerieSeasonsRequest) returns (GetAnimeSerieSeasonsResponse) {
