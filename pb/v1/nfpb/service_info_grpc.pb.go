@@ -22,7 +22,7 @@ const (
 	InfoService_CreateGenres_FullMethodName    = "/v1.nfpbv1.InfoService/CreateGenres"
 	InfoService_CreateStudios_FullMethodName   = "/v1.nfpbv1.InfoService/CreateStudios"
 	InfoService_CreateLanguages_FullMethodName = "/v1.nfpbv1.InfoService/CreateLanguages"
-	InfoService_CreateActor_FullMethodName     = "/v1.nfpbv1.InfoService/CreateActor"
+	InfoService_CreateActors_FullMethodName    = "/v1.nfpbv1.InfoService/CreateActors"
 	InfoService_GetAllGenres_FullMethodName    = "/v1.nfpbv1.InfoService/GetAllGenres"
 	InfoService_GetAllStudios_FullMethodName   = "/v1.nfpbv1.InfoService/GetAllStudios"
 	InfoService_GetAllLanguages_FullMethodName = "/v1.nfpbv1.InfoService/GetAllLanguages"
@@ -36,7 +36,7 @@ type InfoServiceClient interface {
 	CreateGenres(ctx context.Context, in *CreateGenresRequest, opts ...grpc.CallOption) (*CreateGenresResponse, error)
 	CreateStudios(ctx context.Context, in *CreateStudiosRequest, opts ...grpc.CallOption) (*CreateStudiosResponse, error)
 	CreateLanguages(ctx context.Context, in *CreateLanguagesRequest, opts ...grpc.CallOption) (*CreateLanguagesResponse, error)
-	CreateActor(ctx context.Context, in *CreateActorRequest, opts ...grpc.CallOption) (*CreateActorResponse, error)
+	CreateActors(ctx context.Context, in *CreateActorsRequest, opts ...grpc.CallOption) (*CreateActorsResponse, error)
 	GetAllGenres(ctx context.Context, in *GetAllGenresRequest, opts ...grpc.CallOption) (*GetAllGenresResponse, error)
 	GetAllStudios(ctx context.Context, in *GetAllStudiosRequest, opts ...grpc.CallOption) (*GetAllStudiosResponse, error)
 	GetAllLanguages(ctx context.Context, in *GetAllLanguagesRequest, opts ...grpc.CallOption) (*GetAllLanguagesResponse, error)
@@ -78,9 +78,9 @@ func (c *infoServiceClient) CreateLanguages(ctx context.Context, in *CreateLangu
 	return out, nil
 }
 
-func (c *infoServiceClient) CreateActor(ctx context.Context, in *CreateActorRequest, opts ...grpc.CallOption) (*CreateActorResponse, error) {
-	out := new(CreateActorResponse)
-	err := c.cc.Invoke(ctx, InfoService_CreateActor_FullMethodName, in, out, opts...)
+func (c *infoServiceClient) CreateActors(ctx context.Context, in *CreateActorsRequest, opts ...grpc.CallOption) (*CreateActorsResponse, error) {
+	out := new(CreateActorsResponse)
+	err := c.cc.Invoke(ctx, InfoService_CreateActors_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -130,7 +130,7 @@ type InfoServiceServer interface {
 	CreateGenres(context.Context, *CreateGenresRequest) (*CreateGenresResponse, error)
 	CreateStudios(context.Context, *CreateStudiosRequest) (*CreateStudiosResponse, error)
 	CreateLanguages(context.Context, *CreateLanguagesRequest) (*CreateLanguagesResponse, error)
-	CreateActor(context.Context, *CreateActorRequest) (*CreateActorResponse, error)
+	CreateActors(context.Context, *CreateActorsRequest) (*CreateActorsResponse, error)
 	GetAllGenres(context.Context, *GetAllGenresRequest) (*GetAllGenresResponse, error)
 	GetAllStudios(context.Context, *GetAllStudiosRequest) (*GetAllStudiosResponse, error)
 	GetAllLanguages(context.Context, *GetAllLanguagesRequest) (*GetAllLanguagesResponse, error)
@@ -151,8 +151,8 @@ func (UnimplementedInfoServiceServer) CreateStudios(context.Context, *CreateStud
 func (UnimplementedInfoServiceServer) CreateLanguages(context.Context, *CreateLanguagesRequest) (*CreateLanguagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateLanguages not implemented")
 }
-func (UnimplementedInfoServiceServer) CreateActor(context.Context, *CreateActorRequest) (*CreateActorResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateActor not implemented")
+func (UnimplementedInfoServiceServer) CreateActors(context.Context, *CreateActorsRequest) (*CreateActorsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateActors not implemented")
 }
 func (UnimplementedInfoServiceServer) GetAllGenres(context.Context, *GetAllGenresRequest) (*GetAllGenresResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllGenres not implemented")
@@ -233,20 +233,20 @@ func _InfoService_CreateLanguages_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _InfoService_CreateActor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateActorRequest)
+func _InfoService_CreateActors_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateActorsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(InfoServiceServer).CreateActor(ctx, in)
+		return srv.(InfoServiceServer).CreateActors(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: InfoService_CreateActor_FullMethodName,
+		FullMethod: InfoService_CreateActors_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(InfoServiceServer).CreateActor(ctx, req.(*CreateActorRequest))
+		return srv.(InfoServiceServer).CreateActors(ctx, req.(*CreateActorsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -343,8 +343,8 @@ var InfoService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _InfoService_CreateLanguages_Handler,
 		},
 		{
-			MethodName: "CreateActor",
-			Handler:    _InfoService_CreateActor_Handler,
+			MethodName: "CreateActors",
+			Handler:    _InfoService_CreateActors_Handler,
 		},
 		{
 			MethodName: "GetAllGenres",

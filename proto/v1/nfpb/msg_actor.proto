@@ -6,11 +6,22 @@ import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb;nfpbv1";
 
-message Actor {
-  int64                     actorID   = 1;
-  string                    fullName  = 2;
-  string                    gender    = 3;
-  string                    biography = 4;
-  google.protobuf.Timestamp born      = 5;
-  google.protobuf.Timestamp createdAt = 6;
+message ActorRequest {
+  string                    fullName      = 1;
+  string                    gender        = 2;
+  string                    biography     = 3;
+  google.protobuf.Timestamp born          = 4;
+  string                    image         = 5;
+  string                    imageBlurHash = 6;
+}
+
+message ActorResponse {
+  int64                     actorID       = 1;
+  string                    fullName      = 2;
+  string                    gender        = 3;
+  string                    biography     = 4;
+  google.protobuf.Timestamp born          = 5;
+  string                    image         = 6;
+  string                    imageBlurHash = 7;
+  google.protobuf.Timestamp createdAt     = 8;
 }

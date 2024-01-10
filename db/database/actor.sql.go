@@ -13,16 +13,18 @@ import (
 )
 
 const createActor = `-- name: CreateActor :one
-INSERT INTO actors (full_name, gender, biography, born)
-VALUES ($1, $2, $3, $4)
-RETURNING  id, full_name, gender, biography, born, created_at
+INSERT INTO actors (full_name, gender, biography, born, image_url, image_blur_hash)
+VALUES ($1, $2, $3, $4, $5, $6)
+RETURNING  id, full_name, gender, biography, image_url, image_blur_hash, born, created_at
 `
 
 type CreateActorParams struct {
-	FullName  string
-	Gender    string
-	Biography string
-	Born      time.Time
+	FullName      string
+	Gender        string
+	Biography     string
+	Born          time.Time
+	ImageUrl      string
+	ImageBlurHash string
 }
 
 func (q *Queries) CreateActor(ctx context.Context, arg CreateActorParams) (Actor, error) {
@@ -31,6 +33,8 @@ func (q *Queries) CreateActor(ctx context.Context, arg CreateActorParams) (Actor
 		arg.Gender,
 		arg.Biography,
 		arg.Born,
+		arg.ImageUrl,
+		arg.ImageBlurHash,
 	)
 	var i Actor
 	err := row.Scan(
@@ -38,6 +42,8 @@ func (q *Queries) CreateActor(ctx context.Context, arg CreateActorParams) (Actor
 		&i.FullName,
 		&i.Gender,
 		&i.Biography,
+		&i.ImageUrl,
+		&i.ImageBlurHash,
 		&i.Born,
 		&i.CreatedAt,
 	)
@@ -55,7 +61,7 @@ func (q *Queries) DeleteActor(ctx context.Context, id int64) error {
 }
 
 const getActor = `-- name: GetActor :one
-SELECT id, full_name, gender, biography, born, created_at FROM actors
+SELECT id, full_name, gender, biography, image_url, image_blur_hash, born, created_at FROM actors
 WHERE id = $1 LIMIT 1
 `
 
@@ -67,6 +73,8 @@ func (q *Queries) GetActor(ctx context.Context, id int64) (Actor, error) {
 		&i.FullName,
 		&i.Gender,
 		&i.Biography,
+		&i.ImageUrl,
+		&i.ImageBlurHash,
 		&i.Born,
 		&i.CreatedAt,
 	)
@@ -74,7 +82,7 @@ func (q *Queries) GetActor(ctx context.Context, id int64) (Actor, error) {
 }
 
 const listActors = `-- name: ListActors :many
-SELECT id, full_name, gender, biography, born, created_at FROM actors
+SELECT id, full_name, gender, biography, image_url, image_blur_hash, born, created_at FROM actors
 ORDER BY id
 LIMIT $1
 OFFSET $2
@@ -99,6 +107,8 @@ func (q *Queries) ListActors(ctx context.Context, arg ListActorsParams) ([]Actor
 			&i.FullName,
 			&i.Gender,
 			&i.Biography,
+			&i.ImageUrl,
+			&i.ImageBlurHash,
 			&i.Born,
 			&i.CreatedAt,
 		); err != nil {
@@ -118,17 +128,21 @@ SET
   full_name = COALESCE($2, full_name),
   gender = COALESCE($3, gender),
   biography = COALESCE($4, biography),
-  born = COALESCE($5, born)
+  born = COALESCE($5, born),
+  image_url = COALESCE($6, image_url),
+  image_blur_hash = COALESCE($7, image_blur_hash)
 WHERE id = $1
-RETURNING id, full_name, gender, biography, born, created_at
+RETURNING id, full_name, gender, biography, image_url, image_blur_hash, born, created_at
 `
 
 type UpdateActorParams struct {
-	ID        int64
-	FullName  pgtype.Text
-	Gender    pgtype.Text
-	Biography pgtype.Text
-	Born      pgtype.Timestamptz
+	ID            int64
+	FullName      pgtype.Text
+	Gender        pgtype.Text
+	Biography     pgtype.Text
+	Born          pgtype.Timestamptz
+	ImageUrl      pgtype.Text
+	ImageBlurHash pgtype.Text
 }
 
 func (q *Queries) UpdateActor(ctx context.Context, arg UpdateActorParams) (Actor, error) {
@@ -138,6 +152,8 @@ func (q *Queries) UpdateActor(ctx context.Context, arg UpdateActorParams) (Actor
 		arg.Gender,
 		arg.Biography,
 		arg.Born,
+		arg.ImageUrl,
+		arg.ImageBlurHash,
 	)
 	var i Actor
 	err := row.Scan(
@@ -145,6 +161,8 @@ func (q *Queries) UpdateActor(ctx context.Context, arg UpdateActorParams) (Actor
 		&i.FullName,
 		&i.Gender,
 		&i.Biography,
+		&i.ImageUrl,
+		&i.ImageBlurHash,
 		&i.Born,
 		&i.CreatedAt,
 	)

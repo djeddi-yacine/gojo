@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package v1.nfpbv1;
+
+import "v1/nfpb/msg_actor.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb;nfpbv1";
+
+message CreateActorsRequest {
+  repeated ActorRequest actors = 1;
+}
+
+message CreateActorsResponse {
+  repeated ActorResponse actors = 1;
+}

@@ -11,12 +11,14 @@ import (
 )
 
 type Actor struct {
-	ID        int64
-	FullName  string
-	Gender    string
-	Biography string
-	Born      time.Time
-	CreatedAt time.Time
+	ID            int64
+	FullName      string
+	Gender        string
+	Biography     string
+	ImageUrl      string
+	ImageBlurHash string
+	Born          time.Time
+	CreatedAt     time.Time
 }
 
 type AnimeCharacter struct {

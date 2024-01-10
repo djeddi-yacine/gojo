@@ -12,5 +12,5 @@ message GetAllActorsRequest {
 }
 
 message GetAllActorsResponse {
-  repeated Actor actors = 1;
+  repeated ActorResponse actors = 1;
 }

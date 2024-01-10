@@ -71,12 +71,12 @@
     "/actor/create": {
       "post": {
         "description": "Use this API to create a new actor",
-        "operationId": "InfoService_CreateActor",
+        "operationId": "InfoService_CreateActors",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/nfpbv1CreateActorResponse"
+              "$ref": "#/definitions/nfpbv1CreateActorsResponse"
             }
           },
           "default": {
@@ -92,7 +92,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/nfpbv1CreateActorRequest"
+              "$ref": "#/definitions/nfpbv1CreateActorsRequest"
             }
           }
         ],
@@ -4390,7 +4390,31 @@
         }
       }
     },
-    "nfpbv1Actor": {
+    "nfpbv1ActorRequest": {
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "biography": {
+          "type": "string"
+        },
+        "born": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "image": {
+          "type": "string"
+        },
+        "imageBlurHash": {
+          "type": "string"
+        }
+      }
+    },
+    "nfpbv1ActorResponse": {
       "type": "object",
       "properties": {
         "actorID": {
@@ -4409,6 +4433,12 @@
         "born": {
           "type": "string",
           "format": "date-time"
+        },
+        "image": {
+          "type": "string"
+        },
+        "imageBlurHash": {
+          "type": "string"
         },
         "createdAt": {
           "type": "string",
@@ -4444,29 +4474,27 @@
         }
       }
     },
-    "nfpbv1CreateActorRequest": {
-      "type": "object",
-      "properties": {
-        "fullName": {
-          "type": "string"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "biography": {
-          "type": "string"
-        },
-        "born": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "nfpbv1CreateActorResponse": {
+    "nfpbv1CreateActorsRequest": {
       "type": "object",
       "properties": {
         "actors": {
-          "$ref": "#/definitions/nfpbv1Actor"
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1ActorRequest"
+          }
+        }
+      }
+    },
+    "nfpbv1CreateActorsResponse": {
+      "type": "object",
+      "properties": {
+        "actors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1ActorResponse"
+          }
         }
       }
     },
@@ -4563,7 +4591,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/nfpbv1Actor"
+            "$ref": "#/definitions/nfpbv1ActorResponse"
           }
         }
       }
