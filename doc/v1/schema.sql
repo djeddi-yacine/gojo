@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2024-01-09T19:44:21.685Z
+-- Generated at: 2024-01-10T13:00:55.662Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -525,6 +525,39 @@ CREATE TABLE "anime_season_tags" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
+CREATE TABLE "actors" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "full_name" varchar NOT NULL,
+  "gender" varchar NOT NULL,
+  "biography" varchar NOT NULL,
+  "born" timestamptz NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_characters" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "actor_id" bigserial NOT NULL,
+  "full_name" varchar NOT NULL,
+  "description" varchar NOT NULL,
+  "image" varchar NOT NULL,
+  "image_blur_hash" varchar NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_movie_characters" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "character_id" bigserial NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_serie_characters" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "character_id" bigserial NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
 CREATE INDEX ON "users" ("username");
 
 CREATE INDEX ON "users" ("full_name");
@@ -743,6 +776,22 @@ CREATE INDEX ON "anime_season_tags" ("id");
 
 CREATE UNIQUE INDEX ON "anime_season_tags" ("season_id", "tag_id");
 
+CREATE INDEX ON "actors" ("id");
+
+CREATE UNIQUE INDEX ON "actors" ("full_name", "born");
+
+CREATE INDEX ON "anime_characters" ("id");
+
+CREATE UNIQUE INDEX ON "anime_characters" ("actor_id", "full_name");
+
+CREATE INDEX ON "anime_movie_characters" ("id");
+
+CREATE UNIQUE INDEX ON "anime_movie_characters" ("anime_id", "character_id");
+
+CREATE INDEX ON "anime_serie_characters" ("id");
+
+CREATE UNIQUE INDEX ON "anime_serie_characters" ("anime_id", "character_id");
+
 ALTER TABLE "sessions" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
 
 ALTER TABLE "verify_emails" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
@@ -781,6 +830,8 @@ ALTER TABLE "anime_movie_other_titles" ADD FOREIGN KEY ("anime_id") REFERENCES "
 
 ALTER TABLE "anime_movie_tags" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
 
+ALTER TABLE "anime_movie_characters" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
+
 ALTER TABLE "anime_serie_metas" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_seasons" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
@@ -794,6 +845,8 @@ ALTER TABLE "anime_serie_logo_images" ADD FOREIGN KEY ("anime_id") REFERENCES "a
 ALTER TABLE "anime_serie_links" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_trailers" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_characters" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_metas" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
 
@@ -922,3 +975,9 @@ ALTER TABLE "anime_season_trailers" ADD FOREIGN KEY ("trailer_id") REFERENCES "a
 ALTER TABLE "anime_movie_tags" ADD FOREIGN KEY ("tag_id") REFERENCES "anime_tags" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_season_tags" ADD FOREIGN KEY ("tag_id") REFERENCES "anime_tags" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_characters" ADD FOREIGN KEY ("actor_id") REFERENCES "actors" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_movie_characters" ADD FOREIGN KEY ("character_id") REFERENCES "anime_characters" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_characters" ADD FOREIGN KEY ("character_id") REFERENCES "anime_characters" ("id") ON DELETE CASCADE;

@@ -765,6 +765,55 @@ Table anime_season_tags {
     }
 }
 
+Table actors {
+  id bigserial [primary key, unique, increment, not null]
+  full_name  varchar [not null]
+  gender  varchar [not null]
+  biography  varchar [not null]
+  born timestamptz [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (full_name, born) [unique]
+    }
+}
+
+Table anime_characters {
+  id bigserial [primary key, unique, increment, not null]
+  actor_id bigserial [not null]
+  full_name  varchar [not null]
+  description varchar [not null]
+  image varchar [not null]
+  image_blur_hash varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (actor_id, full_name) [unique]
+    }
+}
+
+Table anime_movie_characters {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  character_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, character_id) [unique]
+    }
+}
+
+Table anime_serie_characters {
+  id bigserial [primary key, unique, increment, not null]
+  anime_id bigserial [not null]
+  character_id bigserial [not null]
+  created_at timestamptz [not null, default: `now()`]
+    indexes {
+      id
+      (anime_id, character_id) [unique]
+    }
+}
+
 
 
 Ref {
@@ -830,6 +879,9 @@ Ref {
 Ref {
   anime_movies.id - anime_movie_tags.anime_id [delete: cascade]
 }
+Ref {
+  anime_movies.id - anime_movie_characters.anime_id [delete: cascade]
+}
 
 
 
@@ -853,6 +905,9 @@ Ref {
 }
 Ref {
   anime_series.id - anime_serie_trailers.anime_id [delete: cascade]
+}
+Ref {
+  anime_series.id - anime_serie_characters.anime_id [delete: cascade]
 }
 
 
@@ -1093,4 +1148,19 @@ Ref {
 }
 Ref {
   anime_tags.id - anime_season_tags.tag_id [delete: cascade]
+}
+
+
+
+Ref {
+  actors.id - anime_characters.actor_id [delete: cascade]
+}
+
+
+
+Ref {
+  anime_characters.id - anime_movie_characters.character_id [delete: cascade]
+}
+Ref {
+  anime_characters.id - anime_serie_characters.character_id [delete: cascade]
 }
