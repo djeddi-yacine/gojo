@@ -770,6 +770,8 @@ Table actors {
   full_name  varchar [not null]
   gender  varchar [not null]
   biography  varchar [not null]
+  image_url varchar [not null]
+  image_blur_hash varchar [not null]
   born timestamptz [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {

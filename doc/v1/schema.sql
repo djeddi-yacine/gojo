@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2024-01-10T13:23:49.850Z
+-- Generated at: 2024-01-10T14:08:20.487Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -530,6 +530,8 @@ CREATE TABLE "actors" (
   "full_name" varchar NOT NULL,
   "gender" varchar NOT NULL,
   "biography" varchar NOT NULL,
+  "image_url" varchar NOT NULL,
+  "image_blur_hash" varchar NOT NULL,
   "born" timestamptz NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );

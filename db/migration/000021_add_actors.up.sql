@@ -3,6 +3,8 @@ CREATE TABLE "actors" (
   "full_name" varchar NOT NULL,
   "gender" varchar NOT NULL,
   "biography" varchar NOT NULL,
+  "image_url" varchar NOT NULL,
+  "image_blur_hash" varchar NOT NULL,
   "born" timestamptz NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
