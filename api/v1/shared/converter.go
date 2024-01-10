@@ -22,6 +22,19 @@ func ConvertStudio(studio db.Studio) *nfpbv1.Studio {
 	}
 }
 
+func ConvertActor(v db.Actor) *nfpbv1.ActorResponse {
+	return &nfpbv1.ActorResponse{
+		ActorID:       v.ID,
+		FullName:      v.FullName,
+		Gender:        v.Gender,
+		Biography:     v.Biography,
+		Born:          timestamppb.New(v.Born),
+		Image:         v.ImageUrl,
+		ImageBlurHash: v.ImageBlurHash,
+		CreatedAt:     timestamppb.New(v.CreatedAt),
+	}
+}
+
 func ConvertLanguage(language db.Language) *nfpbv1.LanguageResponse {
 	return &nfpbv1.LanguageResponse{
 		LanguageID:   language.ID,
@@ -70,6 +83,29 @@ func ConvertStudios(ss []db.Studio) []*nfpbv1.Studio {
 		}
 
 		return Studios
+	} else {
+		return nil
+	}
+}
+
+func ConvertActors(v []db.Actor) []*nfpbv1.ActorResponse {
+	if len(v) > 0 {
+		actors := make([]*nfpbv1.ActorResponse, len(v))
+
+		for i, x := range v {
+			actors[i] = &nfpbv1.ActorResponse{
+				ActorID:       x.ID,
+				FullName:      x.FullName,
+				Gender:        x.Gender,
+				Biography:     x.Biography,
+				Born:          timestamppb.New(x.Born),
+				Image:         x.ImageUrl,
+				ImageBlurHash: x.ImageBlurHash,
+				CreatedAt:     timestamppb.New(x.CreatedAt),
+			}
+		}
+
+		return actors
 	} else {
 		return nil
 	}
