@@ -10,6 +10,25 @@ import (
 	"github.com/google/uuid"
 )
 
+type Actor struct {
+	ID        int64
+	FullName  string
+	Gender    string
+	Biography string
+	Born      time.Time
+	CreatedAt time.Time
+}
+
+type AnimeCharacter struct {
+	ID            int64
+	ActorID       int64
+	FullName      string
+	Description   string
+	Image         string
+	ImageBlurHash string
+	CreatedAt     time.Time
+}
+
 type AnimeEpisodeMeta struct {
 	ID         int64
 	EpisodeID  int64
@@ -116,6 +135,13 @@ type AnimeMovieBackdropImage struct {
 	AnimeID   int64
 	ImageID   int64
 	CreatedAt time.Time
+}
+
+type AnimeMovieCharacter struct {
+	ID          int64
+	AnimeID     int64
+	CharacterID int64
+	CreatedAt   time.Time
 }
 
 type AnimeMovieGenre struct {
@@ -382,6 +408,13 @@ type AnimeSerieBackdropImage struct {
 	AnimeID   int64
 	ImageID   int64
 	CreatedAt time.Time
+}
+
+type AnimeSerieCharacter struct {
+	ID          int64
+	AnimeID     int64
+	CharacterID int64
+	CreatedAt   time.Time
 }
 
 type AnimeSerieEpisode struct {

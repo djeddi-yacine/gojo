@@ -11,6 +11,7 @@ import (
 )
 
 type Querier interface {
+	CreateActor(ctx context.Context, arg CreateActorParams) (Actor, error)
 	CreateAnimeEpisode(ctx context.Context, arg CreateAnimeEpisodeParams) (AnimeSerieEpisode, error)
 	CreateAnimeEpisodeMeta(ctx context.Context, arg CreateAnimeEpisodeMetaParams) (AnimeEpisodeMeta, error)
 	CreateAnimeEpisodeServer(ctx context.Context, episodeID int64) (AnimeEpisodeServer, error)
@@ -76,6 +77,7 @@ type Querier interface {
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
 	CreateUserDevice(ctx context.Context, arg CreateUserDeviceParams) error
 	CreateVerifyEmail(ctx context.Context, arg CreateVerifyEmailParams) (VerifyEmail, error)
+	DeleteActor(ctx context.Context, id int64) error
 	DeleteAnimeEpisode(ctx context.Context, id int64) error
 	DeleteAnimeEpisodeMeta(ctx context.Context, arg DeleteAnimeEpisodeMetaParams) error
 	DeleteAnimeEpisodeServer(ctx context.Context, id int64) error
@@ -139,6 +141,7 @@ type Querier interface {
 	DeleteSession(ctx context.Context, id uuid.UUID) error
 	DeleteStudio(ctx context.Context, id int32) error
 	DeleteUser(ctx context.Context, id int64) error
+	GetActor(ctx context.Context, id int64) (Actor, error)
 	GetAnimeEpisodeByEpisodeID(ctx context.Context, id int64) (AnimeSerieEpisode, error)
 	GetAnimeEpisodeMeta(ctx context.Context, arg GetAnimeEpisodeMetaParams) (int64, error)
 	GetAnimeEpisodeServer(ctx context.Context, id int64) (AnimeEpisodeServer, error)
@@ -194,6 +197,7 @@ type Querier interface {
 	GetStudio(ctx context.Context, id int32) (Studio, error)
 	GetUserByID(ctx context.Context, id int64) (User, error)
 	GetUserByUsername(ctx context.Context, username string) (User, error)
+	ListActors(ctx context.Context, arg ListActorsParams) ([]Actor, error)
 	ListAnimeEpisodeMetasByEpisode(ctx context.Context, arg ListAnimeEpisodeMetasByEpisodeParams) ([]AnimeEpisodeMeta, error)
 	ListAnimeEpisodeServerDubTorrents(ctx context.Context, serverID int64) ([]AnimeEpisodeServerDubTorrent, error)
 	ListAnimeEpisodeServerDubVideos(ctx context.Context, serverID int64) ([]AnimeEpisodeServerDubVideo, error)
@@ -247,6 +251,7 @@ type Querier interface {
 	QueryAnimeSeasonShortTitles(ctx context.Context, arg QueryAnimeSeasonShortTitlesParams) ([]int64, error)
 	QueryAnimeSeasonTranslationTitles(ctx context.Context, arg QueryAnimeSeasonTranslationTitlesParams) ([]int64, error)
 	RefreshSessions(ctx context.Context, username string) error
+	UpdateActor(ctx context.Context, arg UpdateActorParams) (Actor, error)
 	UpdateAnimeEpisode(ctx context.Context, arg UpdateAnimeEpisodeParams) (AnimeSerieEpisode, error)
 	UpdateAnimeEpisodeMeta(ctx context.Context, arg UpdateAnimeEpisodeMetaParams) (AnimeEpisodeMeta, error)
 	UpdateAnimeEpisodeServer(ctx context.Context, arg UpdateAnimeEpisodeServerParams) (AnimeEpisodeServer, error)

@@ -138,3 +138,6 @@ sql:
           ## add user_devices
           devices: "Device"
           user_devices: "UserDevice"
+
+          ## add actors
+          actors: "Actor"
