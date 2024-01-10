@@ -807,14 +807,14 @@ Table anime_movie_characters {
     }
 }
 
-Table anime_serie_characters {
+Table anime_season_characters {
   id bigserial [primary key, unique, increment, not null]
-  anime_id bigserial [not null]
+  season_id bigserial [not null]
   character_id bigserial [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      (anime_id, character_id) [unique]
+      (season_id, character_id) [unique]
     }
 }
 
@@ -909,9 +909,6 @@ Ref {
 }
 Ref {
   anime_series.id - anime_serie_trailers.anime_id [delete: cascade]
-}
-Ref {
-  anime_series.id - anime_serie_characters.anime_id [delete: cascade]
 }
 
 
@@ -1048,6 +1045,9 @@ Ref {
 Ref {
   anime_serie_seasons.id - anime_season_tags.season_id [delete: cascade]
 }
+Ref {
+  anime_serie_seasons.id - anime_season_characters.season_id [delete: cascade]
+}
 
 
 
@@ -1166,5 +1166,5 @@ Ref {
   anime_characters.id - anime_movie_characters.character_id [delete: cascade]
 }
 Ref {
-  anime_characters.id - anime_serie_characters.character_id [delete: cascade]
+  anime_characters.id - anime_season_characters.character_id [delete: cascade]
 }

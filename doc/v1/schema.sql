@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2024-01-10T21:05:38.766Z
+-- Generated at: 2024-01-10T21:30:02.673Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -555,9 +555,9 @@ CREATE TABLE "anime_movie_characters" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-CREATE TABLE "anime_serie_characters" (
+CREATE TABLE "anime_season_characters" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "anime_id" bigserial NOT NULL,
+  "season_id" bigserial NOT NULL,
   "character_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
@@ -792,9 +792,9 @@ CREATE INDEX ON "anime_movie_characters" ("id");
 
 CREATE UNIQUE INDEX ON "anime_movie_characters" ("anime_id", "character_id");
 
-CREATE INDEX ON "anime_serie_characters" ("id");
+CREATE INDEX ON "anime_season_characters" ("id");
 
-CREATE UNIQUE INDEX ON "anime_serie_characters" ("anime_id", "character_id");
+CREATE UNIQUE INDEX ON "anime_season_characters" ("season_id", "character_id");
 
 ALTER TABLE "sessions" ADD FOREIGN KEY ("username") REFERENCES "users" ("username") ON DELETE CASCADE;
 
@@ -849,8 +849,6 @@ ALTER TABLE "anime_serie_logo_images" ADD FOREIGN KEY ("anime_id") REFERENCES "a
 ALTER TABLE "anime_serie_links" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_serie_trailers" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
-
-ALTER TABLE "anime_serie_characters" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_metas" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
 
@@ -926,6 +924,8 @@ ALTER TABLE "anime_season_other_titles" ADD FOREIGN KEY ("season_id") REFERENCES
 
 ALTER TABLE "anime_season_tags" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
 
+ALTER TABLE "anime_season_characters" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
+
 ALTER TABLE "anime_episode_servers" ADD FOREIGN KEY ("episode_id") REFERENCES "anime_serie_episodes" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_season_episodes" ADD FOREIGN KEY ("episode_id") REFERENCES "anime_serie_episodes" ("id") ON DELETE CASCADE;
@@ -984,4 +984,4 @@ ALTER TABLE "anime_characters" ADD FOREIGN KEY ("actors_id") REFERENCES "actors"
 
 ALTER TABLE "anime_movie_characters" ADD FOREIGN KEY ("character_id") REFERENCES "anime_characters" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_serie_characters" ADD FOREIGN KEY ("character_id") REFERENCES "anime_characters" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_season_characters" ADD FOREIGN KEY ("character_id") REFERENCES "anime_characters" ("id") ON DELETE CASCADE;

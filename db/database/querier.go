@@ -49,6 +49,7 @@ type Querier interface {
 	CreateAnimeMovieVideo(ctx context.Context, arg CreateAnimeMovieVideoParams) (AnimeMovieVideo, error)
 	CreateAnimeResource(ctx context.Context, arg CreateAnimeResourceParams) (AnimeResource, error)
 	CreateAnimeSeason(ctx context.Context, arg CreateAnimeSeasonParams) (AnimeSerieSeason, error)
+	CreateAnimeSeasonCharacter(ctx context.Context, arg CreateAnimeSeasonCharacterParams) (AnimeSeasonCharacter, error)
 	CreateAnimeSeasonEpisode(ctx context.Context, arg CreateAnimeSeasonEpisodeParams) (AnimeSeasonEpisode, error)
 	CreateAnimeSeasonGenre(ctx context.Context, arg CreateAnimeSeasonGenreParams) (AnimeSeasonGenre, error)
 	CreateAnimeSeasonMeta(ctx context.Context, arg CreateAnimeSeasonMetaParams) (AnimeSeasonMeta, error)
@@ -63,7 +64,6 @@ type Querier interface {
 	CreateAnimeSeasonTranslationTitle(ctx context.Context, arg CreateAnimeSeasonTranslationTitleParams) (AnimeSeasonTranslationTitle, error)
 	CreateAnimeSerie(ctx context.Context, arg CreateAnimeSerieParams) (AnimeSerie, error)
 	CreateAnimeSerieBackdropImage(ctx context.Context, arg CreateAnimeSerieBackdropImageParams) (AnimeSerieBackdropImage, error)
-	CreateAnimeSerieCharacter(ctx context.Context, arg CreateAnimeSerieCharacterParams) (AnimeSerieCharacter, error)
 	CreateAnimeSerieLink(ctx context.Context, arg CreateAnimeSerieLinkParams) (AnimeSerieLink, error)
 	CreateAnimeSerieLogoImage(ctx context.Context, arg CreateAnimeSerieLogoImageParams) (AnimeSerieLogoImage, error)
 	CreateAnimeSerieMeta(ctx context.Context, arg CreateAnimeSerieMetaParams) (AnimeSerieMeta, error)
@@ -118,6 +118,7 @@ type Querier interface {
 	DeleteAnimeMovieVideo(ctx context.Context, id int64) error
 	DeleteAnimeResource(ctx context.Context, id int64) error
 	DeleteAnimeSeason(ctx context.Context, id int64) error
+	DeleteAnimeSeasonCharacter(ctx context.Context, arg DeleteAnimeSeasonCharacterParams) error
 	DeleteAnimeSeasonEpisode(ctx context.Context, id int64) error
 	DeleteAnimeSeasonGenre(ctx context.Context, arg DeleteAnimeSeasonGenreParams) error
 	DeleteAnimeSeasonMeta(ctx context.Context, arg DeleteAnimeSeasonMetaParams) error
@@ -132,7 +133,6 @@ type Querier interface {
 	DeleteAnimeSeasonTranslationTitle(ctx context.Context, id int64) error
 	DeleteAnimeSerie(ctx context.Context, id int64) error
 	DeleteAnimeSerieBackdropImage(ctx context.Context, arg DeleteAnimeSerieBackdropImageParams) error
-	DeleteAnimeSerieCharacter(ctx context.Context, arg DeleteAnimeSerieCharacterParams) error
 	DeleteAnimeSerieLink(ctx context.Context, arg DeleteAnimeSerieLinkParams) error
 	DeleteAnimeSerieLogoImage(ctx context.Context, arg DeleteAnimeSerieLogoImageParams) error
 	DeleteAnimeSerieMeta(ctx context.Context, arg DeleteAnimeSerieMetaParams) error
@@ -181,6 +181,7 @@ type Querier interface {
 	GetAnimeMovieVideo(ctx context.Context, id int64) (AnimeMovieVideo, error)
 	GetAnimeResource(ctx context.Context, id int64) (AnimeResource, error)
 	GetAnimeSeason(ctx context.Context, id int64) (AnimeSerieSeason, error)
+	GetAnimeSeasonCharacter(ctx context.Context, arg GetAnimeSeasonCharacterParams) (AnimeSeasonCharacter, error)
 	GetAnimeSeasonEpisode(ctx context.Context, id int64) (AnimeSeasonEpisode, error)
 	GetAnimeSeasonGenre(ctx context.Context, arg GetAnimeSeasonGenreParams) (AnimeSeasonGenre, error)
 	GetAnimeSeasonMeta(ctx context.Context, arg GetAnimeSeasonMetaParams) (int64, error)
@@ -191,7 +192,6 @@ type Querier interface {
 	GetAnimeSeasonStudio(ctx context.Context, arg GetAnimeSeasonStudioParams) (AnimeSeasonStudio, error)
 	GetAnimeSeasonTranslationTitles(ctx context.Context, seasonID int64) ([]AnimeSeasonTranslationTitle, error)
 	GetAnimeSerie(ctx context.Context, id int64) (AnimeSerie, error)
-	GetAnimeSerieCharacter(ctx context.Context, arg GetAnimeSerieCharacterParams) (AnimeSerieCharacter, error)
 	GetAnimeSerieLink(ctx context.Context, animeID int64) (AnimeSerieLink, error)
 	GetAnimeSerieMeta(ctx context.Context, arg GetAnimeSerieMetaParams) (int64, error)
 	GetAnimeSerieMetaByID(ctx context.Context, id int64) (AnimeSerieMeta, error)
@@ -234,6 +234,7 @@ type Querier interface {
 	ListAnimeMovieTrailers(ctx context.Context, animeID int64) ([]AnimeMovieTrailer, error)
 	ListAnimeMovieVideos(ctx context.Context, arg ListAnimeMovieVideosParams) ([]AnimeMovieVideo, error)
 	ListAnimeMovies(ctx context.Context, arg ListAnimeMoviesParams) ([]AnimeMovie, error)
+	ListAnimeSeasonCharacters(ctx context.Context, seasonID int64) ([]int64, error)
 	ListAnimeSeasonEpisodes(ctx context.Context, arg ListAnimeSeasonEpisodesParams) ([]AnimeSeasonEpisode, error)
 	ListAnimeSeasonGenres(ctx context.Context, seasonID int64) ([]int32, error)
 	ListAnimeSeasonMetasBySeason(ctx context.Context, arg ListAnimeSeasonMetasBySeasonParams) ([]AnimeSeasonMeta, error)
@@ -243,7 +244,6 @@ type Querier interface {
 	ListAnimeSeasonTrailers(ctx context.Context, seasonID int64) ([]AnimeSeasonTrailer, error)
 	ListAnimeSeasonsByAnimeID(ctx context.Context, arg ListAnimeSeasonsByAnimeIDParams) ([]AnimeSerieSeason, error)
 	ListAnimeSerieBackdropImages(ctx context.Context, animeID int64) ([]int64, error)
-	ListAnimeSerieCharacters(ctx context.Context, animeID int64) ([]int64, error)
 	ListAnimeSerieLogoImages(ctx context.Context, animeID int64) ([]int64, error)
 	ListAnimeSerieMetas(ctx context.Context, animeID int64) ([]int64, error)
 	ListAnimeSeriePosterImages(ctx context.Context, animeID int64) ([]int64, error)

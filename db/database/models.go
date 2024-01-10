@@ -309,6 +309,13 @@ type AnimeResource struct {
 	CreatedAt     time.Time
 }
 
+type AnimeSeasonCharacter struct {
+	ID          int64
+	SeasonID    int64
+	CharacterID int64
+	CreatedAt   time.Time
+}
+
 type AnimeSeasonEpisode struct {
 	ID        int64
 	SeasonID  int64
@@ -412,13 +419,6 @@ type AnimeSerieBackdropImage struct {
 	AnimeID   int64
 	ImageID   int64
 	CreatedAt time.Time
-}
-
-type AnimeSerieCharacter struct {
-	ID          int64
-	AnimeID     int64
-	CharacterID int64
-	CreatedAt   time.Time
 }
 
 type AnimeSerieEpisode struct {

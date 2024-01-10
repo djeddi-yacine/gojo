@@ -17,9 +17,9 @@ CREATE TABLE "anime_movie_characters" (
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
-CREATE TABLE "anime_serie_characters" (
+CREATE TABLE "anime_season_characters" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "anime_id" bigserial NOT NULL,
+  "season_id" bigserial NOT NULL,
   "character_id" bigserial NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
@@ -33,17 +33,17 @@ CREATE INDEX ON "anime_movie_characters" ("id");
 
 CREATE UNIQUE INDEX ON "anime_movie_characters" ("anime_id", "character_id");
 
-CREATE INDEX ON "anime_serie_characters" ("id");
+CREATE INDEX ON "anime_season_characters" ("id");
 
-CREATE UNIQUE INDEX ON "anime_serie_characters" ("anime_id", "character_id");
+CREATE UNIQUE INDEX ON "anime_season_characters" ("season_id", "character_id");
 
 
 ALTER TABLE "anime_movie_characters" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_serie_characters" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_season_characters" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_characters" ADD FOREIGN KEY ("actors_id") REFERENCES "actors" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_characters" ADD FOREIGN KEY ("character_id") REFERENCES "anime_characters" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_serie_characters" ADD FOREIGN KEY ("character_id") REFERENCES "anime_characters" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_season_characters" ADD FOREIGN KEY ("character_id") REFERENCES "anime_characters" ("id") ON DELETE CASCADE;
