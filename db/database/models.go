@@ -23,8 +23,8 @@ type AnimeCharacter struct {
 	ID            int64
 	ActorID       int64
 	FullName      string
-	Description   string
-	Image         string
+	About         string
+	ImageUrl      string
 	ImageBlurHash string
 	CreatedAt     time.Time
 }
