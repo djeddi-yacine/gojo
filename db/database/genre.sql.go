@@ -12,6 +12,8 @@ import (
 const createGenre = `-- name: CreateGenre :one
 INSERT INTO genres (genre_name)
 VALUES ($1)
+ON CONFLICT (genre_name)
+DO UPDATE SET genre_name = excluded.genre_name
 RETURNING  id, genre_name, created_at
 `
 

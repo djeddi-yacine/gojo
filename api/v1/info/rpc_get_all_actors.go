@@ -28,7 +28,7 @@ func (server *InfoServer) GetAllActors(ctx context.Context, req *nfpbv1.GetAllAc
 		Limit:  req.PageSize,
 		Offset: (req.PageNumber - 1) * req.PageSize,
 	}
-	DBActors, err := server.gojo.ListActors(ctx, arg)
+	dbActors, err := server.gojo.ListActors(ctx, arg)
 	if err != nil {
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
@@ -36,13 +36,8 @@ func (server *InfoServer) GetAllActors(ctx context.Context, req *nfpbv1.GetAllAc
 		return nil, shv1.ApiError("failed to list all actors", err)
 	}
 
-	var PBActors []*nfpbv1.ActorResponse
-	for _, g := range DBActors {
-		PBActors = append(PBActors, shv1.ConvertActor(g))
-	}
-
 	res := &nfpbv1.GetAllActorsResponse{
-		Actors: PBActors,
+		Actors: shv1.ConvertActors(dbActors),
 	}
 	return res, nil
 }

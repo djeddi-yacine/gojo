@@ -4,26 +4,19 @@ import (
 	"context"
 )
 
-type CreateGenresTxParams struct {
-	Names []string
-}
-
-type CreateGenresTxResult struct {
-	Genres []Genre
-}
-
-func (gojo *SQLGojo) CreateGenresTx(ctx context.Context, arg CreateGenresTxParams) (CreateGenresTxResult, error) {
-	var result CreateGenresTxResult
+func (gojo *SQLGojo) CreateGenresTx(ctx context.Context, arg []string) ([]Genre, error) {
+	var result []Genre
 
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
 
-		for _, name := range arg.Names {
-			g, err := q.CreateGenre(ctx, name)
+		for _, x := range arg {
+			g, err := q.CreateGenre(ctx, x)
 			if err != nil {
 				return err
 			}
-			result.Genres = append(result.Genres, g)
+
+			result = append(result, g)
 		}
 
 		return err

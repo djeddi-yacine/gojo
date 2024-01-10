@@ -4,26 +4,19 @@ import (
 	"context"
 )
 
-type CreateLanguagesTxParams struct {
-	CreateLanguageParams []CreateLanguageParams
-}
-
-type CreateLanguagesTxResult struct {
-	Languages []Language
-}
-
-func (gojo *SQLGojo) CreateLanguagesTx(ctx context.Context, arg CreateLanguagesTxParams) (CreateLanguagesTxResult, error) {
-	var result CreateLanguagesTxResult
+func (gojo *SQLGojo) CreateLanguagesTx(ctx context.Context, arg []CreateLanguageParams) ([]Language, error) {
+	var result []Language
 
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
 
-		for _, p := range arg.CreateLanguageParams {
-			l, err := q.CreateLanguage(ctx, p)
+		for _, x := range arg {
+			l, err := q.CreateLanguage(ctx, x)
 			if err != nil {
 				return err
 			}
-			result.Languages = append(result.Languages, l)
+
+			result = append(result, l)
 		}
 
 		return err

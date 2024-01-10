@@ -4,26 +4,18 @@ import (
 	"context"
 )
 
-type CreateStudiosTxParams struct {
-	Names []string
-}
-
-type CreateStudiosTxResult struct {
-	Studios []Studio
-}
-
-func (gojo *SQLGojo) CreateStudiosTx(ctx context.Context, arg CreateStudiosTxParams) (CreateStudiosTxResult, error) {
-	var result CreateStudiosTxResult
+func (gojo *SQLGojo) CreateStudiosTx(ctx context.Context, arg []string) ([]Studio, error) {
+	var result []Studio
 
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
 
-		for _, name := range arg.Names {
-			s, err := q.CreateStudio(ctx, name)
+		for _, x := range arg {
+			s, err := q.CreateStudio(ctx, x)
 			if err != nil {
 				return err
 			}
-			result.Studios = append(result.Studios, s)
+			result = append(result, s)
 		}
 
 		return err

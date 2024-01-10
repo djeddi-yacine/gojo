@@ -16,7 +16,8 @@ var (
 
 func ErrorSQL(err error) {
 	if err != nil {
-		if pgErr, ok := err.(*pgconn.PgError); ok {
+		pgErr := ErrorDB(err)
+		if pgErr != nil {
 			log.Error().Msgf("SQL Message: %v", pgErr.Message)
 			log.Error().Msgf("SQL Code: %v", pgErr.Code)
 		}

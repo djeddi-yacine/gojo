@@ -6,11 +6,11 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func ConvertGenre(genre db.Genre) *nfpbv1.Genre {
+func ConvertGenre(v db.Genre) *nfpbv1.Genre {
 	return &nfpbv1.Genre{
-		GenreID:   genre.ID,
-		GenreName: genre.GenreName,
-		CreatedAt: timestamppb.New(genre.CreatedAt),
+		GenreID:   v.ID,
+		GenreName: v.GenreName,
+		CreatedAt: timestamppb.New(v.CreatedAt),
 	}
 }
 
@@ -35,54 +35,54 @@ func ConvertActor(v db.Actor) *nfpbv1.ActorResponse {
 	}
 }
 
-func ConvertLanguage(language db.Language) *nfpbv1.LanguageResponse {
+func ConvertLanguage(v db.Language) *nfpbv1.LanguageResponse {
 	return &nfpbv1.LanguageResponse{
-		LanguageID:   language.ID,
-		LanguageCode: language.LanguageCode,
-		LanguageName: language.LanguageName,
-		CreatedAt:    timestamppb.New(language.CreatedAt),
+		LanguageID:   v.ID,
+		LanguageCode: v.LanguageCode,
+		LanguageName: v.LanguageName,
+		CreatedAt:    timestamppb.New(v.CreatedAt),
 	}
 }
 
-func ConvertMeta(meta db.Meta) *nfpbv1.MetaResponse {
+func ConvertMeta(v db.Meta) *nfpbv1.MetaResponse {
 	return &nfpbv1.MetaResponse{
-		MetaID:   meta.ID,
-		Title:    meta.Title,
-		Overview: meta.Overview,
+		MetaID:   v.ID,
+		Title:    v.Title,
+		Overview: v.Overview,
 	}
 }
 
-func ConvertGenres(gg []db.Genre) []*nfpbv1.Genre {
-	if len(gg) > 0 {
-		Genres := make([]*nfpbv1.Genre, len(gg))
+func ConvertGenres(v []db.Genre) []*nfpbv1.Genre {
+	if len(v) > 0 {
+		genres := make([]*nfpbv1.Genre, len(v))
 
-		for i, g := range gg {
-			Genres[i] = &nfpbv1.Genre{
-				GenreID:   g.ID,
-				GenreName: g.GenreName,
-				CreatedAt: timestamppb.New(g.CreatedAt),
+		for i, x := range v {
+			genres[i] = &nfpbv1.Genre{
+				GenreID:   x.ID,
+				GenreName: x.GenreName,
+				CreatedAt: timestamppb.New(x.CreatedAt),
 			}
 		}
 
-		return Genres
+		return genres
 	} else {
 		return nil
 	}
 }
 
-func ConvertStudios(ss []db.Studio) []*nfpbv1.Studio {
-	if len(ss) > 0 {
-		Studios := make([]*nfpbv1.Studio, len(ss))
+func ConvertStudios(v []db.Studio) []*nfpbv1.Studio {
+	if len(v) > 0 {
+		studios := make([]*nfpbv1.Studio, len(v))
 
-		for i, s := range ss {
-			Studios[i] = &nfpbv1.Studio{
-				StudioID:   s.ID,
-				StudioName: s.StudioName,
-				CreatedAt:  timestamppb.New(s.CreatedAt),
+		for i, x := range v {
+			studios[i] = &nfpbv1.Studio{
+				StudioID:   x.ID,
+				StudioName: x.StudioName,
+				CreatedAt:  timestamppb.New(x.CreatedAt),
 			}
 		}
 
-		return Studios
+		return studios
 	} else {
 		return nil
 	}

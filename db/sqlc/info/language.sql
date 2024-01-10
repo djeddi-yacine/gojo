@@ -1,6 +1,8 @@
 -- name: CreateLanguage :one
 INSERT INTO languages (language_name, language_code)
 VALUES ($1, $2)
+ON CONFLICT (language_code)
+DO UPDATE SET language_code = excluded.language_code
 RETURNING  *;
 
 -- name: GetLanguage :one

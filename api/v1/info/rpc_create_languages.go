@@ -28,29 +28,26 @@ func (server *InfoServer) CreateLanguages(ctx context.Context, req *nfpbv1.Creat
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	var LanguageParams []db.CreateLanguageParams
-	for _, l := range req.GetLanguages() {
-		LanguageParams = append(LanguageParams, db.CreateLanguageParams{
-			LanguageName: l.LanguageName,
-			LanguageCode: l.LanguageCode,
-		})
+	dbLanguages := make([]db.CreateLanguageParams, len(req.GetLanguages()))
+	for i, x := range req.GetLanguages() {
+		dbLanguages[i] = db.CreateLanguageParams{
+			LanguageName: x.LanguageName,
+			LanguageCode: x.LanguageCode,
+		}
 	}
 
-	result, err := server.gojo.CreateLanguagesTx(ctx, db.CreateLanguagesTxParams{
-		CreateLanguageParams: LanguageParams,
-	})
+	result, err := server.gojo.CreateLanguagesTx(ctx, dbLanguages)
 	if err != nil {
 		return nil, shv1.ApiError("failed to create new language", err)
 	}
 
-	var Languages []*nfpbv1.LanguageResponse
-	for _, l := range result.Languages {
-		language := shv1.ConvertLanguage(l)
-		Languages = append(Languages, language)
+	pbLanguages := make([]*nfpbv1.LanguageResponse, len(result))
+	for i, x := range result {
+		pbLanguages[i] = shv1.ConvertLanguage(x)
 	}
 
 	res := &nfpbv1.CreateLanguagesResponse{
-		Languages: Languages,
+		Languages: pbLanguages,
 	}
 
 	return res, nil

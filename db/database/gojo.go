@@ -14,9 +14,6 @@ type Gojo interface {
 	CreateAnimeSeasonInfoTx(ctx context.Context, arg CreateAnimeSeasonInfoTxParams) (CreateAnimeSeasonInfoTxResult, error)
 	CreateAnimeMovieMetasTx(ctx context.Context, arg CreateAnimeMovieMetasTxParams) (CreateAnimeMovieMetasTxResult, error)
 	CreateAnimeSerieMetasTx(ctx context.Context, arg CreateAnimeSerieMetasTxParams) (CreateAnimeSerieMetasTxResult, error)
-	CreateGenresTx(ctx context.Context, arg CreateGenresTxParams) (CreateGenresTxResult, error)
-	CreateStudiosTx(ctx context.Context, arg CreateStudiosTxParams) (CreateStudiosTxResult, error)
-	CreateLanguagesTx(ctx context.Context, arg CreateLanguagesTxParams) (CreateLanguagesTxResult, error)
 	CreateAnimeMovieTx(ctx context.Context, arg CreateAnimeMovieTxParams) (CreateAnimeMovieTxResult, error)
 	CreateAnimeSerieTx(ctx context.Context, arg CreateAnimeSerieTxParams) (CreateAnimeSerieTxResult, error)
 	CreateAnimeMovieResourceTx(ctx context.Context, arg CreateAnimeMovieResourceTxParams) (CreateAnimeMovieResourceTxResult, error)
@@ -43,7 +40,10 @@ type Gojo interface {
 	CreateAnimeSeasonTagTx(ctx context.Context, arg CreateAnimeSeasonTagTxParams) (CreateAnimeSeasonTagTxResult, error)
 	CreateAnimeEpisodeServerTx(ctx context.Context, episodeID int64) (AnimeEpisodeServer, error)
 	LoginUserTx(ctx context.Context, arg LoginUserTxParams) (User, error)
-	CreateActorsTx(ctx context.Context, arg CreateActorsTxParams) (CreateActorsTxResult, error)
+	CreateActorsTx(ctx context.Context, arg []CreateActorParams) ([]Actor, error)
+	CreateGenresTx(ctx context.Context, arg []string) ([]Genre, error)
+	CreateStudiosTx(ctx context.Context, arg []string) ([]Studio, error)
+	CreateLanguagesTx(ctx context.Context, arg []CreateLanguageParams) ([]Language, error)
 }
 
 type SQLGojo struct {

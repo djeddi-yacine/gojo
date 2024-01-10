@@ -28,7 +28,7 @@ func (server *InfoServer) GetAllStudios(ctx context.Context, req *nfpbv1.GetAllS
 		Limit:  req.PageSize,
 		Offset: (req.PageNumber - 1) * req.PageSize,
 	}
-	DBStudios, err := server.gojo.ListStudios(ctx, arg)
+	dbStudios, err := server.gojo.ListStudios(ctx, arg)
 	if err != nil {
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
@@ -36,13 +36,8 @@ func (server *InfoServer) GetAllStudios(ctx context.Context, req *nfpbv1.GetAllS
 		return nil, shv1.ApiError("failed to list all studios", err)
 	}
 
-	var PBStudios []*nfpbv1.Studio
-	for _, g := range DBStudios {
-		PBStudios = append(PBStudios, shv1.ConvertStudio(g))
-	}
-
 	res := &nfpbv1.GetAllStudiosResponse{
-		Studios: PBStudios,
+		Studios: shv1.ConvertStudios(dbStudios),
 	}
 	return res, nil
 }

@@ -28,9 +28,9 @@ func (server *InfoServer) CreateActors(ctx context.Context, req *nfpbv1.CreateAc
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	DBActors := make([]db.CreateActorParams, len(req.GetActors()))
+	dbActors := make([]db.CreateActorParams, len(req.GetActors()))
 	for i, v := range req.GetActors() {
-		DBActors[i] = db.CreateActorParams{
+		dbActors[i] = db.CreateActorParams{
 			FullName:      v.GetFullName(),
 			Biography:     v.GetBiography(),
 			Gender:        v.GetGender(),
@@ -40,17 +40,13 @@ func (server *InfoServer) CreateActors(ctx context.Context, req *nfpbv1.CreateAc
 		}
 	}
 
-	result, err := server.gojo.CreateActorsTx(ctx, db.CreateActorsTxParams{
-		Actors: DBActors,
-	})
+	result, err := server.gojo.CreateActorsTx(ctx, dbActors)
 	if err != nil {
 		return nil, shv1.ApiError("failed to create new actors", err)
 	}
 
-	actors := shv1.ConvertActors(result.Actors)
-
 	res := &nfpbv1.CreateActorsResponse{
-		Actors: actors,
+		Actors: shv1.ConvertActors(result),
 	}
 
 	return res, nil

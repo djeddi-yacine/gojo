@@ -4,7 +4,6 @@ import (
 	"context"
 
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
-	db "github.com/dj-yacine-flutter/gojo/db/database"
 	nfpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -26,21 +25,13 @@ func (server *InfoServer) CreateStudios(ctx context.Context, req *nfpbv1.CreateS
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	result, err := server.gojo.CreateStudiosTx(ctx, db.CreateStudiosTxParams{
-		Names: req.GetNames(),
-	})
+	result, err := server.gojo.CreateStudiosTx(ctx, req.GetNames())
 	if err != nil {
 		return nil, shv1.ApiError("failed to create studio", err)
 	}
 
-	var PBStudios []*nfpbv1.Studio
-	for _, s := range result.Studios {
-		studio := shv1.ConvertStudio(s)
-		PBStudios = append(PBStudios, studio)
-	}
-
 	res := &nfpbv1.CreateStudiosResponse{
-		Studios: PBStudios,
+		Studios: shv1.ConvertStudios(result),
 	}
 
 	return res, nil

@@ -28,7 +28,7 @@ func (server *InfoServer) GetAllLanguages(ctx context.Context, req *nfpbv1.GetAl
 		Limit:  req.PageSize,
 		Offset: (req.PageNumber - 1) * req.PageSize,
 	}
-	DBLanguages, err := server.gojo.ListLanguages(ctx, arg)
+	dbLanguages, err := server.gojo.ListLanguages(ctx, arg)
 	if err != nil {
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
@@ -36,13 +36,13 @@ func (server *InfoServer) GetAllLanguages(ctx context.Context, req *nfpbv1.GetAl
 		return nil, shv1.ApiError("failed to list all languages", err)
 	}
 
-	var PBLanguages []*nfpbv1.LanguageResponse
-	for _, g := range DBLanguages {
-		PBLanguages = append(PBLanguages, shv1.ConvertLanguage(g))
+	pbLanguages := make([]*nfpbv1.LanguageResponse, len(dbLanguages))
+	for i, x := range dbLanguages {
+		pbLanguages[i] = shv1.ConvertLanguage(x)
 	}
 
 	res := &nfpbv1.GetAllLanguagesResponse{
-		Languages: PBLanguages,
+		Languages: pbLanguages,
 	}
 	return res, nil
 }

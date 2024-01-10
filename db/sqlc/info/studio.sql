@@ -1,7 +1,9 @@
 -- name: CreateStudio :one
 INSERT INTO studios (studio_name)
 VALUES ($1)
-RETURNING  id, studio_name, created_at;
+ON CONFLICT (studio_name)
+DO UPDATE SET studio_name = excluded.studio_name
+RETURNING  *;
 
 -- name: GetStudio :one
 SELECT * FROM studios
@@ -11,7 +13,7 @@ WHERE id = $1 LIMIT 1;
 UPDATE studios
 SET studio_name = $2
 WHERE id = $1
-RETURNING id, studio_name, created_at;
+RETURNING *;
 
 -- name: ListStudios :many
 SELECT * FROM studios

@@ -12,6 +12,8 @@ import (
 const createStudio = `-- name: CreateStudio :one
 INSERT INTO studios (studio_name)
 VALUES ($1)
+ON CONFLICT (studio_name)
+DO UPDATE SET studio_name = excluded.studio_name
 RETURNING  id, studio_name, created_at
 `
 

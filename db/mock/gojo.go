@@ -52,10 +52,10 @@ func (mr *MockGojoMockRecorder) CreateActor(arg0, arg1 interface{}) *gomock.Call
 }
 
 // CreateActorsTx mocks base method.
-func (m *MockGojo) CreateActorsTx(arg0 context.Context, arg1 db.CreateActorsTxParams) (db.CreateActorsTxResult, error) {
+func (m *MockGojo) CreateActorsTx(arg0 context.Context, arg1 []db.CreateActorParams) ([]db.Actor, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateActorsTx", arg0, arg1)
-	ret0, _ := ret[0].(db.CreateActorsTxResult)
+	ret0, _ := ret[0].([]db.Actor)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1387,10 +1387,10 @@ func (mr *MockGojoMockRecorder) CreateGenre(arg0, arg1 interface{}) *gomock.Call
 }
 
 // CreateGenresTx mocks base method.
-func (m *MockGojo) CreateGenresTx(arg0 context.Context, arg1 db.CreateGenresTxParams) (db.CreateGenresTxResult, error) {
+func (m *MockGojo) CreateGenresTx(arg0 context.Context, arg1 []string) ([]db.Genre, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateGenresTx", arg0, arg1)
-	ret0, _ := ret[0].(db.CreateGenresTxResult)
+	ret0, _ := ret[0].([]db.Genre)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1417,10 +1417,10 @@ func (mr *MockGojoMockRecorder) CreateLanguage(arg0, arg1 interface{}) *gomock.C
 }
 
 // CreateLanguagesTx mocks base method.
-func (m *MockGojo) CreateLanguagesTx(arg0 context.Context, arg1 db.CreateLanguagesTxParams) (db.CreateLanguagesTxResult, error) {
+func (m *MockGojo) CreateLanguagesTx(arg0 context.Context, arg1 []db.CreateLanguageParams) ([]db.Language, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateLanguagesTx", arg0, arg1)
-	ret0, _ := ret[0].(db.CreateLanguagesTxResult)
+	ret0, _ := ret[0].([]db.Language)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -1477,10 +1477,10 @@ func (mr *MockGojoMockRecorder) CreateStudio(arg0, arg1 interface{}) *gomock.Cal
 }
 
 // CreateStudiosTx mocks base method.
-func (m *MockGojo) CreateStudiosTx(arg0 context.Context, arg1 db.CreateStudiosTxParams) (db.CreateStudiosTxResult, error) {
+func (m *MockGojo) CreateStudiosTx(arg0 context.Context, arg1 []string) ([]db.Studio, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateStudiosTx", arg0, arg1)
-	ret0, _ := ret[0].(db.CreateStudiosTxResult)
+	ret0, _ := ret[0].([]db.Studio)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

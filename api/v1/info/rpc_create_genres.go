@@ -4,7 +4,6 @@ import (
 	"context"
 
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
-	db "github.com/dj-yacine-flutter/gojo/db/database"
 	nfpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -26,21 +25,13 @@ func (server *InfoServer) CreateGenres(ctx context.Context, req *nfpbv1.CreateGe
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	result, err := server.gojo.CreateGenresTx(ctx, db.CreateGenresTxParams{
-		Names: req.GetNames(),
-	})
+	result, err := server.gojo.CreateGenresTx(ctx, req.GetNames())
 	if err != nil {
 		return nil, shv1.ApiError("failed to create new genre", err)
 	}
 
-	var PBgenres []*nfpbv1.Genre
-	for _, g := range result.Genres {
-		genre := shv1.ConvertGenre(g)
-		PBgenres = append(PBgenres, genre)
-	}
-
 	res := &nfpbv1.CreateGenresResponse{
-		Genres: PBgenres,
+		Genres: shv1.ConvertGenres(result),
 	}
 
 	return res, nil

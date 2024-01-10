@@ -4,27 +4,20 @@ import (
 	"context"
 )
 
-type CreateActorsTxParams struct {
-	Actors []CreateActorParams
-}
-
-type CreateActorsTxResult struct {
-	Actors []Actor
-}
-
-func (gojo *SQLGojo) CreateActorsTx(ctx context.Context, arg CreateActorsTxParams) (CreateActorsTxResult, error) {
-	var result CreateActorsTxResult
+func (gojo *SQLGojo) CreateActorsTx(ctx context.Context, arg []CreateActorParams) ([]Actor, error) {
+	var result []Actor
 
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
 
-		for _, x := range arg.Actors {
+		for _, x := range arg {
 			z, err := q.CreateActor(ctx, x)
 			if err != nil {
+				ErrorSQL(err)
 				return err
 			}
 
-			result.Actors = append(result.Actors, z)
+			result = append(result, z)
 		}
 
 		return err

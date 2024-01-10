@@ -28,7 +28,7 @@ func (server *InfoServer) GetAllGenres(ctx context.Context, req *nfpbv1.GetAllGe
 		Limit:  req.PageSize,
 		Offset: (req.PageNumber - 1) * req.PageSize,
 	}
-	DBgenres, err := server.gojo.ListGenres(ctx, arg)
+	dbGenres, err := server.gojo.ListGenres(ctx, arg)
 	if err != nil {
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
@@ -36,13 +36,8 @@ func (server *InfoServer) GetAllGenres(ctx context.Context, req *nfpbv1.GetAllGe
 		return nil, shv1.ApiError("failed to list all genres", err)
 	}
 
-	var PBgenres []*nfpbv1.Genre
-	for _, g := range DBgenres {
-		PBgenres = append(PBgenres, shv1.ConvertGenre(g))
-	}
-
 	res := &nfpbv1.GetAllGenresResponse{
-		Genres: PBgenres,
+		Genres: shv1.ConvertGenres(dbGenres),
 	}
 	return res, nil
 }
