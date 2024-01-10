@@ -782,8 +782,8 @@ Table anime_characters {
   id bigserial [primary key, unique, increment, not null]
   actor_id bigserial [not null]
   full_name  varchar [not null]
-  description varchar [not null]
-  image varchar [not null]
+  char_description varchar [not null]
+  char_image varchar [not null]
   image_blur_hash varchar [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
