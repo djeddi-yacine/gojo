@@ -8,9 +8,11 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 import "v1/nfpb/rpc_create_genres.proto";
 import "v1/nfpb/rpc_create_studios.proto";
 import "v1/nfpb/rpc_create_languages.proto";
+import "v1/nfpb/rpc_create_actor.proto";
 import "v1/nfpb/rpc_get_all_genres.proto";
 import "v1/nfpb/rpc_get_all_studios.proto";
 import "v1/nfpb/rpc_get_all_languages.proto";
+import "v1/nfpb/rpc_get_all_actors.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb;nfpbv1";
 
@@ -42,6 +44,15 @@ rpc CreateLanguages(CreateLanguagesRequest) returns (CreateLanguagesResponse) {
     description: "Use this API to create a new languages";
 };
 }
+rpc CreateActor(CreateActorRequest) returns (CreateActorResponse) {
+  option (google.api.http) = {
+    post: "/actor/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to create a new actor";
+};
+}
 rpc GetAllGenres(GetAllGenresRequest) returns (GetAllGenresResponse) {
   option (google.api.http) = {
     get: "/anime/genre"
@@ -64,6 +75,14 @@ rpc GetAllLanguages(GetAllLanguagesRequest) returns (GetAllLanguagesResponse) {
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
     description: "Use this API to get all app languages";
+};
+}
+rpc GetAllActors(GetAllActorsRequest) returns (GetAllActorsResponse) {
+  option (google.api.http) = {
+    get: "/actor"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get all actors";
 };
 }
 }

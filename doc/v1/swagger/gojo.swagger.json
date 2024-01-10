@@ -29,6 +29,78 @@
     "application/json"
   ],
   "paths": {
+    "/actor": {
+      "get": {
+        "description": "Use this API to get all actors",
+        "operationId": "InfoService_GetAllActors",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nfpbv1GetAllActorsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "InfoService"
+        ]
+      }
+    },
+    "/actor/create": {
+      "post": {
+        "description": "Use this API to create a new actor",
+        "operationId": "InfoService_CreateActor",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nfpbv1CreateActorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/nfpbv1CreateActorRequest"
+            }
+          }
+        ],
+        "tags": [
+          "InfoService"
+        ]
+      }
+    },
     "/anime/genre": {
       "get": {
         "description": "Use this API to get all anime genres",
@@ -4318,6 +4390,32 @@
         }
       }
     },
+    "nfpbv1Actor": {
+      "type": "object",
+      "properties": {
+        "actorID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "biography": {
+          "type": "string"
+        },
+        "born": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "nfpbv1AnimeMetaRequest": {
       "type": "object",
       "properties": {
@@ -4343,6 +4441,32 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "nfpbv1CreateActorRequest": {
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "biography": {
+          "type": "string"
+        },
+        "born": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "nfpbv1CreateActorResponse": {
+      "type": "object",
+      "properties": {
+        "actors": {
+          "$ref": "#/definitions/nfpbv1Actor"
         }
       }
     },
@@ -4429,6 +4553,18 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "nfpbv1GetAllActorsResponse": {
+      "type": "object",
+      "properties": {
+        "actors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Actor"
+          }
         }
       }
     },
