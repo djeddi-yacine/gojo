@@ -6,7 +6,7 @@ ALTER TABLE "anime_serie_characters" DROP CONSTRAINT IF EXISTS "anime_serie_char
 
 ALTER TABLE "anime_serie_characters" DROP CONSTRAINT IF EXISTS "anime_serie_characters_character_id_fkey";
 
-ALTER TABLE "anime_characters" DROP CONSTRAINT IF EXISTS "anime_characters_actor_id_fkey";
+ALTER TABLE "anime_characters" DROP CONSTRAINT IF EXISTS "anime_characters_actors_id_fkey";
 
 
 

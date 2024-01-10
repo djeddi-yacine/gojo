@@ -782,15 +782,17 @@ Table actors {
 
 Table anime_characters {
   id bigserial [primary key, unique, increment, not null]
-  actor_id bigserial [not null]
   full_name  varchar [not null]
   about varchar [not null]
+  role_playing varchar [not null]
   image_url varchar [not null]
   image_blur_hash varchar [not null]
+  actors_id bigserial[] [not null]
+  pictures varchar[] [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
-      (actor_id, full_name) [unique]
+      (full_name, about) [unique]
     }
 }
 
@@ -1155,7 +1157,7 @@ Ref {
 
 
 Ref {
-  actors.id - anime_characters.actor_id [delete: cascade]
+  actors.id - anime_characters.actors_id [delete: cascade]
 }
 
 

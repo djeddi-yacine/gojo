@@ -6,7 +6,6 @@ import (
 	"net"
 	"net/http"
 	"os"
-	rt "runtime"
 
 	"github.com/dj-yacine-flutter/gojo/api"
 	v1 "github.com/dj-yacine-flutter/gojo/api/v1"
@@ -23,11 +22,6 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
-
-func init() {
-	// Set GOMAXPROCS to the number of available CPU cores
-	rt.GOMAXPROCS(rt.NumCPU())
-}
 
 func main() {
 	var err error

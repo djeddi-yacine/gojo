@@ -1,10 +1,12 @@
 CREATE TABLE "anime_characters" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
-  "actor_id" bigserial NOT NULL,
   "full_name" varchar NOT NULL,
   "about" varchar NOT NULL,
+  "role_playing" varchar NOT NULL,
   "image_url" varchar NOT NULL,
   "image_blur_hash" varchar NOT NULL,
+  "actors_id" bigserial[] NOT NULL,
+  "pictures" varchar[] NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
@@ -25,7 +27,7 @@ CREATE TABLE "anime_serie_characters" (
 
 CREATE INDEX ON "anime_characters" ("id");
 
-CREATE UNIQUE INDEX ON "anime_characters" ("actor_id", "full_name");
+CREATE UNIQUE INDEX ON "anime_characters" ("full_name", "about");
 
 CREATE INDEX ON "anime_movie_characters" ("id");
 
@@ -40,7 +42,7 @@ ALTER TABLE "anime_movie_characters" ADD FOREIGN KEY ("anime_id") REFERENCES "an
 
 ALTER TABLE "anime_serie_characters" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_characters" ADD FOREIGN KEY ("actor_id") REFERENCES "actors" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_characters" ADD FOREIGN KEY ("actors_id") REFERENCES "actors" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_characters" ADD FOREIGN KEY ("character_id") REFERENCES "anime_characters" ("id") ON DELETE CASCADE;
 
