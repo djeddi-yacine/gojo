@@ -28,7 +28,7 @@ func (server *InfoServer) GetAllLanguages(ctx context.Context, req *nfpbv1.GetAl
 		Limit:  req.PageSize,
 		Offset: (req.PageNumber - 1) * req.PageSize,
 	}
-	dbLanguages, err := server.gojo.ListLanguages(ctx, arg)
+	dbLanguages, err := server.gojo.GetAllLanguagesTx(ctx, arg)
 	if err != nil {
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil

@@ -28,7 +28,8 @@ func (server *InfoServer) GetAllGenres(ctx context.Context, req *nfpbv1.GetAllGe
 		Limit:  req.PageSize,
 		Offset: (req.PageNumber - 1) * req.PageSize,
 	}
-	dbGenres, err := server.gojo.ListGenres(ctx, arg)
+
+	dbGenres, err := server.gojo.GetAllGenresTx(ctx, arg)
 	if err != nil {
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil

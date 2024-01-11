@@ -28,7 +28,7 @@ func (server *InfoServer) GetAllActors(ctx context.Context, req *nfpbv1.GetAllAc
 		Limit:  req.PageSize,
 		Offset: (req.PageNumber - 1) * req.PageSize,
 	}
-	dbActors, err := server.gojo.ListActors(ctx, arg)
+	dbActors, err := server.gojo.GetAllActorsTx(ctx, arg)
 	if err != nil {
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil

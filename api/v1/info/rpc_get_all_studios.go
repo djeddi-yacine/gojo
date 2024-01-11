@@ -28,7 +28,8 @@ func (server *InfoServer) GetAllStudios(ctx context.Context, req *nfpbv1.GetAllS
 		Limit:  req.PageSize,
 		Offset: (req.PageNumber - 1) * req.PageSize,
 	}
-	dbStudios, err := server.gojo.ListStudios(ctx, arg)
+
+	studios, err := server.gojo.GetAllStudiosTx(ctx, arg)
 	if err != nil {
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
@@ -37,7 +38,7 @@ func (server *InfoServer) GetAllStudios(ctx context.Context, req *nfpbv1.GetAllS
 	}
 
 	res := &nfpbv1.GetAllStudiosResponse{
-		Studios: shv1.ConvertStudios(dbStudios),
+		Studios: shv1.ConvertStudios(studios),
 	}
 	return res, nil
 }
