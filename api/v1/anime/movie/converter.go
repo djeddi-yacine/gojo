@@ -7,65 +7,69 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func convertAnimeMovie(a db.AnimeMovie) *ampbv1.AnimeMovieResponse {
-	return &ampbv1.AnimeMovieResponse{
-		ID:                a.ID,
-		OriginalTitle:     a.OriginalTitle,
-		UniqueID:          a.UniqueID.String(),
-		Aired:             timestamppb.New(a.Aired),
-		ReleaseYear:       a.ReleaseYear,
-		Rating:            a.Rating,
-		Duration:          durationpb.New(a.Duration),
-		PortraitPoster:    a.PortraitPoster,
-		PortraitBlurHash:  a.PortraitBlurHash,
-		LandscapePoster:   a.LandscapePoster,
-		LandscapeBlurHash: a.LandscapeBlurHash,
-		CreatedAt:         timestamppb.New(a.CreatedAt),
+func convertAnimeMovie(v db.AnimeMovie) *ampbv1.AnimeMovieResponse {
+	if v.ID != 0 {
+		return &ampbv1.AnimeMovieResponse{
+			ID:                v.ID,
+			OriginalTitle:     v.OriginalTitle,
+			UniqueID:          v.UniqueID.String(),
+			Aired:             timestamppb.New(v.Aired),
+			ReleaseYear:       v.ReleaseYear,
+			Rating:            v.Rating,
+			Duration:          durationpb.New(v.Duration),
+			PortraitPoster:    v.PortraitPoster,
+			PortraitBlurHash:  v.PortraitBlurHash,
+			LandscapePoster:   v.LandscapePoster,
+			LandscapeBlurHash: v.LandscapeBlurHash,
+			CreatedAt:         timestamppb.New(v.CreatedAt),
+		}
 	}
+
+	return nil
 }
 
-func convertAnimeMovieVideos(amv []db.AnimeMovieVideo) []*ampbv1.AnimeMovieVideoResponse {
-	if len(amv) > 0 {
-		Videos := make([]*ampbv1.AnimeMovieVideoResponse, len(amv))
+func convertAnimeMovieVideos(v []db.AnimeMovieVideo) []*ampbv1.AnimeMovieVideoResponse {
+	if len(v) > 0 {
+		videos := make([]*ampbv1.AnimeMovieVideoResponse, len(v))
 
-		for i, v := range amv {
-			Videos[i] = &ampbv1.AnimeMovieVideoResponse{
-				ID:         v.ID,
-				LanguageID: v.LanguageID,
-				Authority:  v.Authority,
-				Referer:    v.Referer,
-				Link:       v.Link,
-				Quality:    v.Quality,
-				CreatedAt:  timestamppb.New(v.CreatedAt),
+		for i, x := range v {
+			videos[i] = &ampbv1.AnimeMovieVideoResponse{
+				ID:         x.ID,
+				LanguageID: x.LanguageID,
+				Authority:  x.Authority,
+				Referer:    x.Referer,
+				Link:       x.Link,
+				Quality:    x.Quality,
+				CreatedAt:  timestamppb.New(x.CreatedAt),
 			}
 		}
-		return Videos
+		return videos
 	} else {
 		return nil
 	}
 }
 
-func convertAnimeMovieTorrents(amt []db.AnimeMovieTorrent) []*ampbv1.AnimeMovieTorrentResponse {
-	if len(amt) > 0 {
-		Torrents := make([]*ampbv1.AnimeMovieTorrentResponse, len(amt))
+func convertAnimeMovieTorrents(v []db.AnimeMovieTorrent) []*ampbv1.AnimeMovieTorrentResponse {
+	if len(v) > 0 {
+		torrents := make([]*ampbv1.AnimeMovieTorrentResponse, len(v))
 
-		for i, t := range amt {
-			Torrents[i] = &ampbv1.AnimeMovieTorrentResponse{
-				ID:          t.ID,
-				LanguageID:  t.LanguageID,
-				FileName:    t.FileName,
-				TorrentHash: t.TorrentHash,
-				TorrentFile: t.TorrentFile,
-				Seeds:       t.Seeds,
-				Peers:       t.Peers,
-				Leechers:    t.Leechers,
-				SizeBytes:   t.SizeBytes,
-				Quality:     t.Quality,
-				CreatedAt:   timestamppb.New(t.CreatedAt),
+		for i, x := range v {
+			torrents[i] = &ampbv1.AnimeMovieTorrentResponse{
+				ID:          x.ID,
+				LanguageID:  x.LanguageID,
+				FileName:    x.FileName,
+				TorrentHash: x.TorrentHash,
+				TorrentFile: x.TorrentFile,
+				Seeds:       x.Seeds,
+				Peers:       x.Peers,
+				Leechers:    x.Leechers,
+				SizeBytes:   x.SizeBytes,
+				Quality:     x.Quality,
+				CreatedAt:   timestamppb.New(x.CreatedAt),
 			}
 		}
 
-		return Torrents
+		return torrents
 	} else {
 		return nil
 	}

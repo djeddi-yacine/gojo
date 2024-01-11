@@ -7,32 +7,39 @@ import (
 )
 
 func ConvertAnimeResource(v db.AnimeResource) *ashpbv1.AnimeResourceResponse {
-	return &ashpbv1.AnimeResourceResponse{
-		ID:            v.ID,
-		TvdbID:        v.TvdbID,
-		TmdbID:        v.TmdbID,
-		ImdbID:        v.ImdbID,
-		LivechartID:   v.LivechartID,
-		AnimePlanetID: v.AnimePlanetID,
-		AnisearchID:   v.AnisearchID,
-		AnidbID:       v.AnidbID,
-		KitsuID:       v.KitsuID,
-		MalID:         v.MalID,
-		NotifyMoeID:   v.NotifyMoeID,
-		AnilistID:     v.AnilistID,
-		CreatedAt:     timestamppb.New(v.CreatedAt),
+	if v.ID != 0 {
+		return &ashpbv1.AnimeResourceResponse{
+			ID:            v.ID,
+			TvdbID:        v.TvdbID,
+			TmdbID:        v.TmdbID,
+			ImdbID:        v.ImdbID,
+			LivechartID:   v.LivechartID,
+			AnimePlanetID: v.AnimePlanetID,
+			AnisearchID:   v.AnisearchID,
+			AnidbID:       v.AnidbID,
+			KitsuID:       v.KitsuID,
+			MalID:         v.MalID,
+			NotifyMoeID:   v.NotifyMoeID,
+			AnilistID:     v.AnilistID,
+			CreatedAt:     timestamppb.New(v.CreatedAt),
+		}
 	}
+	return nil
 }
 
 func ConvertAnimeLink(v db.AnimeLink) *ashpbv1.AnimeLinkResponse {
-	return &ashpbv1.AnimeLinkResponse{
-		ID:              v.ID,
-		OfficialWebsite: v.OfficialWebsite,
-		WikipediaUrl:    v.WikipediaUrl,
-		CrunchyrollUrl:  v.CrunchyrollUrl,
-		SocialMedia:     v.SocialMedia,
-		CreatedAt:       timestamppb.New(v.CreatedAt),
+	if v.ID != 0 {
+		return &ashpbv1.AnimeLinkResponse{
+			ID:              v.ID,
+			OfficialWebsite: v.OfficialWebsite,
+			WikipediaUrl:    v.WikipediaUrl,
+			CrunchyrollUrl:  v.CrunchyrollUrl,
+			SocialMedia:     v.SocialMedia,
+			CreatedAt:       timestamppb.New(v.CreatedAt),
+		}
 	}
+
+	return nil
 }
 
 func ConvertAnimeImages(v []db.AnimeImage) []*ashpbv1.ImageResponse {
@@ -79,14 +86,36 @@ func ConvertAnimeTrailers(v []db.AnimeTrailer) []*ashpbv1.AnimeTrailerResponse {
 }
 
 func ConvertAnimeCharacter(v db.AnimeCharacter) *ashpbv1.AnimeCharacterResponse {
-	return &ashpbv1.AnimeCharacterResponse{
-		ID:            v.ID,
-		FullName:      v.FullName,
-		About:         v.About,
-		RolePlaying:   v.RolePlaying,
-		Image:         v.ImageUrl,
-		ImageBlurHash: v.ImageBlurHash,
-		Pictures:      v.Pictures,
-		CreatedAt:     timestamppb.New(v.CreatedAt),
+	if v.ID != 0 {
+		return &ashpbv1.AnimeCharacterResponse{
+			ID:            v.ID,
+			FullName:      v.FullName,
+			About:         v.About,
+			RolePlaying:   v.RolePlaying,
+			Image:         v.ImageUrl,
+			ImageBlurHash: v.ImageBlurHash,
+			Pictures:      v.Pictures,
+			CreatedAt:     timestamppb.New(v.CreatedAt),
+		}
+	}
+
+	return nil
+}
+
+func ConvertAnimeTags(v []db.AnimeTag) []*ashpbv1.AnimeTag {
+	if len(v) > 0 {
+		tags := make([]*ashpbv1.AnimeTag, len(v))
+
+		for i, x := range v {
+			tags[i] = &ashpbv1.AnimeTag{
+				ID:        x.ID,
+				Tag:       x.Tag,
+				CreatedAt: timestamppb.New(x.CreatedAt),
+			}
+		}
+
+		return tags
+	} else {
+		return nil
 	}
 }

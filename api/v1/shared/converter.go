@@ -7,49 +7,69 @@ import (
 )
 
 func ConvertGenre(v db.Genre) *nfpbv1.Genre {
-	return &nfpbv1.Genre{
-		GenreID:   v.ID,
-		GenreName: v.GenreName,
-		CreatedAt: timestamppb.New(v.CreatedAt),
+	if v.ID != 0 {
+		return &nfpbv1.Genre{
+			GenreID:   v.ID,
+			GenreName: v.GenreName,
+			CreatedAt: timestamppb.New(v.CreatedAt),
+		}
 	}
+
+	return nil
 }
 
-func ConvertStudio(studio db.Studio) *nfpbv1.Studio {
-	return &nfpbv1.Studio{
-		StudioID:   studio.ID,
-		StudioName: studio.StudioName,
-		CreatedAt:  timestamppb.New(studio.CreatedAt),
+func ConvertStudio(v db.Studio) *nfpbv1.Studio {
+	if v.ID != 0 {
+		return &nfpbv1.Studio{
+			StudioID:   v.ID,
+			StudioName: v.StudioName,
+			CreatedAt:  timestamppb.New(v.CreatedAt),
+		}
 	}
+
+	return nil
 }
 
 func ConvertActor(v db.Actor) *nfpbv1.ActorResponse {
-	return &nfpbv1.ActorResponse{
-		ActorID:       v.ID,
-		FullName:      v.FullName,
-		Gender:        v.Gender,
-		Biography:     v.Biography,
-		Born:          timestamppb.New(v.Born),
-		Image:         v.ImageUrl,
-		ImageBlurHash: v.ImageBlurHash,
-		CreatedAt:     timestamppb.New(v.CreatedAt),
+	if v.ID != 0 {
+		return &nfpbv1.ActorResponse{
+			ActorID:       v.ID,
+			FullName:      v.FullName,
+			Gender:        v.Gender,
+			Biography:     v.Biography,
+			Born:          timestamppb.New(v.Born),
+			Image:         v.ImageUrl,
+			ImageBlurHash: v.ImageBlurHash,
+			CreatedAt:     timestamppb.New(v.CreatedAt),
+		}
 	}
+
+	return nil
 }
 
 func ConvertLanguage(v db.Language) *nfpbv1.LanguageResponse {
-	return &nfpbv1.LanguageResponse{
-		LanguageID:   v.ID,
-		LanguageCode: v.LanguageCode,
-		LanguageName: v.LanguageName,
-		CreatedAt:    timestamppb.New(v.CreatedAt),
+	if v.ID != 0 {
+		return &nfpbv1.LanguageResponse{
+			LanguageID:   v.ID,
+			LanguageCode: v.LanguageCode,
+			LanguageName: v.LanguageName,
+			CreatedAt:    timestamppb.New(v.CreatedAt),
+		}
 	}
+
+	return nil
 }
 
 func ConvertMeta(v db.Meta) *nfpbv1.MetaResponse {
-	return &nfpbv1.MetaResponse{
-		MetaID:   v.ID,
-		Title:    v.Title,
-		Overview: v.Overview,
+	if v.ID != 0 {
+		return &nfpbv1.MetaResponse{
+			MetaID:   v.ID,
+			Title:    v.Title,
+			Overview: v.Overview,
+		}
 	}
+
+	return nil
 }
 
 func ConvertGenres(v []db.Genre) []*nfpbv1.Genre {

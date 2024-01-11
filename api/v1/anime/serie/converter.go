@@ -7,95 +7,107 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func convertAnimeSerie(a db.AnimeSerie) *aspbv1.AnimeSerieResponse {
-	return &aspbv1.AnimeSerieResponse{
-		ID:                a.ID,
-		OriginalTitle:     a.OriginalTitle,
-		UniqueID:          a.UniqueID.String(),
-		PortraitPoster:    a.PortraitPoster,
-		PortraitBlurHash:  a.PortraitBlurHash,
-		LandscapePoster:   a.LandscapePoster,
-		LandscapeBlurHash: a.LandscapeBlurHash,
-		FirstYear:         a.FirstYear,
-		LastYear:          a.LastYear,
-		MalID:             a.MalID,
-		TvdbID:            a.TvdbID,
-		TmdbID:            a.TmdbID,
-		CreatedAt:         timestamppb.New(a.CreatedAt),
+func convertAnimeSerie(v db.AnimeSerie) *aspbv1.AnimeSerieResponse {
+	if v.ID != 0 {
+		return &aspbv1.AnimeSerieResponse{
+			ID:                v.ID,
+			OriginalTitle:     v.OriginalTitle,
+			UniqueID:          v.UniqueID.String(),
+			PortraitPoster:    v.PortraitPoster,
+			PortraitBlurHash:  v.PortraitBlurHash,
+			LandscapePoster:   v.LandscapePoster,
+			LandscapeBlurHash: v.LandscapeBlurHash,
+			FirstYear:         v.FirstYear,
+			LastYear:          v.LastYear,
+			MalID:             v.MalID,
+			TvdbID:            v.TvdbID,
+			TmdbID:            v.TmdbID,
+			CreatedAt:         timestamppb.New(v.CreatedAt),
+		}
 	}
+
+	return nil
 }
 
-func convertAnimeSeason(s db.AnimeSerieSeason) *aspbv1.AnimeSeasonResponse {
-	return &aspbv1.AnimeSeasonResponse{
-		ID:                  s.ID,
-		AnimeID:             s.AnimeID,
-		SeasonOriginalTitle: s.SeasonOriginalTitle,
-		ReleaseYear:         s.ReleaseYear,
-		Aired:               timestamppb.New(s.Aired),
-		Rating:              s.Rating,
-		PortraitPoster:      s.PortraitPoster,
-		PortraitBlurHash:    s.PortraitBlurHash,
-		CreatedAt:           timestamppb.New(s.CreatedAt),
+func convertAnimeSeason(v db.AnimeSerieSeason) *aspbv1.AnimeSeasonResponse {
+	if v.ID != 0 {
+		return &aspbv1.AnimeSeasonResponse{
+			ID:                  v.ID,
+			AnimeID:             v.AnimeID,
+			SeasonOriginalTitle: v.SeasonOriginalTitle,
+			ReleaseYear:         v.ReleaseYear,
+			Aired:               timestamppb.New(v.Aired),
+			Rating:              v.Rating,
+			PortraitPoster:      v.PortraitPoster,
+			PortraitBlurHash:    v.PortraitBlurHash,
+			CreatedAt:           timestamppb.New(v.CreatedAt),
+		}
 	}
+
+	return nil
 }
 
-func convertAnimeEpisode(e db.AnimeSerieEpisode) *aspbv1.AnimeEpisodeResponse {
-	return &aspbv1.AnimeEpisodeResponse{
-		ID:                   e.ID,
-		SeasonID:             e.SeasonID,
-		EpisodeNumber:        uint32(e.EpisodeNumber),
-		EpisodeOriginalTitle: e.EpisodeOriginalTitle,
-		Aired:                timestamppb.New(e.Aired),
-		Rating:               e.Rating,
-		Duration:             durationpb.New(e.Duration),
-		Thumbnails:           e.Thumbnails,
-		ThumbnailsBlurHash:   e.ThumbnailsBlurHash,
-		CreatedAt:            timestamppb.New(e.CreatedAt),
+func convertAnimeEpisode(v db.AnimeSerieEpisode) *aspbv1.AnimeEpisodeResponse {
+	if v.ID != 0 {
+		return &aspbv1.AnimeEpisodeResponse{
+			ID:                   v.ID,
+			SeasonID:             v.SeasonID,
+			EpisodeNumber:        uint32(v.EpisodeNumber),
+			EpisodeOriginalTitle: v.EpisodeOriginalTitle,
+			Aired:                timestamppb.New(v.Aired),
+			Rating:               v.Rating,
+			Duration:             durationpb.New(v.Duration),
+			Thumbnails:           v.Thumbnails,
+			ThumbnailsBlurHash:   v.ThumbnailsBlurHash,
+			CreatedAt:            timestamppb.New(v.CreatedAt),
+		}
 	}
+
+	return nil
 }
 
-func convertAnimeEpisodeVideos(asv []db.AnimeEpisodeVideo) []*aspbv1.AnimeEpisodeVideoResponse {
-	if len(asv) > 0 {
-		Videos := make([]*aspbv1.AnimeEpisodeVideoResponse, len(asv))
+func convertAnimeEpisodeVideos(v []db.AnimeEpisodeVideo) []*aspbv1.AnimeEpisodeVideoResponse {
+	if len(v) > 0 {
+		videos := make([]*aspbv1.AnimeEpisodeVideoResponse, len(v))
 
-		for i, v := range asv {
-			Videos[i] = &aspbv1.AnimeEpisodeVideoResponse{
-				ID:         v.ID,
-				LanguageID: v.LanguageID,
-				Authority:  v.Authority,
-				Referer:    v.Referer,
-				Link:       v.Link,
-				Quality:    v.Quality,
-				CreatedAt:  timestamppb.New(v.CreatedAt),
+		for i, x := range v {
+			videos[i] = &aspbv1.AnimeEpisodeVideoResponse{
+				ID:         x.ID,
+				LanguageID: x.LanguageID,
+				Authority:  x.Authority,
+				Referer:    x.Referer,
+				Link:       x.Link,
+				Quality:    x.Quality,
+				CreatedAt:  timestamppb.New(x.CreatedAt),
 			}
 		}
-		return Videos
+		return videos
 	} else {
 		return nil
 	}
 }
 
-func convertAnimeEpisodeTorrents(ast []db.AnimeEpisodeTorrent) []*aspbv1.AnimeEpisodeTorrentResponse {
-	if len(ast) > 0 {
-		Torrents := make([]*aspbv1.AnimeEpisodeTorrentResponse, len(ast))
+func convertAnimeEpisodeTorrents(v []db.AnimeEpisodeTorrent) []*aspbv1.AnimeEpisodeTorrentResponse {
+	if len(v) > 0 {
+		torrents := make([]*aspbv1.AnimeEpisodeTorrentResponse, len(v))
 
-		for i, t := range ast {
-			Torrents[i] = &aspbv1.AnimeEpisodeTorrentResponse{
-				ID:          t.ID,
-				LanguageID:  t.LanguageID,
-				FileName:    t.FileName,
-				TorrentHash: t.TorrentHash,
-				TorrentFile: t.TorrentFile,
-				Seeds:       t.Seeds,
-				Peers:       t.Peers,
-				Leechers:    t.Leechers,
-				SizeBytes:   t.SizeBytes,
-				Quality:     t.Quality,
-				CreatedAt:   timestamppb.New(t.CreatedAt),
+		for i, x := range v {
+			torrents[i] = &aspbv1.AnimeEpisodeTorrentResponse{
+				ID:          x.ID,
+				LanguageID:  x.LanguageID,
+				FileName:    x.FileName,
+				TorrentHash: x.TorrentHash,
+				TorrentFile: x.TorrentFile,
+				Seeds:       x.Seeds,
+				Peers:       x.Peers,
+				Leechers:    x.Leechers,
+				SizeBytes:   x.SizeBytes,
+				Quality:     x.Quality,
+				CreatedAt:   timestamppb.New(x.CreatedAt),
 			}
 		}
 
-		return Torrents
+		return torrents
 	} else {
 		return nil
 	}
