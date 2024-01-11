@@ -45,6 +45,19 @@ func (q *Queries) GetAnimeMovieServer(ctx context.Context, id int64) (AnimeMovie
 	return i, err
 }
 
+const getAnimeMovieServerByAnimeID = `-- name: GetAnimeMovieServerByAnimeID :one
+SELECT id FROM anime_movie_servers
+WHERE anime_id = $1
+LIMIT 1
+`
+
+func (q *Queries) GetAnimeMovieServerByAnimeID(ctx context.Context, animeID int64) (int64, error) {
+	row := q.db.QueryRow(ctx, getAnimeMovieServerByAnimeID, animeID)
+	var id int64
+	err := row.Scan(&id)
+	return id, err
+}
+
 const listAnimeMovieServers = `-- name: ListAnimeMovieServers :many
 SELECT id, anime_id, created_at FROM anime_movie_servers
 ORDER BY id

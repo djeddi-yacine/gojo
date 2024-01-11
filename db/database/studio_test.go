@@ -71,9 +71,7 @@ func TestListStudios(t *testing.T) {
 	require.NotNil(t, studios)
 
 	for _, s := range studios {
-		require.NotNil(t, s.ID)
-		require.NotNil(t, s.StudioName)
-		require.NotNil(t, s.CreatedAt)
+		require.NotNil(t, s)
 	}
 
 }

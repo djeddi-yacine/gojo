@@ -48,28 +48,23 @@ func (q *Queries) DeleteAnimeMovieTag(ctx context.Context, arg DeleteAnimeMovieT
 }
 
 const listAnimeMovieTags = `-- name: ListAnimeMovieTags :many
-SELECT id, anime_id, tag_id, created_at FROM anime_movie_tags
+SELECT tag_id FROM anime_movie_tags
 WHERE anime_id = $1
 `
 
-func (q *Queries) ListAnimeMovieTags(ctx context.Context, animeID int64) ([]AnimeMovieTag, error) {
+func (q *Queries) ListAnimeMovieTags(ctx context.Context, animeID int64) ([]int64, error) {
 	rows, err := q.db.Query(ctx, listAnimeMovieTags, animeID)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	items := []AnimeMovieTag{}
+	items := []int64{}
 	for rows.Next() {
-		var i AnimeMovieTag
-		if err := rows.Scan(
-			&i.ID,
-			&i.AnimeID,
-			&i.TagID,
-			&i.CreatedAt,
-		); err != nil {
+		var tag_id int64
+		if err := rows.Scan(&tag_id); err != nil {
 			return nil, err
 		}
-		items = append(items, i)
+		items = append(items, tag_id)
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err

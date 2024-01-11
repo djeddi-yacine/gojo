@@ -84,7 +84,7 @@ func (q *Queries) GetActor(ctx context.Context, id int64) (Actor, error) {
 }
 
 const listActors = `-- name: ListActors :many
-SELECT id, full_name, gender, biography, image_url, image_blur_hash, born, created_at FROM actors
+SELECT id FROM actors
 ORDER BY id
 LIMIT $1
 OFFSET $2
@@ -95,28 +95,19 @@ type ListActorsParams struct {
 	Offset int32
 }
 
-func (q *Queries) ListActors(ctx context.Context, arg ListActorsParams) ([]Actor, error) {
+func (q *Queries) ListActors(ctx context.Context, arg ListActorsParams) ([]int64, error) {
 	rows, err := q.db.Query(ctx, listActors, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	items := []Actor{}
+	items := []int64{}
 	for rows.Next() {
-		var i Actor
-		if err := rows.Scan(
-			&i.ID,
-			&i.FullName,
-			&i.Gender,
-			&i.Biography,
-			&i.ImageUrl,
-			&i.ImageBlurHash,
-			&i.Born,
-			&i.CreatedAt,
-		); err != nil {
+		var id int64
+		if err := rows.Scan(&id); err != nil {
 			return nil, err
 		}
-		items = append(items, i)
+		items = append(items, id)
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err

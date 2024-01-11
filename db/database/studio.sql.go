@@ -47,7 +47,7 @@ func (q *Queries) GetStudio(ctx context.Context, id int32) (Studio, error) {
 }
 
 const listStudios = `-- name: ListStudios :many
-SELECT id, studio_name, created_at FROM studios
+SELECT id FROM studios
 ORDER BY id
 LIMIT $1
 OFFSET $2
@@ -58,19 +58,19 @@ type ListStudiosParams struct {
 	Offset int32
 }
 
-func (q *Queries) ListStudios(ctx context.Context, arg ListStudiosParams) ([]Studio, error) {
+func (q *Queries) ListStudios(ctx context.Context, arg ListStudiosParams) ([]int32, error) {
 	rows, err := q.db.Query(ctx, listStudios, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	items := []Studio{}
+	items := []int32{}
 	for rows.Next() {
-		var i Studio
-		if err := rows.Scan(&i.ID, &i.StudioName, &i.CreatedAt); err != nil {
+		var id int32
+		if err := rows.Scan(&id); err != nil {
 			return nil, err
 		}
-		items = append(items, i)
+		items = append(items, id)
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err

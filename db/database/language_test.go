@@ -89,9 +89,7 @@ func TestListLanguages(t *testing.T) {
 	require.NotNil(t, Languages)
 
 	for _, s := range Languages {
-		require.NotNil(t, s.ID)
-		require.NotNil(t, s.LanguageName)
-		require.NotNil(t, s.CreatedAt)
+		require.NotNil(t, s)
 	}
 
 }

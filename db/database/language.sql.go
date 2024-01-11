@@ -62,7 +62,7 @@ func (q *Queries) GetLanguage(ctx context.Context, id int32) (Language, error) {
 }
 
 const listLanguages = `-- name: ListLanguages :many
-SELECT id, language_code, language_name, created_at FROM languages
+SELECT id FROM languages
 ORDER BY id
 LIMIT $1
 OFFSET $2
@@ -73,24 +73,19 @@ type ListLanguagesParams struct {
 	Offset int32
 }
 
-func (q *Queries) ListLanguages(ctx context.Context, arg ListLanguagesParams) ([]Language, error) {
+func (q *Queries) ListLanguages(ctx context.Context, arg ListLanguagesParams) ([]int32, error) {
 	rows, err := q.db.Query(ctx, listLanguages, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	items := []Language{}
+	items := []int32{}
 	for rows.Next() {
-		var i Language
-		if err := rows.Scan(
-			&i.ID,
-			&i.LanguageCode,
-			&i.LanguageName,
-			&i.CreatedAt,
-		); err != nil {
+		var id int32
+		if err := rows.Scan(&id); err != nil {
 			return nil, err
 		}
-		items = append(items, i)
+		items = append(items, id)
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err

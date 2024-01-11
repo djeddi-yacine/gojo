@@ -45,6 +45,19 @@ func (q *Queries) GetAnimeEpisodeServer(ctx context.Context, id int64) (AnimeEpi
 	return i, err
 }
 
+const getAnimeEpisodeServerByEpisodeID = `-- name: GetAnimeEpisodeServerByEpisodeID :one
+SELECT id FROM anime_episode_servers
+WHERE episode_id = $1
+LIMIT 1
+`
+
+func (q *Queries) GetAnimeEpisodeServerByEpisodeID(ctx context.Context, episodeID int64) (int64, error) {
+	row := q.db.QueryRow(ctx, getAnimeEpisodeServerByEpisodeID, episodeID)
+	var id int64
+	err := row.Scan(&id)
+	return id, err
+}
+
 const listAnimeEpisodeServers = `-- name: ListAnimeEpisodeServers :many
 SELECT id, episode_id, created_at FROM anime_episode_servers
 ORDER BY id

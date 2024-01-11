@@ -6,6 +6,7 @@ import (
 	"os"
 	"testing"
 
+	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
@@ -23,6 +24,8 @@ func TestMain(m *testing.M) {
 		log.Fatal("cannot connect to db:", err)
 	}
 
-	testGojo = NewGojo(connPool)
+	ping := ping.NewPingSystem(config)
+
+	testGojo = NewGojo(connPool, ping)
 	os.Exit(m.Run())
 }

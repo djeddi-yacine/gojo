@@ -71,9 +71,7 @@ func TestListGenres(t *testing.T) {
 	require.NotNil(t, Genres)
 
 	for _, s := range Genres {
-		require.NotNil(t, s.ID)
-		require.NotNil(t, s.GenreName)
-		require.NotNil(t, s.CreatedAt)
+		require.NotNil(t, s)
 	}
 
 }

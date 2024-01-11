@@ -38,11 +38,11 @@ func (q *Queries) DeleteAnimeCharacterActor(ctx context.Context, id int64) error
 
 const listAnimeCharacterActors = `-- name: ListAnimeCharacterActors :many
 SELECT id, character_id, actor_id FROM anime_character_actors
-WHERE id = $1
+WHERE character_id = $1
 `
 
-func (q *Queries) ListAnimeCharacterActors(ctx context.Context, id int64) ([]AnimeCharacterActor, error) {
-	rows, err := q.db.Query(ctx, listAnimeCharacterActors, id)
+func (q *Queries) ListAnimeCharacterActors(ctx context.Context, characterID int64) ([]AnimeCharacterActor, error) {
+	rows, err := q.db.Query(ctx, listAnimeCharacterActors, characterID)
 	if err != nil {
 		return nil, err
 	}
