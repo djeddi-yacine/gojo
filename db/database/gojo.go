@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 
+	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
@@ -46,16 +47,28 @@ type Gojo interface {
 	CreateLanguagesTx(ctx context.Context, arg []CreateLanguageParams) ([]Language, error)
 	CreateAnimeMovieCharactersTx(ctx context.Context, arg CreateAnimeMovieCharactersTxParams) (CreateAnimeMovieCharactersTxResult, error)
 	CreateAnimeSeasonCharactersTx(ctx context.Context, arg CreateAnimeSeasonCharactersTxParams) (CreateAnimeSeasonCharactersTxResult, error)
+	ListGenresTx(ctx context.Context, arg []int32) ([]Genre, error)
+	ListStudiosTx(ctx context.Context, arg []int32) ([]Studio, error)
+	ListAnimeCharacetrsTx(ctx context.Context, arg []int64) ([]AnimeCharactersAndActors, error)
+	ListAnimeTagsTx(ctx context.Context, arg []int64) ([]AnimeTag, error)
+	ListAnimeImagesTx(ctx context.Context, arg []int64) ([]AnimeImage, error)
+	ListAnimeTrailersTx(ctx context.Context, arg []int64) ([]AnimeTrailer, error)
+	GetAllStudiosTx(ctx context.Context, arg ListStudiosParams) ([]Studio, error)
+	GetAllLanguagesTx(ctx context.Context, arg ListLanguagesParams) ([]Language, error)
+	GetAllGenresTx(ctx context.Context, arg ListGenresParams) ([]Genre, error)
+	GetAllActorsTx(ctx context.Context, arg ListActorsParams) ([]Actor, error)
 }
 
 type SQLGojo struct {
 	*Queries
 	coonPool *pgxpool.Pool
+	ping     *ping.PingSystem
 }
 
-func NewGojo(coonPool *pgxpool.Pool) Gojo {
+func NewGojo(coonPool *pgxpool.Pool, ping *ping.PingSystem) Gojo {
 	return &SQLGojo{
 		coonPool: coonPool,
 		Queries:  New(coonPool),
+		ping:     ping,
 	}
 }

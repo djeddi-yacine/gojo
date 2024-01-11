@@ -45,12 +45,6 @@ func main() {
 		log.Fatal().Err(err).Msg("cannot create token maker")
 	}
 
-	gojo := db.NewGojo(conn)
-
-	redisOpt := asynq.RedisClientOpt{
-		Addr: config.RedisQueueAddress,
-	}
-
 	fmt.Printf("\u001b[38;5;125m\u001b[48;5;0m%s\u001b[0m\n", fmt.Sprintln(`
                                             
      ██████╗  ██████╗      ██╗ ██████╗      
@@ -61,8 +55,15 @@ func main() {
      ╚═════╝  ╚═════╝  ╚════╝  ╚═════╝      
                                             `))
 
-	taskDistributor := worker.NewRedisTaskDistributor(redisOpt)
 	ping := ping.NewPingSystem(config)
+
+	gojo := db.NewGojo(conn, ping)
+
+	redisOpt := asynq.RedisClientOpt{
+		Addr: config.RedisQueueAddress,
+	}
+
+	taskDistributor := worker.NewRedisTaskDistributor(redisOpt)
 
 	go queue(config, redisOpt, gojo)
 	go v1Http(config, gojo, tokenMaker, taskDistributor, ping)
