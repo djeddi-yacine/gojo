@@ -1,5 +1,10 @@
-/example.*
-/dbml-error.*
-/gojo
-/*.md
-/graph
+example.*
+dbml-error.*
+gojo
+*.md
+graph
+.git
+.gitignore
+LICENSE
+Makefile
+docker-compose.yml

@@ -107,4 +107,12 @@ fmt:
 	find . -name '*.proto' | xargs clang-format -i --verbose
 	find . -name "*.go" -print0 | xargs -0 gofmt -w
 
-.PHONY: postgres queue cache createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock v1 evans db build cgo restart dcs dcd fmt
+clean: dcd
+	docker buildx prune --all --force
+	docker volume prune --all --force
+	docker network prune  --force
+	docker system df
+	go clean -x
+	go clean -cache -x
+
+.PHONY: postgres queue cache createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock v1 evans db build cgo restart dcs dcd fmt clean
