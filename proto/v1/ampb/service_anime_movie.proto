@@ -16,6 +16,7 @@ import "v1/ampb/rpc_create_anime_movie_info.proto";
 import "v1/ampb/rpc_create_anime_movie_data.proto";
 import "v1/ampb/rpc_create_anime_movie_title.proto";
 import "v1/ampb/rpc_create_anime_movie_tag.proto";
+import "v1/ampb/rpc_create_anime_movie_characters.proto";
 import "v1/ampb/rpc_get_all_anime_movie_metas.proto";
 import "v1/ampb/rpc_get_all_anime_movies.proto";
 import "v1/ampb/rpc_get_full_anime_movie.proto";
@@ -123,6 +124,15 @@ rpc CreateAnimeMovieTag(CreateAnimeMovieTagRequest) returns (CreateAnimeMovieTag
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
     description: "Use this API to add a new anime movie tags";
+};
+}
+rpc CreateAnimeMovieCharacters(CreateAnimeMovieCharactersRequest) returns (CreateAnimeMovieCharactersResponse) {
+  option (google.api.http) = {
+    post: "/anime/movie/character/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to add a new anime movie characters";
 };
 }
 rpc UpdateAnimeMovie(UpdateAnimeMovieRequest) returns (UpdateAnimeMovieResponse) {

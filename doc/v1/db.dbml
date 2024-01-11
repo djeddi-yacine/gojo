@@ -787,12 +787,20 @@ Table anime_characters {
   role_playing varchar [not null]
   image_url varchar [not null]
   image_blur_hash varchar [not null]
-  actors_id bigserial[] [not null]
   pictures varchar[] [not null]
   created_at timestamptz [not null, default: `now()`]
     indexes {
       id
       (full_name, about) [unique]
+    }
+}
+
+Table anime_character_actors {
+  id bigserial [primary key, unique, increment, not null]
+  character_id bigserial [not null]
+  actor_id bigserial [not null]
+    indexes {
+      (character_id, actor_id) [unique]
     }
 }
 
@@ -1157,11 +1165,14 @@ Ref {
 
 
 Ref {
-  actors.id - anime_characters.actors_id [delete: cascade]
+  actors.id - anime_character_actors.actor_id [delete: cascade]
 }
 
 
 
+Ref {
+  anime_characters.id - anime_character_actors.character_id [delete: cascade]
+}
 Ref {
   anime_characters.id - anime_movie_characters.character_id [delete: cascade]
 }

@@ -19,32 +19,33 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	AnimeSerieService_CreateAnimeSerie_FullMethodName          = "/v1.aspbv1.AnimeSerieService/CreateAnimeSerie"
-	AnimeSerieService_CreateAnimeSerieMetas_FullMethodName     = "/v1.aspbv1.AnimeSerieService/CreateAnimeSerieMetas"
-	AnimeSerieService_CreateAnimeSerieLink_FullMethodName      = "/v1.aspbv1.AnimeSerieService/CreateAnimeSerieLink"
-	AnimeSerieService_CreateAnimeSerieTrailer_FullMethodName   = "/v1.aspbv1.AnimeSerieService/CreateAnimeSerieTrailer"
-	AnimeSerieService_CreateAnimeSerieImage_FullMethodName     = "/v1.aspbv1.AnimeSerieService/CreateAnimeSerieImage"
-	AnimeSerieService_CreateAnimeSeasonImage_FullMethodName    = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonImage"
-	AnimeSerieService_CreateAnimeSeasonInfo_FullMethodName     = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonInfo"
-	AnimeSerieService_CreateAnimeSeason_FullMethodName         = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeason"
-	AnimeSerieService_CreateAnimeSeasonMetas_FullMethodName    = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonMetas"
-	AnimeSerieService_CreateAnimeSeasonResource_FullMethodName = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonResource"
-	AnimeSerieService_CreateAnimeSeasonTrailer_FullMethodName  = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonTrailer"
-	AnimeSerieService_CreateAnimeEpisode_FullMethodName        = "/v1.aspbv1.AnimeSerieService/CreateAnimeEpisode"
-	AnimeSerieService_CreateAnimeEpisodeMetas_FullMethodName   = "/v1.aspbv1.AnimeSerieService/CreateAnimeEpisodeMetas"
-	AnimeSerieService_CreateAnimeEpisodeServer_FullMethodName  = "/v1.aspbv1.AnimeSerieService/CreateAnimeEpisodeServer"
-	AnimeSerieService_CreateAnimeEpisodeData_FullMethodName    = "/v1.aspbv1.AnimeSerieService/CreateAnimeEpisodeData"
-	AnimeSerieService_CreateAnimeSeasonTitle_FullMethodName    = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonTitle"
-	AnimeSerieService_CreateAnimeSeasonTag_FullMethodName      = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonTag"
-	AnimeSerieService_GetFullAnimeSerie_FullMethodName         = "/v1.aspbv1.AnimeSerieService/GetFullAnimeSerie"
-	AnimeSerieService_GetAllAnimeSeries_FullMethodName         = "/v1.aspbv1.AnimeSerieService/GetAllAnimeSeries"
-	AnimeSerieService_GetFullAnimeSeason_FullMethodName        = "/v1.aspbv1.AnimeSerieService/GetFullAnimeSeason"
-	AnimeSerieService_GetAllAnimeSerieMetas_FullMethodName     = "/v1.aspbv1.AnimeSerieService/GetAllAnimeSerieMetas"
-	AnimeSerieService_GetFullAnimeEpisode_FullMethodName       = "/v1.aspbv1.AnimeSerieService/GetFullAnimeEpisode"
-	AnimeSerieService_GetAnimeSerieSeasons_FullMethodName      = "/v1.aspbv1.AnimeSerieService/GetAnimeSerieSeasons"
-	AnimeSerieService_GetAnimeSeasonEpisodes_FullMethodName    = "/v1.aspbv1.AnimeSerieService/GetAnimeSeasonEpisodes"
-	AnimeSerieService_UpdateAnimeSerie_FullMethodName          = "/v1.aspbv1.AnimeSerieService/UpdateAnimeSerie"
-	AnimeSerieService_QueryAnimeSeason_FullMethodName          = "/v1.aspbv1.AnimeSerieService/QueryAnimeSeason"
+	AnimeSerieService_CreateAnimeSerie_FullMethodName            = "/v1.aspbv1.AnimeSerieService/CreateAnimeSerie"
+	AnimeSerieService_CreateAnimeSerieMetas_FullMethodName       = "/v1.aspbv1.AnimeSerieService/CreateAnimeSerieMetas"
+	AnimeSerieService_CreateAnimeSerieLink_FullMethodName        = "/v1.aspbv1.AnimeSerieService/CreateAnimeSerieLink"
+	AnimeSerieService_CreateAnimeSerieTrailer_FullMethodName     = "/v1.aspbv1.AnimeSerieService/CreateAnimeSerieTrailer"
+	AnimeSerieService_CreateAnimeSerieImage_FullMethodName       = "/v1.aspbv1.AnimeSerieService/CreateAnimeSerieImage"
+	AnimeSerieService_CreateAnimeSeasonImage_FullMethodName      = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonImage"
+	AnimeSerieService_CreateAnimeSeasonInfo_FullMethodName       = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonInfo"
+	AnimeSerieService_CreateAnimeSeason_FullMethodName           = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeason"
+	AnimeSerieService_CreateAnimeSeasonMetas_FullMethodName      = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonMetas"
+	AnimeSerieService_CreateAnimeSeasonResource_FullMethodName   = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonResource"
+	AnimeSerieService_CreateAnimeSeasonTrailer_FullMethodName    = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonTrailer"
+	AnimeSerieService_CreateAnimeEpisode_FullMethodName          = "/v1.aspbv1.AnimeSerieService/CreateAnimeEpisode"
+	AnimeSerieService_CreateAnimeEpisodeMetas_FullMethodName     = "/v1.aspbv1.AnimeSerieService/CreateAnimeEpisodeMetas"
+	AnimeSerieService_CreateAnimeEpisodeServer_FullMethodName    = "/v1.aspbv1.AnimeSerieService/CreateAnimeEpisodeServer"
+	AnimeSerieService_CreateAnimeEpisodeData_FullMethodName      = "/v1.aspbv1.AnimeSerieService/CreateAnimeEpisodeData"
+	AnimeSerieService_CreateAnimeSeasonTitle_FullMethodName      = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonTitle"
+	AnimeSerieService_CreateAnimeSeasonTag_FullMethodName        = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonTag"
+	AnimeSerieService_CreateAnimeSeasonCharacters_FullMethodName = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonCharacters"
+	AnimeSerieService_GetFullAnimeSerie_FullMethodName           = "/v1.aspbv1.AnimeSerieService/GetFullAnimeSerie"
+	AnimeSerieService_GetAllAnimeSeries_FullMethodName           = "/v1.aspbv1.AnimeSerieService/GetAllAnimeSeries"
+	AnimeSerieService_GetFullAnimeSeason_FullMethodName          = "/v1.aspbv1.AnimeSerieService/GetFullAnimeSeason"
+	AnimeSerieService_GetAllAnimeSerieMetas_FullMethodName       = "/v1.aspbv1.AnimeSerieService/GetAllAnimeSerieMetas"
+	AnimeSerieService_GetFullAnimeEpisode_FullMethodName         = "/v1.aspbv1.AnimeSerieService/GetFullAnimeEpisode"
+	AnimeSerieService_GetAnimeSerieSeasons_FullMethodName        = "/v1.aspbv1.AnimeSerieService/GetAnimeSerieSeasons"
+	AnimeSerieService_GetAnimeSeasonEpisodes_FullMethodName      = "/v1.aspbv1.AnimeSerieService/GetAnimeSeasonEpisodes"
+	AnimeSerieService_UpdateAnimeSerie_FullMethodName            = "/v1.aspbv1.AnimeSerieService/UpdateAnimeSerie"
+	AnimeSerieService_QueryAnimeSeason_FullMethodName            = "/v1.aspbv1.AnimeSerieService/QueryAnimeSeason"
 )
 
 // AnimeSerieServiceClient is the client API for AnimeSerieService service.
@@ -68,6 +69,7 @@ type AnimeSerieServiceClient interface {
 	CreateAnimeEpisodeData(ctx context.Context, in *CreateAnimeEpisodeDataRequest, opts ...grpc.CallOption) (*CreateAnimeEpisodeDataResponse, error)
 	CreateAnimeSeasonTitle(ctx context.Context, in *CreateAnimeSeasonTitleRequest, opts ...grpc.CallOption) (*CreateAnimeSeasonTitleResponse, error)
 	CreateAnimeSeasonTag(ctx context.Context, in *CreateAnimeSeasonTagRequest, opts ...grpc.CallOption) (*CreateAnimeSeasonTagResponse, error)
+	CreateAnimeSeasonCharacters(ctx context.Context, in *CreateAnimeSeasonCharactersRequest, opts ...grpc.CallOption) (*CreateAnimeSeasonCharactersResponse, error)
 	GetFullAnimeSerie(ctx context.Context, in *GetFullAnimeSerieRequest, opts ...grpc.CallOption) (*GetFullAnimeSerieResponse, error)
 	GetAllAnimeSeries(ctx context.Context, in *GetAllAnimeSeriesRequest, opts ...grpc.CallOption) (*GetAllAnimeSeriesResponse, error)
 	GetFullAnimeSeason(ctx context.Context, in *GetFullAnimeSeasonRequest, opts ...grpc.CallOption) (*GetFullAnimeSeasonResponse, error)
@@ -240,6 +242,15 @@ func (c *animeSerieServiceClient) CreateAnimeSeasonTag(ctx context.Context, in *
 	return out, nil
 }
 
+func (c *animeSerieServiceClient) CreateAnimeSeasonCharacters(ctx context.Context, in *CreateAnimeSeasonCharactersRequest, opts ...grpc.CallOption) (*CreateAnimeSeasonCharactersResponse, error) {
+	out := new(CreateAnimeSeasonCharactersResponse)
+	err := c.cc.Invoke(ctx, AnimeSerieService_CreateAnimeSeasonCharacters_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *animeSerieServiceClient) GetFullAnimeSerie(ctx context.Context, in *GetFullAnimeSerieRequest, opts ...grpc.CallOption) (*GetFullAnimeSerieResponse, error) {
 	out := new(GetFullAnimeSerieResponse)
 	err := c.cc.Invoke(ctx, AnimeSerieService_GetFullAnimeSerie_FullMethodName, in, out, opts...)
@@ -342,6 +353,7 @@ type AnimeSerieServiceServer interface {
 	CreateAnimeEpisodeData(context.Context, *CreateAnimeEpisodeDataRequest) (*CreateAnimeEpisodeDataResponse, error)
 	CreateAnimeSeasonTitle(context.Context, *CreateAnimeSeasonTitleRequest) (*CreateAnimeSeasonTitleResponse, error)
 	CreateAnimeSeasonTag(context.Context, *CreateAnimeSeasonTagRequest) (*CreateAnimeSeasonTagResponse, error)
+	CreateAnimeSeasonCharacters(context.Context, *CreateAnimeSeasonCharactersRequest) (*CreateAnimeSeasonCharactersResponse, error)
 	GetFullAnimeSerie(context.Context, *GetFullAnimeSerieRequest) (*GetFullAnimeSerieResponse, error)
 	GetAllAnimeSeries(context.Context, *GetAllAnimeSeriesRequest) (*GetAllAnimeSeriesResponse, error)
 	GetFullAnimeSeason(context.Context, *GetFullAnimeSeasonRequest) (*GetFullAnimeSeasonResponse, error)
@@ -408,6 +420,9 @@ func (UnimplementedAnimeSerieServiceServer) CreateAnimeSeasonTitle(context.Conte
 }
 func (UnimplementedAnimeSerieServiceServer) CreateAnimeSeasonTag(context.Context, *CreateAnimeSeasonTagRequest) (*CreateAnimeSeasonTagResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSeasonTag not implemented")
+}
+func (UnimplementedAnimeSerieServiceServer) CreateAnimeSeasonCharacters(context.Context, *CreateAnimeSeasonCharactersRequest) (*CreateAnimeSeasonCharactersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSeasonCharacters not implemented")
 }
 func (UnimplementedAnimeSerieServiceServer) GetFullAnimeSerie(context.Context, *GetFullAnimeSerieRequest) (*GetFullAnimeSerieResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFullAnimeSerie not implemented")
@@ -755,6 +770,24 @@ func _AnimeSerieService_CreateAnimeSeasonTag_Handler(srv interface{}, ctx contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AnimeSerieService_CreateAnimeSeasonCharacters_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAnimeSeasonCharactersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnimeSerieServiceServer).CreateAnimeSeasonCharacters(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AnimeSerieService_CreateAnimeSeasonCharacters_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnimeSerieServiceServer).CreateAnimeSeasonCharacters(ctx, req.(*CreateAnimeSeasonCharactersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AnimeSerieService_GetFullAnimeSerie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetFullAnimeSerieRequest)
 	if err := dec(in); err != nil {
@@ -991,6 +1024,10 @@ var AnimeSerieService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateAnimeSeasonTag",
 			Handler:    _AnimeSerieService_CreateAnimeSeasonTag_Handler,
+		},
+		{
+			MethodName: "CreateAnimeSeasonCharacters",
+			Handler:    _AnimeSerieService_CreateAnimeSeasonCharacters_Handler,
 		},
 		{
 			MethodName: "GetFullAnimeSerie",

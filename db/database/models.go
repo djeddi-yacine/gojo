@@ -28,9 +28,14 @@ type AnimeCharacter struct {
 	RolePlaying   string
 	ImageUrl      string
 	ImageBlurHash string
-	ActorsID      []int64
 	Pictures      []string
 	CreatedAt     time.Time
+}
+
+type AnimeCharacterActor struct {
+	ID          int64
+	CharacterID int64
+	ActorID     int64
 }
 
 type AnimeEpisodeMeta struct {

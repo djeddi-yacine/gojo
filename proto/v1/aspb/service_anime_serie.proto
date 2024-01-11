@@ -18,6 +18,7 @@ import "v1/aspb/rpc_create_anime_season_info.proto";
 import "v1/aspb/rpc_create_anime_season_metas.proto";
 import "v1/aspb/rpc_create_anime_season_title.proto";
 import "v1/aspb/rpc_create_anime_season_tag.proto";
+import "v1/aspb/rpc_create_anime_season_characters.proto";
 import "v1/aspb/rpc_create_anime_episode.proto";
 import "v1/aspb/rpc_create_anime_episode_metas.proto";
 import "v1/aspb/rpc_create_anime_episode_server.proto";
@@ -185,6 +186,15 @@ rpc CreateAnimeSeasonTag(CreateAnimeSeasonTagRequest) returns (CreateAnimeSeason
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
     description: "Use this API to create a new anime season tags";
+};
+}
+rpc CreateAnimeSeasonCharacters(CreateAnimeSeasonCharactersRequest) returns (CreateAnimeSeasonCharactersResponse) {
+  option (google.api.http) = {
+    post: "/anime/serie/season/character/create"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to add a new anime season characters";
 };
 }
 rpc GetFullAnimeSerie(GetFullAnimeSerieRequest) returns (GetFullAnimeSerieResponse) {

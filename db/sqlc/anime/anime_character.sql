@@ -1,10 +1,9 @@
 -- name: CreateAnimeCharacter :one
-INSERT INTO anime_characters (full_name, about, role_playing, image_url, image_blur_hash, actors_id, pictures)
-VALUES ($1, $2, $3, $4, $5, $6, $7)
+INSERT INTO anime_characters (full_name, about, role_playing, image_url, image_blur_hash, pictures)
+VALUES ($1, $2, $3, $4, $5, $6)
 ON CONFLICT (full_name, about)
 DO UPDATE SET 
-    actors_id = array_remove(array_cat(anime_characters.actors_id, excluded.actors_id), NULL),
-    pictures = array_remove(array_cat(anime_characters.pictures, excluded.pictures), NULL)
+    pictures = ARRAY(SELECT DISTINCT UNNEST(anime_characters.pictures || excluded.pictures))
 RETURNING *;
 
 -- name: GetAnimeCharacter :one

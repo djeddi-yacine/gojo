@@ -13,6 +13,7 @@ import (
 type Querier interface {
 	CreateActor(ctx context.Context, arg CreateActorParams) (Actor, error)
 	CreateAnimeCharacter(ctx context.Context, arg CreateAnimeCharacterParams) (AnimeCharacter, error)
+	CreateAnimeCharacterActor(ctx context.Context, arg CreateAnimeCharacterActorParams) error
 	CreateAnimeEpisode(ctx context.Context, arg CreateAnimeEpisodeParams) (AnimeSerieEpisode, error)
 	CreateAnimeEpisodeMeta(ctx context.Context, arg CreateAnimeEpisodeMetaParams) (AnimeEpisodeMeta, error)
 	CreateAnimeEpisodeServer(ctx context.Context, episodeID int64) (AnimeEpisodeServer, error)
@@ -82,6 +83,7 @@ type Querier interface {
 	CreateVerifyEmail(ctx context.Context, arg CreateVerifyEmailParams) (VerifyEmail, error)
 	DeleteActor(ctx context.Context, id int64) error
 	DeleteAnimeCharacter(ctx context.Context, id int64) error
+	DeleteAnimeCharacterActor(ctx context.Context, id int64) error
 	DeleteAnimeEpisode(ctx context.Context, id int64) error
 	DeleteAnimeEpisodeMeta(ctx context.Context, arg DeleteAnimeEpisodeMetaParams) error
 	DeleteAnimeEpisodeServer(ctx context.Context, id int64) error
@@ -207,6 +209,7 @@ type Querier interface {
 	GetUserByID(ctx context.Context, id int64) (User, error)
 	GetUserByUsername(ctx context.Context, username string) (User, error)
 	ListActors(ctx context.Context, arg ListActorsParams) ([]Actor, error)
+	ListAnimeCharacterActors(ctx context.Context, id int64) ([]AnimeCharacterActor, error)
 	ListAnimeCharacters(ctx context.Context, id int64) ([]AnimeCharacter, error)
 	ListAnimeEpisodeMetasByEpisode(ctx context.Context, arg ListAnimeEpisodeMetasByEpisodeParams) ([]AnimeEpisodeMeta, error)
 	ListAnimeEpisodeServerDubTorrents(ctx context.Context, serverID int64) ([]AnimeEpisodeServerDubTorrent, error)

@@ -19,23 +19,24 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	AnimeMovieService_CreateAnimeMovie_FullMethodName         = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovie"
-	AnimeMovieService_CreateAnimeMovieMetas_FullMethodName    = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieMetas"
-	AnimeMovieService_CreateAnimeMovieInfo_FullMethodName     = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieInfo"
-	AnimeMovieService_CreateAnimeMovieResource_FullMethodName = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieResource"
-	AnimeMovieService_CreateAnimeMovieLink_FullMethodName     = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieLink"
-	AnimeMovieService_CreateAnimeMovieImage_FullMethodName    = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieImage"
-	AnimeMovieService_CreateAnimeMovieTrailer_FullMethodName  = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieTrailer"
-	AnimeMovieService_CreateAnimeMovieTitle_FullMethodName    = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieTitle"
-	AnimeMovieService_CreateAnimeMovieServer_FullMethodName   = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieServer"
-	AnimeMovieService_CreateAnimeMovieData_FullMethodName     = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieData"
-	AnimeMovieService_CreateAnimeMovieTag_FullMethodName      = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieTag"
-	AnimeMovieService_UpdateAnimeMovie_FullMethodName         = "/v1.ampbv1.AnimeMovieService/UpdateAnimeMovie"
-	AnimeMovieService_GetAllAnimeMovies_FullMethodName        = "/v1.ampbv1.AnimeMovieService/GetAllAnimeMovies"
-	AnimeMovieService_GetAllAnimeMovieMetas_FullMethodName    = "/v1.ampbv1.AnimeMovieService/GetAllAnimeMovieMetas"
-	AnimeMovieService_GetFullAnimeMovie_FullMethodName        = "/v1.ampbv1.AnimeMovieService/GetFullAnimeMovie"
-	AnimeMovieService_GetAnimeMovieImages_FullMethodName      = "/v1.ampbv1.AnimeMovieService/GetAnimeMovieImages"
-	AnimeMovieService_QueryAnimeMovie_FullMethodName          = "/v1.ampbv1.AnimeMovieService/QueryAnimeMovie"
+	AnimeMovieService_CreateAnimeMovie_FullMethodName           = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovie"
+	AnimeMovieService_CreateAnimeMovieMetas_FullMethodName      = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieMetas"
+	AnimeMovieService_CreateAnimeMovieInfo_FullMethodName       = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieInfo"
+	AnimeMovieService_CreateAnimeMovieResource_FullMethodName   = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieResource"
+	AnimeMovieService_CreateAnimeMovieLink_FullMethodName       = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieLink"
+	AnimeMovieService_CreateAnimeMovieImage_FullMethodName      = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieImage"
+	AnimeMovieService_CreateAnimeMovieTrailer_FullMethodName    = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieTrailer"
+	AnimeMovieService_CreateAnimeMovieTitle_FullMethodName      = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieTitle"
+	AnimeMovieService_CreateAnimeMovieServer_FullMethodName     = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieServer"
+	AnimeMovieService_CreateAnimeMovieData_FullMethodName       = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieData"
+	AnimeMovieService_CreateAnimeMovieTag_FullMethodName        = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieTag"
+	AnimeMovieService_CreateAnimeMovieCharacters_FullMethodName = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieCharacters"
+	AnimeMovieService_UpdateAnimeMovie_FullMethodName           = "/v1.ampbv1.AnimeMovieService/UpdateAnimeMovie"
+	AnimeMovieService_GetAllAnimeMovies_FullMethodName          = "/v1.ampbv1.AnimeMovieService/GetAllAnimeMovies"
+	AnimeMovieService_GetAllAnimeMovieMetas_FullMethodName      = "/v1.ampbv1.AnimeMovieService/GetAllAnimeMovieMetas"
+	AnimeMovieService_GetFullAnimeMovie_FullMethodName          = "/v1.ampbv1.AnimeMovieService/GetFullAnimeMovie"
+	AnimeMovieService_GetAnimeMovieImages_FullMethodName        = "/v1.ampbv1.AnimeMovieService/GetAnimeMovieImages"
+	AnimeMovieService_QueryAnimeMovie_FullMethodName            = "/v1.ampbv1.AnimeMovieService/QueryAnimeMovie"
 )
 
 // AnimeMovieServiceClient is the client API for AnimeMovieService service.
@@ -53,6 +54,7 @@ type AnimeMovieServiceClient interface {
 	CreateAnimeMovieServer(ctx context.Context, in *CreateAnimeMovieServerRequest, opts ...grpc.CallOption) (*CreateAnimeMovieServerResponse, error)
 	CreateAnimeMovieData(ctx context.Context, in *CreateAnimeMovieDataRequest, opts ...grpc.CallOption) (*CreateAnimeMovieDataResponse, error)
 	CreateAnimeMovieTag(ctx context.Context, in *CreateAnimeMovieTagRequest, opts ...grpc.CallOption) (*CreateAnimeMovieTagResponse, error)
+	CreateAnimeMovieCharacters(ctx context.Context, in *CreateAnimeMovieCharactersRequest, opts ...grpc.CallOption) (*CreateAnimeMovieCharactersResponse, error)
 	UpdateAnimeMovie(ctx context.Context, in *UpdateAnimeMovieRequest, opts ...grpc.CallOption) (*UpdateAnimeMovieResponse, error)
 	GetAllAnimeMovies(ctx context.Context, in *GetAllAnimeMoviesRequest, opts ...grpc.CallOption) (*GetAllAnimeMoviesResponse, error)
 	GetAllAnimeMovieMetas(ctx context.Context, in *GetAllAnimeMovieMetasRequest, opts ...grpc.CallOption) (*GetAllAnimeMovieMetasResponse, error)
@@ -168,6 +170,15 @@ func (c *animeMovieServiceClient) CreateAnimeMovieTag(ctx context.Context, in *C
 	return out, nil
 }
 
+func (c *animeMovieServiceClient) CreateAnimeMovieCharacters(ctx context.Context, in *CreateAnimeMovieCharactersRequest, opts ...grpc.CallOption) (*CreateAnimeMovieCharactersResponse, error) {
+	out := new(CreateAnimeMovieCharactersResponse)
+	err := c.cc.Invoke(ctx, AnimeMovieService_CreateAnimeMovieCharacters_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *animeMovieServiceClient) UpdateAnimeMovie(ctx context.Context, in *UpdateAnimeMovieRequest, opts ...grpc.CallOption) (*UpdateAnimeMovieResponse, error) {
 	out := new(UpdateAnimeMovieResponse)
 	err := c.cc.Invoke(ctx, AnimeMovieService_UpdateAnimeMovie_FullMethodName, in, out, opts...)
@@ -237,6 +248,7 @@ type AnimeMovieServiceServer interface {
 	CreateAnimeMovieServer(context.Context, *CreateAnimeMovieServerRequest) (*CreateAnimeMovieServerResponse, error)
 	CreateAnimeMovieData(context.Context, *CreateAnimeMovieDataRequest) (*CreateAnimeMovieDataResponse, error)
 	CreateAnimeMovieTag(context.Context, *CreateAnimeMovieTagRequest) (*CreateAnimeMovieTagResponse, error)
+	CreateAnimeMovieCharacters(context.Context, *CreateAnimeMovieCharactersRequest) (*CreateAnimeMovieCharactersResponse, error)
 	UpdateAnimeMovie(context.Context, *UpdateAnimeMovieRequest) (*UpdateAnimeMovieResponse, error)
 	GetAllAnimeMovies(context.Context, *GetAllAnimeMoviesRequest) (*GetAllAnimeMoviesResponse, error)
 	GetAllAnimeMovieMetas(context.Context, *GetAllAnimeMovieMetasRequest) (*GetAllAnimeMovieMetasResponse, error)
@@ -282,6 +294,9 @@ func (UnimplementedAnimeMovieServiceServer) CreateAnimeMovieData(context.Context
 }
 func (UnimplementedAnimeMovieServiceServer) CreateAnimeMovieTag(context.Context, *CreateAnimeMovieTagRequest) (*CreateAnimeMovieTagResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeMovieTag not implemented")
+}
+func (UnimplementedAnimeMovieServiceServer) CreateAnimeMovieCharacters(context.Context, *CreateAnimeMovieCharactersRequest) (*CreateAnimeMovieCharactersResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeMovieCharacters not implemented")
 }
 func (UnimplementedAnimeMovieServiceServer) UpdateAnimeMovie(context.Context, *UpdateAnimeMovieRequest) (*UpdateAnimeMovieResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAnimeMovie not implemented")
@@ -512,6 +527,24 @@ func _AnimeMovieService_CreateAnimeMovieTag_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AnimeMovieService_CreateAnimeMovieCharacters_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAnimeMovieCharactersRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnimeMovieServiceServer).CreateAnimeMovieCharacters(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AnimeMovieService_CreateAnimeMovieCharacters_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnimeMovieServiceServer).CreateAnimeMovieCharacters(ctx, req.(*CreateAnimeMovieCharactersRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AnimeMovieService_UpdateAnimeMovie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(UpdateAnimeMovieRequest)
 	if err := dec(in); err != nil {
@@ -670,6 +703,10 @@ var AnimeMovieService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateAnimeMovieTag",
 			Handler:    _AnimeMovieService_CreateAnimeMovieTag_Handler,
+		},
+		{
+			MethodName: "CreateAnimeMovieCharacters",
+			Handler:    _AnimeMovieService_CreateAnimeMovieCharacters_Handler,
 		},
 		{
 			MethodName: "UpdateAnimeMovie",

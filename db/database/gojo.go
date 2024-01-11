@@ -44,6 +44,8 @@ type Gojo interface {
 	CreateGenresTx(ctx context.Context, arg []string) ([]Genre, error)
 	CreateStudiosTx(ctx context.Context, arg []string) ([]Studio, error)
 	CreateLanguagesTx(ctx context.Context, arg []CreateLanguageParams) ([]Language, error)
+	CreateAnimeMovieCharactersTx(ctx context.Context, arg CreateAnimeMovieCharactersTxParams) (CreateAnimeMovieCharactersTxResult, error)
+	CreateAnimeSeasonCharactersTx(ctx context.Context, arg CreateAnimeSeasonCharactersTxParams) (CreateAnimeSeasonCharactersTxResult, error)
 }
 
 type SQLGojo struct {

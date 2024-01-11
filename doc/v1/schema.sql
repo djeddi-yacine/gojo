@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2024-01-10T21:30:02.673Z
+-- Generated at: 2024-01-10T22:43:53.735Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -543,9 +543,14 @@ CREATE TABLE "anime_characters" (
   "role_playing" varchar NOT NULL,
   "image_url" varchar NOT NULL,
   "image_blur_hash" varchar NOT NULL,
-  "actors_id" bigserial[] NOT NULL,
   "pictures" varchar[] NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
+);
+
+CREATE TABLE "anime_character_actors" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "character_id" bigserial NOT NULL,
+  "actor_id" bigserial NOT NULL
 );
 
 CREATE TABLE "anime_movie_characters" (
@@ -788,6 +793,8 @@ CREATE INDEX ON "anime_characters" ("id");
 
 CREATE UNIQUE INDEX ON "anime_characters" ("full_name", "about");
 
+CREATE UNIQUE INDEX ON "anime_character_actors" ("character_id", "actor_id");
+
 CREATE INDEX ON "anime_movie_characters" ("id");
 
 CREATE UNIQUE INDEX ON "anime_movie_characters" ("anime_id", "character_id");
@@ -980,7 +987,9 @@ ALTER TABLE "anime_movie_tags" ADD FOREIGN KEY ("tag_id") REFERENCES "anime_tags
 
 ALTER TABLE "anime_season_tags" ADD FOREIGN KEY ("tag_id") REFERENCES "anime_tags" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_characters" ADD FOREIGN KEY ("actors_id") REFERENCES "actors" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_character_actors" ADD FOREIGN KEY ("actor_id") REFERENCES "actors" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_character_actors" ADD FOREIGN KEY ("character_id") REFERENCES "anime_characters" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_characters" ADD FOREIGN KEY ("character_id") REFERENCES "anime_characters" ("id") ON DELETE CASCADE;
 

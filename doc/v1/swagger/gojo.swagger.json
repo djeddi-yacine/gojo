@@ -219,6 +219,39 @@
         ]
       }
     },
+    "/anime/movie/character/create": {
+      "post": {
+        "description": "Use this API to add a new anime movie characters",
+        "operationId": "AnimeMovieService_CreateAnimeMovieCharacters",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieCharactersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieCharactersRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
     "/anime/movie/create": {
       "post": {
         "description": "Use this API to create a new anime movie",
@@ -1136,6 +1169,39 @@
             "required": true,
             "schema": {
               "$ref": "#/definitions/aspbv1CreateAnimeSerieMetasRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
+    "/anime/serie/season/character/create": {
+      "post": {
+        "description": "Use this API to add a new anime season characters",
+        "operationId": "AnimeSerieService_CreateAnimeSeasonCharacters",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonCharactersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonCharactersRequest"
             }
           }
         ],
@@ -2438,6 +2504,37 @@
         }
       }
     },
+    "ampbv1CreateAnimeMovieCharactersRequest": {
+      "type": "object",
+      "properties": {
+        "animeID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "animeCharacters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeCharacterRequest"
+          }
+        }
+      }
+    },
+    "ampbv1CreateAnimeMovieCharactersResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        },
+        "animeCharacters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeCharacterResponse"
+          }
+        }
+      }
+    },
     "ampbv1CreateAnimeMovieDataRequest": {
       "type": "object",
       "properties": {
@@ -2896,6 +2993,80 @@
       "properties": {
         "animeMovie": {
           "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        }
+      }
+    },
+    "ashpbv1AnimeCharacterRequest": {
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string"
+        },
+        "about": {
+          "type": "string"
+        },
+        "rolePlaying": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "imageBlurHash": {
+          "type": "string"
+        },
+        "actorsID": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          }
+        },
+        "pictures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ashpbv1AnimeCharacterResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "about": {
+          "type": "string"
+        },
+        "rolePlaying": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "imageBlurHash": {
+          "type": "string"
+        },
+        "actorsID": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          }
+        },
+        "pictures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },
@@ -3828,6 +3999,37 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonCharactersRequest": {
+      "type": "object",
+      "properties": {
+        "seasonID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "seasonCharacters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeCharacterRequest"
+          }
+        }
+      }
+    },
+    "aspbv1CreateAnimeSeasonCharactersResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeason": {
+          "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
+        },
+        "seasonCharacters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeCharacterResponse"
+          }
         }
       }
     },

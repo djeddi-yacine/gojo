@@ -144,5 +144,6 @@ sql:
 
           ## add anime_characters
           anime_characters: "AnimeCharacter"
+          anime_character_actors: "AnimeCharacterActor"
           anime_movie_characters: "AnimeMovieCharacter"
           anime_season_characters: "AnimeSeasonCharacter"

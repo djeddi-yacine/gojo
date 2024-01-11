@@ -6,49 +6,49 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func ConvertAnimeResource(r db.AnimeResource) *ashpbv1.AnimeResourceResponse {
+func ConvertAnimeResource(v db.AnimeResource) *ashpbv1.AnimeResourceResponse {
 	return &ashpbv1.AnimeResourceResponse{
-		ID:            r.ID,
-		TvdbID:        r.TvdbID,
-		TmdbID:        r.TmdbID,
-		ImdbID:        r.ImdbID,
-		LivechartID:   r.LivechartID,
-		AnimePlanetID: r.AnimePlanetID,
-		AnisearchID:   r.AnisearchID,
-		AnidbID:       r.AnidbID,
-		KitsuID:       r.KitsuID,
-		MalID:         r.MalID,
-		NotifyMoeID:   r.NotifyMoeID,
-		AnilistID:     r.AnilistID,
-		CreatedAt:     timestamppb.New(r.CreatedAt),
+		ID:            v.ID,
+		TvdbID:        v.TvdbID,
+		TmdbID:        v.TmdbID,
+		ImdbID:        v.ImdbID,
+		LivechartID:   v.LivechartID,
+		AnimePlanetID: v.AnimePlanetID,
+		AnisearchID:   v.AnisearchID,
+		AnidbID:       v.AnidbID,
+		KitsuID:       v.KitsuID,
+		MalID:         v.MalID,
+		NotifyMoeID:   v.NotifyMoeID,
+		AnilistID:     v.AnilistID,
+		CreatedAt:     timestamppb.New(v.CreatedAt),
 	}
 }
 
-func ConvertAnimeLink(l db.AnimeLink) *ashpbv1.AnimeLinkResponse {
+func ConvertAnimeLink(v db.AnimeLink) *ashpbv1.AnimeLinkResponse {
 	return &ashpbv1.AnimeLinkResponse{
-		ID:              l.ID,
-		OfficialWebsite: l.OfficialWebsite,
-		WikipediaUrl:    l.WikipediaUrl,
-		CrunchyrollUrl:  l.CrunchyrollUrl,
-		SocialMedia:     l.SocialMedia,
-		CreatedAt:       timestamppb.New(l.CreatedAt),
+		ID:              v.ID,
+		OfficialWebsite: v.OfficialWebsite,
+		WikipediaUrl:    v.WikipediaUrl,
+		CrunchyrollUrl:  v.CrunchyrollUrl,
+		SocialMedia:     v.SocialMedia,
+		CreatedAt:       timestamppb.New(v.CreatedAt),
 	}
 }
 
-func ConvertAnimeImages(ai []db.AnimeImage) []*ashpbv1.ImageResponse {
-	if len(ai) > 0 {
-		images := make([]*ashpbv1.ImageResponse, len(ai))
+func ConvertAnimeImages(v []db.AnimeImage) []*ashpbv1.ImageResponse {
+	if len(v) > 0 {
+		images := make([]*ashpbv1.ImageResponse, len(v))
 
-		for i, g := range ai {
+		for i, x := range v {
 			images[i] = &ashpbv1.ImageResponse{
-				ID:         g.ID,
-				Host:       g.ImageHost,
-				Url:        g.ImageUrl,
-				Thumbnails: g.ImageThumbnails,
-				Blurhash:   g.ImageBlurhash,
-				Height:     uint32(g.ImageHeight),
-				Width:      uint32(g.ImageWidth),
-				CreatedAt:  timestamppb.New(g.CreatedAt),
+				ID:         x.ID,
+				Host:       x.ImageHost,
+				Url:        x.ImageUrl,
+				Thumbnails: x.ImageThumbnails,
+				Blurhash:   x.ImageBlurhash,
+				Height:     uint32(x.ImageHeight),
+				Width:      uint32(x.ImageWidth),
+				CreatedAt:  timestamppb.New(x.CreatedAt),
 			}
 		}
 
@@ -58,22 +58,35 @@ func ConvertAnimeImages(ai []db.AnimeImage) []*ashpbv1.ImageResponse {
 	}
 }
 
-func ConvertAnimeTrailers(at []db.AnimeTrailer) []*ashpbv1.AnimeTrailerResponse {
-	if len(at) > 0 {
-		trailers := make([]*ashpbv1.AnimeTrailerResponse, len(at))
+func ConvertAnimeTrailers(v []db.AnimeTrailer) []*ashpbv1.AnimeTrailerResponse {
+	if len(v) > 0 {
+		trailers := make([]*ashpbv1.AnimeTrailerResponse, len(v))
 
-		for i, t := range at {
+		for i, x := range v {
 			trailers[i] = &ashpbv1.AnimeTrailerResponse{
-				ID:         t.ID,
-				IsOfficial: t.IsOfficial,
-				HostName:   t.HostName,
-				HostKey:    t.HostKey,
-				CreatedAt:  timestamppb.New(t.CreatedAt),
+				ID:         x.ID,
+				IsOfficial: x.IsOfficial,
+				HostName:   x.HostName,
+				HostKey:    x.HostKey,
+				CreatedAt:  timestamppb.New(x.CreatedAt),
 			}
 		}
 
 		return trailers
 	} else {
 		return nil
+	}
+}
+
+func ConvertAnimeCharacter(v db.AnimeCharacter) *ashpbv1.AnimeCharacterResponse {
+	return &ashpbv1.AnimeCharacterResponse{
+		ID:            v.ID,
+		FullName:      v.FullName,
+		About:         v.About,
+		RolePlaying:   v.RolePlaying,
+		Image:         v.ImageUrl,
+		ImageBlurHash: v.ImageBlurHash,
+		Pictures:      v.Pictures,
+		CreatedAt:     timestamppb.New(v.CreatedAt),
 	}
 }

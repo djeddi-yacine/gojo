@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package v1.aspbv1;
+
+import "v1/aspb/msg_anime_season.proto";
+import "v1/ashpb/anime_character.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
+
+message CreateAnimeSeasonCharactersRequest {
+  int64    seasonID                                       = 1;
+  repeated ashpbv1.AnimeCharacterRequest seasonCharacters = 2;
+}
+
+message CreateAnimeSeasonCharactersResponse {
+  AnimeSeasonResponse animeSeason                          = 1;
+  repeated ashpbv1.AnimeCharacterResponse seasonCharacters = 2;
+}

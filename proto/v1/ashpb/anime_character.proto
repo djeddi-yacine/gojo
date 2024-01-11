@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package v1.ashpbv1;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb;ashpbv1";
+
+message AnimeCharacterRequest {
+  string          fullName      = 1;
+  string          about         = 2;
+  string          rolePlaying   = 3;
+  string          image         = 4;
+  string          imageBlurHash = 5;
+  repeated int64  actorsID      = 6;
+  repeated string pictures      = 7;
+}
+
+message AnimeCharacterResponse {
+  int64                     ID            = 1;
+  string                    fullName      = 2;
+  string                    about         = 3;
+  string                    rolePlaying   = 4;
+  string                    image         = 5;
+  string                    imageBlurHash = 6;
+  repeated int64            actorsID      = 7;
+  repeated string           pictures      = 8;
+  google.protobuf.Timestamp createdAt     = 9;
+}

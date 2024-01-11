@@ -12,13 +12,12 @@ import (
 )
 
 const createAnimeCharacter = `-- name: CreateAnimeCharacter :one
-INSERT INTO anime_characters (full_name, about, role_playing, image_url, image_blur_hash, actors_id, pictures)
-VALUES ($1, $2, $3, $4, $5, $6, $7)
+INSERT INTO anime_characters (full_name, about, role_playing, image_url, image_blur_hash, pictures)
+VALUES ($1, $2, $3, $4, $5, $6)
 ON CONFLICT (full_name, about)
 DO UPDATE SET 
-    actors_id = array_remove(array_cat(anime_characters.actors_id, excluded.actors_id), NULL),
-    pictures = array_remove(array_cat(anime_characters.pictures, excluded.pictures), NULL)
-RETURNING id, full_name, about, role_playing, image_url, image_blur_hash, actors_id, pictures, created_at
+    pictures = ARRAY(SELECT DISTINCT UNNEST(anime_characters.pictures || excluded.pictures))
+RETURNING id, full_name, about, role_playing, image_url, image_blur_hash, pictures, created_at
 `
 
 type CreateAnimeCharacterParams struct {
@@ -27,7 +26,6 @@ type CreateAnimeCharacterParams struct {
 	RolePlaying   string
 	ImageUrl      string
 	ImageBlurHash string
-	ActorsID      []int64
 	Pictures      []string
 }
 
@@ -38,7 +36,6 @@ func (q *Queries) CreateAnimeCharacter(ctx context.Context, arg CreateAnimeChara
 		arg.RolePlaying,
 		arg.ImageUrl,
 		arg.ImageBlurHash,
-		arg.ActorsID,
 		arg.Pictures,
 	)
 	var i AnimeCharacter
@@ -49,7 +46,6 @@ func (q *Queries) CreateAnimeCharacter(ctx context.Context, arg CreateAnimeChara
 		&i.RolePlaying,
 		&i.ImageUrl,
 		&i.ImageBlurHash,
-		&i.ActorsID,
 		&i.Pictures,
 		&i.CreatedAt,
 	)
@@ -67,7 +63,7 @@ func (q *Queries) DeleteAnimeCharacter(ctx context.Context, id int64) error {
 }
 
 const getAnimeCharacter = `-- name: GetAnimeCharacter :one
-SELECT id, full_name, about, role_playing, image_url, image_blur_hash, actors_id, pictures, created_at FROM anime_characters
+SELECT id, full_name, about, role_playing, image_url, image_blur_hash, pictures, created_at FROM anime_characters
 WHERE id = $1 LIMIT 1
 `
 
@@ -81,7 +77,6 @@ func (q *Queries) GetAnimeCharacter(ctx context.Context, id int64) (AnimeCharact
 		&i.RolePlaying,
 		&i.ImageUrl,
 		&i.ImageBlurHash,
-		&i.ActorsID,
 		&i.Pictures,
 		&i.CreatedAt,
 	)
@@ -89,7 +84,7 @@ func (q *Queries) GetAnimeCharacter(ctx context.Context, id int64) (AnimeCharact
 }
 
 const listAnimeCharacters = `-- name: ListAnimeCharacters :many
-SELECT id, full_name, about, role_playing, image_url, image_blur_hash, actors_id, pictures, created_at FROM anime_characters
+SELECT id, full_name, about, role_playing, image_url, image_blur_hash, pictures, created_at FROM anime_characters
 WHERE id = $1
 `
 
@@ -109,7 +104,6 @@ func (q *Queries) ListAnimeCharacters(ctx context.Context, id int64) ([]AnimeCha
 			&i.RolePlaying,
 			&i.ImageUrl,
 			&i.ImageBlurHash,
-			&i.ActorsID,
 			&i.Pictures,
 			&i.CreatedAt,
 		); err != nil {
@@ -133,7 +127,7 @@ SET
   image_blur_hash = COALESCE($5, image_blur_hash)
 WHERE
   id = $6
-RETURNING id, full_name, about, role_playing, image_url, image_blur_hash, actors_id, pictures, created_at
+RETURNING id, full_name, about, role_playing, image_url, image_blur_hash, pictures, created_at
 `
 
 type UpdateAnimeCharacterParams struct {
@@ -162,7 +156,6 @@ func (q *Queries) UpdateAnimeCharacter(ctx context.Context, arg UpdateAnimeChara
 		&i.RolePlaying,
 		&i.ImageUrl,
 		&i.ImageBlurHash,
-		&i.ActorsID,
 		&i.Pictures,
 		&i.CreatedAt,
 	)
