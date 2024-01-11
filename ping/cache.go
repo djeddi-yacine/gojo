@@ -2,7 +2,6 @@ package ping
 
 import (
 	"context"
-	"fmt"
 	"reflect"
 
 	"github.com/go-redis/cache/v9"
@@ -10,34 +9,25 @@ import (
 )
 
 const (
-	AnimeMovie        = "AM"
-	AnimeSerie        = "AS"
-	AnimeSeason       = "AX"
-	AnimeEpisode      = "AE"
-	V1           rune = '1'
+	AnimeMovie   = "AM"
+	AnimeSerie   = "AS"
+	AnimeSeason  = "AX"
+	AnimeEpisode = "AE"
 )
-
-type CacheKey struct {
-	ID      int64
-	Target  string
-	Version rune
-}
-
-type PingKey struct {
-	key string
-}
 
 type KeyGenrator interface {
 	Key() string
 	Count() string
 }
 
-func (x *PingKey) Key() string {
-	return x.key
+type PingKey string
+
+func (x PingKey) Key() string {
+	return string(x)
 }
 
-func (x *PingKey) Count() string {
-	return x.key + "-COUNT"
+func (x PingKey) Count() string {
+	return string(x + "-COUNT")
 }
 
 func (system *PingSystem) Handle(ctx context.Context, gen KeyGenrator, value interface{}, fn func() error) error {
@@ -103,76 +93,4 @@ func (system *PingSystem) Handle(ctx context.Context, gen KeyGenrator, value int
 	}
 
 	return err
-}
-
-func (x *CacheKey) Main() KeyGenrator {
-	return &PingKey{
-		key: fmt.Sprintf("V%c:%s:ID:%d", x.Version, x.Target, x.ID),
-	}
-}
-
-func (x *CacheKey) Meta(language uint32) KeyGenrator {
-	return &PingKey{
-		key: fmt.Sprintf("V%c:%s:MTD:%d:LNG:%d", x.Version, x.Target, language, x.ID),
-	}
-}
-
-func (x *CacheKey) Studio() KeyGenrator {
-	return &PingKey{
-		key: fmt.Sprintf("V%c:%s:STD:%d", x.Version, x.Target, x.ID),
-	}
-}
-
-func (x *CacheKey) Genre() KeyGenrator {
-	return &PingKey{
-		key: fmt.Sprintf("V%c:%s:GNR:%d", x.Version, x.Target, x.ID),
-	}
-}
-
-func (x *CacheKey) Resources() KeyGenrator {
-	return &PingKey{
-		key: fmt.Sprintf("V%c:%s:RSC:%d", x.Version, x.Target, x.ID),
-	}
-}
-
-func (x *CacheKey) Links() KeyGenrator {
-	return &PingKey{
-		key: fmt.Sprintf("V%c:%s:LNK:%d", x.Version, x.Target, x.ID),
-	}
-}
-
-func (x *CacheKey) Server() KeyGenrator {
-	return &PingKey{
-		key: fmt.Sprintf("V%c:%s:SRV:%d", x.Version, x.Target, x.ID),
-	}
-}
-
-func (x *CacheKey) Sub() KeyGenrator {
-	return &PingKey{
-		key: fmt.Sprintf("V%c:%s:SUB:%d", x.Version, x.Target, x.ID),
-	}
-}
-
-func (x *CacheKey) Dub() KeyGenrator {
-	return &PingKey{
-		key: fmt.Sprintf("V%c:%s:DUB:%d", x.Version, x.Target, x.ID),
-	}
-}
-
-func (x *CacheKey) Tags() KeyGenrator {
-	return &PingKey{
-		key: fmt.Sprintf("V%c:%s:TAG:%d", x.Version, x.Target, x.ID),
-	}
-}
-
-func (x *CacheKey) Images() KeyGenrator {
-	return &PingKey{
-		key: fmt.Sprintf("V%c:%s:IMG:%d", x.Version, x.Target, x.ID),
-	}
-}
-
-func (x *CacheKey) Trailers() KeyGenrator {
-	return &PingKey{
-		key: fmt.Sprintf("V%c:%s:TRL:%d", x.Version, x.Target, x.ID),
-	}
 }
