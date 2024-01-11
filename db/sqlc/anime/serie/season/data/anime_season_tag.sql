@@ -4,7 +4,7 @@ VALUES ($1, $2)
 RETURNING *;
 
 -- name: ListAnimeSeasonTags :many
-SELECT * FROM anime_season_tags
+SELECT tag_id FROM anime_season_tags
 WHERE season_id = $1;
 
 -- name: DeleteAnimeSeasonTag :exec

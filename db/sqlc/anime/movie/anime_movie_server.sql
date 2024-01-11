@@ -8,6 +8,11 @@ SELECT * FROM anime_movie_servers
 WHERE id = $1
 LIMIT 1;
 
+-- name: GetAnimeMovieServerByAnimeID :one
+SELECT id FROM anime_movie_servers
+WHERE anime_id = $1
+LIMIT 1;
+
 -- name: UpdateAnimeMovieServer :one
 UPDATE anime_movie_servers
 SET anime_id = $2

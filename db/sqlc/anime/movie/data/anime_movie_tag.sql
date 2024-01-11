@@ -4,7 +4,7 @@ VALUES ($1, $2)
 RETURNING *;
 
 -- name: ListAnimeMovieTags :many
-SELECT * FROM anime_movie_tags
+SELECT tag_id FROM anime_movie_tags
 WHERE anime_id = $1;
 
 -- name: DeleteAnimeMovieTag :exec

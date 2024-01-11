@@ -4,7 +4,7 @@ VALUES ($1, $2)
 RETURNING *;
 
 -- name: ListAnimeSeasonTrailers :many
-SELECT * FROM anime_season_trailers
+SELECT trailer_id FROM anime_season_trailers
 WHERE season_id = $1;
 
 -- name: DeleteAnimeSeasonTrailer :exec

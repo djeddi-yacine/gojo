@@ -8,6 +8,11 @@ SELECT * FROM anime_episode_servers
 WHERE id = $1
 LIMIT 1;
 
+-- name: GetAnimeEpisodeServerByEpisodeID :one
+SELECT id FROM anime_episode_servers
+WHERE episode_id = $1
+LIMIT 1;
+
 -- name: UpdateAnimeEpisodeServer :one
 UPDATE anime_episode_servers
 SET episode_id = $2

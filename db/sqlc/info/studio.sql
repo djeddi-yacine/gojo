@@ -16,7 +16,7 @@ WHERE id = $1
 RETURNING *;
 
 -- name: ListStudios :many
-SELECT * FROM studios
+SELECT id FROM studios
 ORDER BY id
 LIMIT $1
 OFFSET $2;

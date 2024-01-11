@@ -6,7 +6,7 @@ DO NOTHING;
 
 -- name: ListAnimeCharacterActors :many
 SELECT * FROM anime_character_actors
-WHERE id = $1;
+WHERE character_id = $1;
 
 -- name: DeleteAnimeCharacterActor :exec
 DELETE FROM anime_character_actors
