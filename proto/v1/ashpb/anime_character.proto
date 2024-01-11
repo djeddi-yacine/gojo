@@ -2,6 +2,7 @@ syntax = "proto3";
 
 package v1.ashpbv1;
 
+import "v1/nfpb/msg_actor.proto";
 import "google/protobuf/timestamp.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb;ashpbv1";
@@ -26,4 +27,9 @@ message AnimeCharacterResponse {
   repeated int64            actorsID      = 7;
   repeated string           pictures      = 8;
   google.protobuf.Timestamp createdAt     = 9;
+}
+
+message AnimeCharacter {
+  AnimeCharacterResponse character     = 1;
+  repeated nfpbv1.ActorResponse actors = 2;
 }
