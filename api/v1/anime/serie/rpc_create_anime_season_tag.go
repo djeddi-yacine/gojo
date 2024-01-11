@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 
+	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
@@ -12,7 +13,6 @@ import (
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func (server *AnimeSerieServer) CreateAnimeSeasonTag(ctx context.Context, req *aspbv1.CreateAnimeSeasonTagRequest) (*aspbv1.CreateAnimeSeasonTagResponse, error) {
@@ -47,21 +47,9 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTag(ctx context.Context, req *a
 		return nil, shv1.ApiError("failed to create anime season tags", err)
 	}
 
-	var seasonTags []*aspbv1.AnimeSeasonTag
-	if len(data.SeasonTags) > 0 {
-		seasonTags = make([]*aspbv1.AnimeSeasonTag, len(data.SeasonTags))
-		for i, t := range data.SeasonTags {
-			seasonTags[i] = &aspbv1.AnimeSeasonTag{
-				ID:        t.ID,
-				Tag:       t.Tag,
-				CreatedAt: timestamppb.New(t.CreatedAt),
-			}
-		}
-	}
-
 	res := &aspbv1.CreateAnimeSeasonTagResponse{
 		AnimeSeason: convertAnimeSeason(data.AnimeSeason),
-		SeasonTags:  seasonTags,
+		SeasonTags:  aapiv1.ConvertAnimeTags(data.SeasonTags),
 	}
 
 	return res, nil

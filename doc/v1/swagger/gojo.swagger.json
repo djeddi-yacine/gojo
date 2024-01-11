@@ -764,7 +764,39 @@
         ]
       }
     },
-    "/anime/movie/{animeID}/images": {
+    "/anime/movie/{animeID}/character": {
+      "get": {
+        "description": "Use this API to get anime movie characters by ID",
+        "operationId": "AnimeMovieService_GetAnimeMovieCharacters",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1GetAnimeMovieCharactersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
+    "/anime/movie/{animeID}/image": {
       "get": {
         "description": "Use this API to get anime movie images by ID",
         "operationId": "AnimeMovieService_GetAnimeMovieImages",
@@ -1579,6 +1611,38 @@
         ]
       }
     },
+    "/anime/serie/season/{seasonID}/characters": {
+      "get": {
+        "description": "Use this API to get all anime season characters",
+        "operationId": "AnimeSerieService_GetAnimeSeasonCharacters",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1GetAnimeSeasonCharactersResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "seasonID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
     "/anime/serie/season/{seasonID}/episode": {
       "get": {
         "description": "Use this API to get all anime season episodes",
@@ -2291,22 +2355,6 @@
         }
       }
     },
-    "ampbv1AnimeMovieTag": {
-      "type": "object",
-      "properties": {
-        "ID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "tag": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
     "ampbv1AnimeMovieTitle": {
       "type": "object",
       "properties": {
@@ -2789,7 +2837,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ampbv1AnimeMovieTag"
+            "$ref": "#/definitions/ashpbv1AnimeTag"
           }
         }
       }
@@ -2872,6 +2920,18 @@
         }
       }
     },
+    "ampbv1GetAnimeMovieCharactersResponse": {
+      "type": "object",
+      "properties": {
+        "animeCharacters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeCharacter"
+          }
+        }
+      }
+    },
     "ampbv1GetAnimeMovieImagesResponse": {
       "type": "object",
       "properties": {
@@ -2913,7 +2973,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ampbv1AnimeMovieTag"
+            "$ref": "#/definitions/ashpbv1AnimeTag"
           }
         },
         "animeImages": {
@@ -2993,6 +3053,21 @@
       "properties": {
         "animeMovie": {
           "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        }
+      }
+    },
+    "ashpbv1AnimeCharacter": {
+      "type": "object",
+      "properties": {
+        "character": {
+          "$ref": "#/definitions/ashpbv1AnimeCharacterResponse"
+        },
+        "actors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1ActorResponse"
+          }
         }
       }
     },
@@ -3263,6 +3338,22 @@
         "anilistID": {
           "type": "integer",
           "format": "int32"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ashpbv1AnimeTag": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "tag": {
+          "type": "string"
         },
         "createdAt": {
           "type": "string",
@@ -3702,22 +3793,6 @@
           "type": "string"
         },
         "portraitBlurHash": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "aspbv1AnimeSeasonTag": {
-      "type": "object",
-      "properties": {
-        "ID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "tag": {
           "type": "string"
         },
         "createdAt": {
@@ -4196,7 +4271,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/aspbv1AnimeSeasonTag"
+            "$ref": "#/definitions/ashpbv1AnimeTag"
           }
         }
       }
@@ -4410,6 +4485,18 @@
         }
       }
     },
+    "aspbv1GetAnimeSeasonCharactersResponse": {
+      "type": "object",
+      "properties": {
+        "seasonCharacters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeCharacter"
+          }
+        }
+      }
+    },
     "aspbv1GetAnimeSeasonEpisodesResponse": {
       "type": "object",
       "properties": {
@@ -4464,7 +4551,7 @@
         "seasonMeta": {
           "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
         },
-        "seasonResoures": {
+        "seasonResources": {
           "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
         },
         "seasonGenres": {
@@ -4485,7 +4572,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/aspbv1AnimeSeasonTag"
+            "$ref": "#/definitions/ashpbv1AnimeTag"
           }
         },
         "seasonPosters": {

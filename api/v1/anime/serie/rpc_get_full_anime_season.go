@@ -29,31 +29,28 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 	}
 
 	cache := &ping.CacheKey{
-		ID:      req.SeasonID,
-		Target:  ping.AnimeSeason,
-		Version: ping.V1,
+		ID:     req.SeasonID,
+		Target: ping.AnimeSeason,
 	}
 
 	res := &aspbv1.GetFullAnimeSeasonResponse{}
 
-	if err = server.ping.Handle(ctx, cache.Main(), &res.AnimeSeason, func() error {
-		animeSeason, err := server.gojo.GetAnimeSeason(ctx, req.GetSeasonID())
+	var season db.AnimeSerieSeason
+	if err = server.ping.Handle(ctx, cache.Main(), &season, func() error {
+		season, err = server.gojo.GetAnimeSeason(ctx, req.GetSeasonID())
 		if err != nil {
-			return shv1.ApiError("failed to get the anime season", err)
+			return shv1.ApiError("cannot get anime season", err)
 		}
 
-		res.AnimeSeason = convertAnimeSeason(animeSeason)
 		return nil
 	}); err != nil {
 		return nil, err
 	}
 
-	if err = server.ping.Handle(ctx, cache.Meta(uint32(req.LanguageID)), &res.SeasonMeta, func() error {
-		_, err := server.gojo.GetLanguage(ctx, req.GetLanguageID())
-		if err != nil {
-			return shv1.ApiError("failed to get the language", err)
-		}
+	res.AnimeSeason = convertAnimeSeason(season)
 
+	var meta db.Meta
+	if err = server.ping.Handle(ctx, cache.Meta(), &meta, func() error {
 		animeMeta, err := server.gojo.GetAnimeSeasonMeta(ctx, db.GetAnimeSeasonMetaParams{
 			SeasonID:   req.GetSeasonID(),
 			LanguageID: req.GetLanguageID(),
@@ -63,72 +60,25 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 		}
 
 		if animeMeta > 0 {
-			meta, err := server.gojo.GetMeta(ctx, animeMeta)
+			meta, err = server.gojo.GetMeta(ctx, animeMeta)
 			if err != nil {
-				return shv1.ApiError("failed to get anime season metadata", err)
-			}
-
-			res.SeasonMeta = &nfpbv1.AnimeMetaResponse{
-				LanguageID: req.GetLanguageID(),
-				Meta:       shv1.ConvertMeta(meta),
-				CreatedAt:  timestamppb.New(meta.CreatedAt),
+				return shv1.ApiError("cannot get anime season metadata", err)
 			}
 		}
-
 		return nil
 	}); err != nil {
 		return nil, err
 	}
 
-	if err = server.ping.Handle(ctx, cache.Genre(), &res.SeasonGenres, func() error {
-		seasonGenres, err := server.gojo.ListAnimeSeasonGenres(ctx, req.GetSeasonID())
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shv1.ApiError("failed to get anime serie genres", err)
-		}
-
-		var genres []db.Genre
-		if len(seasonGenres) > 0 {
-			genres = make([]db.Genre, len(seasonGenres))
-
-			for i, amg := range seasonGenres {
-				genres[i], err = server.gojo.GetGenre(ctx, amg)
-				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("failed when list anime serie genres", err)
-				}
-			}
-		}
-
-		res.SeasonGenres = shv1.ConvertGenres(genres)
-		return nil
-	}); err != nil {
-		return nil, err
+	res.SeasonMeta = &nfpbv1.AnimeMetaResponse{
+		LanguageID: req.GetLanguageID(),
+		Meta:       shv1.ConvertMeta(meta),
+		CreatedAt:  timestamppb.New(meta.CreatedAt),
 	}
 
-	if err = server.ping.Handle(ctx, cache.Studio(), &res.SeasonStudios, func() error {
-		seasonStudios, err := server.gojo.ListAnimeSeasonStudios(ctx, req.GetSeasonID())
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shv1.ApiError("failed to get anime serie studios", err)
-		}
-
-		var studios []db.Studio
-		if len(seasonStudios) > 0 {
-			studios = make([]db.Studio, len(seasonStudios))
-			for i, ams := range seasonStudios {
-				studios[i], err = server.gojo.GetStudio(ctx, ams)
-				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("failed when list anime serie studios", err)
-				}
-			}
-		}
-
-		res.SeasonStudios = shv1.ConvertStudios(studios)
-		return nil
-	}); err != nil {
-		return nil, err
-	}
-
-	if err = server.ping.Handle(ctx, cache.Resources(), &res.SeasonResoures, func() error {
-		seasonResourceID, err := server.gojo.GetAnimeSeasonResource(ctx, req.GetSeasonID())
+	var resources db.AnimeResource
+	if err = server.ping.Handle(ctx, cache.Resources(), &resources, func() error {
+		ID, err := server.gojo.GetAnimeSeasonResource(ctx, req.GetSeasonID())
 		if err != nil {
 			if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 				return shv1.ApiError("cannot get anime season resources", err)
@@ -137,7 +87,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 			}
 		}
 
-		seasonResources, err := server.gojo.GetAnimeResource(ctx, seasonResourceID.ResourceID)
+		resources, err = server.gojo.GetAnimeResource(ctx, ID.ResourceID)
 		if err != nil {
 			if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 				return shv1.ApiError("cannot get resources data", err)
@@ -146,98 +96,107 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 			}
 		}
 
-		res.SeasonResoures = aapiv1.ConvertAnimeResource(seasonResources)
 		return nil
 	}); err != nil {
 		return nil, err
 	}
 
-	if err = server.ping.Handle(ctx, cache.Tags(), &res.SeasonTags, func() error {
-		animeTagIDs, err := server.gojo.ListAnimeSeasonTags(ctx, req.SeasonID)
+	res.SeasonResources = aapiv1.ConvertAnimeResource(resources)
+
+	var gIDs []int32
+	if err = server.ping.Handle(ctx, cache.Genre(), &gIDs, func() error {
+		gIDs, err = server.gojo.ListAnimeSeasonGenres(ctx, req.GetSeasonID())
+		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+			return shv1.ApiError("cannot get anime season genres", err)
+		}
+
+		return nil
+	}); err != nil {
+		return nil, err
+	}
+
+	genres, err := server.gojo.ListGenresTx(ctx, gIDs)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shv1.ApiError("cannot list anime season genres", err)
+	}
+
+	res.SeasonGenres = shv1.ConvertGenres(genres)
+
+	var sIDs []int32
+	if err = server.ping.Handle(ctx, cache.Studio(), &sIDs, func() error {
+		sIDs, err = server.gojo.ListAnimeSeasonStudios(ctx, req.GetSeasonID())
+		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+			return shv1.ApiError("cannot get anime season studios", err)
+		}
+
+		return nil
+	}); err != nil {
+		return nil, err
+	}
+
+	studios, err := server.gojo.ListStudiosTx(ctx, sIDs)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shv1.ApiError("cannot list anime season studios", err)
+	}
+
+	res.SeasonStudios = shv1.ConvertStudios(studios)
+
+	var tIDs []int64
+	if err = server.ping.Handle(ctx, cache.Tags(), &tIDs, func() error {
+		tIDs, err = server.gojo.ListAnimeSeasonTags(ctx, req.GetSeasonID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shv1.ApiError("cannot get anime season tags IDs", err)
 		}
 
-		var animeTags []db.AnimeTag
-		if len(animeTagIDs) > 0 {
-			animeTags = make([]db.AnimeTag, len(animeTagIDs))
-
-			for i, t := range animeTagIDs {
-				tag, err := server.gojo.GetAnimeTag(ctx, t.TagID)
-				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot get anime season tag", err)
-				}
-				animeTags[i] = tag
-			}
-		}
-
-		if len(animeTags) > 0 {
-			res.SeasonTags = make([]*aspbv1.AnimeSeasonTag, len(animeTags))
-
-			for i, t := range animeTags {
-				res.SeasonTags[i] = &aspbv1.AnimeSeasonTag{
-					ID:        t.ID,
-					Tag:       t.Tag,
-					CreatedAt: timestamppb.New(t.CreatedAt),
-				}
-			}
-		}
-
 		return nil
 	}); err != nil {
 		return nil, err
 	}
 
-	if err = server.ping.Handle(ctx, cache.Images(), &res.SeasonPosters, func() error {
-		animePosterIDs, err := server.gojo.ListAnimeSeriePosterImages(ctx, req.SeasonID)
+	tags, err := server.gojo.ListAnimeTagsTx(ctx, tIDs)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shv1.ApiError("cannot get anime season tag", err)
+	}
+
+	res.SeasonTags = aapiv1.ConvertAnimeTags(tags)
+
+	var pIDs []int64
+	if err = server.ping.Handle(ctx, cache.Posters(), &pIDs, func() error {
+		pIDs, err = server.gojo.ListAnimeSeasonPosterImages(ctx, req.GetSeasonID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shv1.ApiError("cannot get anime serie posters images IDs", err)
+			return shv1.ApiError("cannot get anime season posters images IDs", err)
 		}
-
-		var animePosters []db.AnimeImage
-		if len(animePosterIDs) > 0 {
-			animePosters = make([]db.AnimeImage, len(animePosterIDs))
-
-			for i, p := range animePosterIDs {
-				poster, err := server.gojo.GetAnimeImage(ctx, p)
-				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot get anime serie poster image", err)
-				}
-				animePosters[i] = poster
-			}
-		}
-
-		res.SeasonPosters = aapiv1.ConvertAnimeImages(animePosters)
 
 		return nil
 	}); err != nil {
 		return nil, err
 	}
 
-	if err = server.ping.Handle(ctx, cache.Trailers(), &res.SeasonTrailers, func() error {
-		animeTrailerIDs, err := server.gojo.ListAnimeSerieTrailers(ctx, req.SeasonID)
+	posters, err := server.gojo.ListAnimeImagesTx(ctx, pIDs)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shv1.ApiError("cannot get anime season posters images", err)
+	}
+
+	res.SeasonPosters = aapiv1.ConvertAnimeImages(posters)
+
+	var rIDs []int64
+	if err = server.ping.Handle(ctx, cache.Trailers(), &rIDs, func() error {
+		rIDs, err = server.gojo.ListAnimeSeasonTrailers(ctx, req.GetSeasonID())
 		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 			return shv1.ApiError("cannot get anime season trailers IDs", err)
 		}
 
-		var animeTrailers []db.AnimeTrailer
-		if len(animeTrailerIDs) > 0 {
-			animeTrailers = make([]db.AnimeTrailer, len(animeTrailerIDs))
-
-			for i, t := range animeTrailerIDs {
-				trailer, err := server.gojo.GetAnimeTrailer(ctx, t.TrailerID)
-				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot get anime season trailer", err)
-				}
-				animeTrailers[i] = trailer
-			}
-		}
-
-		res.SeasonTrailers = aapiv1.ConvertAnimeTrailers(animeTrailers)
 		return nil
 	}); err != nil {
 		return nil, err
 	}
+
+	trailers, err := server.gojo.ListAnimeTrailersTx(ctx, rIDs)
+	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+		return nil, shv1.ApiError("cannot get anime season trailers", err)
+	}
+
+	res.SeasonTrailers = aapiv1.ConvertAnimeTrailers(trailers)
 
 	return res, nil
 }

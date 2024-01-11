@@ -21,6 +21,7 @@ import "v1/ampb/rpc_get_all_anime_movie_metas.proto";
 import "v1/ampb/rpc_get_all_anime_movies.proto";
 import "v1/ampb/rpc_get_full_anime_movie.proto";
 import "v1/ampb/rpc_get_anime_movie_images.proto";
+import "v1/ampb/rpc_get_anime_movie_characters.proto";
 import "v1/ampb/rpc_update_anime_movie.proto";
 import "v1/ampb/rpc_query_anime_movie.proto";
 
@@ -170,10 +171,18 @@ rpc GetFullAnimeMovie(GetFullAnimeMovieRequest) returns (GetFullAnimeMovieRespon
 }
 rpc GetAnimeMovieImages(GetAnimeMovieImagesRequest) returns (GetAnimeMovieImagesResponse) {
   option (google.api.http) = {
-    get: "/anime/movie/{animeID}/images"
+    get: "/anime/movie/{animeID}/image"
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
     description: "Use this API to get anime movie images by ID";
+};
+}
+rpc GetAnimeMovieCharacters(GetAnimeMovieCharactersRequest) returns (GetAnimeMovieCharactersResponse) {
+  option (google.api.http) = {
+    get: "/anime/movie/{animeID}/character"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to get anime movie characters by ID";
 };
 }
 rpc QueryAnimeMovie(QueryAnimeMovieRequest) returns (QueryAnimeMovieResponse) {

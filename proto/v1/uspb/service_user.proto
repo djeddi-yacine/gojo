@@ -17,7 +17,7 @@ option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/uspb;uspbv1";
 option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
   info: {
     title: "Gojo API";
-version: "3.0";
+version: "4.0";
 contact: {
 name:
   "Dj Yacine";

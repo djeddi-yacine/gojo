@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 
+	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
@@ -12,7 +13,6 @@ import (
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func (server *AnimeMovieServer) CreateAnimeMovieTag(ctx context.Context, req *ampbv1.CreateAnimeMovieTagRequest) (*ampbv1.CreateAnimeMovieTagResponse, error) {
@@ -47,21 +47,9 @@ func (server *AnimeMovieServer) CreateAnimeMovieTag(ctx context.Context, req *am
 		return nil, shv1.ApiError("failed to create anime movie tags", err)
 	}
 
-	var animeTags []*ampbv1.AnimeMovieTag
-	if len(data.AnimeTags) > 0 {
-		animeTags = make([]*ampbv1.AnimeMovieTag, len(data.AnimeTags))
-		for i, t := range data.AnimeTags {
-			animeTags[i] = &ampbv1.AnimeMovieTag{
-				ID:        t.ID,
-				Tag:       t.Tag,
-				CreatedAt: timestamppb.New(t.CreatedAt),
-			}
-		}
-	}
-
 	res := &ampbv1.CreateAnimeMovieTagResponse{
 		AnimeMovie: convertAnimeMovie(data.AnimeMovie),
-		AnimeTags:  animeTags,
+		AnimeTags:  aapiv1.ConvertAnimeTags(data.AnimeTags),
 	}
 
 	return res, nil

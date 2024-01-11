@@ -3,10 +3,10 @@ syntax = "proto3";
 package v1.aspbv1;
 
 import "v1/aspb/msg_anime_season.proto";
-import "v1/aspb/msg_tag.proto";
 import "v1/nfpb/msg_meta.proto";
 import "v1/nfpb/msg_genre.proto";
 import "v1/nfpb/msg_studio.proto";
+import "v1/ashpb/anime_tag.proto";
 import "v1/ashpb/anime_resource.proto";
 import "v1/ashpb/anime_image.proto";
 import "v1/ashpb/anime_trailer.proto";
@@ -21,10 +21,10 @@ message GetFullAnimeSeasonRequest {
 message GetFullAnimeSeasonResponse {
   AnimeSeasonResponse           animeSeason            = 1;
   nfpbv1.AnimeMetaResponse      seasonMeta             = 2;
-  ashpbv1.AnimeResourceResponse seasonResoures         = 3;
+  ashpbv1.AnimeResourceResponse seasonResources        = 3;
   repeated nfpbv1.Genre seasonGenres                   = 4;
-  repeated nfpbv1.Studio  seasonStudios                = 5;
-  repeated AnimeSeasonTag seasonTags                   = 6;
+  repeated nfpbv1.Studio seasonStudios                 = 5;
+  repeated ashpbv1.AnimeTag seasonTags                 = 6;
   repeated ashpbv1.ImageResponse seasonPosters         = 7;
   repeated ashpbv1.AnimeTrailerResponse seasonTrailers = 8;
 }

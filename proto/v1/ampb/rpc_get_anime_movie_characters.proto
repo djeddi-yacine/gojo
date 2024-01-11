@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package v1.ampbv1;
+
+import "v1/ashpb/anime_character.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
+
+message GetAnimeMovieCharactersRequest {
+  int64 animeID = 1;
+}
+
+message GetAnimeMovieCharactersResponse {
+  repeated ashpbv1.AnimeCharacter animeCharacters = 1;
+}
