@@ -95,7 +95,7 @@ func (q *Queries) GetAnimeSeason(ctx context.Context, id int64) (AnimeSerieSeaso
 }
 
 const listAnimeSeasonsByAnimeID = `-- name: ListAnimeSeasonsByAnimeID :many
-SELECT id, anime_id, season_original_title, release_year, aired, portrait_poster, portrait_blur_hash, rating, created_at FROM anime_serie_seasons
+SELECT id FROM anime_serie_seasons
 WHERE anime_id = $1
 ORDER BY release_year
 LIMIT $2
@@ -108,29 +108,19 @@ type ListAnimeSeasonsByAnimeIDParams struct {
 	Offset  int32
 }
 
-func (q *Queries) ListAnimeSeasonsByAnimeID(ctx context.Context, arg ListAnimeSeasonsByAnimeIDParams) ([]AnimeSerieSeason, error) {
+func (q *Queries) ListAnimeSeasonsByAnimeID(ctx context.Context, arg ListAnimeSeasonsByAnimeIDParams) ([]int64, error) {
 	rows, err := q.db.Query(ctx, listAnimeSeasonsByAnimeID, arg.AnimeID, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	items := []AnimeSerieSeason{}
+	items := []int64{}
 	for rows.Next() {
-		var i AnimeSerieSeason
-		if err := rows.Scan(
-			&i.ID,
-			&i.AnimeID,
-			&i.SeasonOriginalTitle,
-			&i.ReleaseYear,
-			&i.Aired,
-			&i.PortraitPoster,
-			&i.PortraitBlurHash,
-			&i.Rating,
-			&i.CreatedAt,
-		); err != nil {
+		var id int64
+		if err := rows.Scan(&id); err != nil {
 			return nil, err
 		}
-		items = append(items, i)
+		items = append(items, id)
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err

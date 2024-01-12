@@ -6,6 +6,7 @@ import (
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
+	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 )
@@ -23,9 +24,9 @@ func (server *AnimeSerieServer) GetAnimeSeasonEpisodes(ctx context.Context, req 
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	_, err = server.gojo.GetAnimeSeason(ctx, req.GetSeasonID())
-	if err != nil {
-		return nil, shv1.ApiError("failed to get the anime season", err)
+	cache := &ping.CacheKey{
+		ID:     req.GetSeasonID(),
+		Target: ping.AnimeSeason,
 	}
 
 	arg := db.ListAnimeSeasonEpisodesParams{
@@ -34,26 +35,42 @@ func (server *AnimeSerieServer) GetAnimeSeasonEpisodes(ctx context.Context, req 
 		Offset:   (req.GetPageNumber() - 1) * req.GetPageSize(),
 	}
 
-	DBSeasonEpisodeIDs, err := server.gojo.ListAnimeSeasonEpisodes(ctx, arg)
-	if err != nil {
-		return nil, shv1.ApiError("failed to list anime season episodes IDs", err)
-	}
-
-	DBSeasonEpisodes := make([]db.AnimeSerieEpisode, len(DBSeasonEpisodeIDs))
-	for i, e := range DBSeasonEpisodeIDs {
-		DBSeasonEpisodes[i], err = server.gojo.GetAnimeEpisodeByEpisodeID(ctx, e.EpisodeID)
+	var eIDs []int64
+	if err = server.ping.Handle(ctx, cache.Episodes(arg.Limit, arg.Offset), &eIDs, func() error {
+		eIDs, err = server.gojo.ListAnimeSeasonEpisodes(ctx, arg)
 		if err != nil {
-			return nil, shv1.ApiError("failed to get anime season episodes", err)
+			return shv1.ApiError("failed to list all anime season episodes", err)
 		}
+
+		return nil
+	}); err != nil {
+		return nil, err
 	}
 
-	var PBSeasonEpisodes []*aspbv1.AnimeEpisodeResponse
-	for _, e := range DBSeasonEpisodes {
-		PBSeasonEpisodes = append(PBSeasonEpisodes, convertAnimeEpisode(e))
-	}
+	res := &aspbv1.GetAnimeSeasonEpisodesResponse{}
 
-	res := &aspbv1.GetAnimeSeasonEpisodesResponse{
-		SeasonEpisode: PBSeasonEpisodes,
+	if len(eIDs) > 0 {
+		res.SeasonEpisode = make([]*aspbv1.AnimeEpisodeResponse, len(eIDs))
+		episodes := make([]db.AnimeSerieEpisode, len(eIDs))
+		for i, v := range eIDs {
+			cache = &ping.CacheKey{
+				ID:     v,
+				Target: ping.AnimeEpisode,
+			}
+
+			if err = server.ping.Handle(ctx, cache.Main(), &episodes[i], func() error {
+				episodes[i], err = server.gojo.GetAnimeEpisodeByEpisodeID(ctx, v)
+				if err != nil {
+					return shv1.ApiError("failed to get anime season episodes", err)
+				}
+
+				return nil
+			}); err != nil {
+				return nil, err
+			}
+
+			res.SeasonEpisode[i] = convertAnimeEpisode(episodes[i])
+		}
 	}
 
 	return res, nil

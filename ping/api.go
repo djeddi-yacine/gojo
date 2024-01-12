@@ -74,3 +74,11 @@ func (x *CacheKey) Trailers() KeyGenrator {
 func (x *CacheKey) Characters() KeyGenrator {
 	return PingKey(fmt.Sprintf("%s:CHR:%d", x.Target, x.ID))
 }
+
+func (x *CacheKey) Seasons(Limit, Offset int32) KeyGenrator {
+	return PingKey(fmt.Sprintf("%s:SSN:%d:%d-%d", x.Target, x.ID, Limit, Offset))
+}
+
+func (x *CacheKey) Episodes(Limit, Offset int32) KeyGenrator {
+	return PingKey(fmt.Sprintf("%s:EPS:%d:%d-%d", x.Target, x.ID, Limit, Offset))
+}

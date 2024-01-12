@@ -17,7 +17,7 @@ WHERE id = $1
 LIMIT 1;
 
 -- name: ListAnimeSeasonsByAnimeID :many
-SELECT * FROM anime_serie_seasons
+SELECT id FROM anime_serie_seasons
 WHERE anime_id = $1
 ORDER BY release_year
 LIMIT $2

@@ -44,6 +44,6 @@ func (x SegmentKey) TRL(v rune) KeyGenrator {
 	return PingKey(fmt.Sprintf("TRL:X-%c:%d", v, x))
 }
 
-func CTM(v rune, w, y string) KeyGenrator {
-	return PingKey(fmt.Sprintf("G-%c:%s:%s", v, w, y))
+func CTM(v rune, Type string, Limit, Offset int32) KeyGenrator {
+	return PingKey(fmt.Sprintf("G-%c:%s:%d-%d", v, Type, Limit, Offset))
 }

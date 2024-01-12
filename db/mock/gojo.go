@@ -4002,10 +4002,10 @@ func (mr *MockGojoMockRecorder) ListAnimeSeasonCharacters(arg0, arg1 interface{}
 }
 
 // ListAnimeSeasonEpisodes mocks base method.
-func (m *MockGojo) ListAnimeSeasonEpisodes(arg0 context.Context, arg1 db.ListAnimeSeasonEpisodesParams) ([]db.AnimeSeasonEpisode, error) {
+func (m *MockGojo) ListAnimeSeasonEpisodes(arg0 context.Context, arg1 db.ListAnimeSeasonEpisodesParams) ([]int64, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListAnimeSeasonEpisodes", arg0, arg1)
-	ret0, _ := ret[0].([]db.AnimeSeasonEpisode)
+	ret0, _ := ret[0].([]int64)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
@@ -4107,10 +4107,10 @@ func (mr *MockGojoMockRecorder) ListAnimeSeasonTrailers(arg0, arg1 interface{}) 
 }
 
 // ListAnimeSeasonsByAnimeID mocks base method.
-func (m *MockGojo) ListAnimeSeasonsByAnimeID(arg0 context.Context, arg1 db.ListAnimeSeasonsByAnimeIDParams) ([]db.AnimeSerieSeason, error) {
+func (m *MockGojo) ListAnimeSeasonsByAnimeID(arg0 context.Context, arg1 db.ListAnimeSeasonsByAnimeIDParams) ([]int64, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListAnimeSeasonsByAnimeID", arg0, arg1)
-	ret0, _ := ret[0].([]db.AnimeSerieSeason)
+	ret0, _ := ret[0].([]int64)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

@@ -6,6 +6,7 @@ import (
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
+	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 )
@@ -28,25 +29,55 @@ func (server *AnimeSerieServer) GetAnimeSerieSeasons(ctx context.Context, req *a
 		return nil, shv1.ApiError("failed to get the anime serie", err)
 	}
 
+	cache := &ping.CacheKey{
+		ID:     req.GetAnimeID(),
+		Target: ping.AnimeSerie,
+	}
+
 	arg := db.ListAnimeSeasonsByAnimeIDParams{
 		AnimeID: req.GetAnimeID(),
 		Limit:   req.GetPageSize(),
 		Offset:  (req.GetPageNumber() - 1) * req.GetPageSize(),
 	}
 
-	DBAnimeSeasons, err := server.gojo.ListAnimeSeasonsByAnimeID(ctx, arg)
-	if err != nil {
-		return nil, shv1.ApiError("failed to list all anime series", err)
+	var sIDs []int64
+	if err = server.ping.Handle(ctx, cache.Seasons(arg.Limit, arg.Offset), &sIDs, func() error {
+		sIDs, err = server.gojo.ListAnimeSeasonsByAnimeID(ctx, arg)
+		if err != nil {
+			return shv1.ApiError("failed to list all anime serie seasons", err)
+		}
+
+		return nil
+	}); err != nil {
+		return nil, err
 	}
 
-	var PBAnimeSeasons []*aspbv1.AnimeSeasonResponse
-	for _, s := range DBAnimeSeasons {
-		PBAnimeSeasons = append(PBAnimeSeasons, convertAnimeSeason(s))
+	res := &aspbv1.GetAnimeSerieSeasonsResponse{}
+
+	if len(sIDs) > 0 {
+		res.AnimeSeasons = make([]*aspbv1.AnimeSeasonResponse, len(sIDs))
+		seasons := make([]db.AnimeSerieSeason, len(sIDs))
+		for i, v := range sIDs {
+			cache = &ping.CacheKey{
+				ID:     v,
+				Target: ping.AnimeSeason,
+			}
+
+			if err = server.ping.Handle(ctx, cache.Main(), &seasons[i], func() error {
+				seasons[i], err = server.gojo.GetAnimeSeason(ctx, v)
+				if err != nil {
+					return shv1.ApiError("failed to get anime serie seasons", err)
+				}
+
+				return nil
+			}); err != nil {
+				return nil, err
+			}
+
+			res.AnimeSeasons[i] = convertAnimeSeason(seasons[i])
+		}
 	}
 
-	res := &aspbv1.GetAnimeSerieSeasonsResponse{
-		AnimeSeasons: PBAnimeSeasons,
-	}
 	return res, nil
 }
 
