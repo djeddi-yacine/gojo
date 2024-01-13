@@ -1551,6 +1551,81 @@
         ]
       }
     },
+    "/anime/serie/season/optional/{seasonID}": {
+      "get": {
+        "description": "Use this API to get optional full anime serie season by ID",
+        "operationId": "AnimeSerieService_GetOptionalFullAnimeSeason",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1GetOptionalFullAnimeSeasonResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "seasonID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "languageID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "withResources",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withGenres",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withStudios",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withTags",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withPosters",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withTrailer",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
     "/anime/serie/season/query/{query}": {
       "get": {
         "description": "Use this API to query anime seasons",
@@ -4821,6 +4896,55 @@
           "$ref": "#/definitions/ashpbv1AnimeImageResponse"
         },
         "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+          }
+        }
+      }
+    },
+    "aspbv1GetOptionalFullAnimeSeasonResponse": {
+      "type": "object",
+      "properties": {
+        "animeSeason": {
+          "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
+        },
+        "seasonMeta": {
+          "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+        },
+        "seasonResources": {
+          "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
+        },
+        "seasonGenres": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Genre"
+          }
+        },
+        "seasonStudios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Studio"
+          }
+        },
+        "seasonTags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTag"
+          }
+        },
+        "seasonPosters": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1ImageResponse"
+          }
+        },
+        "seasonTrailers": {
           "type": "array",
           "items": {
             "type": "object",

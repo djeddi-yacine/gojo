@@ -41,6 +41,7 @@ const (
 	AnimeSerieService_GetOptionalFullAnimeSerie_FullMethodName   = "/v1.aspbv1.AnimeSerieService/GetOptionalFullAnimeSerie"
 	AnimeSerieService_GetAllAnimeSeries_FullMethodName           = "/v1.aspbv1.AnimeSerieService/GetAllAnimeSeries"
 	AnimeSerieService_GetFullAnimeSeason_FullMethodName          = "/v1.aspbv1.AnimeSerieService/GetFullAnimeSeason"
+	AnimeSerieService_GetOptionalFullAnimeSeason_FullMethodName  = "/v1.aspbv1.AnimeSerieService/GetOptionalFullAnimeSeason"
 	AnimeSerieService_GetAllAnimeSerieMetas_FullMethodName       = "/v1.aspbv1.AnimeSerieService/GetAllAnimeSerieMetas"
 	AnimeSerieService_GetFullAnimeEpisode_FullMethodName         = "/v1.aspbv1.AnimeSerieService/GetFullAnimeEpisode"
 	AnimeSerieService_GetAnimeSerieSeasons_FullMethodName        = "/v1.aspbv1.AnimeSerieService/GetAnimeSerieSeasons"
@@ -76,6 +77,7 @@ type AnimeSerieServiceClient interface {
 	GetOptionalFullAnimeSerie(ctx context.Context, in *GetOptionalFullAnimeSerieRequest, opts ...grpc.CallOption) (*GetOptionalFullAnimeSerieResponse, error)
 	GetAllAnimeSeries(ctx context.Context, in *GetAllAnimeSeriesRequest, opts ...grpc.CallOption) (*GetAllAnimeSeriesResponse, error)
 	GetFullAnimeSeason(ctx context.Context, in *GetFullAnimeSeasonRequest, opts ...grpc.CallOption) (*GetFullAnimeSeasonResponse, error)
+	GetOptionalFullAnimeSeason(ctx context.Context, in *GetOptionalFullAnimeSeasonRequest, opts ...grpc.CallOption) (*GetOptionalFullAnimeSeasonResponse, error)
 	GetAllAnimeSerieMetas(ctx context.Context, in *GetAllAnimeSerieMetasRequest, opts ...grpc.CallOption) (*GetAllAnimeSerieMetasResponse, error)
 	GetFullAnimeEpisode(ctx context.Context, in *GetFullAnimeEpisodeRequest, opts ...grpc.CallOption) (*GetFullAnimeEpisodeResponse, error)
 	GetAnimeSerieSeasons(ctx context.Context, in *GetAnimeSerieSeasonsRequest, opts ...grpc.CallOption) (*GetAnimeSerieSeasonsResponse, error)
@@ -291,6 +293,15 @@ func (c *animeSerieServiceClient) GetFullAnimeSeason(ctx context.Context, in *Ge
 	return out, nil
 }
 
+func (c *animeSerieServiceClient) GetOptionalFullAnimeSeason(ctx context.Context, in *GetOptionalFullAnimeSeasonRequest, opts ...grpc.CallOption) (*GetOptionalFullAnimeSeasonResponse, error) {
+	out := new(GetOptionalFullAnimeSeasonResponse)
+	err := c.cc.Invoke(ctx, AnimeSerieService_GetOptionalFullAnimeSeason_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *animeSerieServiceClient) GetAllAnimeSerieMetas(ctx context.Context, in *GetAllAnimeSerieMetasRequest, opts ...grpc.CallOption) (*GetAllAnimeSerieMetasResponse, error) {
 	out := new(GetAllAnimeSerieMetasResponse)
 	err := c.cc.Invoke(ctx, AnimeSerieService_GetAllAnimeSerieMetas_FullMethodName, in, out, opts...)
@@ -380,6 +391,7 @@ type AnimeSerieServiceServer interface {
 	GetOptionalFullAnimeSerie(context.Context, *GetOptionalFullAnimeSerieRequest) (*GetOptionalFullAnimeSerieResponse, error)
 	GetAllAnimeSeries(context.Context, *GetAllAnimeSeriesRequest) (*GetAllAnimeSeriesResponse, error)
 	GetFullAnimeSeason(context.Context, *GetFullAnimeSeasonRequest) (*GetFullAnimeSeasonResponse, error)
+	GetOptionalFullAnimeSeason(context.Context, *GetOptionalFullAnimeSeasonRequest) (*GetOptionalFullAnimeSeasonResponse, error)
 	GetAllAnimeSerieMetas(context.Context, *GetAllAnimeSerieMetasRequest) (*GetAllAnimeSerieMetasResponse, error)
 	GetFullAnimeEpisode(context.Context, *GetFullAnimeEpisodeRequest) (*GetFullAnimeEpisodeResponse, error)
 	GetAnimeSerieSeasons(context.Context, *GetAnimeSerieSeasonsRequest) (*GetAnimeSerieSeasonsResponse, error)
@@ -459,6 +471,9 @@ func (UnimplementedAnimeSerieServiceServer) GetAllAnimeSeries(context.Context, *
 }
 func (UnimplementedAnimeSerieServiceServer) GetFullAnimeSeason(context.Context, *GetFullAnimeSeasonRequest) (*GetFullAnimeSeasonResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFullAnimeSeason not implemented")
+}
+func (UnimplementedAnimeSerieServiceServer) GetOptionalFullAnimeSeason(context.Context, *GetOptionalFullAnimeSeasonRequest) (*GetOptionalFullAnimeSeasonResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOptionalFullAnimeSeason not implemented")
 }
 func (UnimplementedAnimeSerieServiceServer) GetAllAnimeSerieMetas(context.Context, *GetAllAnimeSerieMetasRequest) (*GetAllAnimeSerieMetasResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllAnimeSerieMetas not implemented")
@@ -890,6 +905,24 @@ func _AnimeSerieService_GetFullAnimeSeason_Handler(srv interface{}, ctx context.
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AnimeSerieService_GetOptionalFullAnimeSeason_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOptionalFullAnimeSeasonRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnimeSerieServiceServer).GetOptionalFullAnimeSeason(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AnimeSerieService_GetOptionalFullAnimeSeason_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnimeSerieServiceServer).GetOptionalFullAnimeSeason(ctx, req.(*GetOptionalFullAnimeSeasonRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AnimeSerieService_GetAllAnimeSerieMetas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetAllAnimeSerieMetasRequest)
 	if err := dec(in); err != nil {
@@ -1110,6 +1143,10 @@ var AnimeSerieService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetFullAnimeSeason",
 			Handler:    _AnimeSerieService_GetFullAnimeSeason_Handler,
+		},
+		{
+			MethodName: "GetOptionalFullAnimeSeason",
+			Handler:    _AnimeSerieService_GetOptionalFullAnimeSeason_Handler,
 		},
 		{
 			MethodName: "GetAllAnimeSerieMetas",
