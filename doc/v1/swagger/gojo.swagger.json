@@ -1308,6 +1308,63 @@
         ]
       }
     },
+    "/anime/serie/optional/{animeID}": {
+      "get": {
+        "description": "Use this API to get optional full anime serie by ID",
+        "operationId": "AnimeSerieService_GetOptionalFullAnimeSerie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1GetOptionalFullAnimeSerieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "languageID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "withLinks",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withImages",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withTrailer",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
     "/anime/serie/season/character/create": {
       "post": {
         "description": "Use this API to add a new anime season characters",
@@ -4749,6 +4806,30 @@
       }
     },
     "aspbv1GetFullAnimeSerieResponse": {
+      "type": "object",
+      "properties": {
+        "animeSerie": {
+          "$ref": "#/definitions/aspbv1AnimeSerieResponse"
+        },
+        "animeMeta": {
+          "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+        },
+        "animeLinks": {
+          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+        },
+        "animeImages": {
+          "$ref": "#/definitions/ashpbv1AnimeImageResponse"
+        },
+        "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+          }
+        }
+      }
+    },
+    "aspbv1GetOptionalFullAnimeSerieResponse": {
       "type": "object",
       "properties": {
         "animeSerie": {
