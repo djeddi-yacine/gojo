@@ -49,7 +49,7 @@ server: fmt
 mock:
 	mockgen -package mockdb -destination db/mock/gojo.go github.com/dj-yacine-flutter/gojo/db/database Gojo
 	mockgen -package mockwk -destination worker/mock/distributor.go github.com/dj-yacine-flutter/gojo/worker TaskDistributor
-	mockgen -package mockpg -destination ping/mock/distributor.go github.com/dj-yacine-flutter/gojo/ping KeyGenrator
+	mockgen -package mockpg -destination ping/mock/key_genrator.go github.com/dj-yacine-flutter/gojo/ping KeyGenrator
 
 v1: fmt
 	rm -rf pb/v1/*.go
