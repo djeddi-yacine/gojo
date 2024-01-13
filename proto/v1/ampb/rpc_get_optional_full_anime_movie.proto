@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+package v1.ampbv1;
+
+import "v1/ampb/msg_anime_movie.proto";
+import "v1/ampb/msg_server.proto";
+import "v1/nfpb/msg_meta.proto";
+import "v1/nfpb/msg_genre.proto";
+import "v1/nfpb/msg_studio.proto";
+import "v1/ashpb/anime_tag.proto";
+import "v1/ashpb/anime_resource.proto";
+import "v1/ashpb/anime_link.proto";
+import "v1/ashpb/anime_image.proto";
+import "v1/ashpb/anime_trailer.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
+
+message GetOptionalFullAnimeMovieRequest {
+  int64         animeID       = 1;
+  int32         languageID    = 2;
+  optional bool withResources = 3;
+  optional bool withGenres    = 4;
+  optional bool withStudios   = 5;
+  optional bool withLinks     = 6;
+  optional bool withTags      = 7;
+  optional bool withImages    = 8;
+  optional bool withTrailer   = 9;
+  optional bool withServer    = 10;
+  optional bool withSub       = 11;
+  optional bool withDub       = 12;
+}
+
+message GetOptionalFullAnimeMovieResponse {
+  AnimeMovieResponse       animeMovie                   = 1;
+  nfpbv1.AnimeMetaResponse animeMeta                    = 2;
+  optional ashpbv1.AnimeResourceResponse animeResources = 3;
+  repeated nfpbv1.Genre animeGenres                     = 4;
+  repeated nfpbv1.Studio animeStudios                   = 5;
+  optional ashpbv1.AnimeLinkResponse animeLinks         = 6;
+  repeated ashpbv1.AnimeTag animeTags                   = 7;
+  optional ashpbv1.AnimeImageResponse animeImages       = 8;
+  repeated ashpbv1.AnimeTrailerResponse animeTrailers   = 9;
+  optional int64                        serverID        = 10;
+  optional AnimeMovieSubDataResponse    sub             = 11;
+  optional AnimeMovieDubDataResponse    dub             = 12;
+}

@@ -482,6 +482,105 @@
         ]
       }
     },
+    "/anime/movie/optional/{animeID}": {
+      "get": {
+        "description": "Use this API to get optional full anime movie by ID",
+        "operationId": "AnimeMovieService_GetOptionalFullAnimeMovie",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/ampbv1GetOptionalFullAnimeMovieResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "animeID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "languageID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "withResources",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withGenres",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withStudios",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withLinks",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withTags",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withImages",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withTrailer",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withServer",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withSub",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withDub",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "AnimeMovieService"
+        ]
+      }
+    },
     "/anime/movie/query/{query}": {
       "get": {
         "description": "Use this API to query anime movies",
@@ -2941,6 +3040,64 @@
       }
     },
     "ampbv1GetFullAnimeMovieResponse": {
+      "type": "object",
+      "properties": {
+        "animeMovie": {
+          "$ref": "#/definitions/ampbv1AnimeMovieResponse"
+        },
+        "animeMeta": {
+          "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+        },
+        "animeResources": {
+          "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
+        },
+        "animeGenres": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Genre"
+          }
+        },
+        "animeStudios": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1Studio"
+          }
+        },
+        "animeLinks": {
+          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+        },
+        "animeTags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTag"
+          }
+        },
+        "animeImages": {
+          "$ref": "#/definitions/ashpbv1AnimeImageResponse"
+        },
+        "animeTrailers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+          }
+        },
+        "serverID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "sub": {
+          "$ref": "#/definitions/ampbv1AnimeMovieSubDataResponse"
+        },
+        "dub": {
+          "$ref": "#/definitions/ampbv1AnimeMovieDubDataResponse"
+        }
+      }
+    },
+    "ampbv1GetOptionalFullAnimeMovieResponse": {
       "type": "object",
       "properties": {
         "animeMovie": {

@@ -35,6 +35,7 @@ const (
 	AnimeMovieService_GetAllAnimeMovies_FullMethodName          = "/v1.ampbv1.AnimeMovieService/GetAllAnimeMovies"
 	AnimeMovieService_GetAllAnimeMovieMetas_FullMethodName      = "/v1.ampbv1.AnimeMovieService/GetAllAnimeMovieMetas"
 	AnimeMovieService_GetFullAnimeMovie_FullMethodName          = "/v1.ampbv1.AnimeMovieService/GetFullAnimeMovie"
+	AnimeMovieService_GetOptionalFullAnimeMovie_FullMethodName  = "/v1.ampbv1.AnimeMovieService/GetOptionalFullAnimeMovie"
 	AnimeMovieService_GetAnimeMovieImages_FullMethodName        = "/v1.ampbv1.AnimeMovieService/GetAnimeMovieImages"
 	AnimeMovieService_GetAnimeMovieCharacters_FullMethodName    = "/v1.ampbv1.AnimeMovieService/GetAnimeMovieCharacters"
 	AnimeMovieService_QueryAnimeMovie_FullMethodName            = "/v1.ampbv1.AnimeMovieService/QueryAnimeMovie"
@@ -60,6 +61,7 @@ type AnimeMovieServiceClient interface {
 	GetAllAnimeMovies(ctx context.Context, in *GetAllAnimeMoviesRequest, opts ...grpc.CallOption) (*GetAllAnimeMoviesResponse, error)
 	GetAllAnimeMovieMetas(ctx context.Context, in *GetAllAnimeMovieMetasRequest, opts ...grpc.CallOption) (*GetAllAnimeMovieMetasResponse, error)
 	GetFullAnimeMovie(ctx context.Context, in *GetFullAnimeMovieRequest, opts ...grpc.CallOption) (*GetFullAnimeMovieResponse, error)
+	GetOptionalFullAnimeMovie(ctx context.Context, in *GetOptionalFullAnimeMovieRequest, opts ...grpc.CallOption) (*GetOptionalFullAnimeMovieResponse, error)
 	GetAnimeMovieImages(ctx context.Context, in *GetAnimeMovieImagesRequest, opts ...grpc.CallOption) (*GetAnimeMovieImagesResponse, error)
 	GetAnimeMovieCharacters(ctx context.Context, in *GetAnimeMovieCharactersRequest, opts ...grpc.CallOption) (*GetAnimeMovieCharactersResponse, error)
 	QueryAnimeMovie(ctx context.Context, in *QueryAnimeMovieRequest, opts ...grpc.CallOption) (*QueryAnimeMovieResponse, error)
@@ -217,6 +219,15 @@ func (c *animeMovieServiceClient) GetFullAnimeMovie(ctx context.Context, in *Get
 	return out, nil
 }
 
+func (c *animeMovieServiceClient) GetOptionalFullAnimeMovie(ctx context.Context, in *GetOptionalFullAnimeMovieRequest, opts ...grpc.CallOption) (*GetOptionalFullAnimeMovieResponse, error) {
+	out := new(GetOptionalFullAnimeMovieResponse)
+	err := c.cc.Invoke(ctx, AnimeMovieService_GetOptionalFullAnimeMovie_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *animeMovieServiceClient) GetAnimeMovieImages(ctx context.Context, in *GetAnimeMovieImagesRequest, opts ...grpc.CallOption) (*GetAnimeMovieImagesResponse, error) {
 	out := new(GetAnimeMovieImagesResponse)
 	err := c.cc.Invoke(ctx, AnimeMovieService_GetAnimeMovieImages_FullMethodName, in, out, opts...)
@@ -264,6 +275,7 @@ type AnimeMovieServiceServer interface {
 	GetAllAnimeMovies(context.Context, *GetAllAnimeMoviesRequest) (*GetAllAnimeMoviesResponse, error)
 	GetAllAnimeMovieMetas(context.Context, *GetAllAnimeMovieMetasRequest) (*GetAllAnimeMovieMetasResponse, error)
 	GetFullAnimeMovie(context.Context, *GetFullAnimeMovieRequest) (*GetFullAnimeMovieResponse, error)
+	GetOptionalFullAnimeMovie(context.Context, *GetOptionalFullAnimeMovieRequest) (*GetOptionalFullAnimeMovieResponse, error)
 	GetAnimeMovieImages(context.Context, *GetAnimeMovieImagesRequest) (*GetAnimeMovieImagesResponse, error)
 	GetAnimeMovieCharacters(context.Context, *GetAnimeMovieCharactersRequest) (*GetAnimeMovieCharactersResponse, error)
 	QueryAnimeMovie(context.Context, *QueryAnimeMovieRequest) (*QueryAnimeMovieResponse, error)
@@ -321,6 +333,9 @@ func (UnimplementedAnimeMovieServiceServer) GetAllAnimeMovieMetas(context.Contex
 }
 func (UnimplementedAnimeMovieServiceServer) GetFullAnimeMovie(context.Context, *GetFullAnimeMovieRequest) (*GetFullAnimeMovieResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFullAnimeMovie not implemented")
+}
+func (UnimplementedAnimeMovieServiceServer) GetOptionalFullAnimeMovie(context.Context, *GetOptionalFullAnimeMovieRequest) (*GetOptionalFullAnimeMovieResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOptionalFullAnimeMovie not implemented")
 }
 func (UnimplementedAnimeMovieServiceServer) GetAnimeMovieImages(context.Context, *GetAnimeMovieImagesRequest) (*GetAnimeMovieImagesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAnimeMovieImages not implemented")
@@ -632,6 +647,24 @@ func _AnimeMovieService_GetFullAnimeMovie_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AnimeMovieService_GetOptionalFullAnimeMovie_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOptionalFullAnimeMovieRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnimeMovieServiceServer).GetOptionalFullAnimeMovie(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AnimeMovieService_GetOptionalFullAnimeMovie_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnimeMovieServiceServer).GetOptionalFullAnimeMovie(ctx, req.(*GetOptionalFullAnimeMovieRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AnimeMovieService_GetAnimeMovieImages_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetAnimeMovieImagesRequest)
 	if err := dec(in); err != nil {
@@ -756,6 +789,10 @@ var AnimeMovieService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetFullAnimeMovie",
 			Handler:    _AnimeMovieService_GetFullAnimeMovie_Handler,
+		},
+		{
+			MethodName: "GetOptionalFullAnimeMovie",
+			Handler:    _AnimeMovieService_GetOptionalFullAnimeMovie_Handler,
 		},
 		{
 			MethodName: "GetAnimeMovieImages",
