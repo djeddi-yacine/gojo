@@ -44,6 +44,7 @@ const (
 	AnimeSerieService_GetOptionalFullAnimeSeason_FullMethodName  = "/v1.aspbv1.AnimeSerieService/GetOptionalFullAnimeSeason"
 	AnimeSerieService_GetAllAnimeSerieMetas_FullMethodName       = "/v1.aspbv1.AnimeSerieService/GetAllAnimeSerieMetas"
 	AnimeSerieService_GetFullAnimeEpisode_FullMethodName         = "/v1.aspbv1.AnimeSerieService/GetFullAnimeEpisode"
+	AnimeSerieService_GetOptionalFullAnimeEpisode_FullMethodName = "/v1.aspbv1.AnimeSerieService/GetOptionalFullAnimeEpisode"
 	AnimeSerieService_GetAnimeSerieSeasons_FullMethodName        = "/v1.aspbv1.AnimeSerieService/GetAnimeSerieSeasons"
 	AnimeSerieService_GetAnimeSeasonEpisodes_FullMethodName      = "/v1.aspbv1.AnimeSerieService/GetAnimeSeasonEpisodes"
 	AnimeSerieService_GetAnimeSeasonCharacters_FullMethodName    = "/v1.aspbv1.AnimeSerieService/GetAnimeSeasonCharacters"
@@ -80,6 +81,7 @@ type AnimeSerieServiceClient interface {
 	GetOptionalFullAnimeSeason(ctx context.Context, in *GetOptionalFullAnimeSeasonRequest, opts ...grpc.CallOption) (*GetOptionalFullAnimeSeasonResponse, error)
 	GetAllAnimeSerieMetas(ctx context.Context, in *GetAllAnimeSerieMetasRequest, opts ...grpc.CallOption) (*GetAllAnimeSerieMetasResponse, error)
 	GetFullAnimeEpisode(ctx context.Context, in *GetFullAnimeEpisodeRequest, opts ...grpc.CallOption) (*GetFullAnimeEpisodeResponse, error)
+	GetOptionalFullAnimeEpisode(ctx context.Context, in *GetOptionalFullAnimeEpisodeRequest, opts ...grpc.CallOption) (*GetOptionalFullAnimeEpisodeResponse, error)
 	GetAnimeSerieSeasons(ctx context.Context, in *GetAnimeSerieSeasonsRequest, opts ...grpc.CallOption) (*GetAnimeSerieSeasonsResponse, error)
 	GetAnimeSeasonEpisodes(ctx context.Context, in *GetAnimeSeasonEpisodesRequest, opts ...grpc.CallOption) (*GetAnimeSeasonEpisodesResponse, error)
 	GetAnimeSeasonCharacters(ctx context.Context, in *GetAnimeSeasonCharactersRequest, opts ...grpc.CallOption) (*GetAnimeSeasonCharactersResponse, error)
@@ -320,6 +322,15 @@ func (c *animeSerieServiceClient) GetFullAnimeEpisode(ctx context.Context, in *G
 	return out, nil
 }
 
+func (c *animeSerieServiceClient) GetOptionalFullAnimeEpisode(ctx context.Context, in *GetOptionalFullAnimeEpisodeRequest, opts ...grpc.CallOption) (*GetOptionalFullAnimeEpisodeResponse, error) {
+	out := new(GetOptionalFullAnimeEpisodeResponse)
+	err := c.cc.Invoke(ctx, AnimeSerieService_GetOptionalFullAnimeEpisode_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *animeSerieServiceClient) GetAnimeSerieSeasons(ctx context.Context, in *GetAnimeSerieSeasonsRequest, opts ...grpc.CallOption) (*GetAnimeSerieSeasonsResponse, error) {
 	out := new(GetAnimeSerieSeasonsResponse)
 	err := c.cc.Invoke(ctx, AnimeSerieService_GetAnimeSerieSeasons_FullMethodName, in, out, opts...)
@@ -394,6 +405,7 @@ type AnimeSerieServiceServer interface {
 	GetOptionalFullAnimeSeason(context.Context, *GetOptionalFullAnimeSeasonRequest) (*GetOptionalFullAnimeSeasonResponse, error)
 	GetAllAnimeSerieMetas(context.Context, *GetAllAnimeSerieMetasRequest) (*GetAllAnimeSerieMetasResponse, error)
 	GetFullAnimeEpisode(context.Context, *GetFullAnimeEpisodeRequest) (*GetFullAnimeEpisodeResponse, error)
+	GetOptionalFullAnimeEpisode(context.Context, *GetOptionalFullAnimeEpisodeRequest) (*GetOptionalFullAnimeEpisodeResponse, error)
 	GetAnimeSerieSeasons(context.Context, *GetAnimeSerieSeasonsRequest) (*GetAnimeSerieSeasonsResponse, error)
 	GetAnimeSeasonEpisodes(context.Context, *GetAnimeSeasonEpisodesRequest) (*GetAnimeSeasonEpisodesResponse, error)
 	GetAnimeSeasonCharacters(context.Context, *GetAnimeSeasonCharactersRequest) (*GetAnimeSeasonCharactersResponse, error)
@@ -480,6 +492,9 @@ func (UnimplementedAnimeSerieServiceServer) GetAllAnimeSerieMetas(context.Contex
 }
 func (UnimplementedAnimeSerieServiceServer) GetFullAnimeEpisode(context.Context, *GetFullAnimeEpisodeRequest) (*GetFullAnimeEpisodeResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFullAnimeEpisode not implemented")
+}
+func (UnimplementedAnimeSerieServiceServer) GetOptionalFullAnimeEpisode(context.Context, *GetOptionalFullAnimeEpisodeRequest) (*GetOptionalFullAnimeEpisodeResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOptionalFullAnimeEpisode not implemented")
 }
 func (UnimplementedAnimeSerieServiceServer) GetAnimeSerieSeasons(context.Context, *GetAnimeSerieSeasonsRequest) (*GetAnimeSerieSeasonsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAnimeSerieSeasons not implemented")
@@ -959,6 +974,24 @@ func _AnimeSerieService_GetFullAnimeEpisode_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AnimeSerieService_GetOptionalFullAnimeEpisode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetOptionalFullAnimeEpisodeRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnimeSerieServiceServer).GetOptionalFullAnimeEpisode(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AnimeSerieService_GetOptionalFullAnimeEpisode_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnimeSerieServiceServer).GetOptionalFullAnimeEpisode(ctx, req.(*GetOptionalFullAnimeEpisodeRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _AnimeSerieService_GetAnimeSerieSeasons_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetAnimeSerieSeasonsRequest)
 	if err := dec(in); err != nil {
@@ -1155,6 +1188,10 @@ var AnimeSerieService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetFullAnimeEpisode",
 			Handler:    _AnimeSerieService_GetFullAnimeEpisode_Handler,
+		},
+		{
+			MethodName: "GetOptionalFullAnimeEpisode",
+			Handler:    _AnimeSerieService_GetOptionalFullAnimeEpisode_Handler,
 		},
 		{
 			MethodName: "GetAnimeSerieSeasons",

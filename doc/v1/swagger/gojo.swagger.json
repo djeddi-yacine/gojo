@@ -1105,6 +1105,63 @@
         ]
       }
     },
+    "/anime/serie/episode/optional/{episodeID}": {
+      "get": {
+        "description": "Use this API to get optional full anime season episode by ID",
+        "operationId": "AnimeSerieService_GetOptionalFullAnimeEpisode",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/aspbv1GetOptionalFullAnimeEpisodeResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "episodeID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "languageID",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "withServer",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withSub",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "name": "withDub",
+            "in": "query",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "tags": [
+          "AnimeSerieService"
+        ]
+      }
+    },
     "/anime/serie/episode/server/create": {
       "post": {
         "description": "Use this API to create a new anime episode server",
@@ -4901,6 +4958,27 @@
             "type": "object",
             "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
           }
+        }
+      }
+    },
+    "aspbv1GetOptionalFullAnimeEpisodeResponse": {
+      "type": "object",
+      "properties": {
+        "animeEpisode": {
+          "$ref": "#/definitions/aspbv1AnimeEpisodeResponse"
+        },
+        "episodeMeta": {
+          "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+        },
+        "serverID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "sub": {
+          "$ref": "#/definitions/aspbv1AnimeEpisodeSubDataResponse"
+        },
+        "dub": {
+          "$ref": "#/definitions/aspbv1AnimeEpisodeDubDataResponse"
         }
       }
     },
