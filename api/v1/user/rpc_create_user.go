@@ -55,6 +55,7 @@ func (server *UserServer) CreateUser(ctx context.Context, req *uspbv1.CreateUser
 
 	res := &uspbv1.CreateUserResponse{
 		User: &uspbv1.User{
+			ID:                txResult.User.ID,
 			Username:          txResult.User.Username,
 			FullName:          txResult.User.FullName,
 			Email:             txResult.User.Email,
