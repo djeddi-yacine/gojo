@@ -1,5 +1,5 @@
 # Migrate
-FROM golang:1.21.5-alpine3.19
+FROM golang:1.21.6-alpine3.19
 WORKDIR /gojo
 RUN go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
 COPY db/migration ./db/migration
