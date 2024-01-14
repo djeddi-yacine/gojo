@@ -257,7 +257,7 @@ type Querier interface {
 	ListGenres(ctx context.Context, arg ListGenresParams) ([]int32, error)
 	ListLanguages(ctx context.Context, arg ListLanguagesParams) ([]int32, error)
 	ListStudios(ctx context.Context, arg ListStudiosParams) ([]int32, error)
-	ListUserDevices(ctx context.Context, arg ListUserDevicesParams) ([]uuid.UUID, error)
+	ListUserDevices(ctx context.Context, userID int64) ([]uuid.UUID, error)
 	ListUsers(ctx context.Context, arg ListUsersParams) ([]User, error)
 	QueryAnimeMovieOfficialTitles(ctx context.Context, arg QueryAnimeMovieOfficialTitlesParams) ([]int64, error)
 	QueryAnimeMovieOtherTitles(ctx context.Context, arg QueryAnimeMovieOtherTitlesParams) ([]int64, error)

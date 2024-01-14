@@ -36,18 +36,10 @@ const listUserDevices = `-- name: ListUserDevices :many
 SELECT device_id FROM user_devices
 WHERE user_id = $1
 ORDER BY id
-LIMIT $2
-OFFSET $3
 `
 
-type ListUserDevicesParams struct {
-	UserID int64
-	Limit  int32
-	Offset int32
-}
-
-func (q *Queries) ListUserDevices(ctx context.Context, arg ListUserDevicesParams) ([]uuid.UUID, error) {
-	rows, err := q.db.Query(ctx, listUserDevices, arg.UserID, arg.Limit, arg.Offset)
+func (q *Queries) ListUserDevices(ctx context.Context, userID int64) ([]uuid.UUID, error) {
+	rows, err := q.db.Query(ctx, listUserDevices, userID)
 	if err != nil {
 		return nil, err
 	}

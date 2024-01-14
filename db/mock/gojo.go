@@ -4317,7 +4317,7 @@ func (mr *MockGojoMockRecorder) ListStudiosTx(arg0, arg1 interface{}) *gomock.Ca
 }
 
 // ListUserDevices mocks base method.
-func (m *MockGojo) ListUserDevices(arg0 context.Context, arg1 db.ListUserDevicesParams) ([]uuid.UUID, error) {
+func (m *MockGojo) ListUserDevices(arg0 context.Context, arg1 int64) ([]uuid.UUID, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListUserDevices", arg0, arg1)
 	ret0, _ := ret[0].([]uuid.UUID)

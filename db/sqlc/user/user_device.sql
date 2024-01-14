@@ -11,6 +11,4 @@ DO NOTHING;
 -- name: ListUserDevices :many
 SELECT device_id FROM user_devices
 WHERE user_id = $1
-ORDER BY id
-LIMIT $2
-OFFSET $3;
+ORDER BY id;

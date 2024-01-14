@@ -4,7 +4,6 @@ import (
 	"context"
 
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
-	db "github.com/dj-yacine-flutter/gojo/db/database"
 	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -16,16 +15,12 @@ func (server *UserServer) GetUserDevices(ctx context.Context, req *uspbv1.GetUse
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	user, err := server.gojo.GetUserByID(ctx, req.UserID)
+	user, err := server.gojo.GetUserByID(ctx, req.GetUserID())
 	if err != nil {
 		return nil, shv1.ApiError("failed to get user", err)
 	}
 
-	devicesIDs, err := server.gojo.ListUserDevices(ctx, db.ListUserDevicesParams{
-		UserID: user.ID,
-		Limit:  req.GetPageSize(),
-		Offset: (req.GetPageNumber() - 1) * req.GetPageSize(),
-	})
+	devicesIDs, err := server.gojo.ListUserDevices(ctx, user.ID)
 	if err != nil {
 		return nil, shv1.ApiError("failed to list devices IDs", err)
 	}
@@ -59,14 +54,6 @@ func (server *UserServer) GetUserDevices(ctx context.Context, req *uspbv1.GetUse
 func validateGetUserDevicesRequest(req *uspbv1.GetUserDevicesRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.GetUserID()); err != nil {
 		violations = append(violations, shv1.FieldViolation("userID", err))
-	}
-
-	if err := utils.ValidateInt(int64(req.GetPageNumber())); err != nil {
-		violations = append(violations, shv1.FieldViolation("pageNumber", err))
-	}
-
-	if err := utils.ValidateInt(int64(req.GetPageSize())); err != nil {
-		violations = append(violations, shv1.FieldViolation("pageSize", err))
 	}
 
 	return violations
