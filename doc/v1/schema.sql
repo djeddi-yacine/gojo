@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2024-01-10T22:43:53.735Z
+-- Generated at: 2024-01-16T18:34:02.133Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -759,19 +759,35 @@ CREATE UNIQUE INDEX ON "anime_season_trailers" ("season_id", "trailer_id");
 
 CREATE INDEX ON "anime_movie_official_titles" ("id", "title_text", "anime_id");
 
+CREATE UNIQUE INDEX ON "anime_movie_official_titles" ("title_text", "anime_id");
+
 CREATE INDEX ON "anime_movie_short_titles" ("id", "title_text", "anime_id");
+
+CREATE UNIQUE INDEX ON "anime_movie_short_titles" ("title_text", "anime_id");
 
 CREATE INDEX ON "anime_movie_translation_titles" ("id", "title_text", "anime_id");
 
+CREATE UNIQUE INDEX ON "anime_movie_translation_titles" ("title_text", "anime_id");
+
 CREATE INDEX ON "anime_movie_other_titles" ("id", "title_text", "anime_id");
+
+CREATE UNIQUE INDEX ON "anime_movie_other_titles" ("title_text", "anime_id");
 
 CREATE INDEX ON "anime_season_official_titles" ("id", "title_text", "season_id");
 
+CREATE UNIQUE INDEX ON "anime_season_official_titles" ("title_text", "season_id");
+
 CREATE INDEX ON "anime_season_short_titles" ("id", "title_text", "season_id");
+
+CREATE UNIQUE INDEX ON "anime_season_short_titles" ("title_text", "season_id");
 
 CREATE INDEX ON "anime_season_translation_titles" ("id", "title_text", "season_id");
 
+CREATE UNIQUE INDEX ON "anime_season_translation_titles" ("title_text", "season_id");
+
 CREATE INDEX ON "anime_season_other_titles" ("id", "title_text", "season_id");
+
+CREATE UNIQUE INDEX ON "anime_season_other_titles" ("title_text", "season_id");
 
 CREATE INDEX ON "anime_tags" ("id");
 

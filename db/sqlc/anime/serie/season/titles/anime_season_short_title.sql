@@ -1,6 +1,9 @@
 -- name: CreateAnimeSeasonShortTitle :one
 INSERT INTO anime_season_short_titles (season_id, title_text)
 VALUES ($1, $2)
+ON CONFLICT (season_id, title_text)
+DO UPDATE SET 
+    season_id = excluded.season_id
 RETURNING *;
 
 -- name: QueryAnimeSeasonShortTitles :many

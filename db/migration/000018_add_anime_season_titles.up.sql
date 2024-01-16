@@ -29,11 +29,20 @@ CREATE TABLE "anime_season_other_titles" (
 
 CREATE INDEX ON "anime_season_official_titles" ("id", "title_text", "season_id");
 
+CREATE UNIQUE INDEX ON "anime_season_official_titles" ("title_text", "season_id");
+
 CREATE INDEX ON "anime_season_short_titles" ("id", "title_text", "season_id");
+
+CREATE UNIQUE INDEX ON "anime_season_short_titles" ("title_text", "season_id");
 
 CREATE INDEX ON "anime_season_translation_titles" ("id", "title_text", "season_id");
 
+CREATE UNIQUE INDEX ON "anime_season_translation_titles" ("title_text", "season_id");
+
 CREATE INDEX ON "anime_season_other_titles" ("id", "title_text", "season_id");
+
+CREATE UNIQUE INDEX ON "anime_season_other_titles" ("title_text", "season_id");
+
 
 CREATE INDEX ON "anime_season_official_titles" USING GIN (to_tsvector('pg_catalog.english', lower(translate(title_text, '[:punct:]', ''))));
 

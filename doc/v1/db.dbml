@@ -660,6 +660,7 @@ Table anime_movie_official_titles {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       (id,title_text,anime_id)
+      (title_text,anime_id) [unique]
     }
 }
 
@@ -670,6 +671,7 @@ Table anime_movie_short_titles {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       (id,title_text,anime_id)
+      (title_text,anime_id) [unique]
     }
 }
 
@@ -680,6 +682,7 @@ Table anime_movie_translation_titles {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       (id,title_text,anime_id)
+      (title_text,anime_id) [unique]
     }
 }
 
@@ -690,6 +693,7 @@ Table anime_movie_other_titles {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       (id,title_text,anime_id)
+      (title_text,anime_id) [unique]
     }
 }
 
@@ -700,6 +704,7 @@ Table anime_season_official_titles {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       (id,title_text,season_id)
+      (title_text,season_id) [unique]
     }
 }
 
@@ -710,6 +715,7 @@ Table anime_season_short_titles {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       (id,title_text,season_id)
+      (title_text,season_id) [unique]
     }
 }
 
@@ -720,6 +726,7 @@ Table anime_season_translation_titles {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       (id,title_text,season_id)
+      (title_text,season_id) [unique]
     }
 }
 
@@ -730,6 +737,7 @@ Table anime_season_other_titles {
   created_at timestamptz [not null, default: `now()`]
     indexes {
       (id,title_text,season_id)
+      (title_text,season_id) [unique]
     }
 }
 

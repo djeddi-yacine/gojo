@@ -12,6 +12,9 @@ import (
 const createAnimeMovieTranslationTitle = `-- name: CreateAnimeMovieTranslationTitle :one
 INSERT INTO anime_movie_translation_titles (anime_id, title_text)
 VALUES ($1, $2)
+ON CONFLICT (anime_id, title_text)
+DO UPDATE SET 
+    anime_id = excluded.anime_id
 RETURNING id, anime_id, title_text, created_at
 `
 

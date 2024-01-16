@@ -31,11 +31,19 @@ CREATE TABLE "anime_movie_translation_titles" (
 
 CREATE INDEX ON "anime_movie_official_titles" ("id", "title_text", "anime_id");
 
+CREATE UNIQUE INDEX ON "anime_movie_official_titles" ("title_text", "anime_id");
+
 CREATE INDEX ON "anime_movie_short_titles" ("id", "title_text", "anime_id");
+
+CREATE UNIQUE INDEX ON "anime_movie_short_titles" ("title_text", "anime_id");
 
 CREATE INDEX ON "anime_movie_translation_titles" ("id", "title_text", "anime_id");
 
+CREATE UNIQUE INDEX ON "anime_movie_translation_titles" ("title_text", "anime_id");
+
 CREATE INDEX ON "anime_movie_other_titles" ("id", "title_text", "anime_id");
+
+CREATE UNIQUE INDEX ON "anime_movie_other_titles" ("title_text", "anime_id");
 
 
 CREATE INDEX ON "anime_movie_official_titles" USING GIN (to_tsvector('pg_catalog.english', lower(translate(title_text, '[:punct:]', ''))));
