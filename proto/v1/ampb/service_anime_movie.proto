@@ -14,7 +14,7 @@ import "v1/ampb/rpc_create_anime_movie_image.proto";
 import "v1/ampb/rpc_create_anime_movie_server.proto";
 import "v1/ampb/rpc_create_anime_movie_info.proto";
 import "v1/ampb/rpc_create_anime_movie_data.proto";
-import "v1/ampb/rpc_create_anime_movie_title.proto";
+import "v1/ampb/rpc_create_anime_movie_titles.proto";
 import "v1/ampb/rpc_create_anime_movie_tag.proto";
 import "v1/ampb/rpc_create_anime_movie_characters.proto";
 import "v1/ampb/rpc_get_all_anime_movie_metas.proto";
@@ -92,7 +92,7 @@ rpc CreateAnimeMovieTrailer(CreateAnimeMovieTrailerRequest) returns (CreateAnime
     description: "Use this API to create a new anime movie trailers";
 };
 }
-rpc CreateAnimeMovieTitle(CreateAnimeMovieTitleRequest) returns (CreateAnimeMovieTitleResponse) {
+rpc CreateAnimeMovieTitles(CreateAnimeMovieTitlesRequest) returns (CreateAnimeMovieTitlesResponse) {
   option (google.api.http) = {
     post: "/anime/movie/title/create"
     body: "*"

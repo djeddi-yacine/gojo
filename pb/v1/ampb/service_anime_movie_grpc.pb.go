@@ -26,7 +26,7 @@ const (
 	AnimeMovieService_CreateAnimeMovieLink_FullMethodName       = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieLink"
 	AnimeMovieService_CreateAnimeMovieImage_FullMethodName      = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieImage"
 	AnimeMovieService_CreateAnimeMovieTrailer_FullMethodName    = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieTrailer"
-	AnimeMovieService_CreateAnimeMovieTitle_FullMethodName      = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieTitle"
+	AnimeMovieService_CreateAnimeMovieTitles_FullMethodName     = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieTitles"
 	AnimeMovieService_CreateAnimeMovieServer_FullMethodName     = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieServer"
 	AnimeMovieService_CreateAnimeMovieData_FullMethodName       = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieData"
 	AnimeMovieService_CreateAnimeMovieTag_FullMethodName        = "/v1.ampbv1.AnimeMovieService/CreateAnimeMovieTag"
@@ -52,7 +52,7 @@ type AnimeMovieServiceClient interface {
 	CreateAnimeMovieLink(ctx context.Context, in *CreateAnimeMovieLinkRequest, opts ...grpc.CallOption) (*CreateAnimeMovieLinkResponse, error)
 	CreateAnimeMovieImage(ctx context.Context, in *CreateAnimeMovieImageRequest, opts ...grpc.CallOption) (*CreateAnimeMovieImageResponse, error)
 	CreateAnimeMovieTrailer(ctx context.Context, in *CreateAnimeMovieTrailerRequest, opts ...grpc.CallOption) (*CreateAnimeMovieTrailerResponse, error)
-	CreateAnimeMovieTitle(ctx context.Context, in *CreateAnimeMovieTitleRequest, opts ...grpc.CallOption) (*CreateAnimeMovieTitleResponse, error)
+	CreateAnimeMovieTitles(ctx context.Context, in *CreateAnimeMovieTitlesRequest, opts ...grpc.CallOption) (*CreateAnimeMovieTitlesResponse, error)
 	CreateAnimeMovieServer(ctx context.Context, in *CreateAnimeMovieServerRequest, opts ...grpc.CallOption) (*CreateAnimeMovieServerResponse, error)
 	CreateAnimeMovieData(ctx context.Context, in *CreateAnimeMovieDataRequest, opts ...grpc.CallOption) (*CreateAnimeMovieDataResponse, error)
 	CreateAnimeMovieTag(ctx context.Context, in *CreateAnimeMovieTagRequest, opts ...grpc.CallOption) (*CreateAnimeMovieTagResponse, error)
@@ -138,9 +138,9 @@ func (c *animeMovieServiceClient) CreateAnimeMovieTrailer(ctx context.Context, i
 	return out, nil
 }
 
-func (c *animeMovieServiceClient) CreateAnimeMovieTitle(ctx context.Context, in *CreateAnimeMovieTitleRequest, opts ...grpc.CallOption) (*CreateAnimeMovieTitleResponse, error) {
-	out := new(CreateAnimeMovieTitleResponse)
-	err := c.cc.Invoke(ctx, AnimeMovieService_CreateAnimeMovieTitle_FullMethodName, in, out, opts...)
+func (c *animeMovieServiceClient) CreateAnimeMovieTitles(ctx context.Context, in *CreateAnimeMovieTitlesRequest, opts ...grpc.CallOption) (*CreateAnimeMovieTitlesResponse, error) {
+	out := new(CreateAnimeMovieTitlesResponse)
+	err := c.cc.Invoke(ctx, AnimeMovieService_CreateAnimeMovieTitles_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -266,7 +266,7 @@ type AnimeMovieServiceServer interface {
 	CreateAnimeMovieLink(context.Context, *CreateAnimeMovieLinkRequest) (*CreateAnimeMovieLinkResponse, error)
 	CreateAnimeMovieImage(context.Context, *CreateAnimeMovieImageRequest) (*CreateAnimeMovieImageResponse, error)
 	CreateAnimeMovieTrailer(context.Context, *CreateAnimeMovieTrailerRequest) (*CreateAnimeMovieTrailerResponse, error)
-	CreateAnimeMovieTitle(context.Context, *CreateAnimeMovieTitleRequest) (*CreateAnimeMovieTitleResponse, error)
+	CreateAnimeMovieTitles(context.Context, *CreateAnimeMovieTitlesRequest) (*CreateAnimeMovieTitlesResponse, error)
 	CreateAnimeMovieServer(context.Context, *CreateAnimeMovieServerRequest) (*CreateAnimeMovieServerResponse, error)
 	CreateAnimeMovieData(context.Context, *CreateAnimeMovieDataRequest) (*CreateAnimeMovieDataResponse, error)
 	CreateAnimeMovieTag(context.Context, *CreateAnimeMovieTagRequest) (*CreateAnimeMovieTagResponse, error)
@@ -307,8 +307,8 @@ func (UnimplementedAnimeMovieServiceServer) CreateAnimeMovieImage(context.Contex
 func (UnimplementedAnimeMovieServiceServer) CreateAnimeMovieTrailer(context.Context, *CreateAnimeMovieTrailerRequest) (*CreateAnimeMovieTrailerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeMovieTrailer not implemented")
 }
-func (UnimplementedAnimeMovieServiceServer) CreateAnimeMovieTitle(context.Context, *CreateAnimeMovieTitleRequest) (*CreateAnimeMovieTitleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeMovieTitle not implemented")
+func (UnimplementedAnimeMovieServiceServer) CreateAnimeMovieTitles(context.Context, *CreateAnimeMovieTitlesRequest) (*CreateAnimeMovieTitlesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeMovieTitles not implemented")
 }
 func (UnimplementedAnimeMovieServiceServer) CreateAnimeMovieServer(context.Context, *CreateAnimeMovieServerRequest) (*CreateAnimeMovieServerResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeMovieServer not implemented")
@@ -485,20 +485,20 @@ func _AnimeMovieService_CreateAnimeMovieTrailer_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AnimeMovieService_CreateAnimeMovieTitle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateAnimeMovieTitleRequest)
+func _AnimeMovieService_CreateAnimeMovieTitles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAnimeMovieTitlesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AnimeMovieServiceServer).CreateAnimeMovieTitle(ctx, in)
+		return srv.(AnimeMovieServiceServer).CreateAnimeMovieTitles(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AnimeMovieService_CreateAnimeMovieTitle_FullMethodName,
+		FullMethod: AnimeMovieService_CreateAnimeMovieTitles_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AnimeMovieServiceServer).CreateAnimeMovieTitle(ctx, req.(*CreateAnimeMovieTitleRequest))
+		return srv.(AnimeMovieServiceServer).CreateAnimeMovieTitles(ctx, req.(*CreateAnimeMovieTitlesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -755,8 +755,8 @@ var AnimeMovieService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AnimeMovieService_CreateAnimeMovieTrailer_Handler,
 		},
 		{
-			MethodName: "CreateAnimeMovieTitle",
-			Handler:    _AnimeMovieService_CreateAnimeMovieTitle_Handler,
+			MethodName: "CreateAnimeMovieTitles",
+			Handler:    _AnimeMovieService_CreateAnimeMovieTitles_Handler,
 		},
 		{
 			MethodName: "CreateAnimeMovieServer",

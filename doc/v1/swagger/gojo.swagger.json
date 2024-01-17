@@ -728,12 +728,12 @@
     "/anime/movie/title/create": {
       "post": {
         "description": "Use this API to create a new anime movie titles",
-        "operationId": "AnimeMovieService_CreateAnimeMovieTitle",
+        "operationId": "AnimeMovieService_CreateAnimeMovieTitles",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/ampbv1CreateAnimeMovieTitleResponse"
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieTitlesResponse"
             }
           },
           "default": {
@@ -749,7 +749,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ampbv1CreateAnimeMovieTitleRequest"
+              "$ref": "#/definitions/ampbv1CreateAnimeMovieTitlesRequest"
             }
           }
         ],
@@ -1797,12 +1797,12 @@
     "/anime/serie/season/title/create": {
       "post": {
         "description": "Use this API to create a new anime season titles",
-        "operationId": "AnimeSerieService_CreateAnimeSeasonTitle",
+        "operationId": "AnimeSerieService_CreateAnimeSeasonTitles",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/aspbv1CreateAnimeSeasonTitleResponse"
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonTitlesResponse"
             }
           },
           "default": {
@@ -1818,7 +1818,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/aspbv1CreateAnimeSeasonTitleRequest"
+              "$ref": "#/definitions/aspbv1CreateAnimeSeasonTitlesRequest"
             }
           }
         ],
@@ -3116,7 +3116,7 @@
         }
       }
     },
-    "ampbv1CreateAnimeMovieTitleRequest": {
+    "ampbv1CreateAnimeMovieTitlesRequest": {
       "type": "object",
       "properties": {
         "animeID": {
@@ -3128,12 +3128,9 @@
         }
       }
     },
-    "ampbv1CreateAnimeMovieTitleResponse": {
+    "ampbv1CreateAnimeMovieTitlesResponse": {
       "type": "object",
       "properties": {
-        "animeMovie": {
-          "$ref": "#/definitions/ampbv1AnimeMovieResponse"
-        },
         "animeTitles": {
           "$ref": "#/definitions/ampbv1AnimeMovieTitleResponse"
         }
@@ -4608,7 +4605,7 @@
         }
       }
     },
-    "aspbv1CreateAnimeSeasonTitleRequest": {
+    "aspbv1CreateAnimeSeasonTitlesRequest": {
       "type": "object",
       "properties": {
         "seasonID": {
@@ -4620,12 +4617,9 @@
         }
       }
     },
-    "aspbv1CreateAnimeSeasonTitleResponse": {
+    "aspbv1CreateAnimeSeasonTitlesResponse": {
       "type": "object",
       "properties": {
-        "animeSeason": {
-          "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
-        },
         "seasonTitles": {
           "$ref": "#/definitions/aspbv1AnimeSeasonTitleResponse"
         }

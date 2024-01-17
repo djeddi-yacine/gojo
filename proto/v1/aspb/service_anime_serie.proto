@@ -16,7 +16,7 @@ import "v1/aspb/rpc_create_anime_season_resource.proto";
 import "v1/aspb/rpc_create_anime_season_trailer.proto";
 import "v1/aspb/rpc_create_anime_season_info.proto";
 import "v1/aspb/rpc_create_anime_season_metas.proto";
-import "v1/aspb/rpc_create_anime_season_title.proto";
+import "v1/aspb/rpc_create_anime_season_titles.proto";
 import "v1/aspb/rpc_create_anime_season_tag.proto";
 import "v1/aspb/rpc_create_anime_season_characters.proto";
 import "v1/aspb/rpc_create_anime_episode.proto";
@@ -174,7 +174,7 @@ rpc CreateAnimeEpisodeData(CreateAnimeEpisodeDataRequest) returns (CreateAnimeEp
     description: "Use this API to add a new anime serie data";
 };
 }
-rpc CreateAnimeSeasonTitle(CreateAnimeSeasonTitleRequest) returns (CreateAnimeSeasonTitleResponse) {
+rpc CreateAnimeSeasonTitles(CreateAnimeSeasonTitlesRequest) returns (CreateAnimeSeasonTitlesResponse) {
   option (google.api.http) = {
     post: "/anime/serie/season/title/create"
     body: "*"

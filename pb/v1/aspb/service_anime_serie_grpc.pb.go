@@ -34,7 +34,7 @@ const (
 	AnimeSerieService_CreateAnimeEpisodeMetas_FullMethodName     = "/v1.aspbv1.AnimeSerieService/CreateAnimeEpisodeMetas"
 	AnimeSerieService_CreateAnimeEpisodeServer_FullMethodName    = "/v1.aspbv1.AnimeSerieService/CreateAnimeEpisodeServer"
 	AnimeSerieService_CreateAnimeEpisodeData_FullMethodName      = "/v1.aspbv1.AnimeSerieService/CreateAnimeEpisodeData"
-	AnimeSerieService_CreateAnimeSeasonTitle_FullMethodName      = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonTitle"
+	AnimeSerieService_CreateAnimeSeasonTitles_FullMethodName     = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonTitles"
 	AnimeSerieService_CreateAnimeSeasonTag_FullMethodName        = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonTag"
 	AnimeSerieService_CreateAnimeSeasonCharacters_FullMethodName = "/v1.aspbv1.AnimeSerieService/CreateAnimeSeasonCharacters"
 	AnimeSerieService_GetFullAnimeSerie_FullMethodName           = "/v1.aspbv1.AnimeSerieService/GetFullAnimeSerie"
@@ -71,7 +71,7 @@ type AnimeSerieServiceClient interface {
 	CreateAnimeEpisodeMetas(ctx context.Context, in *CreateAnimeEpisodeMetasRequest, opts ...grpc.CallOption) (*CreateAnimeEpisodeMetasResponse, error)
 	CreateAnimeEpisodeServer(ctx context.Context, in *CreateAnimeEpisodeServerRequest, opts ...grpc.CallOption) (*CreateAnimeEpisodeServerResponse, error)
 	CreateAnimeEpisodeData(ctx context.Context, in *CreateAnimeEpisodeDataRequest, opts ...grpc.CallOption) (*CreateAnimeEpisodeDataResponse, error)
-	CreateAnimeSeasonTitle(ctx context.Context, in *CreateAnimeSeasonTitleRequest, opts ...grpc.CallOption) (*CreateAnimeSeasonTitleResponse, error)
+	CreateAnimeSeasonTitles(ctx context.Context, in *CreateAnimeSeasonTitlesRequest, opts ...grpc.CallOption) (*CreateAnimeSeasonTitlesResponse, error)
 	CreateAnimeSeasonTag(ctx context.Context, in *CreateAnimeSeasonTagRequest, opts ...grpc.CallOption) (*CreateAnimeSeasonTagResponse, error)
 	CreateAnimeSeasonCharacters(ctx context.Context, in *CreateAnimeSeasonCharactersRequest, opts ...grpc.CallOption) (*CreateAnimeSeasonCharactersResponse, error)
 	GetFullAnimeSerie(ctx context.Context, in *GetFullAnimeSerieRequest, opts ...grpc.CallOption) (*GetFullAnimeSerieResponse, error)
@@ -232,9 +232,9 @@ func (c *animeSerieServiceClient) CreateAnimeEpisodeData(ctx context.Context, in
 	return out, nil
 }
 
-func (c *animeSerieServiceClient) CreateAnimeSeasonTitle(ctx context.Context, in *CreateAnimeSeasonTitleRequest, opts ...grpc.CallOption) (*CreateAnimeSeasonTitleResponse, error) {
-	out := new(CreateAnimeSeasonTitleResponse)
-	err := c.cc.Invoke(ctx, AnimeSerieService_CreateAnimeSeasonTitle_FullMethodName, in, out, opts...)
+func (c *animeSerieServiceClient) CreateAnimeSeasonTitles(ctx context.Context, in *CreateAnimeSeasonTitlesRequest, opts ...grpc.CallOption) (*CreateAnimeSeasonTitlesResponse, error) {
+	out := new(CreateAnimeSeasonTitlesResponse)
+	err := c.cc.Invoke(ctx, AnimeSerieService_CreateAnimeSeasonTitles_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -395,7 +395,7 @@ type AnimeSerieServiceServer interface {
 	CreateAnimeEpisodeMetas(context.Context, *CreateAnimeEpisodeMetasRequest) (*CreateAnimeEpisodeMetasResponse, error)
 	CreateAnimeEpisodeServer(context.Context, *CreateAnimeEpisodeServerRequest) (*CreateAnimeEpisodeServerResponse, error)
 	CreateAnimeEpisodeData(context.Context, *CreateAnimeEpisodeDataRequest) (*CreateAnimeEpisodeDataResponse, error)
-	CreateAnimeSeasonTitle(context.Context, *CreateAnimeSeasonTitleRequest) (*CreateAnimeSeasonTitleResponse, error)
+	CreateAnimeSeasonTitles(context.Context, *CreateAnimeSeasonTitlesRequest) (*CreateAnimeSeasonTitlesResponse, error)
 	CreateAnimeSeasonTag(context.Context, *CreateAnimeSeasonTagRequest) (*CreateAnimeSeasonTagResponse, error)
 	CreateAnimeSeasonCharacters(context.Context, *CreateAnimeSeasonCharactersRequest) (*CreateAnimeSeasonCharactersResponse, error)
 	GetFullAnimeSerie(context.Context, *GetFullAnimeSerieRequest) (*GetFullAnimeSerieResponse, error)
@@ -463,8 +463,8 @@ func (UnimplementedAnimeSerieServiceServer) CreateAnimeEpisodeServer(context.Con
 func (UnimplementedAnimeSerieServiceServer) CreateAnimeEpisodeData(context.Context, *CreateAnimeEpisodeDataRequest) (*CreateAnimeEpisodeDataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeEpisodeData not implemented")
 }
-func (UnimplementedAnimeSerieServiceServer) CreateAnimeSeasonTitle(context.Context, *CreateAnimeSeasonTitleRequest) (*CreateAnimeSeasonTitleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSeasonTitle not implemented")
+func (UnimplementedAnimeSerieServiceServer) CreateAnimeSeasonTitles(context.Context, *CreateAnimeSeasonTitlesRequest) (*CreateAnimeSeasonTitlesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSeasonTitles not implemented")
 }
 func (UnimplementedAnimeSerieServiceServer) CreateAnimeSeasonTag(context.Context, *CreateAnimeSeasonTagRequest) (*CreateAnimeSeasonTagResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAnimeSeasonTag not implemented")
@@ -794,20 +794,20 @@ func _AnimeSerieService_CreateAnimeEpisodeData_Handler(srv interface{}, ctx cont
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AnimeSerieService_CreateAnimeSeasonTitle_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateAnimeSeasonTitleRequest)
+func _AnimeSerieService_CreateAnimeSeasonTitles_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAnimeSeasonTitlesRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(AnimeSerieServiceServer).CreateAnimeSeasonTitle(ctx, in)
+		return srv.(AnimeSerieServiceServer).CreateAnimeSeasonTitles(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: AnimeSerieService_CreateAnimeSeasonTitle_FullMethodName,
+		FullMethod: AnimeSerieService_CreateAnimeSeasonTitles_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AnimeSerieServiceServer).CreateAnimeSeasonTitle(ctx, req.(*CreateAnimeSeasonTitleRequest))
+		return srv.(AnimeSerieServiceServer).CreateAnimeSeasonTitles(ctx, req.(*CreateAnimeSeasonTitlesRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1150,8 +1150,8 @@ var AnimeSerieService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _AnimeSerieService_CreateAnimeEpisodeData_Handler,
 		},
 		{
-			MethodName: "CreateAnimeSeasonTitle",
-			Handler:    _AnimeSerieService_CreateAnimeSeasonTitle_Handler,
+			MethodName: "CreateAnimeSeasonTitles",
+			Handler:    _AnimeSerieService_CreateAnimeSeasonTitles_Handler,
 		},
 		{
 			MethodName: "CreateAnimeSeasonTag",
