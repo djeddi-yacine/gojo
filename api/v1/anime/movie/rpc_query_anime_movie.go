@@ -2,11 +2,14 @@ package amapiv1
 
 import (
 	"context"
+	"fmt"
+	"strconv"
 
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/meilisearch/meilisearch-go"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 )
 
@@ -23,25 +26,56 @@ func (server *AnimeMovieServer) QueryAnimeMovie(ctx context.Context, req *ampbv1
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	arg := db.QueryAnimeMovieTxParams{
-		Query:  req.GetQuery(),
-		Limit:  req.GetPageSize(),
-		Offset: (req.GetPageNumber() - 1) * req.GetPageSize(),
+	res := &ampbv1.QueryAnimeMovieResponse{}
+
+	result, err := server.meilisearch.Search(req.Query,
+		&meilisearch.SearchRequest{
+			//Limit:                int64(req.GetPageSize()),
+			//Offset:               int64((req.GetPageNumber() - 1) * req.GetPageSize()),
+			Page:                 int64(req.GetPageNumber()),
+			HitsPerPage:          int64(req.GetPageSize()),
+			AttributesToRetrieve: []string{"ID"},
+			Filter:               fmt.Sprintf("ID != %s", req.Query),
+			ShowMatchesPosition:  false,
+			ShowRankingScore:     false,
+			PlaceholderSearch:    false,
+		})
+
+	if err != nil || len(result.Hits) <= 0 {
+		arg := db.QueryAnimeMovieTxParams{
+			Query:  req.GetQuery(),
+			Limit:  req.GetPageSize(),
+			Offset: (req.GetPageNumber() - 1) * req.GetPageSize(),
+		}
+
+		data, err := server.gojo.QueryAnimeMovieTx(ctx, arg)
+		if err != nil {
+			return nil, shv1.ApiError("failed to query anime movies", err)
+		}
+
+		res.AnimeMovies = make([]*ampbv1.AnimeMovieResponse, len(data.AnimeMovies))
+		for i, v := range data.AnimeMovies {
+			res.AnimeMovies[i] = convertAnimeMovie(v)
+		}
+
+		return res, nil
 	}
 
-	data, err := server.gojo.QueryAnimeMovieTx(ctx, arg)
-	if err != nil {
-		return nil, shv1.ApiError("failed to query anime movies", err)
+	res.AnimeMovies = make([]*ampbv1.AnimeMovieResponse, len(result.Hits))
+	for i, v := range result.Hits {
+		id, err := strconv.Atoi(fmt.Sprint(v.(map[string]interface{})["ID"]))
+		if err != nil {
+			continue
+		}
+
+		anime, err := server.gojo.GetAnimeMovie(ctx, int64(id))
+		if err != nil {
+			continue
+		}
+
+		res.AnimeMovies[i] = convertAnimeMovie(anime)
 	}
 
-	var animeMovies []*ampbv1.AnimeMovieResponse
-	for _, a := range data.AnimeMovies {
-		animeMovies = append(animeMovies, convertAnimeMovie(a))
-	}
-
-	res := &ampbv1.QueryAnimeMovieResponse{
-		AnimeMovies: animeMovies,
-	}
 	return res, nil
 }
 

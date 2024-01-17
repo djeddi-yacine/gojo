@@ -2,11 +2,14 @@ package asapiv1
 
 import (
 	"context"
+	"fmt"
+	"strconv"
 
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/meilisearch/meilisearch-go"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 )
 
@@ -23,25 +26,56 @@ func (server *AnimeSerieServer) QueryAnimeSeason(ctx context.Context, req *aspbv
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	arg := db.QueryAnimeSeasonTxParams{
-		Query:  req.GetQuery(),
-		Limit:  req.GetPageSize(),
-		Offset: (req.GetPageNumber() - 1) * req.GetPageSize(),
+	res := &aspbv1.QueryAnimeSeasonResponse{}
+
+	result, err := server.meilisearch.Search(req.Query,
+		&meilisearch.SearchRequest{
+			//Limit:                int64(req.GetPageSize()),
+			//Offset:               int64((req.GetPageNumber() - 1) * req.GetPageSize()),
+			Page:                 int64(req.GetPageNumber()),
+			HitsPerPage:          int64(req.GetPageSize()),
+			AttributesToRetrieve: []string{"ID"},
+			Filter:               fmt.Sprintf("ID != %s", req.Query),
+			ShowMatchesPosition:  false,
+			ShowRankingScore:     false,
+			PlaceholderSearch:    false,
+		})
+
+	if err != nil || len(result.Hits) <= 0 {
+		arg := db.QueryAnimeSeasonTxParams{
+			Query:  req.GetQuery(),
+			Limit:  req.GetPageSize(),
+			Offset: (req.GetPageNumber() - 1) * req.GetPageSize(),
+		}
+
+		data, err := server.gojo.QueryAnimeSeasonTx(ctx, arg)
+		if err != nil {
+			return nil, shv1.ApiError("failed to query anime seasons", err)
+		}
+
+		res.AnimeSeasons = make([]*aspbv1.AnimeSeasonResponse, len(data.AnimeSeasons))
+		for i, v := range data.AnimeSeasons {
+			res.AnimeSeasons[i] = convertAnimeSeason(v)
+		}
+
+		return res, nil
 	}
 
-	data, err := server.gojo.QueryAnimeSeasonTx(ctx, arg)
-	if err != nil {
-		return nil, shv1.ApiError("failed to query anime seasons", err)
+	res.AnimeSeasons = make([]*aspbv1.AnimeSeasonResponse, len(result.Hits))
+	for i, v := range result.Hits {
+		id, err := strconv.Atoi(fmt.Sprint(v.(map[string]interface{})["ID"]))
+		if err != nil {
+			continue
+		}
+
+		anime, err := server.gojo.GetAnimeSeason(ctx, int64(id))
+		if err != nil {
+			continue
+		}
+
+		res.AnimeSeasons[i] = convertAnimeSeason(anime)
 	}
 
-	var animeSeasons []*aspbv1.AnimeSeasonResponse
-	for _, a := range data.AnimeSeasons {
-		animeSeasons = append(animeSeasons, convertAnimeSeason(a))
-	}
-
-	res := &aspbv1.QueryAnimeSeasonResponse{
-		AnimeSeasons: animeSeasons,
-	}
 	return res, nil
 }
 

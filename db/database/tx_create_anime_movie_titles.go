@@ -4,33 +4,24 @@ import (
 	"context"
 )
 
-type CreateAnimeMovieTitleTxParams struct {
+type CreateAnimeMovieTitlesTxParams struct {
 	AnimeID             int64
 	AnimeOfficialTitles []CreateAnimeMovieOfficialTitleParams
 	AnimeShortTitles    []CreateAnimeMovieShortTitleParams
 	AnimeOtherTitles    []CreateAnimeMovieOtherTitleParams
 }
 
-type CreateAnimeMovieTitleTxResult struct {
-	AnimeMovie          AnimeMovie
+type CreateAnimeMovieTitlesTxResult struct {
 	AnimeOfficialTitles []AnimeMovieOfficialTitle
 	AnimeShortTitles    []AnimeMovieShortTitle
 	AnimeOtherTitles    []AnimeMovieOtherTitle
 }
 
-func (gojo *SQLGojo) CreateAnimeMovieTitleTx(ctx context.Context, arg CreateAnimeMovieTitleTxParams) (CreateAnimeMovieTitleTxResult, error) {
-	var result CreateAnimeMovieTitleTxResult
+func (gojo *SQLGojo) CreateAnimeMovieTitlesTx(ctx context.Context, arg CreateAnimeMovieTitlesTxParams) (CreateAnimeMovieTitlesTxResult, error) {
+	var result CreateAnimeMovieTitlesTxResult
 
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
-
-		anime, err := q.GetAnimeMovie(ctx, arg.AnimeID)
-		if err != nil {
-			ErrorSQL(err)
-			return err
-		}
-
-		result.AnimeMovie = anime
 
 		if arg.AnimeOfficialTitles != nil {
 			if len(arg.AnimeOfficialTitles) > 0 {

@@ -15,7 +15,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *AnimeSerieServer) CreateAnimeSeasonTitle(ctx context.Context, req *aspbv1.CreateAnimeSeasonTitleRequest) (*aspbv1.CreateAnimeSeasonTitleResponse, error) {
+func (server *AnimeSerieServer) CreateAnimeSeasonTitles(ctx context.Context, req *aspbv1.CreateAnimeSeasonTitlesRequest) (*aspbv1.CreateAnimeSeasonTitlesResponse, error) {
 	authPayload, err := shv1.AuthorizeUser(ctx, server.tokenMaker, []string{utils.AdminRole, utils.RootRoll})
 	if err != nil {
 		return nil, shv1.UnAuthenticatedError(err)
@@ -56,17 +56,19 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTitle(ctx context.Context, req 
 		}
 	}
 
-	arg := db.CreateAnimeSeasonTitleTxParams{
+	arg := db.CreateAnimeSeasonTitlesTxParams{
 		SeasonID:            req.GetSeasonID(),
 		AnimeOfficialTitles: DBF,
 		AnimeShortTitles:    DBS,
 		AnimeOtherTitles:    DBT,
 	}
 
-	data, err := server.gojo.CreateAnimeSeasonTitleTx(ctx, arg)
+	data, err := server.gojo.CreateAnimeSeasonTitlesTx(ctx, arg)
 	if err != nil {
 		return nil, shv1.ApiError("failed to create anime season title", err)
 	}
+
+	var titles []string
 
 	var officials []*aspbv1.AnimeSeasonTitle
 	if len(data.AnimeOfficialTitles) > 0 {
@@ -77,6 +79,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTitle(ctx context.Context, req 
 				TitleText: t.TitleText,
 				CreatedAt: timestamppb.New(t.CreatedAt),
 			}
+			titles = append(titles, t.TitleText)
 		}
 	}
 
@@ -89,6 +92,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTitle(ctx context.Context, req 
 				TitleText: t.TitleText,
 				CreatedAt: timestamppb.New(t.CreatedAt),
 			}
+			titles = append(titles, t.TitleText)
 		}
 	}
 
@@ -101,11 +105,16 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTitle(ctx context.Context, req 
 				TitleText: t.TitleText,
 				CreatedAt: timestamppb.New(t.CreatedAt),
 			}
+			titles = append(titles, t.TitleText)
 		}
 	}
 
-	res := &aspbv1.CreateAnimeSeasonTitleResponse{
-		AnimeSeason: convertAnimeSeason(data.AnimeSeason),
+	server.meilisearch.AddDocuments(&utils.Document{
+		ID:     req.GetSeasonID(),
+		Titles: utils.RemoveDuplicatesTitles(titles),
+	})
+
+	res := &aspbv1.CreateAnimeSeasonTitlesResponse{
 		SeasonTitles: &aspbv1.AnimeSeasonTitleResponse{
 			Official: officials,
 			Short:    shorts,
@@ -116,7 +125,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTitle(ctx context.Context, req 
 	return res, nil
 }
 
-func validateCreateAnimeSeasonTitleRequest(req *aspbv1.CreateAnimeSeasonTitleRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateCreateAnimeSeasonTitleRequest(req *aspbv1.CreateAnimeSeasonTitlesRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.GetSeasonID()); err != nil {
 		violations = append(violations, shv1.FieldViolation("seasonID", err))
 	}

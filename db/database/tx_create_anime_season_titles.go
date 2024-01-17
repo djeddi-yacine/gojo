@@ -4,33 +4,24 @@ import (
 	"context"
 )
 
-type CreateAnimeSeasonTitleTxParams struct {
+type CreateAnimeSeasonTitlesTxParams struct {
 	SeasonID            int64
 	AnimeOfficialTitles []CreateAnimeSeasonOfficialTitleParams
 	AnimeShortTitles    []CreateAnimeSeasonShortTitleParams
 	AnimeOtherTitles    []CreateAnimeSeasonOtherTitleParams
 }
 
-type CreateAnimeSeasonTitleTxResult struct {
-	AnimeSeason         AnimeSerieSeason
+type CreateAnimeSeasonTitlesTxResult struct {
 	AnimeOfficialTitles []AnimeSeasonOfficialTitle
 	AnimeShortTitles    []AnimeSeasonShortTitle
 	AnimeOtherTitles    []AnimeSeasonOtherTitle
 }
 
-func (gojo *SQLGojo) CreateAnimeSeasonTitleTx(ctx context.Context, arg CreateAnimeSeasonTitleTxParams) (CreateAnimeSeasonTitleTxResult, error) {
-	var result CreateAnimeSeasonTitleTxResult
+func (gojo *SQLGojo) CreateAnimeSeasonTitlesTx(ctx context.Context, arg CreateAnimeSeasonTitlesTxParams) (CreateAnimeSeasonTitlesTxResult, error) {
+	var result CreateAnimeSeasonTitlesTxResult
 
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
-
-		anime, err := q.GetAnimeSeason(ctx, arg.SeasonID)
-		if err != nil {
-			ErrorSQL(err)
-			return err
-		}
-
-		result.AnimeSeason = anime
 
 		if arg.AnimeOfficialTitles != nil {
 			if len(arg.AnimeOfficialTitles) > 0 {

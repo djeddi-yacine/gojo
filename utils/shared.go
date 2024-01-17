@@ -1,21 +1,31 @@
 package utils
 
-func RemoveDuplicatesINT64(nums []int64) []int64 {
-	// Create a map to track unique values
+func RemoveDuplicatesTitles(Titles []string) []string {
+	seen := make(map[string]struct{})
+
+	result := make([]string, 0, len(Titles))
+
+	for _, v := range Titles {
+		if _, ok := seen[v]; !ok {
+			result = append(result, v)
+
+			seen[v] = struct{}{}
+		}
+	}
+
+	return result
+}
+
+func RemoveDuplicatesInt64(Nums []int64) []int64 {
 	seen := make(map[int64]struct{})
 
-	// Create a new slice for the result
-	result := make([]int64, 0, len(nums))
+	result := make([]int64, 0, len(Nums))
 
-	// Iterate through the input slice
-	for _, num := range nums {
-		// Check if the value is unique
-		if _, ok := seen[num]; !ok {
-			// Add the value to the result slice
-			result = append(result, num)
+	for _, v := range Nums {
+		if _, ok := seen[v]; !ok {
+			result = append(result, v)
 
-			// Mark the value as seen in the map
-			seen[num] = struct{}{}
+			seen[v] = struct{}{}
 		}
 	}
 

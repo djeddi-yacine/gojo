@@ -80,7 +80,7 @@ func (gojo *SQLGojo) QueryAnimeMovieTx(ctx context.Context, arg QueryAnimeMovieT
 			animeMovieIDs = append(animeMovieIDs, animeTranslationResults...)
 		}
 
-		IDs := utils.RemoveDuplicatesINT64(animeMovieIDs)
+		IDs := utils.RemoveDuplicatesInt64(animeMovieIDs)
 
 		if len(IDs) > 0 {
 			result.AnimeMovies = make([]AnimeMovie, len(IDs))

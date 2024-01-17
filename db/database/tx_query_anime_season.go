@@ -81,7 +81,7 @@ func (gojo *SQLGojo) QueryAnimeSeasonTx(ctx context.Context, arg QueryAnimeSeaso
 			animeSeasonIDs = append(animeSeasonIDs, animeTranslationResults...)
 		}
 
-		IDs := utils.RemoveDuplicatesINT64(animeSeasonIDs)
+		IDs := utils.RemoveDuplicatesInt64(animeSeasonIDs)
 
 		if len(IDs) > 0 {
 			result.AnimeSeasons = make([]AnimeSerieSeason, len(IDs))

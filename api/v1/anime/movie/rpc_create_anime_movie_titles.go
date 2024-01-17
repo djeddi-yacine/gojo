@@ -15,7 +15,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func (server *AnimeMovieServer) CreateAnimeMovieTitle(ctx context.Context, req *ampbv1.CreateAnimeMovieTitleRequest) (*ampbv1.CreateAnimeMovieTitleResponse, error) {
+func (server *AnimeMovieServer) CreateAnimeMovieTitles(ctx context.Context, req *ampbv1.CreateAnimeMovieTitlesRequest) (*ampbv1.CreateAnimeMovieTitlesResponse, error) {
 	authPayload, err := shv1.AuthorizeUser(ctx, server.tokenMaker, []string{utils.AdminRole, utils.RootRoll})
 	if err != nil {
 		return nil, shv1.UnAuthenticatedError(err)
@@ -56,17 +56,19 @@ func (server *AnimeMovieServer) CreateAnimeMovieTitle(ctx context.Context, req *
 		}
 	}
 
-	arg := db.CreateAnimeMovieTitleTxParams{
+	arg := db.CreateAnimeMovieTitlesTxParams{
 		AnimeID:             req.GetAnimeID(),
 		AnimeOfficialTitles: DBF,
 		AnimeShortTitles:    DBS,
 		AnimeOtherTitles:    DBT,
 	}
 
-	data, err := server.gojo.CreateAnimeMovieTitleTx(ctx, arg)
+	data, err := server.gojo.CreateAnimeMovieTitlesTx(ctx, arg)
 	if err != nil {
 		return nil, shv1.ApiError("failed to create anime movie title", err)
 	}
+
+	var titles []string
 
 	var officials []*ampbv1.AnimeMovieTitle
 	if len(data.AnimeOfficialTitles) > 0 {
@@ -77,6 +79,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieTitle(ctx context.Context, req *
 				TitleText: t.TitleText,
 				CreatedAt: timestamppb.New(t.CreatedAt),
 			}
+			titles = append(titles, t.TitleText)
 		}
 	}
 
@@ -89,23 +92,29 @@ func (server *AnimeMovieServer) CreateAnimeMovieTitle(ctx context.Context, req *
 				TitleText: t.TitleText,
 				CreatedAt: timestamppb.New(t.CreatedAt),
 			}
+			titles = append(titles, t.TitleText)
 		}
 	}
 
 	var others []*ampbv1.AnimeMovieTitle
 	if len(data.AnimeOtherTitles) > 0 {
-		shorts = make([]*ampbv1.AnimeMovieTitle, len(data.AnimeOtherTitles))
+		others = make([]*ampbv1.AnimeMovieTitle, len(data.AnimeOtherTitles))
 		for i, t := range data.AnimeOtherTitles {
-			shorts[i] = &ampbv1.AnimeMovieTitle{
+			others[i] = &ampbv1.AnimeMovieTitle{
 				ID:        t.ID,
 				TitleText: t.TitleText,
 				CreatedAt: timestamppb.New(t.CreatedAt),
 			}
+			titles = append(titles, t.TitleText)
 		}
 	}
 
-	res := &ampbv1.CreateAnimeMovieTitleResponse{
-		AnimeMovie: convertAnimeMovie(data.AnimeMovie),
+	server.meilisearch.AddDocuments(&utils.Document{
+		ID:     req.GetAnimeID(),
+		Titles: utils.RemoveDuplicatesTitles(titles),
+	})
+
+	res := &ampbv1.CreateAnimeMovieTitlesResponse{
 		AnimeTitles: &ampbv1.AnimeMovieTitleResponse{
 			Official: officials,
 			Short:    shorts,
@@ -116,7 +125,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieTitle(ctx context.Context, req *
 	return res, nil
 }
 
-func validateCreateAnimeMovieTitleRequest(req *ampbv1.CreateAnimeMovieTitleRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateCreateAnimeMovieTitleRequest(req *ampbv1.CreateAnimeMovieTitlesRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.GetAnimeID()); err != nil {
 		violations = append(violations, shv1.FieldViolation("animeID", err))
 	}
