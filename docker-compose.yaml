@@ -16,15 +16,13 @@ services:
   postgres:
     container_name: Gojo-DB
     image: postgres:16.1-alpine3.19
-    restart: always
+    restart: unless-stopped
     environment:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=gojo_secret
       - POSTGRES_DB=gojo
     ports:
       - "5432:5432"
-    expose:
-      - "5432"
     volumes:
       - data-volume:/var/lib/postgresql/data
     networks:
@@ -39,13 +37,11 @@ services:
   queue:
     container_name: Gojo-Redis-Queue
     image: redis:7.2.3-alpine3.19
-    restart: always
+    restart: unless-stopped
     networks:
       - default
     ports:
       - "6370:6370"
-    expose:
-      - "6370"
     command: redis-server --port 6370
     healthcheck:
       test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
@@ -57,19 +53,27 @@ services:
   cache:
     container_name: Gojo-Redis-Cache
     image: redis:7.2.3-alpine3.19
-    restart: always
+    restart: unless-stopped
     networks:
       - default
     ports:
       - "6380:6380"
-    expose:
-      - "6380"
     command: redis-server --port 6380
     healthcheck:
       test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
       interval: 1s
       timeout: 3s
       retries: 5
+
+
+  meili:
+    container_name: Gojo-Meilisearch
+    image: getmeili/meilisearch:v1.6.0-rc.5
+    restart: unless-stopped
+    networks:
+      - default
+    ports:
+      - "7700:7700"
 
 
   migration:
@@ -99,8 +103,10 @@ services:
       - DB_SOURCE=postgresql://root:gojo_secret@postgres:5432/gojo?sslmode=disable
       - REDIS_QUEUE_ADDRESS=queue:6370
       - REDIS_CACHE_ADDRESS=cache:6380
+      - MEILISEATCH_ADDRESS=meili:7700
     networks:
       - default
+    restart: unless-stopped
     depends_on:
       migration:
         condition: service_completed_successfully
