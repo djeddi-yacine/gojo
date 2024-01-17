@@ -1,8 +1,11 @@
 package utils
 
 import (
+	"os"
 	"time"
 
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"github.com/spf13/viper"
 )
 
@@ -13,6 +16,7 @@ type Config struct {
 	GRPCServerAddress    string        `mapstructure:"GRPC_SERVER_ADDRESS"`
 	RedisQueueAddress    string        `mapstructure:"REDIS_QUEUE_ADDRESS"`
 	RedisCacheAddress    string        `mapstructure:"REDIS_CACHE_ADDRESS"`
+	MeilisearchAddress   string        `mapstructure:"MEILISEATCH_ADDRESS"`
 	TokenSymmetricKey    string        `mapstructure:"TOKEN_SYMMETRIC_KEY"`
 	AccessTokenDuration  time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
 	RefreshTokenDuration time.Duration `mapstructure:"REFRESH_TOKEN_DURATION"`
@@ -36,5 +40,9 @@ func LoadConfig(path string, name string) (config Config, err error) {
 	}
 
 	err = viper.Unmarshal(&config)
+	if config.Environment == "development" {
+		log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
+	}
+
 	return
 }

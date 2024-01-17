@@ -1,5 +1,8 @@
 DB_URL=postgresql://root:secret@localhost:5432/gojo?sslmode=disable
 
+run:
+	clear
+	go run .
 
 postgres:
 	docker run --name postgresGOJO -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:16.1-alpine3.19
@@ -9,6 +12,9 @@ queue:
 
 cache:
 	docker run --name cacheGOJO -p 6380:6379 -d redis:7.2.3-alpine3.19
+
+meili:
+	docker run --name meiliGOJO -p 7700:7700 -d getmeili/meilisearch:v1.6.0-rc.5
 
 createdb:
 	docker exec -it postgresGOJO createdb --username=root --owner=root  gojo
@@ -92,11 +98,11 @@ cgo: fmt
 	-a -installsuffix cgo -o gojo .
 
 restart:
-	docker stop queueGOJO cacheGOJO postgresGOJO
-	docker start queueGOJO cacheGOJO postgresGOJO
+	docker stop queueGOJO cacheGOJO postgresGOJO meiliGOJO
+	docker start queueGOJO cacheGOJO postgresGOJO meiliGOJO
 
 dcs:
-	docker stop queueGOJO cacheGOJO postgresGOJO
+	docker stop queueGOJO cacheGOJO postgresGOJO meiliGOJO
 	docker compose build --no-cache
 	docker compose up
 
@@ -115,4 +121,4 @@ clean: dcd
 	go clean -x
 	go clean -cache -x
 
-.PHONY: postgres queue cache createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock v1 evans db build cgo restart dcs dcd fmt clean
+.PHONY: run postgres queue cache meili createdb dropdb mgup mgdown mgup1 mgdown1 nmg sqlc graph test server mock v1 evans db build cgo restart dcs dcd fmt clean
