@@ -21,12 +21,6 @@ func (gojo *SQLGojo) CreateAnimeSeasonTx(ctx context.Context, arg CreateAnimeSea
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
 
-		_, err = q.GetAnimeSerie(ctx, arg.Season.AnimeID)
-		if err != nil {
-			ErrorSQL(err)
-			return err
-		}
-
 		season, err := q.CreateAnimeSeason(ctx, arg.Season)
 		if err != nil {
 			ErrorSQL(err)

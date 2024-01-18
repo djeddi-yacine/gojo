@@ -230,6 +230,7 @@ Table anime_serie_seasons {
     indexes {
       id
       release_year
+      (anime_id, season_original_title, release_year) [unique]
     }
 }
 

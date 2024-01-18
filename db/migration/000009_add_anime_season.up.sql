@@ -35,6 +35,8 @@ CREATE INDEX ON "anime_serie_seasons" ("id");
 
 CREATE INDEX ON "anime_serie_seasons" ("release_year");
 
+CREATE UNIQUE INDEX ON "anime_serie_seasons" ("anime_id", "season_original_title", "release_year");
+
 CREATE INDEX ON "anime_season_metas" ("id");
 
 CREATE UNIQUE INDEX ON "anime_season_metas" ("season_id", "language_id");
