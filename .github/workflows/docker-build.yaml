@@ -23,6 +23,7 @@ jobs:
     - name: Build and Push Docker Image
       run: |
         COMMIT_SHA=$(git rev-parse --short "${{ github.sha }}")
-        docker build -t ghcr.io/${{ github.repository_owner }}/gojo-migration:$COMMIT_SHA -t ghcr.io/${{ github.repository_owner }}/gojo-migration:latest -f ../../Dockerfile.migrate .
+        DOCKERFILE_PATH="$GITHUB_WORKSPACE/Dockerfile.migrate"
+        docker build -t ghcr.io/${{ github.repository_owner }}/gojo-migration:$COMMIT_SHA -t ghcr.io/${{ github.repository_owner }}/gojo-migration:latest -f "$DOCKERFILE_PATH" .
         docker push ghcr.io/${{ github.repository_owner }}/gojo-migration:$COMMIT_SHA
         docker push ghcr.io/${{ github.repository_owner }}/gojo-migration:latest
