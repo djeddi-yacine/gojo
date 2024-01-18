@@ -8,6 +8,7 @@ import (
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
+	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/meilisearch/meilisearch-go"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -30,8 +31,6 @@ func (server *AnimeSerieServer) QueryAnimeSeason(ctx context.Context, req *aspbv
 
 	result, err := server.meilisearch.Search(req.Query,
 		&meilisearch.SearchRequest{
-			//Limit:                int64(req.GetPageSize()),
-			//Offset:               int64((req.GetPageNumber() - 1) * req.GetPageSize()),
 			Page:                 int64(req.GetPageNumber()),
 			HitsPerPage:          int64(req.GetPageSize()),
 			AttributesToRetrieve: []string{"ID"},
@@ -62,14 +61,30 @@ func (server *AnimeSerieServer) QueryAnimeSeason(ctx context.Context, req *aspbv
 	}
 
 	res.AnimeSeasons = make([]*aspbv1.AnimeSeasonResponse, len(result.Hits))
+
+	cache := ping.CacheKey{
+		ID:     0,
+		Target: ping.AnimeSeason,
+	}
+
+	var anime db.AnimeSerieSeason
+
 	for i, v := range result.Hits {
 		id, err := strconv.Atoi(fmt.Sprint(v.(map[string]interface{})["ID"]))
 		if err != nil {
 			continue
 		}
 
-		anime, err := server.gojo.GetAnimeSeason(ctx, int64(id))
-		if err != nil {
+		cache.ID = int64(id)
+
+		if err = server.ping.Handle(ctx, cache.Main(), &anime, func() error {
+			anime, err = server.gojo.GetAnimeSeason(ctx, int64(id))
+			if err != nil {
+				return err
+			}
+
+			return nil
+		}); err != nil {
 			continue
 		}
 

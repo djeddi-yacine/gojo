@@ -8,6 +8,7 @@ import (
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
+	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/meilisearch/meilisearch-go"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -30,8 +31,6 @@ func (server *AnimeMovieServer) QueryAnimeMovie(ctx context.Context, req *ampbv1
 
 	result, err := server.meilisearch.Search(req.Query,
 		&meilisearch.SearchRequest{
-			//Limit:                int64(req.GetPageSize()),
-			//Offset:               int64((req.GetPageNumber() - 1) * req.GetPageSize()),
 			Page:                 int64(req.GetPageNumber()),
 			HitsPerPage:          int64(req.GetPageSize()),
 			AttributesToRetrieve: []string{"ID"},
@@ -62,14 +61,30 @@ func (server *AnimeMovieServer) QueryAnimeMovie(ctx context.Context, req *ampbv1
 	}
 
 	res.AnimeMovies = make([]*ampbv1.AnimeMovieResponse, len(result.Hits))
+
+	cache := ping.CacheKey{
+		ID:     0,
+		Target: ping.AnimeMovie,
+	}
+
+	var anime db.AnimeMovie
+
 	for i, v := range result.Hits {
 		id, err := strconv.Atoi(fmt.Sprint(v.(map[string]interface{})["ID"]))
 		if err != nil {
 			continue
 		}
 
-		anime, err := server.gojo.GetAnimeMovie(ctx, int64(id))
-		if err != nil {
+		cache.ID = int64(id)
+
+		if err = server.ping.Handle(ctx, cache.Main(), &anime, func() error {
+			anime, err = server.gojo.GetAnimeMovie(ctx, int64(id))
+			if err != nil {
+				return err
+			}
+
+			return nil
+		}); err != nil {
 			continue
 		}
 
