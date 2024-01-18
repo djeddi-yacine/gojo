@@ -8,10 +8,12 @@ import (
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
+	nfpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 func (server *AnimeSerieServer) CreateAnimeSerie(ctx context.Context, req *aspbv1.CreateAnimeSerieRequest) (*aspbv1.CreateAnimeSerieResponse, error) {
@@ -49,6 +51,17 @@ func (server *AnimeSerieServer) CreateAnimeSerie(ctx context.Context, req *aspbv
 		},
 	}
 
+	arg.CreateAnimeMetasParams = make([]db.AnimeMetaTxParam, len(req.AnimeMetas))
+	for i, v := range req.AnimeMetas {
+		arg.CreateAnimeMetasParams[i] = db.AnimeMetaTxParam{
+			LanguageID: v.GetLanguageID(),
+			CreateMetaParams: db.CreateMetaParams{
+				Title:    v.GetMeta().GetTitle(),
+				Overview: v.GetMeta().GetOverview(),
+			},
+		}
+	}
+
 	data, err := server.gojo.CreateAnimeSerieTx(ctx, arg)
 	if err != nil {
 		return nil, shv1.ApiError("failed to create anime serie", err)
@@ -58,6 +71,18 @@ func (server *AnimeSerieServer) CreateAnimeSerie(ctx context.Context, req *aspbv
 		AnimeSerie: convertAnimeSerie(data.AnimeSerie),
 		AnimeLinks: aapiv1.ConvertAnimeLink(data.AnimeLink),
 	}
+
+	titles := make([]string, len(data.AnimeMetas))
+	res.AnimeMetas = make([]*nfpbv1.AnimeMetaResponse, len(data.AnimeMetas))
+	for i, v := range data.AnimeMetas {
+		res.AnimeMetas[i] = &nfpbv1.AnimeMetaResponse{
+			Meta:       shv1.ConvertMeta(v.Meta),
+			LanguageID: v.LanguageID,
+			CreatedAt:  timestamppb.New(v.Meta.CreatedAt),
+		}
+		titles[i] = v.Meta.Title
+	}
+
 	return res, nil
 }
 
@@ -131,6 +156,25 @@ func validateCreateAnimeSerieRequest(req *aspbv1.CreateAnimeSerieRequest) (viola
 
 	} else {
 		violations = append(violations, shv1.FieldViolation("animeLinks", errors.New("you need to send the AnimeLinks model")))
+	}
+
+	if req.AnimeMetas != nil {
+		for _, v := range req.AnimeMetas {
+			if err := utils.ValidateInt(int64(v.GetLanguageID())); err != nil {
+				violations = append(violations, shv1.FieldViolation("languageID", err))
+			}
+
+			if err := utils.ValidateString(v.GetMeta().GetTitle(), 2, 500); err != nil {
+				violations = append(violations, shv1.FieldViolation("title", err))
+			}
+
+			if err := utils.ValidateString(v.GetMeta().GetOverview(), 5, 5000); err != nil {
+				violations = append(violations, shv1.FieldViolation("overview", err))
+			}
+		}
+
+	} else {
+		violations = append(violations, shv1.FieldViolation("animeMetas", errors.New("give at least one metadata")))
 	}
 
 	return violations

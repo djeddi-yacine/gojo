@@ -4,15 +4,18 @@ package v1.aspbv1;
 
 import "v1/aspb/msg_anime_serie.proto";
 import "v1/ashpb/anime_link.proto";
+import "v1/nfpb/msg_meta.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
 
 message CreateAnimeSerieRequest {
-  AnimeSerieRequest        animeSerie = 1;
-  ashpbv1.AnimeLinkRequest animeLinks = 2;
+  AnimeSerieRequest        animeSerie         = 1;
+  ashpbv1.AnimeLinkRequest animeLinks         = 2;
+  repeated nfpbv1.AnimeMetaRequest animeMetas = 3;
 }
 
 message CreateAnimeSerieResponse {
-  AnimeSerieResponse        animeSerie = 1;
-  ashpbv1.AnimeLinkResponse animeLinks = 2;
+  AnimeSerieResponse        animeSerie         = 1;
+  ashpbv1.AnimeLinkResponse animeLinks         = 2;
+  repeated nfpbv1.AnimeMetaResponse animeMetas = 3;
 }
