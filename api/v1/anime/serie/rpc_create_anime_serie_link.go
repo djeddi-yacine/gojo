@@ -69,8 +69,8 @@ func validateCreateAnimeSerieLinkRequest(req *aspbv1.CreateAnimeSerieLinkRequest
 		}
 
 		if len(req.GetAnimeLinks().GetSocialMedia()) > 0 {
-			for _, l := range req.GetAnimeLinks().GetSocialMedia() {
-				if err := utils.ValidateURL(l, ""); err != nil {
+			for _, v := range req.GetAnimeLinks().GetSocialMedia() {
+				if err := utils.ValidateURL(v, ""); err != nil {
 					violations = append(violations, shv1.FieldViolation("socialMedia", err))
 				}
 			}

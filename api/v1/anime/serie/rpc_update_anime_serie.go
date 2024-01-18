@@ -79,6 +79,7 @@ func (server *AnimeSerieServer) UpdateAnimeSerie(ctx context.Context, req *aspbv
 	res := &aspbv1.UpdateAnimeSerieResponse{
 		AnimeSerie: convertAnimeSerie(anime),
 	}
+
 	return res, nil
 }
 

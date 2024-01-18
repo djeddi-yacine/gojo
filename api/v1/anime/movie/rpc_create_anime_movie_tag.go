@@ -29,17 +29,15 @@ func (server *AnimeMovieServer) CreateAnimeMovieTag(ctx context.Context, req *am
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	var DBT []string
-	if req.AnimeTags != nil {
-		DBT = make([]string, len(req.GetAnimeTags()))
-		for i, t := range req.GetAnimeTags() {
-			DBT[i] = t
-		}
+	arg := db.CreateAnimeMovieTagTxParams{
+		AnimeID: req.GetAnimeID(),
 	}
 
-	arg := db.CreateAnimeMovieTagTxParams{
-		AnimeID:   req.GetAnimeID(),
-		AnimeTags: DBT,
+	if req.AnimeTags != nil {
+		arg.AnimeTags = make([]string, len(req.GetAnimeTags()))
+		for i, v := range req.GetAnimeTags() {
+			arg.AnimeTags[i] = v
+		}
 	}
 
 	data, err := server.gojo.CreateAnimeMovieTagTx(ctx, arg)
@@ -62,8 +60,8 @@ func validateCreateAnimeMovieTagRequest(req *ampbv1.CreateAnimeMovieTagRequest) 
 
 	if req.AnimeTags != nil {
 		if len(req.GetAnimeTags()) > 0 {
-			for i, t := range req.GetAnimeTags() {
-				if err := utils.ValidateString(t, 1, 300); err != nil {
+			for i, v := range req.GetAnimeTags() {
+				if err := utils.ValidateString(v, 1, 300); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeTags >  tag at index [%d]", i), err))
 				}
 			}

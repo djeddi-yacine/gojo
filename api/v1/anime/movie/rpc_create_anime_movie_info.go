@@ -28,13 +28,11 @@ func (server *AnimeMovieServer) CreateAnimeMovieInfo(ctx context.Context, req *a
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	arg := db.CreateAnimeMovieInfoTxParams{
+	data, err := server.gojo.CreateAnimeMovieInfoTx(ctx, db.CreateAnimeMovieInfoTxParams{
 		AnimeID:   req.GetAnimeID(),
 		GenreIDs:  req.GetGenreIDs(),
 		StudioIDs: req.GetStudioIDs(),
-	}
-
-	data, err := server.gojo.CreateAnimeMovieInfoTx(ctx, arg)
+	})
 	if err != nil {
 		return nil, shv1.ApiError("failed to add anime movie info", err)
 	}
@@ -57,16 +55,16 @@ func validateCreateAnimeMovieInfoRequest(req *ampbv1.CreateAnimeMovieInfoRequest
 		violations = append(violations, shv1.FieldViolation("studioIDs,genreIDs", errors.New("add at least one ID for studio or genre")))
 	} else {
 		if req.GenreIDs != nil {
-			for i, g := range req.GetGenreIDs() {
-				if err := utils.ValidateInt(int64(g)); err != nil {
+			for i, v := range req.GetGenreIDs() {
+				if err := utils.ValidateInt(int64(v)); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("genreIDs at index [%d]", i), err))
 				}
 			}
 		}
 
 		if req.StudioIDs != nil {
-			for i, s := range req.GetStudioIDs() {
-				if err := utils.ValidateInt(int64(s)); err != nil {
+			for i, v := range req.GetStudioIDs() {
+				if err := utils.ValidateInt(int64(v)); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("studioIDs at index [%d]", i), err))
 				}
 			}

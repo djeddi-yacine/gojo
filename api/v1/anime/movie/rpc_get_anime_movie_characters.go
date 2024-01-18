@@ -52,11 +52,10 @@ func (server *AnimeMovieServer) GetAnimeMovieCharacters(ctx context.Context, req
 	}
 
 	res.AnimeCharacters = make([]*ashpbv1.AnimeCharacter, len(data))
-
-	for i, x := range data {
+	for i, v := range data {
 		res.AnimeCharacters[i] = &ashpbv1.AnimeCharacter{
-			Character: aapiv1.ConvertAnimeCharacter(x.Character),
-			Actors:    shv1.ConvertActors(x.Actor),
+			Character: aapiv1.ConvertAnimeCharacter(v.Character),
+			Actors:    shv1.ConvertActors(v.Actor),
 		}
 	}
 

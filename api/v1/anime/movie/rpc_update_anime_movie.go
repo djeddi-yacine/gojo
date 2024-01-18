@@ -77,6 +77,7 @@ func (server *AnimeMovieServer) UpdateAnimeMovie(ctx context.Context, req *ampbv
 	res := &ampbv1.UpdateAnimeMovieResponse{
 		AnimeMovie: convertAnimeMovie(anime),
 	}
+
 	return res, nil
 }
 

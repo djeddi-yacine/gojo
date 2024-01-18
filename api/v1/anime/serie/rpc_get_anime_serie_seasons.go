@@ -55,16 +55,16 @@ func (server *AnimeSerieServer) GetAnimeSerieSeasons(ctx context.Context, req *a
 	res := &aspbv1.GetAnimeSerieSeasonsResponse{}
 
 	if len(sIDs) > 0 {
+		var seasons db.AnimeSerieSeason
 		res.AnimeSeasons = make([]*aspbv1.AnimeSeasonResponse, len(sIDs))
-		seasons := make([]db.AnimeSerieSeason, len(sIDs))
 		for i, v := range sIDs {
 			cache = &ping.CacheKey{
 				ID:     v,
 				Target: ping.AnimeSeason,
 			}
 
-			if err = server.ping.Handle(ctx, cache.Main(), &seasons[i], func() error {
-				seasons[i], err = server.gojo.GetAnimeSeason(ctx, v)
+			if err = server.ping.Handle(ctx, cache.Main(), &seasons, func() error {
+				seasons, err = server.gojo.GetAnimeSeason(ctx, v)
 				if err != nil {
 					return shv1.ApiError("failed to get anime serie seasons", err)
 				}
@@ -74,7 +74,7 @@ func (server *AnimeSerieServer) GetAnimeSerieSeasons(ctx context.Context, req *a
 				return nil, err
 			}
 
-			res.AnimeSeasons[i] = convertAnimeSeason(seasons[i])
+			res.AnimeSeasons[i] = convertAnimeSeason(seasons)
 		}
 	}
 

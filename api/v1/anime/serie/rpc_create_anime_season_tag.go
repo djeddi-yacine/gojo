@@ -29,17 +29,15 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTag(ctx context.Context, req *a
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	var DBT []string
-	if req.SeasonTags != nil {
-		DBT = make([]string, len(req.GetSeasonTags()))
-		for i, t := range req.GetSeasonTags() {
-			DBT[i] = t
-		}
+	arg := db.CreateAnimeSeasonTagTxParams{
+		SeasonID: req.GetSeasonID(),
 	}
 
-	arg := db.CreateAnimeSeasonTagTxParams{
-		SeasonID:   req.GetSeasonID(),
-		SeasonTags: DBT,
+	if req.SeasonTags != nil {
+		arg.SeasonTags = make([]string, len(req.GetSeasonTags()))
+		for i, v := range req.GetSeasonTags() {
+			arg.SeasonTags[i] = v
+		}
 	}
 
 	data, err := server.gojo.CreateAnimeSeasonTagTx(ctx, arg)
@@ -62,8 +60,8 @@ func validateCreateAnimeSeasonTagRequest(req *aspbv1.CreateAnimeSeasonTagRequest
 
 	if req.SeasonTags != nil {
 		if len(req.GetSeasonTags()) > 0 {
-			for i, t := range req.GetSeasonTags() {
-				if err := utils.ValidateString(t, 1, 300); err != nil {
+			for i, v := range req.GetSeasonTags() {
+				if err := utils.ValidateString(v, 1, 300); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("seasonTags >  tag at index [%d]", i), err))
 				}
 			}

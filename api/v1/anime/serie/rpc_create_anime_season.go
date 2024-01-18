@@ -30,17 +30,6 @@ func (server *AnimeSerieServer) CreateAnimeSeason(ctx context.Context, req *aspb
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	var DBSM = make([]db.AnimeMetaTxParam, len(req.SeasonMetas))
-	for i, am := range req.SeasonMetas {
-		DBSM[i] = db.AnimeMetaTxParam{
-			LanguageID: am.GetLanguageID(),
-			CreateMetaParams: db.CreateMetaParams{
-				Title:    am.GetMeta().GetTitle(),
-				Overview: am.GetMeta().GetOverview(),
-			},
-		}
-	}
-
 	arg := db.CreateAnimeSeasonTxParams{
 		Season: db.CreateAnimeSeasonParams{
 			AnimeID:             req.GetSeason().GetAnimeID(),
@@ -51,29 +40,37 @@ func (server *AnimeSerieServer) CreateAnimeSeason(ctx context.Context, req *aspb
 			PortraitPoster:      req.GetSeason().GetPortraitPoster(),
 			PortraitBlurHash:    req.GetSeason().GetPortraitBlurHash(),
 		},
-		SeasonMetas: DBSM,
+	}
+
+	arg.SeasonMetas = make([]db.AnimeMetaTxParam, len(req.SeasonMetas))
+	for i, v := range req.SeasonMetas {
+		arg.SeasonMetas[i] = db.AnimeMetaTxParam{
+			LanguageID: v.GetLanguageID(),
+			CreateMetaParams: db.CreateMetaParams{
+				Title:    v.GetMeta().GetTitle(),
+				Overview: v.GetMeta().GetOverview(),
+			},
+		}
 	}
 
 	data, err := server.gojo.CreateAnimeSeasonTx(ctx, arg)
 	if err != nil {
-		db.ErrorSQL(err)
 		return nil, shv1.ApiError("failed to create anime serie season", err)
 	}
 
-	var PBSM = make([]*nfpbv1.AnimeMetaResponse, len(data.AnimeSeasonMetas))
+	res := &aspbv1.CreateAnimeSeasonResponse{
+		Season: convertAnimeSeason(data.AnimeSeason),
+	}
 
-	for i, am := range data.AnimeSeasonMetas {
-		PBSM[i] = &nfpbv1.AnimeMetaResponse{
-			Meta:       shv1.ConvertMeta(am.Meta),
-			LanguageID: am.LanguageID,
-			CreatedAt:  timestamppb.New(am.Meta.CreatedAt),
+	res.SeasonMetas = make([]*nfpbv1.AnimeMetaResponse, len(data.AnimeSeasonMetas))
+	for i, v := range data.AnimeSeasonMetas {
+		res.SeasonMetas[i] = &nfpbv1.AnimeMetaResponse{
+			Meta:       shv1.ConvertMeta(v.Meta),
+			LanguageID: v.LanguageID,
+			CreatedAt:  timestamppb.New(v.Meta.CreatedAt),
 		}
 	}
 
-	res := &aspbv1.CreateAnimeSeasonResponse{
-		Season:      convertAnimeSeason(data.AnimeSeason),
-		SeasonMetas: PBSM,
-	}
 	return res, nil
 }
 
@@ -113,16 +110,16 @@ func validateCreateAnimeSeasonRequest(req *aspbv1.CreateAnimeSeasonRequest) (vio
 	}
 
 	if req.SeasonMetas != nil {
-		for _, am := range req.SeasonMetas {
-			if err := utils.ValidateInt(int64(am.GetLanguageID())); err != nil {
+		for _, v := range req.SeasonMetas {
+			if err := utils.ValidateInt(int64(v.GetLanguageID())); err != nil {
 				violations = append(violations, shv1.FieldViolation("languageID", err))
 			}
 
-			if err := utils.ValidateString(am.GetMeta().GetTitle(), 2, 500); err != nil {
+			if err := utils.ValidateString(v.GetMeta().GetTitle(), 2, 500); err != nil {
 				violations = append(violations, shv1.FieldViolation("title", err))
 			}
 
-			if err := utils.ValidateString(am.GetMeta().GetOverview(), 5, 5000); err != nil {
+			if err := utils.ValidateString(v.GetMeta().GetOverview(), 5, 5000); err != nil {
 				violations = append(violations, shv1.FieldViolation("overview", err))
 			}
 		}

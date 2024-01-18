@@ -30,25 +30,25 @@ func (server *AnimeMovieServer) CreateAnimeMovieCharacters(ctx context.Context, 
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	dbCharacters := make([]db.AnimeCharacterActorsTxParams, len(req.GetAnimeCharacters()))
-
-	for i, x := range req.GetAnimeCharacters() {
-		dbCharacters[i].CreateAnimeCharacters = db.CreateAnimeCharacterParams{
-			FullName:      x.GetFullName(),
-			About:         x.GetAbout(),
-			RolePlaying:   x.GetRolePlaying(),
-			ImageUrl:      x.GetImage(),
-			ImageBlurHash: x.GetImageBlurHash(),
-			Pictures:      x.GetPictures(),
-		}
-
-		dbCharacters[i].ActorsIDs = x.GetActorsID()
+	arg := db.CreateAnimeMovieCharactersTxParams{
+		AnimeID: req.GetAnimeID(),
 	}
 
-	data, err := server.gojo.CreateAnimeMovieCharactersTx(ctx, db.CreateAnimeMovieCharactersTxParams{
-		AnimeID:                      req.GetAnimeID(),
-		AnimeCharacterActorsTxParams: dbCharacters,
-	})
+	arg.AnimeCharacterActorsTxParams = make([]db.AnimeCharacterActorsTxParams, len(req.GetAnimeCharacters()))
+	for i, v := range req.GetAnimeCharacters() {
+		arg.AnimeCharacterActorsTxParams[i].CreateAnimeCharacters = db.CreateAnimeCharacterParams{
+			FullName:      v.GetFullName(),
+			About:         v.GetAbout(),
+			RolePlaying:   v.GetRolePlaying(),
+			ImageUrl:      v.GetImage(),
+			ImageBlurHash: v.GetImageBlurHash(),
+			Pictures:      v.GetPictures(),
+		}
+
+		arg.AnimeCharacterActorsTxParams[i].ActorsIDs = v.GetActorsID()
+	}
+
+	data, err := server.gojo.CreateAnimeMovieCharactersTx(ctx, arg)
 	if err != nil {
 		return nil, shv1.ApiError("failed to create anime movie characters", err)
 	}
@@ -58,9 +58,9 @@ func (server *AnimeMovieServer) CreateAnimeMovieCharacters(ctx context.Context, 
 	}
 
 	res.AnimeCharacters = make([]*ashpbv1.AnimeCharacterResponse, len(data.Characters))
-	for i, x := range data.Characters {
-		res.AnimeCharacters[i] = aapiv1.ConvertAnimeCharacter(x.AnimeCharacter)
-		res.AnimeCharacters[i].ActorsID = x.ActorsIDs
+	for i, v := range data.Characters {
+		res.AnimeCharacters[i] = aapiv1.ConvertAnimeCharacter(v.AnimeCharacter)
+		res.AnimeCharacters[i].ActorsID = v.ActorsIDs
 	}
 
 	return res, nil
@@ -72,24 +72,24 @@ func validateCreateAnimeMovieCharactersRequest(req *ampbv1.CreateAnimeMovieChara
 	}
 
 	if len(req.AnimeCharacters) > 0 {
-		for i, x := range req.GetAnimeCharacters() {
-			if err := utils.ValidateString(x.GetFullName(), 2, 100); err != nil {
+		for i, v := range req.GetAnimeCharacters() {
+			if err := utils.ValidateString(v.GetFullName(), 2, 100); err != nil {
 				violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeCharacters > fullName at index [%d]", i), err))
 			}
 
-			if err := utils.ValidateString(x.GetAbout(), 2, 10000); err != nil {
+			if err := utils.ValidateString(v.GetAbout(), 2, 10000); err != nil {
 				violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeCharacters > about at index [%d]", i), err))
 			}
 
-			if err := utils.ValidateString(x.GetImageBlurHash(), 10, 50); err != nil {
+			if err := utils.ValidateString(v.GetImageBlurHash(), 10, 50); err != nil {
 				violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeCharacters > imageBlurHash at index [%d]", i), err))
 			}
 
-			if err := utils.ValidateURL(x.GetImage(), ""); err != nil {
+			if err := utils.ValidateURL(v.GetImage(), ""); err != nil {
 				violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeCharacters > image at index [%d]", i), err))
 			}
 
-			if len(x.GetActorsID()) <= 0 {
+			if len(v.GetActorsID()) <= 0 {
 				violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeCharacters > actorsID at index [%d]", i), fmt.Errorf("put one actorID at least")))
 			}
 		}

@@ -29,7 +29,8 @@ func (server *AnimeSerieServer) GetAllAnimeSeries(ctx context.Context, req *aspb
 		Limit:     req.GetPageSize(),
 		Offset:    (req.GetPageNumber() - 1) * req.GetPageSize(),
 	}
-	DBAnimeSeries, err := server.gojo.ListAnimeSeries(ctx, arg)
+
+	data, err := server.gojo.ListAnimeSeries(ctx, arg)
 	if err != nil {
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
@@ -37,13 +38,11 @@ func (server *AnimeSerieServer) GetAllAnimeSeries(ctx context.Context, req *aspb
 		return nil, shv1.ApiError("failed to list anime serie seasons", err)
 	}
 
-	var PBAnimeSeries []*aspbv1.AnimeSerieResponse
-	for _, a := range DBAnimeSeries {
-		PBAnimeSeries = append(PBAnimeSeries, convertAnimeSerie(a))
-	}
+	res := &aspbv1.GetAllAnimeSeriesResponse{}
 
-	res := &aspbv1.GetAllAnimeSeriesResponse{
-		AnimeSeries: PBAnimeSeries,
+	res.AnimeSeries = make([]*aspbv1.AnimeSerieResponse, len(data))
+	for i, v := range data {
+		res.AnimeSeries[i] = convertAnimeSerie(v)
 	}
 
 	return res, nil

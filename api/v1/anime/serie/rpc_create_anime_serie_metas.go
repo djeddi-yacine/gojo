@@ -29,20 +29,19 @@ func (server *AnimeSerieServer) CreateAnimeSerieMetas(ctx context.Context, req *
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	var DBAM = make([]db.AnimeMetaTxParam, len(req.AnimeMetas))
-	for i, am := range req.AnimeMetas {
-		DBAM[i] = db.AnimeMetaTxParam{
-			LanguageID: am.GetLanguageID(),
-			CreateMetaParams: db.CreateMetaParams{
-				Title:    am.GetMeta().GetTitle(),
-				Overview: am.GetMeta().GetOverview(),
-			},
-		}
+	arg := db.CreateAnimeSerieMetasTxParams{
+		AnimeID: req.GetAnimeID(),
 	}
 
-	arg := db.CreateAnimeSerieMetasTxParams{
-		AnimeID:         req.GetAnimeID(),
-		AnimeSerieMetas: DBAM,
+	arg.AnimeSerieMetas = make([]db.AnimeMetaTxParam, len(req.AnimeMetas))
+	for i, v := range req.AnimeMetas {
+		arg.AnimeSerieMetas[i] = db.AnimeMetaTxParam{
+			LanguageID: v.GetLanguageID(),
+			CreateMetaParams: db.CreateMetaParams{
+				Title:    v.GetMeta().GetTitle(),
+				Overview: v.GetMeta().GetOverview(),
+			},
+		}
 	}
 
 	metas, err := server.gojo.CreateAnimeSerieMetasTx(ctx, arg)
@@ -50,19 +49,17 @@ func (server *AnimeSerieServer) CreateAnimeSerieMetas(ctx context.Context, req *
 		return nil, shv1.ApiError("failed to create anime serie metadata", err)
 	}
 
-	var PBAM = make([]*nfpbv1.AnimeMetaResponse, len(metas.AnimeSerieMetas))
-
-	for i, am := range metas.AnimeSerieMetas {
-		PBAM[i] = &nfpbv1.AnimeMetaResponse{
-			Meta:       shv1.ConvertMeta(am.Meta),
-			LanguageID: am.LanguageID,
-			CreatedAt:  timestamppb.New(am.Meta.CreatedAt),
-		}
+	res := &aspbv1.CreateAnimeSerieMetasResponse{
+		AnimeID: req.GetAnimeID(),
 	}
 
-	res := &aspbv1.CreateAnimeSerieMetasResponse{
-		AnimeID:    req.GetAnimeID(),
-		AnimeMetas: PBAM,
+	res.AnimeMetas = make([]*nfpbv1.AnimeMetaResponse, len(metas.AnimeSerieMetas))
+	for i, v := range metas.AnimeSerieMetas {
+		res.AnimeMetas[i] = &nfpbv1.AnimeMetaResponse{
+			Meta:       shv1.ConvertMeta(v.Meta),
+			LanguageID: v.LanguageID,
+			CreatedAt:  timestamppb.New(v.Meta.CreatedAt),
+		}
 	}
 
 	return res, nil
@@ -74,16 +71,16 @@ func validateCreateAnimeSerieMetasRequest(req *aspbv1.CreateAnimeSerieMetasReque
 	}
 
 	if req.AnimeMetas != nil {
-		for _, am := range req.AnimeMetas {
-			if err := utils.ValidateInt(int64(am.GetLanguageID())); err != nil {
+		for _, v := range req.AnimeMetas {
+			if err := utils.ValidateInt(int64(v.GetLanguageID())); err != nil {
 				violations = append(violations, shv1.FieldViolation("languageID", err))
 			}
 
-			if err := utils.ValidateString(am.GetMeta().GetTitle(), 2, 500); err != nil {
+			if err := utils.ValidateString(v.GetMeta().GetTitle(), 2, 500); err != nil {
 				violations = append(violations, shv1.FieldViolation("title", err))
 			}
 
-			if err := utils.ValidateString(am.GetMeta().GetOverview(), 5, 5000); err != nil {
+			if err := utils.ValidateString(v.GetMeta().GetOverview(), 5, 5000); err != nil {
 				violations = append(violations, shv1.FieldViolation("overview", err))
 			}
 		}

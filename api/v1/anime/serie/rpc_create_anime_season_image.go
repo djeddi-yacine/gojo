@@ -29,22 +29,20 @@ func (server *AnimeSerieServer) CreateAnimeSeasonImage(ctx context.Context, req 
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	var DBP []db.CreateAnimeImageParams
-	if req.SeasonPosters != nil {
-		DBP = make([]db.CreateAnimeImageParams, len(req.GetSeasonPosters()))
-		for i, p := range req.GetSeasonPosters() {
-			DBP[i].ImageHost = p.Host
-			DBP[i].ImageUrl = p.Url
-			DBP[i].ImageThumbnails = p.Thumbnails
-			DBP[i].ImageBlurhash = p.Blurhash
-			DBP[i].ImageHeight = int32(p.Height)
-			DBP[i].ImageWidth = int32(p.Width)
-		}
+	arg := db.CreateAnimeSeasonImageTxParams{
+		SeasonID: req.GetSeasonID(),
 	}
 
-	arg := db.CreateAnimeSeasonImageTxParams{
-		SeasonID:      req.GetSeasonID(),
-		SeasonPosters: DBP,
+	if req.SeasonPosters != nil {
+		arg.SeasonPosters = make([]db.CreateAnimeImageParams, len(req.GetSeasonPosters()))
+		for i, v := range req.GetSeasonPosters() {
+			arg.SeasonPosters[i].ImageHost = v.Host
+			arg.SeasonPosters[i].ImageUrl = v.Url
+			arg.SeasonPosters[i].ImageThumbnails = v.Thumbnails
+			arg.SeasonPosters[i].ImageBlurhash = v.Blurhash
+			arg.SeasonPosters[i].ImageHeight = int32(v.Height)
+			arg.SeasonPosters[i].ImageWidth = int32(v.Width)
+		}
 	}
 
 	data, err := server.gojo.CreateAnimeSeasonImageTx(ctx, arg)
@@ -66,20 +64,20 @@ func validateCreateAnimeSeasonImageRequest(req *aspbv1.CreateAnimeSeasonImageReq
 
 	if req.SeasonPosters != nil {
 		if len(req.GetSeasonPosters()) > 0 {
-			for i, l := range req.GetSeasonPosters() {
-				if err := utils.ValidateURL(l.Host, ""); err != nil {
+			for i, v := range req.GetSeasonPosters() {
+				if err := utils.ValidateURL(v.Host, ""); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("seasonPosters > host at index [%d]", i), err))
 				}
-				if err := utils.ValidateString(l.Url, 1, 200); err != nil {
+				if err := utils.ValidateString(v.Url, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("seasonPosters > url at index [%d]", i), err))
 				}
-				if err := utils.ValidateString(l.Thumbnails, 1, 200); err != nil {
+				if err := utils.ValidateString(v.Thumbnails, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("seasonPosters > thumbnails at index [%d]", i), err))
 				}
-				if err := utils.ValidateInt(int64(l.Height + 1)); err != nil {
+				if err := utils.ValidateInt(int64(v.Height + 1)); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("seasonPosters > Height at index [%d]", i), err))
 				}
-				if err := utils.ValidateInt(int64(l.Width + 1)); err != nil {
+				if err := utils.ValidateInt(int64(v.Width + 1)); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("seasonPosters > Width at index [%d]", i), err))
 				}
 			}

@@ -29,7 +29,8 @@ func (server *AnimeMovieServer) GetAllAnimeMovies(ctx context.Context, req *ampb
 		Limit:       req.GetPageSize(),
 		Offset:      (req.GetPageNumber() - 1) * req.GetPageSize(),
 	}
-	DBAnimeMovies, err := server.gojo.ListAnimeMovies(ctx, arg)
+
+	data, err := server.gojo.ListAnimeMovies(ctx, arg)
 	if err != nil {
 		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
 			return nil, nil
@@ -37,14 +38,13 @@ func (server *AnimeMovieServer) GetAllAnimeMovies(ctx context.Context, req *ampb
 		return nil, shv1.ApiError("failed to list all anime movies", err)
 	}
 
-	var PBAnimeMovies []*ampbv1.AnimeMovieResponse
-	for _, a := range DBAnimeMovies {
-		PBAnimeMovies = append(PBAnimeMovies, convertAnimeMovie(a))
+	res := &ampbv1.GetAllAnimeMoviesResponse{}
+
+	res.AnimeMovies = make([]*ampbv1.AnimeMovieResponse, len(data))
+	for i, v := range data {
+		res.AnimeMovies[i] = convertAnimeMovie(v)
 	}
 
-	res := &ampbv1.GetAllAnimeMoviesResponse{
-		AnimeMovies: PBAnimeMovies,
-	}
 	return res, nil
 }
 

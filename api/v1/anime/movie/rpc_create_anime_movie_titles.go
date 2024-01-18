@@ -29,38 +29,32 @@ func (server *AnimeMovieServer) CreateAnimeMovieTitles(ctx context.Context, req 
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	var DBF []db.CreateAnimeMovieOfficialTitleParams
-	if req.AnimeTitles.Official != nil {
-		DBF = make([]db.CreateAnimeMovieOfficialTitleParams, len(req.AnimeTitles.GetOfficial()))
-		for i, t := range req.AnimeTitles.GetOfficial() {
-			DBF[i].AnimeID = req.AnimeID
-			DBF[i].TitleText = t
-		}
-	}
-
-	var DBS []db.CreateAnimeMovieShortTitleParams
-	if req.AnimeTitles.Short != nil {
-		DBS = make([]db.CreateAnimeMovieShortTitleParams, len(req.AnimeTitles.GetShort()))
-		for i, t := range req.AnimeTitles.GetShort() {
-			DBS[i].AnimeID = req.AnimeID
-			DBS[i].TitleText = t
-		}
-	}
-
-	var DBT []db.CreateAnimeMovieOtherTitleParams
-	if req.AnimeTitles.Other != nil {
-		DBT = make([]db.CreateAnimeMovieOtherTitleParams, len(req.AnimeTitles.GetOther()))
-		for i, t := range req.AnimeTitles.GetOther() {
-			DBT[i].AnimeID = req.AnimeID
-			DBT[i].TitleText = t
-		}
-	}
-
 	arg := db.CreateAnimeMovieTitlesTxParams{
-		AnimeID:             req.GetAnimeID(),
-		AnimeOfficialTitles: DBF,
-		AnimeShortTitles:    DBS,
-		AnimeOtherTitles:    DBT,
+		AnimeID: req.GetAnimeID(),
+	}
+
+	if req.AnimeTitles.Official != nil {
+		arg.AnimeOfficialTitles = make([]db.CreateAnimeMovieOfficialTitleParams, len(req.AnimeTitles.GetOfficial()))
+		for i, v := range req.AnimeTitles.GetOfficial() {
+			arg.AnimeOfficialTitles[i].AnimeID = req.AnimeID
+			arg.AnimeOfficialTitles[i].TitleText = v
+		}
+	}
+
+	if req.AnimeTitles.Short != nil {
+		arg.AnimeShortTitles = make([]db.CreateAnimeMovieShortTitleParams, len(req.AnimeTitles.GetShort()))
+		for i, v := range req.AnimeTitles.GetShort() {
+			arg.AnimeShortTitles[i].AnimeID = req.AnimeID
+			arg.AnimeShortTitles[i].TitleText = v
+		}
+	}
+
+	if req.AnimeTitles.Other != nil {
+		arg.AnimeOtherTitles = make([]db.CreateAnimeMovieOtherTitleParams, len(req.AnimeTitles.GetOther()))
+		for i, v := range req.AnimeTitles.GetOther() {
+			arg.AnimeOtherTitles[i].AnimeID = req.AnimeID
+			arg.AnimeOtherTitles[i].TitleText = v
+		}
 	}
 
 	data, err := server.gojo.CreateAnimeMovieTitlesTx(ctx, arg)
@@ -70,42 +64,43 @@ func (server *AnimeMovieServer) CreateAnimeMovieTitles(ctx context.Context, req 
 
 	var titles []string
 
-	var officials []*ampbv1.AnimeMovieTitle
+	res := &ampbv1.CreateAnimeMovieTitlesResponse{
+		AnimeTitles: &ampbv1.AnimeMovieTitleResponse{},
+	}
+
 	if len(data.AnimeOfficialTitles) > 0 {
-		officials = make([]*ampbv1.AnimeMovieTitle, len(data.AnimeOfficialTitles))
-		for i, t := range data.AnimeOfficialTitles {
-			officials[i] = &ampbv1.AnimeMovieTitle{
-				ID:        t.ID,
-				TitleText: t.TitleText,
-				CreatedAt: timestamppb.New(t.CreatedAt),
+		res.AnimeTitles.Official = make([]*ampbv1.AnimeMovieTitle, len(data.AnimeOfficialTitles))
+		for i, v := range data.AnimeOfficialTitles {
+			res.AnimeTitles.Official[i] = &ampbv1.AnimeMovieTitle{
+				ID:        v.ID,
+				TitleText: v.TitleText,
+				CreatedAt: timestamppb.New(v.CreatedAt),
 			}
-			titles = append(titles, t.TitleText)
+			titles = append(titles, v.TitleText)
 		}
 	}
 
-	var shorts []*ampbv1.AnimeMovieTitle
 	if len(data.AnimeShortTitles) > 0 {
-		shorts = make([]*ampbv1.AnimeMovieTitle, len(data.AnimeShortTitles))
-		for i, t := range data.AnimeShortTitles {
-			shorts[i] = &ampbv1.AnimeMovieTitle{
-				ID:        t.ID,
-				TitleText: t.TitleText,
-				CreatedAt: timestamppb.New(t.CreatedAt),
+		res.AnimeTitles.Short = make([]*ampbv1.AnimeMovieTitle, len(data.AnimeShortTitles))
+		for i, v := range data.AnimeShortTitles {
+			res.AnimeTitles.Short[i] = &ampbv1.AnimeMovieTitle{
+				ID:        v.ID,
+				TitleText: v.TitleText,
+				CreatedAt: timestamppb.New(v.CreatedAt),
 			}
-			titles = append(titles, t.TitleText)
+			titles = append(titles, v.TitleText)
 		}
 	}
 
-	var others []*ampbv1.AnimeMovieTitle
 	if len(data.AnimeOtherTitles) > 0 {
-		others = make([]*ampbv1.AnimeMovieTitle, len(data.AnimeOtherTitles))
-		for i, t := range data.AnimeOtherTitles {
-			others[i] = &ampbv1.AnimeMovieTitle{
-				ID:        t.ID,
-				TitleText: t.TitleText,
-				CreatedAt: timestamppb.New(t.CreatedAt),
+		res.AnimeTitles.Other = make([]*ampbv1.AnimeMovieTitle, len(data.AnimeOtherTitles))
+		for i, v := range data.AnimeOtherTitles {
+			res.AnimeTitles.Other[i] = &ampbv1.AnimeMovieTitle{
+				ID:        v.ID,
+				TitleText: v.TitleText,
+				CreatedAt: timestamppb.New(v.CreatedAt),
 			}
-			titles = append(titles, t.TitleText)
+			titles = append(titles, v.TitleText)
 		}
 	}
 
@@ -113,14 +108,6 @@ func (server *AnimeMovieServer) CreateAnimeMovieTitles(ctx context.Context, req 
 		ID:     req.GetAnimeID(),
 		Titles: utils.RemoveDuplicatesTitles(titles),
 	})
-
-	res := &ampbv1.CreateAnimeMovieTitlesResponse{
-		AnimeTitles: &ampbv1.AnimeMovieTitleResponse{
-			Official: officials,
-			Short:    shorts,
-			Other:    others,
-		},
-	}
 
 	return res, nil
 }
@@ -133,8 +120,8 @@ func validateCreateAnimeMovieTitleRequest(req *ampbv1.CreateAnimeMovieTitlesRequ
 	if req.AnimeTitles != nil {
 		if req.AnimeTitles.Official != nil {
 			if len(req.AnimeTitles.GetOfficial()) > 0 {
-				for i, t := range req.AnimeTitles.GetOfficial() {
-					if err := utils.ValidateString(t, 1, 150); err != nil {
+				for i, v := range req.AnimeTitles.GetOfficial() {
+					if err := utils.ValidateString(v, 1, 150); err != nil {
 						violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeTitles > official > title at index [%d]", i), err))
 					}
 				}
@@ -145,8 +132,8 @@ func validateCreateAnimeMovieTitleRequest(req *ampbv1.CreateAnimeMovieTitlesRequ
 
 		if req.AnimeTitles.Short != nil {
 			if len(req.AnimeTitles.GetShort()) > 0 {
-				for i, t := range req.AnimeTitles.GetShort() {
-					if err := utils.ValidateString(t, 1, 150); err != nil {
+				for i, v := range req.AnimeTitles.GetShort() {
+					if err := utils.ValidateString(v, 1, 150); err != nil {
 						violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeTitles > short > title at index [%d]", i), err))
 					}
 				}
@@ -157,8 +144,8 @@ func validateCreateAnimeMovieTitleRequest(req *ampbv1.CreateAnimeMovieTitlesRequ
 
 		if req.AnimeTitles.Other != nil {
 			if len(req.AnimeTitles.GetOther()) > 0 {
-				for i, t := range req.AnimeTitles.GetOther() {
-					if err := utils.ValidateString(t, 1, 150); err != nil {
+				for i, v := range req.AnimeTitles.GetOther() {
+					if err := utils.ValidateString(v, 1, 150); err != nil {
 						violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeTitles > other > title at index [%d]", i), err))
 					}
 				}

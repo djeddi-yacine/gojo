@@ -29,20 +29,19 @@ func (server *AnimeMovieServer) CreateAnimeMovieMetas(ctx context.Context, req *
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	var DBAM = make([]db.AnimeMetaTxParam, len(req.AnimeMetas))
-	for i, am := range req.AnimeMetas {
-		DBAM[i] = db.AnimeMetaTxParam{
-			LanguageID: am.GetLanguageID(),
-			CreateMetaParams: db.CreateMetaParams{
-				Title:    am.GetMeta().GetTitle(),
-				Overview: am.GetMeta().GetOverview(),
-			},
-		}
+	arg := db.CreateAnimeMovieMetasTxParams{
+		AnimeID: req.GetAnimeID(),
 	}
 
-	arg := db.CreateAnimeMovieMetasTxParams{
-		AnimeID:         req.GetAnimeID(),
-		AnimeMovieMetas: DBAM,
+	arg.AnimeMovieMetas = make([]db.AnimeMetaTxParam, len(req.AnimeMetas))
+	for i, v := range req.AnimeMetas {
+		arg.AnimeMovieMetas[i] = db.AnimeMetaTxParam{
+			LanguageID: v.GetLanguageID(),
+			CreateMetaParams: db.CreateMetaParams{
+				Title:    v.GetMeta().GetTitle(),
+				Overview: v.GetMeta().GetOverview(),
+			},
+		}
 	}
 
 	metas, err := server.gojo.CreateAnimeMovieMetasTx(ctx, arg)
@@ -50,20 +49,19 @@ func (server *AnimeMovieServer) CreateAnimeMovieMetas(ctx context.Context, req *
 		return nil, shv1.ApiError("failed to create anime movie metadata", err)
 	}
 
-	PBAM := make([]*nfpbv1.AnimeMetaResponse, len(metas.AnimeMovieMetas))
+	res := &ampbv1.CreateAnimeMovieMetasResponse{
+		AnimeID: req.GetAnimeID(),
+	}
 
-	for i, am := range metas.AnimeMovieMetas {
-		PBAM[i] = &nfpbv1.AnimeMetaResponse{
-			Meta:       shv1.ConvertMeta(am.Meta),
-			LanguageID: am.LanguageID,
-			CreatedAt:  timestamppb.New(am.Meta.CreatedAt),
+	res.AnimeMetas = make([]*nfpbv1.AnimeMetaResponse, len(metas.AnimeMovieMetas))
+	for i, v := range metas.AnimeMovieMetas {
+		res.AnimeMetas[i] = &nfpbv1.AnimeMetaResponse{
+			Meta:       shv1.ConvertMeta(v.Meta),
+			LanguageID: v.LanguageID,
+			CreatedAt:  timestamppb.New(v.Meta.CreatedAt),
 		}
 	}
 
-	res := &ampbv1.CreateAnimeMovieMetasResponse{
-		AnimeID:    req.GetAnimeID(),
-		AnimeMetas: PBAM,
-	}
 	return res, nil
 }
 
@@ -73,16 +71,16 @@ func validateCreateAnimeMovieMetasRequest(req *ampbv1.CreateAnimeMovieMetasReque
 	}
 
 	if req.AnimeMetas != nil {
-		for _, am := range req.AnimeMetas {
-			if err := utils.ValidateInt(int64(am.GetLanguageID())); err != nil {
+		for _, v := range req.AnimeMetas {
+			if err := utils.ValidateInt(int64(v.GetLanguageID())); err != nil {
 				violations = append(violations, shv1.FieldViolation("languageID", err))
 			}
 
-			if err := utils.ValidateString(am.GetMeta().GetTitle(), 2, 500); err != nil {
+			if err := utils.ValidateString(v.GetMeta().GetTitle(), 2, 500); err != nil {
 				violations = append(violations, shv1.FieldViolation("title", err))
 			}
 
-			if err := utils.ValidateString(am.GetMeta().GetOverview(), 5, 5000); err != nil {
+			if err := utils.ValidateString(v.GetMeta().GetOverview(), 5, 5000); err != nil {
 				violations = append(violations, shv1.FieldViolation("overview", err))
 			}
 		}

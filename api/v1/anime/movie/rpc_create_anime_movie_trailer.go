@@ -29,19 +29,17 @@ func (server *AnimeMovieServer) CreateAnimeMovieTrailer(ctx context.Context, req
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	var DBT []db.CreateAnimeTrailerParams
-	if req.AnimeTrailers != nil {
-		DBT = make([]db.CreateAnimeTrailerParams, len(req.GetAnimeTrailers()))
-		for i, t := range req.GetAnimeTrailers() {
-			DBT[i].IsOfficial = t.IsOfficial
-			DBT[i].HostName = t.HostName
-			DBT[i].HostKey = t.HostKey
-		}
+	arg := db.CreateAnimeMovieTrailerTxParams{
+		AnimeID: req.GetAnimeID(),
 	}
 
-	arg := db.CreateAnimeMovieTrailerTxParams{
-		AnimeID:             req.GetAnimeID(),
-		AnimeTrailersParams: DBT,
+	if req.AnimeTrailers != nil {
+		arg.AnimeTrailersParams = make([]db.CreateAnimeTrailerParams, len(req.GetAnimeTrailers()))
+		for i, v := range req.GetAnimeTrailers() {
+			arg.AnimeTrailersParams[i].IsOfficial = v.IsOfficial
+			arg.AnimeTrailersParams[i].HostName = v.HostName
+			arg.AnimeTrailersParams[i].HostKey = v.HostKey
+		}
 	}
 
 	data, err := server.gojo.CreateAnimeMovieTrailerTx(ctx, arg)
@@ -63,11 +61,11 @@ func validateCreateAnimeMovieTrailerRequest(req *ampbv1.CreateAnimeMovieTrailerR
 
 	if req.AnimeTrailers != nil {
 		if len(req.GetAnimeTrailers()) > 0 {
-			for i, t := range req.GetAnimeTrailers() {
-				if err := utils.ValidateString(t.HostName, 1, 200); err != nil {
+			for i, v := range req.GetAnimeTrailers() {
+				if err := utils.ValidateString(v.HostName, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeTrailers > hostName at index [%d]", i), err))
 				}
-				if err := utils.ValidateString(t.HostKey, 1, 200); err != nil {
+				if err := utils.ValidateString(v.HostKey, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeTrailers > hostKey at index [%d]", i), err))
 				}
 			}

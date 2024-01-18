@@ -29,38 +29,32 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTitles(ctx context.Context, req
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	var DBF []db.CreateAnimeSeasonOfficialTitleParams
-	if req.SeasonTitles.Official != nil {
-		DBF = make([]db.CreateAnimeSeasonOfficialTitleParams, len(req.SeasonTitles.GetOfficial()))
-		for i, t := range req.SeasonTitles.GetOfficial() {
-			DBF[i].SeasonID = req.SeasonID
-			DBF[i].TitleText = t
-		}
-	}
-
-	var DBS []db.CreateAnimeSeasonShortTitleParams
-	if req.SeasonTitles.Short != nil {
-		DBS = make([]db.CreateAnimeSeasonShortTitleParams, len(req.SeasonTitles.GetShort()))
-		for i, t := range req.SeasonTitles.GetShort() {
-			DBS[i].SeasonID = req.SeasonID
-			DBS[i].TitleText = t
-		}
-	}
-
-	var DBT []db.CreateAnimeSeasonOtherTitleParams
-	if req.SeasonTitles.Other != nil {
-		DBT = make([]db.CreateAnimeSeasonOtherTitleParams, len(req.SeasonTitles.GetOther()))
-		for i, t := range req.SeasonTitles.GetOther() {
-			DBT[i].SeasonID = req.SeasonID
-			DBT[i].TitleText = t
-		}
-	}
-
 	arg := db.CreateAnimeSeasonTitlesTxParams{
-		SeasonID:            req.GetSeasonID(),
-		AnimeOfficialTitles: DBF,
-		AnimeShortTitles:    DBS,
-		AnimeOtherTitles:    DBT,
+		SeasonID: req.GetSeasonID(),
+	}
+
+	if req.SeasonTitles.Official != nil {
+		arg.AnimeOfficialTitles = make([]db.CreateAnimeSeasonOfficialTitleParams, len(req.SeasonTitles.GetOfficial()))
+		for i, v := range req.SeasonTitles.GetOfficial() {
+			arg.AnimeOfficialTitles[i].SeasonID = req.SeasonID
+			arg.AnimeOfficialTitles[i].TitleText = v
+		}
+	}
+
+	if req.SeasonTitles.Short != nil {
+		arg.AnimeShortTitles = make([]db.CreateAnimeSeasonShortTitleParams, len(req.SeasonTitles.GetShort()))
+		for i, v := range req.SeasonTitles.GetShort() {
+			arg.AnimeShortTitles[i].SeasonID = req.SeasonID
+			arg.AnimeShortTitles[i].TitleText = v
+		}
+	}
+
+	if req.SeasonTitles.Other != nil {
+		arg.AnimeOtherTitles = make([]db.CreateAnimeSeasonOtherTitleParams, len(req.SeasonTitles.GetOther()))
+		for i, v := range req.SeasonTitles.GetOther() {
+			arg.AnimeOtherTitles[i].SeasonID = req.SeasonID
+			arg.AnimeOtherTitles[i].TitleText = v
+		}
 	}
 
 	data, err := server.gojo.CreateAnimeSeasonTitlesTx(ctx, arg)
@@ -69,43 +63,43 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTitles(ctx context.Context, req
 	}
 
 	var titles []string
+	res := &aspbv1.CreateAnimeSeasonTitlesResponse{
+		SeasonTitles: &aspbv1.AnimeSeasonTitleResponse{},
+	}
 
-	var officials []*aspbv1.AnimeSeasonTitle
 	if len(data.AnimeOfficialTitles) > 0 {
-		officials = make([]*aspbv1.AnimeSeasonTitle, len(data.AnimeOfficialTitles))
-		for i, t := range data.AnimeOfficialTitles {
-			officials[i] = &aspbv1.AnimeSeasonTitle{
-				ID:        t.ID,
-				TitleText: t.TitleText,
-				CreatedAt: timestamppb.New(t.CreatedAt),
+		res.SeasonTitles.Official = make([]*aspbv1.AnimeSeasonTitle, len(data.AnimeOfficialTitles))
+		for i, v := range data.AnimeOfficialTitles {
+			res.SeasonTitles.Official[i] = &aspbv1.AnimeSeasonTitle{
+				ID:        v.ID,
+				TitleText: v.TitleText,
+				CreatedAt: timestamppb.New(v.CreatedAt),
 			}
-			titles = append(titles, t.TitleText)
+			titles = append(titles, v.TitleText)
 		}
 	}
 
-	var shorts []*aspbv1.AnimeSeasonTitle
 	if len(data.AnimeShortTitles) > 0 {
-		shorts = make([]*aspbv1.AnimeSeasonTitle, len(data.AnimeShortTitles))
-		for i, t := range data.AnimeShortTitles {
-			shorts[i] = &aspbv1.AnimeSeasonTitle{
-				ID:        t.ID,
-				TitleText: t.TitleText,
-				CreatedAt: timestamppb.New(t.CreatedAt),
+		res.SeasonTitles.Short = make([]*aspbv1.AnimeSeasonTitle, len(data.AnimeShortTitles))
+		for i, v := range data.AnimeShortTitles {
+			res.SeasonTitles.Short[i] = &aspbv1.AnimeSeasonTitle{
+				ID:        v.ID,
+				TitleText: v.TitleText,
+				CreatedAt: timestamppb.New(v.CreatedAt),
 			}
-			titles = append(titles, t.TitleText)
+			titles = append(titles, v.TitleText)
 		}
 	}
 
-	var others []*aspbv1.AnimeSeasonTitle
 	if len(data.AnimeOtherTitles) > 0 {
-		shorts = make([]*aspbv1.AnimeSeasonTitle, len(data.AnimeOtherTitles))
-		for i, t := range data.AnimeOtherTitles {
-			shorts[i] = &aspbv1.AnimeSeasonTitle{
-				ID:        t.ID,
-				TitleText: t.TitleText,
-				CreatedAt: timestamppb.New(t.CreatedAt),
+		res.SeasonTitles.Other = make([]*aspbv1.AnimeSeasonTitle, len(data.AnimeOtherTitles))
+		for i, v := range data.AnimeOtherTitles {
+			res.SeasonTitles.Other[i] = &aspbv1.AnimeSeasonTitle{
+				ID:        v.ID,
+				TitleText: v.TitleText,
+				CreatedAt: timestamppb.New(v.CreatedAt),
 			}
-			titles = append(titles, t.TitleText)
+			titles = append(titles, v.TitleText)
 		}
 	}
 
@@ -113,14 +107,6 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTitles(ctx context.Context, req
 		ID:     req.GetSeasonID(),
 		Titles: utils.RemoveDuplicatesTitles(titles),
 	})
-
-	res := &aspbv1.CreateAnimeSeasonTitlesResponse{
-		SeasonTitles: &aspbv1.AnimeSeasonTitleResponse{
-			Official: officials,
-			Short:    shorts,
-			Other:    others,
-		},
-	}
 
 	return res, nil
 }
@@ -133,8 +119,8 @@ func validateCreateAnimeSeasonTitleRequest(req *aspbv1.CreateAnimeSeasonTitlesRe
 	if req.SeasonTitles != nil {
 		if req.SeasonTitles.Official != nil {
 			if len(req.SeasonTitles.GetOfficial()) > 0 {
-				for i, t := range req.SeasonTitles.GetOfficial() {
-					if err := utils.ValidateString(t, 1, 150); err != nil {
+				for i, v := range req.SeasonTitles.GetOfficial() {
+					if err := utils.ValidateString(v, 1, 150); err != nil {
 						violations = append(violations, shv1.FieldViolation(fmt.Sprintf("seasonTitles > official > title at index [%d]", i), err))
 					}
 				}
@@ -145,8 +131,8 @@ func validateCreateAnimeSeasonTitleRequest(req *aspbv1.CreateAnimeSeasonTitlesRe
 
 		if req.SeasonTitles.Short != nil {
 			if len(req.SeasonTitles.GetShort()) > 0 {
-				for i, t := range req.SeasonTitles.GetShort() {
-					if err := utils.ValidateString(t, 1, 150); err != nil {
+				for i, v := range req.SeasonTitles.GetShort() {
+					if err := utils.ValidateString(v, 1, 150); err != nil {
 						violations = append(violations, shv1.FieldViolation(fmt.Sprintf("seasonTitles > short > title at index [%d]", i), err))
 					}
 				}
@@ -157,8 +143,8 @@ func validateCreateAnimeSeasonTitleRequest(req *aspbv1.CreateAnimeSeasonTitlesRe
 
 		if req.SeasonTitles.Other != nil {
 			if len(req.SeasonTitles.GetOther()) > 0 {
-				for i, t := range req.SeasonTitles.GetOther() {
-					if err := utils.ValidateString(t, 1, 150); err != nil {
+				for i, v := range req.SeasonTitles.GetOther() {
+					if err := utils.ValidateString(v, 1, 150); err != nil {
 						violations = append(violations, shv1.FieldViolation(fmt.Sprintf("seasonTitles > other > title at index [%d]", i), err))
 					}
 				}

@@ -30,50 +30,44 @@ func (server *AnimeSerieServer) CreateAnimeSerieImage(ctx context.Context, req *
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	var DBP []db.CreateAnimeImageParams
-	if req.AnimeImages.Posters != nil {
-		DBP = make([]db.CreateAnimeImageParams, len(req.AnimeImages.GetPosters()))
-		for i, p := range req.AnimeImages.GetPosters() {
-			DBP[i].ImageHost = p.Host
-			DBP[i].ImageUrl = p.Url
-			DBP[i].ImageThumbnails = p.Thumbnails
-			DBP[i].ImageBlurhash = p.Blurhash
-			DBP[i].ImageHeight = int32(p.Height)
-			DBP[i].ImageWidth = int32(p.Width)
-		}
-	}
-
-	var DBB []db.CreateAnimeImageParams
-	if req.AnimeImages.Backdrops != nil {
-		DBB = make([]db.CreateAnimeImageParams, len(req.AnimeImages.GetBackdrops()))
-		for i, p := range req.AnimeImages.GetBackdrops() {
-			DBB[i].ImageHost = p.Host
-			DBB[i].ImageUrl = p.Url
-			DBB[i].ImageThumbnails = p.Thumbnails
-			DBB[i].ImageBlurhash = p.Blurhash
-			DBB[i].ImageHeight = int32(p.Height)
-			DBB[i].ImageWidth = int32(p.Width)
-		}
-	}
-
-	var DBL []db.CreateAnimeImageParams
-	if req.AnimeImages.Backdrops != nil {
-		DBL = make([]db.CreateAnimeImageParams, len(req.AnimeImages.GetLogos()))
-		for i, p := range req.AnimeImages.GetLogos() {
-			DBL[i].ImageHost = p.Host
-			DBL[i].ImageUrl = p.Url
-			DBL[i].ImageThumbnails = p.Thumbnails
-			DBL[i].ImageBlurhash = p.Blurhash
-			DBL[i].ImageHeight = int32(p.Height)
-			DBL[i].ImageWidth = int32(p.Width)
-		}
-	}
-
 	arg := db.CreateAnimeSerieImageTxParams{
-		AnimeID:        req.GetAnimeID(),
-		AnimePosters:   DBP,
-		AnimeBackdrops: DBB,
-		AnimeLogos:     DBL,
+		AnimeID: req.GetAnimeID(),
+	}
+
+	if req.AnimeImages.Posters != nil {
+		arg.AnimePosters = make([]db.CreateAnimeImageParams, len(req.GetAnimeImages().GetPosters()))
+		for i, v := range req.AnimeImages.GetPosters() {
+			arg.AnimePosters[i].ImageHost = v.Host
+			arg.AnimePosters[i].ImageUrl = v.Url
+			arg.AnimePosters[i].ImageThumbnails = v.Thumbnails
+			arg.AnimePosters[i].ImageBlurhash = v.Blurhash
+			arg.AnimePosters[i].ImageHeight = int32(v.Height)
+			arg.AnimePosters[i].ImageWidth = int32(v.Width)
+		}
+	}
+
+	if req.AnimeImages.Backdrops != nil {
+		arg.AnimeBackdrops = make([]db.CreateAnimeImageParams, len(req.GetAnimeImages().GetBackdrops()))
+		for i, v := range req.AnimeImages.GetBackdrops() {
+			arg.AnimeBackdrops[i].ImageHost = v.Host
+			arg.AnimeBackdrops[i].ImageUrl = v.Url
+			arg.AnimeBackdrops[i].ImageThumbnails = v.Thumbnails
+			arg.AnimeBackdrops[i].ImageBlurhash = v.Blurhash
+			arg.AnimeBackdrops[i].ImageHeight = int32(v.Height)
+			arg.AnimeBackdrops[i].ImageWidth = int32(v.Width)
+		}
+	}
+
+	if req.AnimeImages.Backdrops != nil {
+		arg.AnimeLogos = make([]db.CreateAnimeImageParams, len(req.GetAnimeImages().GetLogos()))
+		for i, v := range req.AnimeImages.GetLogos() {
+			arg.AnimeLogos[i].ImageHost = v.Host
+			arg.AnimeLogos[i].ImageUrl = v.Url
+			arg.AnimeLogos[i].ImageThumbnails = v.Thumbnails
+			arg.AnimeLogos[i].ImageBlurhash = v.Blurhash
+			arg.AnimeLogos[i].ImageHeight = int32(v.Height)
+			arg.AnimeLogos[i].ImageWidth = int32(v.Width)
+		}
 	}
 
 	data, err := server.gojo.CreateAnimeSerieImageTx(ctx, arg)
@@ -103,60 +97,60 @@ func validateCreateAnimeSerieImageRequest(req *aspbv1.CreateAnimeSerieImageReque
 		}
 
 		if len(req.AnimeImages.GetPosters()) > 0 {
-			for i, l := range req.AnimeImages.GetPosters() {
-				if err := utils.ValidateURL(l.Host, ""); err != nil {
+			for i, v := range req.AnimeImages.GetPosters() {
+				if err := utils.ValidateURL(v.Host, ""); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > posters > host at index [%d]", i), err))
 				}
-				if err := utils.ValidateString(l.Url, 1, 200); err != nil {
+				if err := utils.ValidateString(v.Url, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > posters > url at index [%d]", i), err))
 				}
-				if err := utils.ValidateString(l.Thumbnails, 1, 200); err != nil {
+				if err := utils.ValidateString(v.Thumbnails, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > posters > thumbnails at index [%d]", i), err))
 				}
-				if err := utils.ValidateInt(int64(l.Height + 1)); err != nil {
+				if err := utils.ValidateInt(int64(v.Height + 1)); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > posters > Height at index [%d]", i), err))
 				}
-				if err := utils.ValidateInt(int64(l.Width + 1)); err != nil {
+				if err := utils.ValidateInt(int64(v.Width + 1)); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > posters > Width at index [%d]", i), err))
 				}
 			}
 		}
 
 		if len(req.AnimeImages.GetBackdrops()) > 0 {
-			for i, l := range req.AnimeImages.GetBackdrops() {
-				if err := utils.ValidateURL(l.Host, ""); err != nil {
+			for i, v := range req.AnimeImages.GetBackdrops() {
+				if err := utils.ValidateURL(v.Host, ""); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > backdrops > host at index [%d]", i), err))
 				}
-				if err := utils.ValidateString(l.Url, 1, 200); err != nil {
+				if err := utils.ValidateString(v.Url, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > backdrops > url at index [%d]", i), err))
 				}
-				if err := utils.ValidateString(l.Thumbnails, 1, 200); err != nil {
+				if err := utils.ValidateString(v.Thumbnails, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > backdrops > thumbnails at index [%d]", i), err))
 				}
-				if err := utils.ValidateInt(int64(l.Height + 1)); err != nil {
+				if err := utils.ValidateInt(int64(v.Height + 1)); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > backdrops > Height at index [%d]", i), err))
 				}
-				if err := utils.ValidateInt(int64(l.Width + 1)); err != nil {
+				if err := utils.ValidateInt(int64(v.Width + 1)); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > backdrops > Width at index [%d]", i), err))
 				}
 			}
 		}
 
 		if len(req.AnimeImages.GetLogos()) > 0 {
-			for i, l := range req.AnimeImages.GetLogos() {
-				if err := utils.ValidateURL(l.Host, ""); err != nil {
+			for i, v := range req.AnimeImages.GetLogos() {
+				if err := utils.ValidateURL(v.Host, ""); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > logos > host at index [%d]", i), err))
 				}
-				if err := utils.ValidateString(l.Url, 1, 200); err != nil {
+				if err := utils.ValidateString(v.Url, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > logos > url at index [%d]", i), err))
 				}
-				if err := utils.ValidateString(l.Thumbnails, 1, 200); err != nil {
+				if err := utils.ValidateString(v.Thumbnails, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > logos > thumbnails at index [%d]", i), err))
 				}
-				if err := utils.ValidateInt(int64(l.Height + 1)); err != nil {
+				if err := utils.ValidateInt(int64(v.Height + 1)); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > logos > Height at index [%d]", i), err))
 				}
-				if err := utils.ValidateInt(int64(l.Width + 1)); err != nil {
+				if err := utils.ValidateInt(int64(v.Width + 1)); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > logos > Width at index [%d]", i), err))
 				}
 			}

@@ -29,19 +29,17 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTrailer(ctx context.Context, re
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	var DBT []db.CreateAnimeTrailerParams
-	if req.SeasonTrailers != nil {
-		DBT = make([]db.CreateAnimeTrailerParams, len(req.GetSeasonTrailers()))
-		for i, t := range req.GetSeasonTrailers() {
-			DBT[i].IsOfficial = t.IsOfficial
-			DBT[i].HostName = t.HostName
-			DBT[i].HostKey = t.HostKey
-		}
+	arg := db.CreateAnimeSeasonTrailerTxParams{
+		SeasonID: req.GetSeasonID(),
 	}
 
-	arg := db.CreateAnimeSeasonTrailerTxParams{
-		SeasonID:             req.GetSeasonID(),
-		SeasonTrailersParams: DBT,
+	if req.SeasonTrailers != nil {
+		arg.SeasonTrailersParams = make([]db.CreateAnimeTrailerParams, len(req.GetSeasonTrailers()))
+		for i, v := range req.GetSeasonTrailers() {
+			arg.SeasonTrailersParams[i].IsOfficial = v.IsOfficial
+			arg.SeasonTrailersParams[i].HostName = v.HostName
+			arg.SeasonTrailersParams[i].HostKey = v.HostKey
+		}
 	}
 
 	data, err := server.gojo.CreateAnimeSeasonTrailerTx(ctx, arg)
@@ -63,11 +61,11 @@ func validateCreateAnimeSeasonTrailerRequest(req *aspbv1.CreateAnimeSeasonTraile
 
 	if req.SeasonTrailers != nil {
 		if len(req.GetSeasonTrailers()) > 0 {
-			for i, t := range req.GetSeasonTrailers() {
-				if err := utils.ValidateString(t.HostName, 1, 200); err != nil {
+			for i, v := range req.GetSeasonTrailers() {
+				if err := utils.ValidateString(v.HostName, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("SeasonTrailers > hostName at index [%d]", i), err))
 				}
-				if err := utils.ValidateString(t.HostKey, 1, 200); err != nil {
+				if err := utils.ValidateString(v.HostKey, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("SeasonTrailers > hostKey at index [%d]", i), err))
 				}
 			}
