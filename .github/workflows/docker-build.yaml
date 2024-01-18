@@ -25,5 +25,6 @@ jobs:
         COMMIT_SHA=$(git rev-parse --short "${{ github.sha }}")
         DOCKERFILE_PATH="$GITHUB_WORKSPACE/Dockerfile.migrate"
         docker build -t ghcr.io/${{ github.repository_owner }}/gojo-migration:$COMMIT_SHA -t ghcr.io/${{ github.repository_owner }}/gojo-migration:latest -f "$DOCKERFILE_PATH" .
+        docker login ghcr.io -u ${{ github.repository_owner }} -p ${{ secrets.DOCKER_TOKEN }}
         docker push ghcr.io/${{ github.repository_owner }}/gojo-migration:$COMMIT_SHA
         docker push ghcr.io/${{ github.repository_owner }}/gojo-migration:latest
