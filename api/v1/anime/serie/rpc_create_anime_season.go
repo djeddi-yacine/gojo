@@ -62,6 +62,7 @@ func (server *AnimeSerieServer) CreateAnimeSeason(ctx context.Context, req *aspb
 		Season: convertAnimeSeason(data.AnimeSeason),
 	}
 
+	titles := make([]string, len(data.AnimeSeasonMetas))
 	res.SeasonMetas = make([]*nfpbv1.AnimeMetaResponse, len(data.AnimeSeasonMetas))
 	for i, v := range data.AnimeSeasonMetas {
 		res.SeasonMetas[i] = &nfpbv1.AnimeMetaResponse{
@@ -69,7 +70,14 @@ func (server *AnimeSerieServer) CreateAnimeSeason(ctx context.Context, req *aspb
 			LanguageID: v.LanguageID,
 			CreatedAt:  timestamppb.New(v.Meta.CreatedAt),
 		}
+
+		titles[i] = v.Meta.Title
 	}
+
+	server.meilisearch.AddDocuments(&utils.Document{
+		ID:     data.AnimeSeason.ID,
+		Titles: utils.RemoveDuplicatesTitles(titles),
+	})
 
 	return res, nil
 }

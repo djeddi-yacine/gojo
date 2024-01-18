@@ -3020,6 +3020,13 @@
         },
         "animeLinks": {
           "$ref": "#/definitions/ashpbv1AnimeLinkRequest"
+        },
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaRequest"
+          }
         }
       }
     },
@@ -3057,6 +3064,13 @@
         },
         "animeLinks": {
           "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+        },
+        "animeMetas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
+          }
         }
       }
     },

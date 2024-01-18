@@ -44,7 +44,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieMetas(ctx context.Context, req *
 		}
 	}
 
-	metas, err := server.gojo.CreateAnimeMovieMetasTx(ctx, arg)
+	data, err := server.gojo.CreateAnimeMovieMetasTx(ctx, arg)
 	if err != nil {
 		return nil, shv1.ApiError("failed to create anime movie metadata", err)
 	}
@@ -53,14 +53,21 @@ func (server *AnimeMovieServer) CreateAnimeMovieMetas(ctx context.Context, req *
 		AnimeID: req.GetAnimeID(),
 	}
 
-	res.AnimeMetas = make([]*nfpbv1.AnimeMetaResponse, len(metas.AnimeMovieMetas))
-	for i, v := range metas.AnimeMovieMetas {
+	titles := make([]string, len(data.AnimeMovieMetas))
+	res.AnimeMetas = make([]*nfpbv1.AnimeMetaResponse, len(data.AnimeMovieMetas))
+	for i, v := range data.AnimeMovieMetas {
 		res.AnimeMetas[i] = &nfpbv1.AnimeMetaResponse{
 			Meta:       shv1.ConvertMeta(v.Meta),
 			LanguageID: v.LanguageID,
 			CreatedAt:  timestamppb.New(v.Meta.CreatedAt),
 		}
+		titles[i] = v.Meta.Title
 	}
+
+	server.meilisearch.AddDocuments(&utils.Document{
+		ID:     req.GetAnimeID(),
+		Titles: utils.RemoveDuplicatesTitles(titles),
+	})
 
 	return res, nil
 }
