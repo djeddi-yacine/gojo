@@ -38,6 +38,8 @@ services:
     container_name: Gojo-Redis-Queue
     image: redis:7.2.3-alpine3.19
     restart: unless-stopped
+    environment:
+      - REDIS_PORT=6370
     networks:
       - default
     ports:
@@ -54,6 +56,8 @@ services:
     container_name: Gojo-Redis-Cache
     image: redis:7.2.3-alpine3.19
     restart: unless-stopped
+    environment:
+      - REDIS_PORT=6380
     networks:
       - default
     ports:

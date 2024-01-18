@@ -49,7 +49,12 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-  
+ 
+      meili:
+        image: getmeili/meilisearch:v1.6.0-rc.5
+        ports:
+          - "7700:7700"
+
     steps:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v4
