@@ -20,6 +20,30 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+
+    - name: Create environment file
+      run: |
+        touch gojo.env
+        echo "ENVIRONMENT=RELEASE" > gojo.env
+        echo "DB_SOURCE=postgresql://root@localhost:5432/?sslmode=disable" >> gojo.env
+        echo "HTTP_SERVER_ADDRESS=0.0.0.0:8080" >> gojo.env
+        echo "GRPC_SERVER_ADDRESS=0.0.0.0:9090" >> gojo.env
+        echo "REDIS_QUEUE_ADDRESS=0.0.0.0:6370" >> gojo.env
+        echo "REDIS_CACHE_ADDRESS=0.0.0.0:6380" >> gojo.env
+        echo "MEILISEATCH_ADDRESS=0.0.0.0:7700" >> gojo.env
+        echo "TOKEN_SYMMETRIC_KEY=${{ secrets.TOKEN_SYMMETRIC_KEY }}" >> gojo.env
+        echo "ACCESS_TOKEN_DURATION=15m" >> gojo.env
+        echo "REFRESH_TOKEN_DURATION=24h" >> gojo.env
+        echo "CACHE_REPETITION=${{ secrets.CACHE_REPETITION }}" >> gojo.env
+        echo "CACHE_KEY_DURATION=6h" >> gojo.env
+        echo "CACHE_COUNT_DURATION=3h" >> gojo.env
+        echo "EMAIL_SENDER_NAME=Gojo-App" >> gojo.env
+        echo "EMAIL_SENDER_ADDRESS=${{ secrets.EMAIL_SENDER_ADDRESS }}" >> gojo.env
+        echo "EMAIL_SENDER_PASSWORD=${{ secrets.EMAIL_SENDER_PASSWORD }}" >> gojo.env
+
+
     - name: Build and Push Migration Docker Image
       run: |
         COMMIT_SHA=$(git rev-parse --short "${{ github.sha }}")
@@ -37,3 +61,6 @@ jobs:
         docker login ghcr.io -u ${{ github.repository_owner }} -p ${{ secrets.DOCKER_TOKEN }}
         docker push ghcr.io/${{ github.repository_owner }}/gojo-api:$COMMIT_SHA
         docker push ghcr.io/${{ github.repository_owner }}/gojo-api:latest
+
+    - name: Cleanup temporary environment file
+      run: rm -rf gojo.env
