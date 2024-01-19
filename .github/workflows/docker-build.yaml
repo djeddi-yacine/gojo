@@ -23,8 +23,8 @@ jobs:
     - name: Build and Push Migration Docker Image
       run: |
         COMMIT_SHA=$(git rev-parse --short "${{ github.sha }}")
-        DOCKERFILE_PATH="$GITHUB_WORKSPACE/Dockerfile.migrate"
-        docker build -t ghcr.io/${{ github.repository_owner }}/gojo-migration:$COMMIT_SHA -t ghcr.io/${{ github.repository_owner }}/gojo-migration:latest -f "$DOCKERFILE_PATH" .
+        DOCKERFILE_MIGRATION_PATH="$GITHUB_WORKSPACE/Dockerfile.migrate"
+        docker build -t ghcr.io/${{ github.repository_owner }}/gojo-migration:$COMMIT_SHA -t ghcr.io/${{ github.repository_owner }}/gojo-migration:latest -f "$DOCKERFILE_MIGRATION_PATH" .
         docker login ghcr.io -u ${{ github.repository_owner }} -p ${{ secrets.DOCKER_TOKEN }}
         docker push ghcr.io/${{ github.repository_owner }}/gojo-migration:$COMMIT_SHA
         docker push ghcr.io/${{ github.repository_owner }}/gojo-migration:latest
@@ -32,8 +32,8 @@ jobs:
     - name: Build and Push Api Docker Image
       run: |
         COMMIT_SHA=$(git rev-parse --short "${{ github.sha }}")
-        DOCKERFILE_PATH="$GITHUB_WORKSPACE/Dockerfile.migrate"
-        docker build -t ghcr.io/${{ github.repository_owner }}/gojo-api:$COMMIT_SHA -t ghcr.io/${{ github.repository_owner }}/gojo-migration:api -f "$DOCKERFILE_PATH" .
+        DOCKERFILE_API_PATH="$GITHUB_WORKSPACE/Dockerfile.api"
+        docker build -t ghcr.io/${{ github.repository_owner }}/gojo-api:$COMMIT_SHA -t ghcr.io/${{ github.repository_owner }}/gojo-api:latest -f "$DOCKERFILE_API_PATH" .
         docker login ghcr.io -u ${{ github.repository_owner }} -p ${{ secrets.DOCKER_TOKEN }}
         docker push ghcr.io/${{ github.repository_owner }}/gojo-api:$COMMIT_SHA
         docker push ghcr.io/${{ github.repository_owner }}/gojo-api:latest

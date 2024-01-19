@@ -99,7 +99,7 @@ services:
     container_name: Gojo-Api
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.api
     ports:
       - "8080:8080"
       - "9090:9090"
