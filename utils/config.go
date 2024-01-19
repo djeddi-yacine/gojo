@@ -18,6 +18,7 @@ type Config struct {
 	RedisCacheAddress    string        `mapstructure:"REDIS_CACHE_ADDRESS"`
 	MeilisearchAddress   string        `mapstructure:"MEILISEATCH_ADDRESS"`
 	TokenSymmetricKey    string        `mapstructure:"TOKEN_SYMMETRIC_KEY"`
+	MeiliSearchMasterKey string        `mapstructure:"MEILISEATCH_MASTER_KEY"`
 	AccessTokenDuration  time.Duration `mapstructure:"ACCESS_TOKEN_DURATION"`
 	RefreshTokenDuration time.Duration `mapstructure:"REFRESH_TOKEN_DURATION"`
 	CacheRepetition      uint8         `mapstructure:"CACHE_REPETITION"`

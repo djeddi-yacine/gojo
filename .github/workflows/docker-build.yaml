@@ -34,6 +34,7 @@ jobs:
         echo "REDIS_CACHE_ADDRESS=0.0.0.0:6380" >> gojo.env
         echo "MEILISEATCH_ADDRESS=0.0.0.0:7700" >> gojo.env
         echo "TOKEN_SYMMETRIC_KEY=${{ secrets.TOKEN_SYMMETRIC_KEY }}" >> gojo.env
+        echo "MEILISEATCH_MASTER_KEY=${{ secrets.MEILISEATCH_MASTER_KEY }}" >> gojo.env
         echo "ACCESS_TOKEN_DURATION=15m" >> gojo.env
         echo "REFRESH_TOKEN_DURATION=24h" >> gojo.env
         echo "CACHE_REPETITION=${{ secrets.CACHE_REPETITION }}" >> gojo.env

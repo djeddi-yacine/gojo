@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/meilisearch/meilisearch-go"
 	"github.com/rs/zerolog/log"
@@ -19,8 +20,13 @@ type Document struct {
 
 func MeiliSearch(config Config) *meilisearch.Client {
 	meiliClient := meilisearch.NewClient(meilisearch.ClientConfig{
-		Host: "http://" + config.MeilisearchAddress,
+		Host:   "http://" + config.MeilisearchAddress,
+		APIKey: config.MeiliSearchMasterKey,
 	})
+
+	for !meiliClient.IsHealthy() {
+		time.Sleep(100 * time.Millisecond)
+	}
 
 	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0m- START MEILISEATCH -AT- %s\u001b[0m\n", config.MeilisearchAddress)
 
