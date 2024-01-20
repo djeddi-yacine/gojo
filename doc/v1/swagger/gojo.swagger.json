@@ -2629,71 +2629,6 @@
         }
       }
     },
-    "ampbv1AnimeMovieTitle": {
-      "type": "object",
-      "properties": {
-        "ID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "titleText": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "ampbv1AnimeMovieTitleRequest": {
-      "type": "object",
-      "properties": {
-        "official": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "short": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "other": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "ampbv1AnimeMovieTitleResponse": {
-      "type": "object",
-      "properties": {
-        "official": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/ampbv1AnimeMovieTitle"
-          }
-        },
-        "short": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/ampbv1AnimeMovieTitle"
-          }
-        },
-        "other": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/ampbv1AnimeMovieTitle"
-          }
-        }
-      }
-    },
     "ampbv1AnimeMovieTorrentRequest": {
       "type": "object",
       "properties": {
@@ -3138,7 +3073,7 @@
           "format": "int64"
         },
         "animeTitles": {
-          "$ref": "#/definitions/ampbv1AnimeMovieTitleRequest"
+          "$ref": "#/definitions/ashpbv1AnimeTitlesRequest"
         }
       }
     },
@@ -3146,7 +3081,7 @@
       "type": "object",
       "properties": {
         "animeTitles": {
-          "$ref": "#/definitions/ampbv1AnimeMovieTitleResponse"
+          "$ref": "#/definitions/ashpbv1AnimeTitlesResponse"
         }
       }
     },
@@ -3704,6 +3639,71 @@
         }
       }
     },
+    "ashpbv1AnimeTitle": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "titleText": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ashpbv1AnimeTitlesRequest": {
+      "type": "object",
+      "properties": {
+        "officials": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "shorts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "others": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ashpbv1AnimeTitlesResponse": {
+      "type": "object",
+      "properties": {
+        "officials": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTitle"
+          }
+        },
+        "shorts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTitle"
+          }
+        },
+        "others": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTitle"
+          }
+        }
+      }
+    },
     "ashpbv1AnimeTrailerRequest": {
       "type": "object",
       "properties": {
@@ -4144,71 +4144,6 @@
         }
       }
     },
-    "aspbv1AnimeSeasonTitle": {
-      "type": "object",
-      "properties": {
-        "ID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "titleText": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "aspbv1AnimeSeasonTitleRequest": {
-      "type": "object",
-      "properties": {
-        "official": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "short": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "other": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
-      }
-    },
-    "aspbv1AnimeSeasonTitleResponse": {
-      "type": "object",
-      "properties": {
-        "official": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/aspbv1AnimeSeasonTitle"
-          }
-        },
-        "short": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/aspbv1AnimeSeasonTitle"
-          }
-        },
-        "other": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/aspbv1AnimeSeasonTitle"
-          }
-        }
-      }
-    },
     "aspbv1AnimeSerieRequest": {
       "type": "object",
       "properties": {
@@ -4627,7 +4562,7 @@
           "format": "int64"
         },
         "seasonTitles": {
-          "$ref": "#/definitions/aspbv1AnimeSeasonTitleRequest"
+          "$ref": "#/definitions/ashpbv1AnimeTitlesRequest"
         }
       }
     },
@@ -4635,7 +4570,7 @@
       "type": "object",
       "properties": {
         "seasonTitles": {
-          "$ref": "#/definitions/aspbv1AnimeSeasonTitleResponse"
+          "$ref": "#/definitions/ashpbv1AnimeTitlesResponse"
         }
       }
     },
