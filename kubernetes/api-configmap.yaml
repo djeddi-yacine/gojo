@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: api-config
+  labels:
+    app: api-config
+data:
+  DB_SOURCE: "postgresql://root:secret@gojo-postgres-service:5432/gojo?sslmode=disable"
+  REDIS_QUEUE_ADDRESS: "gojo-queue-service:6370"
+  REDIS_CACHE_ADDRESS: "gojo-cache-service:6380"
+  MEILISEATCH_ADDRESS: "gojo-meili-service:7700"
+  MEILISEATCH_MASTER_KEY: "e0c9c675bb5dc4a5e742121ef6b3f9a8"

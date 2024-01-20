@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gojo-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gojo-api
+  template:
+    metadata:
+      labels:
+        app: gojo-api
+    spec:
+      containers:
+        - name: gojo-api
+          image: ghcr.io/dj-yacine-flutter/gojo-api:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              name: "http-server"
+            - containerPort: 9090
+              name: "grpc-server"
+          envFrom:
+            - configMapRef:
+                name: api-config
+          resources:
+            requests:
+              memory: "250Mi"
+              cpu: "500m"
+            limits:
+              memory: "750Mi"
+              cpu: "1100m"
+      restartPolicy: Always
