@@ -61,5 +61,7 @@ COPY gojo.env .
 # Use an unprivileged user.
 USER appuser:appuser
 
+EXPOSE 8080 9090
+
 # Specify the command to run your application when the container starts.
 CMD [ "./main" ]
