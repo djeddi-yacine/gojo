@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gojo-queue-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gojo-queue
+  template:
+    metadata:
+      labels:
+        app: gojo-queue
+    spec:
+      containers:
+        - name: redis
+          image: redis:7.2.3-alpine3.19
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: REDIS_PORT
+              value: "6370"
+          ports:
+            - containerPort: 6370
+              name: "queue"
+          command: ["redis-server", "--port", "6370"]
+          resources:
+            requests:
+              memory: "1000Mi"
+              cpu: "500m"
+            limits:
+              memory: "1500Mi"
+              cpu: "1000m"
