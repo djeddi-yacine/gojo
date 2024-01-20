@@ -7,3 +7,7 @@
 # Explicitly specify the language for SQL files
 *.sql linguist-detectable=true
 *.sql linguist-language=sql
+
+# Treat all files with Dockerfile prefix as Dockerfiles
+Dockerfile.* linguist-detectable=true
+Dockerfile.* linguist-language=Dockerfile
