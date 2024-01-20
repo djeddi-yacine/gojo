@@ -3,6 +3,8 @@ kind: Ingress
 metadata:
   name: gojo-grpc-ingress
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "GRPC"
 
 spec:
@@ -18,3 +20,8 @@ spec:
             name: gojo-api-service
             port:
               number: 90
+
+  tls:
+  - hosts:
+    - grpc.gojo.test
+    secretName: gojo-api-cert

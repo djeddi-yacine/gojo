@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: gojo-api-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: gojo-api
@@ -29,6 +29,6 @@ spec:
               memory: "250Mi"
               cpu: "500m"
             limits:
-              memory: "750Mi"
-              cpu: "1100m"
+              memory: "500Mi"
+              cpu: "1000m"
       restartPolicy: Always

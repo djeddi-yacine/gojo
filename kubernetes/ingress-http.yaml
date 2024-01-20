@@ -2,6 +2,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: gojo-http-ingress
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 
 spec:
   ingressClassName: nginx
@@ -16,3 +19,8 @@ spec:
             name: gojo-api-service
             port:
               number: 80
+
+  tls:
+  - hosts:
+    - gojo.test
+    secretName: gojo-api-cert
