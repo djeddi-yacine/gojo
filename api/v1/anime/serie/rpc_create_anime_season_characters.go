@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
+	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ashpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb"
@@ -59,7 +59,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonCharacters(ctx context.Context,
 
 	res.SeasonCharacters = make([]*ashpbv1.AnimeCharacterResponse, len(data.Characters))
 	for i, v := range data.Characters {
-		res.SeasonCharacters[i] = aapiv1.ConvertAnimeCharacter(v.AnimeCharacter)
+		res.SeasonCharacters[i] = av1.ConvertAnimeCharacter(v.AnimeCharacter)
 		res.SeasonCharacters[i].ActorsID = v.ActorsIDs
 	}
 

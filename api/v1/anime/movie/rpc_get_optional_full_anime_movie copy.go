@@ -3,7 +3,7 @@ package amapiv1
 import (
 	"context"
 
-	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
+	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
@@ -103,7 +103,7 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 			return nil, err
 		}
 
-		res.AnimeResources = aapiv1.ConvertAnimeResource(resources)
+		res.AnimeResources = av1.ConvertAnimeResource(resources)
 	}
 
 	if req.GetWithGenres() {
@@ -214,7 +214,7 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 				return nil, err
 			}
 
-			res.Sub = &ampbv1.AnimeMovieSubDataResponse{
+			res.Sub = &ashpbv1.AnimeSubDataResponse{
 				Videos:   convertAnimeMovieVideos(subVideos),
 				Torrents: convertAnimeMovieTorrents(subTorrents),
 			}
@@ -265,7 +265,7 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 				return nil, err
 			}
 
-			res.Dub = &ampbv1.AnimeMovieDubDataResponse{
+			res.Dub = &ashpbv1.AnimeDubDataResponse{
 				Videos:   convertAnimeMovieVideos(dubVideos),
 				Torrents: convertAnimeMovieTorrents(dubTorrents),
 			}
@@ -298,7 +298,7 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 			return nil, err
 		}
 
-		res.AnimeLinks = aapiv1.ConvertAnimeLink(link)
+		res.AnimeLinks = av1.ConvertAnimeLink(link)
 	}
 
 	if req.GetWithTags() {
@@ -319,7 +319,7 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 			return nil, shv1.ApiError("cannot get anime movie tag", err)
 		}
 
-		res.AnimeTags = aapiv1.ConvertAnimeTags(tags)
+		res.AnimeTags = av1.ConvertAnimeTags(tags)
 	}
 
 	if req.GetWithImages() {
@@ -375,9 +375,9 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		}
 
 		res.AnimeImages = &ashpbv1.AnimeImageResponse{
-			Posters:   aapiv1.ConvertAnimeImages(posters),
-			Backdrops: aapiv1.ConvertAnimeImages(backdrops),
-			Logos:     aapiv1.ConvertAnimeImages(logos),
+			Posters:   av1.ConvertAnimeImages(posters),
+			Backdrops: av1.ConvertAnimeImages(backdrops),
+			Logos:     av1.ConvertAnimeImages(logos),
 		}
 	}
 
@@ -399,7 +399,7 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 			return nil, shv1.ApiError("cannot get anime movie trailers", err)
 		}
 
-		res.AnimeTrailers = aapiv1.ConvertAnimeTrailers(trailers)
+		res.AnimeTrailers = av1.ConvertAnimeTrailers(trailers)
 	}
 
 	return res, nil

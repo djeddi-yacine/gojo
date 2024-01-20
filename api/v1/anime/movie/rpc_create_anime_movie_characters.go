@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
+	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
@@ -59,7 +59,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieCharacters(ctx context.Context, 
 
 	res.AnimeCharacters = make([]*ashpbv1.AnimeCharacterResponse, len(data.Characters))
 	for i, v := range data.Characters {
-		res.AnimeCharacters[i] = aapiv1.ConvertAnimeCharacter(v.AnimeCharacter)
+		res.AnimeCharacters[i] = av1.ConvertAnimeCharacter(v.AnimeCharacter)
 		res.AnimeCharacters[i].ActorsID = v.ActorsIDs
 	}
 

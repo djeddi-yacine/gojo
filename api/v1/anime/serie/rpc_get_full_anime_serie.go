@@ -3,7 +3,7 @@ package asapiv1
 import (
 	"context"
 
-	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
+	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ashpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb"
@@ -102,7 +102,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		return nil, err
 	}
 
-	res.AnimeLinks = aapiv1.ConvertAnimeLink(link)
+	res.AnimeLinks = av1.ConvertAnimeLink(link)
 
 	var pIDs []int64
 	if err = server.ping.Handle(ctx, cache.Posters(), &pIDs, func() error {
@@ -156,9 +156,9 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	}
 
 	res.AnimeImages = &ashpbv1.AnimeImageResponse{
-		Posters:   aapiv1.ConvertAnimeImages(posters),
-		Backdrops: aapiv1.ConvertAnimeImages(backdrops),
-		Logos:     aapiv1.ConvertAnimeImages(logos),
+		Posters:   av1.ConvertAnimeImages(posters),
+		Backdrops: av1.ConvertAnimeImages(backdrops),
+		Logos:     av1.ConvertAnimeImages(logos),
 	}
 
 	var rIDs []int64
@@ -178,7 +178,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		return nil, shv1.ApiError("cannot get anime serie trailers", err)
 	}
 
-	res.AnimeTrailers = aapiv1.ConvertAnimeTrailers(trailers)
+	res.AnimeTrailers = av1.ConvertAnimeTrailers(trailers)
 
 	return res, nil
 }

@@ -3,7 +3,7 @@ package amapiv1
 import (
 	"context"
 
-	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
+	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
@@ -86,9 +86,9 @@ func (server *AnimeMovieServer) GetAnimeMovieImages(ctx context.Context, req *am
 	}
 
 	res.AnimeImages = &ashpbv1.AnimeImageResponse{
-		Posters:   aapiv1.ConvertAnimeImages(posters),
-		Backdrops: aapiv1.ConvertAnimeImages(backdrops),
-		Logos:     aapiv1.ConvertAnimeImages(logos),
+		Posters:   av1.ConvertAnimeImages(posters),
+		Backdrops: av1.ConvertAnimeImages(backdrops),
+		Logos:     av1.ConvertAnimeImages(logos),
 	}
 
 	return res, nil

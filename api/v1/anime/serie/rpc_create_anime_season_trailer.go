@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
+	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
@@ -49,7 +49,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTrailer(ctx context.Context, re
 
 	res := &aspbv1.CreateAnimeSeasonTrailerResponse{
 		AnimeSeason:    convertAnimeSeason(data.AnimeSeason),
-		SeasonTrailers: aapiv1.ConvertAnimeTrailers(data.SeasonTrailers),
+		SeasonTrailers: av1.ConvertAnimeTrailers(data.SeasonTrailers),
 	}
 	return res, nil
 }

@@ -5,6 +5,7 @@ import (
 
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
+	ashpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
 	nfpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb"
 	"github.com/dj-yacine-flutter/gojo/ping"
@@ -142,7 +143,7 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeEpisode(ctx context.Context,
 				return nil, err
 			}
 
-			res.Sub = &aspbv1.AnimeEpisodeSubDataResponse{
+			res.Sub = &ashpbv1.AnimeSubDataResponse{
 				Videos:   convertAnimeEpisodeVideos(subVideos),
 				Torrents: convertAnimeEpisodeTorrents(subTorrents),
 			}
@@ -193,7 +194,7 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeEpisode(ctx context.Context,
 				return nil, err
 			}
 
-			res.Dub = &aspbv1.AnimeEpisodeDubDataResponse{
+			res.Dub = &ashpbv1.AnimeDubDataResponse{
 				Videos:   convertAnimeEpisodeVideos(dubVideos),
 				Torrents: convertAnimeEpisodeTorrents(dubTorrents),
 			}

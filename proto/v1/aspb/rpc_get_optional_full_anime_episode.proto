@@ -3,8 +3,8 @@ syntax = "proto3";
 package v1.aspbv1;
 
 import "v1/aspb/msg_anime_episode.proto";
+import "v1/ashpb/anime_server.proto";
 import "v1/nfpb/msg_meta.proto";
-import "v1/aspb/msg_server.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
 
@@ -17,9 +17,9 @@ message GetOptionalFullAnimeEpisodeRequest {
 }
 
 message GetOptionalFullAnimeEpisodeResponse {
-  AnimeEpisodeResponse                 animeEpisode = 1;
-  nfpbv1.AnimeMetaResponse             episodeMeta  = 2;
-  optional int64                       serverID     = 3;
-  optional AnimeEpisodeSubDataResponse sub          = 4;
-  optional AnimeEpisodeDubDataResponse dub          = 5;
+  AnimeEpisodeResponse     animeEpisode     = 1;
+  nfpbv1.AnimeMetaResponse episodeMeta      = 2;
+  optional int64           serverID         = 3;
+  optional ashpbv1.AnimeSubDataResponse sub = 4;
+  optional ashpbv1.AnimeDubDataResponse dub = 5;
 }

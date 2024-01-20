@@ -3,7 +3,7 @@ package asapiv1
 import (
 	"context"
 
-	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
+	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
@@ -101,7 +101,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 		return nil, err
 	}
 
-	res.SeasonResources = aapiv1.ConvertAnimeResource(resources)
+	res.SeasonResources = av1.ConvertAnimeResource(resources)
 
 	var gIDs []int32
 	if err = server.ping.Handle(ctx, cache.Genre(), &gIDs, func() error {
@@ -158,7 +158,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 		return nil, shv1.ApiError("cannot get anime season tag", err)
 	}
 
-	res.SeasonTags = aapiv1.ConvertAnimeTags(tags)
+	res.SeasonTags = av1.ConvertAnimeTags(tags)
 
 	var pIDs []int64
 	if err = server.ping.Handle(ctx, cache.Posters(), &pIDs, func() error {
@@ -177,7 +177,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 		return nil, shv1.ApiError("cannot get anime season posters images", err)
 	}
 
-	res.SeasonPosters = aapiv1.ConvertAnimeImages(posters)
+	res.SeasonPosters = av1.ConvertAnimeImages(posters)
 
 	var rIDs []int64
 	if err = server.ping.Handle(ctx, cache.Trailers(), &rIDs, func() error {
@@ -196,7 +196,7 @@ func (server *AnimeSerieServer) GetFullAnimeSeason(ctx context.Context, req *asp
 		return nil, shv1.ApiError("cannot get anime season trailers", err)
 	}
 
-	res.SeasonTrailers = aapiv1.ConvertAnimeTrailers(trailers)
+	res.SeasonTrailers = av1.ConvertAnimeTrailers(trailers)
 
 	return res, nil
 }

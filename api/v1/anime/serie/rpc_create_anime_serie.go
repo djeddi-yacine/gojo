@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
+	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
@@ -69,7 +69,7 @@ func (server *AnimeSerieServer) CreateAnimeSerie(ctx context.Context, req *aspbv
 
 	res := &aspbv1.CreateAnimeSerieResponse{
 		AnimeSerie: convertAnimeSerie(data.AnimeSerie),
-		AnimeLinks: aapiv1.ConvertAnimeLink(data.AnimeLink),
+		AnimeLinks: av1.ConvertAnimeLink(data.AnimeLink),
 	}
 
 	titles := make([]string, len(data.AnimeMetas))

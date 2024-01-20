@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
+	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
@@ -52,7 +52,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieResource(ctx context.Context, re
 
 	res := &ampbv1.CreateAnimeMovieResourceResponse{
 		AnimeMovie:     convertAnimeMovie(data.AnimeMovie),
-		AnimeResources: aapiv1.ConvertAnimeResource(data.AnimeResource),
+		AnimeResources: av1.ConvertAnimeResource(data.AnimeResource),
 	}
 	return res, nil
 }

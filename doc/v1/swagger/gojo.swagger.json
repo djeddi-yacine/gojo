@@ -2474,44 +2474,6 @@
     }
   },
   "definitions": {
-    "ampbv1AnimeMovieDubDataRequest": {
-      "type": "object",
-      "properties": {
-        "videos": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/ampbv1AnimeMovieVideoRequest"
-          }
-        },
-        "torrents": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/ampbv1AnimeMovieTorrentRequest"
-          }
-        }
-      }
-    },
-    "ampbv1AnimeMovieDubDataResponse": {
-      "type": "object",
-      "properties": {
-        "videos": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/ampbv1AnimeMovieVideoResponse"
-          }
-        },
-        "torrents": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/ampbv1AnimeMovieTorrentResponse"
-          }
-        }
-      }
-    },
     "ampbv1AnimeMovieRequest": {
       "type": "object",
       "properties": {
@@ -2591,176 +2553,6 @@
         }
       }
     },
-    "ampbv1AnimeMovieSubDataRequest": {
-      "type": "object",
-      "properties": {
-        "videos": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/ampbv1AnimeMovieVideoRequest"
-          }
-        },
-        "torrents": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/ampbv1AnimeMovieTorrentRequest"
-          }
-        }
-      }
-    },
-    "ampbv1AnimeMovieSubDataResponse": {
-      "type": "object",
-      "properties": {
-        "videos": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/ampbv1AnimeMovieVideoResponse"
-          }
-        },
-        "torrents": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/ampbv1AnimeMovieTorrentResponse"
-          }
-        }
-      }
-    },
-    "ampbv1AnimeMovieTorrentRequest": {
-      "type": "object",
-      "properties": {
-        "languageID": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "fileName": {
-          "type": "string"
-        },
-        "torrentHash": {
-          "type": "string"
-        },
-        "torrentFile": {
-          "type": "string"
-        },
-        "seeds": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "peers": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "leechers": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "sizeBytes": {
-          "type": "string",
-          "format": "int64"
-        },
-        "quality": {
-          "type": "string"
-        }
-      }
-    },
-    "ampbv1AnimeMovieTorrentResponse": {
-      "type": "object",
-      "properties": {
-        "ID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "languageID": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "fileName": {
-          "type": "string"
-        },
-        "torrentHash": {
-          "type": "string"
-        },
-        "torrentFile": {
-          "type": "string"
-        },
-        "seeds": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "peers": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "leechers": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "sizeBytes": {
-          "type": "string",
-          "format": "int64"
-        },
-        "quality": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "ampbv1AnimeMovieVideoRequest": {
-      "type": "object",
-      "properties": {
-        "languageID": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "authority": {
-          "type": "string"
-        },
-        "referer": {
-          "type": "string"
-        },
-        "link": {
-          "type": "string"
-        },
-        "quality": {
-          "type": "string"
-        }
-      }
-    },
-    "ampbv1AnimeMovieVideoResponse": {
-      "type": "object",
-      "properties": {
-        "ID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "languageID": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "authority": {
-          "type": "string"
-        },
-        "referer": {
-          "type": "string"
-        },
-        "link": {
-          "type": "string"
-        },
-        "quality": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
     "ampbv1CreateAnimeMovieCharactersRequest": {
       "type": "object",
       "properties": {
@@ -2800,10 +2592,10 @@
           "format": "int64"
         },
         "sub": {
-          "$ref": "#/definitions/ampbv1AnimeMovieSubDataRequest"
+          "$ref": "#/definitions/ashpbv1AnimeSubDataRequest"
         },
         "dub": {
-          "$ref": "#/definitions/ampbv1AnimeMovieDubDataRequest"
+          "$ref": "#/definitions/ashpbv1AnimeDubDataRequest"
         }
       }
     },
@@ -2814,10 +2606,10 @@
           "$ref": "#/definitions/ampbv1AnimeMovieResponse"
         },
         "sub": {
-          "$ref": "#/definitions/ampbv1AnimeMovieSubDataResponse"
+          "$ref": "#/definitions/ashpbv1AnimeSubDataResponse"
         },
         "dub": {
-          "$ref": "#/definitions/ampbv1AnimeMovieDubDataResponse"
+          "$ref": "#/definitions/ashpbv1AnimeDubDataResponse"
         }
       }
     },
@@ -3211,10 +3003,10 @@
           "format": "int64"
         },
         "sub": {
-          "$ref": "#/definitions/ampbv1AnimeMovieSubDataResponse"
+          "$ref": "#/definitions/ashpbv1AnimeSubDataResponse"
         },
         "dub": {
-          "$ref": "#/definitions/ampbv1AnimeMovieDubDataResponse"
+          "$ref": "#/definitions/ashpbv1AnimeDubDataResponse"
         }
       }
     },
@@ -3269,10 +3061,10 @@
           "format": "int64"
         },
         "sub": {
-          "$ref": "#/definitions/ampbv1AnimeMovieSubDataResponse"
+          "$ref": "#/definitions/ashpbv1AnimeSubDataResponse"
         },
         "dub": {
-          "$ref": "#/definitions/ampbv1AnimeMovieDubDataResponse"
+          "$ref": "#/definitions/ashpbv1AnimeDubDataResponse"
         }
       }
     },
@@ -3420,6 +3212,44 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "ashpbv1AnimeDubDataRequest": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeVideoRequest"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTorrentRequest"
+          }
+        }
+      }
+    },
+    "ashpbv1AnimeDubDataResponse": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeVideoResponse"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTorrentResponse"
+          }
         }
       }
     },
@@ -3623,6 +3453,44 @@
         }
       }
     },
+    "ashpbv1AnimeSubDataRequest": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeVideoRequest"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTorrentRequest"
+          }
+        }
+      }
+    },
+    "ashpbv1AnimeSubDataResponse": {
+      "type": "object",
+      "properties": {
+        "videos": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeVideoResponse"
+          }
+        },
+        "torrents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/ashpbv1AnimeTorrentResponse"
+          }
+        }
+      }
+    },
     "ashpbv1AnimeTag": {
       "type": "object",
       "properties": {
@@ -3704,6 +3572,88 @@
         }
       }
     },
+    "ashpbv1AnimeTorrentRequest": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "torrentHash": {
+          "type": "string"
+        },
+        "torrentFile": {
+          "type": "string"
+        },
+        "seeds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "peers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "leechers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sizeBytes": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quality": {
+          "type": "string"
+        }
+      }
+    },
+    "ashpbv1AnimeTorrentResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "torrentHash": {
+          "type": "string"
+        },
+        "torrentFile": {
+          "type": "string"
+        },
+        "seeds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "peers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "leechers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sizeBytes": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quality": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
     "ashpbv1AnimeTrailerRequest": {
       "type": "object",
       "properties": {
@@ -3732,6 +3682,56 @@
           "type": "string"
         },
         "hostKey": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ashpbv1AnimeVideoRequest": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "authority": {
+          "type": "string"
+        },
+        "referer": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "quality": {
+          "type": "string"
+        }
+      }
+    },
+    "ashpbv1AnimeVideoResponse": {
+      "type": "object",
+      "properties": {
+        "ID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "authority": {
+          "type": "string"
+        },
+        "referer": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "quality": {
           "type": "string"
         },
         "createdAt": {
@@ -3795,44 +3795,6 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
-        }
-      }
-    },
-    "aspbv1AnimeEpisodeDubDataRequest": {
-      "type": "object",
-      "properties": {
-        "videos": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/aspbv1AnimeEpisodeVideoRequest"
-          }
-        },
-        "torrents": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/aspbv1AnimeEpisodeTorrentRequest"
-          }
-        }
-      }
-    },
-    "aspbv1AnimeEpisodeDubDataResponse": {
-      "type": "object",
-      "properties": {
-        "videos": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/aspbv1AnimeEpisodeVideoResponse"
-          }
-        },
-        "torrents": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/aspbv1AnimeEpisodeTorrentResponse"
-          }
         }
       }
     },
@@ -3900,176 +3862,6 @@
           "type": "string"
         },
         "thumbnailsBlurHash": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "aspbv1AnimeEpisodeSubDataRequest": {
-      "type": "object",
-      "properties": {
-        "videos": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/aspbv1AnimeEpisodeVideoRequest"
-          }
-        },
-        "torrents": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/aspbv1AnimeEpisodeTorrentRequest"
-          }
-        }
-      }
-    },
-    "aspbv1AnimeEpisodeSubDataResponse": {
-      "type": "object",
-      "properties": {
-        "videos": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/aspbv1AnimeEpisodeVideoResponse"
-          }
-        },
-        "torrents": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "$ref": "#/definitions/aspbv1AnimeEpisodeTorrentResponse"
-          }
-        }
-      }
-    },
-    "aspbv1AnimeEpisodeTorrentRequest": {
-      "type": "object",
-      "properties": {
-        "languageID": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "fileName": {
-          "type": "string"
-        },
-        "torrentHash": {
-          "type": "string"
-        },
-        "torrentFile": {
-          "type": "string"
-        },
-        "seeds": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "peers": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "leechers": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "sizeBytes": {
-          "type": "string",
-          "format": "int64"
-        },
-        "quality": {
-          "type": "string"
-        }
-      }
-    },
-    "aspbv1AnimeEpisodeTorrentResponse": {
-      "type": "object",
-      "properties": {
-        "ID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "languageID": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "fileName": {
-          "type": "string"
-        },
-        "torrentHash": {
-          "type": "string"
-        },
-        "torrentFile": {
-          "type": "string"
-        },
-        "seeds": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "peers": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "leechers": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "sizeBytes": {
-          "type": "string",
-          "format": "int64"
-        },
-        "quality": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time"
-        }
-      }
-    },
-    "aspbv1AnimeEpisodeVideoRequest": {
-      "type": "object",
-      "properties": {
-        "languageID": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "authority": {
-          "type": "string"
-        },
-        "referer": {
-          "type": "string"
-        },
-        "link": {
-          "type": "string"
-        },
-        "quality": {
-          "type": "string"
-        }
-      }
-    },
-    "aspbv1AnimeEpisodeVideoResponse": {
-      "type": "object",
-      "properties": {
-        "ID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "languageID": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "authority": {
-          "type": "string"
-        },
-        "referer": {
-          "type": "string"
-        },
-        "link": {
-          "type": "string"
-        },
-        "quality": {
           "type": "string"
         },
         "createdAt": {
@@ -4243,10 +4035,10 @@
           "format": "int64"
         },
         "sub": {
-          "$ref": "#/definitions/aspbv1AnimeEpisodeSubDataRequest"
+          "$ref": "#/definitions/ashpbv1AnimeSubDataRequest"
         },
         "dub": {
-          "$ref": "#/definitions/aspbv1AnimeEpisodeDubDataRequest"
+          "$ref": "#/definitions/ashpbv1AnimeDubDataRequest"
         }
       }
     },
@@ -4257,10 +4049,10 @@
           "$ref": "#/definitions/aspbv1AnimeEpisodeResponse"
         },
         "sub": {
-          "$ref": "#/definitions/aspbv1AnimeEpisodeSubDataResponse"
+          "$ref": "#/definitions/ashpbv1AnimeSubDataResponse"
         },
         "dub": {
-          "$ref": "#/definitions/aspbv1AnimeEpisodeDubDataResponse"
+          "$ref": "#/definitions/ashpbv1AnimeDubDataResponse"
         }
       }
     },
@@ -4824,10 +4616,10 @@
           "format": "int64"
         },
         "sub": {
-          "$ref": "#/definitions/aspbv1AnimeEpisodeSubDataResponse"
+          "$ref": "#/definitions/ashpbv1AnimeSubDataResponse"
         },
         "dub": {
-          "$ref": "#/definitions/aspbv1AnimeEpisodeDubDataResponse"
+          "$ref": "#/definitions/ashpbv1AnimeDubDataResponse"
         }
       }
     },
@@ -4918,10 +4710,10 @@
           "format": "int64"
         },
         "sub": {
-          "$ref": "#/definitions/aspbv1AnimeEpisodeSubDataResponse"
+          "$ref": "#/definitions/ashpbv1AnimeSubDataResponse"
         },
         "dub": {
-          "$ref": "#/definitions/aspbv1AnimeEpisodeDubDataResponse"
+          "$ref": "#/definitions/ashpbv1AnimeDubDataResponse"
         }
       }
     },

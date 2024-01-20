@@ -3,7 +3,7 @@ syntax = "proto3";
 package v1.ampbv1;
 
 import "v1/ampb/msg_anime_movie.proto";
-import "v1/ampb/msg_server.proto";
+import "v1/ashpb/anime_server.proto";
 import "v1/nfpb/msg_meta.proto";
 import "v1/nfpb/msg_genre.proto";
 import "v1/nfpb/msg_studio.proto";
@@ -31,6 +31,6 @@ message GetFullAnimeMovieResponse {
   ashpbv1.AnimeImageResponse animeImages              = 8;
   repeated ashpbv1.AnimeTrailerResponse animeTrailers = 9;
   int64                                 serverID      = 10;
-  AnimeMovieSubDataResponse             sub           = 11;
-  AnimeMovieDubDataResponse             dub           = 12;
+  ashpbv1.AnimeSubDataResponse          sub           = 11;
+  ashpbv1.AnimeDubDataResponse          dub           = 12;
 }

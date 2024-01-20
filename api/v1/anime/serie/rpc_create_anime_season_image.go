@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
+	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
@@ -52,7 +52,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonImage(ctx context.Context, req 
 
 	res := &aspbv1.CreateAnimeSeasonImageResponse{
 		AnimeSeason:   convertAnimeSeason(data.AnimeSeason),
-		SeasonPosters: aapiv1.ConvertAnimeImages(data.AnimePosters),
+		SeasonPosters: av1.ConvertAnimeImages(data.AnimePosters),
 	}
 	return res, nil
 }

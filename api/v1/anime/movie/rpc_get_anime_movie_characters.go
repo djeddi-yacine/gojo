@@ -3,7 +3,7 @@ package amapiv1
 import (
 	"context"
 
-	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
+	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
@@ -54,7 +54,7 @@ func (server *AnimeMovieServer) GetAnimeMovieCharacters(ctx context.Context, req
 	res.AnimeCharacters = make([]*ashpbv1.AnimeCharacter, len(data))
 	for i, v := range data {
 		res.AnimeCharacters[i] = &ashpbv1.AnimeCharacter{
-			Character: aapiv1.ConvertAnimeCharacter(v.Character),
+			Character: av1.ConvertAnimeCharacter(v.Character),
 			Actors:    shv1.ConvertActors(v.Actor),
 		}
 	}

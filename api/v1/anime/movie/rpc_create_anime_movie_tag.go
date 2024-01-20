@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
+	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
@@ -47,7 +47,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieTag(ctx context.Context, req *am
 
 	res := &ampbv1.CreateAnimeMovieTagResponse{
 		AnimeMovie: convertAnimeMovie(data.AnimeMovie),
-		AnimeTags:  aapiv1.ConvertAnimeTags(data.AnimeTags),
+		AnimeTags:  av1.ConvertAnimeTags(data.AnimeTags),
 	}
 
 	return res, nil

@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	aapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
+	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
@@ -47,7 +47,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTag(ctx context.Context, req *a
 
 	res := &aspbv1.CreateAnimeSeasonTagResponse{
 		AnimeSeason: convertAnimeSeason(data.AnimeSeason),
-		SeasonTags:  aapiv1.ConvertAnimeTags(data.SeasonTags),
+		SeasonTags:  av1.ConvertAnimeTags(data.SeasonTags),
 	}
 
 	return res, nil

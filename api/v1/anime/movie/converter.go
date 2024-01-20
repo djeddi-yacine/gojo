@@ -3,6 +3,7 @@ package amapiv1
 import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
+	ashpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb"
 	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
@@ -28,12 +29,12 @@ func convertAnimeMovie(v db.AnimeMovie) *ampbv1.AnimeMovieResponse {
 	return nil
 }
 
-func convertAnimeMovieVideos(v []db.AnimeMovieVideo) []*ampbv1.AnimeMovieVideoResponse {
+func convertAnimeMovieVideos(v []db.AnimeMovieVideo) []*ashpbv1.AnimeVideoResponse {
 	if len(v) > 0 {
-		videos := make([]*ampbv1.AnimeMovieVideoResponse, len(v))
+		videos := make([]*ashpbv1.AnimeVideoResponse, len(v))
 
 		for i, x := range v {
-			videos[i] = &ampbv1.AnimeMovieVideoResponse{
+			videos[i] = &ashpbv1.AnimeVideoResponse{
 				ID:         x.ID,
 				LanguageID: x.LanguageID,
 				Authority:  x.Authority,
@@ -49,12 +50,12 @@ func convertAnimeMovieVideos(v []db.AnimeMovieVideo) []*ampbv1.AnimeMovieVideoRe
 	}
 }
 
-func convertAnimeMovieTorrents(v []db.AnimeMovieTorrent) []*ampbv1.AnimeMovieTorrentResponse {
+func convertAnimeMovieTorrents(v []db.AnimeMovieTorrent) []*ashpbv1.AnimeTorrentResponse {
 	if len(v) > 0 {
-		torrents := make([]*ampbv1.AnimeMovieTorrentResponse, len(v))
+		torrents := make([]*ashpbv1.AnimeTorrentResponse, len(v))
 
 		for i, x := range v {
-			torrents[i] = &ampbv1.AnimeMovieTorrentResponse{
+			torrents[i] = &ashpbv1.AnimeTorrentResponse{
 				ID:          x.ID,
 				LanguageID:  x.LanguageID,
 				FileName:    x.FileName,

@@ -1,4 +1,4 @@
-package aapiv1
+package av1
 
 import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
