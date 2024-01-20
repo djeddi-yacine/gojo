@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gojo-meili-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gojo-meili
+  template:
+    metadata:
+      labels:
+        app: gojo-meili
+    spec:
+      containers:
+        - name: meili
+          image: getmeili/meilisearch:v1.6.0-rc.5
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: meili-config
+          ports:
+            - containerPort: 7700
+              name: "meili"
+          resources:
+            requests:
+              memory: "1500Mi"
+              cpu: "500m"
+            limits:
+              memory: "2500Mi"
+              cpu: "1000m"

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gojo-postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gojo-postgres
+  template:
+    metadata:
+      labels:
+        app: gojo-postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:16.1-alpine3.19
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+          ports:
+            - containerPort: 5432
+              name: "postgres"
+          resources:
+            requests:
+              memory: "2000Mi"
+              cpu: "1000m"
+            limits:
+              memory: "4000Mi"
+              cpu: "2000m"

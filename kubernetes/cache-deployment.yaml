@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gojo-cache-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gojo-cache
+  template:
+    metadata:
+      labels:
+        app: gojo-cache
+    spec:
+      containers:
+        - name: redis
+          image: redis:7.2.3-alpine3.19
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: REDIS_PORT
+              value: "6380"
+          ports:
+            - containerPort: 6380
+              name: "cache"
+          resources:
+            requests:
+              memory: "1500Mi"
+              cpu: "500m"
+            limits:
+              memory: "2500Mi"
+              cpu: "1000m"
+          command: ["redis-server", "--port", "6380"]

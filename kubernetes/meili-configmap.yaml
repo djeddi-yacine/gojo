@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: meili-config
+  labels:
+    app: meili-config
+data:
+  MEILI_MASTER_KEY: "e0c9c675bb5dc4a5e742121ef6b3f9a8"
+  MEILI_NO_ANALYTICS: "true"
+  MEILI_NO_SENTRY: "true"
+  MEILI_ENV: "production"
+  MEILI_LOG_LEVEL: "OFF"

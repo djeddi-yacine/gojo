@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: gojo-migration
+spec:
+  template:
+    spec:
+      containers:
+        - name: migration
+          image: ghcr.io/dj-yacine-flutter/gojo-migration:latest
+          imagePullPolicy: Always
+          env:
+            - name: DB_SOURCE
+              value: "postgresql://root:secret@gojo-postgres-service:5432/gojo?sslmode=disable"
+      restartPolicy: OnFailure

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gojo-queue-service
+spec:
+  selector:
+    app: gojo-queue
+  ports:
+    - protocol: TCP
+      port: 6370
+      name: "queue"
+      targetPort: "queue"
+  type: ClusterIP
