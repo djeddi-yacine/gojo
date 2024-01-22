@@ -3,16 +3,16 @@ syntax = "proto3";
 package v1.ampbv1;
 
 import "v1/ampb/msg_anime_movie.proto";
-import "v1/ashpb/anime_character.proto";
+import "v1/apb/anime_character.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
 
 message CreateAnimeMovieCharactersRequest {
-  int64    animeID                                       = 1;
-  repeated ashpbv1.AnimeCharacterRequest animeCharacters = 2;
+  int64    animeID                                     = 1;
+  repeated apbv1.AnimeCharacterRequest animeCharacters = 2;
 }
 
 message CreateAnimeMovieCharactersResponse {
-  AnimeMovieResponse animeMovie                           = 1;
-  repeated ashpbv1.AnimeCharacterResponse animeCharacters = 2;
+  AnimeMovieResponse animeMovie                         = 1;
+  repeated apbv1.AnimeCharacterResponse animeCharacters = 2;
 }

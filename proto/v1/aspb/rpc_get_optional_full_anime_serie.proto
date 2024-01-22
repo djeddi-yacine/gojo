@@ -4,9 +4,9 @@ package v1.aspbv1;
 
 import "v1/aspb/msg_anime_serie.proto";
 import "v1/nfpb/msg_meta.proto";
-import "v1/ashpb/anime_link.proto";
-import "v1/ashpb/anime_image.proto";
-import "v1/ashpb/anime_trailer.proto";
+import "v1/apb/anime_link.proto";
+import "v1/apb/anime_image.proto";
+import "v1/apb/anime_trailer.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
 
@@ -19,9 +19,9 @@ message GetOptionalFullAnimeSerieRequest {
 }
 
 message GetOptionalFullAnimeSerieResponse {
-  AnimeSerieResponse animeSerie                       = 1;
-  optional nfpbv1.AnimeMetaResponse animeMeta         = 2;
-  optional ashpbv1.AnimeLinkResponse animeLinks       = 3;
-  optional ashpbv1.AnimeImageResponse animeImages     = 4;
-  repeated ashpbv1.AnimeTrailerResponse animeTrailers = 5;
+  AnimeSerieResponse animeSerie                     = 1;
+  optional nfpbv1.AnimeMetaResponse animeMeta       = 2;
+  optional apbv1.AnimeLinkResponse animeLinks       = 3;
+  optional apbv1.AnimeImageResponse animeImages     = 4;
+  repeated apbv1.AnimeTrailerResponse animeTrailers = 5;
 }

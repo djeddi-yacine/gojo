@@ -3,7 +3,7 @@ syntax = "proto3";
 package v1.ampbv1;
 
 import "v1/ampb/msg_anime_movie.proto";
-import "v1/ashpb/anime_tag.proto";
+import "v1/apb/anime_tag.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
 
@@ -13,6 +13,6 @@ message CreateAnimeMovieTagRequest {
 }
 
 message CreateAnimeMovieTagResponse {
-  AnimeMovieResponse animeMovie       = 1;
-  repeated ashpbv1.AnimeTag animeTags = 2;
+  AnimeMovieResponse animeMovie     = 1;
+  repeated apbv1.AnimeTag animeTags = 2;
 }

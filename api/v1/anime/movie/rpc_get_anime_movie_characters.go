@@ -7,7 +7,7 @@ import (
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
-	ashpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb"
+	apbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/apb"
 	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/jackc/pgerrcode"
@@ -51,9 +51,9 @@ func (server *AnimeMovieServer) GetAnimeMovieCharacters(ctx context.Context, req
 		return nil, shv1.ApiError("cannot get anime movie characters", err)
 	}
 
-	res.AnimeCharacters = make([]*ashpbv1.AnimeCharacter, len(data))
+	res.AnimeCharacters = make([]*apbv1.AnimeCharacter, len(data))
 	for i, v := range data {
-		res.AnimeCharacters[i] = &ashpbv1.AnimeCharacter{
+		res.AnimeCharacters[i] = &apbv1.AnimeCharacter{
 			Character: av1.ConvertAnimeCharacter(v.Character),
 			Actors:    shv1.ConvertActors(v.Actor),
 		}

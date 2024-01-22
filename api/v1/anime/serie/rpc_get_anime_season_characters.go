@@ -6,7 +6,7 @@ import (
 	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	ashpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb"
+	apbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/apb"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
 	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/utils"
@@ -51,9 +51,9 @@ func (server *AnimeSerieServer) GetAnimeSeasonCharacters(ctx context.Context, re
 		return nil, shv1.ApiError("cannot get anime season characters", err)
 	}
 
-	res.SeasonCharacters = make([]*ashpbv1.AnimeCharacter, len(data))
+	res.SeasonCharacters = make([]*apbv1.AnimeCharacter, len(data))
 	for i, v := range data {
-		res.SeasonCharacters[i] = &ashpbv1.AnimeCharacter{
+		res.SeasonCharacters[i] = &apbv1.AnimeCharacter{
 			Character: av1.ConvertAnimeCharacter(v.Character),
 			Actors:    shv1.ConvertActors(v.Actor),
 		}

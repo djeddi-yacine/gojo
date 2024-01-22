@@ -7,7 +7,7 @@ import (
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
-	ashpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb"
+	apbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/apb"
 	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/jackc/pgerrcode"
@@ -85,7 +85,7 @@ func (server *AnimeMovieServer) GetAnimeMovieImages(ctx context.Context, req *am
 		return nil, shv1.ApiError("cannot get anime movie logos images", err)
 	}
 
-	res.AnimeImages = &ashpbv1.AnimeImageResponse{
+	res.AnimeImages = &apbv1.AnimeImageResponse{
 		Posters:   av1.ConvertAnimeImages(posters),
 		Backdrops: av1.ConvertAnimeImages(backdrops),
 		Logos:     av1.ConvertAnimeImages(logos),

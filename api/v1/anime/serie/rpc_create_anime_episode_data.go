@@ -6,7 +6,7 @@ import (
 
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	ashpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb"
+	apbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/apb"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -87,11 +87,11 @@ func (server *AnimeSerieServer) CreateAnimeEpisodeData(ctx context.Context, req 
 
 	res := &aspbv1.CreateAnimeEpisodeDataResponse{
 		Episode: convertAnimeEpisode(data.AnimeEpisode),
-		Sub: &ashpbv1.AnimeSubDataResponse{
+		Sub: &apbv1.AnimeSubDataResponse{
 			Videos:   convertAnimeEpisodeVideos(data.AnimeEpisodeSubVideos),
 			Torrents: convertAnimeEpisodeTorrents(data.AnimeEpisodeSubTorrents),
 		},
-		Dub: &ashpbv1.AnimeDubDataResponse{
+		Dub: &apbv1.AnimeDubDataResponse{
 			Videos:   convertAnimeEpisodeVideos(data.AnimeEpisodeDubVideos),
 			Torrents: convertAnimeEpisodeTorrents(data.AnimeEpisodeDubTorrents),
 		},

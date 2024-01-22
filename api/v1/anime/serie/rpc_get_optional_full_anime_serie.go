@@ -6,7 +6,7 @@ import (
 	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	ashpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb"
+	apbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/apb"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
 	nfpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb"
 	"github.com/dj-yacine-flutter/gojo/ping"
@@ -143,7 +143,7 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeSerie(ctx context.Context, r
 			return nil, shv1.ApiError("cannot get anime serie logos images", err)
 		}
 
-		res.AnimeImages = &ashpbv1.AnimeImageResponse{
+		res.AnimeImages = &apbv1.AnimeImageResponse{
 			Posters:   av1.ConvertAnimeImages(posters),
 			Backdrops: av1.ConvertAnimeImages(backdrops),
 			Logos:     av1.ConvertAnimeImages(logos),

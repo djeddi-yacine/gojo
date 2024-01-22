@@ -3,15 +3,15 @@ syntax = "proto3";
 package v1.ampbv1;
 
 import "v1/ampb/msg_anime_movie.proto";
-import "v1/ashpb/anime_server.proto";
+import "v1/apb/anime_server.proto";
 import "v1/nfpb/msg_meta.proto";
 import "v1/nfpb/msg_genre.proto";
 import "v1/nfpb/msg_studio.proto";
-import "v1/ashpb/anime_tag.proto";
-import "v1/ashpb/anime_resource.proto";
-import "v1/ashpb/anime_link.proto";
-import "v1/ashpb/anime_image.proto";
-import "v1/ashpb/anime_trailer.proto";
+import "v1/apb/anime_tag.proto";
+import "v1/apb/anime_resource.proto";
+import "v1/apb/anime_link.proto";
+import "v1/apb/anime_image.proto";
+import "v1/apb/anime_trailer.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
 
@@ -21,16 +21,16 @@ message GetFullAnimeMovieRequest {
 }
 
 message GetFullAnimeMovieResponse {
-  AnimeMovieResponse            animeMovie            = 1;
-  nfpbv1.AnimeMetaResponse      animeMeta             = 2;
-  ashpbv1.AnimeResourceResponse animeResources        = 3;
-  repeated nfpbv1.Genre animeGenres                   = 4;
-  repeated nfpbv1.Studio    animeStudios              = 5;
-  ashpbv1.AnimeLinkResponse animeLinks                = 6;
-  repeated ashpbv1.AnimeTag  animeTags                = 7;
-  ashpbv1.AnimeImageResponse animeImages              = 8;
-  repeated ashpbv1.AnimeTrailerResponse animeTrailers = 9;
-  int64                                 serverID      = 10;
-  ashpbv1.AnimeSubDataResponse          sub           = 11;
-  ashpbv1.AnimeDubDataResponse          dub           = 12;
+  AnimeMovieResponse          animeMovie            = 1;
+  nfpbv1.AnimeMetaResponse    animeMeta             = 2;
+  apbv1.AnimeResourceResponse animeResources        = 3;
+  repeated nfpbv1.Genre animeGenres                 = 4;
+  repeated nfpbv1.Studio  animeStudios              = 5;
+  apbv1.AnimeLinkResponse animeLinks                = 6;
+  repeated apbv1.AnimeTag  animeTags                = 7;
+  apbv1.AnimeImageResponse animeImages              = 8;
+  repeated apbv1.AnimeTrailerResponse animeTrailers = 9;
+  int64                               serverID      = 10;
+  apbv1.AnimeSubDataResponse          sub           = 11;
+  apbv1.AnimeDubDataResponse          dub           = 12;
 }

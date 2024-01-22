@@ -7,7 +7,7 @@ import (
 
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	ashpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb"
+	apbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/apb"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -65,13 +65,13 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTitles(ctx context.Context, req
 
 	var titles []string
 	res := &aspbv1.CreateAnimeSeasonTitlesResponse{
-		SeasonTitles: &ashpbv1.AnimeTitlesResponse{},
+		SeasonTitles: &apbv1.AnimeTitlesResponse{},
 	}
 
 	if len(data.AnimeOfficialTitles) > 0 {
-		res.SeasonTitles.Officials = make([]*ashpbv1.AnimeTitle, len(data.AnimeOfficialTitles))
+		res.SeasonTitles.Officials = make([]*apbv1.AnimeTitle, len(data.AnimeOfficialTitles))
 		for i, v := range data.AnimeOfficialTitles {
-			res.SeasonTitles.Officials[i] = &ashpbv1.AnimeTitle{
+			res.SeasonTitles.Officials[i] = &apbv1.AnimeTitle{
 				ID:        v.ID,
 				TitleText: v.TitleText,
 				CreatedAt: timestamppb.New(v.CreatedAt),
@@ -81,9 +81,9 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTitles(ctx context.Context, req
 	}
 
 	if len(data.AnimeShortTitles) > 0 {
-		res.SeasonTitles.Shorts = make([]*ashpbv1.AnimeTitle, len(data.AnimeShortTitles))
+		res.SeasonTitles.Shorts = make([]*apbv1.AnimeTitle, len(data.AnimeShortTitles))
 		for i, v := range data.AnimeShortTitles {
-			res.SeasonTitles.Shorts[i] = &ashpbv1.AnimeTitle{
+			res.SeasonTitles.Shorts[i] = &apbv1.AnimeTitle{
 				ID:        v.ID,
 				TitleText: v.TitleText,
 				CreatedAt: timestamppb.New(v.CreatedAt),
@@ -93,9 +93,9 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTitles(ctx context.Context, req
 	}
 
 	if len(data.AnimeOtherTitles) > 0 {
-		res.SeasonTitles.Others = make([]*ashpbv1.AnimeTitle, len(data.AnimeOtherTitles))
+		res.SeasonTitles.Others = make([]*apbv1.AnimeTitle, len(data.AnimeOtherTitles))
 		for i, v := range data.AnimeOtherTitles {
-			res.SeasonTitles.Others[i] = &ashpbv1.AnimeTitle{
+			res.SeasonTitles.Others[i] = &apbv1.AnimeTitle{
 				ID:        v.ID,
 				TitleText: v.TitleText,
 				CreatedAt: timestamppb.New(v.CreatedAt),

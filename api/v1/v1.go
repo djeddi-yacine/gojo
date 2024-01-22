@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	"github.com/dj-yacine-flutter/gojo/api"
+	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	amapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime/movie"
 	asapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime/serie"
 	nfapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/info"
@@ -14,6 +15,7 @@ import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	_ "github.com/dj-yacine-flutter/gojo/doc/v1/statik"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
+	apbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/apb"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
 	nfpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb"
 	uspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/uspb"
@@ -42,17 +44,19 @@ func Start(config utils.Config, gojo db.Gojo, tokenMaker token.Maker, taskDistri
 
 	ussvc := usapiv1.NewUserServer(config, gojo, tokenMaker, taskDistributor)
 	nfsvc := nfapiv1.NewInfoServer(gojo, tokenMaker)
-	amsvc := amapiv1.NewAnimeMovieServer(config, gojo, tokenMaker, ping, amx)
-	assvc := asapiv1.NewAnimeSerieServer(config, gojo, tokenMaker, ping, asx)
+	asvc := av1.NewAnimeServer(gojo, tokenMaker)
+	amsvc := amapiv1.NewAnimeMovieServer(gojo, tokenMaker, ping, amx)
+	assvc := asapiv1.NewAnimeSerieServer(gojo, tokenMaker, ping, asx)
 
-	go startGatewayApi(config, ussvc, nfsvc, amsvc, assvc)
-	startGRPCApi(config, ussvc, nfsvc, amsvc, assvc)
+	go startGatewayApi(config, ussvc, nfsvc, asvc, amsvc, assvc)
+	startGRPCApi(config, ussvc, nfsvc, asvc, amsvc, assvc)
 }
 
 func startGRPCApi(
 	config utils.Config,
 	ussvc *usapiv1.UserServer,
 	nfsvc *nfapiv1.InfoServer,
+	asvc *av1.AnimeServer,
 	amsvc *amapiv1.AnimeMovieServer,
 	assvc *asapiv1.AnimeSerieServer,
 ) {
@@ -63,6 +67,7 @@ func startGRPCApi(
 
 	uspbv1.RegisterUserServiceServer(server, ussvc)
 	nfpbv1.RegisterInfoServiceServer(server, nfsvc)
+	apbv1.RegisterAnimeServiceServer(server, asvc)
 	ampbv1.RegisterAnimeMovieServiceServer(server, amsvc)
 	aspbv1.RegisterAnimeSerieServiceServer(server, assvc)
 
@@ -85,6 +90,7 @@ func startGatewayApi(
 	config utils.Config,
 	ussvc *usapiv1.UserServer,
 	nfsvc *nfapiv1.InfoServer,
+	asvc *av1.AnimeServer,
 	amsvc *amapiv1.AnimeMovieServer,
 	assvc *asapiv1.AnimeSerieServer,
 ) {
@@ -104,6 +110,11 @@ func startGatewayApi(
 	err = nfpbv1.RegisterInfoServiceHandlerServer(ctx, grpcMux, nfsvc)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot register Gateway server for Info Service v1")
+	}
+
+	err = apbv1.RegisterAnimeServiceHandlerServer(ctx, grpcMux, asvc)
+	if err != nil {
+		log.Fatal().Err(err).Msg("cannot register Gateway server for Anime Service v1")
 	}
 
 	err = ampbv1.RegisterAnimeMovieServiceHandlerServer(ctx, grpcMux, amsvc)

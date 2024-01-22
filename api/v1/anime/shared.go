@@ -2,13 +2,13 @@ package av1
 
 import (
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	ashpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb"
+	apbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/apb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func ConvertAnimeResource(v db.AnimeResource) *ashpbv1.AnimeResourceResponse {
+func ConvertAnimeResource(v db.AnimeResource) *apbv1.AnimeResourceResponse {
 	if v.ID != 0 {
-		return &ashpbv1.AnimeResourceResponse{
+		return &apbv1.AnimeResourceResponse{
 			ID:            v.ID,
 			TvdbID:        v.TvdbID,
 			TmdbID:        v.TmdbID,
@@ -27,9 +27,9 @@ func ConvertAnimeResource(v db.AnimeResource) *ashpbv1.AnimeResourceResponse {
 	return nil
 }
 
-func ConvertAnimeLink(v db.AnimeLink) *ashpbv1.AnimeLinkResponse {
+func ConvertAnimeLink(v db.AnimeLink) *apbv1.AnimeLinkResponse {
 	if v.ID != 0 {
-		return &ashpbv1.AnimeLinkResponse{
+		return &apbv1.AnimeLinkResponse{
 			ID:              v.ID,
 			OfficialWebsite: v.OfficialWebsite,
 			WikipediaUrl:    v.WikipediaUrl,
@@ -42,12 +42,12 @@ func ConvertAnimeLink(v db.AnimeLink) *ashpbv1.AnimeLinkResponse {
 	return nil
 }
 
-func ConvertAnimeImages(v []db.AnimeImage) []*ashpbv1.ImageResponse {
+func ConvertAnimeImages(v []db.AnimeImage) []*apbv1.ImageResponse {
 	if len(v) > 0 {
-		images := make([]*ashpbv1.ImageResponse, len(v))
+		images := make([]*apbv1.ImageResponse, len(v))
 
 		for i, x := range v {
-			images[i] = &ashpbv1.ImageResponse{
+			images[i] = &apbv1.ImageResponse{
 				ID:         x.ID,
 				Host:       x.ImageHost,
 				Url:        x.ImageUrl,
@@ -65,12 +65,12 @@ func ConvertAnimeImages(v []db.AnimeImage) []*ashpbv1.ImageResponse {
 	}
 }
 
-func ConvertAnimeTrailers(v []db.AnimeTrailer) []*ashpbv1.AnimeTrailerResponse {
+func ConvertAnimeTrailers(v []db.AnimeTrailer) []*apbv1.AnimeTrailerResponse {
 	if len(v) > 0 {
-		trailers := make([]*ashpbv1.AnimeTrailerResponse, len(v))
+		trailers := make([]*apbv1.AnimeTrailerResponse, len(v))
 
 		for i, x := range v {
-			trailers[i] = &ashpbv1.AnimeTrailerResponse{
+			trailers[i] = &apbv1.AnimeTrailerResponse{
 				ID:         x.ID,
 				IsOfficial: x.IsOfficial,
 				HostName:   x.HostName,
@@ -85,9 +85,9 @@ func ConvertAnimeTrailers(v []db.AnimeTrailer) []*ashpbv1.AnimeTrailerResponse {
 	}
 }
 
-func ConvertAnimeCharacter(v db.AnimeCharacter) *ashpbv1.AnimeCharacterResponse {
+func ConvertAnimeCharacter(v db.AnimeCharacter) *apbv1.AnimeCharacterResponse {
 	if v.ID != 0 {
-		return &ashpbv1.AnimeCharacterResponse{
+		return &apbv1.AnimeCharacterResponse{
 			ID:            v.ID,
 			FullName:      v.FullName,
 			About:         v.About,
@@ -102,12 +102,12 @@ func ConvertAnimeCharacter(v db.AnimeCharacter) *ashpbv1.AnimeCharacterResponse 
 	return nil
 }
 
-func ConvertAnimeTags(v []db.AnimeTag) []*ashpbv1.AnimeTag {
+func ConvertAnimeTags(v []db.AnimeTag) []*apbv1.AnimeTag {
 	if len(v) > 0 {
-		tags := make([]*ashpbv1.AnimeTag, len(v))
+		tags := make([]*apbv1.AnimeTag, len(v))
 
 		for i, x := range v {
-			tags[i] = &ashpbv1.AnimeTag{
+			tags[i] = &apbv1.AnimeTag{
 				ID:        x.ID,
 				Tag:       x.Tag,
 				CreatedAt: timestamppb.New(x.CreatedAt),

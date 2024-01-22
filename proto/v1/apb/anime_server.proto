@@ -1,11 +1,11 @@
 syntax = "proto3";
 
-package v1.ashpbv1;
+package v1.apbv1;
 
-import "v1/ashpb/anime_video.proto";
-import "v1/ashpb/anime_torrent.proto";
+import "v1/apb/anime_video.proto";
+import "v1/apb/anime_torrent.proto";
 
-option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb;ashpbv1";
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/apb;apbv1";
 
 message AnimeSubDataRequest {
   repeated AnimeVideoRequest   videos   = 1;

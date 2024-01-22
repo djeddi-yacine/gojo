@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package v1.apbv1;
+
+import "v1/apb/anime_character.proto";
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/apb;apbv1";
+
+message UpdateAnimeCharacterRequest {
+  int64           characterID   = 1;
+  optional string fullName      = 2;
+  optional string about         = 3;
+  optional string rolePlaying   = 4;
+  optional string image         = 5;
+  optional string imageBlurHash = 6;
+  repeated int64  actorsID      = 7;
+  repeated string pictures      = 8;
+}
+
+message UpdateAnimeCharacterResponse {
+  AnimeCharacterResponse animeCharacter = 1;
+}

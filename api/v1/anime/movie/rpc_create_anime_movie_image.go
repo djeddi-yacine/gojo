@@ -9,7 +9,7 @@ import (
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
-	ashpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb"
+	apbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/apb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
@@ -77,7 +77,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieImage(ctx context.Context, req *
 
 	res := &ampbv1.CreateAnimeMovieImageResponse{
 		AnimeMovie: convertAnimeMovie(data.AnimeMovie),
-		AnimeImages: &ashpbv1.AnimeImageResponse{
+		AnimeImages: &apbv1.AnimeImageResponse{
 			Posters:   av1.ConvertAnimeImages(data.AnimePosters),
 			Backdrops: av1.ConvertAnimeImages(data.AnimeBackdrops),
 			Logos:     av1.ConvertAnimeImages(data.AnimeLogos),

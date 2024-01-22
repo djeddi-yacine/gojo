@@ -8,7 +8,7 @@ import (
 	av1 "github.com/dj-yacine-flutter/gojo/api/v1/anime"
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	ashpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb"
+	apbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/apb"
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
@@ -77,7 +77,7 @@ func (server *AnimeSerieServer) CreateAnimeSerieImage(ctx context.Context, req *
 
 	res := &aspbv1.CreateAnimeSerieImageResponse{
 		AnimeSerie: convertAnimeSerie(data.AnimeSerie),
-		AnimeImages: &ashpbv1.AnimeImageResponse{
+		AnimeImages: &apbv1.AnimeImageResponse{
 			Posters:   av1.ConvertAnimeImages(data.AnimePosters),
 			Backdrops: av1.ConvertAnimeImages(data.AnimeBackdrops),
 			Logos:     av1.ConvertAnimeImages(data.AnimeLogos),

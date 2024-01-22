@@ -2,15 +2,15 @@ syntax = "proto3";
 
 package v1.ampbv1;
 
-import "v1/ashpb/anime_title.proto";
+import "v1/apb/anime_title.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ampb;ampbv1";
 
 message CreateAnimeMovieTitlesRequest {
-  int64                      animeID     = 1;
-  ashpbv1.AnimeTitlesRequest animeTitles = 2;
+  int64                    animeID     = 1;
+  apbv1.AnimeTitlesRequest animeTitles = 2;
 }
 
 message CreateAnimeMovieTitlesResponse {
-  ashpbv1.AnimeTitlesResponse animeTitles = 1;
+  apbv1.AnimeTitlesResponse animeTitles = 1;
 }

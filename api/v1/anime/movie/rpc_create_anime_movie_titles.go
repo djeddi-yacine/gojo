@@ -8,7 +8,7 @@ import (
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
-	ashpbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb"
+	apbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/apb"
 	"github.com/dj-yacine-flutter/gojo/utils"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
@@ -66,13 +66,13 @@ func (server *AnimeMovieServer) CreateAnimeMovieTitles(ctx context.Context, req 
 	var titles []string
 
 	res := &ampbv1.CreateAnimeMovieTitlesResponse{
-		AnimeTitles: &ashpbv1.AnimeTitlesResponse{},
+		AnimeTitles: &apbv1.AnimeTitlesResponse{},
 	}
 
 	if len(data.AnimeOfficialTitles) > 0 {
-		res.AnimeTitles.Officials = make([]*ashpbv1.AnimeTitle, len(data.AnimeOfficialTitles))
+		res.AnimeTitles.Officials = make([]*apbv1.AnimeTitle, len(data.AnimeOfficialTitles))
 		for i, v := range data.AnimeOfficialTitles {
-			res.AnimeTitles.Officials[i] = &ashpbv1.AnimeTitle{
+			res.AnimeTitles.Officials[i] = &apbv1.AnimeTitle{
 				ID:        v.ID,
 				TitleText: v.TitleText,
 				CreatedAt: timestamppb.New(v.CreatedAt),
@@ -82,9 +82,9 @@ func (server *AnimeMovieServer) CreateAnimeMovieTitles(ctx context.Context, req 
 	}
 
 	if len(data.AnimeShortTitles) > 0 {
-		res.AnimeTitles.Shorts = make([]*ashpbv1.AnimeTitle, len(data.AnimeShortTitles))
+		res.AnimeTitles.Shorts = make([]*apbv1.AnimeTitle, len(data.AnimeShortTitles))
 		for i, v := range data.AnimeShortTitles {
-			res.AnimeTitles.Shorts[i] = &ashpbv1.AnimeTitle{
+			res.AnimeTitles.Shorts[i] = &apbv1.AnimeTitle{
 				ID:        v.ID,
 				TitleText: v.TitleText,
 				CreatedAt: timestamppb.New(v.CreatedAt),
@@ -94,9 +94,9 @@ func (server *AnimeMovieServer) CreateAnimeMovieTitles(ctx context.Context, req 
 	}
 
 	if len(data.AnimeOtherTitles) > 0 {
-		res.AnimeTitles.Others = make([]*ashpbv1.AnimeTitle, len(data.AnimeOtherTitles))
+		res.AnimeTitles.Others = make([]*apbv1.AnimeTitle, len(data.AnimeOtherTitles))
 		for i, v := range data.AnimeOtherTitles {
-			res.AnimeTitles.Others[i] = &ashpbv1.AnimeTitle{
+			res.AnimeTitles.Others[i] = &apbv1.AnimeTitle{
 				ID:        v.ID,
 				TitleText: v.TitleText,
 				CreatedAt: timestamppb.New(v.CreatedAt),

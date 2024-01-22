@@ -3,18 +3,18 @@ syntax = "proto3";
 package v1.aspbv1;
 
 import "v1/aspb/msg_anime_episode.proto";
-import "v1/ashpb/anime_server.proto";
+import "v1/apb/anime_server.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/aspb;aspbv1";
 
 message CreateAnimeEpisodeDataRequest {
-  int64                       serverID = 1;
-  ashpbv1.AnimeSubDataRequest sub      = 2;
-  ashpbv1.AnimeDubDataRequest dub      = 3;
+  int64                     serverID = 1;
+  apbv1.AnimeSubDataRequest sub      = 2;
+  apbv1.AnimeDubDataRequest dub      = 3;
 }
 
 message CreateAnimeEpisodeDataResponse {
-  AnimeEpisodeResponse         episode = 1;
-  ashpbv1.AnimeSubDataResponse sub     = 2;
-  ashpbv1.AnimeDubDataResponse dub     = 3;
+  AnimeEpisodeResponse       episode = 1;
+  apbv1.AnimeSubDataResponse sub     = 2;
+  apbv1.AnimeDubDataResponse dub     = 3;
 }

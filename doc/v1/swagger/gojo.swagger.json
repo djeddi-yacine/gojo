@@ -16,6 +16,9 @@
       "name": "AnimeMovieService"
     },
     {
+      "name": "AnimeService"
+    },
+    {
       "name": "AnimeSerieService"
     },
     {
@@ -98,6 +101,76 @@
         ],
         "tags": [
           "InfoService"
+        ]
+      }
+    },
+    "/anime/character/{characterID}/update": {
+      "patch": {
+        "description": "Use this API to update a anime character",
+        "operationId": "AnimeService_UpdateAnimeCharacter",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apbv1UpdateAnimeCharacterResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "characterID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fullName": {
+                  "type": "string"
+                },
+                "about": {
+                  "type": "string"
+                },
+                "rolePlaying": {
+                  "type": "string"
+                },
+                "image": {
+                  "type": "string"
+                },
+                "imageBlurHash": {
+                  "type": "string"
+                },
+                "actorsID": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "int64"
+                  }
+                },
+                "pictures": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "AnimeService"
         ]
       }
     },
@@ -2564,7 +2637,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeCharacterRequest"
+            "$ref": "#/definitions/apbv1AnimeCharacterRequest"
           }
         }
       }
@@ -2579,7 +2652,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeCharacterResponse"
+            "$ref": "#/definitions/apbv1AnimeCharacterResponse"
           }
         }
       }
@@ -2592,10 +2665,10 @@
           "format": "int64"
         },
         "sub": {
-          "$ref": "#/definitions/ashpbv1AnimeSubDataRequest"
+          "$ref": "#/definitions/apbv1AnimeSubDataRequest"
         },
         "dub": {
-          "$ref": "#/definitions/ashpbv1AnimeDubDataRequest"
+          "$ref": "#/definitions/apbv1AnimeDubDataRequest"
         }
       }
     },
@@ -2606,10 +2679,10 @@
           "$ref": "#/definitions/ampbv1AnimeMovieResponse"
         },
         "sub": {
-          "$ref": "#/definitions/ashpbv1AnimeSubDataResponse"
+          "$ref": "#/definitions/apbv1AnimeSubDataResponse"
         },
         "dub": {
-          "$ref": "#/definitions/ashpbv1AnimeDubDataResponse"
+          "$ref": "#/definitions/apbv1AnimeDubDataResponse"
         }
       }
     },
@@ -2621,7 +2694,7 @@
           "format": "int64"
         },
         "animeImages": {
-          "$ref": "#/definitions/ashpbv1AnimeImageRequest"
+          "$ref": "#/definitions/apbv1AnimeImageRequest"
         }
       }
     },
@@ -2632,7 +2705,7 @@
           "$ref": "#/definitions/ampbv1AnimeMovieResponse"
         },
         "animeImages": {
-          "$ref": "#/definitions/ashpbv1AnimeImageResponse"
+          "$ref": "#/definitions/apbv1AnimeImageResponse"
         }
       }
     },
@@ -2689,7 +2762,7 @@
           "format": "int64"
         },
         "animeLinks": {
-          "$ref": "#/definitions/ashpbv1AnimeLinkRequest"
+          "$ref": "#/definitions/apbv1AnimeLinkRequest"
         }
       }
     },
@@ -2700,7 +2773,7 @@
           "$ref": "#/definitions/ampbv1AnimeMovieResponse"
         },
         "animeLinks": {
-          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+          "$ref": "#/definitions/apbv1AnimeLinkResponse"
         }
       }
     },
@@ -2743,10 +2816,10 @@
           "$ref": "#/definitions/ampbv1AnimeMovieRequest"
         },
         "animeResources": {
-          "$ref": "#/definitions/ashpbv1AnimeResourceRequest"
+          "$ref": "#/definitions/apbv1AnimeResourceRequest"
         },
         "animeLinks": {
-          "$ref": "#/definitions/ashpbv1AnimeLinkRequest"
+          "$ref": "#/definitions/apbv1AnimeLinkRequest"
         },
         "animeMetas": {
           "type": "array",
@@ -2765,7 +2838,7 @@
           "format": "int64"
         },
         "animeResources": {
-          "$ref": "#/definitions/ashpbv1AnimeResourceRequest"
+          "$ref": "#/definitions/apbv1AnimeResourceRequest"
         }
       }
     },
@@ -2776,7 +2849,7 @@
           "$ref": "#/definitions/ampbv1AnimeMovieResponse"
         },
         "animeResources": {
-          "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
+          "$ref": "#/definitions/apbv1AnimeResourceResponse"
         }
       }
     },
@@ -2787,10 +2860,10 @@
           "$ref": "#/definitions/ampbv1AnimeMovieResponse"
         },
         "animeResources": {
-          "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
+          "$ref": "#/definitions/apbv1AnimeResourceResponse"
         },
         "animeLinks": {
-          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+          "$ref": "#/definitions/apbv1AnimeLinkResponse"
         },
         "animeMetas": {
           "type": "array",
@@ -2852,7 +2925,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTag"
+            "$ref": "#/definitions/apbv1AnimeTag"
           }
         }
       }
@@ -2865,7 +2938,7 @@
           "format": "int64"
         },
         "animeTitles": {
-          "$ref": "#/definitions/ashpbv1AnimeTitlesRequest"
+          "$ref": "#/definitions/apbv1AnimeTitlesRequest"
         }
       }
     },
@@ -2873,7 +2946,7 @@
       "type": "object",
       "properties": {
         "animeTitles": {
-          "$ref": "#/definitions/ashpbv1AnimeTitlesResponse"
+          "$ref": "#/definitions/apbv1AnimeTitlesResponse"
         }
       }
     },
@@ -2888,7 +2961,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTrailerRequest"
+            "$ref": "#/definitions/apbv1AnimeTrailerRequest"
           }
         }
       }
@@ -2903,7 +2976,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+            "$ref": "#/definitions/apbv1AnimeTrailerResponse"
           }
         }
       }
@@ -2939,7 +3012,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeCharacter"
+            "$ref": "#/definitions/apbv1AnimeCharacter"
           }
         }
       }
@@ -2948,7 +3021,7 @@
       "type": "object",
       "properties": {
         "animeImages": {
-          "$ref": "#/definitions/ashpbv1AnimeImageResponse"
+          "$ref": "#/definitions/apbv1AnimeImageResponse"
         }
       }
     },
@@ -2962,7 +3035,7 @@
           "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
         },
         "animeResources": {
-          "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
+          "$ref": "#/definitions/apbv1AnimeResourceResponse"
         },
         "animeGenres": {
           "type": "array",
@@ -2979,23 +3052,23 @@
           }
         },
         "animeLinks": {
-          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+          "$ref": "#/definitions/apbv1AnimeLinkResponse"
         },
         "animeTags": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTag"
+            "$ref": "#/definitions/apbv1AnimeTag"
           }
         },
         "animeImages": {
-          "$ref": "#/definitions/ashpbv1AnimeImageResponse"
+          "$ref": "#/definitions/apbv1AnimeImageResponse"
         },
         "animeTrailers": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+            "$ref": "#/definitions/apbv1AnimeTrailerResponse"
           }
         },
         "serverID": {
@@ -3003,10 +3076,10 @@
           "format": "int64"
         },
         "sub": {
-          "$ref": "#/definitions/ashpbv1AnimeSubDataResponse"
+          "$ref": "#/definitions/apbv1AnimeSubDataResponse"
         },
         "dub": {
-          "$ref": "#/definitions/ashpbv1AnimeDubDataResponse"
+          "$ref": "#/definitions/apbv1AnimeDubDataResponse"
         }
       }
     },
@@ -3020,7 +3093,7 @@
           "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
         },
         "animeResources": {
-          "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
+          "$ref": "#/definitions/apbv1AnimeResourceResponse"
         },
         "animeGenres": {
           "type": "array",
@@ -3037,23 +3110,23 @@
           }
         },
         "animeLinks": {
-          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+          "$ref": "#/definitions/apbv1AnimeLinkResponse"
         },
         "animeTags": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTag"
+            "$ref": "#/definitions/apbv1AnimeTag"
           }
         },
         "animeImages": {
-          "$ref": "#/definitions/ashpbv1AnimeImageResponse"
+          "$ref": "#/definitions/apbv1AnimeImageResponse"
         },
         "animeTrailers": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+            "$ref": "#/definitions/apbv1AnimeTrailerResponse"
           }
         },
         "serverID": {
@@ -3061,10 +3134,10 @@
           "format": "int64"
         },
         "sub": {
-          "$ref": "#/definitions/ashpbv1AnimeSubDataResponse"
+          "$ref": "#/definitions/apbv1AnimeSubDataResponse"
         },
         "dub": {
-          "$ref": "#/definitions/ashpbv1AnimeDubDataResponse"
+          "$ref": "#/definitions/apbv1AnimeDubDataResponse"
         }
       }
     },
@@ -3126,11 +3199,11 @@
         }
       }
     },
-    "ashpbv1AnimeCharacter": {
+    "apbv1AnimeCharacter": {
       "type": "object",
       "properties": {
         "character": {
-          "$ref": "#/definitions/ashpbv1AnimeCharacterResponse"
+          "$ref": "#/definitions/apbv1AnimeCharacterResponse"
         },
         "actors": {
           "type": "array",
@@ -3141,7 +3214,7 @@
         }
       }
     },
-    "ashpbv1AnimeCharacterRequest": {
+    "apbv1AnimeCharacterRequest": {
       "type": "object",
       "properties": {
         "fullName": {
@@ -3174,7 +3247,7 @@
         }
       }
     },
-    "ashpbv1AnimeCharacterResponse": {
+    "apbv1AnimeCharacterResponse": {
       "type": "object",
       "properties": {
         "ID": {
@@ -3215,97 +3288,97 @@
         }
       }
     },
-    "ashpbv1AnimeDubDataRequest": {
+    "apbv1AnimeDubDataRequest": {
       "type": "object",
       "properties": {
         "videos": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeVideoRequest"
+            "$ref": "#/definitions/apbv1AnimeVideoRequest"
           }
         },
         "torrents": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTorrentRequest"
+            "$ref": "#/definitions/apbv1AnimeTorrentRequest"
           }
         }
       }
     },
-    "ashpbv1AnimeDubDataResponse": {
+    "apbv1AnimeDubDataResponse": {
       "type": "object",
       "properties": {
         "videos": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeVideoResponse"
+            "$ref": "#/definitions/apbv1AnimeVideoResponse"
           }
         },
         "torrents": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTorrentResponse"
+            "$ref": "#/definitions/apbv1AnimeTorrentResponse"
           }
         }
       }
     },
-    "ashpbv1AnimeImageRequest": {
+    "apbv1AnimeImageRequest": {
       "type": "object",
       "properties": {
         "posters": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1ImageRequest"
+            "$ref": "#/definitions/apbv1ImageRequest"
           }
         },
         "backdrops": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1ImageRequest"
+            "$ref": "#/definitions/apbv1ImageRequest"
           }
         },
         "logos": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1ImageRequest"
+            "$ref": "#/definitions/apbv1ImageRequest"
           }
         }
       }
     },
-    "ashpbv1AnimeImageResponse": {
+    "apbv1AnimeImageResponse": {
       "type": "object",
       "properties": {
         "posters": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1ImageResponse"
+            "$ref": "#/definitions/apbv1ImageResponse"
           }
         },
         "backdrops": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1ImageResponse"
+            "$ref": "#/definitions/apbv1ImageResponse"
           }
         },
         "logos": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1ImageResponse"
+            "$ref": "#/definitions/apbv1ImageResponse"
           }
         }
       }
     },
-    "ashpbv1AnimeLinkRequest": {
+    "apbv1AnimeLinkRequest": {
       "type": "object",
       "properties": {
         "officialWebsite": {
@@ -3325,7 +3398,7 @@
         }
       }
     },
-    "ashpbv1AnimeLinkResponse": {
+    "apbv1AnimeLinkResponse": {
       "type": "object",
       "properties": {
         "ID": {
@@ -3353,7 +3426,7 @@
         }
       }
     },
-    "ashpbv1AnimeResourceRequest": {
+    "apbv1AnimeResourceRequest": {
       "type": "object",
       "properties": {
         "tvdbID": {
@@ -3399,7 +3472,7 @@
         }
       }
     },
-    "ashpbv1AnimeResourceResponse": {
+    "apbv1AnimeResourceResponse": {
       "type": "object",
       "properties": {
         "ID": {
@@ -3453,45 +3526,45 @@
         }
       }
     },
-    "ashpbv1AnimeSubDataRequest": {
+    "apbv1AnimeSubDataRequest": {
       "type": "object",
       "properties": {
         "videos": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeVideoRequest"
+            "$ref": "#/definitions/apbv1AnimeVideoRequest"
           }
         },
         "torrents": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTorrentRequest"
+            "$ref": "#/definitions/apbv1AnimeTorrentRequest"
           }
         }
       }
     },
-    "ashpbv1AnimeSubDataResponse": {
+    "apbv1AnimeSubDataResponse": {
       "type": "object",
       "properties": {
         "videos": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeVideoResponse"
+            "$ref": "#/definitions/apbv1AnimeVideoResponse"
           }
         },
         "torrents": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTorrentResponse"
+            "$ref": "#/definitions/apbv1AnimeTorrentResponse"
           }
         }
       }
     },
-    "ashpbv1AnimeTag": {
+    "apbv1AnimeTag": {
       "type": "object",
       "properties": {
         "ID": {
@@ -3507,7 +3580,7 @@
         }
       }
     },
-    "ashpbv1AnimeTitle": {
+    "apbv1AnimeTitle": {
       "type": "object",
       "properties": {
         "ID": {
@@ -3523,7 +3596,7 @@
         }
       }
     },
-    "ashpbv1AnimeTitlesRequest": {
+    "apbv1AnimeTitlesRequest": {
       "type": "object",
       "properties": {
         "officials": {
@@ -3546,33 +3619,33 @@
         }
       }
     },
-    "ashpbv1AnimeTitlesResponse": {
+    "apbv1AnimeTitlesResponse": {
       "type": "object",
       "properties": {
         "officials": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTitle"
+            "$ref": "#/definitions/apbv1AnimeTitle"
           }
         },
         "shorts": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTitle"
+            "$ref": "#/definitions/apbv1AnimeTitle"
           }
         },
         "others": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTitle"
+            "$ref": "#/definitions/apbv1AnimeTitle"
           }
         }
       }
     },
-    "ashpbv1AnimeTorrentRequest": {
+    "apbv1AnimeTorrentRequest": {
       "type": "object",
       "properties": {
         "languageID": {
@@ -3609,7 +3682,7 @@
         }
       }
     },
-    "ashpbv1AnimeTorrentResponse": {
+    "apbv1AnimeTorrentResponse": {
       "type": "object",
       "properties": {
         "ID": {
@@ -3654,7 +3727,7 @@
         }
       }
     },
-    "ashpbv1AnimeTrailerRequest": {
+    "apbv1AnimeTrailerRequest": {
       "type": "object",
       "properties": {
         "isOfficial": {
@@ -3668,7 +3741,7 @@
         }
       }
     },
-    "ashpbv1AnimeTrailerResponse": {
+    "apbv1AnimeTrailerResponse": {
       "type": "object",
       "properties": {
         "ID": {
@@ -3690,7 +3763,7 @@
         }
       }
     },
-    "ashpbv1AnimeVideoRequest": {
+    "apbv1AnimeVideoRequest": {
       "type": "object",
       "properties": {
         "languageID": {
@@ -3711,7 +3784,7 @@
         }
       }
     },
-    "ashpbv1AnimeVideoResponse": {
+    "apbv1AnimeVideoResponse": {
       "type": "object",
       "properties": {
         "ID": {
@@ -3740,7 +3813,7 @@
         }
       }
     },
-    "ashpbv1ImageRequest": {
+    "apbv1ImageRequest": {
       "type": "object",
       "properties": {
         "host": {
@@ -3765,7 +3838,7 @@
         }
       }
     },
-    "ashpbv1ImageResponse": {
+    "apbv1ImageResponse": {
       "type": "object",
       "properties": {
         "ID": {
@@ -3795,6 +3868,14 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "apbv1UpdateAnimeCharacterResponse": {
+      "type": "object",
+      "properties": {
+        "animeCharacter": {
+          "$ref": "#/definitions/apbv1AnimeCharacterResponse"
         }
       }
     },
@@ -4035,10 +4116,10 @@
           "format": "int64"
         },
         "sub": {
-          "$ref": "#/definitions/ashpbv1AnimeSubDataRequest"
+          "$ref": "#/definitions/apbv1AnimeSubDataRequest"
         },
         "dub": {
-          "$ref": "#/definitions/ashpbv1AnimeDubDataRequest"
+          "$ref": "#/definitions/apbv1AnimeDubDataRequest"
         }
       }
     },
@@ -4049,10 +4130,10 @@
           "$ref": "#/definitions/aspbv1AnimeEpisodeResponse"
         },
         "sub": {
-          "$ref": "#/definitions/ashpbv1AnimeSubDataResponse"
+          "$ref": "#/definitions/apbv1AnimeSubDataResponse"
         },
         "dub": {
-          "$ref": "#/definitions/ashpbv1AnimeDubDataResponse"
+          "$ref": "#/definitions/apbv1AnimeDubDataResponse"
         }
       }
     },
@@ -4155,7 +4236,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeCharacterRequest"
+            "$ref": "#/definitions/apbv1AnimeCharacterRequest"
           }
         }
       }
@@ -4167,7 +4248,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeCharacterResponse"
+            "$ref": "#/definitions/apbv1AnimeCharacterResponse"
           }
         }
       }
@@ -4183,7 +4264,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1ImageRequest"
+            "$ref": "#/definitions/apbv1ImageRequest"
           }
         }
       }
@@ -4198,7 +4279,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1ImageResponse"
+            "$ref": "#/definitions/apbv1ImageResponse"
           }
         }
       }
@@ -4280,7 +4361,7 @@
           "format": "int64"
         },
         "seasonResources": {
-          "$ref": "#/definitions/ashpbv1AnimeResourceRequest"
+          "$ref": "#/definitions/apbv1AnimeResourceRequest"
         }
       }
     },
@@ -4291,7 +4372,7 @@
           "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
         },
         "seasonResources": {
-          "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
+          "$ref": "#/definitions/apbv1AnimeResourceResponse"
         }
       }
     },
@@ -4335,7 +4416,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTag"
+            "$ref": "#/definitions/apbv1AnimeTag"
           }
         }
       }
@@ -4348,7 +4429,7 @@
           "format": "int64"
         },
         "seasonTitles": {
-          "$ref": "#/definitions/ashpbv1AnimeTitlesRequest"
+          "$ref": "#/definitions/apbv1AnimeTitlesRequest"
         }
       }
     },
@@ -4356,7 +4437,7 @@
       "type": "object",
       "properties": {
         "seasonTitles": {
-          "$ref": "#/definitions/ashpbv1AnimeTitlesResponse"
+          "$ref": "#/definitions/apbv1AnimeTitlesResponse"
         }
       }
     },
@@ -4371,7 +4452,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTrailerRequest"
+            "$ref": "#/definitions/apbv1AnimeTrailerRequest"
           }
         }
       }
@@ -4386,7 +4467,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+            "$ref": "#/definitions/apbv1AnimeTrailerResponse"
           }
         }
       }
@@ -4399,7 +4480,7 @@
           "format": "int64"
         },
         "animeImages": {
-          "$ref": "#/definitions/ashpbv1AnimeImageRequest"
+          "$ref": "#/definitions/apbv1AnimeImageRequest"
         }
       }
     },
@@ -4410,7 +4491,7 @@
           "$ref": "#/definitions/aspbv1AnimeSerieResponse"
         },
         "animeImages": {
-          "$ref": "#/definitions/ashpbv1AnimeImageResponse"
+          "$ref": "#/definitions/apbv1AnimeImageResponse"
         }
       }
     },
@@ -4422,7 +4503,7 @@
           "format": "int64"
         },
         "animeLinks": {
-          "$ref": "#/definitions/ashpbv1AnimeLinkRequest"
+          "$ref": "#/definitions/apbv1AnimeLinkRequest"
         }
       }
     },
@@ -4433,7 +4514,7 @@
           "$ref": "#/definitions/aspbv1AnimeSerieResponse"
         },
         "animeLinks": {
-          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+          "$ref": "#/definitions/apbv1AnimeLinkResponse"
         }
       }
     },
@@ -4476,7 +4557,7 @@
           "$ref": "#/definitions/aspbv1AnimeSerieRequest"
         },
         "animeLinks": {
-          "$ref": "#/definitions/ashpbv1AnimeLinkRequest"
+          "$ref": "#/definitions/apbv1AnimeLinkRequest"
         },
         "animeMetas": {
           "type": "array",
@@ -4494,7 +4575,7 @@
           "$ref": "#/definitions/aspbv1AnimeSerieResponse"
         },
         "animeLinks": {
-          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+          "$ref": "#/definitions/apbv1AnimeLinkResponse"
         },
         "animeMetas": {
           "type": "array",
@@ -4516,7 +4597,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTrailerRequest"
+            "$ref": "#/definitions/apbv1AnimeTrailerRequest"
           }
         }
       }
@@ -4531,7 +4612,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+            "$ref": "#/definitions/apbv1AnimeTrailerResponse"
           }
         }
       }
@@ -4567,7 +4648,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeCharacter"
+            "$ref": "#/definitions/apbv1AnimeCharacter"
           }
         }
       }
@@ -4610,10 +4691,10 @@
           "format": "int64"
         },
         "sub": {
-          "$ref": "#/definitions/ashpbv1AnimeSubDataResponse"
+          "$ref": "#/definitions/apbv1AnimeSubDataResponse"
         },
         "dub": {
-          "$ref": "#/definitions/ashpbv1AnimeDubDataResponse"
+          "$ref": "#/definitions/apbv1AnimeDubDataResponse"
         }
       }
     },
@@ -4627,7 +4708,7 @@
           "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
         },
         "seasonResources": {
-          "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
+          "$ref": "#/definitions/apbv1AnimeResourceResponse"
         },
         "seasonGenres": {
           "type": "array",
@@ -4647,21 +4728,21 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTag"
+            "$ref": "#/definitions/apbv1AnimeTag"
           }
         },
         "seasonPosters": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1ImageResponse"
+            "$ref": "#/definitions/apbv1ImageResponse"
           }
         },
         "seasonTrailers": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+            "$ref": "#/definitions/apbv1AnimeTrailerResponse"
           }
         }
       }
@@ -4676,16 +4757,16 @@
           "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
         },
         "animeLinks": {
-          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+          "$ref": "#/definitions/apbv1AnimeLinkResponse"
         },
         "animeImages": {
-          "$ref": "#/definitions/ashpbv1AnimeImageResponse"
+          "$ref": "#/definitions/apbv1AnimeImageResponse"
         },
         "animeTrailers": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+            "$ref": "#/definitions/apbv1AnimeTrailerResponse"
           }
         }
       }
@@ -4704,10 +4785,10 @@
           "format": "int64"
         },
         "sub": {
-          "$ref": "#/definitions/ashpbv1AnimeSubDataResponse"
+          "$ref": "#/definitions/apbv1AnimeSubDataResponse"
         },
         "dub": {
-          "$ref": "#/definitions/ashpbv1AnimeDubDataResponse"
+          "$ref": "#/definitions/apbv1AnimeDubDataResponse"
         }
       }
     },
@@ -4721,7 +4802,7 @@
           "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
         },
         "seasonResources": {
-          "$ref": "#/definitions/ashpbv1AnimeResourceResponse"
+          "$ref": "#/definitions/apbv1AnimeResourceResponse"
         },
         "seasonGenres": {
           "type": "array",
@@ -4741,21 +4822,21 @@
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTag"
+            "$ref": "#/definitions/apbv1AnimeTag"
           }
         },
         "seasonPosters": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1ImageResponse"
+            "$ref": "#/definitions/apbv1ImageResponse"
           }
         },
         "seasonTrailers": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+            "$ref": "#/definitions/apbv1AnimeTrailerResponse"
           }
         }
       }
@@ -4770,16 +4851,16 @@
           "$ref": "#/definitions/nfpbv1AnimeMetaResponse"
         },
         "animeLinks": {
-          "$ref": "#/definitions/ashpbv1AnimeLinkResponse"
+          "$ref": "#/definitions/apbv1AnimeLinkResponse"
         },
         "animeImages": {
-          "$ref": "#/definitions/ashpbv1AnimeImageResponse"
+          "$ref": "#/definitions/apbv1AnimeImageResponse"
         },
         "animeTrailers": {
           "type": "array",
           "items": {
             "type": "object",
-            "$ref": "#/definitions/ashpbv1AnimeTrailerResponse"
+            "$ref": "#/definitions/apbv1AnimeTrailerResponse"
           }
         }
       }

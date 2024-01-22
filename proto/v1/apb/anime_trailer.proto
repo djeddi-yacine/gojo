@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package v1.ashpbv1;
+package v1.apbv1;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/ashpb;ashpbv1";
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/apb;apbv1";
 
 message AnimeTrailerRequest {
   bool   isOfficial = 1;

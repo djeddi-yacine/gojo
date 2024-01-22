@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package v1.apbv1;
+
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+import "v1/apb/rpc_update_anime_character.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/apb;apbv1";
+
+service AnimeService {
+  rpc UpdateAnimeCharacter(UpdateAnimeCharacterRequest) returns (UpdateAnimeCharacterResponse) {
+    option (google.api.http) = {
+      patch: "/anime/character/{characterID}/update"
+      body: "*"
+    };
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      description: "Use this API to update a anime character";
+  };
+}
+}
