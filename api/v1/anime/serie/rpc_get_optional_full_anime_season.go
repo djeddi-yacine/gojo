@@ -51,7 +51,7 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeSeason(ctx context.Context, 
 
 	var meta db.Meta
 	if err = server.ping.Handle(ctx, cache.Meta(), &meta, func() error {
-		animeMeta, err := server.gojo.GetAnimeSeasonMeta(ctx, db.GetAnimeSeasonMetaParams{
+		meta, err = server.gojo.GetAnimeSeasonMetaWithLanguageDirectly(ctx, db.GetAnimeSeasonMetaWithLanguageDirectlyParams{
 			SeasonID:   req.GetSeasonID(),
 			LanguageID: req.GetLanguageID(),
 		})
@@ -59,12 +59,6 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeSeason(ctx context.Context, 
 			return shv1.ApiError("no anime season found with this language ID", err)
 		}
 
-		if animeMeta > 0 {
-			meta, err = server.gojo.GetMeta(ctx, animeMeta)
-			if err != nil {
-				return shv1.ApiError("cannot get anime season metadata", err)
-			}
-		}
 		return nil
 	}); err != nil {
 		return nil, err
@@ -79,16 +73,7 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeSeason(ctx context.Context, 
 	if req.GetWithResources() {
 		var resources db.AnimeResource
 		if err = server.ping.Handle(ctx, cache.Resources(), &resources, func() error {
-			ID, err := server.gojo.GetAnimeSeasonResource(ctx, req.GetSeasonID())
-			if err != nil {
-				if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot get anime season resources", err)
-				} else {
-					return nil
-				}
-			}
-
-			resources, err = server.gojo.GetAnimeResource(ctx, ID.ResourceID)
+			resources, err = server.gojo.GetAnimeSeasonResourceDirectly(ctx, req.GetSeasonID())
 			if err != nil {
 				if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 					return shv1.ApiError("cannot get resources data", err)

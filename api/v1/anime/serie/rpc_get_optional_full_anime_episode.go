@@ -37,7 +37,7 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeEpisode(ctx context.Context,
 
 	var episode db.AnimeEpisode
 	if err = server.ping.Handle(ctx, cache.Main(), &episode, func() error {
-		episode, err = server.gojo.GetAnimeEpisodeByEpisodeID(ctx, req.GetEpisodeID())
+		episode, err = server.gojo.GetAnimeEpisode(ctx, req.GetEpisodeID())
 		if err != nil {
 			return shv1.ApiError("cannot get anime episode", err)
 		}
@@ -51,7 +51,7 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeEpisode(ctx context.Context,
 
 	var meta db.Meta
 	if err = server.ping.Handle(ctx, cache.Meta(), &meta, func() error {
-		animeMeta, err := server.gojo.GetAnimeEpisodeMeta(ctx, db.GetAnimeEpisodeMetaParams{
+		meta, err = server.gojo.GetAnimeEpisodeMetaWithLanguageDirectly(ctx, db.GetAnimeEpisodeMetaWithLanguageDirectlyParams{
 			EpisodeID:  req.GetEpisodeID(),
 			LanguageID: req.GetLanguageID(),
 		})
@@ -59,12 +59,6 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeEpisode(ctx context.Context,
 			return shv1.ApiError("no anime episode found with this language ID", err)
 		}
 
-		if animeMeta > 0 {
-			meta, err = server.gojo.GetMeta(ctx, animeMeta)
-			if err != nil {
-				return shv1.ApiError("cannot get anime episode metadata", err)
-			}
-		}
 		return nil
 	}); err != nil {
 		return nil, err

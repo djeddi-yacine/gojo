@@ -59,7 +59,7 @@ func (server *AnimeSerieServer) GetAnimeSeasonEpisodes(ctx context.Context, req 
 			}
 
 			if err = server.ping.Handle(ctx, cache.Main(), &episode, func() error {
-				episode, err = server.gojo.GetAnimeEpisodeByEpisodeID(ctx, v)
+				episode, err = server.gojo.GetAnimeEpisode(ctx, v)
 				if err != nil {
 					return shv1.ApiError("failed to get anime season episodes", err)
 				}

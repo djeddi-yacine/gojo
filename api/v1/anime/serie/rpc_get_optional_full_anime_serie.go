@@ -52,7 +52,7 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeSerie(ctx context.Context, r
 
 	var meta db.Meta
 	if err = server.ping.Handle(ctx, cache.Meta(), &meta, func() error {
-		animeMeta, err := server.gojo.GetAnimeSerieMeta(ctx, db.GetAnimeSerieMetaParams{
+		meta, err = server.gojo.GetAnimeSerieMetaWithLanguageDirectly(ctx, db.GetAnimeSerieMetaWithLanguageDirectlyParams{
 			AnimeID:    req.GetAnimeID(),
 			LanguageID: req.GetLanguageID(),
 		})
@@ -60,12 +60,6 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeSerie(ctx context.Context, r
 			return shv1.ApiError("no anime serie found with this language ID", err)
 		}
 
-		if animeMeta > 0 {
-			meta, err = server.gojo.GetMeta(ctx, animeMeta)
-			if err != nil {
-				return shv1.ApiError("cannot get anime serie metadata", err)
-			}
-		}
 		return nil
 	}); err != nil {
 		return nil, err
@@ -80,16 +74,7 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeSerie(ctx context.Context, r
 	if req.GetWithLinks() {
 		var link db.AnimeLink
 		if err = server.ping.Handle(ctx, cache.Links(), &link, func() error {
-			ID, err := server.gojo.GetAnimeSerieLink(ctx, req.GetAnimeID())
-			if err != nil {
-				if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot get anime serie links ID", err)
-				} else {
-					return nil
-				}
-			}
-
-			link, err = server.gojo.GetAnimeLink(ctx, ID.ID)
+			link, err = server.gojo.GetAnimeSerieLinksDirectly(ctx, req.GetAnimeID())
 			if err != nil {
 				if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 					return shv1.ApiError("cannot get anime serie links", err)

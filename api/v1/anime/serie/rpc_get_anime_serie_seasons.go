@@ -34,7 +34,7 @@ func (server *AnimeSerieServer) GetAnimeSerieSeasons(ctx context.Context, req *a
 		Target: ping.AnimeSerie,
 	}
 
-	arg := db.ListAnimeSeasonsByAnimeIDParams{
+	arg := db.ListAnimeSerieSeasonsParams{
 		AnimeID: req.GetAnimeID(),
 		Limit:   req.GetPageSize(),
 		Offset:  (req.GetPageNumber() - 1) * req.GetPageSize(),
@@ -42,7 +42,7 @@ func (server *AnimeSerieServer) GetAnimeSerieSeasons(ctx context.Context, req *a
 
 	var sIDs []int64
 	if err = server.ping.Handle(ctx, cache.Seasons(arg.Limit, arg.Offset), &sIDs, func() error {
-		sIDs, err = server.gojo.ListAnimeSeasonsByAnimeID(ctx, arg)
+		sIDs, err = server.gojo.ListAnimeSerieSeasons(ctx, arg)
 		if err != nil {
 			return shv1.ApiError("failed to list all anime serie seasons", err)
 		}
