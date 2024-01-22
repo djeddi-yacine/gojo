@@ -2846,6 +2846,21 @@ func (mr *MockGojoMockRecorder) GetAnimeMovieCharacter(arg0, arg1 interface{}) *
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieCharacter", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieCharacter), arg0, arg1)
 }
 
+// GetAnimeMovieCharactersDirectly mocks base method.
+func (m *MockGojo) GetAnimeMovieCharactersDirectly(arg0 context.Context, arg1 int64) ([]db.AnimeCharacter, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeMovieCharactersDirectly", arg0, arg1)
+	ret0, _ := ret[0].([]db.AnimeCharacter)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeMovieCharactersDirectly indicates an expected call of GetAnimeMovieCharactersDirectly.
+func (mr *MockGojoMockRecorder) GetAnimeMovieCharactersDirectly(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieCharactersDirectly", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieCharactersDirectly), arg0, arg1)
+}
+
 // GetAnimeMovieGenre mocks base method.
 func (m *MockGojo) GetAnimeMovieGenre(arg0 context.Context, arg1 db.GetAnimeMovieGenreParams) (db.AnimeMovieGenre, error) {
 	m.ctrl.T.Helper()
@@ -2861,6 +2876,21 @@ func (mr *MockGojoMockRecorder) GetAnimeMovieGenre(arg0, arg1 interface{}) *gomo
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieGenre", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieGenre), arg0, arg1)
 }
 
+// GetAnimeMovieGenresDirectly mocks base method.
+func (m *MockGojo) GetAnimeMovieGenresDirectly(arg0 context.Context, arg1 int64) ([]db.Genre, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeMovieGenresDirectly", arg0, arg1)
+	ret0, _ := ret[0].([]db.Genre)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeMovieGenresDirectly indicates an expected call of GetAnimeMovieGenresDirectly.
+func (mr *MockGojoMockRecorder) GetAnimeMovieGenresDirectly(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieGenresDirectly", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieGenresDirectly), arg0, arg1)
+}
+
 // GetAnimeMovieLink mocks base method.
 func (m *MockGojo) GetAnimeMovieLink(arg0 context.Context, arg1 int64) (db.AnimeMovieLink, error) {
 	m.ctrl.T.Helper()
@@ -2874,6 +2904,21 @@ func (m *MockGojo) GetAnimeMovieLink(arg0 context.Context, arg1 int64) (db.Anime
 func (mr *MockGojoMockRecorder) GetAnimeMovieLink(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieLink", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieLink), arg0, arg1)
+}
+
+// GetAnimeMovieLinksDirectly mocks base method.
+func (m *MockGojo) GetAnimeMovieLinksDirectly(arg0 context.Context, arg1 int64) (db.AnimeLink, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeMovieLinksDirectly", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeLink)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeMovieLinksDirectly indicates an expected call of GetAnimeMovieLinksDirectly.
+func (mr *MockGojoMockRecorder) GetAnimeMovieLinksDirectly(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieLinksDirectly", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieLinksDirectly), arg0, arg1)
 }
 
 // GetAnimeMovieMeta mocks base method.
@@ -2904,6 +2949,21 @@ func (m *MockGojo) GetAnimeMovieMetaByID(arg0 context.Context, arg1 int64) (db.A
 func (mr *MockGojoMockRecorder) GetAnimeMovieMetaByID(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieMetaByID", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieMetaByID), arg0, arg1)
+}
+
+// GetAnimeMovieMetaWithLanguageDirectly mocks base method.
+func (m *MockGojo) GetAnimeMovieMetaWithLanguageDirectly(arg0 context.Context, arg1 db.GetAnimeMovieMetaWithLanguageDirectlyParams) (db.Meta, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeMovieMetaWithLanguageDirectly", arg0, arg1)
+	ret0, _ := ret[0].(db.Meta)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeMovieMetaWithLanguageDirectly indicates an expected call of GetAnimeMovieMetaWithLanguageDirectly.
+func (mr *MockGojoMockRecorder) GetAnimeMovieMetaWithLanguageDirectly(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieMetaWithLanguageDirectly", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieMetaWithLanguageDirectly), arg0, arg1)
 }
 
 // GetAnimeMovieOfficialTitles mocks base method.
@@ -2949,6 +3009,21 @@ func (m *MockGojo) GetAnimeMovieResource(arg0 context.Context, arg1 int64) (db.A
 func (mr *MockGojoMockRecorder) GetAnimeMovieResource(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieResource", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieResource), arg0, arg1)
+}
+
+// GetAnimeMovieResourceDirectly mocks base method.
+func (m *MockGojo) GetAnimeMovieResourceDirectly(arg0 context.Context, arg1 int64) (db.AnimeResource, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeMovieResourceDirectly", arg0, arg1)
+	ret0, _ := ret[0].(db.AnimeResource)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeMovieResourceDirectly indicates an expected call of GetAnimeMovieResourceDirectly.
+func (mr *MockGojoMockRecorder) GetAnimeMovieResourceDirectly(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieResourceDirectly", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieResourceDirectly), arg0, arg1)
 }
 
 // GetAnimeMovieServer mocks base method.
@@ -3069,6 +3144,21 @@ func (m *MockGojo) GetAnimeMovieStudio(arg0 context.Context, arg1 db.GetAnimeMov
 func (mr *MockGojoMockRecorder) GetAnimeMovieStudio(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieStudio", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieStudio), arg0, arg1)
+}
+
+// GetAnimeMovieStudiosDirectly mocks base method.
+func (m *MockGojo) GetAnimeMovieStudiosDirectly(arg0 context.Context, arg1 int64) ([]db.Studio, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAnimeMovieStudiosDirectly", arg0, arg1)
+	ret0, _ := ret[0].([]db.Studio)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAnimeMovieStudiosDirectly indicates an expected call of GetAnimeMovieStudiosDirectly.
+func (mr *MockGojoMockRecorder) GetAnimeMovieStudiosDirectly(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAnimeMovieStudiosDirectly", reflect.TypeOf((*MockGojo)(nil).GetAnimeMovieStudiosDirectly), arg0, arg1)
 }
 
 // GetAnimeMovieTorrent mocks base method.

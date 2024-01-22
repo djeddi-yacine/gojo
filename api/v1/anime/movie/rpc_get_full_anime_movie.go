@@ -52,7 +52,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 
 	var meta db.Meta
 	if err = server.ping.Handle(ctx, cache.Meta(), &meta, func() error {
-		animeMeta, err := server.gojo.GetAnimeMovieMeta(ctx, db.GetAnimeMovieMetaParams{
+		meta, err = server.gojo.GetAnimeMovieMetaWithLanguageDirectly(ctx, db.GetAnimeMovieMetaWithLanguageDirectlyParams{
 			AnimeID:    req.GetAnimeID(),
 			LanguageID: req.GetLanguageID(),
 		})
@@ -60,12 +60,6 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 			return shv1.ApiError("no anime movie found with this language ID", err)
 		}
 
-		if animeMeta > 0 {
-			meta, err = server.gojo.GetMeta(ctx, animeMeta)
-			if err != nil {
-				return shv1.ApiError("cannot get anime movie metadata", err)
-			}
-		}
 		return nil
 	}); err != nil {
 		return nil, err
@@ -79,16 +73,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 
 	var resources db.AnimeResource
 	if err = server.ping.Handle(ctx, cache.Resources(), &resources, func() error {
-		ID, err := server.gojo.GetAnimeMovieResource(ctx, req.GetAnimeID())
-		if err != nil {
-			if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shv1.ApiError("cannot get anime movie resources", err)
-			} else {
-				return nil
-			}
-		}
-
-		resources, err = server.gojo.GetAnimeResource(ctx, ID.ResourceID)
+		resources, err = server.gojo.GetAnimeMovieResourceDirectly(ctx, req.GetAnimeID())
 		if err != nil {
 			if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 				return shv1.ApiError("cannot get resources data", err)
@@ -262,16 +247,7 @@ func (server *AnimeMovieServer) GetFullAnimeMovie(ctx context.Context, req *ampb
 
 	var link db.AnimeLink
 	if err = server.ping.Handle(ctx, cache.Links(), &link, func() error {
-		ID, err := server.gojo.GetAnimeMovieLink(ctx, req.GetAnimeID())
-		if err != nil {
-			if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shv1.ApiError("cannot get anime movie links ID", err)
-			} else {
-				return nil
-			}
-		}
-
-		link, err = server.gojo.GetAnimeLink(ctx, ID.ID)
+		link, err = server.gojo.GetAnimeMovieLinksDirectly(ctx, req.GetAnimeID())
 		if err != nil {
 			if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
 				return shv1.ApiError("cannot get anime movie links", err)
