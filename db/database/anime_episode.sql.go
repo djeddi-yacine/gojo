@@ -75,14 +75,14 @@ func (q *Queries) DeleteAnimeEpisode(ctx context.Context, id int64) error {
 	return err
 }
 
-const getAnimeEpisodeByEpisodeID = `-- name: GetAnimeEpisodeByEpisodeID :one
+const getAnimeEpisode = `-- name: GetAnimeEpisode :one
 SELECT id, season_id, episode_number, episode_original_title, aired, rating, duration, thumbnails, thumbnails_blur_hash, created_at FROM anime_episodes
 WHERE id = $1
 LIMIT 1
 `
 
-func (q *Queries) GetAnimeEpisodeByEpisodeID(ctx context.Context, id int64) (AnimeEpisode, error) {
-	row := q.db.QueryRow(ctx, getAnimeEpisodeByEpisodeID, id)
+func (q *Queries) GetAnimeEpisode(ctx context.Context, id int64) (AnimeEpisode, error) {
+	row := q.db.QueryRow(ctx, getAnimeEpisode, id)
 	var i AnimeEpisode
 	err := row.Scan(
 		&i.ID,

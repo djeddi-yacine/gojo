@@ -94,40 +94,6 @@ func (q *Queries) GetAnimeSeason(ctx context.Context, id int64) (AnimeSeason, er
 	return i, err
 }
 
-const listAnimeSeasonsByAnimeID = `-- name: ListAnimeSeasonsByAnimeID :many
-SELECT id FROM anime_seasons
-WHERE anime_id = $1
-ORDER BY release_year
-LIMIT $2
-OFFSET $3
-`
-
-type ListAnimeSeasonsByAnimeIDParams struct {
-	AnimeID int64
-	Limit   int32
-	Offset  int32
-}
-
-func (q *Queries) ListAnimeSeasonsByAnimeID(ctx context.Context, arg ListAnimeSeasonsByAnimeIDParams) ([]int64, error) {
-	rows, err := q.db.Query(ctx, listAnimeSeasonsByAnimeID, arg.AnimeID, arg.Limit, arg.Offset)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	items := []int64{}
-	for rows.Next() {
-		var id int64
-		if err := rows.Scan(&id); err != nil {
-			return nil, err
-		}
-		items = append(items, id)
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
-}
-
 const updateAnimeSeason = `-- name: UpdateAnimeSeason :one
 UPDATE anime_seasons
 SET

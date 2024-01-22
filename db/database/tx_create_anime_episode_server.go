@@ -10,7 +10,7 @@ func (gojo *SQLGojo) CreateAnimeEpisodeServerTx(ctx context.Context, episodeID i
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
 
-		_, err = q.GetAnimeEpisodeByEpisodeID(ctx, episodeID)
+		_, err = q.GetAnimeEpisode(ctx, episodeID)
 		if err != nil {
 			ErrorSQL(err)
 			return err

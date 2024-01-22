@@ -19,7 +19,7 @@ func (gojo *SQLGojo) CreateAnimeEpisodeMetasTx(ctx context.Context, arg CreateAn
 	var err error
 
 	err = gojo.execTx(ctx, func(q *Queries) error {
-		_, err = q.GetAnimeEpisodeByEpisodeID(ctx, arg.EpisodeID)
+		_, err = q.GetAnimeEpisode(ctx, arg.EpisodeID)
 		if err != nil {
 			ErrorSQL(err)
 			return err

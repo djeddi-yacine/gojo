@@ -153,7 +153,7 @@ type Querier interface {
 	DeleteUser(ctx context.Context, id int64) error
 	GetActor(ctx context.Context, id int64) (Actor, error)
 	GetAnimeCharacter(ctx context.Context, id int64) (AnimeCharacter, error)
-	GetAnimeEpisodeByEpisodeID(ctx context.Context, id int64) (AnimeEpisode, error)
+	GetAnimeEpisode(ctx context.Context, id int64) (AnimeEpisode, error)
 	GetAnimeEpisodeMeta(ctx context.Context, arg GetAnimeEpisodeMetaParams) (int64, error)
 	GetAnimeEpisodeMetaWithLanguageDirectly(ctx context.Context, arg GetAnimeEpisodeMetaWithLanguageDirectlyParams) (Meta, error)
 	GetAnimeEpisodeServer(ctx context.Context, id int64) (AnimeEpisodeServer, error)
@@ -269,7 +269,6 @@ type Querier interface {
 	ListAnimeSeasonStudios(ctx context.Context, seasonID int64) ([]int32, error)
 	ListAnimeSeasonTags(ctx context.Context, seasonID int64) ([]int64, error)
 	ListAnimeSeasonTrailers(ctx context.Context, seasonID int64) ([]int64, error)
-	ListAnimeSeasonsByAnimeID(ctx context.Context, arg ListAnimeSeasonsByAnimeIDParams) ([]int64, error)
 	ListAnimeSerieBackdropImages(ctx context.Context, animeID int64) ([]int64, error)
 	ListAnimeSerieLogoImages(ctx context.Context, animeID int64) ([]int64, error)
 	ListAnimeSerieMetas(ctx context.Context, animeID int64) ([]int64, error)
