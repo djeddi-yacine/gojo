@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	AnimeService_UpdateAnimeCharacter_FullMethodName = "/v1.apbv1.AnimeService/UpdateAnimeCharacter"
 	AnimeService_UpdateAnimeLink_FullMethodName      = "/v1.apbv1.AnimeService/UpdateAnimeLink"
+	AnimeService_UpdateAnimeResource_FullMethodName  = "/v1.apbv1.AnimeService/UpdateAnimeResource"
 )
 
 // AnimeServiceClient is the client API for AnimeService service.
@@ -29,6 +30,7 @@ const (
 type AnimeServiceClient interface {
 	UpdateAnimeCharacter(ctx context.Context, in *UpdateAnimeCharacterRequest, opts ...grpc.CallOption) (*UpdateAnimeCharacterResponse, error)
 	UpdateAnimeLink(ctx context.Context, in *UpdateAnimeLinkRequest, opts ...grpc.CallOption) (*UpdateAnimeLinkResponse, error)
+	UpdateAnimeResource(ctx context.Context, in *UpdateAnimeResourceRequest, opts ...grpc.CallOption) (*UpdateAnimeResourceResponse, error)
 }
 
 type animeServiceClient struct {
@@ -57,12 +59,22 @@ func (c *animeServiceClient) UpdateAnimeLink(ctx context.Context, in *UpdateAnim
 	return out, nil
 }
 
+func (c *animeServiceClient) UpdateAnimeResource(ctx context.Context, in *UpdateAnimeResourceRequest, opts ...grpc.CallOption) (*UpdateAnimeResourceResponse, error) {
+	out := new(UpdateAnimeResourceResponse)
+	err := c.cc.Invoke(ctx, AnimeService_UpdateAnimeResource_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AnimeServiceServer is the server API for AnimeService service.
 // All implementations must embed UnimplementedAnimeServiceServer
 // for forward compatibility
 type AnimeServiceServer interface {
 	UpdateAnimeCharacter(context.Context, *UpdateAnimeCharacterRequest) (*UpdateAnimeCharacterResponse, error)
 	UpdateAnimeLink(context.Context, *UpdateAnimeLinkRequest) (*UpdateAnimeLinkResponse, error)
+	UpdateAnimeResource(context.Context, *UpdateAnimeResourceRequest) (*UpdateAnimeResourceResponse, error)
 	mustEmbedUnimplementedAnimeServiceServer()
 }
 
@@ -75,6 +87,9 @@ func (UnimplementedAnimeServiceServer) UpdateAnimeCharacter(context.Context, *Up
 }
 func (UnimplementedAnimeServiceServer) UpdateAnimeLink(context.Context, *UpdateAnimeLinkRequest) (*UpdateAnimeLinkResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAnimeLink not implemented")
+}
+func (UnimplementedAnimeServiceServer) UpdateAnimeResource(context.Context, *UpdateAnimeResourceRequest) (*UpdateAnimeResourceResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAnimeResource not implemented")
 }
 func (UnimplementedAnimeServiceServer) mustEmbedUnimplementedAnimeServiceServer() {}
 
@@ -125,6 +140,24 @@ func _AnimeService_UpdateAnimeLink_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AnimeService_UpdateAnimeResource_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAnimeResourceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnimeServiceServer).UpdateAnimeResource(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AnimeService_UpdateAnimeResource_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnimeServiceServer).UpdateAnimeResource(ctx, req.(*UpdateAnimeResourceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AnimeService_ServiceDesc is the grpc.ServiceDesc for AnimeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +172,10 @@ var AnimeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateAnimeLink",
 			Handler:    _AnimeService_UpdateAnimeLink_Handler,
+		},
+		{
+			MethodName: "UpdateAnimeResource",
+			Handler:    _AnimeService_UpdateAnimeResource_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

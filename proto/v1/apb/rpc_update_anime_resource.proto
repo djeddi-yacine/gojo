@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package v1.apbv1;
+
+import "v1/apb/anime_resource.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/apb;apbv1";
+
+message UpdateAnimeResourceRequest {
+  int64           resourceID    = 1;
+  optional int32  tvdbID        = 2;
+  optional int32  tmdbID        = 3;
+  optional string imdbID        = 4;
+  optional int32  livechartID   = 5;
+  optional string animePlanetID = 6;
+  optional int32  anisearchID   = 7;
+  optional int32  anidbID       = 8;
+  optional int32  kitsuID       = 9;
+  optional int32  malID         = 10;
+  optional string notifyMoeID   = 11;
+  optional int32  anilistID     = 12;
+}
+
+message UpdateAnimeResourceResponse {
+  AnimeResourceResponse animeResource = 1;
+}
