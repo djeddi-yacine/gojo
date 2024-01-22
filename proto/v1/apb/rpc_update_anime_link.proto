@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package v1.apbv1;
+
+import "v1/apb/anime_link.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/apb;apbv1";
+
+message UpdateAnimeLinkRequest {
+  int64           linkID          = 1;
+  optional string officialWebsite = 2;
+  optional string wikipediaUrl    = 3;
+  optional string crunchyrollUrl  = 4;
+  repeated string socialMedia     = 5;
+}
+
+message UpdateAnimeLinkResponse {
+  AnimeLinkResponse animeLink = 1;
+}

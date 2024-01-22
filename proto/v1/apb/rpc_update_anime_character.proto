@@ -4,8 +4,6 @@ package v1.apbv1;
 
 import "v1/apb/anime_character.proto";
 
-import "google/protobuf/timestamp.proto";
-
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/apb;apbv1";
 
 message UpdateAnimeCharacterRequest {
