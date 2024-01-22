@@ -34,7 +34,7 @@ CREATE UNIQUE INDEX ON "anime_season_tags" ("season_id", "tag_id");
 
 ALTER TABLE "anime_movie_tags" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_movies" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_season_tags" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_season_tags" ADD FOREIGN KEY ("season_id") REFERENCES "anime_seasons" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_movie_tags" ADD FOREIGN KEY ("tag_id") REFERENCES "anime_tags" ("id") ON DELETE CASCADE;
 

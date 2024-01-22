@@ -38,7 +38,7 @@ CREATE UNIQUE INDEX ON "anime_episode_server_sub_videos" ("server_id", "video_id
 CREATE UNIQUE INDEX ON "anime_episode_server_dub_videos" ("server_id", "video_id");
 
 
-ALTER TABLE "anime_episode_servers" ADD FOREIGN KEY ("episode_id") REFERENCES "anime_serie_episodes" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_episode_servers" ADD FOREIGN KEY ("episode_id") REFERENCES "anime_episodes" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_episode_videos" ADD FOREIGN KEY ("language_id") REFERENCES "languages" ("id") ON DELETE CASCADE;
 

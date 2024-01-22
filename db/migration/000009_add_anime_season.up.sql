@@ -1,4 +1,4 @@
-CREATE TABLE "anime_serie_seasons" (
+CREATE TABLE "anime_seasons" (
   "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
   "anime_id" bigserial NOT NULL,
   "season_original_title" varchar NOT NULL,
@@ -30,12 +30,19 @@ CREATE TABLE "anime_season_genres" (
   "genre_id" integer NOT NULL
 );
 
+CREATE TABLE "anime_serie_seasons" (
+  "id" BIGSERIAL UNIQUE PRIMARY KEY NOT NULL,
+  "anime_id" bigserial NOT NULL,
+  "season_id" bigserial NOT NULL,
+  "created_at" timestamptz NOT NULL DEFAULT (now())
+);
 
-CREATE INDEX ON "anime_serie_seasons" ("id");
 
-CREATE INDEX ON "anime_serie_seasons" ("release_year");
+CREATE INDEX ON "anime_seasons" ("id");
 
-CREATE UNIQUE INDEX ON "anime_serie_seasons" ("anime_id", "season_original_title", "release_year");
+CREATE INDEX ON "anime_seasons" ("release_year");
+
+CREATE UNIQUE INDEX ON "anime_seasons" ("anime_id", "season_original_title", "release_year");
 
 CREATE INDEX ON "anime_season_metas" ("id");
 
@@ -49,10 +56,12 @@ CREATE INDEX ON "anime_season_genres" ("id");
 
 CREATE UNIQUE INDEX ON "anime_season_genres" ("season_id", "genre_id");
 
+CREATE UNIQUE INDEX ON "anime_serie_seasons" ("anime_id", "season_id");
 
-ALTER TABLE "anime_serie_seasons" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_season_metas" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_seasons" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_season_metas" ADD FOREIGN KEY ("season_id") REFERENCES "anime_seasons" ("id") ON DELETE CASCADE;
 
 ALTER TABLE "anime_season_metas" ADD FOREIGN KEY ("meta_id") REFERENCES "metas" ("id") ON DELETE CASCADE;
 
@@ -62,6 +71,10 @@ ALTER TABLE "anime_season_genres" ADD FOREIGN KEY ("genre_id") REFERENCES "genre
 
 ALTER TABLE "anime_season_studios" ADD FOREIGN KEY ("studio_id") REFERENCES "studios" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_season_studios" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_season_studios" ADD FOREIGN KEY ("season_id") REFERENCES "anime_seasons" ("id") ON DELETE CASCADE;
 
-ALTER TABLE "anime_season_genres" ADD FOREIGN KEY ("season_id") REFERENCES "anime_serie_seasons" ("id") ON DELETE CASCADE;
+ALTER TABLE "anime_season_genres" ADD FOREIGN KEY ("season_id") REFERENCES "anime_seasons" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_seasons" ADD FOREIGN KEY ("anime_id") REFERENCES "anime_series" ("id") ON DELETE CASCADE;
+
+ALTER TABLE "anime_serie_seasons" ADD FOREIGN KEY ("season_id") REFERENCES "anime_seasons" ("id") ON DELETE CASCADE;
