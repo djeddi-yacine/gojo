@@ -7,17 +7,31 @@ sql:
       - "./db/sqlc/user"
       - "./db/sqlc/info"
       - "./db/sqlc/anime/"
+
       - "./db/sqlc/anime/movie"
-      - "./db/sqlc/anime/movie/data"
-      - "./db/sqlc/anime/movie/info"
-      - "./db/sqlc/anime/movie/info/join"
+      - "./db/sqlc/anime/movie/media"
       - "./db/sqlc/anime/movie/titles"
+      - "./db/sqlc/anime/movie/data"
+      - "./db/sqlc/anime/movie/data/join"
+
+
       - "./db/sqlc/anime/serie"
-      - "./db/sqlc/anime/serie/info"
+      - "./db/sqlc/anime/serie/media"
       - "./db/sqlc/anime/serie/season"
       - "./db/sqlc/anime/serie/episode"
+      - "./db/sqlc/anime/serie/data"
+      - "./db/sqlc/anime/serie/data/join"
+
+      - "./db/sqlc/anime/serie/season/media"
       - "./db/sqlc/anime/serie/season/titles"
       - "./db/sqlc/anime/serie/season/data"
+      - "./db/sqlc/anime/serie/season/data/join"
+
+      - "./db/sqlc/anime/serie/episode/media"
+      - "./db/sqlc/anime/serie/episode/data"
+      - "./db/sqlc/anime/serie/episode/data/join"
+
+
 
     schema: "./db/migration"
     strict_function_checks: true
@@ -69,13 +83,14 @@ sql:
           anime_movie_server_dub_videos : "AnimeMovieServerDubVideo"
 
           ## add anime_season
-          anime_serie_seasons : "AnimeSerieSeason"
+          anime_seasons : "AnimeSeason"
           anime_season_metas : "AnimeSeasonMeta"
           anime_season_studios: "AnimeSeasonStudio"
           anime_season_genres: "AnimeSeasonGenre"
+          anime_serie_seasons : "AnimeSerieSeason"
 
           ## add anime_episode
-          anime_serie_episodes : "AnimeSerieEpisode"
+          anime_episodes : "AnimeEpisode"
           anime_episode_metas : "AnimeEpisodeMeta"
           anime_season_episodes : "AnimeSeasonEpisode"
 

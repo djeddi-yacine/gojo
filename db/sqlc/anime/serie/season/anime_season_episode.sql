@@ -18,8 +18,8 @@ OFFSET $3;
 -- name: UpdateAnimeSeasonEpisode :one
 UPDATE anime_season_episodes
 SET
-  episode_id = COALESCE(sqlc.narg(episode_id), episode_id),
-  season_id = COALESCE(sqlc.narg(season_id), season_id)
+  season_id = COALESCE(sqlc.narg(season_id), season_id),
+  episode_id = COALESCE(sqlc.narg(episode_id), episode_id)
 WHERE
   id = sqlc.arg(id)
 RETURNING *;

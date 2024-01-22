@@ -1,5 +1,5 @@
 -- name: CreateAnimeSeason :one
-INSERT INTO anime_serie_seasons (
+INSERT INTO anime_seasons (
     anime_id,
     season_original_title,
     release_year,
@@ -12,19 +12,19 @@ VALUES ($1, $2, $3, $4, $5, $6, $7)
 RETURNING *;
 
 -- name: GetAnimeSeason :one
-SELECT * FROM anime_serie_seasons
+SELECT * FROM anime_seasons
 WHERE id = $1
 LIMIT 1;
 
 -- name: ListAnimeSeasonsByAnimeID :many
-SELECT id FROM anime_serie_seasons
+SELECT id FROM anime_seasons
 WHERE anime_id = $1
 ORDER BY release_year
 LIMIT $2
 OFFSET $3;
 
 -- name: UpdateAnimeSeason :one
-UPDATE anime_serie_seasons
+UPDATE anime_seasons
 SET
   season_original_title = COALESCE(sqlc.narg(season_original_title), season_original_title),
   release_year = COALESCE(sqlc.narg(release_year), release_year),
@@ -37,5 +37,5 @@ WHERE
 RETURNING *;
 
 -- name: DeleteAnimeSeason :exec
-DELETE FROM anime_serie_seasons
+DELETE FROM anime_seasons
 WHERE id = $1;
