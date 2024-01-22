@@ -8,6 +8,7 @@ import "protoc-gen-openapiv2/options/annotations.proto";
 import "v1/apb/rpc_update_anime_character.proto";
 import "v1/apb/rpc_update_anime_link.proto";
 import "v1/apb/rpc_update_anime_resource.proto";
+import "v1/apb/rpc_update_anime_video.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/apb;apbv1";
 
@@ -37,6 +38,15 @@ rpc UpdateAnimeResource(UpdateAnimeResourceRequest) returns (UpdateAnimeResource
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
     description: "Use this API to update a anime resource";
+};
+}
+rpc UpdateAnimeVideo(UpdateAnimeVideoRequest) returns (UpdateAnimeVideoResponse) {
+  option (google.api.http) = {
+    patch: "/anime/video/{videoID}/update"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to update a anime video";
 };
 }
 }

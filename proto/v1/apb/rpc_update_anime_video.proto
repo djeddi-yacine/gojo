@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package v1.apbv1;
+
+import "v1/apb/anime_video.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/apb;apbv1";
+
+message UpdateAnimeVideoRequest {
+  int64           videoID    = 1;
+  optional int32  languageID = 2;
+  optional string authority  = 3;
+  optional string referer    = 4;
+  optional string link       = 5;
+  optional string quality    = 6;
+}
+
+message UpdateAnimeVideoResponse {
+  AnimeVideoResponse animeVideo = 1;
+}

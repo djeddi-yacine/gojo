@@ -2413,6 +2413,64 @@
         ]
       }
     },
+    "/anime/video/{videoID}/update": {
+      "patch": {
+        "description": "Use this API to update a anime video",
+        "operationId": "AnimeService_UpdateAnimeVideo",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apbv1UpdateAnimeVideoResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "videoID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "languageID": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "authority": {
+                  "type": "string"
+                },
+                "referer": {
+                  "type": "string"
+                },
+                "link": {
+                  "type": "string"
+                },
+                "quality": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "AnimeService"
+        ]
+      }
+    },
     "/language": {
       "get": {
         "description": "Use this API to get all app languages",
@@ -4032,6 +4090,14 @@
       "properties": {
         "animeResource": {
           "$ref": "#/definitions/apbv1AnimeResourceResponse"
+        }
+      }
+    },
+    "apbv1UpdateAnimeVideoResponse": {
+      "type": "object",
+      "properties": {
+        "animeVideo": {
+          "$ref": "#/definitions/apbv1AnimeVideoResponse"
         }
       }
     },
