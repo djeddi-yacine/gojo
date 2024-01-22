@@ -35,7 +35,7 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeEpisode(ctx context.Context,
 
 	res := &aspbv1.GetOptionalFullAnimeEpisodeResponse{}
 
-	var episode db.AnimeSerieEpisode
+	var episode db.AnimeEpisode
 	if err = server.ping.Handle(ctx, cache.Main(), &episode, func() error {
 		episode, err = server.gojo.GetAnimeEpisodeByEpisodeID(ctx, req.GetEpisodeID())
 		if err != nil {

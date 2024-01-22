@@ -60,7 +60,6 @@ func (server *AnimeSerieServer) CreateAnimeEpisode(ctx context.Context, req *asp
 	}
 
 	res := &aspbv1.CreateAnimeEpisodeResponse{
-		Season:  convertAnimeSeason(data.AnimeSeason),
 		Episode: convertAnimeEpisode(data.AnimeEpisode),
 	}
 

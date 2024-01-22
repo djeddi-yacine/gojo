@@ -11,8 +11,7 @@ type CreateAnimeEpisodeTxParams struct {
 }
 
 type CreateAnimeEpisodeTxResult struct {
-	AnimeSeason       AnimeSerieSeason
-	AnimeEpisode      AnimeSerieEpisode
+	AnimeEpisode      AnimeEpisode
 	AnimeEpisodeMetas []AnimeMetaTxResult
 }
 
@@ -22,12 +21,6 @@ func (gojo *SQLGojo) CreateAnimeEpisodeTx(ctx context.Context, arg CreateAnimeEp
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
 
-		season, err := q.GetAnimeSeason(ctx, arg.Episode.SeasonID)
-		if err != nil {
-			ErrorSQL(err)
-			return err
-		}
-
 		episode, err := q.CreateAnimeEpisode(ctx, arg.Episode)
 		if err != nil {
 			ErrorSQL(err)
@@ -35,7 +28,7 @@ func (gojo *SQLGojo) CreateAnimeEpisodeTx(ctx context.Context, arg CreateAnimeEp
 		}
 
 		_, err = q.CreateAnimeSeasonEpisode(ctx, CreateAnimeSeasonEpisodeParams{
-			SeasonID:  season.ID,
+			SeasonID:  episode.SeasonID,
 			EpisodeID: episode.ID,
 		})
 		if err != nil {
@@ -44,7 +37,6 @@ func (gojo *SQLGojo) CreateAnimeEpisodeTx(ctx context.Context, arg CreateAnimeEp
 		}
 
 		result.AnimeEpisode = episode
-		result.AnimeSeason = season
 
 		if arg.EpisodeMetas != nil {
 			var metaArg CreateMetaParams

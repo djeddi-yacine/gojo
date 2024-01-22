@@ -13,7 +13,7 @@ type CreateAnimeEpisodeDataTxParams struct {
 }
 
 type CreateAnimeEpisodeDataTxResult struct {
-	Episode                 AnimeSerieEpisode
+	AnimeEpisode            AnimeEpisode
 	AnimeEpisodeSubVideos   []AnimeEpisodeVideo
 	AnimeEpisodeDubVideos   []AnimeEpisodeVideo
 	AnimeEpisodeSubTorrents []AnimeEpisodeTorrent
@@ -32,7 +32,7 @@ func (gojo *SQLGojo) CreateAnimeEpisodeDataTx(ctx context.Context, arg CreateAni
 			return err
 		}
 
-		result.Episode, err = q.GetAnimeEpisodeByEpisodeID(ctx, server.EpisodeID)
+		result.AnimeEpisode, err = q.GetAnimeEpisodeByEpisodeID(ctx, server.EpisodeID)
 		if err != nil {
 			ErrorSQL(err)
 			return err

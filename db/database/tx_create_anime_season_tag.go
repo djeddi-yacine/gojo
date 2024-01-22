@@ -10,7 +10,7 @@ type CreateAnimeSeasonTagTxParams struct {
 }
 
 type CreateAnimeSeasonTagTxResult struct {
-	AnimeSeason AnimeSerieSeason
+	AnimeSeason AnimeSeason
 	SeasonTags  []AnimeTag
 }
 

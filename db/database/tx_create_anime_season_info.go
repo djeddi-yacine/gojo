@@ -11,7 +11,7 @@ type CreateAnimeSeasonInfoTxParams struct {
 }
 
 type CreateAnimeSeasonInfoTxResult struct {
-	AnimeSeason AnimeSerieSeason
+	AnimeSeason AnimeSeason
 	Genres      []Genre
 	Studios     []Studio
 }

@@ -10,8 +10,7 @@ type CreateAnimeSeasonCharactersTxParams struct {
 }
 
 type CreateAnimeSeasonCharactersTxResult struct {
-	AnimeSeason AnimeSerieSeason
-	Characters  []AnimeCharacterActorsTx
+	Characters []AnimeCharacterActorsTx
 }
 
 func (gojo *SQLGojo) CreateAnimeSeasonCharactersTx(ctx context.Context, arg CreateAnimeSeasonCharactersTxParams) (CreateAnimeSeasonCharactersTxResult, error) {
@@ -20,13 +19,6 @@ func (gojo *SQLGojo) CreateAnimeSeasonCharactersTx(ctx context.Context, arg Crea
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
 
-		season, err := q.GetAnimeSeason(ctx, arg.SeasonID)
-		if err != nil {
-			ErrorSQL(err)
-			return err
-		}
-
-		result.AnimeSeason = season
 		result.Characters = make([]AnimeCharacterActorsTx, len(arg.AnimeCharacterActorsTxParams))
 
 		for i, x := range arg.AnimeCharacterActorsTxParams {
@@ -48,7 +40,7 @@ func (gojo *SQLGojo) CreateAnimeSeasonCharactersTx(ctx context.Context, arg Crea
 			}
 
 			_, err = q.CreateAnimeSeasonCharacter(ctx, CreateAnimeSeasonCharacterParams{
-				SeasonID:    season.ID,
+				SeasonID:    arg.SeasonID,
 				CharacterID: c.ID,
 			})
 			if err != nil {

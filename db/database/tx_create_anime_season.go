@@ -11,7 +11,7 @@ type CreateAnimeSeasonTxParams struct {
 }
 
 type CreateAnimeSeasonTxResult struct {
-	AnimeSeason      AnimeSerieSeason
+	AnimeSeason      AnimeSeason
 	AnimeSeasonMetas []AnimeMetaTxResult
 }
 
@@ -26,6 +26,11 @@ func (gojo *SQLGojo) CreateAnimeSeasonTx(ctx context.Context, arg CreateAnimeSea
 			ErrorSQL(err)
 			return err
 		}
+
+		_, err = q.CreateAnimeSerieSeason(ctx, CreateAnimeSerieSeasonParams{
+			AnimeID:  season.AnimeID,
+			SeasonID: season.ID,
+		})
 
 		result.AnimeSeason = season
 

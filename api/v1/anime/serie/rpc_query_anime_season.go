@@ -67,7 +67,7 @@ func (server *AnimeSerieServer) QueryAnimeSeason(ctx context.Context, req *aspbv
 		Target: ping.AnimeSeason,
 	}
 
-	var anime db.AnimeSerieSeason
+	var anime db.AnimeSeason
 
 	for i, v := range result.Hits {
 		id, err := strconv.Atoi(fmt.Sprint(v.(map[string]interface{})["ID"]))

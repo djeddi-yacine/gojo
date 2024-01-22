@@ -38,6 +38,19 @@ type AnimeCharacterActor struct {
 	ActorID     int64
 }
 
+type AnimeEpisode struct {
+	ID                   int64
+	SeasonID             int64
+	EpisodeNumber        int32
+	EpisodeOriginalTitle string
+	Aired                time.Time
+	Rating               string
+	Duration             time.Duration
+	Thumbnails           string
+	ThumbnailsBlurHash   string
+	CreatedAt            time.Time
+}
+
 type AnimeEpisodeMeta struct {
 	ID         int64
 	EpisodeID  int64
@@ -314,6 +327,18 @@ type AnimeResource struct {
 	CreatedAt     time.Time
 }
 
+type AnimeSeason struct {
+	ID                  int64
+	AnimeID             int64
+	SeasonOriginalTitle string
+	ReleaseYear         int32
+	Aired               time.Time
+	PortraitPoster      string
+	PortraitBlurHash    string
+	Rating              string
+	CreatedAt           time.Time
+}
+
 type AnimeSeasonCharacter struct {
 	ID          int64
 	SeasonID    int64
@@ -426,19 +451,6 @@ type AnimeSerieBackdropImage struct {
 	CreatedAt time.Time
 }
 
-type AnimeSerieEpisode struct {
-	ID                   int64
-	SeasonID             int64
-	EpisodeNumber        int32
-	EpisodeOriginalTitle string
-	Aired                time.Time
-	Rating               string
-	Duration             time.Duration
-	Thumbnails           string
-	ThumbnailsBlurHash   string
-	CreatedAt            time.Time
-}
-
 type AnimeSerieLink struct {
 	ID      int64
 	AnimeID int64
@@ -467,15 +479,10 @@ type AnimeSeriePosterImage struct {
 }
 
 type AnimeSerieSeason struct {
-	ID                  int64
-	AnimeID             int64
-	SeasonOriginalTitle string
-	ReleaseYear         int32
-	Aired               time.Time
-	PortraitPoster      string
-	PortraitBlurHash    string
-	Rating              string
-	CreatedAt           time.Time
+	ID        int64
+	AnimeID   int64
+	SeasonID  int64
+	CreatedAt time.Time
 }
 
 type AnimeSerieTrailer struct {

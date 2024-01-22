@@ -30,7 +30,7 @@ func convertAnimeSerie(v db.AnimeSerie) *aspbv1.AnimeSerieResponse {
 	return nil
 }
 
-func convertAnimeSeason(v db.AnimeSerieSeason) *aspbv1.AnimeSeasonResponse {
+func convertAnimeSeason(v db.AnimeSeason) *aspbv1.AnimeSeasonResponse {
 	if v.ID != 0 {
 		return &aspbv1.AnimeSeasonResponse{
 			ID:                  v.ID,
@@ -48,7 +48,7 @@ func convertAnimeSeason(v db.AnimeSerieSeason) *aspbv1.AnimeSeasonResponse {
 	return nil
 }
 
-func convertAnimeEpisode(v db.AnimeSerieEpisode) *aspbv1.AnimeEpisodeResponse {
+func convertAnimeEpisode(v db.AnimeEpisode) *aspbv1.AnimeEpisodeResponse {
 	if v.ID != 0 {
 		return &aspbv1.AnimeEpisodeResponse{
 			ID:                   v.ID,

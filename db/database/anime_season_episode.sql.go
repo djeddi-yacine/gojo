@@ -99,21 +99,21 @@ func (q *Queries) ListAnimeSeasonEpisodes(ctx context.Context, arg ListAnimeSeas
 const updateAnimeSeasonEpisode = `-- name: UpdateAnimeSeasonEpisode :one
 UPDATE anime_season_episodes
 SET
-  episode_id = COALESCE($1, episode_id),
-  season_id = COALESCE($2, season_id)
+  season_id = COALESCE($1, season_id),
+  episode_id = COALESCE($2, episode_id)
 WHERE
   id = $3
 RETURNING id, season_id, episode_id, created_at
 `
 
 type UpdateAnimeSeasonEpisodeParams struct {
-	EpisodeID pgtype.Int8
 	SeasonID  pgtype.Int8
+	EpisodeID pgtype.Int8
 	ID        int64
 }
 
 func (q *Queries) UpdateAnimeSeasonEpisode(ctx context.Context, arg UpdateAnimeSeasonEpisodeParams) (AnimeSeasonEpisode, error) {
-	row := q.db.QueryRow(ctx, updateAnimeSeasonEpisode, arg.EpisodeID, arg.SeasonID, arg.ID)
+	row := q.db.QueryRow(ctx, updateAnimeSeasonEpisode, arg.SeasonID, arg.EpisodeID, arg.ID)
 	var i AnimeSeasonEpisode
 	err := row.Scan(
 		&i.ID,

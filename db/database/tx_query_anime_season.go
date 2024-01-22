@@ -14,7 +14,7 @@ type QueryAnimeSeasonTxParams struct {
 }
 
 type QueryAnimeSeasonTxResult struct {
-	AnimeSeasons []AnimeSerieSeason
+	AnimeSeasons []AnimeSeason
 }
 
 func (gojo *SQLGojo) QueryAnimeSeasonTx(ctx context.Context, arg QueryAnimeSeasonTxParams) (QueryAnimeSeasonTxResult, error) {
@@ -84,9 +84,9 @@ func (gojo *SQLGojo) QueryAnimeSeasonTx(ctx context.Context, arg QueryAnimeSeaso
 		IDs := utils.RemoveDuplicatesInt64(animeSeasonIDs)
 
 		if len(IDs) > 0 {
-			result.AnimeSeasons = make([]AnimeSerieSeason, len(IDs))
+			result.AnimeSeasons = make([]AnimeSeason, len(IDs))
 
-			var animeSeason AnimeSerieSeason
+			var animeSeason AnimeSeason
 
 			for i, id := range IDs {
 				animeSeason, err = q.GetAnimeSeason(ctx, id)

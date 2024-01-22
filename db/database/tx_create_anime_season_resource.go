@@ -10,7 +10,7 @@ type CreateAnimeSeasonResourceTxParams struct {
 }
 
 type CreateAnimeSeasonResourceTxResult struct {
-	AnimeSeason   AnimeSerieSeason
+	AnimeSeason   AnimeSeason
 	AnimeResource AnimeResource
 }
 

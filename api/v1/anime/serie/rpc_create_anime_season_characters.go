@@ -53,9 +53,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonCharacters(ctx context.Context,
 		return nil, shv1.ApiError("failed to create anime season characters", err)
 	}
 
-	res := &aspbv1.CreateAnimeSeasonCharactersResponse{
-		AnimeSeason: convertAnimeSeason(data.AnimeSeason),
-	}
+	res := &aspbv1.CreateAnimeSeasonCharactersResponse{}
 
 	res.SeasonCharacters = make([]*ashpbv1.AnimeCharacterResponse, len(data.Characters))
 	for i, v := range data.Characters {

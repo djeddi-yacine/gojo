@@ -10,7 +10,7 @@ type CreateAnimeSeasonImageTxParams struct {
 }
 
 type CreateAnimeSeasonImageTxResult struct {
-	AnimeSeason  AnimeSerieSeason
+	AnimeSeason  AnimeSeason
 	AnimePosters []AnimeImage
 }
 

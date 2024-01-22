@@ -82,12 +82,12 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 					return nil
 				}
 			}
-	
+
 			return nil
 		}); err != nil {
 			return nil, err
 		}
-	
+
 		res.AnimeResources = av1.ConvertAnimeResource(resources)
 	}
 
@@ -268,12 +268,12 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 					return nil
 				}
 			}
-	
+
 			return nil
 		}); err != nil {
 			return nil, err
 		}
-	
+
 		res.AnimeLinks = av1.ConvertAnimeLink(link)
 	}
 

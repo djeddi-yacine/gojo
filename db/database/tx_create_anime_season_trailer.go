@@ -10,7 +10,7 @@ type CreateAnimeSeasonTrailerTxParams struct {
 }
 
 type CreateAnimeSeasonTrailerTxResult struct {
-	AnimeSeason    AnimeSerieSeason
+	AnimeSeason    AnimeSeason
 	SeasonTrailers []AnimeTrailer
 }
 

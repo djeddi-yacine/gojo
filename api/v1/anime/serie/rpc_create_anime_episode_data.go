@@ -86,7 +86,7 @@ func (server *AnimeSerieServer) CreateAnimeEpisodeData(ctx context.Context, req 
 	}
 
 	res := &aspbv1.CreateAnimeEpisodeDataResponse{
-		Episode: convertAnimeEpisode(data.Episode),
+		Episode: convertAnimeEpisode(data.AnimeEpisode),
 		Sub: &ashpbv1.AnimeSubDataResponse{
 			Videos:   convertAnimeEpisodeVideos(data.AnimeEpisodeSubVideos),
 			Torrents: convertAnimeEpisodeTorrents(data.AnimeEpisodeSubTorrents),

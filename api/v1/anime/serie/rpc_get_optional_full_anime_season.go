@@ -35,7 +35,7 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeSeason(ctx context.Context, 
 
 	res := &aspbv1.GetOptionalFullAnimeSeasonResponse{}
 
-	var season db.AnimeSerieSeason
+	var season db.AnimeSeason
 	if err = server.ping.Handle(ctx, cache.Main(), &season, func() error {
 		season, err = server.gojo.GetAnimeSeason(ctx, req.GetSeasonID())
 		if err != nil {
