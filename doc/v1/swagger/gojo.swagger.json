@@ -4106,9 +4106,6 @@
     "aspbv1CreateAnimeEpisodeResponse": {
       "type": "object",
       "properties": {
-        "season": {
-          "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
-        },
         "episode": {
           "$ref": "#/definitions/aspbv1AnimeEpisodeResponse"
         },
@@ -4166,9 +4163,6 @@
     "aspbv1CreateAnimeSeasonCharactersResponse": {
       "type": "object",
       "properties": {
-        "animeSeason": {
-          "$ref": "#/definitions/aspbv1AnimeSeasonResponse"
-        },
         "seasonCharacters": {
           "type": "array",
           "items": {
