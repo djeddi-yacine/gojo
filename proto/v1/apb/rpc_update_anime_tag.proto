@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package v1.apbv1;
+
+import "v1/apb/anime_tag.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/apb;apbv1";
+
+message UpdateAnimeTagRequest {
+  int64           tagID = 1;
+  optional string tag   = 2;
+}
+
+message UpdateAnimeTagResponse {
+  AnimeTag animeTag = 1;
+}
