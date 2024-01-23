@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package v1.apbv1;
+
+import "v1/apb/anime_trailer.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/apb;apbv1";
+
+message UpdateAnimeTrailerRequest {
+  int64           trailerID  = 1;
+  optional bool   isOfficial = 2;
+  optional string hostName   = 3;
+  optional string hostKey    = 4;
+}
+
+message UpdateAnimeTrailerResponse {
+  AnimeTrailerResponse animeTrailer = 1;
+}

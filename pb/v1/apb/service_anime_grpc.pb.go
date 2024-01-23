@@ -26,6 +26,7 @@ const (
 	AnimeService_UpdateAnimeTorrent_FullMethodName   = "/v1.apbv1.AnimeService/UpdateAnimeTorrent"
 	AnimeService_UpdateAnimeTitle_FullMethodName     = "/v1.apbv1.AnimeService/UpdateAnimeTitle"
 	AnimeService_UpdateAnimeTag_FullMethodName       = "/v1.apbv1.AnimeService/UpdateAnimeTag"
+	AnimeService_UpdateAnimeTrailer_FullMethodName   = "/v1.apbv1.AnimeService/UpdateAnimeTrailer"
 )
 
 // AnimeServiceClient is the client API for AnimeService service.
@@ -39,6 +40,7 @@ type AnimeServiceClient interface {
 	UpdateAnimeTorrent(ctx context.Context, in *UpdateAnimeTorrentRequest, opts ...grpc.CallOption) (*UpdateAnimeTorrentResponse, error)
 	UpdateAnimeTitle(ctx context.Context, in *UpdateAnimeTitleRequest, opts ...grpc.CallOption) (*UpdateAnimeTitleResponse, error)
 	UpdateAnimeTag(ctx context.Context, in *UpdateAnimeTagRequest, opts ...grpc.CallOption) (*UpdateAnimeTagResponse, error)
+	UpdateAnimeTrailer(ctx context.Context, in *UpdateAnimeTrailerRequest, opts ...grpc.CallOption) (*UpdateAnimeTrailerResponse, error)
 }
 
 type animeServiceClient struct {
@@ -112,6 +114,15 @@ func (c *animeServiceClient) UpdateAnimeTag(ctx context.Context, in *UpdateAnime
 	return out, nil
 }
 
+func (c *animeServiceClient) UpdateAnimeTrailer(ctx context.Context, in *UpdateAnimeTrailerRequest, opts ...grpc.CallOption) (*UpdateAnimeTrailerResponse, error) {
+	out := new(UpdateAnimeTrailerResponse)
+	err := c.cc.Invoke(ctx, AnimeService_UpdateAnimeTrailer_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AnimeServiceServer is the server API for AnimeService service.
 // All implementations must embed UnimplementedAnimeServiceServer
 // for forward compatibility
@@ -123,6 +134,7 @@ type AnimeServiceServer interface {
 	UpdateAnimeTorrent(context.Context, *UpdateAnimeTorrentRequest) (*UpdateAnimeTorrentResponse, error)
 	UpdateAnimeTitle(context.Context, *UpdateAnimeTitleRequest) (*UpdateAnimeTitleResponse, error)
 	UpdateAnimeTag(context.Context, *UpdateAnimeTagRequest) (*UpdateAnimeTagResponse, error)
+	UpdateAnimeTrailer(context.Context, *UpdateAnimeTrailerRequest) (*UpdateAnimeTrailerResponse, error)
 	mustEmbedUnimplementedAnimeServiceServer()
 }
 
@@ -150,6 +162,9 @@ func (UnimplementedAnimeServiceServer) UpdateAnimeTitle(context.Context, *Update
 }
 func (UnimplementedAnimeServiceServer) UpdateAnimeTag(context.Context, *UpdateAnimeTagRequest) (*UpdateAnimeTagResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAnimeTag not implemented")
+}
+func (UnimplementedAnimeServiceServer) UpdateAnimeTrailer(context.Context, *UpdateAnimeTrailerRequest) (*UpdateAnimeTrailerResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAnimeTrailer not implemented")
 }
 func (UnimplementedAnimeServiceServer) mustEmbedUnimplementedAnimeServiceServer() {}
 
@@ -290,6 +305,24 @@ func _AnimeService_UpdateAnimeTag_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AnimeService_UpdateAnimeTrailer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAnimeTrailerRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnimeServiceServer).UpdateAnimeTrailer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AnimeService_UpdateAnimeTrailer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnimeServiceServer).UpdateAnimeTrailer(ctx, req.(*UpdateAnimeTrailerRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AnimeService_ServiceDesc is the grpc.ServiceDesc for AnimeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -324,6 +357,10 @@ var AnimeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateAnimeTag",
 			Handler:    _AnimeService_UpdateAnimeTag_Handler,
+		},
+		{
+			MethodName: "UpdateAnimeTrailer",
+			Handler:    _AnimeService_UpdateAnimeTrailer_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
