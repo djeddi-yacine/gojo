@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package v1.apbv1;
+
+import "v1/apb/anime_torrent.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/apb;apbv1";
+
+message UpdateAnimeTorrentRequest {
+  int64           torrentID   = 1;
+  optional int32  languageID  = 2;
+  optional string fileName    = 3;
+  optional string torrentHash = 4;
+  optional string torrentFile = 5;
+  optional int32  seeds       = 6;
+  optional int32  peers       = 7;
+  optional int32  leechers    = 8;
+  optional int64  sizeBytes   = 9;
+  optional string quality     = 10;
+}
+
+message UpdateAnimeTorrentResponse {
+  AnimeTorrentResponse animeTorrent = 1;
+}

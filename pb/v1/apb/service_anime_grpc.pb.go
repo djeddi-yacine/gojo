@@ -23,6 +23,7 @@ const (
 	AnimeService_UpdateAnimeLink_FullMethodName      = "/v1.apbv1.AnimeService/UpdateAnimeLink"
 	AnimeService_UpdateAnimeResource_FullMethodName  = "/v1.apbv1.AnimeService/UpdateAnimeResource"
 	AnimeService_UpdateAnimeVideo_FullMethodName     = "/v1.apbv1.AnimeService/UpdateAnimeVideo"
+	AnimeService_UpdateAnimeTorrent_FullMethodName   = "/v1.apbv1.AnimeService/UpdateAnimeTorrent"
 )
 
 // AnimeServiceClient is the client API for AnimeService service.
@@ -33,6 +34,7 @@ type AnimeServiceClient interface {
 	UpdateAnimeLink(ctx context.Context, in *UpdateAnimeLinkRequest, opts ...grpc.CallOption) (*UpdateAnimeLinkResponse, error)
 	UpdateAnimeResource(ctx context.Context, in *UpdateAnimeResourceRequest, opts ...grpc.CallOption) (*UpdateAnimeResourceResponse, error)
 	UpdateAnimeVideo(ctx context.Context, in *UpdateAnimeVideoRequest, opts ...grpc.CallOption) (*UpdateAnimeVideoResponse, error)
+	UpdateAnimeTorrent(ctx context.Context, in *UpdateAnimeTorrentRequest, opts ...grpc.CallOption) (*UpdateAnimeTorrentResponse, error)
 }
 
 type animeServiceClient struct {
@@ -79,6 +81,15 @@ func (c *animeServiceClient) UpdateAnimeVideo(ctx context.Context, in *UpdateAni
 	return out, nil
 }
 
+func (c *animeServiceClient) UpdateAnimeTorrent(ctx context.Context, in *UpdateAnimeTorrentRequest, opts ...grpc.CallOption) (*UpdateAnimeTorrentResponse, error) {
+	out := new(UpdateAnimeTorrentResponse)
+	err := c.cc.Invoke(ctx, AnimeService_UpdateAnimeTorrent_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // AnimeServiceServer is the server API for AnimeService service.
 // All implementations must embed UnimplementedAnimeServiceServer
 // for forward compatibility
@@ -87,6 +98,7 @@ type AnimeServiceServer interface {
 	UpdateAnimeLink(context.Context, *UpdateAnimeLinkRequest) (*UpdateAnimeLinkResponse, error)
 	UpdateAnimeResource(context.Context, *UpdateAnimeResourceRequest) (*UpdateAnimeResourceResponse, error)
 	UpdateAnimeVideo(context.Context, *UpdateAnimeVideoRequest) (*UpdateAnimeVideoResponse, error)
+	UpdateAnimeTorrent(context.Context, *UpdateAnimeTorrentRequest) (*UpdateAnimeTorrentResponse, error)
 	mustEmbedUnimplementedAnimeServiceServer()
 }
 
@@ -105,6 +117,9 @@ func (UnimplementedAnimeServiceServer) UpdateAnimeResource(context.Context, *Upd
 }
 func (UnimplementedAnimeServiceServer) UpdateAnimeVideo(context.Context, *UpdateAnimeVideoRequest) (*UpdateAnimeVideoResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAnimeVideo not implemented")
+}
+func (UnimplementedAnimeServiceServer) UpdateAnimeTorrent(context.Context, *UpdateAnimeTorrentRequest) (*UpdateAnimeTorrentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateAnimeTorrent not implemented")
 }
 func (UnimplementedAnimeServiceServer) mustEmbedUnimplementedAnimeServiceServer() {}
 
@@ -191,6 +206,24 @@ func _AnimeService_UpdateAnimeVideo_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _AnimeService_UpdateAnimeTorrent_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateAnimeTorrentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(AnimeServiceServer).UpdateAnimeTorrent(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: AnimeService_UpdateAnimeTorrent_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(AnimeServiceServer).UpdateAnimeTorrent(ctx, req.(*UpdateAnimeTorrentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // AnimeService_ServiceDesc is the grpc.ServiceDesc for AnimeService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -213,6 +246,10 @@ var AnimeService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateAnimeVideo",
 			Handler:    _AnimeService_UpdateAnimeVideo_Handler,
+		},
+		{
+			MethodName: "UpdateAnimeTorrent",
+			Handler:    _AnimeService_UpdateAnimeTorrent_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

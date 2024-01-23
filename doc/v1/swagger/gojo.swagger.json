@@ -2413,6 +2413,80 @@
         ]
       }
     },
+    "/anime/torrent/{torrentID}/update": {
+      "patch": {
+        "description": "Use this API to update a anime torrent",
+        "operationId": "AnimeService_UpdateAnimeTorrent",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apbv1UpdateAnimeTorrentResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "torrentID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "languageID": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "fileName": {
+                  "type": "string"
+                },
+                "torrentHash": {
+                  "type": "string"
+                },
+                "torrentFile": {
+                  "type": "string"
+                },
+                "seeds": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "peers": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "leechers": {
+                  "type": "integer",
+                  "format": "int32"
+                },
+                "sizeBytes": {
+                  "type": "string",
+                  "format": "int64"
+                },
+                "quality": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "AnimeService"
+        ]
+      }
+    },
     "/anime/video/{videoID}/update": {
       "patch": {
         "description": "Use this API to update a anime video",
@@ -4090,6 +4164,14 @@
       "properties": {
         "animeResource": {
           "$ref": "#/definitions/apbv1AnimeResourceResponse"
+        }
+      }
+    },
+    "apbv1UpdateAnimeTorrentResponse": {
+      "type": "object",
+      "properties": {
+        "animeTorrent": {
+          "$ref": "#/definitions/apbv1AnimeTorrentResponse"
         }
       }
     },
