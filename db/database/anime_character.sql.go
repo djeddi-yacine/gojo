@@ -124,9 +124,10 @@ SET
   about = COALESCE($2, about),
   role_playing = COALESCE($3, role_playing),
   image_url = COALESCE($4, image_url),
-  image_blur_hash = COALESCE($5, image_blur_hash)
+  image_blur_hash = COALESCE($5, image_blur_hash),
+  pictures = COALESCE($6, pictures)
 WHERE
-  id = $6
+  id = $7
 RETURNING id, full_name, about, role_playing, image_url, image_blur_hash, pictures, created_at
 `
 
@@ -136,6 +137,7 @@ type UpdateAnimeCharacterParams struct {
 	RolePlaying   pgtype.Text
 	ImageUrl      pgtype.Text
 	ImageBlurHash pgtype.Text
+	Pictures      []string
 	ID            int64
 }
 
@@ -146,6 +148,7 @@ func (q *Queries) UpdateAnimeCharacter(ctx context.Context, arg UpdateAnimeChara
 		arg.RolePlaying,
 		arg.ImageUrl,
 		arg.ImageBlurHash,
+		arg.Pictures,
 		arg.ID,
 	)
 	var i AnimeCharacter

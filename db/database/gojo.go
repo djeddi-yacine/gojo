@@ -57,6 +57,7 @@ type Gojo interface {
 	GetAllLanguagesTx(ctx context.Context, arg ListLanguagesParams) ([]Language, error)
 	GetAllGenresTx(ctx context.Context, arg ListGenresParams) ([]Genre, error)
 	GetAllActorsTx(ctx context.Context, arg ListActorsParams) ([]Actor, error)
+	UpdateAnimeCharacterTx(ctx context.Context, arg UpdateAnimeCharacterTxParams) (UpdateAnimeCharacterTxResult, error)
 }
 
 type SQLGojo struct {

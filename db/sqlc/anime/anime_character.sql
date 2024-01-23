@@ -17,7 +17,8 @@ SET
   about = COALESCE(sqlc.narg(about), about),
   role_playing = COALESCE(sqlc.narg(role_playing), role_playing),
   image_url = COALESCE(sqlc.narg(image_url), image_url),
-  image_blur_hash = COALESCE(sqlc.narg(image_blur_hash), image_blur_hash)
+  image_blur_hash = COALESCE(sqlc.narg(image_blur_hash), image_blur_hash),
+  pictures = COALESCE(sqlc.narg(pictures), pictures)
 WHERE
   id = sqlc.arg(id)
 RETURNING *;
