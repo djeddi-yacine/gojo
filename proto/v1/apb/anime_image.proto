@@ -10,7 +10,7 @@ message ImageRequest {
   string host       = 1;
   string url        = 2;
   string thumbnails = 3;
-  string blurhash   = 4;
+  string blurHash   = 4;
   uint32 height     = 5;
   uint32 width      = 6;
 }
@@ -20,7 +20,7 @@ message ImageResponse {
   string                    host       = 2;
   string                    url        = 3;
   string                    thumbnails = 4;
-  string                    blurhash   = 5;
+  string                    blurHash   = 5;
   uint32                    height     = 6;
   uint32                    width      = 7;
   google.protobuf.Timestamp createdAt  = 8;

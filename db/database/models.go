@@ -122,7 +122,7 @@ type AnimeImage struct {
 	ImageHost       string
 	ImageUrl        string
 	ImageThumbnails string
-	ImageBlurhash   string
+	ImageBlurHash   string
 	ImageHeight     int32
 	ImageWidth      int32
 	CreatedAt       time.Time

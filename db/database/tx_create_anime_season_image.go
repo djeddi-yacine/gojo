@@ -39,7 +39,7 @@ func (gojo *SQLGojo) CreateAnimeSeasonImageTx(ctx context.Context, arg CreateAni
 						ImageHost:       p.ImageHost,
 						ImageUrl:        p.ImageUrl,
 						ImageThumbnails: p.ImageThumbnails,
-						ImageBlurhash:   p.ImageBlurhash,
+						ImageBlurHash:   p.ImageBlurHash,
 						ImageHeight:     p.ImageHeight,
 						ImageWidth:      p.ImageWidth,
 					}

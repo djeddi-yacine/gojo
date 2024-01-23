@@ -43,7 +43,7 @@ func (gojo *SQLGojo) CreateAnimeSerieImageTx(ctx context.Context, arg CreateAnim
 						ImageHost:       p.ImageHost,
 						ImageUrl:        p.ImageUrl,
 						ImageThumbnails: p.ImageThumbnails,
-						ImageBlurhash:   p.ImageBlurhash,
+						ImageBlurHash:   p.ImageBlurHash,
 						ImageHeight:     p.ImageHeight,
 						ImageWidth:      p.ImageWidth,
 					}
@@ -80,7 +80,7 @@ func (gojo *SQLGojo) CreateAnimeSerieImageTx(ctx context.Context, arg CreateAnim
 						ImageHost:       b.ImageHost,
 						ImageUrl:        b.ImageUrl,
 						ImageThumbnails: b.ImageThumbnails,
-						ImageBlurhash:   b.ImageBlurhash,
+						ImageBlurHash:   b.ImageBlurHash,
 						ImageHeight:     b.ImageHeight,
 						ImageWidth:      b.ImageWidth,
 					}
@@ -117,7 +117,7 @@ func (gojo *SQLGojo) CreateAnimeSerieImageTx(ctx context.Context, arg CreateAnim
 						ImageHost:       l.ImageHost,
 						ImageUrl:        l.ImageUrl,
 						ImageThumbnails: l.ImageThumbnails,
-						ImageBlurhash:   l.ImageBlurhash,
+						ImageBlurHash:   l.ImageBlurHash,
 						ImageHeight:     l.ImageHeight,
 						ImageWidth:      l.ImageWidth,
 					}

@@ -12,16 +12,16 @@ import (
 )
 
 const createAnimeImage = `-- name: CreateAnimeImage :one
-INSERT INTO anime_images (image_host, image_url, image_thumbnails, image_blurhash, image_height, image_width)
+INSERT INTO anime_images (image_host, image_url, image_thumbnails, image_blur_hash, image_height, image_width)
 VALUES ($1, $2, $3, $4, $5, $6)
-RETURNING  id, image_host, image_url, image_thumbnails, image_blurhash, image_height, image_width, created_at
+RETURNING  id, image_host, image_url, image_thumbnails, image_blur_hash, image_height, image_width, created_at
 `
 
 type CreateAnimeImageParams struct {
 	ImageHost       string
 	ImageUrl        string
 	ImageThumbnails string
-	ImageBlurhash   string
+	ImageBlurHash   string
 	ImageHeight     int32
 	ImageWidth      int32
 }
@@ -31,7 +31,7 @@ func (q *Queries) CreateAnimeImage(ctx context.Context, arg CreateAnimeImagePara
 		arg.ImageHost,
 		arg.ImageUrl,
 		arg.ImageThumbnails,
-		arg.ImageBlurhash,
+		arg.ImageBlurHash,
 		arg.ImageHeight,
 		arg.ImageWidth,
 	)
@@ -41,7 +41,7 @@ func (q *Queries) CreateAnimeImage(ctx context.Context, arg CreateAnimeImagePara
 		&i.ImageHost,
 		&i.ImageUrl,
 		&i.ImageThumbnails,
-		&i.ImageBlurhash,
+		&i.ImageBlurHash,
 		&i.ImageHeight,
 		&i.ImageWidth,
 		&i.CreatedAt,
@@ -60,7 +60,7 @@ func (q *Queries) DeleteAnimeImage(ctx context.Context, id int64) error {
 }
 
 const getAnimeImage = `-- name: GetAnimeImage :one
-SELECT id, image_host, image_url, image_thumbnails, image_blurhash, image_height, image_width, created_at FROM anime_images
+SELECT id, image_host, image_url, image_thumbnails, image_blur_hash, image_height, image_width, created_at FROM anime_images
 WHERE id = $1 LIMIT 1
 `
 
@@ -72,7 +72,7 @@ func (q *Queries) GetAnimeImage(ctx context.Context, id int64) (AnimeImage, erro
 		&i.ImageHost,
 		&i.ImageUrl,
 		&i.ImageThumbnails,
-		&i.ImageBlurhash,
+		&i.ImageBlurHash,
 		&i.ImageHeight,
 		&i.ImageWidth,
 		&i.CreatedAt,
@@ -81,7 +81,7 @@ func (q *Queries) GetAnimeImage(ctx context.Context, id int64) (AnimeImage, erro
 }
 
 const listAnimeImages = `-- name: ListAnimeImages :many
-SELECT id, image_host, image_url, image_thumbnails, image_blurhash, image_height, image_width, created_at FROM anime_images
+SELECT id, image_host, image_url, image_thumbnails, image_blur_hash, image_height, image_width, created_at FROM anime_images
 WHERE id = $1
 `
 
@@ -99,7 +99,7 @@ func (q *Queries) ListAnimeImages(ctx context.Context, id int64) ([]AnimeImage, 
 			&i.ImageHost,
 			&i.ImageUrl,
 			&i.ImageThumbnails,
-			&i.ImageBlurhash,
+			&i.ImageBlurHash,
 			&i.ImageHeight,
 			&i.ImageWidth,
 			&i.CreatedAt,
@@ -120,19 +120,19 @@ SET
   image_host = COALESCE($1, image_host),
   image_url = COALESCE($2, image_url),
   image_thumbnails = COALESCE($3, image_thumbnails),
-  image_blurhash = COALESCE($4, image_blurhash),
+  image_blur_hash = COALESCE($4, image_blur_hash),
   image_height = COALESCE($5, image_height),
   image_width = COALESCE($6, image_width)
 WHERE
   id = $7
-RETURNING id, image_host, image_url, image_thumbnails, image_blurhash, image_height, image_width, created_at
+RETURNING id, image_host, image_url, image_thumbnails, image_blur_hash, image_height, image_width, created_at
 `
 
 type UpdateAnimeImageParams struct {
 	ImageHost       pgtype.Text
 	ImageUrl        pgtype.Text
 	ImageThumbnails pgtype.Text
-	ImageBlurhash   pgtype.Text
+	ImageBlurHash   pgtype.Text
 	ImageHeight     pgtype.Int4
 	ImageWidth      pgtype.Int4
 	ID              int64
@@ -143,7 +143,7 @@ func (q *Queries) UpdateAnimeImage(ctx context.Context, arg UpdateAnimeImagePara
 		arg.ImageHost,
 		arg.ImageUrl,
 		arg.ImageThumbnails,
-		arg.ImageBlurhash,
+		arg.ImageBlurHash,
 		arg.ImageHeight,
 		arg.ImageWidth,
 		arg.ID,
@@ -154,7 +154,7 @@ func (q *Queries) UpdateAnimeImage(ctx context.Context, arg UpdateAnimeImagePara
 		&i.ImageHost,
 		&i.ImageUrl,
 		&i.ImageThumbnails,
-		&i.ImageBlurhash,
+		&i.ImageBlurHash,
 		&i.ImageHeight,
 		&i.ImageWidth,
 		&i.CreatedAt,

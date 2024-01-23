@@ -3,7 +3,7 @@ CREATE TABLE "anime_images" (
   "image_host" varchar NOT NULL,
   "image_url" varchar NOT NULL,
   "image_thumbnails" varchar NOT NULL,
-  "image_blurhash" varchar NOT NULL,
+  "image_blur_hash" varchar NOT NULL,
   "image_height" integer NOT NULL,
   "image_width" integer NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())

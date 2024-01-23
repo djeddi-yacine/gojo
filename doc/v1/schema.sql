@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2024-01-22T15:45:35.334Z
+-- Generated at: 2024-01-23T18:44:22.428Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -372,7 +372,7 @@ CREATE TABLE "anime_images" (
   "image_host" varchar NOT NULL,
   "image_url" varchar NOT NULL,
   "image_thumbnails" varchar NOT NULL,
-  "image_blurhash" varchar NOT NULL,
+  "image_blur_hash" varchar NOT NULL,
   "image_height" integer NOT NULL,
   "image_width" integer NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())

@@ -533,7 +533,7 @@ Table anime_images {
   image_host  varchar [not null]
   image_url  varchar [not null]
   image_thumbnails  varchar [not null]
-  image_blurhash  varchar [not null]
+  image_blur_hash  varchar [not null]
   image_height  integer [not null]
   image_width  integer [not null]
   created_at timestamptz [not null, default: `now()`]

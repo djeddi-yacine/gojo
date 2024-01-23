@@ -288,7 +288,7 @@
                 "thumbnails": {
                   "type": "string"
                 },
-                "blurhash": {
+                "blurHash": {
                   "type": "string"
                 },
                 "height": {
@@ -4300,7 +4300,7 @@
         "thumbnails": {
           "type": "string"
         },
-        "blurhash": {
+        "blurHash": {
           "type": "string"
         },
         "height": {
@@ -4329,7 +4329,7 @@
         "thumbnails": {
           "type": "string"
         },
-        "blurhash": {
+        "blurHash": {
           "type": "string"
         },
         "height": {

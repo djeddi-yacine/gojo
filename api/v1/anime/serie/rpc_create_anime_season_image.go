@@ -39,7 +39,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonImage(ctx context.Context, req 
 			arg.SeasonPosters[i].ImageHost = v.Host
 			arg.SeasonPosters[i].ImageUrl = v.Url
 			arg.SeasonPosters[i].ImageThumbnails = v.Thumbnails
-			arg.SeasonPosters[i].ImageBlurhash = v.Blurhash
+			arg.SeasonPosters[i].ImageBlurHash = v.BlurHash
 			arg.SeasonPosters[i].ImageHeight = int32(v.Height)
 			arg.SeasonPosters[i].ImageWidth = int32(v.Width)
 		}
@@ -73,6 +73,9 @@ func validateCreateAnimeSeasonImageRequest(req *aspbv1.CreateAnimeSeasonImageReq
 				}
 				if err := utils.ValidateString(v.Thumbnails, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("seasonPosters > thumbnails at index [%d]", i), err))
+				}
+				if err := utils.ValidateString(v.BlurHash, 1, 50); err != nil {
+					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("seasonPosters > blurHash at index [%d]", i), err))
 				}
 				if err := utils.ValidateInt(int64(v.Height + 1)); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("seasonPosters > Height at index [%d]", i), err))

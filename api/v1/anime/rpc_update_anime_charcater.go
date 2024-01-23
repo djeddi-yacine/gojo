@@ -81,7 +81,7 @@ func (server *AnimeServer) UpdateAnimeCharacter(ctx context.Context, req *apbv1.
 
 func validateUpdateAnimeCharacterRequest(req *apbv1.UpdateAnimeCharacterRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if err := utils.ValidateInt(req.GetCharacterID()); err != nil {
-		violations = append(violations, shv1.FieldViolation("tagID", err))
+		violations = append(violations, shv1.FieldViolation("characterID", err))
 	}
 
 	if req.FullName != nil {

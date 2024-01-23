@@ -52,7 +52,7 @@ func ConvertAnimeImages(v []db.AnimeImage) []*apbv1.ImageResponse {
 				Host:       x.ImageHost,
 				Url:        x.ImageUrl,
 				Thumbnails: x.ImageThumbnails,
-				Blurhash:   x.ImageBlurhash,
+				BlurHash:   x.ImageBlurHash,
 				Height:     uint32(x.ImageHeight),
 				Width:      uint32(x.ImageWidth),
 				CreatedAt:  timestamppb.New(x.CreatedAt),

@@ -40,7 +40,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieImage(ctx context.Context, req *
 			arg.AnimePosters[i].ImageHost = v.Host
 			arg.AnimePosters[i].ImageUrl = v.Url
 			arg.AnimePosters[i].ImageThumbnails = v.Thumbnails
-			arg.AnimePosters[i].ImageBlurhash = v.Blurhash
+			arg.AnimePosters[i].ImageBlurHash = v.BlurHash
 			arg.AnimePosters[i].ImageHeight = int32(v.Height)
 			arg.AnimePosters[i].ImageWidth = int32(v.Width)
 		}
@@ -52,7 +52,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieImage(ctx context.Context, req *
 			arg.AnimeBackdrops[i].ImageHost = v.Host
 			arg.AnimeBackdrops[i].ImageUrl = v.Url
 			arg.AnimeBackdrops[i].ImageThumbnails = v.Thumbnails
-			arg.AnimeBackdrops[i].ImageBlurhash = v.Blurhash
+			arg.AnimeBackdrops[i].ImageBlurHash = v.BlurHash
 			arg.AnimeBackdrops[i].ImageHeight = int32(v.Height)
 			arg.AnimeBackdrops[i].ImageWidth = int32(v.Width)
 		}
@@ -64,7 +64,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieImage(ctx context.Context, req *
 			arg.AnimeLogos[i].ImageHost = v.Host
 			arg.AnimeLogos[i].ImageUrl = v.Url
 			arg.AnimeLogos[i].ImageThumbnails = v.Thumbnails
-			arg.AnimeLogos[i].ImageBlurhash = v.Blurhash
+			arg.AnimeLogos[i].ImageBlurHash = v.BlurHash
 			arg.AnimeLogos[i].ImageHeight = int32(v.Height)
 			arg.AnimeLogos[i].ImageWidth = int32(v.Width)
 		}
@@ -104,6 +104,9 @@ func validateCreateAnimeMovieImageRequest(req *ampbv1.CreateAnimeMovieImageReque
 				if err := utils.ValidateString(v.Url, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > posters > url at index [%d]", i), err))
 				}
+				if err := utils.ValidateString(v.BlurHash, 1, 50); err != nil {
+					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > blurHash at index [%d]", i), err))
+				}
 				if err := utils.ValidateString(v.Thumbnails, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > posters > thumbnails at index [%d]", i), err))
 				}
@@ -124,6 +127,9 @@ func validateCreateAnimeMovieImageRequest(req *ampbv1.CreateAnimeMovieImageReque
 				if err := utils.ValidateString(v.Url, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > backdrops > url at index [%d]", i), err))
 				}
+				if err := utils.ValidateString(v.BlurHash, 1, 50); err != nil {
+					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > blurHash at index [%d]", i), err))
+				}
 				if err := utils.ValidateString(v.Thumbnails, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > backdrops > thumbnails at index [%d]", i), err))
 				}
@@ -143,6 +149,9 @@ func validateCreateAnimeMovieImageRequest(req *ampbv1.CreateAnimeMovieImageReque
 				}
 				if err := utils.ValidateString(v.Url, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > logos > url at index [%d]", i), err))
+				}
+				if err := utils.ValidateString(v.BlurHash, 1, 50); err != nil {
+					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > blurHash at index [%d]", i), err))
 				}
 				if err := utils.ValidateString(v.Thumbnails, 1, 200); err != nil {
 					violations = append(violations, shv1.FieldViolation(fmt.Sprintf("animeImages > logos > thumbnails at index [%d]", i), err))
