@@ -11,7 +11,7 @@ message UpdateAnimeImageRequest {
   optional string host       = 2;
   optional string url        = 3;
   optional string thumbnails = 4;
-  optional string blurhash   = 5;
+  optional string blurHash   = 5;
   optional uint32 height     = 6;
   optional uint32 width      = 7;
 }
