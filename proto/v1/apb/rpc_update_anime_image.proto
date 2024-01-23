@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package v1.apbv1;
+
+import "v1/apb/anime_image.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/apb;apbv1";
+
+message UpdateAnimeImageRequest {
+  int64           imageID    = 1;
+  optional string host       = 2;
+  optional string url        = 3;
+  optional string thumbnails = 4;
+  optional string blurhash   = 5;
+  optional uint32 height     = 6;
+  optional uint32 width      = 7;
+}
+
+message UpdateAnimeImageResponse {
+  ImageResponse animeImage = 1;
+}

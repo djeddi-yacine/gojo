@@ -246,6 +246,68 @@
         ]
       }
     },
+    "/anime/image/{imageID}/update": {
+      "patch": {
+        "description": "Use this API to update a anime image",
+        "operationId": "AnimeService_UpdateAnimeImage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/apbv1UpdateAnimeImageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "imageID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "host": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "thumbnails": {
+                  "type": "string"
+                },
+                "blurhash": {
+                  "type": "string"
+                },
+                "height": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "width": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "AnimeService"
+        ]
+      }
+    },
     "/anime/link/{linkID}/update": {
       "patch": {
         "description": "Use this API to update a anime link",
@@ -4289,6 +4351,14 @@
       "properties": {
         "animeCharacter": {
           "$ref": "#/definitions/apbv1AnimeCharacterResponse"
+        }
+      }
+    },
+    "apbv1UpdateAnimeImageResponse": {
+      "type": "object",
+      "properties": {
+        "animeImage": {
+          "$ref": "#/definitions/apbv1ImageResponse"
         }
       }
     },

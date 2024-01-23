@@ -13,6 +13,7 @@ import "v1/apb/rpc_update_anime_torrent.proto";
 import "v1/apb/rpc_update_anime_title.proto";
 import "v1/apb/rpc_update_anime_tag.proto";
 import "v1/apb/rpc_update_anime_trailer.proto";
+import "v1/apb/rpc_update_anime_image.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/apb;apbv1";
 
@@ -87,6 +88,15 @@ rpc UpdateAnimeTrailer(UpdateAnimeTrailerRequest) returns (UpdateAnimeTrailerRes
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
     description: "Use this API to update a anime trailer";
+};
+}
+rpc UpdateAnimeImage(UpdateAnimeImageRequest) returns (UpdateAnimeImageResponse) {
+  option (google.api.http) = {
+    patch: "/anime/image/{imageID}/update"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to update a anime image";
 };
 }
 }
