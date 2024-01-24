@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
 )
 
@@ -41,9 +42,16 @@ func TestUpdateMeta(t *testing.T) {
 	require.NotEmpty(t, Meta1)
 
 	arg := UpdateMetaParams{
-		ID:       Meta1.ID,
-		Title:    utils.RandomString(10),
-		Overview: utils.RandomString(100)}
+		ID: Meta1.ID,
+		Title: pgtype.Text{
+			String: utils.RandomString(10),
+			Valid:  true,
+		},
+		Overview: pgtype.Text{
+			String: utils.RandomString(100),
+			Valid:  true,
+		},
+	}
 
 	Meta2, err := testGojo.UpdateMeta(context.Background(), arg)
 	require.NoError(t, err)

@@ -11,7 +11,8 @@ WHERE id = $1 LIMIT 1;
 
 -- name: UpdateGenre :one
 UPDATE genres
-SET genre_name = $2
+SET
+    genre_name = COALESCE(sqlc.narg(genre_name), genre_name)
 WHERE id = $1
 RETURNING *;
 

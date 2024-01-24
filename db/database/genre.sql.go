@@ -7,6 +7,8 @@ package db
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createGenre = `-- name: CreateGenre :one
@@ -80,14 +82,15 @@ func (q *Queries) ListGenres(ctx context.Context, arg ListGenresParams) ([]int32
 
 const updateGenre = `-- name: UpdateGenre :one
 UPDATE genres
-SET genre_name = $2
+SET
+    genre_name = COALESCE($2, genre_name)
 WHERE id = $1
 RETURNING id, genre_name, created_at
 `
 
 type UpdateGenreParams struct {
 	ID        int32
-	GenreName string
+	GenreName pgtype.Text
 }
 
 func (q *Queries) UpdateGenre(ctx context.Context, arg UpdateGenreParams) (Genre, error) {

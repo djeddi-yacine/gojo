@@ -7,6 +7,8 @@ package db
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createLanguage = `-- name: CreateLanguage :one
@@ -95,16 +97,17 @@ func (q *Queries) ListLanguages(ctx context.Context, arg ListLanguagesParams) ([
 
 const updateLanguage = `-- name: UpdateLanguage :one
 UPDATE languages
-SET language_code = $2,
-    language_name = $3
+SET
+    language_code = COALESCE($2, language_code),
+    language_name = COALESCE($3, language_name)
 WHERE id = $1
 RETURNING id, language_code, language_name, created_at
 `
 
 type UpdateLanguageParams struct {
 	ID           int32
-	LanguageCode string
-	LanguageName string
+	LanguageCode pgtype.Text
+	LanguageName pgtype.Text
 }
 
 func (q *Queries) UpdateLanguage(ctx context.Context, arg UpdateLanguageParams) (Language, error) {

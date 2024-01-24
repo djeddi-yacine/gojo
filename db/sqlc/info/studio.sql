@@ -11,7 +11,8 @@ WHERE id = $1 LIMIT 1;
 
 -- name: UpdateStudio :one
 UPDATE studios
-SET studio_name = $2
+SET
+    studio_name = COALESCE(sqlc.narg(studio_name), studio_name)
 WHERE id = $1
 RETURNING *;
 

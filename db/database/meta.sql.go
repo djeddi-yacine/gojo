@@ -7,6 +7,8 @@ package db
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createMeta = `-- name: CreateMeta :one
@@ -61,16 +63,17 @@ func (q *Queries) GetMeta(ctx context.Context, id int64) (Meta, error) {
 
 const updateMeta = `-- name: UpdateMeta :one
 UPDATE metas
-SET title = $2,
-    overview = $3
+SET
+    title = COALESCE($2, title),
+    overview = COALESCE($3, overview)
 WHERE id = $1
 RETURNING  id, title, overview, created_at
 `
 
 type UpdateMetaParams struct {
 	ID       int64
-	Title    string
-	Overview string
+	Title    pgtype.Text
+	Overview pgtype.Text
 }
 
 func (q *Queries) UpdateMeta(ctx context.Context, arg UpdateMetaParams) (Meta, error) {

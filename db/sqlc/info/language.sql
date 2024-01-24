@@ -11,8 +11,9 @@ WHERE id = $1 LIMIT 1;
 
 -- name: UpdateLanguage :one
 UPDATE languages
-SET language_code = $2,
-    language_name = $3
+SET
+    language_code = COALESCE(sqlc.narg(language_code), language_code),
+    language_name = COALESCE(sqlc.narg(language_name), language_name)
 WHERE id = $1
 RETURNING *;
 

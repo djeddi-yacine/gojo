@@ -7,6 +7,8 @@ package db
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createStudio = `-- name: CreateStudio :one
@@ -80,14 +82,15 @@ func (q *Queries) ListStudios(ctx context.Context, arg ListStudiosParams) ([]int
 
 const updateStudio = `-- name: UpdateStudio :one
 UPDATE studios
-SET studio_name = $2
+SET
+    studio_name = COALESCE($2, studio_name)
 WHERE id = $1
 RETURNING id, studio_name, created_at
 `
 
 type UpdateStudioParams struct {
 	ID         int32
-	StudioName string
+	StudioName pgtype.Text
 }
 
 func (q *Queries) UpdateStudio(ctx context.Context, arg UpdateStudioParams) (Studio, error) {

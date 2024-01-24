@@ -9,8 +9,9 @@ WHERE id = $1 LIMIT 1;
 
 -- name: UpdateMeta :one
 UPDATE metas
-SET title = $2,
-    overview = $3
+SET
+    title = COALESCE(sqlc.narg(title), title),
+    overview = COALESCE(sqlc.narg(overview), overview)
 WHERE id = $1
 RETURNING  *;
 

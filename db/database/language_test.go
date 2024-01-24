@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
 )
 
@@ -53,9 +54,15 @@ func TestUpdateLanguage(t *testing.T) {
 	require.NotEmpty(t, Language1)
 
 	arg := UpdateLanguageParams{
-		ID:           Language1.ID,
-		LanguageName: utils.RandomString(15),
-		LanguageCode: utils.RandomString(5),
+		ID: Language1.ID,
+		LanguageName: pgtype.Text{
+			String: utils.RandomString(15),
+			Valid:  true,
+		},
+		LanguageCode: pgtype.Text{
+			String: utils.RandomString(3),
+			Valid:  true,
+		},
 	}
 
 	Language2, err := testGojo.UpdateLanguage(context.Background(), arg)

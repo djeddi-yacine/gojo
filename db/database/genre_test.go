@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
 )
 
@@ -36,8 +37,11 @@ func TestUpdateGenre(t *testing.T) {
 	require.NotEmpty(t, genre1)
 
 	arg := UpdateGenreParams{
-		ID:        genre1.ID,
-		GenreName: utils.RandomString(15),
+		ID: genre1.ID,
+		GenreName: pgtype.Text{
+			String: utils.RandomString(15),
+			Valid:  true,
+		},
 	}
 
 	genre2, err := testGojo.UpdateGenre(context.Background(), arg)

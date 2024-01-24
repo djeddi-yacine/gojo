@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/stretchr/testify/require"
 )
 
@@ -36,8 +37,11 @@ func TestUpdateStudio(t *testing.T) {
 	require.NotEmpty(t, studio1)
 
 	arg := UpdateStudioParams{
-		ID:         studio1.ID,
-		StudioName: utils.RandomString(15),
+		ID: studio1.ID,
+		StudioName: pgtype.Text{
+			String: utils.RandomString(15),
+			Valid:  true,
+		},
 	}
 
 	studio2, err := testGojo.UpdateStudio(context.Background(), arg)
