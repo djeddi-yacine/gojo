@@ -2748,6 +2748,39 @@
         ]
       }
     },
+    "/genre/update": {
+      "patch": {
+        "description": "Use this API to update a genre",
+        "operationId": "InfoService_UpdateGenre",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nfpbv1UpdateGenreResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/nfpbv1UpdateGenreRequest"
+            }
+          }
+        ],
+        "tags": [
+          "InfoService"
+        ]
+      }
+    },
     "/language": {
       "get": {
         "description": "Use this API to get all app languages",
@@ -2822,7 +2855,7 @@
     },
     "/language/update": {
       "patch": {
-        "description": "Use this API to update a languages",
+        "description": "Use this API to update a language",
         "operationId": "InfoService_UpdateLanguage",
         "responses": {
           "200": {
@@ -5815,17 +5848,37 @@
         }
       }
     },
-    "nfpbv1UpdateLanguageRequest": {
+    "nfpbv1UpdateGenreRequest": {
       "type": "object",
       "properties": {
-        "LanguageID": {
+        "genreID": {
           "type": "integer",
           "format": "int32"
         },
-        "LanguageCode": {
+        "genreName": {
+          "type": "string"
+        }
+      }
+    },
+    "nfpbv1UpdateGenreResponse": {
+      "type": "object",
+      "properties": {
+        "Genre": {
+          "$ref": "#/definitions/nfpbv1Genre"
+        }
+      }
+    },
+    "nfpbv1UpdateLanguageRequest": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "languageCode": {
           "type": "string"
         },
-        "LanguageName": {
+        "languageName": {
           "type": "string"
         }
       }
@@ -5833,7 +5886,7 @@
     "nfpbv1UpdateLanguageResponse": {
       "type": "object",
       "properties": {
-        "languages": {
+        "language": {
           "$ref": "#/definitions/nfpbv1LanguageResponse"
         }
       }

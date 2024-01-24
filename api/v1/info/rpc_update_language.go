@@ -43,7 +43,7 @@ func (server *InfoServer) UpdateLanguage(ctx context.Context, req *nfpbv1.Update
 	}
 
 	res := &nfpbv1.UpdateLanguageResponse{
-		Languages: shv1.ConvertLanguage(data),
+		Language: shv1.ConvertLanguage(data),
 	}
 
 	return res, nil

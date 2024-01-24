@@ -14,6 +14,7 @@ import "v1/nfpb/rpc_get_all_studios.proto";
 import "v1/nfpb/rpc_get_all_languages.proto";
 import "v1/nfpb/rpc_get_all_actors.proto";
 import "v1/nfpb/rpc_update_language.proto";
+import "v1/nfpb/rpc_update_genre.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb;nfpbv1";
 
@@ -92,7 +93,16 @@ rpc UpdateLanguage(UpdateLanguageRequest) returns (UpdateLanguageResponse) {
     body: "*"
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
-    description: "Use this API to update a languages";
+    description: "Use this API to update a language";
+};
+}
+rpc UpdateGenre(UpdateGenreRequest) returns (UpdateGenreResponse) {
+  option (google.api.http) = {
+    patch: "/genre/update"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to update a genre";
 };
 }
 }

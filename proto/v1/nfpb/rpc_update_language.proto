@@ -7,11 +7,11 @@ import "v1/nfpb/msg_language.proto";
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb;nfpbv1";
 
 message UpdateLanguageRequest {
-  int32           LanguageID   = 1;
-  optional string LanguageCode = 2;
-  optional string LanguageName = 3;
+  int32           languageID   = 1;
+  optional string languageCode = 2;
+  optional string languageName = 3;
 }
 
 message UpdateLanguageResponse {
-  LanguageResponse languages = 1;
+  LanguageResponse language = 1;
 }
