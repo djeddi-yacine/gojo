@@ -12,5 +12,5 @@ message UpdateGenreRequest {
 }
 
 message UpdateGenreResponse {
-  Genre Genre = 1;
+  Genre genre = 1;
 }

@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package v1.nfpbv1;
+
+import "v1/nfpb/msg_studio.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb;nfpbv1";
+
+message UpdateStudioRequest {
+  int32           studioID   = 1;
+  optional string studioName = 2;
+}
+
+message UpdateStudioResponse {
+  Studio studio = 1;
+}

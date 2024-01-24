@@ -29,6 +29,7 @@ const (
 	InfoService_GetAllActors_FullMethodName    = "/v1.nfpbv1.InfoService/GetAllActors"
 	InfoService_UpdateLanguage_FullMethodName  = "/v1.nfpbv1.InfoService/UpdateLanguage"
 	InfoService_UpdateGenre_FullMethodName     = "/v1.nfpbv1.InfoService/UpdateGenre"
+	InfoService_UpdateStudio_FullMethodName    = "/v1.nfpbv1.InfoService/UpdateStudio"
 )
 
 // InfoServiceClient is the client API for InfoService service.
@@ -45,6 +46,7 @@ type InfoServiceClient interface {
 	GetAllActors(ctx context.Context, in *GetAllActorsRequest, opts ...grpc.CallOption) (*GetAllActorsResponse, error)
 	UpdateLanguage(ctx context.Context, in *UpdateLanguageRequest, opts ...grpc.CallOption) (*UpdateLanguageResponse, error)
 	UpdateGenre(ctx context.Context, in *UpdateGenreRequest, opts ...grpc.CallOption) (*UpdateGenreResponse, error)
+	UpdateStudio(ctx context.Context, in *UpdateStudioRequest, opts ...grpc.CallOption) (*UpdateStudioResponse, error)
 }
 
 type infoServiceClient struct {
@@ -145,6 +147,15 @@ func (c *infoServiceClient) UpdateGenre(ctx context.Context, in *UpdateGenreRequ
 	return out, nil
 }
 
+func (c *infoServiceClient) UpdateStudio(ctx context.Context, in *UpdateStudioRequest, opts ...grpc.CallOption) (*UpdateStudioResponse, error) {
+	out := new(UpdateStudioResponse)
+	err := c.cc.Invoke(ctx, InfoService_UpdateStudio_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // InfoServiceServer is the server API for InfoService service.
 // All implementations must embed UnimplementedInfoServiceServer
 // for forward compatibility
@@ -159,6 +170,7 @@ type InfoServiceServer interface {
 	GetAllActors(context.Context, *GetAllActorsRequest) (*GetAllActorsResponse, error)
 	UpdateLanguage(context.Context, *UpdateLanguageRequest) (*UpdateLanguageResponse, error)
 	UpdateGenre(context.Context, *UpdateGenreRequest) (*UpdateGenreResponse, error)
+	UpdateStudio(context.Context, *UpdateStudioRequest) (*UpdateStudioResponse, error)
 	mustEmbedUnimplementedInfoServiceServer()
 }
 
@@ -195,6 +207,9 @@ func (UnimplementedInfoServiceServer) UpdateLanguage(context.Context, *UpdateLan
 }
 func (UnimplementedInfoServiceServer) UpdateGenre(context.Context, *UpdateGenreRequest) (*UpdateGenreResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateGenre not implemented")
+}
+func (UnimplementedInfoServiceServer) UpdateStudio(context.Context, *UpdateStudioRequest) (*UpdateStudioResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateStudio not implemented")
 }
 func (UnimplementedInfoServiceServer) mustEmbedUnimplementedInfoServiceServer() {}
 
@@ -389,6 +404,24 @@ func _InfoService_UpdateGenre_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _InfoService_UpdateStudio_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateStudioRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(InfoServiceServer).UpdateStudio(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: InfoService_UpdateStudio_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(InfoServiceServer).UpdateStudio(ctx, req.(*UpdateStudioRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // InfoService_ServiceDesc is the grpc.ServiceDesc for InfoService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -435,6 +468,10 @@ var InfoService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateGenre",
 			Handler:    _InfoService_UpdateGenre_Handler,
+		},
+		{
+			MethodName: "UpdateStudio",
+			Handler:    _InfoService_UpdateStudio_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -2886,6 +2886,39 @@
         ]
       }
     },
+    "/studio/update": {
+      "patch": {
+        "description": "Use this API to update a studio",
+        "operationId": "InfoService_UpdateStudio",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nfpbv1UpdateStudioResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/nfpbv1UpdateStudioRequest"
+            }
+          }
+        ],
+        "tags": [
+          "InfoService"
+        ]
+      }
+    },
     "/user/create": {
       "post": {
         "description": "Use this API to create a new user",
@@ -5863,7 +5896,7 @@
     "nfpbv1UpdateGenreResponse": {
       "type": "object",
       "properties": {
-        "Genre": {
+        "genre": {
           "$ref": "#/definitions/nfpbv1Genre"
         }
       }
@@ -5888,6 +5921,26 @@
       "properties": {
         "language": {
           "$ref": "#/definitions/nfpbv1LanguageResponse"
+        }
+      }
+    },
+    "nfpbv1UpdateStudioRequest": {
+      "type": "object",
+      "properties": {
+        "studioID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "studioName": {
+          "type": "string"
+        }
+      }
+    },
+    "nfpbv1UpdateStudioResponse": {
+      "type": "object",
+      "properties": {
+        "studio": {
+          "$ref": "#/definitions/nfpbv1Studio"
         }
       }
     },
