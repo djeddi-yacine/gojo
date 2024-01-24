@@ -24,7 +24,7 @@ func (server *InfoServer) CreateLanguages(ctx context.Context, req *nfpbv1.Creat
 		return nil, status.Errorf(codes.PermissionDenied, "cannot create new language")
 	}
 
-	if violations := validateCreateLanguageRequest(req); violations != nil {
+	if violations := validateCreateLanguagesRequest(req); violations != nil {
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
@@ -53,18 +53,18 @@ func (server *InfoServer) CreateLanguages(ctx context.Context, req *nfpbv1.Creat
 	return res, nil
 }
 
-func validateCreateLanguageRequest(req *nfpbv1.CreateLanguagesRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+func validateCreateLanguagesRequest(req *nfpbv1.CreateLanguagesRequest) (violations []*errdetails.BadRequest_FieldViolation) {
 	if req.GetLanguages() != nil {
-		for i, value := range req.GetLanguages() {
-			if err := utils.ValidateString(value.LanguageCode, 2, 3); err != nil {
+		for i, v := range req.GetLanguages() {
+			if err := utils.ValidateString(v.LanguageCode, 2, 3); err != nil {
 				violations = append(violations, shv1.FieldViolation(fmt.Sprintf("languages > code at [%d]", i), err))
 			}
-			if err := utils.ValidateString(value.LanguageName, 2, 15); err != nil {
+			if err := utils.ValidateString(v.LanguageName, 2, 15); err != nil {
 				violations = append(violations, shv1.FieldViolation(fmt.Sprintf("languages > name at [%d]", i), err))
 			}
 		}
 	} else {
-		violations = append(violations, shv1.FieldViolation("languages", errors.New("you need to send the AnimeImages model")))
+		violations = append(violations, shv1.FieldViolation("languages", errors.New("you need to send the Language model")))
 	}
 
 	return violations

@@ -2820,6 +2820,39 @@
         ]
       }
     },
+    "/language/update": {
+      "patch": {
+        "description": "Use this API to update a languages",
+        "operationId": "InfoService_UpdateLanguage",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nfpbv1UpdateLanguageResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/nfpbv1UpdateLanguageRequest"
+            }
+          }
+        ],
+        "tags": [
+          "InfoService"
+        ]
+      }
+    },
     "/user/create": {
       "post": {
         "description": "Use this API to create a new user",
@@ -5779,6 +5812,29 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "nfpbv1UpdateLanguageRequest": {
+      "type": "object",
+      "properties": {
+        "LanguageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "LanguageCode": {
+          "type": "string"
+        },
+        "LanguageName": {
+          "type": "string"
+        }
+      }
+    },
+    "nfpbv1UpdateLanguageResponse": {
+      "type": "object",
+      "properties": {
+        "languages": {
+          "$ref": "#/definitions/nfpbv1LanguageResponse"
         }
       }
     },

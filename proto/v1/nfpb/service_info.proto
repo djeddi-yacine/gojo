@@ -13,6 +13,7 @@ import "v1/nfpb/rpc_get_all_genres.proto";
 import "v1/nfpb/rpc_get_all_studios.proto";
 import "v1/nfpb/rpc_get_all_languages.proto";
 import "v1/nfpb/rpc_get_all_actors.proto";
+import "v1/nfpb/rpc_update_language.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb;nfpbv1";
 
@@ -83,6 +84,15 @@ rpc GetAllActors(GetAllActorsRequest) returns (GetAllActorsResponse) {
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
     description: "Use this API to get all actors";
+};
+}
+rpc UpdateLanguage(UpdateLanguageRequest) returns (UpdateLanguageResponse) {
+  option (google.api.http) = {
+    patch: "/language/update"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to update a languages";
 };
 }
 }
