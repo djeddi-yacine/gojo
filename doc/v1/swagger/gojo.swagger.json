@@ -104,7 +104,7 @@
         ]
       }
     },
-    "/actor/update": {
+    "/actor/{actorID}/update": {
       "patch": {
         "description": "Use this API to update a actor",
         "operationId": "InfoService_UpdateActor",
@@ -124,11 +124,39 @@
         },
         "parameters": [
           {
+            "name": "actorID",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          },
+          {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/nfpbv1UpdateActorRequest"
+              "type": "object",
+              "properties": {
+                "fullName": {
+                  "type": "string"
+                },
+                "gender": {
+                  "type": "string"
+                },
+                "biography": {
+                  "type": "string"
+                },
+                "born": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "image": {
+                  "type": "string"
+                },
+                "imageBlurHash": {
+                  "type": "string"
+                }
+              }
             }
           }
         ],
@@ -2781,7 +2809,7 @@
         ]
       }
     },
-    "/genre/update": {
+    "/genre/{genreID}/update": {
       "patch": {
         "description": "Use this API to update a genre",
         "operationId": "InfoService_UpdateGenre",
@@ -2801,11 +2829,23 @@
         },
         "parameters": [
           {
+            "name": "genreID",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/nfpbv1UpdateGenreRequest"
+              "type": "object",
+              "properties": {
+                "genreName": {
+                  "type": "string"
+                }
+              }
             }
           }
         ],
@@ -2886,7 +2926,7 @@
         ]
       }
     },
-    "/language/update": {
+    "/language/{languageID}/update": {
       "patch": {
         "description": "Use this API to update a language",
         "operationId": "InfoService_UpdateLanguage",
@@ -2906,11 +2946,26 @@
         },
         "parameters": [
           {
+            "name": "languageID",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/nfpbv1UpdateLanguageRequest"
+              "type": "object",
+              "properties": {
+                "languageCode": {
+                  "type": "string"
+                },
+                "languageName": {
+                  "type": "string"
+                }
+              }
             }
           }
         ],
@@ -2919,7 +2974,7 @@
         ]
       }
     },
-    "/studio/update": {
+    "/studio/{studioID}/update": {
       "patch": {
         "description": "Use this API to update a studio",
         "operationId": "InfoService_UpdateStudio",
@@ -2939,11 +2994,23 @@
         },
         "parameters": [
           {
+            "name": "studioID",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
             "name": "body",
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/nfpbv1UpdateStudioRequest"
+              "type": "object",
+              "properties": {
+                "studioName": {
+                  "type": "string"
+                }
+              }
             }
           }
         ],
@@ -5914,51 +5981,11 @@
         }
       }
     },
-    "nfpbv1UpdateActorRequest": {
-      "type": "object",
-      "properties": {
-        "actorID": {
-          "type": "string",
-          "format": "int64"
-        },
-        "fullName": {
-          "type": "string"
-        },
-        "gender": {
-          "type": "string"
-        },
-        "biography": {
-          "type": "string"
-        },
-        "born": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "image": {
-          "type": "string"
-        },
-        "imageBlurHash": {
-          "type": "string"
-        }
-      }
-    },
     "nfpbv1UpdateActorResponse": {
       "type": "object",
       "properties": {
         "actor": {
           "$ref": "#/definitions/nfpbv1ActorResponse"
-        }
-      }
-    },
-    "nfpbv1UpdateGenreRequest": {
-      "type": "object",
-      "properties": {
-        "genreID": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "genreName": {
-          "type": "string"
         }
       }
     },
@@ -5970,38 +5997,11 @@
         }
       }
     },
-    "nfpbv1UpdateLanguageRequest": {
-      "type": "object",
-      "properties": {
-        "languageID": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "languageCode": {
-          "type": "string"
-        },
-        "languageName": {
-          "type": "string"
-        }
-      }
-    },
     "nfpbv1UpdateLanguageResponse": {
       "type": "object",
       "properties": {
         "language": {
           "$ref": "#/definitions/nfpbv1LanguageResponse"
-        }
-      }
-    },
-    "nfpbv1UpdateStudioRequest": {
-      "type": "object",
-      "properties": {
-        "studioID": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "studioName": {
-          "type": "string"
         }
       }
     },

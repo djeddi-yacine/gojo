@@ -323,6 +323,23 @@ func request_InfoService_UpdateLanguage_0(ctx context.Context, marshaler runtime
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["languageID"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "languageID")
+	}
+
+	protoReq.LanguageID, err = runtime.Int32(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "languageID", err)
+	}
+
 	msg, err := client.UpdateLanguage(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -338,6 +355,23 @@ func local_request_InfoService_UpdateLanguage_0(ctx context.Context, marshaler r
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["languageID"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "languageID")
+	}
+
+	protoReq.LanguageID, err = runtime.Int32(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "languageID", err)
 	}
 
 	msg, err := server.UpdateLanguage(ctx, &protoReq)
@@ -357,6 +391,23 @@ func request_InfoService_UpdateGenre_0(ctx context.Context, marshaler runtime.Ma
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["genreID"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "genreID")
+	}
+
+	protoReq.GenreID, err = runtime.Int32(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "genreID", err)
+	}
+
 	msg, err := client.UpdateGenre(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -372,6 +423,23 @@ func local_request_InfoService_UpdateGenre_0(ctx context.Context, marshaler runt
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["genreID"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "genreID")
+	}
+
+	protoReq.GenreID, err = runtime.Int32(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "genreID", err)
 	}
 
 	msg, err := server.UpdateGenre(ctx, &protoReq)
@@ -391,6 +459,23 @@ func request_InfoService_UpdateStudio_0(ctx context.Context, marshaler runtime.M
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["studioID"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "studioID")
+	}
+
+	protoReq.StudioID, err = runtime.Int32(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "studioID", err)
+	}
+
 	msg, err := client.UpdateStudio(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -406,6 +491,23 @@ func local_request_InfoService_UpdateStudio_0(ctx context.Context, marshaler run
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["studioID"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "studioID")
+	}
+
+	protoReq.StudioID, err = runtime.Int32(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "studioID", err)
 	}
 
 	msg, err := server.UpdateStudio(ctx, &protoReq)
@@ -425,6 +527,23 @@ func request_InfoService_UpdateActor_0(ctx context.Context, marshaler runtime.Ma
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["actorID"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "actorID")
+	}
+
+	protoReq.ActorID, err = runtime.Int64(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "actorID", err)
+	}
+
 	msg, err := client.UpdateActor(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
@@ -440,6 +559,23 @@ func local_request_InfoService_UpdateActor_0(ctx context.Context, marshaler runt
 	}
 	if err := marshaler.NewDecoder(newReader()).Decode(&protoReq); err != nil && err != io.EOF {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
+	}
+
+	var (
+		val string
+		ok  bool
+		err error
+		_   = err
+	)
+
+	val, ok = pathParams["actorID"]
+	if !ok {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "missing parameter %s", "actorID")
+	}
+
+	protoReq.ActorID, err = runtime.Int64(val)
+	if err != nil {
+		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "actorID", err)
 	}
 
 	msg, err := server.UpdateActor(ctx, &protoReq)
@@ -661,7 +797,7 @@ func RegisterInfoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateLanguage", runtime.WithHTTPPathPattern("/language/update"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateLanguage", runtime.WithHTTPPathPattern("/language/{languageID}/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -686,7 +822,7 @@ func RegisterInfoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateGenre", runtime.WithHTTPPathPattern("/genre/update"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateGenre", runtime.WithHTTPPathPattern("/genre/{genreID}/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -711,7 +847,7 @@ func RegisterInfoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateStudio", runtime.WithHTTPPathPattern("/studio/update"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateStudio", runtime.WithHTTPPathPattern("/studio/{studioID}/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -736,7 +872,7 @@ func RegisterInfoServiceHandlerServer(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateActor", runtime.WithHTTPPathPattern("/actor/update"))
+		annotatedContext, err = runtime.AnnotateIncomingContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateActor", runtime.WithHTTPPathPattern("/actor/{actorID}/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -976,7 +1112,7 @@ func RegisterInfoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateLanguage", runtime.WithHTTPPathPattern("/language/update"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateLanguage", runtime.WithHTTPPathPattern("/language/{languageID}/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -998,7 +1134,7 @@ func RegisterInfoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateGenre", runtime.WithHTTPPathPattern("/genre/update"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateGenre", runtime.WithHTTPPathPattern("/genre/{genreID}/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1020,7 +1156,7 @@ func RegisterInfoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateStudio", runtime.WithHTTPPathPattern("/studio/update"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateStudio", runtime.WithHTTPPathPattern("/studio/{studioID}/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1042,7 +1178,7 @@ func RegisterInfoServiceHandlerClient(ctx context.Context, mux *runtime.ServeMux
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
 		var err error
 		var annotatedContext context.Context
-		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateActor", runtime.WithHTTPPathPattern("/actor/update"))
+		annotatedContext, err = runtime.AnnotateContext(ctx, mux, req, "/v1.nfpbv1.InfoService/UpdateActor", runtime.WithHTTPPathPattern("/actor/{actorID}/update"))
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
@@ -1078,13 +1214,13 @@ var (
 
 	pattern_InfoService_GetAllActors_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0}, []string{"actor"}, ""))
 
-	pattern_InfoService_UpdateLanguage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"language", "update"}, ""))
+	pattern_InfoService_UpdateLanguage_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"language", "languageID", "update"}, ""))
 
-	pattern_InfoService_UpdateGenre_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"genre", "update"}, ""))
+	pattern_InfoService_UpdateGenre_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"genre", "genreID", "update"}, ""))
 
-	pattern_InfoService_UpdateStudio_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"studio", "update"}, ""))
+	pattern_InfoService_UpdateStudio_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"studio", "studioID", "update"}, ""))
 
-	pattern_InfoService_UpdateActor_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1}, []string{"actor", "update"}, ""))
+	pattern_InfoService_UpdateActor_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 1, 0, 4, 1, 5, 1, 2, 2}, []string{"actor", "actorID", "update"}, ""))
 )
 
 var (

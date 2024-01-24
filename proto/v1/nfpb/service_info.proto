@@ -91,7 +91,7 @@ rpc GetAllActors(GetAllActorsRequest) returns (GetAllActorsResponse) {
 }
 rpc UpdateLanguage(UpdateLanguageRequest) returns (UpdateLanguageResponse) {
   option (google.api.http) = {
-    patch: "/language/update"
+    patch: "/language/{languageID}/update"
     body: "*"
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -100,7 +100,7 @@ rpc UpdateLanguage(UpdateLanguageRequest) returns (UpdateLanguageResponse) {
 }
 rpc UpdateGenre(UpdateGenreRequest) returns (UpdateGenreResponse) {
   option (google.api.http) = {
-    patch: "/genre/update"
+    patch: "/genre/{genreID}/update"
     body: "*"
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -109,7 +109,7 @@ rpc UpdateGenre(UpdateGenreRequest) returns (UpdateGenreResponse) {
 }
 rpc UpdateStudio(UpdateStudioRequest) returns (UpdateStudioResponse) {
   option (google.api.http) = {
-    patch: "/studio/update"
+    patch: "/studio/{studioID}/update"
     body: "*"
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
@@ -118,7 +118,7 @@ rpc UpdateStudio(UpdateStudioRequest) returns (UpdateStudioResponse) {
 }
 rpc UpdateActor(UpdateActorRequest) returns (UpdateActorResponse) {
   option (google.api.http) = {
-    patch: "/actor/update"
+    patch: "/actor/{actorID}/update"
     body: "*"
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
