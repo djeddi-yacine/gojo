@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package v1.nfpbv1;
+
+import "v1/nfpb/msg_actor.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb;nfpbv1";
+
+message UpdateActorRequest {
+  int64           actorID                          = 1;
+  optional string fullName                         = 2;
+  optional string gender                           = 3;
+  optional string biography                        = 4;
+  optional google.protobuf.Timestamp born          = 5;
+  optional string                    image         = 6;
+  optional string                    imageBlurHash = 7;
+}
+
+message UpdateActorResponse {
+  ActorResponse actor = 1;
+}

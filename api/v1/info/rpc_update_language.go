@@ -20,7 +20,7 @@ func (server *InfoServer) UpdateLanguage(ctx context.Context, req *nfpbv1.Update
 	}
 
 	if authPayload.Role != utils.RootRoll {
-		return nil, status.Errorf(codes.PermissionDenied, "cannot create new language")
+		return nil, status.Errorf(codes.PermissionDenied, "cannot update language")
 	}
 
 	if violations := validateUpdateLanguageRequest(req); violations != nil {

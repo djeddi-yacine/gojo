@@ -16,6 +16,7 @@ import "v1/nfpb/rpc_get_all_actors.proto";
 import "v1/nfpb/rpc_update_language.proto";
 import "v1/nfpb/rpc_update_genre.proto";
 import "v1/nfpb/rpc_update_studio.proto";
+import "v1/nfpb/rpc_update_actor.proto";
 
 option go_package = "github.com/dj-yacine-flutter/gojo/pb/v1/nfpb;nfpbv1";
 
@@ -113,6 +114,15 @@ rpc UpdateStudio(UpdateStudioRequest) returns (UpdateStudioResponse) {
   };
   option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
     description: "Use this API to update a studio";
+};
+}
+rpc UpdateActor(UpdateActorRequest) returns (UpdateActorResponse) {
+  option (google.api.http) = {
+    patch: "/actor/update"
+    body: "*"
+  };
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+    description: "Use this API to update a actor";
 };
 }
 }

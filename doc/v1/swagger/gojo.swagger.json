@@ -104,6 +104,39 @@
         ]
       }
     },
+    "/actor/update": {
+      "patch": {
+        "description": "Use this API to update a actor",
+        "operationId": "InfoService_UpdateActor",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/nfpbv1UpdateActorResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/nfpbv1UpdateActorRequest"
+            }
+          }
+        ],
+        "tags": [
+          "InfoService"
+        ]
+      }
+    },
     "/anime/character/{characterID}/update": {
       "patch": {
         "description": "Use this API to update a anime character",
@@ -5878,6 +5911,42 @@
         "createdAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "nfpbv1UpdateActorRequest": {
+      "type": "object",
+      "properties": {
+        "actorID": {
+          "type": "string",
+          "format": "int64"
+        },
+        "fullName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "biography": {
+          "type": "string"
+        },
+        "born": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "image": {
+          "type": "string"
+        },
+        "imageBlurHash": {
+          "type": "string"
+        }
+      }
+    },
+    "nfpbv1UpdateActorResponse": {
+      "type": "object",
+      "properties": {
+        "actor": {
+          "$ref": "#/definitions/nfpbv1ActorResponse"
         }
       }
     },
