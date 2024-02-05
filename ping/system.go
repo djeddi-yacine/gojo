@@ -27,7 +27,7 @@ func NewPingSystem(config utils.Config) *PingSystem {
 		LocalCache: cache.NewTinyLFU(90, time.Minute),
 	})
 
-	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0m- START REDIS CACHE SERVER -AT- %s\u001b[0m\n", config.RedisCacheAddress)
+	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0mSTART CACHE SERVER -AT- %s\u001b[0m\n", config.RedisCacheAddress)
 
 	return &PingSystem{
 		config: config,

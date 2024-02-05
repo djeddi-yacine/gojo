@@ -3,10 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
+	"os"
+	"os/signal"
+	"syscall"
 
 	v1 "github.com/dj-yacine-flutter/gojo/api/v1"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
-	"github.com/dj-yacine-flutter/gojo/mail"
 	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/token"
 	"github.com/dj-yacine-flutter/gojo/utils"
@@ -14,6 +16,7 @@ import (
 	"github.com/hibiken/asynq"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/rs/zerolog/log"
+	"golang.org/x/sync/errgroup"
 )
 
 func main() {
@@ -24,7 +27,10 @@ func main() {
 		log.Fatal().Err(err).Msg("cannot load config file")
 	}
 
-	conn, err := pgxpool.New(context.Background(), config.DBSource)
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
+	defer stop()
+
+	conn, err := pgxpool.New(ctx, config.DBSource)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot connect to the DB")
 	}
@@ -55,12 +61,15 @@ func main() {
 	}
 
 	taskDistributor := worker.NewRedisTaskDistributor(redisOpt)
-	taskProcessor := worker.NewRedisTaskProcessor(redisOpt, gojo, mail.NewGmailSender(config.EmailSenderName, config.EmailSenderAddress, config.EmailSenderPassword))
 
-	err = taskProcessor.Start()
+	waitGroup, ctx := errgroup.WithContext(ctx)
+
+	worker.Start(ctx, waitGroup, config, redisOpt, gojo)
+
+	v1.Start(ctx, waitGroup, config, gojo, tokenMaker, taskDistributor, ping, client)
+
+	err = waitGroup.Wait()
 	if err != nil {
-		log.Fatal().Err(err).Msg("cannot start task processor")
+		log.Fatal().Err(err).Msg("error from wait group")
 	}
-
-	v1.Start(config, gojo, tokenMaker, taskDistributor, ping, client)
 }

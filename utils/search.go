@@ -28,7 +28,7 @@ func MeiliSearch(config Config) *meilisearch.Client {
 		time.Sleep(100 * time.Millisecond)
 	}
 
-	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0m- START MEILISEATCH -AT- %s\u001b[0m\n", config.MeilisearchAddress)
+	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0mSTART MEILISEATCH SERVER -AT- %s\u001b[0m\n", config.MeilisearchAddress)
 
 	return meiliClient
 }

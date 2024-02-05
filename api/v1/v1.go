@@ -2,6 +2,7 @@ package v1
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"net"
 	"net/http"
@@ -27,11 +28,22 @@ import (
 	"github.com/meilisearch/meilisearch-go"
 	sk "github.com/rakyll/statik/fs"
 	"github.com/rs/zerolog/log"
+	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
+	"google.golang.org/protobuf/encoding/protojson"
 )
 
-func Start(config utils.Config, gojo db.Gojo, tokenMaker token.Maker, taskDistributor worker.TaskDistributor, ping *ping.PingSystem, client *meilisearch.Client) {
+func Start(
+	ctx context.Context,
+	waitGroup *errgroup.Group,
+	config utils.Config,
+	gojo db.Gojo,
+	tokenMaker token.Maker,
+	taskDistributor worker.TaskDistributor,
+	ping *ping.PingSystem,
+	client *meilisearch.Client,
+) {
 	amx, err := utils.CreatedIndex(client, utils.AnimeMovieV1)
 	if err != nil {
 		log.Fatal().Err(err).Msg(err.Error())
@@ -48,11 +60,13 @@ func Start(config utils.Config, gojo db.Gojo, tokenMaker token.Maker, taskDistri
 	amsvc := amapiv1.NewAnimeMovieServer(gojo, tokenMaker, ping, amx)
 	assvc := asapiv1.NewAnimeSerieServer(gojo, tokenMaker, ping, asx)
 
-	go startGatewayApi(config, ussvc, nfsvc, asvc, amsvc, assvc)
-	startGRPCApi(config, ussvc, nfsvc, asvc, amsvc, assvc)
+	startGatewayApi(ctx, waitGroup, config, ussvc, nfsvc, asvc, amsvc, assvc)
+	startGRPCApi(ctx, waitGroup, config, ussvc, nfsvc, asvc, amsvc, assvc)
 }
 
 func startGRPCApi(
+	ctx context.Context,
+	waitGroup *errgroup.Group,
 	config utils.Config,
 	ussvc *usapiv1.UserServer,
 	nfsvc *nfapiv1.InfoServer,
@@ -78,15 +92,36 @@ func startGRPCApi(
 		log.Fatal().Err(err).Msg("cannot create gRPC listener")
 	}
 
-	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0m- START gRPC server -AT- %s\u001b[0m\n", listener.Addr().String())
+	waitGroup.Go(func() error {
+		fmt.Printf("\u001b[38;5;50mSTART gRPC SERVER -AT- %s\u001b[0m\n", listener.Addr().String())
 
-	err = server.Serve(listener)
-	if err != nil {
-		log.Fatal().Err(err).Msg("cannot start gRPC server")
-	}
+		err = server.Serve(listener)
+		if err != nil {
+			if errors.Is(err, grpc.ErrServerStopped) {
+				return nil
+			}
+			log.Error().Err(err).Msg("gRPC server failed to serve")
+			return err
+		}
+
+		return nil
+	})
+
+	waitGroup.Go(func() error {
+		<-ctx.Done()
+		fmt.Printf("\u001b[38;5;266mSHUTDOWN gRPC SERVER ...\u001b[0m\n")
+
+		server.GracefulStop()
+		fmt.Printf("\u001b[38;5;196mgRPC SERVER IS STOPPED\u001b[0m\n")
+
+		return nil
+	})
+
 }
 
 func startGatewayApi(
+	ctx context.Context,
+	waitGroup *errgroup.Group,
 	config utils.Config,
 	ussvc *usapiv1.UserServer,
 	nfsvc *nfapiv1.InfoServer,
@@ -96,11 +131,14 @@ func startGatewayApi(
 ) {
 	var err error
 
-	httpMux := http.NewServeMux()
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
-
-	grpcMux := runtime.NewServeMux()
+	grpcMux := runtime.NewServeMux(runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{
+		MarshalOptions: protojson.MarshalOptions{
+			UseProtoNames: true,
+		},
+		UnmarshalOptions: protojson.UnmarshalOptions{
+			DiscardUnknown: true,
+		},
+	}))
 
 	err = uspbv1.RegisterUserServiceHandlerServer(ctx, grpcMux, ussvc)
 	if err != nil {
@@ -127,6 +165,7 @@ func startGatewayApi(
 		log.Fatal().Err(err).Msg("cannot register Gateway server for Anime Serie Service v1")
 	}
 
+	httpMux := http.NewServeMux()
 	httpMux.Handle("/v1/", http.StripPrefix("/v1", grpcMux))
 
 	statikFS, err := sk.New()
@@ -136,15 +175,36 @@ func startGatewayApi(
 
 	httpMux.Handle("/v1/swagger/", http.StripPrefix("/v1/swagger/", http.FileServer(statikFS)))
 
-	listener, err := net.Listen("tcp", config.HTTPServerAddress)
-	if err != nil {
-		log.Fatal().Err(err).Msg("cannot create Gateway listener")
+	httpServer := &http.Server{
+		Handler: httpMux,
+		Addr:    config.HTTPServerAddress,
 	}
 
-	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0m- START HTTP server -AT- %s\u001b[0m\n", listener.Addr().String())
+	waitGroup.Go(func() error {
+		fmt.Printf("\u001b[38;5;50mSTART HTTP SERVER -AT- %s\u001b[0m\n", httpServer.Addr)
 
-	err = http.Serve(listener, httpMux)
-	if err != nil {
-		log.Fatal().Err(err).Msg("cannot start the Gateway server")
-	}
+		err = httpServer.ListenAndServe()
+		if err != nil {
+			if errors.Is(err, http.ErrServerClosed) {
+				return nil
+			}
+			log.Error().Err(err).Msg("HTTP server failed to serve")
+			return err
+		}
+		return nil
+	})
+
+	waitGroup.Go(func() error {
+		<-ctx.Done()
+		fmt.Printf("\u001b[38;5;266mSHUTDOWN HTTP SERVER ...\u001b[0m\n")
+
+		err := httpServer.Shutdown(context.Background())
+		if err != nil {
+			log.Error().Err(err).Msg("failed to shutdown HTTP server")
+			return err
+		}
+
+		fmt.Printf("\u001b[38;5;196mHTTP SERVER IS STOPPED\u001b[0m\n")
+		return nil
+	})
 }
