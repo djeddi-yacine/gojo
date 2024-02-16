@@ -11,11 +11,11 @@ import (
 
 // PingSystem is a cache system using redis.
 type PingSystem struct {
-	config utils.Config
+	config *utils.Config
 	cache  *cache.Cache
 }
 
-func NewPingSystem(config utils.Config) *PingSystem {
+func NewPingSystem(config *utils.Config) *PingSystem {
 	ring := redis.NewRing(&redis.RingOptions{
 		Addrs: map[string]string{
 			"server01": config.RedisCacheAddress,

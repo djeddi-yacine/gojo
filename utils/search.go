@@ -18,7 +18,7 @@ type Document struct {
 	Titles []string `json:"titles"`
 }
 
-func MeiliSearch(config Config) *meilisearch.Client {
+func MeiliSearch(config *Config) *meilisearch.Client {
 	meiliClient := meilisearch.NewClient(meilisearch.ClientConfig{
 		Host:   "http://" + config.MeilisearchAddress,
 		APIKey: config.MeiliSearchMasterKey,

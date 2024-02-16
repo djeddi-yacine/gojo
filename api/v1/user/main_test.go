@@ -16,7 +16,7 @@ import (
 )
 
 func newTestServer(t *testing.T, gojo db.Gojo, taskDistributor worker.TaskDistributor) *UserServer {
-	config := utils.Config{
+	config := &utils.Config{
 		TokenSymmetricKey:   utils.RandomString(32),
 		AccessTokenDuration: time.Minute,
 	}

@@ -15,7 +15,7 @@ import (
 func Start(
 	ctx context.Context,
 	waitGroup *errgroup.Group,
-	config utils.Config,
+	config *utils.Config,
 	redisOpt asynq.RedisClientOpt,
 	gojo db.Gojo,
 ) {

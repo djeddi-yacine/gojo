@@ -11,13 +11,13 @@ import (
 // UserServer serves gRPC requests for User endpoints.
 type UserServer struct {
 	uspbv1.UnimplementedUserServiceServer
-	config          utils.Config
+	config          *utils.Config
 	gojo            db.Gojo
 	tokenMaker      token.Maker
 	taskDistributor worker.TaskDistributor
 }
 
-func NewUserServer(config utils.Config, gojo db.Gojo, tokenMaker token.Maker, taskDistributor worker.TaskDistributor) *UserServer {
+func NewUserServer(config *utils.Config, gojo db.Gojo, tokenMaker token.Maker, taskDistributor worker.TaskDistributor) *UserServer {
 	return &UserServer{
 		config:          config,
 		gojo:            gojo,

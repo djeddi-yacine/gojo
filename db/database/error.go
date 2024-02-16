@@ -44,9 +44,15 @@ func ErrorDB(err error) *pgconn.PgError {
 
 func ErrorType(err error) string {
 	if err != nil {
-		if err == pgx.ErrNoRows {
+		switch err {
+		case pgx.ErrNoRows:
 			return "not found"
+		case ErrInccorectPassword:
+			return err.Error()
+		case ErrFailedPrecondition:
+			return err.Error()
 		}
+
 		if pgErr, ok := err.(*pgconn.PgError); ok {
 			switch pgErr.Code {
 			case pgerrcode.UniqueViolation:

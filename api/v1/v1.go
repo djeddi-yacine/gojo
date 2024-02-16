@@ -37,7 +37,7 @@ import (
 func Start(
 	ctx context.Context,
 	waitGroup *errgroup.Group,
-	config utils.Config,
+	config *utils.Config,
 	gojo db.Gojo,
 	tokenMaker token.Maker,
 	taskDistributor worker.TaskDistributor,
@@ -67,7 +67,7 @@ func Start(
 func startGRPCApi(
 	ctx context.Context,
 	waitGroup *errgroup.Group,
-	config utils.Config,
+	config *utils.Config,
 	ussvc *usapiv1.UserServer,
 	nfsvc *nfapiv1.InfoServer,
 	asvc *av1.AnimeServer,
@@ -122,7 +122,7 @@ func startGRPCApi(
 func startGatewayApi(
 	ctx context.Context,
 	waitGroup *errgroup.Group,
-	config utils.Config,
+	config *utils.Config,
 	ussvc *usapiv1.UserServer,
 	nfsvc *nfapiv1.InfoServer,
 	asvc *av1.AnimeServer,
