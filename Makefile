@@ -5,13 +5,13 @@ run:
 	go run .
 
 postgres:
-	docker run --name postgresGOJO -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:16.1-alpine3.19
+	docker run --name postgresGOJO -p 5432:5432 -e POSTGRES_USER=root -e POSTGRES_PASSWORD=secret -d postgres:16.2-alpine3.19
 
 queue:
-	docker run --name queueGOJO -p 6370:6379 -d redis:7.2.3-alpine3.19
+	docker run --name queueGOJO -p 6370:6379 -d redis:7.2.4-alpine3.19
 
 cache:
-	docker run --name cacheGOJO -p 6380:6379 -d redis:7.2.3-alpine3.19
+	docker run --name cacheGOJO -p 6380:6379 -d redis:7.2.4-alpine3.19
 
 meili:
 	docker run --name meiliGOJO -p 7700:7700 -d getmeili/meilisearch:v1.6.0-rc.5
