@@ -15,7 +15,7 @@ services:
 
   postgres:
     container_name: Gojo-DB
-    image: postgres:16.1-alpine3.19
+    image: postgres:16.2-alpine3.19
     restart: unless-stopped
     environment:
       - POSTGRES_USER=root
@@ -36,7 +36,7 @@ services:
 
   queue:
     container_name: Gojo-Redis-Queue
-    image: redis:7.2.3-alpine3.19
+    image: redis:7.2.4-alpine3.19
     restart: unless-stopped
     environment:
       - REDIS_PORT=6370
@@ -54,7 +54,7 @@ services:
 
   cache:
     container_name: Gojo-Redis-Cache
-    image: redis:7.2.3-alpine3.19
+    image: redis:7.2.4-alpine3.19
     restart: unless-stopped
     environment:
       - REDIS_PORT=6380
