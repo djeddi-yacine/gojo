@@ -49,8 +49,12 @@ func (system *PingSystem) Handle(ctx context.Context, gen KeyGenrator, value int
 		}
 
 		var target uint8
-		_ = system.cache.GetSkippingLocalCache(ctx, gen.Count(), &target)
-		if target < system.config.CacheRepetition {
+		if err = system.cache.GetSkippingLocalCache(ctx, gen.Count(), &target); err != nil {
+			return err
+		}
+
+		switch {
+		case target < system.config.CacheRepetition:
 			target++
 			if err = system.cache.Set(&cache.Item{
 				Ctx:            ctx,
@@ -62,9 +66,7 @@ func (system *PingSystem) Handle(ctx context.Context, gen KeyGenrator, value int
 				log.Err(err)
 				return nil
 			}
-		}
-
-		if target >= system.config.CacheRepetition {
+		case target >= system.config.CacheRepetition:
 			if err = system.cache.Set(&cache.Item{
 				Ctx:            ctx,
 				Key:            gen.Key(),
