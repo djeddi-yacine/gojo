@@ -42,23 +42,24 @@ func LoadConfig(path string, name string) (*Config, error) {
 
 	config := &Config{}
 	var (
-		key   string
-		value string
+		scanner = bufio.NewScanner(file)
+		x       = regexp.MustCompile(`\s*#.*$|^\s+|\s+$`)
 	)
-	re := regexp.MustCompile(`'[^']*'`)
-	scanner := bufio.NewScanner(file)
+
 	for scanner.Scan() {
-		line := scanner.Text()
-		parts := strings.SplitN(line, "=", 2)
-		if len(parts) != 2 {
+		txt := scanner.Text()
+		if !strings.Contains(txt, "=") {
 			continue
 		}
 
-		key = strings.TrimSpace(parts[0])
-		matches := re.FindAllString(parts[1], -1)
-		for _, match := range matches {
-			value = strings.TrimSpace(match[1 : len(match)-1])
+		line := strings.TrimSpace(x.ReplaceAllString(txt, ""))
+		kv := strings.SplitN(line, "=", 2)
+		if len(kv) < 1 {
+			continue
 		}
+
+		key := kv[0]
+		value := kv[1]
 
 		switch key {
 		case "ENVIRONMENT":
