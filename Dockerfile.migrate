@@ -1,7 +1,32 @@
-# Migrate
+# Migrate with database readiness check
 FROM golang:1.22.1-alpine3.19
+
 WORKDIR /gojo
+
+# Install migrate tool
 RUN go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
+# Copy migrations
 COPY db/migration ./db/migration
+
+# Define environment variable for retries
+ENV MAX_RETRIES=10
+ENV RETRY_INTERVAL=10
+
+# Entrypoint script with database readiness check
 ENTRYPOINT ["sh", "-c"]
-CMD ["migrate -path db/migration -database $DB_SOURCE -verbose up"]
+CMD [ \
+  "for i in $(seq 1 $MAX_RETRIES); do \
+    if nc -z gojo-postgres-service 5432; then \
+      echo 'Database is ready. Starting migrations...' \
+      migrate -path db/migration -database $DB_SOURCE -verbose up \
+      break; \
+    fi; \
+    echo \"Waiting for database (attempt \$i of $MAX_RETRIES)...\" \
+    sleep $RETRY_INTERVAL; \
+  done; \
+  if [[ $? -eq 1 ]]; then \
+    echo 'Database failed to become available. Exiting.' \
+    exit 1; \
+  fi" \
+]
