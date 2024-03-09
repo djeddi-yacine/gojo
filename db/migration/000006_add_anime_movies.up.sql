@@ -10,6 +10,7 @@ CREATE TABLE "anime_movies" (
   "portrait_blur_hash" varchar NOT NULL,
   "landscape_poster" varchar NOT NULL,
   "landscape_blur_hash" varchar NOT NULL,
+  "show_type" varchar NOT NULL DEFAULT 'movie',
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 

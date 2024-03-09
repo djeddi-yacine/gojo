@@ -6,9 +6,10 @@ INSERT INTO anime_seasons (
     aired,
     rating,
     portrait_poster,
-    portrait_blur_hash
+    portrait_blur_hash,
+    show_type
 )
-VALUES ($1, $2, $3, $4, $5, $6, $7)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
 RETURNING *;
 
 -- name: GetAnimeSeason :one
@@ -24,7 +25,8 @@ SET
   aired = COALESCE(sqlc.narg(aired), aired),
   rating = COALESCE(sqlc.narg(rating), rating),
   portrait_poster = COALESCE(sqlc.narg(portrait_poster), portrait_poster),
-  portrait_blur_hash = COALESCE(sqlc.narg(portrait_blur_hash), portrait_blur_hash)
+  portrait_blur_hash = COALESCE(sqlc.narg(portrait_blur_hash), portrait_blur_hash),
+  show_type = COALESCE(sqlc.narg(show_type), show_type)
 WHERE
   id = sqlc.arg(id)
 RETURNING *;

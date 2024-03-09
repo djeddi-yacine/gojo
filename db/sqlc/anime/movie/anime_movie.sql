@@ -9,9 +9,10 @@ INSERT INTO anime_movies (
     portrait_poster,
     portrait_blur_hash,
     landscape_poster,
-    landscape_blur_hash
+    landscape_blur_hash,
+    show_type
 )
-VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
 RETURNING *;
 
 -- name: GetAnimeMovie :one
@@ -29,7 +30,8 @@ SET
   portrait_poster = COALESCE(sqlc.narg(portrait_poster), portrait_poster),
   portrait_blur_hash = COALESCE(sqlc.narg(portrait_blur_hash), portrait_blur_hash),
   landscape_poster = COALESCE(sqlc.narg(landscape_poster), landscape_poster),
-  landscape_blur_hash = COALESCE(sqlc.narg(landscape_blur_hash), landscape_blur_hash)
+  landscape_blur_hash = COALESCE(sqlc.narg(landscape_blur_hash), landscape_blur_hash),
+  show_type = COALESCE(sqlc.narg(show_type), show_type)
 WHERE
   id = sqlc.arg(id)
 RETURNING *;
