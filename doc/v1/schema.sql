@@ -1,6 +1,6 @@
 -- SQL dump generated using DBML (dbml-lang.org)
 -- Database: PostgreSQL
--- Generated at: 2024-01-23T18:44:22.428Z
+-- Generated at: 2024-03-09T16:45:55.945Z
 
 CREATE TABLE "users" (
   "id" BIGSERIAL UNIQUE NOT NULL,
@@ -64,6 +64,7 @@ CREATE TABLE "anime_movies" (
   "portrait_blur_hash" varchar NOT NULL,
   "landscape_poster" varchar NOT NULL,
   "landscape_blur_hash" varchar NOT NULL,
+  "show_type" varchar NOT NULL DEFAULT 'movie',
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
@@ -92,6 +93,7 @@ CREATE TABLE "anime_seasons" (
   "portrait_poster" varchar NOT NULL,
   "portrait_blur_hash" varchar NOT NULL,
   "rating" varchar NOT NULL DEFAULT ('PG-13 - Teens 13 or older'),
+  "show_type" varchar NOT NULL DEFAULT 'tv',
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
 
