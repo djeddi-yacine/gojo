@@ -14,6 +14,7 @@ message AnimeSeasonRequest {
   string                    rating              = 5;
   string                    portraitPoster      = 6;
   string                    portraitBlurHash    = 7;
+  string                    showType            = 8;
 }
 
 message AnimeSeasonResponse {
@@ -25,5 +26,6 @@ message AnimeSeasonResponse {
   string                    rating              = 6;
   string                    portraitPoster      = 7;
   string                    portraitBlurHash    = 8;
-  google.protobuf.Timestamp createdAt           = 9;
+  string                    showType            = 9;
+  google.protobuf.Timestamp createdAt           = 10;
 }

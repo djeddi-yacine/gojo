@@ -39,6 +39,7 @@ func (server *AnimeSerieServer) CreateAnimeSeason(ctx context.Context, req *aspb
 			Rating:              req.GetSeason().GetRating(),
 			PortraitPoster:      req.GetSeason().GetPortraitPoster(),
 			PortraitBlurHash:    req.GetSeason().GetPortraitBlurHash(),
+			ShowType:            req.GetSeason().GetShowType(),
 		},
 	}
 
@@ -111,6 +112,10 @@ func validateCreateAnimeSeasonRequest(req *aspbv1.CreateAnimeSeasonRequest) (vio
 
 		if err := utils.ValidateString(req.GetSeason().GetRating(), 0, 100); err != nil {
 			violations = append(violations, shv1.FieldViolation("rating", err))
+		}
+
+		if err := utils.ValidateShow(req.GetSeason().GetShowType()); err != nil {
+			violations = append(violations, shv1.FieldViolation("showType", err))
 		}
 
 	} else {

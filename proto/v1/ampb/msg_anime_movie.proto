@@ -17,6 +17,7 @@ message AnimeMovieRequest {
   string                    portraitBlurHash  = 7;
   string                    landscapePoster   = 8;
   string                    landscapeBlurHash = 9;
+  string                    showType          = 10;
 }
 
 message AnimeMovieResponse {
@@ -31,5 +32,6 @@ message AnimeMovieResponse {
   string                    portraitBlurHash  = 9;
   string                    landscapePoster   = 10;
   string                    landscapeBlurHash = 11;
-  google.protobuf.Timestamp createdAt         = 12;
+  string                    showType          = 12;
+  google.protobuf.Timestamp createdAt         = 13;
 }

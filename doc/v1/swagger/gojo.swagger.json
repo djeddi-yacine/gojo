@@ -3252,6 +3252,9 @@
         },
         "landscapeBlurHash": {
           "type": "string"
+        },
+        "showType": {
+          "type": "string"
         }
       }
     },
@@ -3292,6 +3295,9 @@
           "type": "string"
         },
         "landscapeBlurHash": {
+          "type": "string"
+        },
+        "showType": {
           "type": "string"
         },
         "createdAt": {
@@ -3861,6 +3867,9 @@
           "type": "string"
         },
         "landscapeBlurHash": {
+          "type": "string"
+        },
+        "showType": {
           "type": "string"
         }
       }
@@ -4715,6 +4724,9 @@
         },
         "portraitBlurHash": {
           "type": "string"
+        },
+        "showType": {
+          "type": "string"
         }
       }
     },
@@ -4747,6 +4759,9 @@
           "type": "string"
         },
         "portraitBlurHash": {
+          "type": "string"
+        },
+        "showType": {
           "type": "string"
         },
         "createdAt": {

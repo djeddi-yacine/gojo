@@ -42,6 +42,7 @@ func (server *AnimeMovieServer) CreateAnimeMovie(ctx context.Context, req *ampbv
 			PortraitBlurHash:  req.GetAnimeMovie().GetPortraitBlurHash(),
 			LandscapePoster:   req.GetAnimeMovie().GetLandscapePoster(),
 			LandscapeBlurHash: req.GetAnimeMovie().GetLandscapeBlurHash(),
+			ShowType:          req.GetAnimeMovie().GetShowType(),
 		},
 		CreateAnimeResourceParams: db.CreateAnimeResourceParams{
 			TvdbID:        req.GetAnimeResources().GetTvdbID(),
@@ -142,6 +143,10 @@ func validateCreateAnimeMovieRequest(req *ampbv1.CreateAnimeMovieRequest) (viola
 
 		if err := utils.ValidateString(req.GetAnimeMovie().GetLandscapeBlurHash(), 0, 100); err != nil {
 			violations = append(violations, shv1.FieldViolation("landscapeBlurHash", err))
+		}
+
+		if err := utils.ValidateShow(req.GetAnimeMovie().GetShowType()); err != nil {
+			violations = append(violations, shv1.FieldViolation("showType", err))
 		}
 
 	} else {

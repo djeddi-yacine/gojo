@@ -17,6 +17,7 @@ var (
 	isValidQuality  = regexp.MustCompile(`^(auto|1080p|720p|480p|480p|360p|240p|144p|SD|HD|FHD|4K)$`).MatchString
 	isValidImage    = regexp.MustCompile(`(?i)\.(jpg|jpeg|png|gif|bmp|tiff|webp|svg|ico)$`).MatchString
 	isValidMAC      = regexp.MustCompile(`^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$`).MatchString
+	showTypes       = []string{"movie", "tv", "movie special", "tv special", "ova", "ona", "compilation"}
 )
 
 func ValidateString(value string, minLength int, maxLength int) error {
@@ -156,4 +157,14 @@ func ValidateMAC(value string) error {
 
 	_, err := net.ParseMAC(value)
 	return err
+}
+
+func ValidateShow(value string) error {
+	for i := range showTypes {
+		if value == showTypes[i] {
+			return nil
+		}
+	}
+
+	return fmt.Errorf("must be a valid show Type : 'movie | tv | movie special | tv special | ova | ona | compilation'")
 }

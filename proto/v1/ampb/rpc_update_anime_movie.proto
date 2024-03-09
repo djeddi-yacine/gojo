@@ -20,6 +20,7 @@ message UpdateAnimeMovieRequest {
   optional string                   portraitBlurHash  = 8;
   optional string                   landscapePoster   = 9;
   optional string                   landscapeBlurHash = 10;
+  optional string                   showType          = 11;
 }
 
 message UpdateAnimeMovieResponse {

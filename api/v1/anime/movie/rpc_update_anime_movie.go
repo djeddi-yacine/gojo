@@ -67,6 +67,10 @@ func (server *AnimeMovieServer) UpdateAnimeMovie(ctx context.Context, req *ampbv
 			String: req.GetLandscapeBlurHash(),
 			Valid:  req.LandscapeBlurHash != nil,
 		},
+		ShowType: pgtype.Text{
+			String: req.GetShowType(),
+			Valid:  req.ShowType != nil,
+		},
 	}
 
 	anime, err := server.gojo.UpdateAnimeMovie(ctx, arg)
@@ -138,6 +142,12 @@ func validateUpdateAnimeMovieRequest(req *ampbv1.UpdateAnimeMovieRequest) (viola
 	if req.LandscapeBlurHash != nil {
 		if err := utils.ValidateString(req.GetLandscapeBlurHash(), 0, 100); err != nil {
 			violations = append(violations, shv1.FieldViolation("landscapeBlurHash", err))
+		}
+	}
+
+	if req.ShowType != nil {
+		if err := utils.ValidateShow(req.GetShowType()); err != nil {
+			violations = append(violations, shv1.FieldViolation("showType", err))
 		}
 	}
 
