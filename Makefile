@@ -79,23 +79,36 @@ db:
 build: fmt
 	go clean -x
 	go clean -cache -x
-	CGO_ENABLED=0 \
-	GOOS=linux \
-	GOARCH=amd64 \
+
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
 	go build -v \
 	-tags netgo \
 	-ldflags "-w -s -extldflags '-static'" \
 	-gcflags="-S -m" \
 	-trimpath -mod=readonly -buildmode=pie \
-	-a -installsuffix nocgo -o gojo .
+	-a -installsuffix nocgo -o gojo-amd64 . 
+	
+	GOARCH=arm64 \
+	go build -v \
+	-tags netgo \
+	-ldflags "-w -s -extldflags '-static'" \
+	-gcflags="-S -m" \
+	-trimpath -mod=readonly -buildmode=pie \
+	-a -installsuffix nocgo -o gojo-arm64 . \
 
 cgo: fmt
 	go clean -x
 	go clean -cache -x
+
 	CGO_ENABLED=1 GOOS=linux GOARCH=amd64 \
 	go build -v -ldflags "-w -s -extldflags '-static'" \
 	-gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie \
-	-a -installsuffix cgo -o gojo .
+	-a -installsuffix cgo -o gojo-cgo-amd64 . 
+
+	GOARCH=arm64 \
+	go build -v -ldflags "-w -s -extldflags '-static'" \
+	-gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie \
+	-a -installsuffix cgo -o gojo-cgo-arm64 . \
 
 restart:
 	docker stop queueGOJO cacheGOJO postgresGOJO meiliGOJO

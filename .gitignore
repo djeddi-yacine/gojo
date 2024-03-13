@@ -1,6 +1,7 @@
 /gojo.env
 /dbml-error.*
 /*.svg
+/gojo-*
 /gojo
 /graph
 /local*
