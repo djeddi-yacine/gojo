@@ -5,7 +5,11 @@ metadata:
   labels:
     app: api-config
 data:
-  DB_SOURCE: "postgresql://root:secret@gojo-postgres-service:5432/gojo?sslmode=disable"
+  DB_HOST: "gojo-postgres-service"
+  DB_NAME: "gojo?sslmode=disable"
+  DB_USER: "root"
+  DB_PASSWORD: "secret"
+  DB_PORT: "5432"
   REDIS_QUEUE_ADDRESS: "gojo-queue-service:6370"
   REDIS_CACHE_ADDRESS: "gojo-cache-service:6380"
   MEILISEATCH_ADDRESS: "gojo-meili-service:7700"
