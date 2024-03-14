@@ -51,9 +51,8 @@ func main() {
      ╚═════╝  ╚═════╝  ╚════╝  ╚═════╝      
                                             `))
 
-	client := utils.MeiliSearch(config.Server.MeilisearchAddress.Host, config.Data.MeiliSearchMasterKey)
-
 	var (
+		client   = utils.MeiliSearch(config.Server.MeilisearchAddress.Host, config.Data.MeiliSearchMasterKey)
 		ping     = ping.NewPingSystem(config.Server.RedisCacheAddress.Host, config.Data)
 		gojo     = db.NewGojo(conn, ping)
 		redisOpt = asynq.RedisClientOpt{

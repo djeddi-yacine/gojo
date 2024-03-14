@@ -135,28 +135,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "fullName": {
-                  "type": "string"
-                },
-                "gender": {
-                  "type": "string"
-                },
-                "biography": {
-                  "type": "string"
-                },
-                "born": {
-                  "type": "string",
-                  "format": "date-time"
-                },
-                "image": {
-                  "type": "string"
-                },
-                "imageBlurHash": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/InfoServiceUpdateActorBody"
             }
           }
         ],
@@ -196,37 +175,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "fullName": {
-                  "type": "string"
-                },
-                "about": {
-                  "type": "string"
-                },
-                "rolePlaying": {
-                  "type": "string"
-                },
-                "image": {
-                  "type": "string"
-                },
-                "imageBlurHash": {
-                  "type": "string"
-                },
-                "actorsID": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "format": "int64"
-                  }
-                },
-                "pictures": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
+              "$ref": "#/definitions/AnimeServiceUpdateAnimeCharacterBody"
             }
           }
         ],
@@ -338,29 +287,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "host": {
-                  "type": "string"
-                },
-                "url": {
-                  "type": "string"
-                },
-                "thumbnails": {
-                  "type": "string"
-                },
-                "blurHash": {
-                  "type": "string"
-                },
-                "height": {
-                  "type": "integer",
-                  "format": "int64"
-                },
-                "width": {
-                  "type": "integer",
-                  "format": "int64"
-                }
-              }
+              "$ref": "#/definitions/AnimeServiceUpdateAnimeImageBody"
             }
           }
         ],
@@ -400,24 +327,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "officialWebsite": {
-                  "type": "string"
-                },
-                "wikipediaUrl": {
-                  "type": "string"
-                },
-                "crunchyrollUrl": {
-                  "type": "string"
-                },
-                "socialMedia": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                }
-              }
+              "$ref": "#/definitions/AnimeServiceUpdateAnimeLinkBody"
             }
           }
         ],
@@ -1211,50 +1121,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "tvdbID": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "tmdbID": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "imdbID": {
-                  "type": "string"
-                },
-                "livechartID": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "animePlanetID": {
-                  "type": "string"
-                },
-                "anisearchID": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "anidbID": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "kitsuID": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "malID": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "notifyMoeID": {
-                  "type": "string"
-                },
-                "anilistID": {
-                  "type": "integer",
-                  "format": "int32"
-                }
-              }
+              "$ref": "#/definitions/AnimeServiceUpdateAnimeResourceBody"
             }
           }
         ],
@@ -2567,12 +2434,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "tag": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/AnimeServiceUpdateAnimeTagBody"
             }
           }
         ],
@@ -2612,12 +2474,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "titleText": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/AnimeServiceUpdateAnimeTitleBody"
             }
           }
         ],
@@ -2657,41 +2514,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "languageID": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "fileName": {
-                  "type": "string"
-                },
-                "torrentHash": {
-                  "type": "string"
-                },
-                "torrentFile": {
-                  "type": "string"
-                },
-                "seeds": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "peers": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "leechers": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "sizeBytes": {
-                  "type": "string",
-                  "format": "int64"
-                },
-                "quality": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/AnimeServiceUpdateAnimeTorrentBody"
             }
           }
         ],
@@ -2731,18 +2554,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "isOfficial": {
-                  "type": "boolean"
-                },
-                "hostName": {
-                  "type": "string"
-                },
-                "hostKey": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/AnimeServiceUpdateAnimeTrailerBody"
             }
           }
         ],
@@ -2782,25 +2594,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "languageID": {
-                  "type": "integer",
-                  "format": "int32"
-                },
-                "authority": {
-                  "type": "string"
-                },
-                "referer": {
-                  "type": "string"
-                },
-                "link": {
-                  "type": "string"
-                },
-                "quality": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/AnimeServiceUpdateAnimeVideoBody"
             }
           }
         ],
@@ -2840,12 +2634,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "genreName": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/InfoServiceUpdateGenreBody"
             }
           }
         ],
@@ -2957,15 +2746,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "languageCode": {
-                  "type": "string"
-                },
-                "languageName": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/InfoServiceUpdateLanguageBody"
             }
           }
         ],
@@ -3005,12 +2786,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "studioName": {
-                  "type": "string"
-                }
-              }
+              "$ref": "#/definitions/InfoServiceUpdateStudioBody"
             }
           }
         ],
@@ -3221,6 +2997,269 @@
     }
   },
   "definitions": {
+    "AnimeServiceUpdateAnimeCharacterBody": {
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string"
+        },
+        "about": {
+          "type": "string"
+        },
+        "rolePlaying": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "imageBlurHash": {
+          "type": "string"
+        },
+        "actorsID": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "int64"
+          }
+        },
+        "pictures": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "AnimeServiceUpdateAnimeImageBody": {
+      "type": "object",
+      "properties": {
+        "host": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "thumbnails": {
+          "type": "string"
+        },
+        "blurHash": {
+          "type": "string"
+        },
+        "height": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "width": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "AnimeServiceUpdateAnimeLinkBody": {
+      "type": "object",
+      "properties": {
+        "officialWebsite": {
+          "type": "string"
+        },
+        "wikipediaUrl": {
+          "type": "string"
+        },
+        "crunchyrollUrl": {
+          "type": "string"
+        },
+        "socialMedia": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "AnimeServiceUpdateAnimeResourceBody": {
+      "type": "object",
+      "properties": {
+        "tvdbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "tmdbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "imdbID": {
+          "type": "string"
+        },
+        "livechartID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "animePlanetID": {
+          "type": "string"
+        },
+        "anisearchID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "anidbID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "kitsuID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "malID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "notifyMoeID": {
+          "type": "string"
+        },
+        "anilistID": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "AnimeServiceUpdateAnimeTagBody": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string"
+        }
+      }
+    },
+    "AnimeServiceUpdateAnimeTitleBody": {
+      "type": "object",
+      "properties": {
+        "titleText": {
+          "type": "string"
+        }
+      }
+    },
+    "AnimeServiceUpdateAnimeTorrentBody": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "torrentHash": {
+          "type": "string"
+        },
+        "torrentFile": {
+          "type": "string"
+        },
+        "seeds": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "peers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "leechers": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sizeBytes": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quality": {
+          "type": "string"
+        }
+      }
+    },
+    "AnimeServiceUpdateAnimeTrailerBody": {
+      "type": "object",
+      "properties": {
+        "isOfficial": {
+          "type": "boolean"
+        },
+        "hostName": {
+          "type": "string"
+        },
+        "hostKey": {
+          "type": "string"
+        }
+      }
+    },
+    "AnimeServiceUpdateAnimeVideoBody": {
+      "type": "object",
+      "properties": {
+        "languageID": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "authority": {
+          "type": "string"
+        },
+        "referer": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "quality": {
+          "type": "string"
+        }
+      }
+    },
+    "InfoServiceUpdateActorBody": {
+      "type": "object",
+      "properties": {
+        "fullName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "biography": {
+          "type": "string"
+        },
+        "born": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "image": {
+          "type": "string"
+        },
+        "imageBlurHash": {
+          "type": "string"
+        }
+      }
+    },
+    "InfoServiceUpdateGenreBody": {
+      "type": "object",
+      "properties": {
+        "genreName": {
+          "type": "string"
+        }
+      }
+    },
+    "InfoServiceUpdateLanguageBody": {
+      "type": "object",
+      "properties": {
+        "languageCode": {
+          "type": "string"
+        },
+        "languageName": {
+          "type": "string"
+        }
+      }
+    },
+    "InfoServiceUpdateStudioBody": {
+      "type": "object",
+      "properties": {
+        "studioName": {
+          "type": "string"
+        }
+      }
+    },
     "ampbv1AnimeMovieRequest": {
       "type": "object",
       "properties": {
