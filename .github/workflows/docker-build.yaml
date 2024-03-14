@@ -27,9 +27,13 @@ jobs:
       run: |
         touch gojo.env
         echo "ENVIRONMENT=RELEASE" > gojo.env
-        echo "DB_SOURCE=postgresql://root@localhost:5432/?sslmode=disable" >> gojo.env
-        echo "HTTP_SERVER_ADDRESS=0.0.0.0:8080" >> gojo.env
-        echo "GRPC_SERVER_ADDRESS=0.0.0.0:9090" >> gojo.env
+        echo "DB_NAME=" >> gojo.env
+        echo "DB_HOST=localhost" >> gojo.env
+        echo "DB_USER=root" >> gojo.env
+        echo "DB_PASSWORD=" >> gojo.env
+        echo "DB_PORT=5432" >> gojo.env
+        echo "HTTP_ADDRESS=0.0.0.0:8080" >> gojo.env
+        echo "GRPC_ADDRESS=0.0.0.0:9090" >> gojo.env
         echo "REDIS_QUEUE_ADDRESS=0.0.0.0:6370" >> gojo.env
         echo "REDIS_CACHE_ADDRESS=0.0.0.0:6380" >> gojo.env
         echo "MEILISEATCH_ADDRESS=0.0.0.0:7700" >> gojo.env
