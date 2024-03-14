@@ -7,6 +7,7 @@ import (
 	"time"
 
 	shv1 "github.com/dj-yacine-flutter/gojo/api/v1/shared"
+	"github.com/dj-yacine-flutter/gojo/conf"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/token"
 	"github.com/dj-yacine-flutter/gojo/utils"
@@ -16,7 +17,7 @@ import (
 )
 
 func newTestServer(t *testing.T, gojo db.Gojo, taskDistributor worker.TaskDistributor) *UserServer {
-	config := &utils.Config{
+	config := &conf.DataEnv{
 		TokenSymmetricKey:   utils.RandomString(32),
 		AccessTokenDuration: time.Minute,
 	}

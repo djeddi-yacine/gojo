@@ -18,17 +18,17 @@ type Document struct {
 	Titles []string `json:"titles"`
 }
 
-func MeiliSearch(config *Config) *meilisearch.Client {
+func MeiliSearch(host, key string) *meilisearch.Client {
 	meiliClient := meilisearch.NewClient(meilisearch.ClientConfig{
-		Host:   "http://" + config.MeilisearchAddress,
-		APIKey: config.MeiliSearchMasterKey,
+		Host:   "http://" + host,
+		APIKey: key,
 	})
 
 	for !meiliClient.IsHealthy() {
 		time.Sleep(100 * time.Millisecond)
 	}
 
-	fmt.Printf("\u001b[38;5;50m\u001b[48;5;0mSTART MEILISEATCH SERVER -AT- %s\u001b[0m\n", config.MeilisearchAddress)
+	fmt.Printf("\u001b[38;5;50mSTART MEILISEATCH SERVER -AT- %s\u001b[0m\n", host)
 
 	return meiliClient
 }

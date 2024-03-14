@@ -8,6 +8,7 @@ import (
 	"syscall"
 
 	v1 "github.com/dj-yacine-flutter/gojo/api/v1"
+	"github.com/dj-yacine-flutter/gojo/conf"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/token"
@@ -22,7 +23,7 @@ import (
 func main() {
 	var err error
 
-	config, err := utils.LoadConfig(".", "gojo")
+	config, err := conf.Load(".", "gojo")
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot load config file")
 	}
@@ -30,12 +31,12 @@ func main() {
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM, syscall.SIGINT)
 	defer stop()
 
-	conn, err := pgxpool.New(ctx, config.DBSource)
+	conn, err := pgxpool.New(ctx, config.DB.URL())
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot connect to the DB")
 	}
 
-	tokenMaker, err := token.NewPasetoMaker(config.TokenSymmetricKey)
+	tokenMaker, err := token.NewPasetoMaker(config.Data.TokenSymmetricKey)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot create token maker")
 	}
@@ -50,21 +51,20 @@ func main() {
      ╚═════╝  ╚═════╝  ╚════╝  ╚═════╝      
                                             `))
 
-	client := utils.MeiliSearch(config)
+	client := utils.MeiliSearch(config.Server.MeilisearchAddress.Host, config.Data.MeiliSearchMasterKey)
 
-	ping := ping.NewPingSystem(config)
-
-	gojo := db.NewGojo(conn, ping)
-
-	redisOpt := asynq.RedisClientOpt{
-		Addr: config.RedisQueueAddress,
-	}
-
-	taskDistributor := worker.NewRedisTaskDistributor(redisOpt)
+	var (
+		ping     = ping.NewPingSystem(config.Server.RedisCacheAddress.Host, config.Data)
+		gojo     = db.NewGojo(conn, ping)
+		redisOpt = asynq.RedisClientOpt{
+			Addr: config.Server.RedisQueueAddress.Host,
+		}
+		taskDistributor = worker.NewRedisTaskDistributor(redisOpt)
+	)
 
 	waitGroup, ctx := errgroup.WithContext(ctx)
 
-	worker.Start(ctx, waitGroup, config, redisOpt, gojo)
+	worker.Start(ctx, waitGroup, config.Email, redisOpt, gojo)
 
 	v1.Start(ctx, waitGroup, config, gojo, tokenMaker, taskDistributor, ping, client)
 

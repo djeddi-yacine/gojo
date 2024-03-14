@@ -3,7 +3,7 @@ package mail
 import (
 	"testing"
 
-	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/dj-yacine-flutter/gojo/conf"
 	"github.com/stretchr/testify/require"
 )
 
@@ -12,10 +12,10 @@ func TestSendEmailWithGmail(t *testing.T) {
 		t.Skip()
 	}
 
-	config, err := utils.LoadConfig("..", "gojo")
+	config, err := conf.Load("..", "gojo")
 	require.NoError(t, err)
 
-	sender := NewGmailSender(config.EmailSenderName, config.EmailSenderAddress, config.EmailSenderPassword)
+	sender := NewGmailSender(config.Email.Name, config.Email.Address, config.Email.Password)
 
 	subject := "A test email"
 	content := `

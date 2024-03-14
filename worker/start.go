@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/dj-yacine-flutter/gojo/conf"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	"github.com/dj-yacine-flutter/gojo/mail"
-	"github.com/dj-yacine-flutter/gojo/utils"
 	"github.com/hibiken/asynq"
 	"github.com/rs/zerolog/log"
 	"golang.org/x/sync/errgroup"
@@ -15,11 +15,11 @@ import (
 func Start(
 	ctx context.Context,
 	waitGroup *errgroup.Group,
-	config *utils.Config,
+	email *conf.EmailEnv,
 	redisOpt asynq.RedisClientOpt,
 	gojo db.Gojo,
 ) {
-	taskProcessor := NewRedisTaskProcessor(redisOpt, gojo, mail.NewGmailSender(config.EmailSenderName, config.EmailSenderAddress, config.EmailSenderPassword))
+	taskProcessor := NewRedisTaskProcessor(redisOpt, gojo, mail.NewGmailSender(email.Name, email.Address, email.Password))
 
 	err := taskProcessor.Start()
 	if err != nil {

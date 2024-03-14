@@ -13,6 +13,7 @@ import (
 	asapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/anime/serie"
 	nfapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/info"
 	usapiv1 "github.com/dj-yacine-flutter/gojo/api/v1/user"
+	"github.com/dj-yacine-flutter/gojo/conf"
 	db "github.com/dj-yacine-flutter/gojo/db/database"
 	_ "github.com/dj-yacine-flutter/gojo/doc/v1/statik"
 	ampbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/ampb"
@@ -37,7 +38,7 @@ import (
 func Start(
 	ctx context.Context,
 	waitGroup *errgroup.Group,
-	config *utils.Config,
+	config *conf.Config,
 	gojo db.Gojo,
 	tokenMaker token.Maker,
 	taskDistributor worker.TaskDistributor,
@@ -54,20 +55,20 @@ func Start(
 		log.Fatal().Err(err).Msg(err.Error())
 	}
 
-	ussvc := usapiv1.NewUserServer(config, gojo, tokenMaker, taskDistributor)
+	ussvc := usapiv1.NewUserServer(config.Data, gojo, tokenMaker, taskDistributor)
 	nfsvc := nfapiv1.NewInfoServer(gojo, tokenMaker)
 	asvc := av1.NewAnimeServer(gojo, tokenMaker)
 	amsvc := amapiv1.NewAnimeMovieServer(gojo, tokenMaker, ping, amx)
 	assvc := asapiv1.NewAnimeSerieServer(gojo, tokenMaker, ping, asx)
 
-	startGatewayApi(ctx, waitGroup, config, ussvc, nfsvc, asvc, amsvc, assvc)
-	startGRPCApi(ctx, waitGroup, config, ussvc, nfsvc, asvc, amsvc, assvc)
+	startGatewayApi(ctx, waitGroup, config.Server, ussvc, nfsvc, asvc, amsvc, assvc)
+	startGRPCApi(ctx, waitGroup, config.Server, ussvc, nfsvc, asvc, amsvc, assvc)
 }
 
 func startGRPCApi(
 	ctx context.Context,
 	waitGroup *errgroup.Group,
-	config *utils.Config,
+	config *conf.ServerEnv,
 	ussvc *usapiv1.UserServer,
 	nfsvc *nfapiv1.InfoServer,
 	asvc *av1.AnimeServer,
@@ -87,13 +88,13 @@ func startGRPCApi(
 
 	reflection.Register(server)
 
-	listener, err := net.Listen("tcp", config.GRPCServerAddress)
+	listener, err := net.Listen("tcp", config.GRPCAddress.Host)
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot create gRPC listener")
 	}
 
 	waitGroup.Go(func() error {
-		fmt.Printf("\u001b[38;5;50mSTART gRPC SERVER -AT- %s\u001b[0m\n", listener.Addr().String())
+		fmt.Printf("\u001b[38;5;50mSTART gRPC SERVER -AT- %s\u001b[0m\n", config.GRPCAddress.Host)
 
 		err = server.Serve(listener)
 		if err != nil {
@@ -122,7 +123,7 @@ func startGRPCApi(
 func startGatewayApi(
 	ctx context.Context,
 	waitGroup *errgroup.Group,
-	config *utils.Config,
+	config *conf.ServerEnv,
 	ussvc *usapiv1.UserServer,
 	nfsvc *nfapiv1.InfoServer,
 	asvc *av1.AnimeServer,
@@ -177,11 +178,11 @@ func startGatewayApi(
 
 	httpServer := &http.Server{
 		Handler: httpMux,
-		Addr:    config.HTTPServerAddress,
+		Addr:    config.HTTPAddress.Host,
 	}
 
 	waitGroup.Go(func() error {
-		fmt.Printf("\u001b[38;5;50mSTART HTTP SERVER -AT- %s\u001b[0m\n", httpServer.Addr)
+		fmt.Printf("\u001b[38;5;50mSTART HTTP SERVER -AT- %s\u001b[0m\n", config.HTTPAddress.Host)
 
 		err = httpServer.ListenAndServe()
 		if err != nil {
