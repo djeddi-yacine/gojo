@@ -1,6 +1,6 @@
 example.*
 dbml-error.*
-gojo*
+gojo-*
 *.md
 graph
 .git

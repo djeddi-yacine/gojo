@@ -104,7 +104,11 @@ services:
       - "8080:8080"
       - "9090:9090"
     environment:
-      - DB_SOURCE=postgresql://root:gojo_secret@postgres:5432/gojo?sslmode=disable
+      - DB_NAME=gojo
+      - DB_USER=root
+      - DB_PASSWORD=gojo_secret
+      - DB_HOST=postgres
+      - DB_PORT=5432 
       - REDIS_QUEUE_ADDRESS=queue:6370
       - REDIS_CACHE_ADDRESS=cache:6380
       - MEILISEATCH_ADDRESS=meili:7700
