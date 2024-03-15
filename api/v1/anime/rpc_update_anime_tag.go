@@ -29,28 +29,24 @@ func (server *AnimeServer) UpdateAnimeTag(ctx context.Context, req *apbv1.Update
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	arg := db.UpdateAnimeTagParams{
+	data, err := server.gojo.UpdateAnimeTag(ctx, db.UpdateAnimeTagParams{
 		ID: req.GetTagID(),
 		Tag: pgtype.Text{
 			String: req.GetTag(),
 			Valid:  req.Tag != nil,
 		},
-	}
-
-	data, err := server.gojo.UpdateAnimeTag(ctx, arg)
+	})
 	if err != nil {
 		return nil, shv1.ApiError("failed to update anime tag", err)
 	}
 
-	res := &apbv1.UpdateAnimeTagResponse{
+	return &apbv1.UpdateAnimeTagResponse{
 		AnimeTag: &apbv1.AnimeTag{
 			ID:        data.ID,
 			Tag:       data.Tag,
 			CreatedAt: timestamppb.New(data.CreatedAt),
 		},
-	}
-
-	return res, nil
+	}, nil
 }
 
 func validateUpdateAnimeTagRequest(req *apbv1.UpdateAnimeTagRequest) (violations []*errdetails.BadRequest_FieldViolation) {

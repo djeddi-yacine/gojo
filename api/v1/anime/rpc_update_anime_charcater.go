@@ -29,7 +29,7 @@ func (server *AnimeServer) UpdateAnimeCharacter(ctx context.Context, req *apbv1.
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	arg := db.UpdateAnimeCharacterTxParams{
+	data, err := server.gojo.UpdateAnimeCharacterTx(ctx, db.UpdateAnimeCharacterTxParams{
 		AnimeCharacter: db.UpdateAnimeCharacterParams{
 			ID: req.GetCharacterID(),
 			FullName: pgtype.Text{
@@ -55,14 +55,12 @@ func (server *AnimeServer) UpdateAnimeCharacter(ctx context.Context, req *apbv1.
 			Pictures: req.GetPictures(),
 		},
 		ActorsIDs: req.GetActorsID(),
-	}
-
-	data, err := server.gojo.UpdateAnimeCharacterTx(ctx, arg)
+	})
 	if err != nil {
 		return nil, shv1.ApiError("failed to update anime character", err)
 	}
 
-	res := &apbv1.UpdateAnimeCharacterResponse{
+	return &apbv1.UpdateAnimeCharacterResponse{
 		AnimeCharacter: &apbv1.AnimeCharacterResponse{
 			ID:            data.AnimeCharacter.ID,
 			FullName:      data.AnimeCharacter.FullName,
@@ -74,9 +72,7 @@ func (server *AnimeServer) UpdateAnimeCharacter(ctx context.Context, req *apbv1.
 			ActorsID:      data.ActorsIDs,
 			CreatedAt:     timestamppb.New(data.AnimeCharacter.CreatedAt),
 		},
-	}
-
-	return res, nil
+	}, nil
 }
 
 func validateUpdateAnimeCharacterRequest(req *apbv1.UpdateAnimeCharacterRequest) (violations []*errdetails.BadRequest_FieldViolation) {

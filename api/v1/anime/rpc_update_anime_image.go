@@ -21,14 +21,14 @@ func (server *AnimeServer) UpdateAnimeImage(ctx context.Context, req *apbv1.Upda
 	}
 
 	if authPayload.Role != utils.RootRoll {
-		return nil, status.Errorf(codes.PermissionDenied, "cannot update anime character")
+		return nil, status.Errorf(codes.PermissionDenied, "cannot update anime image")
 	}
 
 	if violations := validateUpdateAnimeImageRequest(req); violations != nil {
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	arg := db.UpdateAnimeImageParams{
+	data, err := server.gojo.UpdateAnimeImage(ctx, db.UpdateAnimeImageParams{
 		ID: req.GetImageID(),
 		ImageHost: pgtype.Text{
 			String: req.GetHost(),
@@ -54,14 +54,12 @@ func (server *AnimeServer) UpdateAnimeImage(ctx context.Context, req *apbv1.Upda
 			Int32: int32(req.GetWidth()),
 			Valid: req.Width != nil,
 		},
-	}
-
-	data, err := server.gojo.UpdateAnimeImage(ctx, arg)
+	})
 	if err != nil {
-		return nil, shv1.ApiError("failed to update anime character", err)
+		return nil, shv1.ApiError("failed to update anime image", err)
 	}
 
-	res := &apbv1.UpdateAnimeImageResponse{
+	return &apbv1.UpdateAnimeImageResponse{
 		AnimeImage: &apbv1.ImageResponse{
 			ID:         data.ID,
 			Host:       data.ImageHost,
@@ -72,9 +70,7 @@ func (server *AnimeServer) UpdateAnimeImage(ctx context.Context, req *apbv1.Upda
 			Width:      uint32(data.ImageWidth),
 			CreatedAt:  timestamppb.New(data.CreatedAt),
 		},
-	}
-
-	return res, nil
+	}, nil
 }
 
 func validateUpdateAnimeImageRequest(req *apbv1.UpdateAnimeImageRequest) (violations []*errdetails.BadRequest_FieldViolation) {
