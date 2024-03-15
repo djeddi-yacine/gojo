@@ -44,7 +44,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieLink(ctx context.Context, req *a
 	}
 
 	res := &ampbv1.CreateAnimeMovieLinkResponse{
-		AnimeMovie: convertAnimeMovie(data.AnimeMovie),
+		AnimeMovie: server.convertAnimeMovie(data.AnimeMovie),
 		AnimeLinks: av1.ConvertAnimeLink(data.AnimeLink),
 	}
 	return res, nil

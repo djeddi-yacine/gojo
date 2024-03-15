@@ -48,7 +48,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieTrailer(ctx context.Context, req
 	}
 
 	res := &ampbv1.CreateAnimeMovieTrailerResponse{
-		AnimeMovie:    convertAnimeMovie(data.AnimeMovie),
+		AnimeMovie:    server.convertAnimeMovie(data.AnimeMovie),
 		AnimeTrailers: av1.ConvertAnimeTrailers(data.AnimeTrailers),
 	}
 	return res, nil

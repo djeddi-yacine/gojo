@@ -48,7 +48,7 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		return nil, err
 	}
 
-	res.AnimeMovie = convertAnimeMovie(movie)
+	res.AnimeMovie = server.convertAnimeMovie(movie)
 
 	var meta db.Meta
 	if err = server.ping.Handle(ctx, cache.Meta(), &meta, func() error {
@@ -200,8 +200,8 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 			}
 
 			res.Sub = &apbv1.AnimeSubDataResponse{
-				Videos:   convertAnimeMovieVideos(subVideos),
-				Torrents: convertAnimeMovieTorrents(subTorrents),
+				Videos:   server.convertAnimeMovieVideos(subVideos),
+				Torrents: server.convertAnimeMovieTorrents(subTorrents),
 			}
 		}
 
@@ -251,8 +251,8 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 			}
 
 			res.Dub = &apbv1.AnimeDubDataResponse{
-				Videos:   convertAnimeMovieVideos(dubVideos),
-				Torrents: convertAnimeMovieTorrents(dubTorrents),
+				Videos:   server.convertAnimeMovieVideos(dubVideos),
+				Torrents: server.convertAnimeMovieTorrents(dubTorrents),
 			}
 		}
 	}

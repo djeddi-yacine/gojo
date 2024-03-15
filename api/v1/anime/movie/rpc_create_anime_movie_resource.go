@@ -51,7 +51,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieResource(ctx context.Context, re
 	}
 
 	res := &ampbv1.CreateAnimeMovieResourceResponse{
-		AnimeMovie:     convertAnimeMovie(data.AnimeMovie),
+		AnimeMovie:     server.convertAnimeMovie(data.AnimeMovie),
 		AnimeResources: av1.ConvertAnimeResource(data.AnimeResource),
 	}
 	return res, nil

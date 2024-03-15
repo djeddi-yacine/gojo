@@ -54,7 +54,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieCharacters(ctx context.Context, 
 	}
 
 	res := &ampbv1.CreateAnimeMovieCharactersResponse{
-		AnimeMovie: convertAnimeMovie(data.AnimeMovie),
+		AnimeMovie: server.convertAnimeMovie(data.AnimeMovie),
 	}
 
 	res.AnimeCharacters = make([]*apbv1.AnimeCharacterResponse, len(data.Characters))

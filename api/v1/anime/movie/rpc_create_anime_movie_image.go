@@ -76,7 +76,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieImage(ctx context.Context, req *
 	}
 
 	res := &ampbv1.CreateAnimeMovieImageResponse{
-		AnimeMovie: convertAnimeMovie(data.AnimeMovie),
+		AnimeMovie: server.convertAnimeMovie(data.AnimeMovie),
 		AnimeImages: &apbv1.AnimeImageResponse{
 			Posters:   av1.ConvertAnimeImages(data.AnimePosters),
 			Backdrops: av1.ConvertAnimeImages(data.AnimeBackdrops),

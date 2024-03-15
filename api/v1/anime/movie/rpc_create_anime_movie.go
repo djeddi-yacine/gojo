@@ -82,7 +82,7 @@ func (server *AnimeMovieServer) CreateAnimeMovie(ctx context.Context, req *ampbv
 	}
 
 	res := &ampbv1.CreateAnimeMovieResponse{
-		AnimeMovie:     convertAnimeMovie(data.AnimeMovie),
+		AnimeMovie:     server.convertAnimeMovie(data.AnimeMovie),
 		AnimeResources: av1.ConvertAnimeResource(data.AnimeResource),
 		AnimeLinks:     av1.ConvertAnimeLink(data.AnimeLink),
 	}

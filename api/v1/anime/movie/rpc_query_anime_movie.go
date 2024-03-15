@@ -54,7 +54,7 @@ func (server *AnimeMovieServer) QueryAnimeMovie(ctx context.Context, req *ampbv1
 
 		res.AnimeMovies = make([]*ampbv1.AnimeMovieResponse, len(data.AnimeMovies))
 		for i, v := range data.AnimeMovies {
-			res.AnimeMovies[i] = convertAnimeMovie(v)
+			res.AnimeMovies[i] = server.convertAnimeMovie(v)
 		}
 
 		return res, nil
@@ -88,7 +88,7 @@ func (server *AnimeMovieServer) QueryAnimeMovie(ctx context.Context, req *ampbv1
 			continue
 		}
 
-		res.AnimeMovies[i] = convertAnimeMovie(anime)
+		res.AnimeMovies[i] = server.convertAnimeMovie(anime)
 	}
 
 	return res, nil

@@ -86,14 +86,14 @@ func (server *AnimeMovieServer) CreateAnimeMovieData(ctx context.Context, req *a
 	}
 
 	res := &ampbv1.CreateAnimeMovieDataResponse{
-		AnimeMovie: convertAnimeMovie(data.AnimeMovie),
+		AnimeMovie: server.convertAnimeMovie(data.AnimeMovie),
 		Sub: &apbv1.AnimeSubDataResponse{
-			Videos:   convertAnimeMovieVideos(data.AnimeMovieSubVideos),
-			Torrents: convertAnimeMovieTorrents(data.AnimeMovieSubTorrents),
+			Videos:   server.convertAnimeMovieVideos(data.AnimeMovieSubVideos),
+			Torrents: server.convertAnimeMovieTorrents(data.AnimeMovieSubTorrents),
 		},
 		Dub: &apbv1.AnimeDubDataResponse{
-			Videos:   convertAnimeMovieVideos(data.AnimeMovieDubVideos),
-			Torrents: convertAnimeMovieTorrents(data.AnimeMovieDubTorrents),
+			Videos:   server.convertAnimeMovieVideos(data.AnimeMovieDubVideos),
+			Torrents: server.convertAnimeMovieTorrents(data.AnimeMovieDubTorrents),
 		},
 	}
 

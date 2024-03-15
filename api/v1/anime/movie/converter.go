@@ -8,7 +8,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func convertAnimeMovie(v db.AnimeMovie) *ampbv1.AnimeMovieResponse {
+func (AnimeMovieServer) convertAnimeMovie(v db.AnimeMovie) *ampbv1.AnimeMovieResponse {
 	if v.ID != 0 {
 		return &ampbv1.AnimeMovieResponse{
 			ID:                v.ID,
@@ -22,6 +22,7 @@ func convertAnimeMovie(v db.AnimeMovie) *ampbv1.AnimeMovieResponse {
 			PortraitBlurHash:  v.PortraitBlurHash,
 			LandscapePoster:   v.LandscapePoster,
 			LandscapeBlurHash: v.LandscapeBlurHash,
+			ShowType:          v.ShowType,
 			CreatedAt:         timestamppb.New(v.CreatedAt),
 		}
 	}
@@ -29,7 +30,7 @@ func convertAnimeMovie(v db.AnimeMovie) *ampbv1.AnimeMovieResponse {
 	return nil
 }
 
-func convertAnimeMovieVideos(v []db.AnimeMovieVideo) []*apbv1.AnimeVideoResponse {
+func (AnimeMovieServer) convertAnimeMovieVideos(v []db.AnimeMovieVideo) []*apbv1.AnimeVideoResponse {
 	if len(v) > 0 {
 		videos := make([]*apbv1.AnimeVideoResponse, len(v))
 
@@ -50,7 +51,7 @@ func convertAnimeMovieVideos(v []db.AnimeMovieVideo) []*apbv1.AnimeVideoResponse
 	}
 }
 
-func convertAnimeMovieTorrents(v []db.AnimeMovieTorrent) []*apbv1.AnimeTorrentResponse {
+func (AnimeMovieServer) convertAnimeMovieTorrents(v []db.AnimeMovieTorrent) []*apbv1.AnimeTorrentResponse {
 	if len(v) > 0 {
 		torrents := make([]*apbv1.AnimeTorrentResponse, len(v))
 

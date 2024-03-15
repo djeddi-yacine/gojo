@@ -38,7 +38,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieInfo(ctx context.Context, req *a
 	}
 
 	res := &ampbv1.CreateAnimeMovieInfoResponse{
-		AnimeMovie: convertAnimeMovie(data.AnimeMovie),
+		AnimeMovie: server.convertAnimeMovie(data.AnimeMovie),
 		Genres:     shv1.ConvertGenres(data.Genres),
 		Studios:    shv1.ConvertStudios(data.Studios),
 	}

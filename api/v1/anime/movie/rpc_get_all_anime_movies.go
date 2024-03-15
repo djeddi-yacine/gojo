@@ -42,7 +42,7 @@ func (server *AnimeMovieServer) GetAllAnimeMovies(ctx context.Context, req *ampb
 
 	res.AnimeMovies = make([]*ampbv1.AnimeMovieResponse, len(data))
 	for i, v := range data {
-		res.AnimeMovies[i] = convertAnimeMovie(v)
+		res.AnimeMovies[i] = server.convertAnimeMovie(v)
 	}
 
 	return res, nil

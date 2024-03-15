@@ -46,7 +46,7 @@ func (server *AnimeMovieServer) CreateAnimeMovieTag(ctx context.Context, req *am
 	}
 
 	res := &ampbv1.CreateAnimeMovieTagResponse{
-		AnimeMovie: convertAnimeMovie(data.AnimeMovie),
+		AnimeMovie: server.convertAnimeMovie(data.AnimeMovie),
 		AnimeTags:  av1.ConvertAnimeTags(data.AnimeTags),
 	}
 
