@@ -16,12 +16,10 @@ func (gojo *SQLGojo) ListAnimeCharacetrsTx(ctx context.Context, arg []int64) ([]
 
 	err := gojo.execTx(ctx, func(q *Queries) error {
 		var err error
-		var cache ping.SegmentKey
 
 		result = make([]AnimeCharactersAndActors, len(arg))
 		for i, x := range arg {
-			cache = ping.SegmentKey(x)
-			if err = gojo.ping.Handle(ctx, cache.CHR(ping.Anime), &result[i].Character, func() error {
+			if err = gojo.ping.Handle(ctx, ping.SegmentKey(x).CHR(ping.Anime), &result[i].Character, func() error {
 				result[i].Character, err = q.GetAnimeCharacter(ctx, x)
 				if err != nil {
 					return err
@@ -41,8 +39,7 @@ func (gojo *SQLGojo) ListAnimeCharacetrsTx(ctx context.Context, arg []int64) ([]
 
 			result[i].Actor = make([]Actor, len(r))
 			for j, z := range r {
-				cache = ping.SegmentKey(z.ActorID)
-				if err = gojo.ping.Handle(ctx, cache.ACT(), &result[i].Actor[j], func() error {
+				if err = gojo.ping.Handle(ctx, ping.SegmentKey(z.ActorID).ACT(), &result[i].Actor[j], func() error {
 					result[i].Actor[j], err = q.GetActor(ctx, z.ActorID)
 					if err != nil {
 						return err

@@ -11,12 +11,10 @@ func (gojo *SQLGojo) ListAnimeTrailersTx(ctx context.Context, arg []int64) ([]An
 	var result []AnimeTrailer
 
 	err = gojo.execTx(ctx, func(q *Queries) error {
-		var cache ping.SegmentKey
 		result = make([]AnimeTrailer, len(arg))
 
 		for i, x := range arg {
-			cache = ping.SegmentKey(x)
-			if err = gojo.ping.Handle(ctx, cache.TRL(ping.Anime), &result[i], func() error {
+			if err = gojo.ping.Handle(ctx, ping.SegmentKey(x).TRL(ping.Anime), &result[i], func() error {
 				result[i], err = q.GetAnimeTrailer(ctx, x)
 				if err != nil {
 					return err

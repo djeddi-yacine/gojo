@@ -11,12 +11,10 @@ func (gojo *SQLGojo) ListStudiosTx(ctx context.Context, arg []int32) ([]Studio, 
 	var result []Studio
 
 	err = gojo.execTx(ctx, func(q *Queries) error {
-		var cache ping.SegmentKey
 		result = make([]Studio, len(arg))
 
 		for i, x := range arg {
-			cache = ping.SegmentKey(x)
-			if err = gojo.ping.Handle(ctx, cache.STD(), &result[i], func() error {
+			if err = gojo.ping.Handle(ctx, ping.SegmentKey(x).STD(), &result[i], func() error {
 				result[i], err = q.GetStudio(ctx, x)
 				if err != nil {
 					return err
