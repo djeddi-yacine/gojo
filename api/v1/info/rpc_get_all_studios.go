@@ -24,22 +24,22 @@ func (server *InfoServer) GetAllStudios(ctx context.Context, req *nfpbv1.GetAllS
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	arg := db.ListStudiosParams{
+	res := &nfpbv1.GetAllStudiosResponse{}
+	studios, err := server.gojo.GetAllStudiosTx(ctx, db.ListStudiosParams{
 		Limit:  req.PageSize,
 		Offset: (req.PageNumber - 1) * req.PageSize,
-	}
-
-	studios, err := server.gojo.GetAllStudiosTx(ctx, arg)
+	})
 	if err != nil {
-		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
-			return nil, nil
+		if dberr := db.ErrorDB(err); dberr != nil {
+			if dberr.Code == pgerrcode.CaseNotFound {
+				return res, nil
+			}
 		}
 		return nil, shv1.ApiError("failed to list all studios", err)
 	}
 
-	res := &nfpbv1.GetAllStudiosResponse{
-		Studios: shv1.ConvertStudios(studios),
-	}
+	res.Studios = shv1.ConvertStudios(studios)
+
 	return res, nil
 }
 

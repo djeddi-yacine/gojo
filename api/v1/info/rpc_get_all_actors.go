@@ -24,21 +24,22 @@ func (server *InfoServer) GetAllActors(ctx context.Context, req *nfpbv1.GetAllAc
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	arg := db.ListActorsParams{
+	res := &nfpbv1.GetAllActorsResponse{}
+	actors, err := server.gojo.GetAllActorsTx(ctx, db.ListActorsParams{
 		Limit:  req.PageSize,
 		Offset: (req.PageNumber - 1) * req.PageSize,
-	}
-	dbActors, err := server.gojo.GetAllActorsTx(ctx, arg)
+	})
 	if err != nil {
-		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
-			return nil, nil
+		if dberr := db.ErrorDB(err); dberr != nil {
+			if dberr.Code == pgerrcode.CaseNotFound {
+				return res, nil
+			}
 		}
 		return nil, shv1.ApiError("failed to list all actors", err)
 	}
 
-	res := &nfpbv1.GetAllActorsResponse{
-		Actors: shv1.ConvertActors(dbActors),
-	}
+	res.Actors = shv1.ConvertActors(actors)
+
 	return res, nil
 }
 

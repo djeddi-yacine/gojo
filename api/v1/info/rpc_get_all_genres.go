@@ -24,22 +24,22 @@ func (server *InfoServer) GetAllGenres(ctx context.Context, req *nfpbv1.GetAllGe
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	arg := db.ListGenresParams{
+	res := &nfpbv1.GetAllGenresResponse{}
+	genres, err := server.gojo.GetAllGenresTx(ctx, db.ListGenresParams{
 		Limit:  req.PageSize,
 		Offset: (req.PageNumber - 1) * req.PageSize,
-	}
-
-	dbGenres, err := server.gojo.GetAllGenresTx(ctx, arg)
+	})
 	if err != nil {
-		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
-			return nil, nil
+		if dberr := db.ErrorDB(err); dberr != nil {
+			if dberr.Code == pgerrcode.CaseNotFound {
+				return res, nil
+			}
 		}
 		return nil, shv1.ApiError("failed to list all genres", err)
 	}
 
-	res := &nfpbv1.GetAllGenresResponse{
-		Genres: shv1.ConvertGenres(dbGenres),
-	}
+	res.Genres = shv1.ConvertGenres(genres)
+
 	return res, nil
 }
 

@@ -28,26 +28,24 @@ func (server *InfoServer) CreateLanguages(ctx context.Context, req *nfpbv1.Creat
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	dbLanguages := make([]db.CreateLanguageParams, len(req.GetLanguages()))
+	languages := make([]db.CreateLanguageParams, len(req.GetLanguages()))
 	for i, x := range req.GetLanguages() {
-		dbLanguages[i] = db.CreateLanguageParams{
+		languages[i] = db.CreateLanguageParams{
 			LanguageName: x.LanguageName,
 			LanguageCode: x.LanguageCode,
 		}
 	}
 
-	result, err := server.gojo.CreateLanguagesTx(ctx, dbLanguages)
+	result, err := server.gojo.CreateLanguagesTx(ctx, languages)
 	if err != nil {
 		return nil, shv1.ApiError("failed to create new language", err)
 	}
 
-	pbLanguages := make([]*nfpbv1.LanguageResponse, len(result))
-	for i, x := range result {
-		pbLanguages[i] = shv1.ConvertLanguage(x)
-	}
+	res := &nfpbv1.CreateLanguagesResponse{}
 
-	res := &nfpbv1.CreateLanguagesResponse{
-		Languages: pbLanguages,
+	res.Languages = make([]*nfpbv1.LanguageResponse, len(result))
+	for i, x := range result {
+		res.Languages[i] = shv1.ConvertLanguage(x)
 	}
 
 	return res, nil
