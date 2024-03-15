@@ -18,14 +18,14 @@ func ErrorSQL(err error) {
 	if err != nil {
 		pgErr := ErrorDB(err)
 		if pgErr != nil {
-			log.Error().Msgf("SQL Message: %v", pgErr.Message)
 			log.Error().Msgf("SQL Code: %v", pgErr.Code)
+			log.Error().Msgf("SQL Message: %v", pgErr.Message)
+			log.Error().Msgf("SQL Details: %v", pgErr.Detail)
 		}
 	}
 }
 
 func ErrorDB(err error) *pgconn.PgError {
-	var pgErr *pgconn.PgError
 	if err == pgx.ErrNoRows {
 		return &pgconn.PgError{
 			Code:    pgerrcode.CaseNotFound,
@@ -39,7 +39,7 @@ func ErrorDB(err error) *pgconn.PgError {
 		}
 	}
 
-	return pgErr
+	return nil
 }
 
 func ErrorType(err error) string {
