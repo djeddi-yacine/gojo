@@ -49,10 +49,7 @@ func (system *PingSystem) Handle(ctx context.Context, gen KeyGenrator, value int
 		}
 
 		var target uint8
-		if err = system.cache.GetSkippingLocalCache(ctx, gen.Count(), &target); err != nil {
-			return err
-		}
-
+		system.cache.GetSkippingLocalCache(ctx, gen.Count(), &target)
 		switch {
 		case target < system.config.CacheRepetition:
 			target++
@@ -63,7 +60,7 @@ func (system *PingSystem) Handle(ctx context.Context, gen KeyGenrator, value int
 				TTL:            system.config.CacheCountDuration,
 				SkipLocalCache: true,
 			}); err != nil {
-				log.Err(err)
+				log.Err(err).Msg("Error setting cache for target")
 				return nil
 			}
 		case target >= system.config.CacheRepetition:
@@ -74,11 +71,14 @@ func (system *PingSystem) Handle(ctx context.Context, gen KeyGenrator, value int
 				TTL:            system.config.CacheKeyDuration,
 				SkipLocalCache: true,
 			}); err != nil {
-				log.Err(err)
+				log.Err(err).Msg("Error setting cache for key")
 				return nil
 			}
 			if system.cache.Exists(ctx, gen.Count()) {
-				_ = system.cache.Delete(ctx, gen.Count())
+				if err := system.cache.Delete(ctx, gen.Count()); err != nil {
+					log.Err(err).Msg("Error deleting cache for count")
+					return nil
+				}
 			}
 		}
 
@@ -94,5 +94,5 @@ func (system *PingSystem) Handle(ctx context.Context, gen KeyGenrator, value int
 			Msg("cache system")
 	}
 
-	return err
+	return nil
 }
