@@ -67,9 +67,8 @@ func (server *AnimeMovieServer) QueryAnimeMovie(ctx context.Context, req *ampbv1
 		Target: ping.AnimeMovie,
 	}
 
-	var anime db.AnimeMovie
-
 	for i, v := range result.Hits {
+		var anime db.AnimeMovie
 		id, err := strconv.Atoi(fmt.Sprint(v.(map[string]interface{})["ID"]))
 		if err != nil {
 			continue

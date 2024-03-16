@@ -29,7 +29,7 @@ func (server *AnimeMovieServer) UpdateAnimeMovie(ctx context.Context, req *ampbv
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	arg := db.UpdateAnimeMovieParams{
+	anime, err := server.gojo.UpdateAnimeMovie(ctx, db.UpdateAnimeMovieParams{
 		ID: req.GetAnimeID(),
 		OriginalTitle: pgtype.Text{
 			String: req.GetOriginalTitle(),
@@ -71,9 +71,7 @@ func (server *AnimeMovieServer) UpdateAnimeMovie(ctx context.Context, req *ampbv
 			String: req.GetShowType(),
 			Valid:  req.ShowType != nil,
 		},
-	}
-
-	anime, err := server.gojo.UpdateAnimeMovie(ctx, arg)
+	})
 	if err != nil {
 		return nil, shv1.ApiError("failed to update anime movie", err)
 	}

@@ -76,10 +76,10 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		if err = server.ping.Handle(ctx, cache.Resources(), &resources, func() error {
 			resources, err = server.gojo.GetAnimeMovieResourceDirectly(ctx, req.GetAnimeID())
 			if err != nil {
-				if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot get resources data", err)
-				} else {
-					return nil
+				if dberr := db.ErrorDB(err); dberr != nil {
+					if dberr.Code != pgerrcode.CaseNotFound {
+						return shv1.ApiError("cannot get resources data", err)
+					}
 				}
 			}
 
@@ -95,8 +95,12 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		var gIDs []int32
 		if err = server.ping.Handle(ctx, cache.Genre(), &gIDs, func() error {
 			gIDs, err = server.gojo.ListAnimeMovieGenres(ctx, req.GetAnimeID())
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shv1.ApiError("cannot get anime movie genres", err)
+			if err != nil {
+				if dberr := db.ErrorDB(err); dberr != nil {
+					if dberr.Code != pgerrcode.CaseNotFound {
+						return shv1.ApiError("cannot get anime movie genres", err)
+					}
+				}
 			}
 
 			return nil
@@ -105,8 +109,12 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		}
 
 		genres, err := server.gojo.ListGenresTx(ctx, gIDs)
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return nil, shv1.ApiError("cannot list anime movie genres", err)
+		if err != nil {
+			if dberr := db.ErrorDB(err); dberr != nil {
+				if dberr.Code != pgerrcode.CaseNotFound {
+					return nil, shv1.ApiError("cannot list anime movie genres", err)
+				}
+			}
 		}
 
 		res.AnimeGenres = shv1.ConvertGenres(genres)
@@ -116,8 +124,12 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		var sIDs []int32
 		if err = server.ping.Handle(ctx, cache.Studio(), &sIDs, func() error {
 			sIDs, err = server.gojo.ListAnimeMovieStudios(ctx, req.GetAnimeID())
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shv1.ApiError("cannot get anime movie studios", err)
+			if err != nil {
+				if dberr := db.ErrorDB(err); dberr != nil {
+					if dberr.Code != pgerrcode.CaseNotFound {
+						return shv1.ApiError("cannot get anime movie studios", err)
+					}
+				}
 			}
 
 			return nil
@@ -126,8 +138,12 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		}
 
 		studios, err := server.gojo.ListStudiosTx(ctx, sIDs)
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return nil, shv1.ApiError("cannot list anime movie studios", err)
+		if err != nil {
+			if dberr := db.ErrorDB(err); dberr != nil {
+				if dberr.Code != pgerrcode.CaseNotFound {
+					return nil, shv1.ApiError("cannot list anime movie studios", err)
+				}
+			}
 		}
 
 		res.AnimeStudios = shv1.ConvertStudios(studios)
@@ -138,10 +154,10 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		if err = server.ping.Handle(ctx, cache.Server(), &serverID, func() error {
 			serverID, err = server.gojo.GetAnimeMovieServerByAnimeID(ctx, req.GetAnimeID())
 			if err != nil {
-				if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot get anime movie server ID", err)
-				} else {
-					return nil
+				if dberr := db.ErrorDB(err); dberr != nil {
+					if dberr.Code != pgerrcode.CaseNotFound {
+						return shv1.ApiError("cannot get anime movie server ID", err)
+					}
 				}
 			}
 
@@ -158,16 +174,24 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 			var subVideos []db.AnimeMovieVideo
 			if err = server.ping.Handle(ctx, cache.SubV(), &subVideos, func() error {
 				v, err := server.gojo.ListAnimeMovieServerSubVideos(ctx, serverID)
-				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot list anime movie server sub videos", err)
+				if err != nil {
+					if dberr := db.ErrorDB(err); dberr != nil {
+						if dberr.Code != pgerrcode.CaseNotFound {
+							return shv1.ApiError("cannot list anime movie server sub videos", err)
+						}
+					}
 				}
 
 				if len(v) > 0 {
 					subVideos = make([]db.AnimeMovieVideo, len(v))
 					for i, x := range v {
 						subVideos[i], err = server.gojo.GetAnimeMovieVideo(ctx, x.VideoID)
-						if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-							return shv1.ApiError("cannot get anime movie server sub videos", err)
+						if err != nil {
+							if dberr := db.ErrorDB(err); dberr != nil {
+								if dberr.Code != pgerrcode.CaseNotFound {
+									return shv1.ApiError("cannot get anime movie server sub videos", err)
+								}
+							}
 						}
 					}
 				}
@@ -180,16 +204,24 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 			var subTorrents []db.AnimeMovieTorrent
 			if err = server.ping.Handle(ctx, cache.SubT(), &subTorrents, func() error {
 				v, err := server.gojo.ListAnimeMovieServerSubTorrents(ctx, serverID)
-				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot list anime movie server sub torrents", err)
+				if err != nil {
+					if dberr := db.ErrorDB(err); dberr != nil {
+						if dberr.Code != pgerrcode.CaseNotFound {
+							return shv1.ApiError("cannot list anime movie server sub torrents", err)
+						}
+					}
 				}
 
 				if len(v) > 0 {
 					subTorrents = make([]db.AnimeMovieTorrent, len(v))
 					for i, x := range v {
 						subTorrents[i], err = server.gojo.GetAnimeMovieTorrent(ctx, x.TorrentID)
-						if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-							return shv1.ApiError("cannot get anime movie server sub torrents", err)
+						if err != nil {
+							if dberr := db.ErrorDB(err); dberr != nil {
+								if dberr.Code != pgerrcode.CaseNotFound {
+									return shv1.ApiError("cannot get anime movie server sub torrents", err)
+								}
+							}
 						}
 					}
 				}
@@ -209,16 +241,24 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 			var dubVideos []db.AnimeMovieVideo
 			if err = server.ping.Handle(ctx, cache.DubV(), &dubVideos, func() error {
 				v, err := server.gojo.ListAnimeMovieServerDubVideos(ctx, serverID)
-				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot list anime movie server dub videos", err)
+				if err != nil {
+					if dberr := db.ErrorDB(err); dberr != nil {
+						if dberr.Code != pgerrcode.CaseNotFound {
+							return shv1.ApiError("cannot list anime movie server dub videos", err)
+						}
+					}
 				}
 
 				if len(v) > 0 {
 					dubVideos = make([]db.AnimeMovieVideo, len(v))
 					for i, x := range v {
 						dubVideos[i], err = server.gojo.GetAnimeMovieVideo(ctx, x.VideoID)
-						if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-							return shv1.ApiError("cannot get anime movie server dub videos", err)
+						if err != nil {
+							if dberr := db.ErrorDB(err); dberr != nil {
+								if dberr.Code != pgerrcode.CaseNotFound {
+									return shv1.ApiError("cannot get anime movie server dub videos", err)
+								}
+							}
 						}
 					}
 				}
@@ -231,16 +271,24 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 			var dubTorrents []db.AnimeMovieTorrent
 			if err = server.ping.Handle(ctx, cache.DubT(), &dubTorrents, func() error {
 				v, err := server.gojo.ListAnimeMovieServerDubTorrents(ctx, serverID)
-				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot list anime movie server dub torrents", err)
+				if err != nil {
+					if dberr := db.ErrorDB(err); dberr != nil {
+						if dberr.Code != pgerrcode.CaseNotFound {
+							return shv1.ApiError("cannot list anime movie server dub torrents", err)
+						}
+					}
 				}
 
 				if len(v) > 0 {
 					dubTorrents = make([]db.AnimeMovieTorrent, len(v))
 					for i, x := range v {
 						dubTorrents[i], err = server.gojo.GetAnimeMovieTorrent(ctx, x.TorrentID)
-						if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-							return shv1.ApiError("cannot get anime movie server dub torrents", err)
+						if err != nil {
+							if dberr := db.ErrorDB(err); dberr != nil {
+								if dberr.Code != pgerrcode.CaseNotFound {
+									return shv1.ApiError("cannot get anime movie server dub torrents", err)
+								}
+							}
 						}
 					}
 				}
@@ -262,10 +310,10 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		if err = server.ping.Handle(ctx, cache.Links(), &link, func() error {
 			link, err = server.gojo.GetAnimeMovieLinksDirectly(ctx, req.GetAnimeID())
 			if err != nil {
-				if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot get anime movie links", err)
-				} else {
-					return nil
+				if dberr := db.ErrorDB(err); dberr != nil {
+					if dberr.Code != pgerrcode.CaseNotFound {
+						return shv1.ApiError("cannot get anime movie links", err)
+					}
 				}
 			}
 
@@ -281,8 +329,12 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		var tIDs []int64
 		if err = server.ping.Handle(ctx, cache.Tags(), &tIDs, func() error {
 			tIDs, err = server.gojo.ListAnimeMovieTags(ctx, req.GetAnimeID())
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shv1.ApiError("cannot get anime movie tags IDs", err)
+			if err != nil {
+				if dberr := db.ErrorDB(err); dberr != nil {
+					if dberr.Code != pgerrcode.CaseNotFound {
+						return shv1.ApiError("cannot get anime movie tags IDs", err)
+					}
+				}
 			}
 
 			return nil
@@ -291,8 +343,12 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		}
 
 		tags, err := server.gojo.ListAnimeTagsTx(ctx, tIDs)
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return nil, shv1.ApiError("cannot get anime movie tag", err)
+		if err != nil {
+			if dberr := db.ErrorDB(err); dberr != nil {
+				if dberr.Code != pgerrcode.CaseNotFound {
+					return nil, shv1.ApiError("cannot get anime movie tag", err)
+				}
+			}
 		}
 
 		res.AnimeTags = av1.ConvertAnimeTags(tags)
@@ -302,8 +358,12 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		var pIDs []int64
 		if err = server.ping.Handle(ctx, cache.Posters(), &pIDs, func() error {
 			pIDs, err = server.gojo.ListAnimeMoviePosterImages(ctx, req.GetAnimeID())
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shv1.ApiError("cannot get anime movie posters images IDs", err)
+			if err != nil {
+				if dberr := db.ErrorDB(err); dberr != nil {
+					if dberr.Code != pgerrcode.CaseNotFound {
+						return shv1.ApiError("cannot get anime movie posters images IDs", err)
+					}
+				}
 			}
 
 			return nil
@@ -312,15 +372,23 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		}
 
 		posters, err := server.gojo.ListAnimeImagesTx(ctx, pIDs)
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return nil, shv1.ApiError("cannot get anime movie posters images", err)
+		if err != nil {
+			if dberr := db.ErrorDB(err); dberr != nil {
+				if dberr.Code != pgerrcode.CaseNotFound {
+					return nil, shv1.ApiError("cannot get anime movie posters images", err)
+				}
+			}
 		}
 
 		var bIDs []int64
 		if err = server.ping.Handle(ctx, cache.Backdrops(), &bIDs, func() error {
 			bIDs, err = server.gojo.ListAnimeMovieBackdropImages(ctx, req.GetAnimeID())
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shv1.ApiError("cannot get anime movie backdrops images IDs", err)
+			if err != nil {
+				if dberr := db.ErrorDB(err); dberr != nil {
+					if dberr.Code != pgerrcode.CaseNotFound {
+						return shv1.ApiError("cannot get anime movie backdrops images IDs", err)
+					}
+				}
 			}
 
 			return nil
@@ -329,15 +397,23 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		}
 
 		backdrops, err := server.gojo.ListAnimeImagesTx(ctx, bIDs)
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return nil, shv1.ApiError("cannot get anime movie backdrops images", err)
+		if err != nil {
+			if dberr := db.ErrorDB(err); dberr != nil {
+				if dberr.Code != pgerrcode.CaseNotFound {
+					return nil, shv1.ApiError("cannot get anime movie backdrops images", err)
+				}
+			}
 		}
 
 		var lIDs []int64
 		if err = server.ping.Handle(ctx, cache.Logos(), &lIDs, func() error {
 			lIDs, err = server.gojo.ListAnimeMovieLogoImages(ctx, req.GetAnimeID())
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shv1.ApiError("cannot get anime movie logos images IDs", err)
+			if err != nil {
+				if dberr := db.ErrorDB(err); dberr != nil {
+					if dberr.Code != pgerrcode.CaseNotFound {
+						return shv1.ApiError("cannot get anime movie logos images IDs", err)
+					}
+				}
 			}
 
 			return nil
@@ -346,8 +422,12 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		}
 
 		logos, err := server.gojo.ListAnimeImagesTx(ctx, lIDs)
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return nil, shv1.ApiError("cannot get anime movie logos images", err)
+		if err != nil {
+			if dberr := db.ErrorDB(err); dberr != nil {
+				if dberr.Code != pgerrcode.CaseNotFound {
+					return nil, shv1.ApiError("cannot get anime movie logos images", err)
+				}
+			}
 		}
 
 		res.AnimeImages = &apbv1.AnimeImageResponse{
@@ -361,8 +441,12 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		var rIDs []int64
 		if err = server.ping.Handle(ctx, cache.Trailers(), &rIDs, func() error {
 			rIDs, err = server.gojo.ListAnimeMovieTrailers(ctx, req.GetAnimeID())
-			if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shv1.ApiError("cannot get anime movie trailers IDs", err)
+			if err != nil {
+				if dberr := db.ErrorDB(err); dberr != nil {
+					if dberr.Code != pgerrcode.CaseNotFound {
+						return shv1.ApiError("cannot get anime movie trailers IDs", err)
+					}
+				}
 			}
 
 			return nil
@@ -371,8 +455,12 @@ func (server *AnimeMovieServer) GetOptionalFullAnimeMovie(ctx context.Context, r
 		}
 
 		trailers, err := server.gojo.ListAnimeTrailersTx(ctx, rIDs)
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return nil, shv1.ApiError("cannot get anime movie trailers", err)
+		if err != nil {
+			if dberr := db.ErrorDB(err); dberr != nil {
+				if dberr.Code != pgerrcode.CaseNotFound {
+					return nil, shv1.ApiError("cannot get anime movie trailers", err)
+				}
+			}
 		}
 
 		res.AnimeTrailers = av1.ConvertAnimeTrailers(trailers)

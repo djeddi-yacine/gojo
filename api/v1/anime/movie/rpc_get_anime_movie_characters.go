@@ -47,7 +47,13 @@ func (server *AnimeMovieServer) GetAnimeMovieCharacters(ctx context.Context, req
 	res := &ampbv1.GetAnimeMovieCharactersResponse{}
 
 	data, err := server.gojo.ListAnimeCharacetrsTx(ctx, characters)
-	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+	if err != nil {
+		if dberr := db.ErrorDB(err); dberr != nil {
+			if dberr.Code == pgerrcode.CaseNotFound {
+				return res, nil
+			}
+		}
+
 		return nil, shv1.ApiError("cannot get anime movie characters", err)
 	}
 

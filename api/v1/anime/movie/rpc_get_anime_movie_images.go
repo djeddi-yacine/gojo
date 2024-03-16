@@ -47,8 +47,12 @@ func (server *AnimeMovieServer) GetAnimeMovieImages(ctx context.Context, req *am
 	}
 
 	posters, err := server.gojo.ListAnimeImagesTx(ctx, pIDs)
-	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, shv1.ApiError("cannot get anime movie posters images", err)
+	if err != nil {
+		if dberr := db.ErrorDB(err); dberr != nil {
+			if dberr.Code != pgerrcode.CaseNotFound {
+				return nil, shv1.ApiError("cannot get anime movie posters images", err)
+			}
+		}
 	}
 
 	var bIDs []int64
@@ -64,8 +68,12 @@ func (server *AnimeMovieServer) GetAnimeMovieImages(ctx context.Context, req *am
 	}
 
 	backdrops, err := server.gojo.ListAnimeImagesTx(ctx, bIDs)
-	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, shv1.ApiError("cannot get anime movie backdrops images", err)
+	if err != nil {
+		if dberr := db.ErrorDB(err); dberr != nil {
+			if dberr.Code != pgerrcode.CaseNotFound {
+				return nil, shv1.ApiError("cannot get anime movie backdrops images", err)
+			}
+		}
 	}
 
 	var lIDs []int64
@@ -81,8 +89,12 @@ func (server *AnimeMovieServer) GetAnimeMovieImages(ctx context.Context, req *am
 	}
 
 	logos, err := server.gojo.ListAnimeImagesTx(ctx, lIDs)
-	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, shv1.ApiError("cannot get anime movie logos images", err)
+	if err != nil {
+		if dberr := db.ErrorDB(err); dberr != nil {
+			if dberr.Code != pgerrcode.CaseNotFound {
+				return nil, shv1.ApiError("cannot get anime movie logos images", err)
+			}
+		}
 	}
 
 	res.AnimeImages = &apbv1.AnimeImageResponse{

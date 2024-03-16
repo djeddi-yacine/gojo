@@ -24,21 +24,22 @@ func (server *AnimeMovieServer) GetAllAnimeMovies(ctx context.Context, req *ampb
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	arg := db.ListAnimeMoviesParams{
+	res := &ampbv1.GetAllAnimeMoviesResponse{}
+
+	data, err := server.gojo.ListAnimeMovies(ctx, db.ListAnimeMoviesParams{
 		ReleaseYear: req.GetYear(),
 		Limit:       req.GetPageSize(),
 		Offset:      (req.GetPageNumber() - 1) * req.GetPageSize(),
-	}
-
-	data, err := server.gojo.ListAnimeMovies(ctx, arg)
+	})
 	if err != nil {
-		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
-			return nil, nil
+		if dberr := db.ErrorDB(err); dberr != nil {
+			if dberr.Code == pgerrcode.CaseNotFound {
+				return res, nil
+			}
 		}
+
 		return nil, shv1.ApiError("failed to list all anime movies", err)
 	}
-
-	res := &ampbv1.GetAllAnimeMoviesResponse{}
 
 	res.AnimeMovies = make([]*ampbv1.AnimeMovieResponse, len(data))
 	for i, v := range data {
