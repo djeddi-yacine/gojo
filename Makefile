@@ -77,38 +77,10 @@ db:
 	dbml2sql --postgres -o doc/v1/schema.sql doc/v1/db.dbml
 
 build: fmt
-	go clean -x
-	go clean -cache -x
-
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
-	go build -v \
-	-tags netgo \
-	-ldflags "-w -s -extldflags '-static'" \
-	-gcflags="-S -m" \
-	-trimpath -mod=readonly -buildmode=pie \
-	-a -installsuffix nocgo -o gojo-amd64 . 
-	
-	GOARCH=arm64 \
-	go build -v \
-	-tags netgo \
-	-ldflags "-w -s -extldflags '-static'" \
-	-gcflags="-S -m" \
-	-trimpath -mod=readonly -buildmode=pie \
-	-a -installsuffix nocgo -o gojo-arm64 . \
+	./build.sh -a both
 
 cgo: fmt
-	go clean -x
-	go clean -cache -x
-
-	CGO_ENABLED=1 GOOS=linux GOARCH=amd64 \
-	go build -v -ldflags "-w -s -extldflags '-static'" \
-	-gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie \
-	-a -installsuffix cgo -o gojo-cgo-amd64 . 
-
-	GOARCH=arm64 \
-	go build -v -ldflags "-w -s -extldflags '-static'" \
-	-gcflags="-S -m" -trimpath -mod=readonly -buildmode=pie \
-	-a -installsuffix cgo -o gojo-cgo-arm64 . \
+	./build.sh -c -a both
 
 restart:
 	docker stop queueGOJO cacheGOJO postgresGOJO meiliGOJO
