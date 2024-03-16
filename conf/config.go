@@ -22,8 +22,8 @@ type Config struct {
 	Email       *EmailEnv
 }
 
-func Load(path string, name string) (*Config, error) {
-	file, err := os.Open(path + "/" + name + ".env")
+func Load(path string) (*Config, error) {
+	file, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}

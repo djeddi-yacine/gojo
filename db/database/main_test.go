@@ -14,7 +14,7 @@ import (
 var testGojo Gojo
 
 func TestMain(m *testing.M) {
-	config, err := conf.Load("../..", "example.gojo")
+	config, err := conf.Load("../../example.gojo.env")
 	if err != nil {
 		log.Fatal("cannot load config:", err)
 	}

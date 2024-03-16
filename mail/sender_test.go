@@ -12,7 +12,7 @@ func TestSendEmailWithGmail(t *testing.T) {
 		t.Skip()
 	}
 
-	config, err := conf.Load("..", "gojo")
+	config, err := conf.Load("../gojo.env")
 	require.NoError(t, err)
 
 	sender := NewGmailSender(config.Email.Name, config.Email.Address, config.Email.Password)

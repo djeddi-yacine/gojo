@@ -22,7 +22,7 @@ import (
 func main() {
 	var err error
 
-	config, err := conf.Load(".", "gojo")
+	config, err := conf.Load("./gojo.env")
 	if err != nil {
 		log.Fatal().Err(err).Msg("cannot load config file")
 	}
