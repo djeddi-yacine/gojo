@@ -8,7 +8,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-func convertAnimeSerie(v db.AnimeSerie) *aspbv1.AnimeSerieResponse {
+func (AnimeSerieServer) convertAnimeSerie(v db.AnimeSerie) *aspbv1.AnimeSerieResponse {
 	if v.ID != 0 {
 		return &aspbv1.AnimeSerieResponse{
 			ID:                v.ID,
@@ -30,7 +30,7 @@ func convertAnimeSerie(v db.AnimeSerie) *aspbv1.AnimeSerieResponse {
 	return nil
 }
 
-func convertAnimeSeason(v db.AnimeSeason) *aspbv1.AnimeSeasonResponse {
+func (AnimeSerieServer) convertAnimeSeason(v db.AnimeSeason) *aspbv1.AnimeSeasonResponse {
 	if v.ID != 0 {
 		return &aspbv1.AnimeSeasonResponse{
 			ID:                  v.ID,
@@ -49,7 +49,7 @@ func convertAnimeSeason(v db.AnimeSeason) *aspbv1.AnimeSeasonResponse {
 	return nil
 }
 
-func convertAnimeEpisode(v db.AnimeEpisode) *aspbv1.AnimeEpisodeResponse {
+func (AnimeSerieServer) convertAnimeEpisode(v db.AnimeEpisode) *aspbv1.AnimeEpisodeResponse {
 	if v.ID != 0 {
 		return &aspbv1.AnimeEpisodeResponse{
 			ID:                   v.ID,
@@ -68,7 +68,7 @@ func convertAnimeEpisode(v db.AnimeEpisode) *aspbv1.AnimeEpisodeResponse {
 	return nil
 }
 
-func convertAnimeEpisodeVideos(v []db.AnimeEpisodeVideo) []*apbv1.AnimeVideoResponse {
+func (AnimeSerieServer) convertAnimeEpisodeVideos(v []db.AnimeEpisodeVideo) []*apbv1.AnimeVideoResponse {
 	if len(v) > 0 {
 		videos := make([]*apbv1.AnimeVideoResponse, len(v))
 
@@ -89,7 +89,7 @@ func convertAnimeEpisodeVideos(v []db.AnimeEpisodeVideo) []*apbv1.AnimeVideoResp
 	}
 }
 
-func convertAnimeEpisodeTorrents(v []db.AnimeEpisodeTorrent) []*apbv1.AnimeTorrentResponse {
+func (AnimeSerieServer) convertAnimeEpisodeTorrents(v []db.AnimeEpisodeTorrent) []*apbv1.AnimeTorrentResponse {
 	if len(v) > 0 {
 		torrents := make([]*apbv1.AnimeTorrentResponse, len(v))
 

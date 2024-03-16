@@ -44,7 +44,7 @@ func (server *AnimeSerieServer) CreateAnimeSerieLink(ctx context.Context, req *a
 	}
 
 	res := &aspbv1.CreateAnimeSerieLinkResponse{
-		AnimeSerie: convertAnimeSerie(data.AnimeSerie),
+		AnimeSerie: server.convertAnimeSerie(data.AnimeSerie),
 		AnimeLinks: av1.ConvertAnimeLink(data.AnimeLink),
 	}
 	return res, nil

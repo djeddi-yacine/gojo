@@ -60,7 +60,7 @@ func (server *AnimeSerieServer) CreateAnimeSeason(ctx context.Context, req *aspb
 	}
 
 	res := &aspbv1.CreateAnimeSeasonResponse{
-		Season: convertAnimeSeason(data.AnimeSeason),
+		Season: server.convertAnimeSeason(data.AnimeSeason),
 	}
 
 	titles := make([]string, len(data.AnimeSeasonMetas))

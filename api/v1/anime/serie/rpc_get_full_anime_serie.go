@@ -48,7 +48,7 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 		return nil, err
 	}
 
-	res.AnimeSerie = convertAnimeSerie(serie)
+	res.AnimeSerie = server.convertAnimeSerie(serie)
 
 	var meta db.Meta
 	if err = server.ping.Handle(ctx, cache.Meta(), &meta, func() error {

@@ -68,7 +68,7 @@ func (server *AnimeSerieServer) CreateAnimeSerie(ctx context.Context, req *aspbv
 	}
 
 	res := &aspbv1.CreateAnimeSerieResponse{
-		AnimeSerie: convertAnimeSerie(data.AnimeSerie),
+		AnimeSerie: server.convertAnimeSerie(data.AnimeSerie),
 		AnimeLinks: av1.ConvertAnimeLink(data.AnimeLink),
 	}
 

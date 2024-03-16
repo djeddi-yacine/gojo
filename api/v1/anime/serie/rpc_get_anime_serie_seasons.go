@@ -79,7 +79,7 @@ func (server *AnimeSerieServer) GetAnimeSerieSeasons(ctx context.Context, req *a
 				return nil, err
 			}
 
-			res.AnimeSeasons[i] = convertAnimeSeason(season)
+			res.AnimeSeasons[i] = server.convertAnimeSeason(season)
 		}
 	}
 

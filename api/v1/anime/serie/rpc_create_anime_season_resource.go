@@ -51,7 +51,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonResource(ctx context.Context, r
 	}
 
 	res := &aspbv1.CreateAnimeSeasonResourceResponse{
-		AnimeSeason:     convertAnimeSeason(data.AnimeSeason),
+		AnimeSeason:     server.convertAnimeSeason(data.AnimeSeason),
 		SeasonResources: av1.ConvertAnimeResource(data.AnimeResource),
 	}
 	return res, nil

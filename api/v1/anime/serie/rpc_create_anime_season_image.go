@@ -51,7 +51,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonImage(ctx context.Context, req 
 	}
 
 	res := &aspbv1.CreateAnimeSeasonImageResponse{
-		AnimeSeason:   convertAnimeSeason(data.AnimeSeason),
+		AnimeSeason:   server.convertAnimeSeason(data.AnimeSeason),
 		SeasonPosters: av1.ConvertAnimeImages(data.AnimePosters),
 	}
 	return res, nil

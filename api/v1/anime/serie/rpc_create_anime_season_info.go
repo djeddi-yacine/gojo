@@ -38,7 +38,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonInfo(ctx context.Context, req *
 	}
 
 	res := &aspbv1.CreateAnimeSeasonInfoResponse{
-		AnimeSeason: convertAnimeSeason(data.AnimeSeason),
+		AnimeSeason: server.convertAnimeSeason(data.AnimeSeason),
 		Genres:      shv1.ConvertGenres(data.Genres),
 		Studios:     shv1.ConvertStudios(data.Studios),
 	}

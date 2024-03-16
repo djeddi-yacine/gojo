@@ -54,7 +54,7 @@ func (server *AnimeSerieServer) QueryAnimeSeason(ctx context.Context, req *aspbv
 
 		res.AnimeSeasons = make([]*aspbv1.AnimeSeasonResponse, len(data.AnimeSeasons))
 		for i, v := range data.AnimeSeasons {
-			res.AnimeSeasons[i] = convertAnimeSeason(v)
+			res.AnimeSeasons[i] = server.convertAnimeSeason(v)
 		}
 
 		return res, nil
@@ -88,7 +88,7 @@ func (server *AnimeSerieServer) QueryAnimeSeason(ctx context.Context, req *aspbv
 			continue
 		}
 
-		res.AnimeSeasons[i] = convertAnimeSeason(anime)
+		res.AnimeSeasons[i] = server.convertAnimeSeason(anime)
 	}
 
 	return res, nil

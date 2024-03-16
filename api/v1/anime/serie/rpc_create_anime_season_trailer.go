@@ -48,7 +48,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTrailer(ctx context.Context, re
 	}
 
 	res := &aspbv1.CreateAnimeSeasonTrailerResponse{
-		AnimeSeason:    convertAnimeSeason(data.AnimeSeason),
+		AnimeSeason:    server.convertAnimeSeason(data.AnimeSeason),
 		SeasonTrailers: av1.ConvertAnimeTrailers(data.SeasonTrailers),
 	}
 	return res, nil

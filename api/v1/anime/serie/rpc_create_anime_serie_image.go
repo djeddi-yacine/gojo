@@ -76,7 +76,7 @@ func (server *AnimeSerieServer) CreateAnimeSerieImage(ctx context.Context, req *
 	}
 
 	res := &aspbv1.CreateAnimeSerieImageResponse{
-		AnimeSerie: convertAnimeSerie(data.AnimeSerie),
+		AnimeSerie: server.convertAnimeSerie(data.AnimeSerie),
 		AnimeImages: &apbv1.AnimeImageResponse{
 			Posters:   av1.ConvertAnimeImages(data.AnimePosters),
 			Backdrops: av1.ConvertAnimeImages(data.AnimeBackdrops),

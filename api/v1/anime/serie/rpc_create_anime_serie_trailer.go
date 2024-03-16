@@ -48,7 +48,7 @@ func (server *AnimeSerieServer) CreateAnimeSerieTrailer(ctx context.Context, req
 	}
 
 	res := &aspbv1.CreateAnimeSerieTrailerResponse{
-		AnimeSerie:    convertAnimeSerie(data.AnimeSerie),
+		AnimeSerie:    server.convertAnimeSerie(data.AnimeSerie),
 		AnimeTrailers: av1.ConvertAnimeTrailers(data.AnimeTrailers),
 	}
 	return res, nil

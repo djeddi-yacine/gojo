@@ -74,7 +74,7 @@ func (server *AnimeSerieServer) GetAnimeSeasonEpisodes(ctx context.Context, req 
 				return nil, err
 			}
 
-			res.SeasonEpisode[i] = convertAnimeEpisode(episode)
+			res.SeasonEpisode[i] = server.convertAnimeEpisode(episode)
 		}
 	}
 

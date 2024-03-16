@@ -47,7 +47,7 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeSeason(ctx context.Context, 
 		return nil, err
 	}
 
-	res.AnimeSeason = convertAnimeSeason(season)
+	res.AnimeSeason = server.convertAnimeSeason(season)
 
 	var meta db.Meta
 	if err = server.ping.Handle(ctx, cache.Meta(), &meta, func() error {

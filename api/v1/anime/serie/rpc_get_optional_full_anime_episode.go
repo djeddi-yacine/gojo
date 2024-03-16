@@ -47,7 +47,7 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeEpisode(ctx context.Context,
 		return nil, err
 	}
 
-	res.AnimeEpisode = convertAnimeEpisode(episode)
+	res.AnimeEpisode = server.convertAnimeEpisode(episode)
 
 	var meta db.Meta
 	if err = server.ping.Handle(ctx, cache.Meta(), &meta, func() error {
@@ -154,8 +154,8 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeEpisode(ctx context.Context,
 			}
 
 			res.Sub = &apbv1.AnimeSubDataResponse{
-				Videos:   convertAnimeEpisodeVideos(subVideos),
-				Torrents: convertAnimeEpisodeTorrents(subTorrents),
+				Videos:   server.convertAnimeEpisodeVideos(subVideos),
+				Torrents: server.convertAnimeEpisodeTorrents(subTorrents),
 			}
 		}
 
@@ -221,8 +221,8 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeEpisode(ctx context.Context,
 			}
 
 			res.Dub = &apbv1.AnimeDubDataResponse{
-				Videos:   convertAnimeEpisodeVideos(dubVideos),
-				Torrents: convertAnimeEpisodeTorrents(dubTorrents),
+				Videos:   server.convertAnimeEpisodeVideos(dubVideos),
+				Torrents: server.convertAnimeEpisodeTorrents(dubTorrents),
 			}
 		}
 	}

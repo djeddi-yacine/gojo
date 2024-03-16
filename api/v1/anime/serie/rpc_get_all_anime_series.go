@@ -43,7 +43,7 @@ func (server *AnimeSerieServer) GetAllAnimeSeries(ctx context.Context, req *aspb
 
 	res.AnimeSeries = make([]*aspbv1.AnimeSerieResponse, len(data))
 	for i, v := range data {
-		res.AnimeSeries[i] = convertAnimeSerie(v)
+		res.AnimeSeries[i] = server.convertAnimeSerie(v)
 	}
 
 	return res, nil

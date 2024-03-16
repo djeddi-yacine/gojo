@@ -46,7 +46,7 @@ func (server *AnimeSerieServer) CreateAnimeSeasonTag(ctx context.Context, req *a
 	}
 
 	res := &aspbv1.CreateAnimeSeasonTagResponse{
-		AnimeSeason: convertAnimeSeason(data.AnimeSeason),
+		AnimeSeason: server.convertAnimeSeason(data.AnimeSeason),
 		SeasonTags:  av1.ConvertAnimeTags(data.SeasonTags),
 	}
 

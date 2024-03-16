@@ -60,7 +60,7 @@ func (server *AnimeSerieServer) CreateAnimeEpisode(ctx context.Context, req *asp
 	}
 
 	res := &aspbv1.CreateAnimeEpisodeResponse{
-		Episode: convertAnimeEpisode(data.AnimeEpisode),
+		Episode: server.convertAnimeEpisode(data.AnimeEpisode),
 	}
 
 	res.EpisodeMetas = make([]*nfpbv1.AnimeMetaResponse, len(data.AnimeEpisodeMetas))
