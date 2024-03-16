@@ -8,6 +8,7 @@ import (
 	aspbv1 "github.com/dj-yacine-flutter/gojo/pb/v1/aspb"
 	"github.com/dj-yacine-flutter/gojo/ping"
 	"github.com/dj-yacine-flutter/gojo/utils"
+	"github.com/jackc/pgerrcode"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 )
 
@@ -39,7 +40,11 @@ func (server *AnimeSerieServer) GetAnimeSeasonEpisodes(ctx context.Context, req 
 	if err = server.ping.Handle(ctx, cache.Episodes(arg.Limit, arg.Offset), &eIDs, func() error {
 		eIDs, err = server.gojo.ListAnimeSeasonEpisodes(ctx, arg)
 		if err != nil {
-			return shv1.ApiError("failed to list all anime season episodes", err)
+			if dberr := db.ErrorDB(err); dberr != nil {
+				if dberr.Code != pgerrcode.CaseNotFound {
+					return shv1.ApiError("failed to list all anime season episodes", err)
+				}
+			}
 		}
 
 		return nil

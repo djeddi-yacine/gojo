@@ -75,10 +75,10 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	if err = server.ping.Handle(ctx, cache.Links(), &link, func() error {
 		link, err = server.gojo.GetAnimeSerieLinksDirectly(ctx, req.GetAnimeID())
 		if err != nil {
-			if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-				return shv1.ApiError("cannot get anime serie links", err)
-			} else {
-				return nil
+			if dberr := db.ErrorDB(err); dberr != nil {
+				if dberr.Code != pgerrcode.CaseNotFound {
+					return shv1.ApiError("cannot get anime serie links", err)
+				}
 			}
 		}
 
@@ -92,8 +92,12 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	var pIDs []int64
 	if err = server.ping.Handle(ctx, cache.Posters(), &pIDs, func() error {
 		pIDs, err = server.gojo.ListAnimeSeriePosterImages(ctx, req.GetAnimeID())
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shv1.ApiError("cannot get anime serie posters images IDs", err)
+		if err != nil {
+			if dberr := db.ErrorDB(err); dberr != nil {
+				if dberr.Code != pgerrcode.CaseNotFound {
+					return shv1.ApiError("cannot get anime serie posters images IDs", err)
+				}
+			}
 		}
 
 		return nil
@@ -102,15 +106,23 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	}
 
 	posters, err := server.gojo.ListAnimeImagesTx(ctx, pIDs)
-	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, shv1.ApiError("cannot get anime serie posters images", err)
+	if err != nil {
+		if dberr := db.ErrorDB(err); dberr != nil {
+			if dberr.Code != pgerrcode.CaseNotFound {
+				return nil, shv1.ApiError("cannot get anime serie posters images", err)
+			}
+		}
 	}
 
 	var bIDs []int64
 	if err = server.ping.Handle(ctx, cache.Backdrops(), &bIDs, func() error {
 		bIDs, err = server.gojo.ListAnimeSerieBackdropImages(ctx, req.GetAnimeID())
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shv1.ApiError("cannot get anime serie backdrops images IDs", err)
+		if err != nil {
+			if dberr := db.ErrorDB(err); dberr != nil {
+				if dberr.Code != pgerrcode.CaseNotFound {
+					return shv1.ApiError("cannot get anime serie backdrops images IDs", err)
+				}
+			}
 		}
 
 		return nil
@@ -119,15 +131,23 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	}
 
 	backdrops, err := server.gojo.ListAnimeImagesTx(ctx, bIDs)
-	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, shv1.ApiError("cannot get anime serie backdrops images", err)
+	if err != nil {
+		if dberr := db.ErrorDB(err); dberr != nil {
+			if dberr.Code != pgerrcode.CaseNotFound {
+				return nil, shv1.ApiError("cannot get anime serie backdrops images", err)
+			}
+		}
 	}
 
 	var lIDs []int64
 	if err = server.ping.Handle(ctx, cache.Logos(), &lIDs, func() error {
 		lIDs, err = server.gojo.ListAnimeSerieLogoImages(ctx, req.GetAnimeID())
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shv1.ApiError("cannot get anime serie logos images IDs", err)
+		if err != nil {
+			if dberr := db.ErrorDB(err); dberr != nil {
+				if dberr.Code != pgerrcode.CaseNotFound {
+					return shv1.ApiError("cannot get anime serie logos images IDs", err)
+				}
+			}
 		}
 
 		return nil
@@ -136,8 +156,12 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	}
 
 	logos, err := server.gojo.ListAnimeImagesTx(ctx, lIDs)
-	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, shv1.ApiError("cannot get anime serie logos images", err)
+	if err != nil {
+		if dberr := db.ErrorDB(err); dberr != nil {
+			if dberr.Code != pgerrcode.CaseNotFound {
+				return nil, shv1.ApiError("cannot get anime serie logos images", err)
+			}
+		}
 	}
 
 	res.AnimeImages = &apbv1.AnimeImageResponse{
@@ -149,8 +173,12 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	var rIDs []int64
 	if err = server.ping.Handle(ctx, cache.Trailers(), &rIDs, func() error {
 		rIDs, err = server.gojo.ListAnimeSerieTrailers(ctx, req.GetAnimeID())
-		if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-			return shv1.ApiError("cannot get anime serie trailers IDs", err)
+		if err != nil {
+			if dberr := db.ErrorDB(err); dberr != nil {
+				if dberr.Code != pgerrcode.CaseNotFound {
+					return shv1.ApiError("cannot get anime serie trailers IDs", err)
+				}
+			}
 		}
 
 		return nil
@@ -159,8 +187,12 @@ func (server *AnimeSerieServer) GetFullAnimeSerie(ctx context.Context, req *aspb
 	}
 
 	trailers, err := server.gojo.ListAnimeTrailersTx(ctx, rIDs)
-	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-		return nil, shv1.ApiError("cannot get anime serie trailers", err)
+	if err != nil {
+		if dberr := db.ErrorDB(err); dberr != nil {
+			if dberr.Code != pgerrcode.CaseNotFound {
+				return nil, shv1.ApiError("cannot get anime serie trailers", err)
+			}
+		}
 	}
 
 	res.AnimeTrailers = av1.ConvertAnimeTrailers(trailers)

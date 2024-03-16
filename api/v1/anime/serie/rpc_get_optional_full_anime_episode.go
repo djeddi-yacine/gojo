@@ -75,10 +75,10 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeEpisode(ctx context.Context,
 		if err = server.ping.Handle(ctx, cache.Server(), &serverID, func() error {
 			serverID, err = server.gojo.GetAnimeEpisodeServerByEpisodeID(ctx, req.GetEpisodeID())
 			if err != nil {
-				if db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot get anime episode server ID", err)
-				} else {
-					return nil
+				if dberr := db.ErrorDB(err); dberr != nil {
+					if dberr.Code != pgerrcode.CaseNotFound {
+						return shv1.ApiError("cannot get anime episode server ID", err)
+					}
 				}
 			}
 
@@ -95,16 +95,24 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeEpisode(ctx context.Context,
 			var subVideos []db.AnimeEpisodeVideo
 			if err = server.ping.Handle(ctx, cache.SubV(), &subVideos, func() error {
 				v, err := server.gojo.ListAnimeEpisodeServerSubVideos(ctx, serverID)
-				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot list anime episode server sub videos", err)
+				if err != nil {
+					if dberr := db.ErrorDB(err); dberr != nil {
+						if dberr.Code != pgerrcode.CaseNotFound {
+							return shv1.ApiError("cannot list anime episode server sub videos", err)
+						}
+					}
 				}
 
 				if len(v) > 0 {
 					subVideos = make([]db.AnimeEpisodeVideo, len(v))
 					for i, x := range v {
 						subVideos[i], err = server.gojo.GetAnimeEpisodeVideo(ctx, x.VideoID)
-						if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-							return shv1.ApiError("cannot get anime episode server sub videos", err)
+						if err != nil {
+							if dberr := db.ErrorDB(err); dberr != nil {
+								if dberr.Code != pgerrcode.CaseNotFound {
+									return shv1.ApiError("cannot get anime episode server sub videos", err)
+								}
+							}
 						}
 					}
 				}
@@ -117,16 +125,24 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeEpisode(ctx context.Context,
 			var subTorrents []db.AnimeEpisodeTorrent
 			if err = server.ping.Handle(ctx, cache.SubT(), &subTorrents, func() error {
 				v, err := server.gojo.ListAnimeEpisodeServerSubTorrents(ctx, serverID)
-				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot list anime episode server sub torrents", err)
+				if err != nil {
+					if dberr := db.ErrorDB(err); dberr != nil {
+						if dberr.Code != pgerrcode.CaseNotFound {
+							return shv1.ApiError("cannot list anime episode server sub torrents", err)
+						}
+					}
 				}
 
 				if len(v) > 0 {
 					subTorrents = make([]db.AnimeEpisodeTorrent, len(v))
 					for i, x := range v {
 						subTorrents[i], err = server.gojo.GetAnimeEpisodeTorrent(ctx, x.TorrentID)
-						if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-							return shv1.ApiError("cannot get anime episode server sub torrents", err)
+						if err != nil {
+							if dberr := db.ErrorDB(err); dberr != nil {
+								if dberr.Code != pgerrcode.CaseNotFound {
+									return shv1.ApiError("cannot get anime episode server sub torrents", err)
+								}
+							}
 						}
 					}
 
@@ -147,16 +163,24 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeEpisode(ctx context.Context,
 			var dubVideos []db.AnimeEpisodeVideo
 			if err = server.ping.Handle(ctx, cache.DubV(), &dubVideos, func() error {
 				v, err := server.gojo.ListAnimeEpisodeServerDubVideos(ctx, serverID)
-				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot list anime episode server dub videos", err)
+				if err != nil {
+					if dberr := db.ErrorDB(err); dberr != nil {
+						if dberr.Code != pgerrcode.CaseNotFound {
+							return shv1.ApiError("cannot list anime episode server dub videos", err)
+						}
+					}
 				}
 
 				if len(v) > 0 {
 					dubVideos = make([]db.AnimeEpisodeVideo, len(v))
 					for i, x := range v {
 						dubVideos[i], err = server.gojo.GetAnimeEpisodeVideo(ctx, x.VideoID)
-						if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-							return shv1.ApiError("cannot get anime episode server dub videos", err)
+						if err != nil {
+							if dberr := db.ErrorDB(err); dberr != nil {
+								if dberr.Code != pgerrcode.CaseNotFound {
+									return shv1.ApiError("cannot get anime episode server dub videos", err)
+								}
+							}
 						}
 					}
 				}
@@ -169,16 +193,24 @@ func (server *AnimeSerieServer) GetOptionalFullAnimeEpisode(ctx context.Context,
 			var dubTorrents []db.AnimeEpisodeTorrent
 			if err = server.ping.Handle(ctx, cache.DubT(), &dubTorrents, func() error {
 				v, err := server.gojo.ListAnimeEpisodeServerDubTorrents(ctx, serverID)
-				if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-					return shv1.ApiError("cannot list anime episode server dub torrents", err)
+				if err != nil {
+					if dberr := db.ErrorDB(err); dberr != nil {
+						if dberr.Code != pgerrcode.CaseNotFound {
+							return shv1.ApiError("cannot list anime episode server dub torrents", err)
+						}
+					}
 				}
 
 				if len(v) > 0 {
 					dubTorrents = make([]db.AnimeEpisodeTorrent, len(v))
 					for i, x := range v {
 						dubTorrents[i], err = server.gojo.GetAnimeEpisodeTorrent(ctx, x.TorrentID)
-						if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
-							return shv1.ApiError("cannot get anime episode server dub torrents", err)
+						if err != nil {
+							if dberr := db.ErrorDB(err); dberr != nil {
+								if dberr.Code != pgerrcode.CaseNotFound {
+									return shv1.ApiError("cannot get anime episode server dub torrents", err)
+								}
+							}
 						}
 					}
 				}

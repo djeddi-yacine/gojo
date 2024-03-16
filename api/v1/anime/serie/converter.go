@@ -39,6 +39,7 @@ func convertAnimeSeason(v db.AnimeSeason) *aspbv1.AnimeSeasonResponse {
 			ReleaseYear:         v.ReleaseYear,
 			Aired:               timestamppb.New(v.Aired),
 			Rating:              v.Rating,
+			ShowType:            v.ShowType,
 			PortraitPoster:      v.PortraitPoster,
 			PortraitBlurHash:    v.PortraitBlurHash,
 			CreatedAt:           timestamppb.New(v.CreatedAt),

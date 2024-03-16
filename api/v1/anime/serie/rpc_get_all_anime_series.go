@@ -24,21 +24,22 @@ func (server *AnimeSerieServer) GetAllAnimeSeries(ctx context.Context, req *aspb
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	arg := db.ListAnimeSeriesParams{
+	res := &aspbv1.GetAllAnimeSeriesResponse{}
+
+	data, err := server.gojo.ListAnimeSeries(ctx, db.ListAnimeSeriesParams{
 		FirstYear: req.GetYear(),
 		Limit:     req.GetPageSize(),
 		Offset:    (req.GetPageNumber() - 1) * req.GetPageSize(),
-	}
-
-	data, err := server.gojo.ListAnimeSeries(ctx, arg)
+	})
 	if err != nil {
-		if db.ErrorDB(err).Code == pgerrcode.CaseNotFound {
-			return nil, nil
+		if dberr := db.ErrorDB(err); dberr != nil {
+			if dberr.Code == pgerrcode.CaseNotFound {
+				return res, nil
+			}
 		}
+
 		return nil, shv1.ApiError("failed to list anime serie seasons", err)
 	}
-
-	res := &aspbv1.GetAllAnimeSeriesResponse{}
 
 	res.AnimeSeries = make([]*aspbv1.AnimeSerieResponse, len(data))
 	for i, v := range data {

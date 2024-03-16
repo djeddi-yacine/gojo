@@ -27,7 +27,7 @@ func (server *AnimeSerieServer) UpdateAnimeSerie(ctx context.Context, req *aspbv
 		return nil, shv1.InvalidArgumentError(violations)
 	}
 
-	arg := db.UpdateAnimeSerieParams{
+	anime, err := server.gojo.UpdateAnimeSerie(ctx, db.UpdateAnimeSerieParams{
 		ID: req.GetAnimeID(),
 		OriginalTitle: pgtype.Text{
 			String: req.GetOriginalTitle(),
@@ -69,9 +69,7 @@ func (server *AnimeSerieServer) UpdateAnimeSerie(ctx context.Context, req *aspbv
 			String: req.GetLandscapeBlurHash(),
 			Valid:  req.LandscapeBlurHash != nil,
 		},
-	}
-
-	anime, err := server.gojo.UpdateAnimeSerie(ctx, arg)
+	})
 	if err != nil {
 		return nil, shv1.ApiError("failed to update anime serie", err)
 	}

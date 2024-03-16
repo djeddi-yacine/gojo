@@ -47,7 +47,13 @@ func (server *AnimeSerieServer) GetAnimeSeasonCharacters(ctx context.Context, re
 	res := &aspbv1.GetAnimeSeasonCharactersResponse{}
 
 	data, err := server.gojo.ListAnimeCharacetrsTx(ctx, characters)
-	if err != nil && db.ErrorDB(err).Code != pgerrcode.CaseNotFound {
+	if err != nil {
+		if dberr := db.ErrorDB(err); dberr != nil {
+			if dberr.Code == pgerrcode.CaseNotFound {
+				return res, nil
+			}
+		}
+
 		return nil, shv1.ApiError("cannot get anime season characters", err)
 	}
 
