@@ -90,9 +90,11 @@ func (gojo *SQLGojo) QueryAnimeMovieTx(ctx context.Context, arg QueryAnimeMovieT
 			for i, id := range IDs {
 				animeMovie, err = q.GetAnimeMovie(ctx, id)
 				if err != nil {
-					if ErrorDB(err).Code != pgerrcode.CaseNotFound {
-						ErrorSQL(err)
-						return err
+					if dberr := ErrorDB(err); dberr != nil {
+						if dberr.Code != pgerrcode.CaseNotFound {
+							ErrorSQL(err)
+							return err
+						}
 					}
 					continue
 				}

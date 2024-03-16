@@ -91,9 +91,11 @@ func (gojo *SQLGojo) QueryAnimeSeasonTx(ctx context.Context, arg QueryAnimeSeaso
 			for i, id := range IDs {
 				animeSeason, err = q.GetAnimeSeason(ctx, id)
 				if err != nil {
-					if ErrorDB(err).Code != pgerrcode.CaseNotFound {
-						ErrorSQL(err)
-						return err
+					if dberr := ErrorDB(err); dberr != nil {
+						if dberr.Code != pgerrcode.CaseNotFound {
+							ErrorSQL(err)
+							return err
+						}
 					}
 					continue
 				}
